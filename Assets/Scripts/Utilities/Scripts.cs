@@ -15,7 +15,7 @@ public class Scripts : MonoBehaviour {
             return instance;
         }
     }
-    
+
     private static GameObject ScriptsObject {
         get {
             GameObject g = GameObject.FindGameObjectWithTag("Scripts");
@@ -40,6 +40,4 @@ public class Scripts : MonoBehaviour {
     public static T GetScriptComponent<T>() {
         return Instance.GetComponent<T>();
     }
-
-
 }

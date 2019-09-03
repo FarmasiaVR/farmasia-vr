@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public struct CallbackComponentPair {
 
@@ -22,5 +23,12 @@ public struct CallbackComponentPair {
         bool comp = Component.Equals(other.Component);
 
         return type && comp;
+    }
+
+    public override int GetHashCode() {
+        var hashCode = 1022924694;
+        hashCode = hashCode * -1521134295 + EqualityComparer<Events.EventCallbackWithData>.Default.GetHashCode(Callback);
+        hashCode = hashCode * -1521134295 + EqualityComparer<MonoBehaviour>.Default.GetHashCode(Component);
+        return hashCode;
     }
 }
