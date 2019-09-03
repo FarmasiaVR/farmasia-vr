@@ -9,7 +9,9 @@ public class UIWriter : MonoBehaviour
 
     public string toggleChild(string childName) {
         GameObject child = returnChild(childName);
-        return "null";
+        Text text = child.GetComponent<Text>();
+        text.enabled = !text.enabled;
+        return "Text is set to " + text.enabled;
     }
 
     public string writeToName(string childName) {
@@ -17,7 +19,7 @@ public class UIWriter : MonoBehaviour
     }
 
     private GameObject returnChild(string childName) {
-        GameObject child = canvas.gameObject.transform.Find("childName").gameObject;
+        GameObject child = canvas.gameObject.transform.Find(childName).gameObject;
         return child;
     }
 
@@ -28,6 +30,6 @@ public class UIWriter : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }
