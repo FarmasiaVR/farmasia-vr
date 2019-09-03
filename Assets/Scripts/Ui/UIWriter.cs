@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class UIWriter : MonoBehaviour
 {
-    Canvas canvas;
+    GameObject canvas;
 
-    public String toggleChild(String childName) {
+    public string toggleChild(string childName) {
         GameObject child = returnChild(childName);
+        return "null";
     }
 
-    public String writeToName(String childName) {
-        
+    public string writeToName(string childName) {
+        return "null";
     }
 
-    private GameObject returnChild(String childName) {
-        GameObject child = canvas.gameObject.transform.Find("childName");
+    private GameObject returnChild(string childName) {
+        GameObject child = canvas.gameObject.transform.Find("childName").gameObject;
         return child;
     }
 
