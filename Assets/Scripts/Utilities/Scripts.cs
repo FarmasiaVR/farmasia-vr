@@ -9,26 +9,33 @@ public class Scripts : MonoBehaviour {
     public static Scripts Instance {
         get {
             if (instance == null) {
-                GameObject g = GameObject.FindGameObjectWithTag("Scripts");
-
-                if (g == null) {
-                    throw new System.Exception("Scripts object not present in the scene");
-
-                }
-
-                instance = g.GetComponent<Scripts>();
-
-                if (instance == null) {
-                    throw new System.Exception("Scripts object not present in the scene");
-
-                }
+                ResetScriptsInstance();
             }
 
             return instance;
         }
     }
+    
+    private static GameObject ScriptsObject {
+        get {
+            GameObject g = GameObject.FindGameObjectWithTag("Scripts");
 
+            if (g == null) {
+                throw new System.Exception("Scripts object not present in the scene");
+            }
+
+            return g;
+        }
+    }
     #endregion
+
+    public static void ResetScriptsInstance() {
+        instance = ScriptsObject.GetComponent<Scripts>();
+
+        if (instance == null) {
+            throw new System.Exception("Scripts object not present in the scene");
+        }
+    }
 
     public static T GetScriptComponent<T>() {
         return Instance.GetComponent<T>();

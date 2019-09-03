@@ -9,7 +9,7 @@ using UnityEngine;
 public static class Events {
 
     #region fields
-    public delegate void EventCallback();
+    public delegate void EventCallback(string data);
 
     public static Dictionary<EventType, EventCallback> events;
     private static Dictionary<EventType, ComponentEventsContainer> componentEvents;
@@ -23,6 +23,9 @@ public static class Events {
     public static void Reset() {
         events = new Dictionary<EventType, EventCallback>();
         componentEvents = new Dictionary<EventType, ComponentEventsContainer>();
+
+
+        
     }
 
     #region Default events
@@ -66,8 +69,8 @@ public static class Events {
         }
     }
 
-    private static void CallDefaultCallbacks(EventType type) {
-        events[type]?.Invoke();
+    private static void CallDefaultCallbacks(EventType type, string data) {
+        events[type]?.Invoke(data);
     }
     #endregion
 
@@ -120,12 +123,12 @@ public static class Events {
         }
     }
 
-    private static void CallComponentCallbacks(EventType type) {
+    private static void CallComponentCallbacks(EventType type, string data) {
 
         ComponentEventsContainer cont;
 
         componentEvents.TryGetValue(type, out cont);
-        cont?.FireIfNotNull();
+        cont?.FireIfNotNull(data);
     }
     #endregion
 
@@ -135,7 +138,16 @@ public static class Events {
     /// </summary>
     /// <param name="type"></param>
     public static void FireEvent(EventType type) {
-        CallDefaultCallbacks(type);
-        CallComponentCallbacks(type);
+        CallDefaultCallbacks(type, null);
+        CallComponentCallbacks(type, null);
+    }
+
+    /// <summary>
+    /// Calls all callbacks for event with data
+    /// </summary>
+    /// <param name="type"></param>
+    public static void FireEvent(EventType type, string data) {
+        CallDefaultCallbacks(type, data);
+        CallComponentCallbacks(type, data);
     }
 }
