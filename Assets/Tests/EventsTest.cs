@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace Tests {
+
+    // NEED TO TEST COMPONENT CALLBACKS AS WELL
     public class EventsTest {
 
         private CallbackContainer callbacks;
@@ -27,10 +29,10 @@ namespace Tests {
         [Test]
         public void ResetWorks() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
             Events.Reset();
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(0, callbacks.a, "Event callback was called");
         }
@@ -38,13 +40,13 @@ namespace Tests {
         [Test]
         public void CallbacksAreCalled() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.B, Events.Event.EnterGoal);
-            Events.SubscribeToEvent(callbacks.C, Events.Event.ExitGoal);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.B, EventType.B);
+            Events.SubscribeToEvent(callbacks.C, EventType.C);
 
-            Events.FireEvent(Events.Event.PlayerDied);
-            Events.FireEvent(Events.Event.EnterGoal);
-            Events.FireEvent(Events.Event.ExitGoal);
+            Events.FireEvent(EventType.A);
+            Events.FireEvent(EventType.B);
+            Events.FireEvent(EventType.C);
 
             Assert.AreEqual(1, callbacks.a, "Event callback was not called");
             Assert.AreEqual(1, callbacks.b, "Event callback was not called");
@@ -58,15 +60,15 @@ namespace Tests {
         [Test]
         public void CallbackCanBeRemoved() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.B, Events.Event.EnterGoal);
-            Events.SubscribeToEvent(callbacks.C, Events.Event.ExitGoal);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.B, EventType.B);
+            Events.SubscribeToEvent(callbacks.C, EventType.C);
 
-            Events.UnsubscribeFromEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.UnsubscribeFromEvent(callbacks.A, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
-            Events.FireEvent(Events.Event.EnterGoal);
-            Events.FireEvent(Events.Event.ExitGoal);
+            Events.FireEvent(EventType.A);
+            Events.FireEvent(EventType.B);
+            Events.FireEvent(EventType.C);
 
             Assert.AreEqual(0, callbacks.a, "Event callback was called");
             Assert.AreEqual(1, callbacks.b, "Event callback was not called");
@@ -75,12 +77,12 @@ namespace Tests {
         [Test]
         public void OnlyMatchingCallbacksAreRemoved() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.B, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.B, EventType.A);
 
-            Events.UnsubscribeFromEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.UnsubscribeFromEvent(callbacks.A, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(0, callbacks.a, "Event callback was called");
             Assert.AreEqual(1, callbacks.b, "Event callback was not called");
@@ -88,13 +90,13 @@ namespace Tests {
         [Test]
         public void AllMatchingCallbacksAreRemoved() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.B, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.B, EventType.A);
 
-            Events.UnsubscribeFromEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.UnsubscribeFromEvent(callbacks.A, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(1, callbacks.a, "Event callback was called");
         }
@@ -102,10 +104,10 @@ namespace Tests {
         [Test]
         public void SameCallbackCanBeAddedTwice() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(2, callbacks.a, "Event callback was not called 2 times");
         }
@@ -113,12 +115,12 @@ namespace Tests {
         [Test]
         public void SubscriptionsCanBeOverwritten() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
 
-            Events.OverrideSubscription(callbacks.B, Events.Event.PlayerDied);
+            Events.OverrideSubscription(callbacks.B, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(0, callbacks.a, "Event callback was not overridden");
             Assert.AreEqual(1, callbacks.b, "Overriding callback was not called");
@@ -127,10 +129,10 @@ namespace Tests {
         [Test]
         public void CallbackSupportMultipleCallbacks() {
 
-            Events.SubscribeToEvent(callbacks.A, Events.Event.PlayerDied);
-            Events.SubscribeToEvent(callbacks.B, Events.Event.PlayerDied);
+            Events.SubscribeToEvent(callbacks.A, EventType.A);
+            Events.SubscribeToEvent(callbacks.B, EventType.A);
 
-            Events.FireEvent(Events.Event.PlayerDied);
+            Events.FireEvent(EventType.A);
 
             Assert.AreEqual(1, callbacks.a, "Event callback A was not called");
             Assert.AreEqual(1, callbacks.b, "Event callback B was not called");
