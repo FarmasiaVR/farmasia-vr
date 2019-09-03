@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Events;
 
 /// <summary>
 /// Used to subscribe to certain events with a callback
@@ -9,9 +10,10 @@ using UnityEngine;
 public static class Events {
 
     #region fields
-    public delegate void EventCallback(string data);
+    public delegate void EventCallback();
+    public delegate void EventCallbackWithData(CallbackData data);
 
-    public static Dictionary<EventType, EventCallback> events;
+    public static Dictionary<EventType, EventCallbackWithData> events;
     private static Dictionary<EventType, ComponentEventsContainer> componentEvents;
 
     #endregion
@@ -21,11 +23,8 @@ public static class Events {
     }
 
     public static void Reset() {
-        events = new Dictionary<EventType, EventCallback>();
+        events = new Dictionary<EventType, EventCallbackWithData>();
         componentEvents = new Dictionary<EventType, ComponentEventsContainer>();
-
-
-        
     }
 
     #region Default events
@@ -36,6 +35,12 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="type"></param>
     public static void SubscribeToEvent(EventCallback callback, EventType type) {
+        void EncapsulateCallback(CallbackData data) {
+            callback();
+        }
+        SubscribeToEvent(EncapsulateCallback, type);
+    }
+    public static void SubscribeToEvent(EventCallbackWithData callback, EventType type) {
 
         if (!events.ContainsKey(type)) {
             events.Add(type, callback);
@@ -44,12 +49,19 @@ public static class Events {
         }
     }
 
+
     /// <summary>
     /// Subscribe to an event with a callback. This removes all previous subscriptions for this event.
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
     public static void OverrideSubscription(EventCallback callback, EventType type) {
+        void EncapsulateCallback(CallbackData data) {
+            callback();
+        }
+        OverrideSubscription(EncapsulateCallback, type);
+    }
+    public static void OverrideSubscription(EventCallbackWithData callback, EventType type) {
 
         if (!events.ContainsKey(type)) {
             events.Add(type, callback);
@@ -64,12 +76,18 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="type"></param>
     public static void UnsubscribeFromEvent(EventCallback callback, EventType type) {
+        void EncapsulateCallback(CallbackData data) {
+            callback();
+        }
+        UnsubscribeFromEvent(EncapsulateCallback, type);
+    }
+    public static void UnsubscribeFromEvent(EventCallbackWithData callback, EventType type) {
         if (events.ContainsKey(type)) {
             events[type] -= callback;
         }
     }
 
-    private static void CallDefaultCallbacks(EventType type, string data) {
+    private static void CallDefaultCallbacks(EventType type, CallbackData data) {
         events[type]?.Invoke(data);
     }
     #endregion
@@ -82,7 +100,7 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="component"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void SubscribeToEvent(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
 
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
@@ -101,7 +119,7 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void OverrideSubscription(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -114,7 +132,7 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void UnsubscribeFromEvent(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void UnsubscribeFromEvent(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -123,7 +141,7 @@ public static class Events {
         }
     }
 
-    private static void CallComponentCallbacks(EventType type, string data) {
+    private static void CallComponentCallbacks(EventType type, CallbackData data) {
 
         ComponentEventsContainer cont;
 
@@ -138,15 +156,13 @@ public static class Events {
     /// </summary>
     /// <param name="type"></param>
     public static void FireEvent(EventType type) {
-        CallDefaultCallbacks(type, null);
-        CallComponentCallbacks(type, null);
+        CallDefaultCallbacks(type, CallbackData.NoData());
+        CallComponentCallbacks(type, CallbackData.NoData());
     }
+    public static void FireEvent(EventType type, CallbackData data) {
 
-    /// <summary>
-    /// Calls all callbacks for event with data
-    /// </summary>
-    /// <param name="type"></param>
-    public static void FireEvent(EventType type, string data) {
+        CallbackData s = CallbackData.String(data);
+
         CallDefaultCallbacks(type, data);
         CallComponentCallbacks(type, data);
     }

@@ -16,7 +16,7 @@ public class ComponentEventsContainer {
     /// <summary>
     /// Calls callbacks if the component which subscribed to it isn't null. Automatically removes subscriptions for destroyed components/gameobjects.
     /// </summary>
-    public void FireIfNotNull(string data) {
+    public void FireIfNotNull(CallbackData data) {
 
         for (int i = 0; i < pairs.Count; i++) {
 
@@ -27,12 +27,6 @@ public class ComponentEventsContainer {
                 i--;
                 continue;
             }
-
-            void Test(string data) {
-
-            }
-
-            pair.Callback = Test;
 
             pair.Callback(data);
         }

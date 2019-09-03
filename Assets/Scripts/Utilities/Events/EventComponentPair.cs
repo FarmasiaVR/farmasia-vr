@@ -2,10 +2,10 @@
 
 public struct CallbackComponentPair {
 
-    public Events.EventCallback Callback;
+    public Events.EventCallbackWithData Callback;
     public MonoBehaviour Component;
 
-    public CallbackComponentPair(Events.EventCallback callback, MonoBehaviour component) {
+    public CallbackComponentPair(Events.EventCallbackWithData callback, MonoBehaviour component) {
         Callback = callback;
         Component = component;
     }
