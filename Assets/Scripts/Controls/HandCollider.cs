@@ -6,7 +6,6 @@ using UnityEngine;
 public class HandCollider : MonoBehaviour {
 
     private static string iTag = "Interactable";
-
     public List<GameObject> grabObjects;
 
     public void OnTriggerEnter(Collider coll) {
@@ -14,6 +13,10 @@ public class HandCollider : MonoBehaviour {
         if (coll.gameObject.tag != iTag) {
             return;
         }
+
+        ObjectHighlight hObject = coll.gameObject.GetComponent<ObjectHighlight>();
+
+        hObject.StartCoroutine(hObject.InsideCheck(this));
 
         grabObjects.Add(coll.gameObject);
     }
@@ -24,6 +27,13 @@ public class HandCollider : MonoBehaviour {
         }
 
         grabObjects.Remove(coll.gameObject);
+    }
+
+    public bool Contains(GameObject obj) {
+        return grabObjects.Contains(obj);
+    }
+    public List<GameObject> getGrabList() {
+        return grabObjects;
     }
 
     public Interactable GetGrab() {
@@ -37,7 +47,7 @@ public class HandCollider : MonoBehaviour {
         return GetGrabObject().GetComponent<Interactable>();
     }
 
-    private GameObject GetGrabObject() {
+    public GameObject GetGrabObject() {
 
         float closestDistance = float.MaxValue;
         GameObject closest = null;

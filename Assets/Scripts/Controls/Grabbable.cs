@@ -7,7 +7,8 @@ public class Grabbable : Interactable {
         throw new System.NotImplementedException();
     }
 
-    void Start() {
+    protected override void Start() {
+        base.Start();
         type = GrabType.Grabbable;
     }
 
