@@ -35,22 +35,15 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        print("Grab");
-
         GrabObject();
 
         if (GrabbedObject == null) {
-            Logger.PrintVariables("grabbed", Grabbed, "grabbed object", GrabbedObject);
             return;
         }
-
-        Logger.PrintVariables("grabbed", Grabbed, "grabbed object", GrabbedObject);
 
         if (other.Grabbed && other.GrabbedObject.gameObject == GrabbedObject.gameObject) {
             other.Release();
         }
-
-        Debug.Log("Grab succesful");
 
         InitializeOffset();
 
@@ -70,8 +63,6 @@ public class Hand : MonoBehaviour {
     }
 
     public void Release() {
-
-        print("Release");
 
         Grabbed = false;
 
