@@ -10,7 +10,8 @@ public static class Events {
     public delegate void EventCallback();
     public delegate void EventCallbackWithData(CallbackData data);
 
-    public static Dictionary<EventType, EventCallbackWithData> events;
+    public static Dictionary<EventType, EventCallbackWithData> eventsData;
+
     private static Dictionary<EventType, ComponentEventsContainer> componentEvents;
     #endregion
 
@@ -19,7 +20,7 @@ public static class Events {
     }
 
     public static void Reset() {
-        events = new Dictionary<EventType, EventCallbackWithData>();
+        eventsData = new Dictionary<EventType, EventCallbackWithData>();
         componentEvents = new Dictionary<EventType, ComponentEventsContainer>();
     }
 
@@ -30,18 +31,15 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        SubscribeToEvent(EncapsulateCallback, type);
-    }
+    //public static void SubscribeToEvent(EventCallback callback, EventType type) {
+    //    SubscribeToEvent(EncapsulateCallback(callback), type);
+    //}
     public static void SubscribeToEvent(EventCallbackWithData callback, EventType type) {
 
-        if (!events.ContainsKey(type)) {
-            events.Add(type, callback);
+        if (!eventsData.ContainsKey(type)) {
+            eventsData.Add(type, callback);
         } else {
-            events[type] += callback;
+            eventsData[type] += callback;
         }
     }
 
@@ -51,12 +49,9 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="component"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, Component component, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        SubscribeToEvent(EncapsulateCallback, component, type);
-    }
+    //public static void SubscribeToEvent(EventCallback callback, Component component, EventType type) {
+    //    SubscribeToEvent(EncapsulateCallback(callback), component, type);
+    //}
     public static void SubscribeToEvent(EventCallbackWithData callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
@@ -77,18 +72,15 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        OverrideSubscription(EncapsulateCallback, type);
-    }
+    //public static void OverrideSubscription(EventCallback callback, EventType type) {
+    //    OverrideSubscription(EncapsulateCallback(callback), type);
+    //}
     public static void OverrideSubscription(EventCallbackWithData callback, EventType type) {
 
-        if (!events.ContainsKey(type)) {
-            events.Add(type, callback);
+        if (!eventsData.ContainsKey(type)) {
+            eventsData.Add(type, callback);
         } else {
-            events[type] = callback;
+            eventsData[type] = callback;
         }
     }
 
@@ -97,12 +89,9 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, Component component, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        OverrideSubscription(EncapsulateCallback, component, type);
-    }
+    //public static void OverrideSubscription(EventCallback callback, Component component, EventType type) {
+    //    OverrideSubscription(EncapsulateCallback(callback), component, type);
+    //}
     public static void OverrideSubscription(EventCallbackWithData callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
@@ -119,22 +108,16 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void UnsubscribeFromEvent(EventCallback callback, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        UnsubscribeFromEvent(EncapsulateCallback, type);
-    }
+    //public static void UnsubscribeFromEvent(EventCallback callback, EventType type) {
+    //    UnsubscribeFromEvent(EncapsulateCallback(callback), type);
+    //}
     public static void UnsubscribeFromEvent(EventCallbackWithData callback, EventType type) {
-        if (events.ContainsKey(type)) {
-            events[type] -= callback;
+        if (eventsData.ContainsKey(type)) {
+            eventsData[type] -= callback;
         }
     }
     public static void UnsubscribeFromEvent(EventCallback callback, Component component, EventType type) {
-        void EncapsulateCallback(CallbackData data) {
-            callback();
-        }
-        UnsubscribeFromEvent(EncapsulateCallback, component, type);
+        UnsubscribeFromEvent(EncapsulateCallback(callback), component, type);
     }
     public static void UnsubscribeFromEvent(EventCallbackWithData callback, Component component, EventType type) {
 
@@ -162,7 +145,12 @@ public static class Events {
     }
 
     private static void CallDefaultCallbacks(EventType type, CallbackData data) {
-        events[type]?.Invoke(data);
+
+        if (!eventsData.ContainsKey(type)) {
+            return;
+        }
+
+        eventsData[type]?.Invoke(data);
     }
 
     private static void CallComponentCallbacks(EventType type, CallbackData data) {
@@ -173,4 +161,10 @@ public static class Events {
         cont?.FireIfNotNull(data);
     }
     #endregion
+
+    private static EventCallbackWithData EncapsulateCallback(EventCallback callback) {
+        return delegate (CallbackData data) {
+            callback();
+        };
+    }
 }

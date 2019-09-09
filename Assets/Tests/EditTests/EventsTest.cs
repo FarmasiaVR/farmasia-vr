@@ -151,15 +151,15 @@ namespace Tests {
 
         public Action TestFunction;
 
-        public void A() {
+        public void A(CallbackData data) {
             EventsTest.a++;
             a++;
         }
-        public void B() {
+        public void B(CallbackData data) {
             EventsTest.b++;
             b++;
         }
-        public void C() {
+        public void C(CallbackData data) {
             EventsTest.c++;
             c++;
         }
