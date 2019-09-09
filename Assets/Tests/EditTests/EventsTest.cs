@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Tests {
 
-    // NEED TO TEST COMPONENT CALLBACKS AS WELL
+    // Only no data callbacks are tested. Callback with data code is almost identical though.
     public class EventsTest {
 
         private CallbackContainer callbacks;
@@ -151,15 +151,15 @@ namespace Tests {
 
         public Action TestFunction;
 
-        public void A(CallbackData data) {
+        public void A() {
             EventsTest.a++;
             a++;
         }
-        public void B(CallbackData data) {
+        public void B() {
             EventsTest.b++;
             b++;
         }
-        public void C(CallbackData data) {
+        public void C() {
             EventsTest.c++;
             c++;
         }

@@ -28,7 +28,7 @@ public class ComponentEventsContainer {
                 continue;
             }
 
-            pair.Callback(data);
+            pair.CallbackWithData(data);
         }
     }
 
