@@ -25,21 +25,22 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Unhighlight() {
-        material.color = startcolor;
+        if (highlighted) material.color = startcolor;
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
         
-        while (coll.Contains(gameObject)) {
+        while (TouchesHand(coll)) {
 
             bool closest = gameObject == coll.GetGrabObject();
-            Logger.PrintVariables("closest", closest);
+            Logger.PrintVariables("closest", closest, "highlighted", highlighted);
             if (closest && !highlighted) {
                 Highlight();
                 highlighted = true;
             } else if (!closest && highlighted) {
                 Unhighlight();
                 highlighted = false;
+                Logger.Print("UNHIGHLIGHT!");
             }
 
 
@@ -47,5 +48,14 @@ public class ObjectHighlight : MonoBehaviour {
         }
 
         Unhighlight();
+    }
+
+    private bool TouchesHand(HandCollider coll) {
+        Logger.Print(coll.GrabObjects.Count);
+        foreach (GameObject g in coll.GrabObjects) {
+            Logger.PrintVariables("object", g);
+            if (g == gameObject) return true;
+        }
+        return false;
     }
 }
