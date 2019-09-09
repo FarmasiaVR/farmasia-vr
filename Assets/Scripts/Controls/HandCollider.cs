@@ -5,11 +5,21 @@ using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
 
+    private Hand hand;
     private static string iTag = "Interactable";
-    public List<GameObject> GrabObjects { get; private set; }
+    public HashSet<GameObject> GrabObjects { get; private set; }
 
     private void Start() {
-        GrabObjects = new List<GameObject>();
+        GrabObjects = new HashSet<GameObject>();
+    }
+
+    public Hand Hand {
+        get {
+            if (hand == null) {
+                hand = transform.parent.GetComponent<Hand>();
+            }
+            return hand;
+        }
     }
 
     public void OnTriggerEnter(Collider coll) {

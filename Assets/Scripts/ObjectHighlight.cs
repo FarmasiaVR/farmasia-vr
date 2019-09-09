@@ -34,10 +34,10 @@ public class ObjectHighlight : MonoBehaviour {
 
     public IEnumerator InsideCheck(HandCollider coll) {
 
-        while (TouchesHand(coll)) {
+        while (coll.Contains(gameObject)) {
 
             bool closest = gameObject == coll.GetGrabObject();
-            if (closest && !highlighted) {
+            if (closest && !highlighted && coll.Hand.Grabbed) {
 
                 Highlight();
             } else if (!closest && highlighted) {
@@ -49,14 +49,5 @@ public class ObjectHighlight : MonoBehaviour {
         }
 
         Unhighlight();
-    }
-
-    private bool TouchesHand(HandCollider coll) {
-        Logger.Print(coll.GrabObjects.Count);
-        foreach (GameObject g in coll.GrabObjects) {
-            Logger.PrintVariables("object", g);
-            if (g == gameObject) return true;
-        }
-        return false;
     }
 }
