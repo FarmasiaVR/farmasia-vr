@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour {
 
-    [SerializeField]
-    private GrabType type;
+    protected GrabType type;
     public GrabType Type { get => type; }
 
     public abstract void Interact();

@@ -51,13 +51,13 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="component"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void SubscribeToEvent(EventCallback callback, Component component, EventType type) {
         void EncapsulateCallback(CallbackData data) {
             callback();
         }
         SubscribeToEvent(EncapsulateCallback, component, type);
     }
-    public static void SubscribeToEvent(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
+    public static void SubscribeToEvent(EventCallbackWithData callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -97,13 +97,13 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void OverrideSubscription(EventCallback callback, Component component, EventType type) {
         void EncapsulateCallback(CallbackData data) {
             callback();
         }
         OverrideSubscription(EncapsulateCallback, component, type);
     }
-    public static void OverrideSubscription(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
+    public static void OverrideSubscription(EventCallbackWithData callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -130,13 +130,13 @@ public static class Events {
             events[type] -= callback;
         }
     }
-    public static void UnsubscribeFromEvent(EventCallback callback, MonoBehaviour component, EventType type) {
+    public static void UnsubscribeFromEvent(EventCallback callback, Component component, EventType type) {
         void EncapsulateCallback(CallbackData data) {
             callback();
         }
         UnsubscribeFromEvent(EncapsulateCallback, component, type);
     }
-    public static void UnsubscribeFromEvent(EventCallbackWithData callback, MonoBehaviour component, EventType type) {
+    public static void UnsubscribeFromEvent(EventCallbackWithData callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 

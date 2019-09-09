@@ -4,9 +4,9 @@ using UnityEngine;
 public struct CallbackComponentPair {
 
     public Events.EventCallbackWithData Callback;
-    public MonoBehaviour Component;
+    public Component Component;
 
-    public CallbackComponentPair(Events.EventCallbackWithData callback, MonoBehaviour component) {
+    public CallbackComponentPair(Events.EventCallbackWithData callback, Component component) {
         Callback = callback;
         Component = component;
     }
@@ -28,7 +28,7 @@ public struct CallbackComponentPair {
     public override int GetHashCode() {
         var hashCode = 1022924694;
         hashCode = hashCode * -1521134295 + EqualityComparer<Events.EventCallbackWithData>.Default.GetHashCode(Callback);
-        hashCode = hashCode * -1521134295 + EqualityComparer<MonoBehaviour>.Default.GetHashCode(Component);
+        hashCode = hashCode * -1521134295 + EqualityComparer<Component>.Default.GetHashCode(Component);
         return hashCode;
     }
 }
