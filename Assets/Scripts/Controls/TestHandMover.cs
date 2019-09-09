@@ -27,19 +27,11 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void UpdateGrab() {
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && !usingRight) {
-            if (left.Grabbed) {
-                left.Release();
-            } else {
-                left.Grab();
-            }
             left.Grab();
         } else if (Input.GetKeyDown(KeyCode.Mouse1) && usingRight) {
-            if (right.Grabbed) {
-                right.Release();
-            } else {
-                right.Grab();
-            }
+            right.Grab();
         }
     }
 
