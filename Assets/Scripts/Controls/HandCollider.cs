@@ -1,18 +1,48 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
 
-    public List<Rigidbody> grabObjects;
+    private static string iTag = "Interactable";
 
+    public List<GameObject> grabObjects;
 
-    public Rigidbody GetGrabObjet() {
+    public void OnTriggerEnter(Collider coll) {
+
+        if (coll.gameObject.tag != iTag) {
+            return;
+        }
+
+        grabObjects.Add(coll.gameObject);
+    }
+    public void OnTriggerExit(Collider coll) {
+
+        if (coll.gameObject.tag != iTag) {
+            return;
+        }
+
+        grabObjects.Remove(coll.gameObject);
+    }
+
+    public Interactable GetGrab() {
+
+        GameObject o = GetGrabObject();
+
+        if (o == null) {
+            return null;
+        }
+
+        return GetGrabObject().GetComponent<Interactable>();
+    }
+
+    private GameObject GetGrabObject() {
 
         float closestDistance = float.MaxValue;
-        Rigidbody closest = null;
+        GameObject closest = null;
 
-        foreach (Rigidbody rb in grabObjects) {
+        foreach (GameObject rb in grabObjects) {
 
             float distance = Vector3.Distance(transform.position, rb.transform.position);
 
@@ -23,22 +53,5 @@ public class HandCollider : MonoBehaviour {
         }
 
         return closest;
-    }
-
-    public void OnTriggerEnter(Collider coll) {
-
-        if (coll.gameObject.tag != "Grabbable") {
-            return;
-        }
-
-        grabObjects.Add(coll.GetComponent<Rigidbody>());
-    }
-    public void OnTriggerExit(Collider coll) {
-
-        if (coll.gameObject.tag != "Grabbable") {
-            return;
-        }
-
-        grabObjects.Remove(coll.GetComponent<Rigidbody>());
     }
 }

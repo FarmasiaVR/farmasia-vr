@@ -16,7 +16,8 @@ public class Hand : MonoBehaviour {
 
     private HandCollider coll;
 
-    private Rigidbody GrabbedObject { get; set; }
+    public Interactable Interactable { get; private set; }
+    public Rigidbody GrabbedRigidbody { get; private set; }
     private Vector3 grabOffset;
     private Vector3 rotOffset;
 
@@ -28,20 +29,38 @@ public class Hand : MonoBehaviour {
         coll = transform.GetChild(0).GetComponent<HandCollider>();
     }
 
-    public void Grab() {
+    public void InteractWithObject() {
 
         if (Grabbed) {
             Release();
             return;
         }
 
-        GrabObject();
+        Interactable = coll.GetGrab();
 
-        if (GrabbedObject == null) {
+        if (Interactable == null) {
             return;
         }
 
-        if (other.Grabbed && other.GrabbedObject.gameObject == GrabbedObject.gameObject) {
+        if (Interactable.Type == GrabType.Grabbable) {
+            Grab();
+        } else if (Interactable.Type == GrabType.Interactable) {
+            Interactable.Interact();
+            Interactable = null;
+        } else if (Interactable.Type == GrabType.GrabbableAndInteractable) {
+            throw new System.Exception("not implemented");
+        }
+    }
+
+    private void Grab() {
+
+        GrabObject();
+
+        if (GrabbedRigidbody == null) {
+            return;
+        }
+
+        if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
             other.Release();
         }
 
@@ -53,8 +72,8 @@ public class Hand : MonoBehaviour {
     }
 
     private void InitializeOffset() {
-        grabOffset = GrabbedObject.transform.position - ColliderPosition;
-        rotOffset = GrabbedObject.transform.eulerAngles - ColliderEulerAngles;
+        grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
+        rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
     }
 
     private void InitVelocities() {
@@ -66,11 +85,11 @@ public class Hand : MonoBehaviour {
 
         Grabbed = false;
 
-        if (GrabbedObject == null) {
+        if (GrabbedRigidbody == null) {
             return;
         }
 
-        GrabbedObject.velocity = velocity;
+        GrabbedRigidbody.velocity = velocity;
     }
 
     private Vector3 ColliderPosition {
@@ -85,7 +104,7 @@ public class Hand : MonoBehaviour {
     }
 
     private void GrabObject() {
-        GrabbedObject = coll.GetGrabObjet();
+        GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
     }
 
     private void Update() {
@@ -98,11 +117,11 @@ public class Hand : MonoBehaviour {
 
     // Alternative: set Rigidbody to kinematic, might cause bugs though
     private void UpdateGrabbedObject() {
-        GrabbedObject.velocity = Vector3.zero;
-        GrabbedObject.transform.position = ColliderPosition + grabOffset;
+        GrabbedRigidbody.velocity = Vector3.zero;
+        GrabbedRigidbody.transform.position = ColliderPosition + grabOffset;
 
-        GrabbedObject.angularVelocity = Vector3.zero;
-        GrabbedObject.transform.eulerAngles = ColliderEulerAngles + rotOffset;
+        GrabbedRigidbody.angularVelocity = Vector3.zero;
+        GrabbedRigidbody.transform.eulerAngles = ColliderEulerAngles + rotOffset;
     }
 
 
