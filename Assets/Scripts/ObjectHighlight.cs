@@ -19,28 +19,29 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
+
+
         startcolor = material.color;
         material.color = Color.yellow;
+        highlighted = true;
         //material.color = material.color * 1.2f;
     }
 
     public void Unhighlight() {
         if (highlighted) material.color = startcolor;
+        highlighted = false;
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
-        
+
         while (TouchesHand(coll)) {
 
             bool closest = gameObject == coll.GetGrabObject();
-            Logger.PrintVariables("closest", closest, "highlighted", highlighted);
             if (closest && !highlighted) {
+
                 Highlight();
-                highlighted = true;
             } else if (!closest && highlighted) {
                 Unhighlight();
-                highlighted = false;
-                Logger.Print("UNHIGHLIGHT!");
             }
 
 
