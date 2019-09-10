@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Grabbable : Interactable {
-    public override void Interact() {
+    public override void Interact(Hand hand) {
         throw new System.NotImplementedException();
     }
 
@@ -11,5 +11,4 @@ public class Grabbable : Interactable {
         base.Start();
         type = GrabType.Grabbable;
     }
-
 }

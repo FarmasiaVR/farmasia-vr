@@ -22,9 +22,9 @@ public class ObjectHighlight : MonoBehaviour {
 
 
         startcolor = material.color;
-        material.color = Color.yellow;
+        //material.color = Color.yellow;
         highlighted = true;
-        //material.color = material.color * 1.2f;
+        material.color = material.color * 1.2f;
     }
 
     public void Unhighlight() {

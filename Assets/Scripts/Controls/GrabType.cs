@@ -1,5 +1,6 @@
 ﻿public enum GrabType {
     Grabbable,
     Interactable,
-    GrabbableAndInteractable
+    GrabbableAndInteractable,
+    DraggableAndInteractable
 }

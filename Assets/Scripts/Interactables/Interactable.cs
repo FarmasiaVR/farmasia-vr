@@ -11,7 +11,10 @@ public class Interactable : MonoBehaviour {
         gameObject.AddComponent<ObjectHighlight>();
     }
 
-    public virtual void Interact() {
-
+    public virtual void Interact(Hand hand) {
+    }
+    public virtual void Interacting(Hand hand) {
+    }
+    public virtual void Uninteract(Hand hand) {
     }
 }
