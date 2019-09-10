@@ -7,7 +7,7 @@ public class ObjectHighlight : MonoBehaviour {
     private Material material;
     private Color startcolor;
 
-    private bool highlighted;
+    public bool highlighted;
 
     void Start() {
         material = GetComponent<Renderer>().material;
