@@ -19,12 +19,9 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-
-
         startcolor = material.color;
-        //material.color = Color.yellow;
+        material.color = material.color + new Color32(20,20,20,0);
         highlighted = true;
-        material.color = material.color * 1.2f;
     }
 
     public void Unhighlight() {
@@ -37,13 +34,14 @@ public class ObjectHighlight : MonoBehaviour {
         while (coll.Contains(gameObject)) {
 
             bool closest = gameObject == coll.GetGrabObject();
-            if (closest && !highlighted && coll.Hand.Grabbed) {
 
+            if (coll.Hand.Grabbed) {
+                if (highlighted) Unhighlight();
+            } else if (closest && !highlighted) {
                 Highlight();
             } else if (!closest && highlighted) {
                 Unhighlight();
             }
-
 
             yield return null;
         }
