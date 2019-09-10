@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressManager : MonoBehaviour {
+
     public static ProgressManager Instance { get; private set; }
-
     private TaskFactory taskFactory;
-
-    public ITask currentTask;
-
-
+    List<ITask> tasks;
+    private int progressPointer;
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -21,8 +19,35 @@ public class ProgressManager : MonoBehaviour {
 
     private void Start() {
         taskFactory = new TaskFactory();
-        currentTask = taskFactory.GetTask(TaskType.SelectTools);
-
+        tasks = new List<ITask>();        
+        AddTask(TaskType.SelectTools);
+        progressPointer = 0;
     }
+
+    public void AddTask(TaskType task) {
+        tasks.Add(taskFactory.GetTask(task));
+    }
+
+    public void AddMultipleTasks(TaskType[] taskTypes) {
+        foreach (TaskType taskType in taskTypes) {
+            tasks.Add(taskFactory.GetTask(taskType));            
+        }
+    }
+
+    public void MovePointer() {
+        if (progressPointer < tasks.Count) {
+            progressPointer++;
+        }
+    }
+
+    
+
+    
+
+    
+
+
+
+    
 
 }
