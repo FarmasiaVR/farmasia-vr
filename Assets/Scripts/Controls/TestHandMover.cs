@@ -39,6 +39,12 @@ public class TestHandMover : MonoBehaviour {
         } else if (Input.GetKeyUp(KeyCode.Mouse1) && usingRight) {
             right.UninteractWithObject();
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse2) && !usingRight) {
+            left.GrabInteract();
+        } else if (Input.GetKeyUp(KeyCode.Mouse2) && usingRight) {
+            right.GrabInteract();
+        }
     }
 
     private void UpdateHandStatus() {

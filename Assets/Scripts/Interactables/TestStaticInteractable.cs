@@ -7,7 +7,6 @@ public class TestStaticInteractable : Interactable {
     protected override void Start() {
         base.Start();
         type = GrabType.Interactable;
-        gameObject.GetComponent<GeneralItem>().SetFlags(true, ItemState.Status.Clean);
     }
 
     public override void Interact(Hand hand) {

@@ -74,6 +74,7 @@ public class OpenableDoor : MonoBehaviour {
 
             transform.Rotate(rotateVector);
 
+            AngleLock.ClampAngleDeg(Angle, startAngle + maxAngle, startAngle);
             if (Angle > maxAngle) {
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, startAngle + maxAngle, transform.eulerAngles.z);
             }

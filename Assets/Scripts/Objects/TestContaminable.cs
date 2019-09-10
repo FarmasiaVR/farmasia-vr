@@ -8,11 +8,13 @@ public class TestContaminable : Interactable {
 
     protected override void Start() {
         base.Start();
+        type = GrabType.GrabbableAndInteractable;
         states = gameObject.GetComponent<GeneralItem>();
     }
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
+        Logger.PrintVariables("Clean", states.GetFlag(ItemState.Status.Clean));
     }
 
     private void OnCollisionEnter(Collision coll) {
@@ -20,6 +22,6 @@ public class TestContaminable : Interactable {
         if (collisionObject.tag == "Floor") {
             states.SetFlags(false, ItemState.Status.Clean);
         }
-        Logger.PrintVariables("Clean", states.GetFlag(ItemState.Status.Clean));
+        Logger.Print("Contaminable hit something");
     }
 }

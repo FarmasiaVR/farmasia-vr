@@ -47,7 +47,7 @@ public class Hand : MonoBehaviour {
         } else if (Interactable.Type == GrabType.Interactable) {
             Interactable.Interact(this);
         } else if (Interactable.Type == GrabType.GrabbableAndInteractable) {
-            throw new System.Exception("not implemented");
+            Grab();
         }
     }
     public void UninteractWithObject() {
@@ -57,21 +57,17 @@ public class Hand : MonoBehaviour {
             Interactable = null;
             return;
         }
+    }
 
-        // Necessary???
-        Interactable = coll.GetGrab();
-
-        if (Interactable == null) {
+    public void GrabInteract() {
+        if (!Grabbed) {
             return;
         }
 
-        if (Interactable.Type == GrabType.Interactable) {
-            Interactable.Uninteract(this);
-            Interactable = null;
-        } else if (Interactable.Type == GrabType.GrabbableAndInteractable) {
-            throw new System.Exception("not implemented");
-        } else if (Interactable.Type == GrabType.DraggableAndInteractable) {
+        Interactable = coll.GetGrab();
 
+        if (Interactable.Type == GrabType.GrabbableAndInteractable) {
+            Interactable.Interact(this);
         }
     }
 
@@ -84,7 +80,6 @@ public class Hand : MonoBehaviour {
         }
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
-
 
         if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
             other.Release();
