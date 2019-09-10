@@ -10,12 +10,8 @@ public class GeneralItem : MonoBehaviour {
         EnableFlags(ItemState.Status.Clean);
     }
 
-    public void EnableFlags(params ItemState.Status[] status) {
-        ItemState.EnableFlags(ref flags, status);
-    }
-
-    public void DisableFlags(params ItemState.Status[] status) {
-        ItemState.DisableFlags(ref flags, status);
+    public void SetFlags(bool value, params ItemState.Status[] statuses) {
+        ItemState.SetFlags(ref flags, value, statuses);
     }
 
     public bool GetFlag(ItemState.Status status) {

@@ -5,14 +5,9 @@
         Broken = 1
     }
 
-    public static void EnableFlags(ref int flags, params Status[] statuses) {
+    public static void SetFlags(ref int flags, bool value, params Status[] statuses) {
         foreach (Status status in statuses) {
-            SetFlag(ref flags, status, true);
-        }
-    }
-    public static void DisableFlags(ref int flags, params Status[] statuses) {
-        foreach (Status status in statuses) {
-            SetFlag(ref flags, status, false);
+            SetFlag(ref flags, status, value);
         }
     }
 

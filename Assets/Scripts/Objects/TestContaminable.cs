@@ -18,7 +18,7 @@ public class TestContaminable : Interactable {
     private void OnCollisionEnter(Collision coll) {
         GameObject collisionObject = coll.gameObject;
         if (collisionObject.tag == "Floor") {
-            states.DisableFlags(ItemState.Status.Clean);
+            states.SetFlags(false, ItemState.Status.Clean);
         }
         Logger.PrintVariables("Clean", states.GetFlag(ItemState.Status.Clean));
     }
