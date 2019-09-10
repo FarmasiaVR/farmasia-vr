@@ -1,5 +1,6 @@
 ﻿public enum EventType {
     A,
     B,
-    C
+    C,
+    PickupObject
 }

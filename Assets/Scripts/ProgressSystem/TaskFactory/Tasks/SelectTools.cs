@@ -2,24 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectTools : TaskData, ITask {
+public class SelectTools : TaskData, ITask, IEventsUser {
+    int[] instanceIDs;
 
-    private void Awake() {
-        
-    }
-    public void finishTask() {
-        throw new System.NotImplementedException();
+    public SelectTools() {
+        instanceIDs = new int[10];
+        SubscribeEvents();
+
     }
 
-    public string getDescription() {
+    public void SubscribeEvents() {
+        Events.SubscribeToEvent(PickupObject, EventType.PickupObject);
+    }
+
+    public void UnsubscribeEvents() {
+        Events.UnsubscribeFromEvent(PickupObject, EventType.PickupObject);
+    }
+
+    
+    public void FinishTask() {
+        UnsubscribeEvents();
+    }
+
+    public string GetDescription() {
         return "Valitse sopiva määrä välineitä.";
     }
 
-    public string getHint() {
+    public string GetHint() {
         throw new System.NotImplementedException();
     }
 
-    public void trigger() {
-        throw new System.NotImplementedException();
+    private void PickupObject(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        
+
+    }
+
+
+
+    public void NextTask() {
+        ProgressManager.Instance.AddTask(TaskType.SelectMedicine);
     }
 }

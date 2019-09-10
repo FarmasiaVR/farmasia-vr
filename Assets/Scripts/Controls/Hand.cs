@@ -83,6 +83,9 @@ public class Hand : MonoBehaviour {
             return;
         }
 
+        Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
+
+
         if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
             other.Release();
         }

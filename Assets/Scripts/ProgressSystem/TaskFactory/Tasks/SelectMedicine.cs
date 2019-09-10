@@ -5,28 +5,26 @@ using UnityEngine;
 public class SelectMedicine : TaskData, ITask  {
 
 
-    private void Awake() {
-        
-    }
 
-    /// <summary>
-    /// When 
-    /// </summary>
-    public void trigger() {
+    public void Trigger() {
         throw new System.NotImplementedException();
     }
 
-    public void finishTask() {
+    public void FinishTask() {
         throw new System.NotImplementedException();
     }
 
-    public string getDescription() {
+    public string GetDescription() {
         finished = true;
         return "TEST";
     }
 
-    public string getHint() {
+    public string GetHint() {
         throw new System.NotImplementedException();
+    }
+
+    public void NextTask() {
+        
     }
 
 }

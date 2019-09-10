@@ -1,9 +1,8 @@
 ﻿public interface ITask {
 
-    
 
-    void trigger();
-    void finishTask();
-    string getDescription();
-    string getHint();
+    void NextTask();
+    void FinishTask();
+    string GetDescription();
+    string GetHint();
 }

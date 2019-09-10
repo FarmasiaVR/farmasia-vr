@@ -185,18 +185,16 @@ public static class Events {
     private static void CallDefaultCallbacks(EventType type, CallbackData data) {
 
         // No data
-        if (!eventsNoData.ContainsKey(type)) {
-            return;
+        if (eventsNoData.ContainsKey(type)) {
+            eventsNoData[type]?.Invoke();
         }
 
-        eventsNoData[type]?.Invoke();
+        
 
         // With data
-        if (!eventsData.ContainsKey(type)) {
-            return;
+        if (eventsData.ContainsKey(type)) {
+            eventsData[type]?.Invoke(data);
         }
-
-        eventsData[type]?.Invoke(data);
     }
 
     private static void CallComponentCallbacks(EventType type, CallbackData data) {
