@@ -20,7 +20,7 @@ public class ObjectHighlight : MonoBehaviour {
 
     public void Highlight() {
         startcolor = material.color;
-        material.color = material.color + new Color32(20,20,20,0);
+        material.color = material.color + new Color32(40,40,40,0);
         highlighted = true;
     }
 
