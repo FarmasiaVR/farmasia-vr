@@ -20,18 +20,24 @@ public class TestHandMover : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        UpdateGrab();
+        UpdateInteract();
         UpdateHandStatus();
         CheckInput();
         MoveHand();
     }
 
-    private void UpdateGrab() {
+    private void UpdateInteract() {
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !usingRight) {
             left.InteractWithObject();
         } else if (Input.GetKeyDown(KeyCode.Mouse1) && usingRight) {
             right.InteractWithObject();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0) && !usingRight) {
+            left.UninteractWithObject();
+        } else if (Input.GetKeyUp(KeyCode.Mouse1) && usingRight) {
+            right.UninteractWithObject();
         }
     }
 

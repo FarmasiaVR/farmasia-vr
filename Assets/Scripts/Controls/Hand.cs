@@ -45,10 +45,33 @@ public class Hand : MonoBehaviour {
         if (Interactable.Type == GrabType.Grabbable) {
             Grab();
         } else if (Interactable.Type == GrabType.Interactable) {
-            Interactable.Interact();
+            Interactable.Interact(this);
+        } else if (Interactable.Type == GrabType.GrabbableAndInteractable) {
+            throw new System.Exception("not implemented");
+        }
+    }
+    public void UninteractWithObject() {
+
+        if (Interactable != null) {
+            Interactable.Uninteract(this);
+            Interactable = null;
+            return;
+        }
+
+        // Necessary???
+        Interactable = coll.GetGrab();
+
+        if (Interactable == null) {
+            return;
+        }
+
+        if (Interactable.Type == GrabType.Interactable) {
+            Interactable.Uninteract(this);
             Interactable = null;
         } else if (Interactable.Type == GrabType.GrabbableAndInteractable) {
             throw new System.Exception("not implemented");
+        } else if (Interactable.Type == GrabType.DraggableAndInteractable) {
+
         }
     }
 
