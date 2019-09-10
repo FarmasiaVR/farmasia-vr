@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 90
-  friction: 0.9
+  friction: 0.93
 --- !u!4 &1003415788
 Transform:
   m_ObjectHideFlags: 0
@@ -601,7 +601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003415786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0.5, z: 3}
+  m_LocalPosition: {x: 1.58, y: 0.5, z: 2.134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1987352691}
@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 2027093645}
   - component: {fileID: 2027093644}
   - component: {fileID: 2027093643}
+  - component: {fileID: 2027093647}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Interactable
@@ -998,6 +999,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027093641}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &2027093647
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027093641}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &6160351506333400081
 PrefabInstance:
   m_ObjectHideFlags: 0

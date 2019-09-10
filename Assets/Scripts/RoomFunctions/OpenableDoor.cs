@@ -26,14 +26,25 @@ public class OpenableDoor : MonoBehaviour {
         startAngle = transform.eulerAngles.y;
     }
 
-    public void SetByHandPosition(Vector3 position) {
+    public void SetByHandPosition(Vector3 handPos) {
         lastEulerAngles = transform.eulerAngles;
-        transform.right = position - transform.position;
+
+        Vector3 initialRot = transform.eulerAngles;
+
+        Vector3 rot = -(handPos - transform.position);
+        transform.right = rot;
+        rot = transform.eulerAngles;
+        rot.x = initialRot.x;
+        rot.z = initialRot.z;
+        transform.eulerAngles = rot;
     }
 
     public void ReleaseDoor() {
 
-        Velocity = Vector3.Distance(lastEulerAngles, transform.eulerAngles) / Time.deltaTime;
+        Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
+
+        Logger.PrintVariables("Velocity", Velocity);
+
         Locked = false;
     }
 
@@ -46,8 +57,8 @@ public class OpenableDoor : MonoBehaviour {
 
         Velocity *= friction;
 
-        if (Velocity < minVelocity) {
-            Velocity = minVelocity;
+        if (Mathf.Abs(Velocity) < minVelocity) {
+            Velocity = Velocity > 0 ? minVelocity : -minVelocity;
         }
     }
 
