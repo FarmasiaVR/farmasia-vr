@@ -272,9 +272,9 @@ namespace Tests {
         public int a, b, c;
 
         public CallbackContainer() {
-            int a = 0;
-            int b = 0;
-            int c = 0;
+            a = 0;
+            b = 0;
+            c = 0;
         }
 
         public Action TestFunction;
