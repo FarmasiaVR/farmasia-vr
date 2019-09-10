@@ -6,8 +6,11 @@ public class GeneralItem : MonoBehaviour {
 
     private int flags;
 
+    [SerializeField]
+    private bool clean;
+
     void Start() {
-        EnableFlags(ItemState.Status.Clean);
+        SetFlags(clean, ItemState.Status.Clean);
     }
 
     public void SetFlags(bool value, params ItemState.Status[] statuses) {
