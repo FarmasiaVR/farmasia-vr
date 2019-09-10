@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestStaticInteractable : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class TestStaticInteractable : Interactable {
+
+    protected override void Start() {
+        base.Start();
+        type = GrabType.Interactable;
+        gameObject.GetComponent<GeneralItem>().EnableFlags(ItemState.Status.Clean);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void Interact() {
+        base.Interact();
+        gameObject.GetComponent<GeneralItem>().DisableFlags(ItemState.Status.Clean);
+        Logger.Print("Clean", gameObject.GetComponent<GeneralItem>().GetFlag(ItemState.Status.Clean));
     }
 }
