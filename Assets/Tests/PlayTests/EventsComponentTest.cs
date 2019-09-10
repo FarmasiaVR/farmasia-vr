@@ -29,9 +29,6 @@ namespace Tests {
 
         [UnityTest]
         public IEnumerator Comp_ResetWorks() {
-
-            yield return new WaitForSeconds(1);
-
             GameObject g = new GameObject();
 
             yield return null;
@@ -51,8 +48,6 @@ namespace Tests {
 
         [UnityTest]
         public IEnumerator Comp_CallbackIsCalled() {
-
-            yield return new WaitForSeconds(1);
 
             GameObject g = new GameObject();
 
@@ -74,8 +69,6 @@ namespace Tests {
 
         [UnityTest]
         public IEnumerator Comp_CallbackNotCalledAfterDestroy() {
-
-            yield return new WaitForSeconds(1);
 
             GameObject g = new GameObject();
 
