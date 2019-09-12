@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectTools : TaskData, ITask, IEventsUser {
+public class SelectTools : TaskData {
     int[] instanceIDs;
 
     public SelectTools() {
         instanceIDs = new int[10];
         SubscribeEvents();
-
     }
 
     public void SubscribeEvents() {
@@ -42,5 +41,9 @@ public class SelectTools : TaskData, ITask, IEventsUser {
 
     public void NextTask() {
         ProgressManager.Instance.AddTask(TaskType.SelectMedicine);
+    }
+
+    public bool CheckPreviousTaskCompletion() {
+        throw new System.NotImplementedException();
     }
 }

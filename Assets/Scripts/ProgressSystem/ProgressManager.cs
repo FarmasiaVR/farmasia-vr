@@ -34,6 +34,10 @@ public class ProgressManager : MonoBehaviour {
         }
     }
 
+    public void RemoveTask(ITask task) {
+        tasks.Remove(task);
+    }
+
     public void MovePointer() {
         if (progressPointer < tasks.Count) {
             progressPointer++;

@@ -4,7 +4,7 @@
     Layout,
     Disinfect,
     Syringe,
-    LuerLock,
+    Luerlock,
     SyringeAttach,
     SterileBag
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectMedicine : TaskData, ITask  {
+public class SelectMedicine : TaskData  {
 
 
 
