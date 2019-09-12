@@ -1,49 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+public class SelectTools : TaskBase {
 
-public class SelectTools : TaskData {
-    int[] instanceIDs;
+    private string[] conditions = {"SyringePickedUp", "NeedlePickedUp"};
 
-    public SelectTools() {
-        instanceIDs = new int[10];
-        SubscribeEvents();
+    /// <summary>
+    /// Constructor for SelectTools task. 
+    /// Is removed when finished and doesn't require previous task to be done.
+    /// </summary>
+    public SelectTools() : base(true, false) {
+        Subscribe();
+        AddConditions(conditions);
     }
 
-    public void SubscribeEvents() {
-        Events.SubscribeToEvent(PickupObject, EventType.PickupObject);
+    #region Event Subscriptions
+    public override void Subscribe() {
+        base.SubscribeEvent(PickupObject, EventType.PickupObject);
+    }
+    private void PickupObject(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        ToggleCondition("SyringePickedUp");
+        ToggleCondition("NeedlePickedUp");
+        CheckClearConditions();
+    }
+    #endregion
+
+
+
+    public override void FinishTask() {
+        Logger.Print("All conditions done! - Task finished!");
+        base.FinishTask();
     }
 
-    public void UnsubscribeEvents() {
-        Events.UnsubscribeFromEvent(PickupObject, EventType.PickupObject);
-    }
-
-    
-    public void FinishTask() {
-        UnsubscribeEvents();
-    }
-
-    public string GetDescription() {
+    public override string GetDescription() {
         return "Valitse sopiva määrä välineitä.";
     }
 
-    public string GetHint() {
-        throw new System.NotImplementedException();
-    }
-
-    private void PickupObject(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        
-
-    }
-
-
-
-    public void NextTask() {
-        ProgressManager.Instance.AddTask(TaskType.SelectMedicine);
-    }
-
-    public bool CheckPreviousTaskCompletion() {
-        throw new System.NotImplementedException();
+    public override string GetHint() {
+        return base.GetHint();
     }
 }
