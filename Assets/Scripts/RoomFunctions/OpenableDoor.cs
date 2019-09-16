@@ -20,6 +20,7 @@ public class OpenableDoor : MonoBehaviour {
     public bool Locked { get; set; } = true;
 
     private Vector3 lastEulerAngles;
+
     #endregion
 
     private void Start() {
@@ -37,6 +38,11 @@ public class OpenableDoor : MonoBehaviour {
         rot.x = initialRot.x;
         rot.z = initialRot.z;
         transform.eulerAngles = rot;
+
+        float fixedAngle = AngleLock.Asdf(Angle, startAngle, startAngle + maxAngle);
+        if (Angle != fixedAngle) {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
+        }
     }
 
     public void ReleaseDoor() {
@@ -69,29 +75,25 @@ public class OpenableDoor : MonoBehaviour {
         }
 
         Vector3 rotateVector = Vector3.up * Velocity * Time.deltaTime;
+        
+        transform.Rotate(rotateVector);
 
-        if (rotateVector.magnitude > 0) {
-
-            transform.Rotate(rotateVector);
-
-            AngleLock.ClampAngleDeg(Angle, startAngle + maxAngle, startAngle);
-            if (Angle > maxAngle) {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, startAngle + maxAngle, transform.eulerAngles.z);
-            }
-
-        } else {
-
-            transform.Rotate(rotateVector);
-
-            if (Angle < startAngle) {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, startAngle, transform.eulerAngles.z);
-            }
+        float fixedAngle = AngleLock.Asdf(Angle, startAngle, startAngle + maxAngle);
+        if (Angle != fixedAngle) {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
         }
+
+
+        //if (newAngle > maxAngle) {
+        //    transform.eulerAngles = new Vector3(transform.eulerAngles.x, startAngle + maxAngle, transform.eulerAngles.z);
+        //}
+
     }
 
     private float Angle {
         get {
-            return Mathf.Abs(transform.eulerAngles.y - startAngle);
+            return transform.eulerAngles.y;
+            //return Mathf.Abs(transform.eulerAngles.y - startAngle);
         }
     }
 }
