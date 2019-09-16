@@ -10,7 +10,6 @@ public class ProgressManager : MonoBehaviour {
     private TaskFactory taskFactory;
     List<ITask> activeTasks;
     List<ITask> doneTasks;
-    private int progressPointer;
     private ScoreCalculator calculator;
 
     private void Awake() {
@@ -26,7 +25,6 @@ public class ProgressManager : MonoBehaviour {
         activeTasks = new List<ITask>(); 
         doneTasks = new List<ITask>();       
         AddTasks();
-        progressPointer = 0;
         calculator = new ScoreCalculator();
     }
 
@@ -42,9 +40,7 @@ public class ProgressManager : MonoBehaviour {
         doneTasks.Add(task);
     }
 
-    public void MovePointer() {
-        if (progressPointer < activeTasks.Count) {
-            progressPointer++;
-        }
+    public List<ITask> GetDoneTasks() {
+        return doneTasks;
     }
 }

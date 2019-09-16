@@ -1,9 +1,11 @@
 ﻿public enum TaskType {
     SelectTools,
     SelectMedicine,
-    Layout,
+    Layout1,
+    AmountOfItems,
+    Layout2,
     Disinfect,
-    Syringe,
+    MedicineToSyringe,
     Luerlock,
     SyringeAttach,
     SterileBag
