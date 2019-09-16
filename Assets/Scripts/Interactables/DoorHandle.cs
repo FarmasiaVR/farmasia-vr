@@ -23,7 +23,7 @@ public class DoorHandle : Interactable {
     }
 
     private void UpdatePosition() {
-        door.SetByHandPosition(hand.transform.position);
+        door.SetByHandPosition(hand);
     }
 
     public override void Interact(Hand hand) {

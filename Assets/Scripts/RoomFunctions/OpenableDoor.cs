@@ -21,48 +21,40 @@ public class OpenableDoor : MonoBehaviour {
 
     private Vector3 lastEulerAngles;
 
+    private Transform handle;
+    private float grabLength;
+
     #endregion
 
     private void Start() {
         startAngle = transform.eulerAngles.y;
+        handle = transform.Find("Handle");
+        grabLength = (handle.position - transform.position).magnitude * 0.9f;
     }
 
-    public void SetByHandPosition(Vector3 handPos) {
-        Vector3 newLastEulerAngles = transform.eulerAngles;
+    public void SetByHandPosition(Hand hand) {
+        Vector3 handPos = hand.transform.position;
+
+        float handDistance = (handPos - handle.position).magnitude;
+        if (handDistance > grabLength) {
+            hand.UninteractWithObject();
+            ReleaseDoor();
+            return;
+        }
+
+        lastEulerAngles = transform.eulerAngles;
 
         Vector3 initialRot = transform.eulerAngles;
         
         Vector3 direction = transform.position - handPos;
         direction.y = 0;
 
-        float offset = -90;
+        float offset = -75;
         Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
         float angle = rawRotation.eulerAngles.y + offset;
 
         angle = AngleLock.ClampAngleDeg(angle, startAngle, startAngle + maxAngle);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
-    }
-
-    private Vector3 FixAngles(Vector3 angles, Vector3 last) {
-
-        if (lastEulerAngles.y > 180) {
-
-            if (angles.y <= 180) {
-                angles.y = startAngle + maxAngle;
-                return angles;
-            }
-
-        } else {
-
-            if (angles.y > 180) {
-                angles.y = startAngle;
-                return angles;
-            }
-        }
-
-        lastEulerAngles = last;
-        angles.y = Mathf.Clamp(angles.y, startAngle, startAngle + maxAngle);
-        return angles;
     }
 
     public void ReleaseDoor() {
@@ -99,10 +91,7 @@ public class OpenableDoor : MonoBehaviour {
         transform.Rotate(rotateVector);
 
         float fixedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle);
-
-        if (Angle != fixedAngle) {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
-        }
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
     }
 
     private float Angle {
