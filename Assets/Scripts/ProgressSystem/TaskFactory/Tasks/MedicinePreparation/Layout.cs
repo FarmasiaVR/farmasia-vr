@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 public class Layout : TaskBase {
 
     private string[] conditions = {"SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp", "BottlePickedUp"};
@@ -23,8 +26,6 @@ public class Layout : TaskBase {
         CheckClearConditions();
     }
     #endregion
-
-
 
     public override void FinishTask() {
         Logger.Print("All conditions fullfilled, task completed.");

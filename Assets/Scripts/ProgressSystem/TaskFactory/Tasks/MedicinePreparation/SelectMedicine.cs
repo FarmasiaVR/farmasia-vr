@@ -35,12 +35,4 @@ public class SelectMedicine : TaskBase  {
     public string GetHint() {
         return base.GetHint();
     }
-
-    //public void Trigger() {
-    //    throw new System.NotImplementedException();
-    //}
-
-    //public void NextTask() {
-    //}
-
 }
