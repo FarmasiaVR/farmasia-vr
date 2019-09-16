@@ -4,27 +4,43 @@ using UnityEngine;
 
 public class SelectMedicine : TaskData  {
 
+    private string[] conditions = {"RightBottleSize"};
 
-
-    public void Trigger() {
-        throw new System.NotImplementedException();
+    public SelectMedicine() : base(true, false) {
+        Subscribe();
+        AddConditions(conditions);
     }
 
-    public void FinishTask() {
-        throw new System.NotImplementedException();
+    #region Event Subscriptions
+    public override void Subscribe() {
+        base.SubscribeEvent(PickupObject, EventType.PickupObject);
+    }
+    private void PickupObject(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        ToggleCondition("RightBottleSize");
+        CheckClearConditions();
+    }
+    #endregion
+
+
+    public override void FinishTask() {
+        Logger.Print("All conditions fulfilled, task finished!");
+        base.FinishTask();
     }
 
     public string GetDescription() {
-        finished = true;
-        return "TEST";
+        return "Valitse sopiva lääkepullo.";
     }
 
     public string GetHint() {
-        throw new System.NotImplementedException();
+        return base.GetHint();
     }
 
-    public void NextTask() {
-        
-    }
+    //public void Trigger() {
+    //    throw new System.NotImplementedException();
+    //}
+
+    //public void NextTask() {
+    //}
 
 }

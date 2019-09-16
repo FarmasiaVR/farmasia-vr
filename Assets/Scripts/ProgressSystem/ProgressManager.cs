@@ -6,8 +6,10 @@ public class ProgressManager : MonoBehaviour {
 
     public static ProgressManager Instance { get; private set; }
     private TaskFactory taskFactory;
-    List<ITask> tasks;
+    List<ITask> activeTasks;
+    List<ITask> doneTasks;
     private int progressPointer;
+    private ScoreCalculator calculator;
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -19,23 +21,34 @@ public class ProgressManager : MonoBehaviour {
 
     private void Start() {
         taskFactory = new TaskFactory();
-        tasks = new List<ITask>();        
-        AddTask(TaskType.SelectTools);
+        activeTasks = new List<ITask>(); 
+        doneTasks = new List<ITask>();       
+        AddTasks();
+        // AddTask(TaskType.SelectTools);
         progressPointer = 0;
+        calculator = new ScoreCalculator();
     }
 
-    public void AddTask(TaskType task) {
-        tasks.Add(taskFactory.GetTask(task));
+    private void AddTasks() {
+        activeTasks = Enum.GetValues(typeof(TaskType))
+            .Cast<TaskType>()
+            .Select(v => taskFactory.GetTask(v))
+            .ToList();
     }
 
-    public void AddMultipleTasks(TaskType[] taskTypes) {
-        foreach (TaskType taskType in taskTypes) {
-            tasks.Add(taskFactory.GetTask(taskType));            
-        }
-    }
+    //public void AddTask(TaskType task, List<ITask> tasks) {
+    //    tasks.Add(taskFactory.GetTask(task));
+    //}
+
+    //public void AddMultipleTasks(TaskType[] taskTypes) {
+    //    foreach (TaskType taskType in taskTypes) {
+    //        tasks.Add(taskFactory.GetTask(taskType));            
+    //    }
+    //}
 
     public void RemoveTask(ITask task) {
-        tasks.Remove(task);
+        activeTasks.Remove(task);
+        doneTasks.Add(task);
     }
 
     public void MovePointer() {
@@ -43,15 +56,4 @@ public class ProgressManager : MonoBehaviour {
             progressPointer++;
         }
     }
-
-    
-
-    
-
-    
-
-
-
-    
-
 }
