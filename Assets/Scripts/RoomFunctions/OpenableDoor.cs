@@ -28,21 +28,44 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     public void SetByHandPosition(Vector3 handPos) {
-        lastEulerAngles = transform.eulerAngles;
+        Vector3 newLastEulerAngles = transform.eulerAngles;
 
         Vector3 initialRot = transform.eulerAngles;
 
-        Vector3 rot = -(handPos - transform.position);
+        Vector3 rot = transform.position - handPos;
         transform.right = rot;
         rot = transform.eulerAngles;
         rot.x = initialRot.x;
         rot.z = initialRot.z;
-        transform.eulerAngles = rot;
 
-        float fixedAngle = AngleLock.Asdf(Angle, startAngle, startAngle + maxAngle);
+        transform.eulerAngles = FixAngles(rot, newLastEulerAngles);
+        return;
+        float fixedAngle = AngleLock.FixAngleDeg(Angle, startAngle, startAngle + maxAngle);
         if (Angle != fixedAngle) {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
         }
+    }
+
+    private Vector3 FixAngles(Vector3 angles, Vector3 last) {
+
+        if (lastEulerAngles.y > 180) {
+
+            if (angles.y <= 180) {
+                angles.y = startAngle + maxAngle;
+                return angles;
+            }
+
+        } else {
+
+            if (angles.y > 180) {
+                angles.y = startAngle;
+                return angles;
+            }
+        }
+
+        lastEulerAngles = last;
+        angles.y = Mathf.Clamp(angles.y, startAngle, startAngle + maxAngle);
+        return angles;
     }
 
     public void ReleaseDoor() {
@@ -75,10 +98,10 @@ public class OpenableDoor : MonoBehaviour {
         }
 
         Vector3 rotateVector = Vector3.up * Velocity * Time.deltaTime;
-        
+
         transform.Rotate(rotateVector);
 
-        float fixedAngle = AngleLock.Asdf(Angle, startAngle, startAngle + maxAngle);
+        float fixedAngle = AngleLock.FixAngleDeg(Angle, startAngle, startAngle + maxAngle);
         if (Angle != fixedAngle) {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
         }
