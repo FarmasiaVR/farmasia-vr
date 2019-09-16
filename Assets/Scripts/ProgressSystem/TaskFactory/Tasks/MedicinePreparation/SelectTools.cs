@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 public class SelectTools : TaskBase {
 
-    private string[] conditions = {"SyringePickedUp", "NeedlePickedUp"};
+    private string[] conditions = { "SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp" };
 
     /// <summary>
     /// Constructor for SelectTools task. 
     /// Is removed when finished and doesn't require previous task to be done.
     /// </summary>
-    public SelectTools() : base(true, false) {
+    public SelectTools() : base(TaskType.SelectTools, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -20,23 +20,26 @@ public class SelectTools : TaskBase {
         GameObject g = data.DataObject as GameObject;
         ToggleCondition("SyringePickedUp");
         ToggleCondition("NeedlePickedUp");
+        ToggleCondition("LuerlockPickedUp");
+
         UISystem.Instance.CreatePopup(-1, "MUAHAHAHAHA! >:D");
-        CheckClearConditions();
+
+        CheckClearConditions(false);
     }
     #endregion
 
 
 
     public override void FinishTask() {
-        Logger.Print("All conditions done! - Task finished!");
+        Logger.Print("All conditions fulfilled, task finished!");
         base.FinishTask();
     }
 
     public override string GetDescription() {
-        return "Valitse sopiva määrä välineitä.";
+        return "Valitse sopivat työvälineet.";
     }
 
     public override string GetHint() {
-        return base.GetHint();
+        return "Huoneessa on lääkkeen valmistukseen tarvittavia välineitä. Valitse oikea määrä tarvittavia välineitä.";
     }
 }

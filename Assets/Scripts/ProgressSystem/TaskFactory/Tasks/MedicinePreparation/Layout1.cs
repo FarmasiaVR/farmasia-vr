@@ -1,27 +1,26 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectMedicine : TaskBase  {
+public class Layout1 : TaskBase {
 
-    private string[] conditions = {"BottlePickup"};
-
-    public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
+    private string[] conditions = {"ItemsArranged"};
+ 
+    public Layout1() : base(TaskType.Layout1, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(PickupObject, EventType.PickupObject);
+        base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
     }
-    private void PickupObject(CallbackData data) {
+    private void ArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        ToggleCondition("BottlePickup");
+        ToggleCondition("ItemsArranged");
         CheckClearConditions(true);
     }
     #endregion
-
 
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
@@ -29,10 +28,10 @@ public class SelectMedicine : TaskBase  {
     }
 
     public override string GetDescription() {
-        return "Valitse sopiva lääkepullo.";
+        return "Asettele välineet läpiantokaappiin.";
     }
- 
+
     public override string GetHint() {
-        return "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä yksi.";
+        return "Vie valitsemasi työvälineet ja lääkepullo läpiantokaapin kautta toiseen huoneeseen."; 
     }
 }

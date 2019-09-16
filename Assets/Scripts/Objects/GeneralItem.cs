@@ -9,7 +9,8 @@ public class GeneralItem : Grabbable {
     [SerializeField]
     private bool clean;
 
-    void Start() {
+    protected override void Start() {
+        base.Start();
         SetFlags(clean, ItemState.Status.Clean);
     }
 

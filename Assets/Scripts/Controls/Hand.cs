@@ -78,8 +78,9 @@ public class Hand : MonoBehaviour {
         joint.breakForce = 1000;
         joint.breakTorque = 1000;
     }
-   
 
+
+    #region Interaction
     public void InteractWithObject() {
 
         if (Grabbed) {
@@ -124,6 +125,21 @@ public class Hand : MonoBehaviour {
             Interactable.Interact(this);
         }
     }
+
+    public void GrabUninteract() {
+        if (!Grabbed) {
+            return;
+        }
+
+        Interactable = coll.GetGrab();
+
+        if (Interactable.Type == GrabType.GrabbableAndInteractable) {
+            Interactable.Uninteract(this);
+        }
+    }
+    #endregion
+
+
 
     private void Grab() {
 

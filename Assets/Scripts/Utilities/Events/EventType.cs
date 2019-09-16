@@ -2,5 +2,7 @@
     A,
     B,
     C,
-    PickupObject
+    PickupObject,
+    PutObject,
+    ArrangeItems
 }
