@@ -1,12 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 public class Hand : MonoBehaviour {
 
     #region fields
 
     public bool Grabbed { get; set; }
+
+    private VRHandControls controls;
+    private FixedJoint joint;
+    private FixedJoint Joint {
+        get {
+            if (joint == null) {
+                AddJoint();
+            }
+            return joint;
+        }
+    }
 
     private Vector3 velocity;
     private Vector3 lastPos;
@@ -27,6 +39,18 @@ public class Hand : MonoBehaviour {
 
     private void Start() {
         coll = transform.GetChild(0).GetComponent<HandCollider>();
+        controls = GetComponent<VRHandControls>();
+
+    }
+
+    private void AddJoint() {
+        joint = gameObject.AddComponent<FixedJoint>();
+        joint.breakForce = 1000;
+        joint.breakTorque = 1000;
+    }
+    private void OnJointBreak(float breakForce) {
+        Debug.Log("Joint force broken: " + breakForce);
+        Release();
     }
 
     public void InteractWithObject() {
@@ -52,10 +76,13 @@ public class Hand : MonoBehaviour {
     }
     public void UninteractWithObject() {
 
-        if (Interactable != null) {
+        if (Grabbed) {
+            if (VRControlSettings.HoldToGrab) {
+                Release();
+            }
+        } else if (Interactable != null) {
             Interactable.Uninteract(this);
             Interactable = null;
-            return;
         }
     }
 
@@ -79,6 +106,9 @@ public class Hand : MonoBehaviour {
             return;
         }
 
+        // Fix later
+        GrabbedRigidbody.transform.position = transform.GetChild(0).position;
+
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 
         if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
@@ -90,11 +120,21 @@ public class Hand : MonoBehaviour {
         Grabbed = true;
 
         InitVelocities();
+
+        AttachGrabbedObject();
+    }
+    private void AttachGrabbedObject() {
+        Joint.connectedBody = GrabbedRigidbody;
+    }
+    private void DeattachGrabbedObject() {
+        Joint.connectedBody = null;
     }
 
     private void InitializeOffset() {
         grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
         rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
+
+        print("Grab offset: " + grabOffset);
     }
 
     private void InitVelocities() {
@@ -106,20 +146,25 @@ public class Hand : MonoBehaviour {
 
         Grabbed = false;
 
+        DeattachGrabbedObject();
+
         if (GrabbedRigidbody == null) {
             return;
         }
 
-        GrabbedRigidbody.velocity = velocity;
+        GrabbedRigidbody.velocity = controls.Skeleton.velocity;
+        GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
     }
 
     private Vector3 ColliderPosition {
         get {
+            // return transform.position;
             return transform.GetChild(0).transform.position;
         }
     }
     private Vector3 ColliderEulerAngles {
         get {
+            return transform.eulerAngles;
             return transform.GetChild(0).transform.eulerAngles;
         }
     }
@@ -129,6 +174,9 @@ public class Hand : MonoBehaviour {
     }
 
     private void Update() {
+
+        Logger.PrintVariables("t pos", transform.position, "child t pos", transform.GetChild(0).transform.position);
+
         UpdateVelocity();
 
         if (Grabbed) {
@@ -139,10 +187,10 @@ public class Hand : MonoBehaviour {
     // Alternative: set Rigidbody to kinematic, might cause bugs though
     private void UpdateGrabbedObject() {
         GrabbedRigidbody.velocity = Vector3.zero;
-        GrabbedRigidbody.transform.position = ColliderPosition + grabOffset;
+        // GrabbedRigidbody.transform.position = ColliderPosition + grabOffset;
 
         GrabbedRigidbody.angularVelocity = Vector3.zero;
-        GrabbedRigidbody.transform.eulerAngles = ColliderEulerAngles + rotOffset;
+        // GrabbedRigidbody.transform.eulerAngles = ColliderEulerAngles + rotOffset;
     }
 
 
