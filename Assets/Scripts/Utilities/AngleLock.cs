@@ -23,22 +23,6 @@
     }
 
     public static float FixAngleDeg(float current, float left, float right) {
-        float angle = TrimAngleDeg(current);
-        float leftTrimmed = TrimAngleDeg(left);
-        float rightTrimmed = TrimAngleDeg(right);
-
-        float lockedArea = (360f - (TrimAngleDeg(rightTrimmed - leftTrimmed)))/2f;
-
-        if (angle > TrimAngleDeg(leftTrimmed - lockedArea) && angle < leftTrimmed) {
-            return leftTrimmed;
-        } else if (angle < TrimAngleDeg(rightTrimmed - lockedArea) && angle > rightTrimmed) {
-            return rightTrimmed;
-        }
-
-        return angle;
-    }
-
-    public static float Asdf(float current, float left, float right) {
 
         if (current < left) {
             return left;
