@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneralItem : MonoBehaviour {
+public class GeneralItem : Grabbable {
 
     private int flags;
 
