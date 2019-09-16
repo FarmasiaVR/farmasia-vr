@@ -37,7 +37,7 @@ preclean() {
     if [ -d "${PROJ_DIR}/${BUILD_DIR}" ]; then
         rm -r "${PROJ_DIR}/${BUILD_DIR}" || { echo "ERROR: Failed to delete build directory"; exit 1; }
     fi
-    mkdir -p ${BUILD_DIR} || { echo "ERROR: Failed to create build directory"; exit 1; }
+    mkdir -p "${PROJ_DIR}/${BUILD_DIR}" || { echo "ERROR: Failed to create build directory"; exit 1; }
 }
 
 build() {
