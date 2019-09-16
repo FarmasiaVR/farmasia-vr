@@ -19,6 +19,9 @@ public class VRHandControls : MonoBehaviour {
 
         grab.AddOnStateDownListener(TriggerDown, handType);
         grab.AddOnStateUpListener(TriggerUp, handType);
+
+        padClick.AddOnStateDownListener(PadDown, handType);
+        padClick.AddOnStateUpListener(PadUp, handType);
     }
 
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
@@ -34,9 +37,12 @@ public class VRHandControls : MonoBehaviour {
     
     public void PadDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
 
+        Debug.Log("Pad clicked");
+
+        hand.GrabInteract();
     }
     public void PadUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-
+        hand.GrabUninteract();
     }
 
     public SteamVR_Action_Skeleton Skeleton {
