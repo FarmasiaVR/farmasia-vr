@@ -43,15 +43,42 @@ public class Hand : MonoBehaviour {
 
     }
 
+    private void Update() {
+
+        UpdateVelocity();
+
+        if (Grabbed) {
+            UpdateGrabbedObject();
+        }
+    }
+
+    // Alternative: set Rigidbody to kinematic, might cause bugs though
+    private void UpdateGrabbedObject() {
+        GrabbedRigidbody.velocity = Vector3.zero;
+        // GrabbedRigidbody.transform.position = ColliderPosition + grabOffset;
+
+        GrabbedRigidbody.angularVelocity = Vector3.zero;
+        // GrabbedRigidbody.transform.eulerAngles = ColliderEulerAngles + rotOffset;
+    }
+
+
+    private void UpdateVelocity() {
+
+        Vector3 diff = transform.position - lastPos;
+        velocity = diff / Time.deltaTime;
+        lastPos = transform.position;
+
+        diff = transform.localEulerAngles - lastEulerAngles;
+        angularVelocity = diff / Time.deltaTime;
+        lastEulerAngles = transform.eulerAngles;
+    }
+
     private void AddJoint() {
         joint = gameObject.AddComponent<FixedJoint>();
         joint.breakForce = 1000;
         joint.breakTorque = 1000;
     }
-    private void OnJointBreak(float breakForce) {
-        Debug.Log("Joint force broken: " + breakForce);
-        Release();
-    }
+   
 
     public void InteractWithObject() {
 
@@ -123,6 +150,28 @@ public class Hand : MonoBehaviour {
 
         AttachGrabbedObject();
     }
+    
+
+    private void OnJointBreak(float breakForce) {
+        Debug.Log("Joint force broken: " + breakForce);
+        Release();
+    }
+
+    public void Release() {
+
+        Grabbed = false;
+
+        DeattachGrabbedObject();
+
+        if (GrabbedRigidbody == null) {
+            return;
+        }
+
+        GrabbedRigidbody.velocity = controls.Skeleton.velocity;
+        GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
+    }
+
+    #region Helper functions
     private void AttachGrabbedObject() {
         Joint.connectedBody = GrabbedRigidbody;
     }
@@ -142,20 +191,6 @@ public class Hand : MonoBehaviour {
         lastEulerAngles = transform.eulerAngles;
     }
 
-    public void Release() {
-
-        Grabbed = false;
-
-        DeattachGrabbedObject();
-
-        if (GrabbedRigidbody == null) {
-            return;
-        }
-
-        GrabbedRigidbody.velocity = controls.Skeleton.velocity;
-        GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
-    }
-
     private Vector3 ColliderPosition {
         get {
             // return transform.position;
@@ -172,36 +207,7 @@ public class Hand : MonoBehaviour {
     private void GrabObject() {
         GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
     }
+    #endregion
 
-    private void Update() {
-
-        Logger.PrintVariables("t pos", transform.position, "child t pos", transform.GetChild(0).transform.position);
-
-        UpdateVelocity();
-
-        if (Grabbed) {
-            UpdateGrabbedObject();
-        }
-    }
-
-    // Alternative: set Rigidbody to kinematic, might cause bugs though
-    private void UpdateGrabbedObject() {
-        GrabbedRigidbody.velocity = Vector3.zero;
-        // GrabbedRigidbody.transform.position = ColliderPosition + grabOffset;
-
-        GrabbedRigidbody.angularVelocity = Vector3.zero;
-        // GrabbedRigidbody.transform.eulerAngles = ColliderEulerAngles + rotOffset;
-    }
-
-
-    private void UpdateVelocity() {
-
-        Vector3 diff = transform.position - lastPos;
-        velocity = diff / Time.deltaTime;
-        lastPos = transform.position;
-
-        diff = transform.localEulerAngles - lastEulerAngles;
-        angularVelocity = diff / Time.deltaTime;
-        lastEulerAngles = transform.eulerAngles;
-    }
+   
 }
