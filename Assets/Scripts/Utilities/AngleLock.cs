@@ -15,11 +15,11 @@
         float angle = TrimAngleDeg(current - offset);
 
         if (angle < fakeLeft) {
-            return fakeLeft + offset;
+            return TrimAngleDeg(fakeLeft + offset);
         } else if (angle > fakeRight) {
-            return fakeRight + offset;
+            return TrimAngleDeg(fakeRight + offset);
         } else {
-            return angle + offset;
+            return TrimAngleDeg(angle + offset);
         }
     }
 }
