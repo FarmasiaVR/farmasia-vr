@@ -1,20 +1,22 @@
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreCalculator : MonoBehaviour {
 
-    List<String> zero;
-    List<String> onePlus;
-    List<String> oneMinus;
+    List<string> zero;
+    List<string> onePlus;
+    List<string> oneMinus;
     private int score;
     private int maxScore;
 
     private void Start() {
-        zero = new List<String>();
+        zero = new List<string>();
         AddTasks();
-        onePlus = new List<String>();
-        oneMinus = new List<String>();
+        onePlus = new List<string>();
+        oneMinus = new List<string>();
         score = 0;
         maxScore = 10;
     }

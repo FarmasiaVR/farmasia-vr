@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +26,6 @@ public class ProgressManager : MonoBehaviour {
         activeTasks = new List<ITask>(); 
         doneTasks = new List<ITask>();       
         AddTasks();
-        // AddTask(TaskType.SelectTools);
         progressPointer = 0;
         calculator = new ScoreCalculator();
     }
@@ -36,23 +37,13 @@ public class ProgressManager : MonoBehaviour {
             .ToList();
     }
 
-    //public void AddTask(TaskType task, List<ITask> tasks) {
-    //    tasks.Add(taskFactory.GetTask(task));
-    //}
-
-    //public void AddMultipleTasks(TaskType[] taskTypes) {
-    //    foreach (TaskType taskType in taskTypes) {
-    //        tasks.Add(taskFactory.GetTask(taskType));            
-    //    }
-    //}
-
     public void RemoveTask(ITask task) {
         activeTasks.Remove(task);
         doneTasks.Add(task);
     }
 
     public void MovePointer() {
-        if (progressPointer < tasks.Count) {
+        if (progressPointer < activeTasks.Count) {
             progressPointer++;
         }
     }
