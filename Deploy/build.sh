@@ -12,15 +12,16 @@ UNITY_PATH="/c/Program Files/Unity/Hub/Editor/${UNITY_VERSION}/Editor/Unity.exe"
 # Note that '-nographics' should be removed if GI (Global Illumination) is needed
 UNITY_ARGS="-batchmode -nographics -projectPath ${PROJ_DIR} -build${BUILD_TARGET}Player ${BUILD_DIR}/${EXECUTABLE} -quit -logFile ${LOG_FILE}"
 
-echo "--> Clearing build directory"
-mkdir -p ${BUILD_DIR}
-rm -r ${BUILD_DIR}/*
+fail_exit() {
+    echo "BUILD FAILED! See the log file for details: ${LOG_FILE}"
+    exit 1
+}
 
-# Temp/ is left if the previous build failed for some reason
-echo "--> Deleting temp directory"
-[ -d ${PROJ_DIR}/Temp ] && rm -r ${PROJ_DIR}/Temp
+# == Program start ==
+echo "--> Clearing build directory"
+mkdir -p ${BUILD_DIR} || fail_exit
+rm -r ${BUILD_DIR}/* || fail_exit
 
 echo "--> Creating Unity build"
-"${UNITY_PATH}" ${UNITY_ARGS} && echo "Done." && exit
-
-echo "BUILD FAILED! See the log file for details: ${LOG_FILE}"
+"${UNITY_PATH}" ${UNITY_ARGS} || fail_exit
+echo "Done."
