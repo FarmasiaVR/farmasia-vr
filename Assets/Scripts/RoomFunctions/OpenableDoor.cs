@@ -31,19 +31,16 @@ public class OpenableDoor : MonoBehaviour {
         Vector3 newLastEulerAngles = transform.eulerAngles;
 
         Vector3 initialRot = transform.eulerAngles;
+        
+        Vector3 direction = transform.position - handPos;
+        direction.y = 0;
 
-        Vector3 rot = transform.position - handPos;
-        transform.right = rot;
-        rot = transform.eulerAngles;
-        rot.x = initialRot.x;
-        rot.z = initialRot.z;
+        float offset = -90;
+        Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
+        float angle = rawRotation.eulerAngles.y + offset;
 
-        transform.eulerAngles = FixAngles(rot, newLastEulerAngles);
-        return;
-        float fixedAngle = AngleLock.FixAngleDeg(Angle, startAngle, startAngle + maxAngle);
-        if (Angle != fixedAngle) {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
-        }
+        angle = AngleLock.ClampAngleDeg(angle, startAngle, startAngle + maxAngle);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
     }
 
     private Vector3 FixAngles(Vector3 angles, Vector3 last) {
@@ -101,22 +98,16 @@ public class OpenableDoor : MonoBehaviour {
 
         transform.Rotate(rotateVector);
 
-        float fixedAngle = AngleLock.FixAngleDeg(Angle, startAngle, startAngle + maxAngle);
+        float fixedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle);
+
         if (Angle != fixedAngle) {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
         }
-
-
-        //if (newAngle > maxAngle) {
-        //    transform.eulerAngles = new Vector3(transform.eulerAngles.x, startAngle + maxAngle, transform.eulerAngles.z);
-        //}
-
     }
 
     private float Angle {
         get {
             return transform.eulerAngles.y;
-            //return Mathf.Abs(transform.eulerAngles.y - startAngle);
         }
     }
 }

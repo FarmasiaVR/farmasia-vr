@@ -9,27 +9,17 @@
     }
 
     public static float ClampAngleDeg(float current, float left, float right) {
-        float angle = TrimAngleDeg(current);
-        float leftTrimmed = TrimAngleDeg(left);
-        float rightTrimmed = TrimAngleDeg(right);
-        float divider = TrimAngleDeg((rightTrimmed + leftTrimmed) / 2f + 180);
-        bool isOnLeft = TrimAngleDeg(angle - divider) < 180;
+        float offset = (left + right) / 2 + 180;
+        float fakeLeft = TrimAngleDeg(left - offset);
+        float fakeRight = TrimAngleDeg(right - offset);
+        float angle = TrimAngleDeg(current - offset);
 
-        if (angle > leftTrimmed && isOnLeft)
-            return leftTrimmed;
-        if (angle < rightTrimmed && !isOnLeft)
-            return rightTrimmed;
-        return angle;
-    }
-
-    public static float FixAngleDeg(float current, float left, float right) {
-
-        if (current < left) {
-            return left;
-        } else if (current > right) {
-            return right;
+        if (angle < fakeLeft) {
+            return fakeLeft + offset;
+        } else if (angle > fakeRight) {
+            return fakeRight + offset;
+        } else {
+            return angle + offset;
         }
-
-        return TrimAngleDeg(current);
     }
 }
