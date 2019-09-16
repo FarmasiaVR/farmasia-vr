@@ -93,6 +93,7 @@ public class TaskBase : ITask {
     public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
         Events.SubscribeToEvent(action, Event);
         subscribedEvents.Add(action, Event);
+        
     }
     /// <summary>
     /// Unsubscribes from all events inside Dictionary.

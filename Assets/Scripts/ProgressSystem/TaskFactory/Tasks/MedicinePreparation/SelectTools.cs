@@ -20,6 +20,7 @@ public class SelectTools : TaskBase {
         GameObject g = data.DataObject as GameObject;
         ToggleCondition("SyringePickedUp");
         ToggleCondition("NeedlePickedUp");
+        UISystem.Instance.CreatePopup(-1, "MUAHAHAHAHA! >:D");
         CheckClearConditions();
     }
     #endregion
