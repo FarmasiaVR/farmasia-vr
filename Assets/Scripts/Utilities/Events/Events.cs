@@ -19,6 +19,8 @@ public static class Events {
 
     static Events() {
         Reset();
+
+        Input.
     }
 
     public static void Reset() {
