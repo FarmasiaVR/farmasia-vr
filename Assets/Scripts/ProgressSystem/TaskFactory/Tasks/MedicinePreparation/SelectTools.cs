@@ -20,6 +20,7 @@ public class SelectTools : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
+            Logger.Print("was null");
             return;
         }
         ObjectType type = item.ObjectType;
@@ -40,7 +41,7 @@ public class SelectTools : TaskBase {
 
 
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(-1, "Tools Selected");
+        //UISystem.Instance.CreatePopup(-1, "Tools Selected");
         Logger.Print("All conditions fulfilled, task finished!");
         base.FinishTask();
     }

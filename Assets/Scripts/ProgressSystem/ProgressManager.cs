@@ -6,6 +6,7 @@ using UnityEngine;
 public class ProgressManager : MonoBehaviour {
     #region Fields
     public static ProgressManager Instance { get; private set; }
+    [SerializeField]
     private List<ITask> activeTasks;
     private List<TaskType> doneTypes;
     private List<ITask> doneTasks;
@@ -29,6 +30,7 @@ public class ProgressManager : MonoBehaviour {
     private void Start() {
         activeTasks = new List<ITask>();
         doneTasks = new List<ITask>();
+        doneTypes = new List<TaskType>();
         calculator = new ScoreCalculator();
         AddTasks();
     }
@@ -54,9 +56,10 @@ public class ProgressManager : MonoBehaviour {
     /// </summary>
     /// <param name="task">Refers to task to be removed.</param>
     public void RemoveTask(ITask task) {
-        activeTasks.Remove(task);
         doneTasks.Add(task);
         doneTypes.Add(task.GetTaskType());
+        activeTasks.Remove(task);
+        
     }
     /// <summary>
     /// Returns list presentation of completed tasks.

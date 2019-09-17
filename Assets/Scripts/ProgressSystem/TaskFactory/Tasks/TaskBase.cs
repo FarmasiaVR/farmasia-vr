@@ -45,7 +45,10 @@ public class TaskBase : ITask {
     /// </summary>
     /// <param name="condition">String representation of condition.</param>
     public void ToggleCondition(string condition) {
-        clearConditions[condition] = !clearConditions[condition];
+        if (!clearConditions[condition]) {
+            clearConditions[condition] = true;
+        }
+
     }
     /// <summary>
     /// Adds conditions with list of string conditions.

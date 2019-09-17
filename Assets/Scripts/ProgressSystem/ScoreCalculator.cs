@@ -1,10 +1,8 @@
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class ScoreCalculator : MonoBehaviour {
+public class ScoreCalculator {
 
     List<string> zero;
     List<string> onePlus;
@@ -12,7 +10,7 @@ public class ScoreCalculator : MonoBehaviour {
     private int score;
     private int maxScore;
 
-    private void Start() {
+    public ScoreCalculator() {
         zero = new List<string>();
         AddTasks();
         onePlus = new List<string>();
