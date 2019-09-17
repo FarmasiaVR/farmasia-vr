@@ -8,13 +8,12 @@ public class UISystem : MonoBehaviour {
     public static UISystem Instance { get; private set; }
     List<GameObject> popUps = new List<GameObject>();
     GameObject blankPoint;
-    GameObject canvas;
+    GameObject cameraRig;
 
     public UISystem() {
     }
 
     void Start() {
-        canvas = transform.gameObject;
         blankPoint = transform.Find("Blank").gameObject;
     }
 
@@ -26,10 +25,6 @@ public class UISystem : MonoBehaviour {
         }
     }
 
-    public void addChild(GameObject textField) {
-        textField.transform.SetParent(canvas.transform);
-
-    }
 
     public void deleteChild(GameObject popupObject) {
         popUps.Remove(popupObject);

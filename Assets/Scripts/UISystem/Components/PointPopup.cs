@@ -1,17 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class PointPopup : MonoBehaviour {
-    private bool executeOnce = false;
-    private int lifetime = 300;
+
+    AudioSource audio;
+
+    private float timer = 0.0f;
+    private float visualTime = 3.0f;
+    private float fadeInAndOut = 2.0f;
+
+    private float transparency = 0.0f;
+
+    private bool fadeInCompleted = false;
+    private bool visualCompleted = false;
+
     private string text;
     private int point;
+
     [SerializeField]
     private GameObject textObject;
     [SerializeField]
-    private Text textField;
+    private TextMeshPro textField;
+    private Color colour;
+
+    
 
     public PointPopup() {
 
@@ -20,8 +33,10 @@ public class PointPopup : MonoBehaviour {
 
     void Start() {
         textObject = transform.gameObject;
-        textField = textObject.GetComponent<Text>();
-        UISystem.Instance.addChild(textObject);
+        textField = textObject.GetComponent<TextMeshPro>();
+        textField.color = new Color(255, 0, 0, 0);
+        audio = GetComponent<AudioSource>();
+        audio.enabled = false;
 
     }
 
@@ -36,21 +51,39 @@ public class PointPopup : MonoBehaviour {
 
 
     private void Update() {
-        if (!executeOnce) {
-            executeOnce = true;
-            setText();
-        }
 
 
-        if (textObject != null) {
+        timer += Time.deltaTime;
 
-            if (lifetime <= 0) {
-                Logger.Print("DELETE!");
-                Destroy(transform.gameObject);
-
+        if (!fadeInCompleted) {
+            transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
+            textField.color = new Color(255, 0, 0, transparency);
+            textObject.transform.position += new Vector3(0, 0.01f, 0);
+            if (timer > fadeInAndOut) {
+                
+                textField.color = new Color(255, 0, 0, transparency);
+                timer -= fadeInAndOut;
+                fadeInCompleted = true;
+                audio.enabled = true;
             }
-            textObject.transform.position += new Vector3(0, 2, 0);
-            lifetime--;
+
+        } else {
+            if (!visualCompleted) {
+
+                if (timer > visualTime) {
+                    timer -= visualTime;
+                    visualCompleted = true;
+                }
+
+            } else {
+                transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
+                textField.color = new Color(255, 0, 0, transparency);
+                textObject.transform.position += new Vector3(0, -0.01f, 0);
+                if (timer > fadeInAndOut) {
+                    timer -= fadeInAndOut;
+                    Destroy(transform.gameObject);
+                }
+            }
         }
 
     }
