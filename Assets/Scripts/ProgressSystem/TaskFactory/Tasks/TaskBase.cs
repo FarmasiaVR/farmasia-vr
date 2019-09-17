@@ -8,14 +8,18 @@ using System.Collections.Generic;
 /// </summary>
 public class TaskBase : ITask {
 
+    #region Fields
     protected TaskType taskType;
-    protected bool finished = false;
-    protected bool removedWhenFinished = false;
+    protected bool isFinished = false;
+    protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
+    protected bool previousTasksCompleted = false;
 
     protected Dictionary<string, bool> clearConditions = new Dictionary<string, bool>();
+    protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
+    #endregion
 
-    Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
+    #region Constructor
     /// <summary>
     /// Constructor for Task Base.
     /// </summary>
@@ -23,31 +27,103 @@ public class TaskBase : ITask {
     /// <param name="previous">Task requires previous tasks completion linearly.</param>
     public TaskBase(TaskType type, bool remove, bool previous) {
         taskType = type;
-        removedWhenFinished = remove;
+        removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
     }
+    #endregion
 
-    public virtual TaskType GetTaskType() {
+    #region Public Methods
+    /// <summary>
+    /// Return the type of current task.
+    /// </summary>
+    /// <returns>returns TaskType enum.</returns>
+    public TaskType GetTaskType() {
         return taskType;
     }
+    /// <summary>
+    /// Toggles condition by given string.
+    /// </summary>
+    /// <param name="condition">String representation of condition.</param>
+    public void ToggleCondition(string condition) {
+        clearConditions[condition] = !clearConditions[condition];
+    }
+    /// <summary>
+    /// Adds conditions with list of string conditions.
+    /// </summary>
+    /// <param name="conditions">List of string conditions</param>
+    public void AddConditions(string[] conditions) {
+        foreach (string condition in conditions) {
+            clearConditions.Add(condition, false);
+        }
+    }
+    /// <summary>
+    /// Removes current task if the task has been set to be removed.
+    /// </summary>
+    public void Remove() {
+        if (removeWhenFinished) {
+            ProgressManager.Instance.RemoveTask(this);
+        }
+    }
+    /// <summary>
+    /// Subscribes to Events and adds them to a Dictionary.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="Event"></param>
+    public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
+        Events.SubscribeToEvent(action, Event);
+        subscribedEvents.Add(action, Event);
 
+    }
+    /// <summary>
+    /// Unsubscribes from all events inside Dictionary.
+    /// </summary>
+    public void UnsubscribeAllEvents() {
+        foreach (Events.EventDataCallback action in subscribedEvents.Keys) {
+            Events.UnsubscribeFromEvent(action, subscribedEvents[action]);
+        }
+    }
+    #endregion
+
+    #region Protected Methods
     /// <summary>
     /// Used for checking if previous tasks before current task are completed.
     /// </summary>
     /// <returns>
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
-    public virtual bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-    //    List<ITask> found = new List<ITask>();
-    //    found = ProgressManager.Instance.GetDoneTasks()
-    //        .Cast<ITask>()
-    //        .Select(v => tasks.Contains(v.GetTaskType()))
-    //        .ToList();
-    //    if (found.Any() && found.Count.Equals(tasks.Count)) {
-    //        return true;
-    //    }
+    protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
+        previousTasksCompleted = true;
+        List<TaskType> completed = ProgressManager.Instance.GetDoneTaskTypes();
+        foreach (TaskType type in tasks) {
+            if (!completed.Contains(type)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    /// <summary>
+    /// Checks if conditions have been cleared.
+    /// </summary>
+    /// <param name="checkAll"></param>
+    /// <returns></returns>
+    protected bool CheckClearConditions(bool checkAll) {
+        if (checkAll) {
+            if (!clearConditions.ContainsValue(false)) {
+                FinishTask();
+                return true;
+            }
+            return false;
+        }
+        if (clearConditions.ContainsValue(true)) {
+            FinishTask();
+            return true;
+        }
         return false;
     }
+    #endregion
+
+    #region Virtual Methods
+
     /// <summary>
     /// Used for finishing current task. Task is either removed or preserved.
     /// </summary>
@@ -79,52 +155,9 @@ public class TaskBase : ITask {
     public virtual void Subscribe() {
     }
 
-    public bool CheckClearConditions(bool checkAll) {
-        if (!checkAll) {
-            if (clearConditions.ContainsValue(true)) {
-                FinishTask();
-                return true;
-            }
-            return false;
-        }
-        if (!clearConditions.ContainsValue(false)) {
-            FinishTask();
-            return true;
-        }
-        return false;
-    }
 
-    public void ToggleCondition(string condition) {
-        clearConditions[condition] = !clearConditions[condition];
-    }
 
-    public void AddConditions(string[] conditions) {
-        foreach (string condition in conditions) {
-            clearConditions.Add(condition, false);
-        }
-    }
 
-    public void Remove() {
-        if (removedWhenFinished) {
-            ProgressManager.Instance.RemoveTask(this);
-        }
-    }
-    /// <summary>
-    /// Subscribes to Events and adds them to a Dictionary.
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="Event"></param>
-    public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
-        Events.SubscribeToEvent(action, Event);
-        subscribedEvents.Add(action, Event);
-        
-    }
-    /// <summary>
-    /// Unsubscribes from all events inside Dictionary.
-    /// </summary>
-    public void UnsubscribeAllEvents() {
-        foreach (Events.EventDataCallback action in subscribedEvents.Keys) {
-            Events.UnsubscribeFromEvent(action, subscribedEvents[action]);
-        }
-    }
+    #endregion
+
 }

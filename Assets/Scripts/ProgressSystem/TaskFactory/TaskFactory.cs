@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class TaskFactory {
-    public ITask GetTask(TaskType type) {
+public static class TaskFactory {
+    public static ITask GetTask(TaskType type) {
         switch (type) {
             case TaskType.SelectTools:
                 return new SelectTools();

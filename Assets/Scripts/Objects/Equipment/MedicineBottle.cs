@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MedicineBottle : GeneralItem {
 
-    [SerializeField]
-    private ObjectType objectType = ObjectType.Bottle;
-    public ObjectType ObjectType { get => objectType; }
 
     [SerializeField]
     private int size = 100;
@@ -33,6 +30,7 @@ public class MedicineBottle : GeneralItem {
     }
     void Start() {
         base.Start();
+        objectType = ObjectType.Bottle;
     }
 
 }

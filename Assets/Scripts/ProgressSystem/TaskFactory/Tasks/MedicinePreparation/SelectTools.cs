@@ -18,12 +18,21 @@ public class SelectTools : TaskBase {
     }
     private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        ToggleCondition("SyringePickedUp");
-        ToggleCondition("NeedlePickedUp");
-        ToggleCondition("LuerlockPickedUp");
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        if (item == null) {
+            return;
+        }
+        ObjectType type = item.ObjectType;
 
-        UISystem.Instance.CreatePopup(-1, "MUAHAHAHAHA! >:D");
-
+        if (type == ObjectType.Syringe) {
+            ToggleCondition("SyringePickedUp");
+        }
+        if (type == ObjectType.Needle) {
+            ToggleCondition("NeedlePickedUp");
+        }
+        if (type == ObjectType.Luerlock) {
+            ToggleCondition("LuerlockPickedUp");
+        }
         CheckClearConditions(false);
     }
     #endregion
@@ -31,6 +40,7 @@ public class SelectTools : TaskBase {
 
 
     public override void FinishTask() {
+        UISystem.Instance.CreatePopup(-1, "Tools Selected");
         Logger.Print("All conditions fulfilled, task finished!");
         base.FinishTask();
     }

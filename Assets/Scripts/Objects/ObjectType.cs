@@ -1,4 +1,5 @@
 ﻿public enum ObjectType {
+    None,
     Syringe,
     Luerlock,
     Medicine,

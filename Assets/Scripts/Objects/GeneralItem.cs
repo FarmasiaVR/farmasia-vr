@@ -7,6 +7,10 @@ public class GeneralItem : Grabbable {
     private int flags;
 
     [SerializeField]
+    protected ObjectType objectType = ObjectType.None;
+    public virtual ObjectType ObjectType { get => objectType; }
+
+    [SerializeField]
     private bool clean;
 
     protected override void Start() {

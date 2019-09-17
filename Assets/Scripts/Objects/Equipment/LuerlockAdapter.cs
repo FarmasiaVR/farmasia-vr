@@ -5,10 +5,6 @@ using UnityEngine;
 public class LuerlockAdapter : GeneralItem {
 
     [SerializeField]
-    private ObjectType objectType = ObjectType.Luerlock;
-    public ObjectType ObjectType { get => objectType; }
-
-    [SerializeField]
     private GameObject attachedObject1;
     public GameObject AttachedObject1 {
         get => attachedObject1;
@@ -28,6 +24,7 @@ public class LuerlockAdapter : GeneralItem {
 
     void Start() {
         base.Start();
+        objectType = ObjectType.Luerlock;
     }
 
 }

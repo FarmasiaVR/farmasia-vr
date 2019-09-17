@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressManager : MonoBehaviour {
-
+    #region Fields
     public static ProgressManager Instance { get; private set; }
-    private TaskFactory taskFactory;
-    List<ITask> activeTasks;
-    List<ITask> doneTasks;
+    private List<ITask> activeTasks;
+    private List<TaskType> doneTypes;
+    private List<ITask> doneTasks;
     private ScoreCalculator calculator;
+    #endregion
 
+    #region Initialize
+    /// <summary>
+    /// Creates a singleton of ProgressManager.
+    /// </summary>
     private void Awake() {
         if (Instance != null && Instance != this) {
             Destroy(this.gameObject);
@@ -19,28 +23,54 @@ public class ProgressManager : MonoBehaviour {
             Instance = this;
         }
     }
-
+    /// <summary>
+    /// Initiates ProgressManager fields.
+    /// </summary>
     private void Start() {
-        taskFactory = new TaskFactory();
-        activeTasks = new List<ITask>(); 
-        doneTasks = new List<ITask>();       
-        AddTasks();
+        activeTasks = new List<ITask>();
+        doneTasks = new List<ITask>();
         calculator = new ScoreCalculator();
+        AddTasks();
     }
+    #endregion
 
+    #region Private Methods
+    /// <summary>
+    /// Creates a single task from every enum TaskType object.
+    /// Adds tasks into currently activeTasks.
+    /// </summary>
     private void AddTasks() {
         activeTasks = Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
-            .Select(v => taskFactory.GetTask(v))
+            .Select(v => TaskFactory.GetTask(v))
             .ToList();
     }
+    #endregion
 
+    #region Public Methods
+    /// <summary>
+    /// Removes task from current active list and adds them to doneTasks list.
+    /// Tasks are still active inside doneTasks list!
+    /// </summary>
+    /// <param name="task">Refers to task to be removed.</param>
     public void RemoveTask(ITask task) {
         activeTasks.Remove(task);
         doneTasks.Add(task);
+        doneTypes.Add(task.GetTaskType());
     }
-
-    public List<ITask> GetDoneTasks() {
-        return doneTasks;
+    /// <summary>
+    /// Returns list presentation of completed tasks.
+    /// </summary>
+    /// <returns>returns doneTypes list.</returns>
+    public List<TaskType> GetDoneTaskTypes() {
+        return doneTypes;
     }
+    /// <summary>
+    /// Returns Score Calculator for point addition.
+    /// </summary>
+    /// <returns>Returns ScoreCalculator object</returns>
+    public ScoreCalculator GetCalculator() {
+        return calculator;
+    }
+    #endregion
 }
