@@ -9,6 +9,6 @@ public class Grabbable : Interactable {
 
     protected override void Start() {
         base.Start();
-        type = GrabType.Grabbable;
+        type = InteractableType.Grabbable;
     }
 }

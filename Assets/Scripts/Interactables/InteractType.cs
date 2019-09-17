@@ -1,4 +1,4 @@
-﻿public enum GrabType {
+﻿public enum InteractableType {
     Grabbable,
     Interactable,
     GrabbableAndInteractable,

@@ -7,7 +7,7 @@ public class TestGrabInteractItem : Interactable {
     protected override void Start() {
         base.Start();
 
-        type = GrabType.GrabbableAndInteractable;
+        type = InteractableType.GrabbableAndInteractable;
     }
 
     public override void Interact(Hand hand) {

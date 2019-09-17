@@ -6,7 +6,7 @@ public class TestStaticInteractable : Interactable {
 
     protected override void Start() {
         base.Start();
-        type = GrabType.Interactable;
+        type = InteractableType.Interactable;
     }
 
     public override void Interact(Hand hand) {

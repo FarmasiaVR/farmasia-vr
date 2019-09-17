@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
-    protected GrabType type;
-    public GrabType Type { get => type; }
+    protected InteractableType type;
+    public InteractableType Type { get => type; }
 
     protected virtual void Start() {
         gameObject.AddComponent<ObjectHighlight>();

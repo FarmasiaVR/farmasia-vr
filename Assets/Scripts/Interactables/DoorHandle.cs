@@ -13,7 +13,7 @@ public class DoorHandle : Interactable {
 
         door = transform.parent.GetComponent<OpenableDoor>();
 
-        type = GrabType.Interactable;
+        type = InteractableType.Interactable;
     }
 
     private void Update() {
