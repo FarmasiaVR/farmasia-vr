@@ -35,7 +35,7 @@ unzip_zip() {
     mkdir -p "${OUTPUT_DIR}"
 
     echo "  --> Unzipping zip file"
-    unzip -u "${TMP_DIR}/${ZIP_FILE}" -d "${OUTPUT_DIR}" >/dev/null 2>&1
+    unzip -u -o "${TMP_DIR}/${ZIP_FILE}" -d "${OUTPUT_DIR}" >/dev/null 2>&1
 
     echo "  --> Deleting temporary directory"
     rm -r "${TMP_DIR}"
