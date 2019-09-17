@@ -32,5 +32,13 @@ namespace Valve.VR
                 return SteamVR_Actions.testControlsSet_GrabInteract;
             }
         }
+        
+        public virtual SteamVR_Action_Boolean Teleport
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_Teleport;
+            }
+        }
     }
 }

@@ -55,6 +55,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_testControlsSet_GrabInteract;
         
+        private static SteamVR_Action_Boolean p_testControlsSet_Teleport;
+        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -207,6 +209,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean testControlsSet_Teleport
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_Teleport.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[] {
@@ -228,7 +238,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract};
+                    SteamVR_Actions.testControlsSet_GrabInteract,
+                    SteamVR_Actions.testControlsSet_Teleport};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -247,7 +258,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract};
+                    SteamVR_Actions.testControlsSet_GrabInteract,
+                    SteamVR_Actions.testControlsSet_Teleport};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -265,7 +277,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract};
+                    SteamVR_Actions.testControlsSet_GrabInteract,
+                    SteamVR_Actions.testControlsSet_Teleport};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.buggy_Throttle};
@@ -290,7 +303,8 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract};
+                    SteamVR_Actions.testControlsSet_GrabInteract,
+                    SteamVR_Actions.testControlsSet_Teleport};
         }
         
         private static void PreInitActions()
@@ -314,6 +328,7 @@ namespace Valve.VR
             SteamVR_Actions.p_mixedreality_ExternalCamera = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/mixedreality/in/ExternalCamera")));
             SteamVR_Actions.p_testControlsSet_Grab = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Grab")));
             SteamVR_Actions.p_testControlsSet_GrabInteract = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/GrabInteract")));
+            SteamVR_Actions.p_testControlsSet_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Teleport")));
         }
     }
 }
