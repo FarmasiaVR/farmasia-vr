@@ -139,8 +139,6 @@ public class Hand : MonoBehaviour {
     }
     #endregion
 
-
-
     private void Grab() {
 
         GrabObject();
@@ -182,6 +180,8 @@ public class Hand : MonoBehaviour {
         if (GrabbedRigidbody == null) {
             return;
         }
+
+        ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
         GrabbedRigidbody.velocity = controls.Skeleton.velocity;
         GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
