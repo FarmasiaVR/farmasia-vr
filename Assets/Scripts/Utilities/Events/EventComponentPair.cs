@@ -3,16 +3,16 @@ using UnityEngine;
 
 public struct CallbackComponentPair {
 
-    public Events.EventCallback CallbackNoData;
-    public Events.EventCallbackWithData CallbackWithData;
+    public Events.EventEmptyCallback CallbackNoData;
+    public Events.EventDataCallback CallbackWithData;
     public Component Component;
 
-    public CallbackComponentPair(Events.EventCallbackWithData callback, Component component) {
+    public CallbackComponentPair(Events.EventDataCallback callback, Component component) {
         CallbackNoData = null;
         CallbackWithData = callback;
         Component = component;
     }
-    public CallbackComponentPair(Events.EventCallback callback, Component component) {
+    public CallbackComponentPair(Events.EventEmptyCallback callback, Component component) {
         CallbackNoData = callback;
         CallbackWithData = null;
         Component = component;
@@ -34,7 +34,7 @@ public struct CallbackComponentPair {
 
     public override int GetHashCode() {
         var hashCode = 1022924694;
-        hashCode = hashCode * -1521134295 + EqualityComparer<Events.EventCallbackWithData>.Default.GetHashCode(CallbackWithData);
+        hashCode = hashCode * -1521134295 + EqualityComparer<Events.EventDataCallback>.Default.GetHashCode(CallbackWithData);
         hashCode = hashCode * -1521134295 + EqualityComparer<Component>.Default.GetHashCode(Component);
         return hashCode;
     }

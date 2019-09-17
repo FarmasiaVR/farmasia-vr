@@ -1,4 +1,5 @@
-﻿using System.Collections;
+//HUOM! 1. versio, ei lopullinen -> uusi versio kun VR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

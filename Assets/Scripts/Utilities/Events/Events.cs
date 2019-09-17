@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,11 +8,10 @@ using UnityEngine;
 public static class Events {
 
     #region fields
-    public delegate void EventCallback();
-    public delegate void EventCallbackWithData(CallbackData data);
+    public delegate void EventEmptyCallback();
+    public delegate void EventDataCallback(CallbackData data);
 
-    public static Dictionary<EventType, EventCallbackWithData> eventsData;
-    public static Dictionary<EventType, EventCallback> eventsNoData;
+    private static Dictionary<EventType, Delegate> eventsData;
 
     private static Dictionary<EventType, ComponentEventsContainer> componentEventsData;
     private static Dictionary<EventType, ComponentEventsContainer> componentEventsNoData;
@@ -22,9 +22,7 @@ public static class Events {
     }
 
     public static void Reset() {
-
-        eventsNoData = new Dictionary<EventType, EventCallback>();
-        eventsData = new Dictionary<EventType, EventCallbackWithData>();
+        eventsData = new Dictionary<EventType, Delegate>();
 
         componentEventsNoData = new Dictionary<EventType, ComponentEventsContainer>();
         componentEventsData = new Dictionary<EventType, ComponentEventsContainer>();
@@ -37,20 +35,19 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, EventType type) {
-
-        if (!eventsNoData.ContainsKey(type)) {
-            eventsNoData.Add(type, callback);
-        } else {
-            eventsNoData[type] += callback;
-        }
+    public static void SubscribeToEvent(EventEmptyCallback callback, EventType type) {
+        AddToDelegateDictionary<EventType>(eventsData, type, callback);
     }
-    public static void SubscribeToEvent(EventCallbackWithData callback, EventType type) {
 
-        if (!eventsData.ContainsKey(type)) {
-            eventsData.Add(type, callback);
+    public static void SubscribeToEvent(EventDataCallback callback, EventType type) {
+        AddToDelegateDictionary<EventType>(eventsData, type, callback);
+    }
+
+    private static void AddToDelegateDictionary<K>(Dictionary<K, Delegate> dict, K key, Delegate value) {
+        if (!dict.ContainsKey(key)) {
+            dict.Add(key, value);
         } else {
-            eventsData[type] += callback;
+            dict[key] = Delegate.Combine(dict[key], value);
         }
     }
 
@@ -60,7 +57,7 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="component"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventCallback callback, Component component, EventType type) {
+    public static void SubscribeToEvent(EventEmptyCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -72,7 +69,8 @@ public static class Events {
             componentEventsData[type].AddPair(pair);
         }
     }
-    public static void SubscribeToEvent(EventCallbackWithData callback, Component component, EventType type) {
+
+    public static void SubscribeToEvent(EventDataCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -92,20 +90,19 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, EventType type) {
-
-        if (!eventsNoData.ContainsKey(type)) {
-            eventsNoData.Add(type, callback);
-        } else {
-            eventsNoData[type] = callback;
-        }
+    public static void OverrideSubscription(EventEmptyCallback callback, EventType type) {
+        SetValueDelegateDictionary(eventsData, type, callback);
     }
-    public static void OverrideSubscription(EventCallbackWithData callback, EventType type) {
 
-        if (!eventsData.ContainsKey(type)) {
-            eventsData.Add(type, callback);
+    public static void OverrideSubscription(EventDataCallback callback, EventType type) {
+        SetValueDelegateDictionary(eventsData, type, callback);
+    }
+
+    private static void SetValueDelegateDictionary<K>(Dictionary<K, Delegate> dict, K key, Delegate value) {
+        if (!dict.ContainsKey(key)) {
+            dict.Add(key, value);
         } else {
-            eventsData[type] = callback;
+            dict[key] = value;
         }
     }
 
@@ -114,7 +111,7 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventCallback callback, Component component, EventType type) {
+    public static void OverrideSubscription(EventEmptyCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -122,7 +119,8 @@ public static class Events {
         cont.AddPair(pair);
         componentEventsData.Add(type, cont);
     }
-    public static void OverrideSubscription(EventCallbackWithData callback, Component component, EventType type) {
+
+    public static void OverrideSubscription(EventDataCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -138,18 +136,19 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void UnsubscribeFromEvent(EventCallback callback, EventType type) {
-
-        if (eventsNoData.ContainsKey(type)) {
-            eventsNoData[type] -= callback;
-        }
-    }
-    public static void UnsubscribeFromEvent(EventCallbackWithData callback, EventType type) {
+    public static void UnsubscribeFromEvent(EventEmptyCallback callback, EventType type) {
         if (eventsData.ContainsKey(type)) {
-            eventsData[type] -= callback;
+            eventsData[type] = Delegate.RemoveAll(eventsData[type], callback);
         }
     }
-    public static void UnsubscribeFromEvent(EventCallback callback, Component component, EventType type) {
+
+    public static void UnsubscribeFromEvent(EventDataCallback callback, EventType type) {
+        if (eventsData.ContainsKey(type)) {
+            eventsData[type] = Delegate.RemoveAll(eventsData[type], callback);
+        }
+    }
+
+    public static void UnsubscribeFromEvent(EventEmptyCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -157,7 +156,8 @@ public static class Events {
             componentEventsData[type].Unsubscribe(pair);
         }
     }
-    public static void UnsubscribeFromEvent(EventCallbackWithData callback, Component component, EventType type) {
+
+    public static void UnsubscribeFromEvent(EventDataCallback callback, Component component, EventType type) {
 
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -174,49 +174,37 @@ public static class Events {
     /// </summary>
     /// <param name="type"></param>
     public static void FireEvent(EventType type) {
-        CallDefaultCallbacks(type, CallbackData.NoData());
+        CallDefaultCallbacks(type);
         CallComponentCallbacks(type, CallbackData.NoData());
     }
+
     public static void FireEvent(EventType type, CallbackData data) {
         CallDefaultCallbacks(type, data);
         CallComponentCallbacks(type, data);
     }
 
-    private static void CallDefaultCallbacks(EventType type, CallbackData data) {
-
-        // No data
-        if (!eventsNoData.ContainsKey(type)) {
-            return;
-        }
-
-        eventsNoData[type]?.Invoke();
-
-        // With data
+    private static void CallDefaultCallbacks(EventType type, CallbackData? data = null) {
         if (!eventsData.ContainsKey(type)) {
             return;
         }
 
-        eventsData[type]?.Invoke(data);
+        if (data == null) {
+            (eventsData[type] as EventEmptyCallback)?.Invoke();
+        } else {
+            (eventsData[type] as EventDataCallback)?.Invoke((CallbackData) data);
+        }
     }
 
     private static void CallComponentCallbacks(EventType type, CallbackData data) {
+        ComponentEventsContainer cont = null;
 
-        // No data
-        ComponentEventsContainer cont;
+        if (componentEventsNoData.TryGetValue(type, out cont)) {
+            cont.FireIfNotNull(data);
+        }
 
-        componentEventsNoData.TryGetValue(type, out cont);
-        cont?.FireIfNotNull(data);
-
-        // With data
-
-        componentEventsData.TryGetValue(type, out cont);
-        cont?.FireIfNotNull(data);
+        if (componentEventsData.TryGetValue(type, out cont)) {
+            cont.FireIfNotNull(data);
+        }
     }
     #endregion
-
-    //private static EventCallbackWithData EncapsulateCallback(EventCallback callback) {
-    //    return delegate (CallbackData data) {
-    //        callback();
-    //    };
-    //}
 }
