@@ -4,5 +4,7 @@
     C,
     PickupObject,
     PutObject,
-    ArrangeItems
+    ArrangeItems,
+    FinalArrangeItems ,
+    AmountOfItems
 }

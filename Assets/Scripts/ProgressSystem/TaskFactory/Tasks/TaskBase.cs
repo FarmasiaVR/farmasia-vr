@@ -95,13 +95,13 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        previousTasksCompleted = true;
         List<TaskType> completed = ProgressManager.Instance.GetDoneTaskTypes();
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;
             }
         }
+        previousTasksCompleted = true;
         return true;
     }
     /// <summary>

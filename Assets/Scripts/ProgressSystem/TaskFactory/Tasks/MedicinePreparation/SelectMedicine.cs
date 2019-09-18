@@ -17,7 +17,16 @@ public class SelectMedicine : TaskBase  {
     }
     private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        ToggleCondition("BottlePickup");
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        if (item == null) {
+            Logger.Print("was null");
+            return;
+        }
+        ObjectType type = item.ObjectType;
+
+        if (type == ObjectType.Bottle) {
+            ToggleCondition("BottlePickup");
+        }
         CheckClearConditions(true);
     }
     #endregion

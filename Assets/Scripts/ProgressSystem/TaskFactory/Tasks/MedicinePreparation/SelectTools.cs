@@ -51,6 +51,6 @@ public class SelectTools : TaskBase {
     }
 
     public override string GetHint() {
-        return "Huoneessa on lääkkeen valmistukseen tarvittavia välineitä. Valitse oikea määrä tarvittavia välineitä.";
+        return "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä tarvittavia välineitä.";
     }
 }

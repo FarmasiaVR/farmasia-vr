@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Layout1 : TaskBase {
 
-    private string[] conditions = {"ItemsArranged"};
+    private string[] conditions = {"AtLeastThree", "ItemsArranged"};
  
     public Layout1() : base(TaskType.Layout1, true, false) {
         Subscribe();
@@ -12,18 +12,38 @@ public class Layout1 : TaskBase {
     }
 
     #region Event Subscriptions
-    public override void Subscribe() {
+    public override void Subscribe() { 
         base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
     }
     private void ArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        if (item == null) {
+            Logger.Print("was null");
+            return;
+        }
+        ObjectType type = item.ObjectType;
+        if (AtLeastThree()) {
+            ToggleCondition("AtLeastThree");
+        }
+        //checks that the items are arranged correctly
         ToggleCondition("ItemsArranged");
-        CheckClearConditions(true);
+        bool check = CheckClearConditions(true);
+        if (!check && AtLeastThree()) {
+            Logger.Print("All conditions not fulfilled but task closed.");
+            ProgressManager.Instance.GetCalculator().Substract(TaskType.Layout1);
+            base.UnsubscribeAllEvents();
+        }
+    }
+   //checks that at least three items are placed before going through the door
+    private bool AtLeastThree() {
+        return false;
     }
     #endregion
 
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
+        ProgressManager.Instance.GetCalculator().Add(TaskType.Layout1);
         base.FinishTask();
     }
 
