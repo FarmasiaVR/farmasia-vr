@@ -1,5 +1,6 @@
 ﻿public enum MessageType {
     mistake,
-    error,
-    warning
+    notify,
+    warning,
+    error
 }

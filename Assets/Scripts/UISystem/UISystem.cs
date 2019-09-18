@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class UISystem : MonoBehaviour {
 
+    public GameObject popup;
+
     public static UISystem Instance { get; private set; }
     List<GameObject> popUps = new List<GameObject>();
     GameObject blankPoint;
     GameObject cameraRig;
-
-    public UISystem() {
-    }
 
     void Start() {
         blankPoint = transform.Find("Blank").gameObject;
@@ -24,18 +23,13 @@ public class UISystem : MonoBehaviour {
             Instance = this;
         }
     }
-
-
     public void deleteChild(GameObject popupObject) {
         popUps.Remove(popupObject);
     }
-
-    public void CreatePopup(int point, string message) {
-        GameObject copy = Instantiate(blankPoint);
-        copy.transform.position = blankPoint.transform.position;
-        copy.AddComponent<PointPopup>();
-        copy.GetComponent<PointPopup>().setPointAndText(point, message);
-        popUps.Add(copy);
+    public void CreatePopup(int point, string message, MessageType type) {
+        GameObject popupMessage = Instantiate(popup, new Vector3(0, 0, 10), Quaternion.identity);
+        popupMessage.GetComponent<PointPopup>().setPopup(point, message, type);
+        popUps.Add(popupMessage);
     }
 
 

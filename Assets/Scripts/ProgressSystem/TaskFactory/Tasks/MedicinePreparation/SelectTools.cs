@@ -41,7 +41,7 @@ public class SelectTools : TaskBase {
 
 
     public override void FinishTask() {
-        //UISystem.Instance.CreatePopup(-1, "Tools Selected");
+        UISystem.Instance.CreatePopup(1, "Tools Selected", MessageType.notify);
         Logger.Print("All conditions fulfilled, task finished!");
         base.FinishTask();
     }
