@@ -31,6 +31,8 @@ public class DoorHandle : Interactable {
 
         Logger.Print("Door interact");
 
+        door.SetAngleOffset(hand.transform.position);
+
         this.hand = hand;
 
         grabbed = true;

@@ -148,7 +148,7 @@ public class Hand : MonoBehaviour {
         }
 
         // Fix later
-        GrabbedRigidbody.transform.position = transform.GetChild(0).position;
+        // GrabbedRigidbody.transform.position = transform.GetChild(0).position;
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 

@@ -23,13 +23,14 @@ public class OpenableDoor : MonoBehaviour {
 
     private Transform handle;
     private float grabLength;
-
+    private float angleOffset;
     #endregion
 
     private void Start() {
         startAngle = transform.eulerAngles.y;
         handle = transform.Find("Handle");
         grabLength = (handle.position - transform.position).magnitude * 0.9f;
+        grabLength = float.MaxValue;
     }
 
     public void SetByHandPosition(Hand hand) {
@@ -45,16 +46,24 @@ public class OpenableDoor : MonoBehaviour {
         lastEulerAngles = transform.eulerAngles;
 
         Vector3 initialRot = transform.eulerAngles;
-        
+
         Vector3 direction = transform.position - handPos;
         direction.y = 0;
 
-        float offset = -75;
         Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
-        float angle = rawRotation.eulerAngles.y + offset;
+        float angle = rawRotation.eulerAngles.y + angleOffset;
 
         angle = AngleLock.ClampAngleDeg(angle, startAngle, startAngle + maxAngle);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+    }
+
+    public void SetAngleOffset(Vector3 handPos) {
+
+        handPos.y = transform.position.y;
+        float offsetAdd = Vector3.SignedAngle(handPos - transform.position, -transform.right, Vector3.up);
+        float offset = -90 + offsetAdd;
+
+        angleOffset = offset;
     }
 
     public void ReleaseDoor() {

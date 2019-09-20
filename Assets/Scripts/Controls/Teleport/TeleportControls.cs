@@ -14,6 +14,7 @@ public class TeleportControls : MonoBehaviour {
     private Vector3 hitPos;
 
     private Transform player;
+    private Transform pHead;
     #endregion
 
 
@@ -23,6 +24,7 @@ public class TeleportControls : MonoBehaviour {
         arc = new TeleportArc();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        pHead = player.GetChild(2);
     }
 
     public void StartTeleport() {
@@ -64,6 +66,13 @@ public class TeleportControls : MonoBehaviour {
             return;
         }
 
-        player.transform.position = hitPos;
+        player.transform.position = hitPos - CameraOffset();
+    }
+    private Vector3 CameraOffset() {
+
+        Vector3 offset = pHead.position - player.position;
+        offset.y = 0;
+
+        return offset;
     }
 }
