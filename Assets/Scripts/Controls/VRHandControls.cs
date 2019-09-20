@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Valve.VR;
 
 public class VRHandControls : MonoBehaviour {
@@ -19,7 +17,6 @@ public class VRHandControls : MonoBehaviour {
     #endregion
 
     void Start() {
-
         hand = GetComponent<Hand>();
         teleport = GetComponent<TeleportControls>();
 
@@ -39,6 +36,7 @@ public class VRHandControls : MonoBehaviour {
 
         hand.InteractWithObject();
     }
+
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         Debug.Log("Trigger is up: " + handType);
         hand.UninteractWithObject();
@@ -49,6 +47,7 @@ public class VRHandControls : MonoBehaviour {
     public void MenuDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         teleport.StartTeleport();
     }
+
     public void MenuUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         teleport.EndTeleport();
     }
@@ -58,6 +57,7 @@ public class VRHandControls : MonoBehaviour {
     public void PadDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         hand.GrabInteract();
     }
+
     public void PadUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         hand.GrabUninteract();
     }

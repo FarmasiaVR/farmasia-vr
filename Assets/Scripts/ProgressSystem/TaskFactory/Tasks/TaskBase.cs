@@ -1,14 +1,11 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 /// <summary>
 /// Version 2 of current task.
 /// </summary>
 public class TaskBase : ITask {
 
-    #region Fields
+    #region fields
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
@@ -40,6 +37,7 @@ public class TaskBase : ITask {
     public TaskType GetTaskType() {
         return taskType;
     }
+
     /// <summary>
     /// Toggles condition by given string.
     /// </summary>
@@ -50,6 +48,7 @@ public class TaskBase : ITask {
         }
 
     }
+
     /// <summary>
     /// Adds conditions with list of string conditions.
     /// </summary>
@@ -59,6 +58,7 @@ public class TaskBase : ITask {
             clearConditions.Add(condition, false);
         }
     }
+
     /// <summary>
     /// Removes current task if the task has been set to be removed.
     /// </summary>
@@ -67,6 +67,7 @@ public class TaskBase : ITask {
             ProgressManager.Instance.RemoveTask(this);
         }
     }
+
     /// <summary>
     /// Subscribes to Events and adds them to a Dictionary.
     /// </summary>
@@ -77,6 +78,7 @@ public class TaskBase : ITask {
         subscribedEvents.Add(action, Event);
 
     }
+
     /// <summary>
     /// Unsubscribes from all events inside Dictionary.
     /// </summary>
@@ -104,6 +106,7 @@ public class TaskBase : ITask {
         previousTasksCompleted = true;
         return true;
     }
+
     /// <summary>
     /// Checks if conditions have been cleared.
     /// </summary>
@@ -126,7 +129,6 @@ public class TaskBase : ITask {
     #endregion
 
     #region Virtual Methods
-
     /// <summary>
     /// Used for finishing current task. Task is either removed or preserved.
     /// </summary>
@@ -134,6 +136,7 @@ public class TaskBase : ITask {
         UnsubscribeAllEvents();
         Remove();
     }
+
     /// <summary>
     /// Used for getting task's description to show on UI.
     /// </summary>
@@ -143,6 +146,7 @@ public class TaskBase : ITask {
     public virtual string GetDescription() {
         return "No Description";
     }
+
     /// <summary>
     /// Used for getting task's hint when hint trigger is triggered.
     /// </summary>
@@ -152,15 +156,11 @@ public class TaskBase : ITask {
     public virtual string GetHint() {
         return "No Hints";
     }
+
     /// <summary>
     /// Used for defining custom Subscribtions per task. (Override)
     /// </summary>
     public virtual void Subscribe() {
     }
-
-
-
-
     #endregion
-
 }

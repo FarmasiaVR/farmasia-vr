@@ -29,7 +29,6 @@ public static class Events {
     }
 
     #region Subscribe
-
     /// <summary>
     /// Subscribe to an event with a callback
     /// </summary>
@@ -58,7 +57,6 @@ public static class Events {
     /// <param name="component"></param>
     /// <param name="type"></param>
     public static void SubscribeToEvent(EventEmptyCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         if (!componentEventsData.ContainsKey(type)) {
@@ -71,7 +69,6 @@ public static class Events {
     }
 
     public static void SubscribeToEvent(EventDataCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         if (!componentEventsData.ContainsKey(type)) {
@@ -112,7 +109,6 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="type"></param>
     public static void OverrideSubscription(EventEmptyCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         ComponentEventsContainer cont = new ComponentEventsContainer();
@@ -121,7 +117,6 @@ public static class Events {
     }
 
     public static void OverrideSubscription(EventDataCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         ComponentEventsContainer cont = new ComponentEventsContainer();
@@ -149,7 +144,6 @@ public static class Events {
     }
 
     public static void UnsubscribeFromEvent(EventEmptyCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         if (componentEventsData.ContainsKey(type)) {
@@ -158,7 +152,6 @@ public static class Events {
     }
 
     public static void UnsubscribeFromEvent(EventDataCallback callback, Component component, EventType type) {
-
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
         if (componentEventsData.ContainsKey(type)) {
@@ -168,7 +161,6 @@ public static class Events {
     #endregion
 
     #region Call callbacks
-
     /// <summary>
     /// Calls all callbacks for event
     /// </summary>

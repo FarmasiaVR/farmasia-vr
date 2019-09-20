@@ -10,6 +10,7 @@
 
         return d;
     }
+
     public static CallbackData String(string data) {
         CallbackData d = new CallbackData();
         d.DataString = data;
@@ -17,6 +18,7 @@
 
         return d;
     }
+
     public static CallbackData Object(object data) {
         CallbackData d = new CallbackData();
         d.DataObject = data;

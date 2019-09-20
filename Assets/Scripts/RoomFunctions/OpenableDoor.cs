@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class OpenableDoor : MonoBehaviour {
 
     #region fields
-
     [SerializeField]
     private float maxAngle = 90;
     private float startAngle;
@@ -67,11 +63,8 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     public void ReleaseDoor() {
-
         Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
-
         Logger.PrintVariables("Velocity", Velocity);
-
         Locked = false;
     }
 
@@ -81,7 +74,6 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     private void UpdateVelocity() {
-
         Velocity *= friction;
 
         if (Mathf.Abs(Velocity) < minVelocity) {
@@ -90,13 +82,11 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     private void RotateDoor() {
-
         if (Locked) {
             return;
         }
 
         Vector3 rotateVector = Vector3.up * Velocity * Time.deltaTime;
-
         transform.Rotate(rotateVector);
 
         float fixedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle);

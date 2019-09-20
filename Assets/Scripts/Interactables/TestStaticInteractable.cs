@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TestStaticInteractable : Interactable {
+﻿public class TestStaticInteractable : Interactable {
 
     protected override void Start() {
         base.Start();

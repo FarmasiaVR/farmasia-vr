@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TeleportArc {
@@ -13,9 +11,7 @@ public class TeleportArc {
     #endregion
 
     public void ShootArc(Vector3 startPos, Vector3 startDir, out Vector3[] outArc, out GameObject hitObject, out Vector3 hitPos) {
-
         List<Vector3> arc = new List<Vector3>();
-
         float currentDistance = 0;
 
         arc.Add(startPos);
@@ -26,18 +22,15 @@ public class TeleportArc {
         Vector3 prevPos = startPos;
 
         for (int i = 1; currentDistance < maxLineDistance; i++) {
-
             Vector3 endPos = PositionByIndex(startPos, startDir, i);
 
             RaycastHit rayHit;
             bool didHit = CastRay(prevPos, endPos, out rayHit);
 
             prevPos = endPos;
-
             arc.Add(endPos);
 
             if (didHit) {
-
                 hitObject = rayHit.collider.gameObject;
                 hitPos = rayHit.point;
                 break;
@@ -55,7 +48,6 @@ public class TeleportArc {
     }
 
     private Vector3 PositionByIndex(Vector3 startPos, Vector3 startDir, int index) {
-
         float x = (index * distance);
         float y = Mathf.Pow(acceleration * x, 2);
 
@@ -63,7 +55,6 @@ public class TeleportArc {
     }
 
     private bool CastRay(Vector3 pos, Vector3 endPos, out RaycastHit hit) {
-
         Vector3 dir = endPos - pos;
 
         if (Physics.Raycast(pos, dir, out hit, distance)) {

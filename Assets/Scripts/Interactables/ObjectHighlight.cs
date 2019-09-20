@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class ObjectHighlight : MonoBehaviour {
+
     private Material material;
     private Color startcolor;
 
@@ -30,9 +29,7 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
-
         while (coll.Contains(gameObject)) {
-
             bool closest = gameObject == coll.GetGrabObject();
 
             if (coll.Hand.Grabbed) {

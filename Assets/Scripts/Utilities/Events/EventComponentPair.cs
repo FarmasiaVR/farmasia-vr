@@ -19,7 +19,6 @@ public struct CallbackComponentPair {
     }
 
     public override bool Equals(object obj) {
-
         if (GetType() != obj.GetType()) {
             return false;
         }

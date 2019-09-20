@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Layout1 : TaskBase {
@@ -15,6 +13,7 @@ public class Layout1 : TaskBase {
     public override void Subscribe() { 
         base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
     }
+
     private void ArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
@@ -22,10 +21,12 @@ public class Layout1 : TaskBase {
             Logger.Print("was null");
             return;
         }
+
         ObjectType type = item.ObjectType;
         if (AtLeastThree()) {
             ToggleCondition("AtLeastThree");
         }
+
         //checks that the items are arranged correctly
         ToggleCondition("ItemsArranged");
         bool check = CheckClearConditions(true);
@@ -35,7 +36,8 @@ public class Layout1 : TaskBase {
             base.FinishTask();
         }
     }
-   //checks that at least three items are placed before going through the door
+
+    //checks that at least three items are placed before going through the door
     private bool AtLeastThree() {
         return false;
     }

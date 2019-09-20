@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MedicineBottle : GeneralItem {
-
 
     [SerializeField]
     private int size = 100;
@@ -28,9 +25,9 @@ public class MedicineBottle : GeneralItem {
                 contentLeft = value;
         }
     }
+
     void Start() {
         base.Start();
         objectType = ObjectType.Bottle;
     }
-
 }

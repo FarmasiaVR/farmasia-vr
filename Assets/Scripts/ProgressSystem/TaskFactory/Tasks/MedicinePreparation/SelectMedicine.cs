@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SelectMedicine : TaskBase  {
 
@@ -15,6 +13,7 @@ public class SelectMedicine : TaskBase  {
     public override void Subscribe() {
         base.SubscribeEvent(PickupObject, EventType.PickupObject);
     }
+
     private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
@@ -30,7 +29,6 @@ public class SelectMedicine : TaskBase  {
         CheckClearConditions(true);
     }
     #endregion
-
 
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");

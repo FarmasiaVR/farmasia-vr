@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-public static class TaskFactory {
+﻿public static class TaskFactory {
     public static ITask GetTask(TaskType type) {
         switch (type) {
             case TaskType.SelectTools:

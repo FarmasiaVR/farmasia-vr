@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Valve.VR;
+﻿using UnityEngine;
 
 public class Hand : MonoBehaviour {
 
     #region fields
-
     public bool Grabbed { get; set; }
 
     private VRHandControls controls;
@@ -40,11 +36,9 @@ public class Hand : MonoBehaviour {
     private void Start() {
         coll = transform.GetChild(0).GetComponent<HandCollider>();
         controls = GetComponent<VRHandControls>();
-
     }
 
     private void Update() {
-
         UpdateVelocity();
 
         if (Grabbed) {
@@ -63,7 +57,6 @@ public class Hand : MonoBehaviour {
 
 
     private void UpdateVelocity() {
-
         Vector3 diff = transform.position - lastPos;
         velocity = diff / Time.deltaTime;
         lastPos = transform.position;
@@ -79,10 +72,8 @@ public class Hand : MonoBehaviour {
         joint.breakTorque = 20000;
     }
 
-
     #region Interaction
     public void InteractWithObject() {
-
         if (Grabbed) {
             Release();
             return;
@@ -102,8 +93,8 @@ public class Hand : MonoBehaviour {
             Grab();
         }
     }
-    public void UninteractWithObject() {
 
+    public void UninteractWithObject() {
         if (Grabbed) {
             if (VRControlSettings.HoldToGrab) {
                 Release();
@@ -140,7 +131,6 @@ public class Hand : MonoBehaviour {
     #endregion
 
     private void Grab() {
-
         GrabObject();
 
         if (GrabbedRigidbody == null) {
@@ -167,14 +157,12 @@ public class Hand : MonoBehaviour {
         AttachGrabbedObject();
     }
     
-
     private void OnJointBreak(float breakForce) {
         Debug.Log("Joint force broken: " + breakForce);
         Release();
     }
 
     public void Release() {
-
         Grabbed = false;
 
         DeattachGrabbedObject();
@@ -195,6 +183,7 @@ public class Hand : MonoBehaviour {
     private void AttachGrabbedObject() {
         Joint.connectedBody = GrabbedRigidbody;
     }
+
     private void DeattachGrabbedObject() {
         Joint.connectedBody = null;
     }

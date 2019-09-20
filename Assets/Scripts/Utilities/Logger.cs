@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -11,7 +9,6 @@ public static class Logger {
     /// </summary>
     /// <param name="vars"></param>
     public static void Print(params object[] vars) {
-
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < vars.Length - 1; i++) {
@@ -31,7 +28,6 @@ public static class Logger {
     }
 
     public static void PrintVariablesLine(params object[] vars) {
-
         StringBuilder sb = new StringBuilder();
 
         foreach (object o in vars) {
@@ -44,7 +40,6 @@ public static class Logger {
     /// </summary>
     /// <param name="vars">Array with even amount of objects. Odd number is for variable name, even values are for the actual variable values</param>
     public static void PrintVariables(params object[] vars) {
-
         if (vars.Length % 2 != 0) {
             throw new Exception("Var count is not divisible by 2");
         }
@@ -55,7 +50,6 @@ public static class Logger {
     }
 
     private static string VarString(object o) {
-        
         if (o == null) {
             return nameof(o) + ": null";
         }
@@ -63,7 +57,6 @@ public static class Logger {
         return nameof(o) + ": " + o.ToString();
     }
     private static string VarString(object n, object o) {
-
         if (o == null) {
             return n + ": null";
         }

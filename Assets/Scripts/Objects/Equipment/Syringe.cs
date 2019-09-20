@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Syringe : GeneralItem {
-
 
     [SerializeField]
     private int size = 50;
@@ -31,9 +28,9 @@ public class Syringe : GeneralItem {
                 contentLeft = value;
         }
     }
+
     void Start() {
         base.Start();
         objectType = ObjectType.Syringe;
-
     }
 }

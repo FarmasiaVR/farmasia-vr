@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LuerlockAdapter : GeneralItem {
 
@@ -26,5 +24,4 @@ public class LuerlockAdapter : GeneralItem {
         base.Start();
         objectType = ObjectType.Luerlock;
     }
-
 }

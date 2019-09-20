@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TeleportControls : MonoBehaviour {
 
@@ -17,12 +15,9 @@ public class TeleportControls : MonoBehaviour {
     private Transform pHead;
     #endregion
 
-
     private void Start() {
         line = GetComponent<LineRenderer>();
-
         arc = new TeleportArc();
-
         player = GameObject.FindGameObjectWithTag("Player").transform;
         pHead = player.GetChild(2);
     }
@@ -34,7 +29,6 @@ public class TeleportControls : MonoBehaviour {
         teleporting = false;
 
         line.positionCount = 0;
-
         TeleportToPosition();
     }
 
@@ -45,7 +39,6 @@ public class TeleportControls : MonoBehaviour {
     }
 
     private void DrawLine() {
-
         GameObject hit;
         Vector3[] positions;
 

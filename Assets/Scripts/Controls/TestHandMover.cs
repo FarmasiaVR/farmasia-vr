@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TestHandMover : MonoBehaviour {
 
@@ -12,13 +10,11 @@ public class TestHandMover : MonoBehaviour {
 
     private Hand right, left;
 
-    // Start is called before the first frame update
     void Start() {
         right = transform.GetChild(0).GetComponent<Hand>();
         left = transform.GetChild(1).GetComponent<Hand>();
     }
 
-    // Update is called once per frame
     void Update() {
         UpdateInteract();
         UpdateHandStatus();
@@ -27,7 +23,6 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void UpdateInteract() {
-
         if (Input.GetKeyDown(KeyCode.Mouse0) && !usingRight) {
             left.InteractWithObject();
         } else if (Input.GetKeyDown(KeyCode.Mouse1) && usingRight) {
@@ -56,7 +51,6 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void CheckInput() {
-
         movement = Vector3.zero;
 
         if (Pressing(KeyCode.W)) {
@@ -82,9 +76,7 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void MoveHand() {
-
         Transform hand = usingRight ? right.transform : left.transform;
-
         hand.Translate(movement * handSpeed * Time.deltaTime);
     }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class ComponentEventsContainer {
 
@@ -17,9 +16,7 @@ public class ComponentEventsContainer {
     /// Calls callbacks if the component which subscribed to it isn't null. Automatically removes subscriptions for destroyed components/gameobjects.
     /// </summary>
     public void FireIfNotNull(CallbackData data) {
-
         for (int i = 0; i < pairs.Count; i++) {
-
             CallbackComponentPair pair = pairs[i];
 
             if (pair.Component == null) {
@@ -33,9 +30,7 @@ public class ComponentEventsContainer {
     }
 
     public void Unsubscribe(CallbackComponentPair pair) {
-
         for (int i = 0; i < pairs.Count; i++) {
-
             if (pair.Equals(pairs[i])) {
                 pairs.RemoveAt(i);
                 i--;

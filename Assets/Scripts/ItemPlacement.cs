@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPlacement : MonoBehaviour {
@@ -29,6 +28,7 @@ public class ItemPlacement : MonoBehaviour {
 
         StartCoroutine(SlowDown());
     }
+
     private IEnumerator SlowDown() {
 
         float time = slowDownTime;
@@ -50,7 +50,6 @@ public class ItemPlacement : MonoBehaviour {
 
 
     public static void ReleaseSafely(GameObject g) {
-
         if (g.GetComponent<ItemPlacement>() != null) {
             return;
         }
@@ -60,7 +59,6 @@ public class ItemPlacement : MonoBehaviour {
         }
 
         float boundsDistance = Vector3.Distance(g.GetComponent<Collider>().bounds.ClosestPoint(g.transform.position - Vector3.down * maxDistance), g.transform.position);
-
         float rayLength = safeDropHeight + boundsDistance;
 
         RaycastHit hit;

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UISystem : MonoBehaviour {
 
@@ -31,6 +29,4 @@ public class UISystem : MonoBehaviour {
         popupMessage.GetComponent<PointPopup>().setPopup(point, message, type);
         popUps.Add(popupMessage);
     }
-
-
 }

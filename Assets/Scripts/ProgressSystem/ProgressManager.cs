@@ -24,6 +24,7 @@ public class ProgressManager : MonoBehaviour {
             Instance = this;
         }
     }
+
     /// <summary>
     /// Initiates ProgressManager fields.
     /// </summary>
@@ -75,6 +76,7 @@ public class ProgressManager : MonoBehaviour {
     public List<ITask> GetActiveTasks() {
         return activeTasks;
     }
+
     /// <summary>
     /// Returns list presentation of completed tasks.
     /// </summary>
@@ -82,6 +84,7 @@ public class ProgressManager : MonoBehaviour {
     public List<TaskType> GetDoneTaskTypes() {
         return doneTypes;
     }
+
     /// <summary>
     /// Returns Score Calculator for point addition.
     /// </summary>

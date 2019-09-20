@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DoorHandle : Interactable {
+﻿public class DoorHandle : Interactable {
 
     private Hand hand;
     private OpenableDoor door;
@@ -10,9 +6,7 @@ public class DoorHandle : Interactable {
 
     protected override void Start() {
         base.Start();
-
         door = transform.parent.GetComponent<OpenableDoor>();
-
         type = InteractableType.Interactable;
     }
 
@@ -28,23 +22,19 @@ public class DoorHandle : Interactable {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-
         Logger.Print("Door interact");
 
         door.SetAngleOffset(hand.transform.position);
 
         this.hand = hand;
-
         grabbed = true;
     }
+
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
 
         this.hand = null;
-
         grabbed = false;
         door.ReleaseDoor();
     }
-
-
 }

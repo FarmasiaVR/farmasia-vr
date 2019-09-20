@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
@@ -23,7 +21,6 @@ public class HandCollider : MonoBehaviour {
     }
 
     public void OnTriggerEnter(Collider coll) {
-
         if (coll.gameObject.tag != iTag) {
             return;
         }
@@ -34,7 +31,6 @@ public class HandCollider : MonoBehaviour {
         hObject.StartCoroutine(hObject.InsideCheck(this));
     }
     public void OnTriggerExit(Collider coll) {
-
         if (coll.gameObject.tag != iTag) {
             return;
         }
@@ -47,7 +43,6 @@ public class HandCollider : MonoBehaviour {
     }
 
     public Interactable GetGrab() {
-
         GameObject o = GetGrabObject();
 
         if (o == null) {
@@ -58,12 +53,10 @@ public class HandCollider : MonoBehaviour {
     }
 
     public GameObject GetGrabObject() {
-
         float closestDistance = float.MaxValue;
         GameObject closest = null;
 
         foreach (GameObject rb in GrabObjects) {
-
             float distance = Vector3.Distance(transform.position, rb.transform.position);
 
             if (distance < closestDistance) {

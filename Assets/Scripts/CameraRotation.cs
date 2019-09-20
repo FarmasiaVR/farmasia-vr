@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraRotation : MonoBehaviour {
+
     float horizontalSpeed = 2.0f;
     float verticalSpeed = 2.0f;
 
@@ -14,7 +13,6 @@ public class CameraRotation : MonoBehaviour {
             float v = verticalSpeed * Input.GetAxis("Mouse Y");
             transform.eulerAngles = new Vector3(getAxis(Axis.X, -v), getAxis(Axis.Y, h), getAxis(Axis.Z, 0));
         }
-
     }
 
     private float getAxis(Axis axe, float rotation) {

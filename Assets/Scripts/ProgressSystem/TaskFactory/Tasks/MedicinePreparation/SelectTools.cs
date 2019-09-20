@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class SelectTools : TaskBase {
 
     private string[] conditions = { "SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp" };
@@ -16,6 +17,7 @@ public class SelectTools : TaskBase {
     public override void Subscribe() {
         base.SubscribeEvent(PickupObject, EventType.PickupObject);
     }
+
     private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
@@ -37,8 +39,6 @@ public class SelectTools : TaskBase {
         CheckClearConditions(false);
     }
     #endregion
-
-
 
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Tools Selected", MessageType.notify);
