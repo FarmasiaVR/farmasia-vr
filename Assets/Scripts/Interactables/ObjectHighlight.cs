@@ -32,7 +32,7 @@ public class ObjectHighlight : MonoBehaviour {
         while (coll.Contains(gameObject)) {
             bool closest = gameObject == coll.GetGrabObject();
 
-            if (coll.Hand.Grabbed) {
+            if (coll.Hand.IsGrabbed) {
                 if (highlighted) Unhighlight();
             } else if (closest && !highlighted) {
                 Highlight();

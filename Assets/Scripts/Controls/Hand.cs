@@ -3,7 +3,7 @@
 public class Hand : MonoBehaviour {
 
     #region fields
-    public bool Grabbed { get; set; }
+    public bool IsGrabbed { get; set; }
 
     private VRHandControls controls;
     private FixedJoint joint;
@@ -41,7 +41,7 @@ public class Hand : MonoBehaviour {
     private void Update() {
         UpdateVelocity();
 
-        if (Grabbed) {
+        if (IsGrabbed) {
             UpdateGrabbedObject();
         }
     }
@@ -74,13 +74,12 @@ public class Hand : MonoBehaviour {
 
     #region Interaction
     public void InteractWithObject() {
-        if (Grabbed) {
+        if (IsGrabbed) {
             Release();
             return;
         }
 
         Interactable = coll.GetGrab();
-
         if (Interactable == null) {
             return;
         }
@@ -95,7 +94,7 @@ public class Hand : MonoBehaviour {
     }
 
     public void UninteractWithObject() {
-        if (Grabbed) {
+        if (IsGrabbed) {
             if (VRControlSettings.HoldToGrab) {
                 Release();
             }
@@ -106,7 +105,7 @@ public class Hand : MonoBehaviour {
     }
 
     public void GrabInteract() {
-        if (!Grabbed) {
+        if (!IsGrabbed) {
             return;
         }
 
@@ -118,7 +117,7 @@ public class Hand : MonoBehaviour {
     }
 
     public void GrabUninteract() {
-        if (!Grabbed) {
+        if (!IsGrabbed) {
             return;
         }
 
@@ -144,26 +143,23 @@ public class Hand : MonoBehaviour {
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 
-        if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
+        if (other.IsGrabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
             other.Release();
         }
 
+        IsGrabbed = true;
         InitializeOffset();
-
-        Grabbed = true;
-
         InitVelocities();
-
         AttachGrabbedObject();
     }
     
     private void OnJointBreak(float breakForce) {
-        Debug.Log("Joint force broken: " + breakForce);
+        Logger.Print("Joint force broken: " + breakForce);
         Release();
     }
 
     public void Release() {
-        Grabbed = false;
+        IsGrabbed = false;
 
         DeattachGrabbedObject();
 
@@ -192,7 +188,7 @@ public class Hand : MonoBehaviour {
         grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
         rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
 
-        print("Grab offset: " + grabOffset);
+        Logger.Print("Grab offset: " + grabOffset);
     }
 
     private void InitVelocities() {
@@ -202,14 +198,12 @@ public class Hand : MonoBehaviour {
 
     private Vector3 ColliderPosition {
         get {
-            // return transform.position;
             return transform.GetChild(0).transform.position;
         }
     }
     private Vector3 ColliderEulerAngles {
         get {
             return transform.eulerAngles;
-            return transform.GetChild(0).transform.eulerAngles;
         }
     }
 
