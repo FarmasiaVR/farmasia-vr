@@ -75,8 +75,8 @@ public class Hand : MonoBehaviour {
 
     private void AddJoint() {
         joint = gameObject.AddComponent<FixedJoint>();
-        joint.breakForce = 1000;
-        joint.breakTorque = 1000;
+        joint.breakForce = 20000;
+        joint.breakTorque = 20000;
     }
 
 
@@ -150,6 +150,8 @@ public class Hand : MonoBehaviour {
         // Fix later
         // GrabbedRigidbody.transform.position = transform.GetChild(0).position;
 
+        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
+
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 
         if (other.Grabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
@@ -180,6 +182,8 @@ public class Hand : MonoBehaviour {
         if (GrabbedRigidbody == null) {
             return;
         }
+
+        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
 
         ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
@@ -224,6 +228,4 @@ public class Hand : MonoBehaviour {
         GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
     }
     #endregion
-
-   
 }

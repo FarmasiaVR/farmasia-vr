@@ -7,7 +7,10 @@ public class Interactable : MonoBehaviour {
     protected InteractableType type;
     public InteractableType Type { get => type; }
 
+    public InteractState State;
+
     protected virtual void Start() {
+        State = InteractState.None;
         gameObject.AddComponent<ObjectHighlight>();
     }
 
