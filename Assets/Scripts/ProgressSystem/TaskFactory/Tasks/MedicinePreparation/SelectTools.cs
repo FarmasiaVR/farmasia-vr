@@ -24,7 +24,7 @@ public class SelectTools : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
+            Logger.Print("Item was null");
             return;
         }
 

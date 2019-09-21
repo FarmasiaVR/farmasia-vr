@@ -20,7 +20,7 @@ public class AmountOfItems : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("AmountOfItems: item was null");
+            Logger.Print("Item was null");
             return;
         }
 
@@ -41,9 +41,9 @@ public class AmountOfItems : TaskBase {
                 break;
         }
 
-        bool check = CheckClearConditions(true);
+        bool cleared = CheckClearConditions(true);
         //checked when player exits the room
-        if (!check) {
+        if (!cleared) {
             Logger.Print("All conditions not fulfilled but task closed.");
             ProgressManager.Instance.GetCalculator().Substract(TaskType.AmountOfItems);
             base.FinishTask();

@@ -17,6 +17,7 @@ public class Layout2 : TaskBase {
     public override void Subscribe() {
         base.SubscribeEvent(FinalArrangeItems, EventType.FinalArrangeItems);
     }
+
     private void FinalArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         if (ProgressManager.Instance.GetDoneTaskTypes().Contains(TaskType.AmountOfItems)) {

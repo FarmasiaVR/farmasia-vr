@@ -20,19 +20,18 @@ public class Layout1 : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
+            Logger.Print("Item was null");
             return;
         }
 
-        ObjectType type = item.ObjectType;
         if (AtLeastThree()) {
             ToggleCondition("AtLeastThree");
         }
 
         //checks that the items are arranged correctly
         ToggleCondition("ItemsArranged");
-        bool check = CheckClearConditions(true);
-        if (!check && AtLeastThree()) {
+        bool cleared = CheckClearConditions(true);
+        if (!cleared && AtLeastThree()) {
             Logger.Print("All conditions not fulfilled but task closed.");
             ProgressManager.Instance.GetCalculator().Substract(TaskType.Layout1);
             base.FinishTask();
