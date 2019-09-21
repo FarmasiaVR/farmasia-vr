@@ -6,17 +6,11 @@ public class UISystem : MonoBehaviour {
 
     #region fields
     public static UISystem Instance { get; private set; }
-    public GameObject popup;
-
     private List<GameObject> popUps = new List<GameObject>();
     [SerializeField]
-    private GameObject blankPoint;
+    private GameObject popupPrefab;
     private GameObject cameraRig;
     #endregion
-
-    void Start() {
-        Assert.IsNotNull(blankPoint);
-    }
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -31,7 +25,7 @@ public class UISystem : MonoBehaviour {
     }
 
     public void CreatePopup(int point, string message, MessageType type) {
-        GameObject popupMessage = Instantiate(popup, new Vector3(0, 0, 10), Quaternion.identity);
+        GameObject popupMessage = Instantiate(popupPrefab, new Vector3(0, 0, 10), Quaternion.identity);
         popupMessage.GetComponent<PointPopup>().setPopup(point, message, type);
         popUps.Add(popupMessage);
     }
