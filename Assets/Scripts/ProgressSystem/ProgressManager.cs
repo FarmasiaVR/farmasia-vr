@@ -44,12 +44,20 @@ public class ProgressManager : MonoBehaviour {
     private void AddTasks() {
         activeTasks = Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
+            .Where(v => !v.Equals(TaskType.MissingItems))
             .Select(v => TaskFactory.GetTask(v))
             .ToList();
     }
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Adds task to the current active list.
+    /// </summary>
+    /// <param name="task">Refers to task to be added.</param>
+    public void AddTask(ITask task) {
+        activeTasks.Add(task); 
+    }
     /// <summary>
     /// Removes task from current active list and adds them to doneTasks list.
     /// Tasks are still active inside doneTasks list!
@@ -58,8 +66,14 @@ public class ProgressManager : MonoBehaviour {
     public void RemoveTask(ITask task) {
         doneTasks.Add(task);
         doneTypes.Add(task.GetTaskType());
-        activeTasks.Remove(task);
-        
+        activeTasks.Remove(task);  
+    }
+    /// <summary>
+    /// Returns list presentation of active tasks.
+    /// </summary>
+    /// <returns>returns activeTasks list.</returns>
+    public List<ITask> GetActiveTasks() {
+        return activeTasks;
     }
     /// <summary>
     /// Returns list presentation of completed tasks.

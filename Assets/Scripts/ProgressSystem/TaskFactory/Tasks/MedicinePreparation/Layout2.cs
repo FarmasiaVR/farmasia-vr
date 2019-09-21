@@ -1,10 +1,11 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Layout2 : TaskBase {
 
-    private string[] conditions = {"ItemsArranged"};
+    private string[] conditions = {"AllItems", "ItemsArranged"};
  
     public Layout2() : base(TaskType.Layout2, true, false) {
         Subscribe();
@@ -17,13 +18,30 @@ public class Layout2 : TaskBase {
     }
     private void FinalArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
+        if (ProgressManager.Instance.GetDoneTaskTypes().Contains(TaskType.AmountOfItems)) {
+            List<ITask> list = ProgressManager.Instance.GetActiveTasks();
+            int exists = 0;
+            exists = (from n in list
+                    where n.GetTaskType().Equals(TaskType.MissingItems)
+                    select n).Count();
+            if (exists == 0) {
+                ToggleCondition("AllItems"); 
+            } 
+        }
+        //checks before moving to the next task if any of the items is on the prohibited area or on top of each other
         ToggleCondition("ItemsArranged");
-        CheckClearConditions(true);
+        bool check = CheckClearConditions(true);
+        if (!check) {
+            Logger.Print("All conditions not fulfilled but task closed.");
+            ProgressManager.Instance.GetCalculator().Substract(TaskType.Layout2);
+            base.FinishTask();
+        }
     }
     #endregion
 
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
+        ProgressManager.Instance.GetCalculator().Add(TaskType.Layout2);
         base.FinishTask();
     }
 

@@ -5,6 +5,7 @@
     PickupObject,
     PutObject,
     ArrangeItems,
-    FinalArrangeItems ,
-    AmountOfItems
+    FinalArrangeItems,
+    AmountOfItems,
+    Missing
 }
