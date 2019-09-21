@@ -43,10 +43,9 @@ public class TaskBase : ITask {
     /// </summary>
     /// <param name="condition">String representation of condition.</param>
     public void ToggleCondition(string condition) {
-        if (!clearConditions[condition]) {
-            clearConditions[condition] = true;
+        if (clearConditions.ContainsKey(condition)) {
+            clearConditions[condition] = !clearConditions[condition];
         }
-
     }
 
     /// <summary>
@@ -56,15 +55,6 @@ public class TaskBase : ITask {
     public void AddConditions(string[] conditions) {
         foreach (string condition in conditions) {
             clearConditions.Add(condition, false);
-        }
-    }
-
-    /// <summary>
-    /// Removes current task if the task has been set to be removed.
-    /// </summary>
-    public void Remove() {
-        if (removeWhenFinished) {
-            ProgressManager.Instance.RemoveTask(this);
         }
     }
 
@@ -163,4 +153,13 @@ public class TaskBase : ITask {
     public virtual void Subscribe() {
     }
     #endregion
+
+    /// <summary>
+    /// Removes current task if the task has been set to be removed.
+    /// </summary>
+    private void Remove() {
+        if (removeWhenFinished) {
+            ProgressManager.Instance.RemoveTask(this);
+        }
+    }
 }
