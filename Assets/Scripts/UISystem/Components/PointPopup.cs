@@ -32,22 +32,22 @@ public class PointPopup : MonoBehaviour {
 
     public void setPopup(int point, string text, MessageType type) {
         switch (type) {
-            case MessageType.error:
+            case MessageType.Error:
                 red = 0;
                 green = 0;
                 blue = 0;
                 break;
-            case MessageType.mistake:
+            case MessageType.Mistake:
                 red = 255;
                 green = 0;
                 blue = 0;
                 break;
-            case MessageType.notify:
+            case MessageType.Notify:
                 red = 255;
                 green = 255;
                 blue = 0;
                 break;
-            case MessageType.warning:
+            case MessageType.Warning:
                 red = 255;
                 green = 147;
                 blue = 0;

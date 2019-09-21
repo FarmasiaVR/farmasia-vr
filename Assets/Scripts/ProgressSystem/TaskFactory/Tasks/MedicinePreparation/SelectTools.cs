@@ -43,7 +43,7 @@ public class SelectTools : TaskBase {
     #endregion
 
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Tools Selected", MessageType.notify);
+        UISystem.Instance.CreatePopup(1, "Tools Selected", MessageType.Notify);
         Logger.Print("All conditions fulfilled, task finished!");
         base.FinishTask();
     }
