@@ -15,28 +15,32 @@ public class AmountOfItems : TaskBase {
     public override void Subscribe() { 
         base.SubscribeEvent(Amount, EventType.AmountOfItems);
     }
+
     private void Amount(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
+            Logger.Print("AmountOfItems: item was null");
             return;
         }
+
         ObjectType type = item.ObjectType;
-        
-        if (type == ObjectType.Syringe) {
-            ToggleCondition("Syringe");
+        switch (type) {
+            case ObjectType.Syringe:
+                ToggleCondition("Syringe");
+                break;
+            case ObjectType.Needle:
+                ToggleCondition("Needle");
+                break;
+            case ObjectType.Luerlock:
+                ToggleCondition("Luerlock");
+                break;
+            case ObjectType.Bottle:
+                //check that the chosen bottle is the wanted size
+                ToggleCondition("RightSizeBottle");
+                break;
         }
-        if (type == ObjectType.Needle) {
-            ToggleCondition("Needle");
-        }
-        if (type == ObjectType.Luerlock) {
-            ToggleCondition("Luerlock");
-        }
-        if (type == ObjectType.Bottle) {
-            //check that the chosen bottle has the wanted size
-            ToggleCondition("RightSizeBottle");
-        }
+
         bool check = CheckClearConditions(true);
         //checked when player exits the room
         if (!check) {

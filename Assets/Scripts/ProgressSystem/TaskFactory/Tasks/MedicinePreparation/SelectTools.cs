@@ -27,16 +27,18 @@ public class SelectTools : TaskBase {
             Logger.Print("was null");
             return;
         }
-        ObjectType type = item.ObjectType;
 
-        if (type == ObjectType.Syringe) {
-            ToggleCondition("SyringePickedUp");
-        }
-        if (type == ObjectType.Needle) {
-            ToggleCondition("NeedlePickedUp");
-        }
-        if (type == ObjectType.Luerlock) {
-            ToggleCondition("LuerlockPickedUp");
+        ObjectType type = item.ObjectType;
+        switch (type) {
+            case ObjectType.Syringe:
+                ToggleCondition("SyringePickedUp");
+                break;
+            case ObjectType.Needle:
+                ToggleCondition("NeedlePickedUp");
+                break;
+            case ObjectType.Luerlock:
+                ToggleCondition("LuerlockPickedUp");
+                break;
         }
         CheckClearConditions(false);
     }
