@@ -10,6 +10,10 @@ public class VRHandControls : MonoBehaviour {
 
     public SteamVR_Action_Skeleton skeleton;
 
+    public SteamVR_Action_Skeleton Skeleton {
+        get => skeleton;
+    }
+
     public SteamVR_Input_Sources handType;
 
     private Hand hand;
@@ -62,8 +66,4 @@ public class VRHandControls : MonoBehaviour {
         hand.GrabUninteract();
     }
     #endregion
-
-    public SteamVR_Action_Skeleton Skeleton {
-        get => skeleton;
-    }
 }

@@ -2,13 +2,15 @@
 
 public class TestHandMover : MonoBehaviour {
 
+    #region fields
     private bool usingRight;
 
-    Vector3 movement;
+    private Vector3 movement;
 
     private float handSpeed = 1;
 
     private Hand right, left;
+    #endregion
 
     void Start() {
         right = transform.GetChild(0).GetComponent<Hand>();

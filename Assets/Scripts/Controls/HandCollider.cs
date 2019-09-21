@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
 
+    #region fields
     private Hand hand;
     private static string iTag = "Interactable";
     public HashSet<GameObject> GrabObjects { get; private set; }
+    #endregion
 
     private void Start() {
         GrabObjects = new HashSet<GameObject>();
