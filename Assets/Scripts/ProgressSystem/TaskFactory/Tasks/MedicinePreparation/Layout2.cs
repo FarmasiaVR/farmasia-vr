@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Layout2 : TaskBase {
 
+    #region fields
     private string[] conditions = {"AllItems", "ItemsArranged"};
+    #endregion
  
     public Layout2() : base(TaskType.Layout2, true, false) {
         Subscribe();

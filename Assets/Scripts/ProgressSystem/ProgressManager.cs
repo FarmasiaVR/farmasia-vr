@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProgressManager : MonoBehaviour {
-    #region Fields
+
+    #region fields
     public static ProgressManager Instance { get; private set; }
     [SerializeField]
     private List<ITask> activeTasks;
@@ -13,7 +14,7 @@ public class ProgressManager : MonoBehaviour {
     private ScoreCalculator calculator;
     #endregion
 
-    #region Initialize
+    #region initialization
     /// <summary>
     /// Creates a singleton of ProgressManager.
     /// </summary>
@@ -37,7 +38,7 @@ public class ProgressManager : MonoBehaviour {
     }
     #endregion
 
-    #region Private Methods
+    #region private methods
     /// <summary>
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
@@ -51,7 +52,7 @@ public class ProgressManager : MonoBehaviour {
     }
     #endregion
 
-    #region Public Methods
+    #region public methods
     /// <summary>
     /// Adds task to the current active list.
     /// </summary>

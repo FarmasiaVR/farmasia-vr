@@ -2,7 +2,9 @@
 
 public class SelectMedicine : TaskBase  {
 
+    #region fields
     private string[] conditions = {"BottlePickup"};
+    #endregion
 
     public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
         Subscribe();

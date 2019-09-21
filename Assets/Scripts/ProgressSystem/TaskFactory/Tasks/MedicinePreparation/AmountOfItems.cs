@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class AmountOfItems : TaskBase {
 
+    #region fields
     private string[] conditions = {"Syringe", "Needle", "Luerlock", "RightSizeBottle"};
+    #endregion
  
     public AmountOfItems() : base(TaskType.AmountOfItems, true, false) {
         Subscribe();

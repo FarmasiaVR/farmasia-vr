@@ -2,7 +2,9 @@
 
 public class SelectTools : TaskBase {
 
+    #region fields
     private string[] conditions = { "SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp" };
+    #endregion
 
     /// <summary>
     /// Constructor for SelectTools task. 

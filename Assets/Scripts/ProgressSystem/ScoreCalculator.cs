@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class ScoreCalculator {
 
-    List<string> zero;
-    List<string> onePlus;
-    List<string> oneMinus;
+    #region fields
+    private List<string> zero;
+    private List<string> onePlus;
+    private List<string> oneMinus;
     private int score;
     private int maxScore;
+    #endregion
 
     public ScoreCalculator() {
         zero = new List<string>();
