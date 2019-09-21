@@ -7,11 +7,11 @@
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-        print("Interact with object");
+        Logger.Print("Interact with object");
     }
 
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
-        print("Uninteract with object");
+        Logger.Print("Uninteract with object");
     }
 }

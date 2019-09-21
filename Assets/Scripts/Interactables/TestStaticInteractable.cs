@@ -8,6 +8,6 @@
     public override void Interact(Hand hand) {
         base.Interact(hand);
         gameObject.GetComponent<GeneralItem>().SetFlags(false, ItemState.Status.Clean);
-        Logger.Print("Clean", gameObject.GetComponent<GeneralItem>().GetFlag(ItemState.Status.Clean));
+        Logger.PrintObjects("Clean", gameObject.GetComponent<GeneralItem>().GetFlag(ItemState.Status.Clean));
     }
 }

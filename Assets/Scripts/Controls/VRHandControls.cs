@@ -36,13 +36,13 @@ public class VRHandControls : MonoBehaviour {
 
     #region Trigger
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Debug.Log("Trigger is down: " + handType);
+        Logger.Print("Trigger is down: " + handType);
 
         hand.InteractWithObject();
     }
 
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Debug.Log("Trigger is up: " + handType);
+        Logger.Print("Trigger is up: " + handType);
         hand.UninteractWithObject();
     }
     #endregion
