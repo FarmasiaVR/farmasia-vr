@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class UISystem : MonoBehaviour {
 
+    #region fields
+    public static UISystem Instance { get; private set; }
     public GameObject popup;
 
-    public static UISystem Instance { get; private set; }
-    List<GameObject> popUps = new List<GameObject>();
-    GameObject blankPoint;
-    GameObject cameraRig;
+    private List<GameObject> popUps = new List<GameObject>();
+    [SerializeField]
+    private GameObject blankPoint;
+    private GameObject cameraRig;
+    #endregion
 
     void Start() {
-        blankPoint = transform.Find("Blank").gameObject;
+        Assert.IsNotNull(blankPoint);
     }
 
     private void Awake() {
@@ -21,9 +25,11 @@ public class UISystem : MonoBehaviour {
             Instance = this;
         }
     }
+
     public void deleteChild(GameObject popupObject) {
         popUps.Remove(popupObject);
     }
+
     public void CreatePopup(int point, string message, MessageType type) {
         GameObject popupMessage = Instantiate(popup, new Vector3(0, 0, 10), Quaternion.identity);
         popupMessage.GetComponent<PointPopup>().setPopup(point, message, type);

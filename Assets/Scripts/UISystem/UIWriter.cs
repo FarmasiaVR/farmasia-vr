@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class UIWriter : MonoBehaviour {
 
-    GameObject canvas;
+    #region fields
+    private GameObject canvas;
+    #endregion
 
     public string toggleChild(string childName) {
         GameObject child = returnChild(childName);

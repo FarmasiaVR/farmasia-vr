@@ -3,7 +3,8 @@ using TMPro;
 
 public class PointPopup : MonoBehaviour {
 
-    AudioSource audio;
+    #region fields
+    private AudioSource sfx;
 
     private float timer = 0.0f;
     private float visualTime = 3.0f;
@@ -20,14 +21,15 @@ public class PointPopup : MonoBehaviour {
     private GameObject textObject;
     private TextMeshPro textField;
     private Color colour;
+    #endregion
 
     void Awake() {
         textObject = transform.gameObject;
         textField = textObject.GetComponent<TextMeshPro>();
         textField.color = new Color(red, green, blue, 0);
 
-        audio = GetComponent<AudioSource>();
-        audio.enabled = false;
+        sfx = GetComponent<AudioSource>();
+        sfx.enabled = false;
     }
 
     public void setPopup(int point, string text, MessageType type) {
@@ -68,7 +70,7 @@ public class PointPopup : MonoBehaviour {
                 textField.color = new Color(red, green, blue, transparency);
                 timer -= fadeInAndOut;
                 fadeInCompleted = true;
-                audio.enabled = true;
+                sfx.enabled = true;
             }
 
         } else {
