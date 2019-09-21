@@ -22,7 +22,7 @@ public class LuerlockAdapter : GeneralItem {
     }
     #endregion
 
-    void Start() {
+    protected override void Start() {
         base.Start();
         objectType = ObjectType.Luerlock;
     }

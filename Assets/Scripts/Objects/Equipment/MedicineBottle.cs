@@ -8,8 +8,9 @@ public class MedicineBottle : GeneralItem {
     public int Size {
         get => size;
         set {
-            if (size >= 0)
+            if (value >= 0) {
                 size = value;
+            }
         } 
     }
 
@@ -22,13 +23,14 @@ public class MedicineBottle : GeneralItem {
     public int ContentLeft {
         get => contentLeft;
         set {
-            if (value <= size && value > 0)
+            if (value <= size && value >= 0) {
                 contentLeft = value;
+            }
         }
     }
     #endregion
 
-    void Start() {
+    protected override void Start() {
         base.Start();
         objectType = ObjectType.Bottle;
     }
