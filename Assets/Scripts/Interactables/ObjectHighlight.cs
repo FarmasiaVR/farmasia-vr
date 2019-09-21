@@ -6,13 +6,14 @@ public class ObjectHighlight : MonoBehaviour {
     #region fields
     private Material material;
     private Color startColor;
+    private Color highlightColor;
 
-    public bool isHighlighted;
     #endregion
 
     void Start() {
         material = GetComponent<Renderer>().material;
         startColor = material.color;
+        highlightColor = startColor + new Color32(40,40,40,0);
     }
 
     private void OnDestroy() {
@@ -20,25 +21,22 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        startColor = material.color;
-        material.color = material.color + new Color32(40,40,40,0);
-        isHighlighted = true;
+        material.color = highlightColor;
     }
 
     public void Unhighlight() {
-        if (isHighlighted) material.color = startColor;
-        isHighlighted = false;
+        material.color = startColor;
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
         while (coll.Contains(gameObject)) {
-            bool closest = gameObject == coll.GetGrabObject();
+            bool isClosest = gameObject == coll.GetGrabObject();
 
             if (coll.Hand.IsGrabbed) {
-                if (isHighlighted) Unhighlight();
-            } else if (closest && !isHighlighted) {
+                Unhighlight();
+            } else if (isClosest) {
                 Highlight();
-            } else if (!closest && isHighlighted) {
+            } else if (!isClosest) {
                 Unhighlight();
             }
 
