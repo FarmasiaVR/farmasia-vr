@@ -2,6 +2,7 @@
 
 public class LuerlockAdapter : GeneralItem {
 
+    #region fields
     [SerializeField]
     private GameObject attachedObject1;
     public GameObject AttachedObject1 {
@@ -19,6 +20,7 @@ public class LuerlockAdapter : GeneralItem {
             attachedObject2 = value;
         }
     }
+    #endregion
 
     void Start() {
         base.Start();

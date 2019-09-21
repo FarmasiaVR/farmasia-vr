@@ -2,6 +2,7 @@
 
 public class MedicineBottle : GeneralItem {
 
+    #region fields
     [SerializeField]
     private int size = 100;
     public int Size {
@@ -25,6 +26,7 @@ public class MedicineBottle : GeneralItem {
                 contentLeft = value;
         }
     }
+    #endregion
 
     void Start() {
         base.Start();

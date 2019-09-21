@@ -2,6 +2,7 @@
 
 public class GeneralItem : Grabbable {
 
+    #region fields
     private int flags;
 
     [SerializeField]
@@ -9,11 +10,12 @@ public class GeneralItem : Grabbable {
     public virtual ObjectType ObjectType { get => objectType; }
 
     [SerializeField]
-    private bool clean;
+    private bool isClean;
+    #endregion
 
     protected override void Start() {
         base.Start();
-        SetFlags(clean, ItemState.Status.Clean);
+        SetFlags(isClean, ItemState.Status.Clean);
     }
 
     public void SetFlags(bool value, params ItemState.Status[] statuses) {

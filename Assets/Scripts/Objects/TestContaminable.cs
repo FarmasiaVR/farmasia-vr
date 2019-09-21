@@ -2,7 +2,9 @@
 
 public class TestContaminable : Interactable {
 
+    #region fields
     private GeneralItem states;
+    #endregion
 
     protected override void Start() {
         base.Start();
