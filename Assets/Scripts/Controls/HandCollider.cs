@@ -46,12 +46,7 @@ public class HandCollider : MonoBehaviour {
 
     public Interactable GetGrab() {
         GameObject o = GetGrabObject();
-
-        if (o == null) {
-            return null;
-        }
-
-        return GetGrabObject().GetComponent<Interactable>();
+        return o?.GetComponent<Interactable>() ?? null;
     }
 
     public GameObject GetGrabObject() {
