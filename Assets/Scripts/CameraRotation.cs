@@ -2,10 +2,12 @@
 
 public class CameraRotation : MonoBehaviour {
 
-    float horizontalSpeed = 2.0f;
-    float verticalSpeed = 2.0f;
+    #region fields
+    private float horizontalSpeed = 2.0f;
+    private float verticalSpeed = 2.0f;
+    #endregion
 
-    enum Axis { X, Y, Z };
+    private enum Axis { X, Y, Z };
 
     void Update() {
         if (Input.GetMouseButton(0)) {
