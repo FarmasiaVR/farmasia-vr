@@ -10,14 +10,14 @@ public class Door : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.name == "Player") {
-            writer.toggleChild("Prompt Field");
+            writer.ToggleChild("Prompt Field");
             player = collision.gameObject;
         }
     }
 
     private void OnTriggerExit(Collider collision) {
         if (collision.gameObject.name == "Player") {
-            writer.toggleChild("Prompt Field");
+            writer.ToggleChild("Prompt Field");
             player = null;
         }
     }

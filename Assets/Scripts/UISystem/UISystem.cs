@@ -20,7 +20,7 @@ public class UISystem : MonoBehaviour {
         }
     }
 
-    public void deleteChild(GameObject popupObject) {
+    public void DeleteChild(GameObject popupObject) {
         popUps.Remove(popupObject);
     }
 

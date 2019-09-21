@@ -14,11 +14,11 @@ public class ScoreCalculator {
 
     public ScoreCalculator() {
         zero = new List<string>();
-        AddTasks();
         onePlus = new List<string>();
         oneMinus = new List<string>();
         score = 0;
         maxScore = 10;
+        AddTasks();
     }
 
     private void AddTasks() {

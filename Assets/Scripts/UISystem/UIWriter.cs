@@ -7,18 +7,18 @@ public class UIWriter : MonoBehaviour {
     private GameObject canvas;
     #endregion
 
-    public string toggleChild(string childName) {
-        GameObject child = returnChild(childName);
+    public string ToggleChild(string childName) {
+        GameObject child = ReturnChild(childName);
         Text text = child.GetComponent<Text>();
         text.enabled = !text.enabled;
         return "Text is set to " + text.enabled;
     }
 
-    public string writeToName(string childName) {
+    public string WriteToName(string childName) {
         return "null";
     }
 
-    private GameObject returnChild(string childName) {
+    private GameObject ReturnChild(string childName) {
         GameObject child = canvas.gameObject.transform.Find(childName).gameObject;
         return child;
     }

@@ -9,7 +9,7 @@ public class TestContaminable : Interactable {
     protected override void Start() {
         base.Start();
         type = InteractableType.GrabbableAndInteractable;
-        states = gameObject.GetComponent<GeneralItem>();
+        states = GetComponent<GeneralItem>();
     }
 
     public override void Interact(Hand hand) {
