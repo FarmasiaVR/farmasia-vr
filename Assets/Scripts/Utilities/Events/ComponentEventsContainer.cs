@@ -2,7 +2,9 @@
 
 public class ComponentEventsContainer {
 
+    #region fields
     public List<CallbackComponentPair> pairs;
+    #endregion
 
     public ComponentEventsContainer() {
         pairs = new List<CallbackComponentPair>();

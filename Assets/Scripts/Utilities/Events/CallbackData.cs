@@ -1,8 +1,10 @@
 ﻿public struct CallbackData {
 
+    #region fields
     public CallbackDataType DataType;
     public string DataString;
     public object DataObject;
+    #endregion
 
     public static CallbackData NoData() {
         CallbackData d = new CallbackData();

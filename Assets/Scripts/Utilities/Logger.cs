@@ -56,6 +56,7 @@ public static class Logger {
 
         return nameof(o) + ": " + o.ToString();
     }
+
     private static string VarString(object n, object o) {
         if (o == null) {
             return n + ": null";
