@@ -2,9 +2,11 @@
 
 public class Door : MonoBehaviour {
 
-    UIWriter writer;
+    #region fields
     public GameObject warpPoint;
+    private UIWriter writer;
     private GameObject player = null;
+    #endregion
 
     void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.name == "Player") {

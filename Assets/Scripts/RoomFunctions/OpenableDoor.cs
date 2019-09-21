@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 public class OpenableDoor : MonoBehaviour {
 
@@ -13,20 +14,26 @@ public class OpenableDoor : MonoBehaviour {
     [SerializeField]
     private float friction = 0.9f;
 
-    public bool Locked { get; set; } = true;
+    public bool IsLocked { get; set; } = true;
 
     private Vector3 lastEulerAngles;
 
+    [SerializeField]
     private Transform handle;
     private float grabLength;
     private float angleOffset;
+
+    private float Angle {
+        get {
+            return transform.eulerAngles.y;
+        }
+    }
     #endregion
 
     private void Start() {
         startAngle = transform.eulerAngles.y;
-        handle = transform.Find("Handle");
-        grabLength = (handle.position - transform.position).magnitude * 0.9f;
         grabLength = float.MaxValue;
+        Assert.IsNotNull(handle);
     }
 
     public void SetByHandPosition(Hand hand) {
@@ -65,7 +72,7 @@ public class OpenableDoor : MonoBehaviour {
     public void ReleaseDoor() {
         Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
         Logger.PrintVariables("Velocity", Velocity);
-        Locked = false;
+        IsLocked = false;
     }
 
     private void Update() {
@@ -82,7 +89,7 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     private void RotateDoor() {
-        if (Locked) {
+        if (IsLocked) {
             return;
         }
 
@@ -93,9 +100,4 @@ public class OpenableDoor : MonoBehaviour {
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
     }
 
-    private float Angle {
-        get {
-            return transform.eulerAngles.y;
-        }
-    }
 }
