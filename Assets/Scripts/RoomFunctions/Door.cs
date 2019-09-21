@@ -8,25 +8,25 @@ public class Door : MonoBehaviour {
     private GameObject player = null;
     #endregion
 
-    void OnTriggerEnter(Collider collision) {
+    private void OnTriggerEnter(Collider collision) {
         if (collision.gameObject.name == "Player") {
             writer.toggleChild("Prompt Field");
             player = collision.gameObject;
         }
     }
 
-    void OnTriggerExit(Collider collision) {
+    private void OnTriggerExit(Collider collision) {
         if (collision.gameObject.name == "Player") {
             writer.toggleChild("Prompt Field");
             player = null;
         }
     }
 
-    void Start() {
+    private void Start() {
         writer = GameObject.Find("Canvas").GetComponent<UIWriter>();
     }
 
-    void Update() {
+    private void Update() {
         if (player) {
             if (Input.GetKeyUp(KeyCode.F)) {
                 player.transform.position = warpPoint.transform.position;

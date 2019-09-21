@@ -23,11 +23,7 @@ public class UIWriter : MonoBehaviour {
         return child;
     }
 
-    void Start() {
+    private void Start() {
         canvas = GameObject.Find("Canvas");
-    }
-
-    void Update() {
-
     }
 }

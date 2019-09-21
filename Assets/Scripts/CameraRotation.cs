@@ -9,7 +9,7 @@ public class CameraRotation : MonoBehaviour {
 
     private enum Axis { X, Y, Z };
 
-    void Update() {
+    private void Update() {
         if (Input.GetMouseButton(0)) {
             float h = horizontalSpeed * Input.GetAxis("Mouse X");
             float v = verticalSpeed * Input.GetAxis("Mouse Y");

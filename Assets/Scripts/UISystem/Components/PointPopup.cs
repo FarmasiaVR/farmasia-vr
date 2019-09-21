@@ -23,7 +23,7 @@ public class PointPopup : MonoBehaviour {
     private Color colour;
     #endregion
 
-    void Awake() {
+    private void Awake() {
         textObject = transform.gameObject;
         textField = textObject.GetComponent<TextMeshPro>();
         textField.color = new Color(red, green, blue, 0);

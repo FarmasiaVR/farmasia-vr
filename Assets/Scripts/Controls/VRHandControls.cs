@@ -20,7 +20,7 @@ public class VRHandControls : MonoBehaviour {
     private TeleportControls teleport;
     #endregion
 
-    void Start() {
+    private void Start() {
         hand = GetComponent<Hand>();
         teleport = GetComponent<TeleportControls>();
 

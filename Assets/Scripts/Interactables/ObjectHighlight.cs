@@ -10,7 +10,7 @@ public class ObjectHighlight : MonoBehaviour {
 
     #endregion
 
-    void Start() {
+    private void Start() {
         material = GetComponent<Renderer>().material;
         startColor = material.color;
         highlightColor = startColor + new Color32(40,40,40,0);

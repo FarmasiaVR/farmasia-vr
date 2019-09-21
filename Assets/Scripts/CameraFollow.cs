@@ -7,11 +7,11 @@ public class CameraFollow : MonoBehaviour {
     private Transform block;
     #endregion
 
-    void Start() {
+    private void Start() {
         block = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
-    void Update() {
+    private void Update() {
         transform.position = new Vector3(block.position.x, transform.position.y, block.position.z);
     }
 }

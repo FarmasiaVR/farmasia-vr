@@ -20,13 +20,13 @@ public class TestHandMover : MonoBehaviour {
     private bool isGrabbing;
     #endregion
 
-    void Start() {
+    private void Start() {
         right = transform.GetChild(0).GetComponent<Hand>();
         left = transform.GetChild(1).GetComponent<Hand>();
         current = left;
     }
 
-    void Update() {
+    private void Update() {
         UpdateHands();
         UpdateMovement();
     }
