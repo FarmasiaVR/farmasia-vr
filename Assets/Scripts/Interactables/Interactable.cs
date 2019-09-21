@@ -2,8 +2,10 @@
 
 public class Interactable : MonoBehaviour {
 
+    #region fields
     protected InteractableType type;
     public InteractableType Type { get => type; }
+    #endregion
 
     public InteractState State;
 

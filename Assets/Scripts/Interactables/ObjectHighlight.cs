@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class ObjectHighlight : MonoBehaviour {
 
+    #region fields
     private Material material;
-    private Color startcolor;
+    private Color startColor;
 
-    public bool highlighted;
+    public bool isHighlighted;
+    #endregion
 
     void Start() {
         material = GetComponent<Renderer>().material;
-        startcolor = material.color;
+        startColor = material.color;
     }
 
     private void OnDestroy() {
@@ -18,14 +20,14 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        startcolor = material.color;
+        startColor = material.color;
         material.color = material.color + new Color32(40,40,40,0);
-        highlighted = true;
+        isHighlighted = true;
     }
 
     public void Unhighlight() {
-        if (highlighted) material.color = startcolor;
-        highlighted = false;
+        if (isHighlighted) material.color = startColor;
+        isHighlighted = false;
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
@@ -33,10 +35,10 @@ public class ObjectHighlight : MonoBehaviour {
             bool closest = gameObject == coll.GetGrabObject();
 
             if (coll.Hand.IsGrabbed) {
-                if (highlighted) Unhighlight();
-            } else if (closest && !highlighted) {
+                if (isHighlighted) Unhighlight();
+            } else if (closest && !isHighlighted) {
                 Highlight();
-            } else if (!closest && highlighted) {
+            } else if (!closest && isHighlighted) {
                 Unhighlight();
             }
 

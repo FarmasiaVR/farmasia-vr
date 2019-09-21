@@ -1,8 +1,10 @@
 ﻿public class DoorHandle : Interactable {
 
+    #region fields
     private Hand hand;
     private OpenableDoor door;
-    private bool grabbed;
+    private bool isGrabbed;
+    #endregion
 
     protected override void Start() {
         base.Start();
@@ -11,7 +13,7 @@
     }
 
     private void Update() {
-        if (grabbed) {
+        if (isGrabbed) {
             UpdatePosition();
         }
     }
@@ -27,14 +29,14 @@
         door.SetAngleOffset(hand.transform.position);
 
         this.hand = hand;
-        grabbed = true;
+        isGrabbed = true;
     }
 
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
 
         this.hand = null;
-        grabbed = false;
+        isGrabbed = false;
         door.ReleaseDoor();
     }
 }
