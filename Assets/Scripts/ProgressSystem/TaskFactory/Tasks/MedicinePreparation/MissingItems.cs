@@ -25,17 +25,17 @@ public class MissingItems : TaskBase {
         ObjectType type = item.ObjectType;
         
         if (type == ObjectType.Syringe) {
-            ToggleCondition("Syringe");
+            EnableCondition("Syringe");
         }
         if (type == ObjectType.Needle) {
-            ToggleCondition("Needle");
+            EnableCondition("Needle");
         }
         if (type == ObjectType.Luerlock) {
-            ToggleCondition("Luerlock");
+            EnableCondition("Luerlock");
         }
         if (type == ObjectType.Bottle) {
             //check that the chosen bottle has the wanted size
-            ToggleCondition("RightSizeBottle");
+            EnableCondition("RightSizeBottle");
         }
         CheckClearConditions(true);
     }

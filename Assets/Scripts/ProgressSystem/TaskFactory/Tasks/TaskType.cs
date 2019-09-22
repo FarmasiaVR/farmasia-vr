@@ -6,6 +6,7 @@ public enum TaskType {
     SelectMedicine,
     Layout1,
     AmountOfItems,
+    MissingItems,
     Layout2,
     Disinfect,
     MedicineToSyringe,
