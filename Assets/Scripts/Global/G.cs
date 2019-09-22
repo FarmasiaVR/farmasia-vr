@@ -20,7 +20,6 @@ public sealed class G {
     }
 
     public void Update(float deltaTime) {
-        ProgressManager.Update(deltaTime);
         Pipeline.Update(deltaTime);
     }
 }

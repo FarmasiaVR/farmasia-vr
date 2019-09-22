@@ -49,19 +49,6 @@ public class ProgressManager {
 
     #region Public Methods
     /// <summary>
-    /// Once all Tasks are finished, waits for a moment and then finishes progress.
-    /// </summary>
-    public void Update(float deltaTime) {
-        if (isFinished) {
-            finishTimer += deltaTime;
-            if (finishTimer >= waitTime) {
-                FinishProgress();
-                isFinished = false;
-            }
-        }
-    }
-
-    /// <summary>
     /// Adds a task to the current active list.
     /// </summary>
     /// <param name="task">Refers to task to be added.</param>
@@ -78,7 +65,7 @@ public class ProgressManager {
         DoneTypes.Add(task.GetTaskType());
         ActiveTasks.Remove(task);
         if (ActiveTasks.Count == 0) {
-            isFinished = true;
+            G.Instance.Pipeline.New().Delay(waitTime).Func(FinishProgress);
         } else {
             Debug.Log("Still " + ActiveTasks.Count + " left!");
         }
