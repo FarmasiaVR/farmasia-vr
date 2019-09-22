@@ -1,68 +1,66 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AmountOfItems : TaskBase {
-
-    #region fields
+    #region Fields
     private string[] conditions = {"Syringe", "Needle", "Luerlock", "RightSizeBottle"};
     #endregion
- 
+
+    #region Constructor
     public AmountOfItems() : base(TaskType.AmountOfItems, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
+    #endregion
 
     #region Event Subscriptions
     public override void Subscribe() { 
         base.SubscribeEvent(Amount, EventType.AmountOfItems);
     }
-
     private void Amount(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("Item was null");
+            Logger.Print("was null");
             return;
         }
-
         ObjectType type = item.ObjectType;
-        switch (type) {
-            case ObjectType.Syringe:
-                ToggleCondition("Syringe");
-                break;
-            case ObjectType.Needle:
-                ToggleCondition("Needle");
-                break;
-            case ObjectType.Luerlock:
-                ToggleCondition("Luerlock");
-                break;
-            case ObjectType.Bottle:
-                //check that the chosen bottle is the wanted size
-                ToggleCondition("RightSizeBottle");
-                break;
+        
+        if (type == ObjectType.Syringe) {
+            EnableCondition("Syringe");
         }
-
-        bool cleared = CheckClearConditions(true);
+        if (type == ObjectType.Needle) {
+            EnableCondition("Needle");
+        }
+        if (type == ObjectType.Luerlock) {
+            EnableCondition("Luerlock");
+        }
+        if (type == ObjectType.Bottle) {
+            //check that the chosen bottle is the wanted size
+            EnableCondition("RightSizeBottle");
+        }
+        bool check = CheckClearConditions(true);
         //checked when player exits the room
-        if (!cleared) {
+        if (!check) {
             Logger.Print("All conditions not fulfilled but task closed.");
             ProgressManager.Instance.GetCalculator().Substract(TaskType.AmountOfItems);
-            base.FinishTask();
-            ProgressManager.Instance.AddTask(TaskFactory.GetTask(TaskType.MissingItems));
+            base.UnsubscribeAllEvents();
         }
     }
     #endregion
 
+    #region Public Methods
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
         ProgressManager.Instance.GetCalculator().Add(TaskType.AmountOfItems);
         base.FinishTask();
     }
-
     public override string GetDescription() {
         return "Tarkista valitsemiesi välineiden määrä.";
     }
-
     public override string GetHint() {
         return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla."; 
     }
+    #endregion
 }

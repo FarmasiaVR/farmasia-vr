@@ -1,5 +1,7 @@
-﻿public interface ITask { 
-
+﻿/// <summary>
+/// Interface for Tasks.
+/// </summary>
+public interface ITask {
     TaskType GetTaskType();
     void FinishTask();
     string GetDescription();
