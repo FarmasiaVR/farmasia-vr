@@ -32,7 +32,7 @@ public class TaskBase : ITask {
     /// </summary>
     private void Remove() {
         if (removeWhenFinished) {
-            G.Instance.ProgressManager.RemoveTask(this);
+            G.Instance.Progress.RemoveTask(this);
         }
     }
     #endregion
@@ -94,7 +94,7 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        List<TaskType> completed = G.Instance.ProgressManager.DoneTypes;
+        List<TaskType> completed = G.Instance.Progress.DoneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;

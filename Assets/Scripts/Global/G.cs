@@ -8,14 +8,14 @@ public sealed class G {
     private static readonly G instance = new G();
     public static G Instance { get => instance; }
 
-    public ProgressManager ProgressManager { get; }
+    public ProgressManager Progress { get; }
     public PipelineManager Pipeline { get; }
     #endregion
 
     static G() {}
 
     private G() {
-        ProgressManager = new ProgressManager();
+        Progress = new ProgressManager();
         Pipeline = new PipelineManager();
     }
 
