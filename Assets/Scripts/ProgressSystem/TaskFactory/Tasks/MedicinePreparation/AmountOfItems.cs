@@ -44,7 +44,7 @@ public class AmountOfItems : TaskBase {
         //checked when player exits the room
         if (!check) {
             Logger.Print("All conditions not fulfilled but task closed.");
-            ProgressManager.Instance.GetCalculator().Subtract(TaskType.AmountOfItems);
+            G.Instance.ProgressManager.Calculator.Subtract(TaskType.AmountOfItems);
             base.UnsubscribeAllEvents();
         }
     }
@@ -53,7 +53,7 @@ public class AmountOfItems : TaskBase {
     #region Public Methods
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
-        ProgressManager.Instance.GetCalculator().Add(TaskType.AmountOfItems);
+        G.Instance.ProgressManager.Calculator.Add(TaskType.AmountOfItems);
         base.FinishTask();
     }
     public override string GetDescription() {

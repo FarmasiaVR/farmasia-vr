@@ -32,7 +32,7 @@ public class Layout1 : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && AtLeastThree()) {
             Logger.Print("All conditions not fulfilled but task closed.");
-            ProgressManager.Instance.GetCalculator().Subtract(TaskType.Layout1);
+            G.Instance.ProgressManager.Calculator.Subtract(TaskType.Layout1);
             base.UnsubscribeAllEvents();
         }
     }
@@ -45,7 +45,7 @@ public class Layout1 : TaskBase {
     #region Public Methods
     public override void FinishTask() {
         Logger.Print("All conditions fulfilled, task finished!");
-        ProgressManager.Instance.GetCalculator().Add(TaskType.Layout1);
+        G.Instance.ProgressManager.Calculator.Add(TaskType.Layout1);
         base.FinishTask();
     }
 
