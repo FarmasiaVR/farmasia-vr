@@ -22,7 +22,7 @@ public class Hand : MonoBehaviour {
     private Vector3 angularVelocity;
     private Vector3 lastEulerAngles;
 
-    private HandCollider coll;
+    public HandCollider coll { get; private set; }
 
     public Interactable Interactable { get; private set; }
     public Rigidbody GrabbedRigidbody { get; private set; }

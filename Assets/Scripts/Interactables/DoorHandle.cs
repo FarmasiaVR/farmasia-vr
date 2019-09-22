@@ -26,7 +26,7 @@
         base.Interact(hand);
         Logger.Print("Door interact");
 
-        door.SetAngleOffset(hand.transform.position);
+        door.SetAngleOffset(hand.coll.transform.position);
 
         this.hand = hand;
         isGrabbed = true;

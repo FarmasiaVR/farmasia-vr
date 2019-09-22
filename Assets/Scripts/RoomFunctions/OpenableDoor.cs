@@ -37,7 +37,7 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     public void SetByHandPosition(Hand hand) {
-        Vector3 handPos = hand.transform.position;
+        Vector3 handPos = hand.coll.transform.position;
 
         float handDistance = (handPos - handle.position).magnitude;
         if (handDistance > grabLength) {
