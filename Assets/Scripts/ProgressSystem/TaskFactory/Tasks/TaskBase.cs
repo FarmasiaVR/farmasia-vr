@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-
 /// <summary>
 /// Version 2 of current task.
 /// </summary>
 public class TaskBase : ITask {
-
-    #region fields
+    #region Fields
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
     protected bool previousTasksCompleted = false;
-
     protected Dictionary<string, bool> clearConditions = new Dictionary<string, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
     #endregion
@@ -29,6 +26,17 @@ public class TaskBase : ITask {
     }
     #endregion
 
+    #region Private Methods
+    /// <summary>
+    /// Removes current task if the task has been set to be removed.
+    /// </summary>
+    private void Remove() {
+        if (removeWhenFinished) {
+            ProgressManager.Instance.RemoveTask(this);
+        }
+    }
+    #endregion
+
     #region Public Methods
     /// <summary>
     /// Return the type of current task.
@@ -39,12 +47,12 @@ public class TaskBase : ITask {
     }
 
     /// <summary>
-    /// Toggles condition by given string.
+    /// Enables condition with given string.
     /// </summary>
     /// <param name="condition">String representation of condition.</param>
-    public void ToggleCondition(string condition) {
+    public void EnableCondition(string condition) {
         if (clearConditions.ContainsKey(condition)) {
-            clearConditions[condition] = !clearConditions[condition];
+            clearConditions[condition] = true;
         }
     }
 
@@ -66,7 +74,6 @@ public class TaskBase : ITask {
     public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
         Events.SubscribeToEvent(action, Event);
         subscribedEvents.Add(action, Event);
-
     }
 
     /// <summary>
@@ -152,14 +159,6 @@ public class TaskBase : ITask {
     /// </summary>
     public virtual void Subscribe() {
     }
-    #endregion
 
-    /// <summary>
-    /// Removes current task if the task has been set to be removed.
-    /// </summary>
-    private void Remove() {
-        if (removeWhenFinished) {
-            ProgressManager.Instance.RemoveTask(this);
-        }
-    }
+    #endregion
 }
