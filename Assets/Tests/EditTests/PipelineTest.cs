@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace Tests {
@@ -8,6 +9,16 @@ namespace Tests {
         public void TestEmpty() {
             Pipeline subject = new Pipeline();
             Assert.IsTrue(subject.IsDone, "Empty pipeline is not done");
+        }
+
+        [Test]
+        public void TestNullVoidFunctor() {
+            try {
+                Pipeline subject = new Pipeline().Func(null);
+                subject.Update(0);
+            } catch (NullReferenceException) {
+                Assert.Fail("VoidFunctorAction unable to handle null functor");
+            }
         }
 
         [Test]
@@ -34,6 +45,26 @@ namespace Tests {
             Assert.IsFalse(subject.IsDone, "Non-empty Pipeline is done before any Update calls");
             subject.Update(0);
             Assert.IsTrue(subject.IsDone, "One-action Pipeline is not done after one Update call");
+        }
+
+        [Test]
+        public void TestNullFunctorIntFunctor() {
+            try {
+                Pipeline subject = new Pipeline().TFunc<int>(null, () => 0);
+                subject.Update(0);
+            } catch (NullReferenceException) {
+                Assert.Fail("TFunctorAction unable to handle null getter functor");
+            }
+        }
+
+        [Test]
+        public void TestNullGetterIntFunctor() {
+            try {
+                Pipeline subject = new Pipeline().TFunc<int>(o => {}, null);
+                subject.Update(0);
+            } catch (NullReferenceException) {
+                Assert.Fail("TFunctorAction unable to handle null getter functor");
+            }
         }
 
         [Test]

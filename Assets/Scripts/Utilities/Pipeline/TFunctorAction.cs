@@ -9,7 +9,9 @@ public class TFunctorAction<T> : PipelineAction {
     }
 
     protected override void UpdateAction(float deltaTime) {
-        functor?.Invoke(argGetter.Invoke());
+        if (argGetter != null) {
+            functor?.Invoke(argGetter.Invoke());
+        }
         IsDone = true;
     }
 }
