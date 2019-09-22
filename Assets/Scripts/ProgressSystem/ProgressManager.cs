@@ -28,24 +28,6 @@ public class ProgressManager {
 
     #region Private Methods
     /// <summary>
-    /// Once all Tasks are finished, waits for a moment and then finishes progress.
-    /// </summary>
-    private void Update() {
-        // NOTE: Currently Update() is not called automatically but must be called by a MonoBehaviour
-        // script. Delayed / Timed actions should be handled with centralized API rather than being
-        // implemented separately.
-        //
-        // FinishProgress() is currently called immediately instead of being delayed, see RemoveTask(ITask)
-        if (isFinished) {
-            finishTimer += Time.deltaTime;
-            if (finishTimer >= waitTime) {
-                FinishProgress();
-                isFinished = false;
-            }
-        }
-    }
-
-    /// <summary>
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
     /// </summary>
@@ -67,6 +49,19 @@ public class ProgressManager {
 
     #region Public Methods
     /// <summary>
+    /// Once all Tasks are finished, waits for a moment and then finishes progress.
+    /// </summary>
+    public void Update(float deltaTime) {
+        if (isFinished) {
+            finishTimer += deltaTime;
+            if (finishTimer >= waitTime) {
+                FinishProgress();
+                isFinished = false;
+            }
+        }
+    }
+
+    /// <summary>
     /// Adds a task to the current active list.
     /// </summary>
     /// <param name="task">Refers to task to be added.</param>
@@ -83,8 +78,6 @@ public class ProgressManager {
         DoneTypes.Add(task.GetTaskType());
         ActiveTasks.Remove(task);
         if (ActiveTasks.Count == 0) {
-            // FinishProgress is called immediately. See Update() for details.
-            FinishProgress();
             isFinished = true;
         } else {
             Debug.Log("Still " + ActiveTasks.Count + " left!");
