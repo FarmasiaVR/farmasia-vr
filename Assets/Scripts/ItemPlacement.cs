@@ -50,22 +50,16 @@ public class ItemPlacement : MonoBehaviour {
 
 
     public static void ReleaseSafely(GameObject g) {
-        if (g.GetComponent<ItemPlacement>() != null) {
-            return;
-        }
-
-        if (g.GetComponent<Interactable>().State != InteractState.Grabbed) {
-            return;
-        }
+        if (g.GetComponent<ItemPlacement>() != null) return;
+        if (g.GetComponent<Interactable>().State != InteractState.Grabbed) return;
 
         float boundsDistance = Vector3.Distance(g.GetComponent<Collider>().bounds.ClosestPoint(g.transform.position - Vector3.down * maxDistance), g.transform.position);
         float rayLength = safeDropHeight + boundsDistance;
 
         RaycastHit hit;
-        if (!Physics.Raycast(g.transform.position, Vector3.down, out hit, rayLength)) {
-            return;
-        }
+        if (!Physics.Raycast(g.transform.position, Vector3.down, out hit, rayLength)) return;
+        if (hit.transform.tag == "Interactable") return;
 
-        g.AddComponent<ItemPlacement>();
+        g.AddComponent<ItemPlacement>();    // Adding components every time causes lag, change approach
     }
 }
