@@ -49,20 +49,20 @@ public class ScoreCalculator {
     }
 
     /// <summary>
-    /// Substracts a point from given task. Moves it to minus list.
+    /// Subtracts a point from given task. Moves it to minus list.
     /// </summary>
-    /// <param name="task">Refers to a task to substract a point.</param>
-    public void Substract(TaskType task) {
+    /// <param name="task">Refers to a task to subtract a point.</param>
+    public void Subtract(TaskType task) {
         score--;
         oneMinus.Add(task.ToString());
         zero.Remove(task.ToString());
     }
 
     /// <summary>
-    /// Prints current Score with different tasks.
+    /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
-    public string PrintScore() {
+    public string GetScoreString() {
         return "The current score is " + score + " out of " + maxScore + "." + "\t" +
         "Tasks with +1 score: " + String.Join(", ", onePlus.ToArray()) + "\t" +
         "Tasks with -1 score: " + String.Join(", ", oneMinus.ToArray()) + "\t" +

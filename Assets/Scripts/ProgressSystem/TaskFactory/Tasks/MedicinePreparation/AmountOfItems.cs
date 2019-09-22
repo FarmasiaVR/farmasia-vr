@@ -44,7 +44,7 @@ public class AmountOfItems : TaskBase {
         //checked when player exits the room
         if (!check) {
             Logger.Print("All conditions not fulfilled but task closed.");
-            ProgressManager.Instance.GetCalculator().Substract(TaskType.AmountOfItems);
+            ProgressManager.Instance.GetCalculator().Subtract(TaskType.AmountOfItems);
             base.UnsubscribeAllEvents();
         }
     }
