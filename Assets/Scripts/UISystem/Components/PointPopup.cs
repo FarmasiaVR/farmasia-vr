@@ -1,38 +1,97 @@
 ﻿using UnityEngine;
 using TMPro;
-
 public class PointPopup : MonoBehaviour {
-
-    #region fields
-    private AudioSource sfx;
-
-    private float timer = 0.0f;
-    private float visualTime = 3.0f;
-    private float fadeInAndOut = 2.0f;
-
-    private float red = 0.0f;
-    private float green = 0.0f;
-    private float blue = 0.0f;
-    private float transparency = 0.0f;
-
-    private bool fadeInCompleted = false;
-    private bool visualCompleted = false;
-
+    #region Fields
+    private AudioSource sound;
     private GameObject textObject;
     private TextMeshPro textField;
     private Color colour;
     #endregion
 
+    #region Variables
+    private float timer = 0.0f;
+    private float visualTime = 3.0f;
+    private float fadeInAndOut = 0.5f;
+    private float red = 0.0f;
+    private float green = 0.0f;
+    private float blue = 0.0f;
+    private float transparency = 0.0f;
+    private bool fadeInCompleted = false;
+    private bool visualCompleted = false;
+    #endregion
+
+    #region Initialisation
     private void Awake() {
         textObject = transform.gameObject;
         textField = textObject.GetComponent<TextMeshPro>();
         textField.color = new Color(red, green, blue, 0);
+        sound = GetComponent<AudioSource>();
+        sound.enabled = false;
+    }
+    #endregion
 
-        sfx = GetComponent<AudioSource>();
-        sfx.enabled = false;
+    #region Private Methods
+    /// <summary>
+    /// Flips the scale of the Popup. This is required depending on does it follow rotation or camera.
+    /// </summary>
+    /// <param name="x">-1 = Inverted, 1 = Normal</param>
+    private void FlipScale(float x) {
+        transform.localScale.Set(x, transform.localScale.y, transform.localScale.z);
     }
 
-    public void setPopup(int point, string text, MessageType type) {
+    /// <summary>
+    /// Called only if popup lifespan is at the end.
+    /// Removes current Popup from UISystem and then destroys itself.
+    /// Object might be destoyed earlier by another popup in UISystem.
+    /// </summary>
+    private void Remove() {
+        UISystem.Instance.DeleteCurrent();
+        Destroy(transform.gameObject);
+    }
+
+    /// <summary>
+    /// Used for animating the Popup. Once animation is done, Popup destroys itself.
+    /// </summary>
+    private void Update() {
+        timer += Time.deltaTime;
+        if (!fadeInCompleted) {
+            transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
+            textField.color = new Color(red, green, blue, transparency);
+            textObject.transform.position += new Vector3(0, 0.01f, 0);
+            if (timer > fadeInAndOut) {
+
+                textField.color = new Color(red, green, blue, transparency);
+                timer -= fadeInAndOut;
+                fadeInCompleted = true;
+                sound.enabled = true;
+            }
+        } else {
+            if (!visualCompleted) {
+                if (timer > visualTime) {
+                    timer -= visualTime;
+                    visualCompleted = true;
+                }
+            } else {
+                transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
+                textField.color = new Color(red, green, blue, transparency);
+                textObject.transform.position += new Vector3(0, -0.01f, 0);
+                if (timer > fadeInAndOut) {
+                    timer -= fadeInAndOut;
+                    Remove();
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    /// Used for changing default point, text and type of copied popup (from prefab).
+    /// </summary>
+    /// <param name="point">Amount of points gained from task completion. (or failure).</param>
+    /// <param name="text">Message showed to player.</param>
+    /// <param name="type">Message Type changes message's colour and behaviour.</param>
+    public void SetPopup(int point, string text, MessageType type) {
         switch (type) {
             case MessageType.Error:
                 red = 0;
@@ -54,42 +113,17 @@ public class PointPopup : MonoBehaviour {
                 green = 147;
                 blue = 0;
                 break;
+            case MessageType.Congratulate:
+                red = 0;
+                green = 255;
+                blue = 0;
+                break;
         }
-        textField.text = text + "\n" + point;
-    }
-
-    private void Update() {
-        timer += Time.deltaTime;
-
-        if (!fadeInCompleted) {
-            transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
-            textField.color = new Color(red, green, blue, transparency);
-            textObject.transform.position += new Vector3(0, 0.01f, 0);
-            if (timer > fadeInAndOut) {
-
-                textField.color = new Color(red, green, blue, transparency);
-                timer -= fadeInAndOut;
-                fadeInCompleted = true;
-                sfx.enabled = true;
-            }
-
+        if (type == MessageType.Congratulate) {
+            textField.text = text;
         } else {
-            if (!visualCompleted) {
-
-                if (timer > visualTime) {
-                    timer -= visualTime;
-                    visualCompleted = true;
-                }
-
-            } else {
-                transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
-                textField.color = new Color(red, green, blue, transparency);
-                textObject.transform.position += new Vector3(0, -0.01f, 0);
-                if (timer > fadeInAndOut) {
-                    timer -= fadeInAndOut;
-                    Destroy(transform.gameObject);
-                }
-            }
+            textField.text = text + "\n" + point;
         }
     }
+    #endregion
 }

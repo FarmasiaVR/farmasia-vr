@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
+﻿using UnityEngine;
 
 public class UISystem : MonoBehaviour {
-
-    #region fields
+    #region Fields
     public static UISystem Instance { get; private set; }
-    private List<GameObject> popUps = new List<GameObject>();
     [SerializeField]
-    private GameObject popupPrefab;
-    private GameObject cameraRig;
+    public GameObject handUI;
+    [SerializeField]
+    public GameObject popup;  
+    private GameObject currentPopup;
     #endregion
 
+    #region Initialisation
+    /// <summary>
+    /// Used to instantiate Singleton of UISystem.
+    /// </summary>
     private void Awake() {
         if (Instance != null && Instance != this) {
             Destroy(this.gameObject);
@@ -19,14 +21,40 @@ public class UISystem : MonoBehaviour {
             Instance = this;
         }
     }
+    #endregion
 
-    public void DeleteChild(GameObject popupObject) {
-        popUps.Remove(popupObject);
+    #region Private Methods
+    /// <summary>
+    /// Sets the current Popup. Removes old one if it exists.
+    /// </summary>
+    /// <param name="message">Reference to the object to place.</param>
+    private void SetCurrentPopup(GameObject message) {
+        if (currentPopup != null) {
+            Destroy(currentPopup);
+        }
+        currentPopup = message;
+    }
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    /// Sets current Popup as null.
+    /// </summary>
+    public void DeleteCurrent() {
+        currentPopup = null;
     }
 
+    /// <summary>
+    /// Creates a Popup with given specifications and sets it as current.
+    /// </summary>
+    /// <param name="point">Amount of points for the task. Some tasks do not use this.</param>
+    /// <param name="message">Message to be displayed for the player.</param>
+    /// <param name="type">Type of message. Different types have different colours.</param>
     public void CreatePopup(int point, string message, MessageType type) {
-        GameObject popupMessage = Instantiate(popupPrefab, new Vector3(0, 0, 10), Quaternion.identity);
-        popupMessage.GetComponent<PointPopup>().setPopup(point, message, type);
-        popUps.Add(popupMessage);
+        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, popup.transform.rotation);
+        popupMessage.transform.SetParent(handUI.transform, true);
+        popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
+        SetCurrentPopup(popupMessage);
     }
+    #endregion
 }
