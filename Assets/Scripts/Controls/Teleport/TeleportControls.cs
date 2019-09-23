@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using Valve.VR;
 
 public class TeleportControls : MonoBehaviour {
 
@@ -14,13 +15,29 @@ public class TeleportControls : MonoBehaviour {
     [SerializeField]
     private Transform player;
     private Transform pHead;
+
+    private SteamVR_Input_Sources handType;
     #endregion
 
     private void Start() {
+        handType = GetComponent<VRHandControls>().handType;
         line = GetComponent<LineRenderer>();
         arc = new TeleportArc();
         Assert.IsNotNull(player, "Player transform has not been set in Editor");
         pHead = player.GetChild(2);
+    }
+
+    private void Update() {
+        if (VRInput.GetControlDown(Control.Menu, handType)) {
+            StartTeleport();
+        }
+        if (VRInput.GetControlUp(Control.Menu, handType)) {
+            EndTeleport();
+        }
+
+        if (isTeleporting) {
+            DrawLine();
+        }
     }
 
     public void StartTeleport() {
@@ -30,12 +47,6 @@ public class TeleportControls : MonoBehaviour {
         isTeleporting = false;
         line.positionCount = 0;
         TeleportToPosition();
-    }
-
-    private void Update() {
-        if (isTeleporting) {
-            DrawLine();
-        }
     }
 
     private void DrawLine() {

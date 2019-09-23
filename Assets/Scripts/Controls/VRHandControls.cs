@@ -40,44 +40,41 @@ public class VRHandControls : MonoBehaviour {
 
     #region Trigger
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Logger.Print("Trigger is down: " + handType);
-
-        hand.InteractWithObject();
+        VRInput.ControlDown(Control.TriggerClick, handType);
     }
 
     public void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Logger.Print("Trigger is up: " + handType);
-        hand.UninteractWithObject();
+        VRInput.ControlUp(Control.TriggerClick, handType);
     }
     #endregion
 
     #region Menu
     public void MenuDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        teleport.StartTeleport();
+        VRInput.ControlDown(Control.Menu, handType);
     }
 
     public void MenuUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        teleport.EndTeleport();
+        VRInput.ControlUp(Control.Menu, handType);
     }
     #endregion
 
     #region Pad
     public void PadDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        hand.GrabInteract();
+        VRInput.ControlDown(Control.PadClick , handType);
     }
 
     public void PadUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        hand.GrabUninteract();
+        VRInput.ControlUp(Control.PadClick, handType);
     }
     #endregion
 
     #region Grip
     public void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Logger.Print("GRip down");
+        VRInput.ControlDown(Control.Grip, handType);
     }
 
     public void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        Logger.Print("GRip up");
+        VRInput.ControlUp(Control.Grip, handType);
     }
     #endregion
 }

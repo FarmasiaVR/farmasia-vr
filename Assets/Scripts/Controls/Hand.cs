@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using Valve.VR;
 
 public class Hand : MonoBehaviour {
 
     #region fields
     public bool IsGrabbed { get; set; }
+
+    private SteamVR_Input_Sources handType;
 
     private VRHandControls controls;
     private FixedJoint joint;
@@ -34,6 +37,7 @@ public class Hand : MonoBehaviour {
     #endregion
 
     private void Start() {
+        handType = GetComponent<VRHandControls>().handType;
         coll = transform.GetChild(0).GetComponent<HandCollider>();
         controls = GetComponent<VRHandControls>();
     }
@@ -46,6 +50,22 @@ public class Hand : MonoBehaviour {
         }
     }
 
+    private void UpdateControls() {
+
+        if (VRInput.GetControlDown(Control.TriggerClick, handType)) {
+            InteractWithObject();
+        }
+        if (VRInput.GetControlUp(Control.TriggerClick, handType)) {
+            UninteractWithObject();
+        }
+
+        if (VRInput.GetControlDown(Control.PadClick, handType)) {
+            GrabInteract();
+        }
+        if (VRInput.GetControlUp(Control.PadClick, handType)) {
+            GrabUninteract();
+        }
+    }
     // Alternative: set Rigidbody to kinematic, might cause bugs though
     private void UpdateGrabbedObject() {
         GrabbedRigidbody.velocity = Vector3.zero;
