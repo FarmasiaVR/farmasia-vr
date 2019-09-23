@@ -6,5 +6,5 @@ public enum MessageType {
     Notify,
     Warning,
     Error,
-    Congratulate
+    Done
 }

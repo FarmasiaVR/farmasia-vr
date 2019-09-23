@@ -6,7 +6,7 @@ public class UISystem : MonoBehaviour {
     [SerializeField]
     public GameObject handUI;
     [SerializeField]
-    public GameObject popup;  
+    public GameObject popup;
     private GameObject currentPopup;
     #endregion
 
@@ -34,6 +34,12 @@ public class UISystem : MonoBehaviour {
         }
         currentPopup = message;
     }
+
+    private GameObject PopupInit() {
+        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, popup.transform.rotation);
+        popupMessage.transform.SetParent(handUI.transform, true);
+        return popupMessage;
+    }
     #endregion
 
     #region Public Methods
@@ -51,9 +57,14 @@ public class UISystem : MonoBehaviour {
     /// <param name="message">Message to be displayed for the player.</param>
     /// <param name="type">Type of message. Different types have different colours.</param>
     public void CreatePopup(int point, string message, MessageType type) {
-        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, popup.transform.rotation);
-        popupMessage.transform.SetParent(handUI.transform, true);
+        GameObject popupMessage = PopupInit();
         popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
+        SetCurrentPopup(popupMessage);
+    }
+
+    public void CreatePopup(string message, MessageType type) {
+        GameObject popupMessage = PopupInit();
+        popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
         SetCurrentPopup(popupMessage);
     }
     #endregion

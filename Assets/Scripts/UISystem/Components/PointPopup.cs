@@ -82,16 +82,9 @@ public class PointPopup : MonoBehaviour {
             }
         }
     }
-    #endregion
 
-    #region Public Methods
-    /// <summary>
-    /// Used for changing default point, text and type of copied popup (from prefab).
-    /// </summary>
-    /// <param name="point">Amount of points gained from task completion. (or failure).</param>
-    /// <param name="text">Message showed to player.</param>
-    /// <param name="type">Message Type changes message's colour and behaviour.</param>
-    public void SetPopup(int point, string text, MessageType type) {
+
+    private void SetColour(MessageType type) {
         switch (type) {
             case MessageType.Error:
                 red = 0;
@@ -113,17 +106,35 @@ public class PointPopup : MonoBehaviour {
                 green = 147;
                 blue = 0;
                 break;
-            case MessageType.Congratulate:
+            case MessageType.Done:
                 red = 0;
                 green = 255;
                 blue = 0;
                 break;
         }
-        if (type == MessageType.Congratulate) {
-            textField.text = text;
-        } else {
-            textField.text = text + "\n" + point;
-        }
+    }
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    /// Used for changing default text and type of instantiated popup.
+    /// </summary>
+    /// <param name="text">Message showed to player.</param>
+    /// <param name="type">Message Type changes message's colour.</param>
+    public void SetPopup(string text, MessageType type) {
+        SetColour(type);
+        textField.text = text;
+    }
+
+    /// <summary>
+    /// Used for changing default point, text and type of copied popup (from prefab).
+    /// </summary>
+    /// <param name="point">Amount of points gained from task completion. (or failure).</param>
+    /// <param name="text">Message showed to player.</param>
+    /// <param name="type">Message Type changes message's colour.</param>
+    public void SetPopup(int point, string text, MessageType type) {
+        SetColour(type);
+        textField.text = text + "\n" + point;
     }
     #endregion
 }

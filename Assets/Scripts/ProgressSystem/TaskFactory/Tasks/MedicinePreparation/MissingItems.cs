@@ -41,7 +41,7 @@ public class MissingItems : TaskBase {
     #endregion 
 
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(0, "Missing items picked up", MessageType.Congratulate);
+        UISystem.Instance.CreatePopup("Missing items picked up", MessageType.Done);
         base.FinishTask();
     }
 

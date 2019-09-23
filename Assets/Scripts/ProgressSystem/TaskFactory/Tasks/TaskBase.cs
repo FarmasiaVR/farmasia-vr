@@ -87,6 +87,13 @@ public class TaskBase : ITask {
     #endregion
 
     #region Protected Methods
+    protected bool CheckAllPreviousTaskCompletion() {
+        if (G.Instance.Progress.ActiveTasks.Count <= 1) {
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// Used for checking if previous tasks before current task are completed.
     /// </summary>

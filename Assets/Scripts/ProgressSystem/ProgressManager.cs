@@ -41,7 +41,9 @@ public class ProgressManager {
     /// Once all tasks are finished, FinishProgress is called to create a Congratulation popup.
     /// </summary>
     private void FinishProgress() {
-        UISystem.Instance.CreatePopup(0, "Congratulations!\nAll tasks finished", MessageType.Congratulate);
+        foreach (ITask task in ActiveTasks) {
+            task.FinishTask();
+        }
     }
     #endregion
 
@@ -62,7 +64,7 @@ public class ProgressManager {
     public void RemoveTask(ITask task) {
         DoneTypes.Add(task.GetTaskType());
         ActiveTasks.Remove(task);
-        if (ActiveTasks.Count == 0) {
+        if (ActiveTasks.Count == 1) {
             G.Instance.Pipeline.New().Delay(waitTime).Func(FinishProgress);
         } else {
             Debug.Log("Still " + ActiveTasks.Count + " left!");
