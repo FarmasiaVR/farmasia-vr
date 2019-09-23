@@ -45,7 +45,8 @@ public class AmountOfItems : TaskBase {
         if (!check) {
             Logger.Print("All conditions not fulfilled but task closed.");
             G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfItems);
-            base.UnsubscribeAllEvents();
+            base.FinishTask();
+            G.Instance.Progress.AddTask(TaskFactory.GetTask(TaskType.MissingItems));
         }
     }
     #endregion

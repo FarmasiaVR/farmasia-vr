@@ -33,7 +33,7 @@ public class Layout1 : TaskBase {
         if (!check && AtLeastThree()) {
             Logger.Print("All conditions not fulfilled but task closed.");
             G.Instance.Progress.Calculator.Subtract(TaskType.Layout1);
-            base.UnsubscribeAllEvents();
+            base.FinishTask();
         }
     }
     //checks that at least three items are placed before going through the door
