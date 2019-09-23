@@ -7,7 +7,7 @@ public class GeneralItem : Grabbable {
 
     [SerializeField]
     protected ObjectType objectType = ObjectType.None;
-    public virtual ObjectType ObjectType { get => objectType; }
+    public ObjectType ObjectType { get => objectType; set { objectType = value; } }
 
     [SerializeField]
     private bool isClean;

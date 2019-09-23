@@ -35,6 +35,6 @@ public class Syringe : GeneralItem {
 
     protected override void Start() {
         base.Start();
-        objectType = ObjectType.Syringe;
+        ObjectType = ObjectType.Syringe;
     }
 }

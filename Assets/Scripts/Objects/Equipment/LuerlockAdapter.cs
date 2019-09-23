@@ -24,6 +24,6 @@ public class LuerlockAdapter : GeneralItem {
 
     protected override void Start() {
         base.Start();
-        objectType = ObjectType.Luerlock;
+        ObjectType = ObjectType.Luerlock;
     }
 }

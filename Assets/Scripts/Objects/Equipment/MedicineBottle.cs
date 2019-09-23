@@ -32,6 +32,6 @@ public class MedicineBottle : GeneralItem {
 
     protected override void Start() {
         base.Start();
-        objectType = ObjectType.Bottle;
+        ObjectType = ObjectType.Bottle;
     }
 }

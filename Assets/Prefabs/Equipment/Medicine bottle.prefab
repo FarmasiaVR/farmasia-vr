@@ -108,8 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 3
-  clean: 0
+  State: 0
+  objectType: 5
+  isClean: 0
   size: 100
   content: medicine
   contentLeft: 100
@@ -136,11 +137,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5888231561592145422}
     m_Modifications:
-    - target: {fileID: 4209174612845022025, guid: c781ed1de28087b1e8fedbf9029fe598,
-        type: 3}
-      propertyPath: m_Name
-      value: Medicine bottle cap
-      objectReference: {fileID: 0}
     - target: {fileID: 4209174612845022030, guid: c781ed1de28087b1e8fedbf9029fe598,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,6 +191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209174612845022025, guid: c781ed1de28087b1e8fedbf9029fe598,
+        type: 3}
+      propertyPath: m_Name
+      value: Medicine bottle cap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c781ed1de28087b1e8fedbf9029fe598, type: 3}
