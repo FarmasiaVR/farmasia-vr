@@ -3,7 +3,7 @@
     #region fields
     private Hand hand;
     private OpenableDoor door;
-    private bool isGrabbed;
+
     #endregion
 
     protected override void Start() {
@@ -13,13 +13,12 @@
     }
 
     private void Update() {
-        if (isGrabbed) {
-            UpdatePosition();
+        if (State == InteractState.Grabbed) {
+            door.SetByHandPosition(hand);
         }
     }
 
     private void UpdatePosition() {
-        door.SetByHandPosition(hand);
     }
 
     public override void Interact(Hand hand) {
@@ -29,14 +28,14 @@
         door.SetAngleOffset(hand.coll.transform.position);
 
         this.hand = hand;
-        isGrabbed = true;
+        State = InteractState.Grabbed;
     }
 
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
 
         this.hand = null;
-        isGrabbed = false;
+        State = InteractState.None;
         door.ReleaseDoor();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class ItemPlacement : MonoBehaviour {
 
     private Rigidbody rb;
+    private bool collided;
 
     private static float maxDistance = 1;
     private static float safeDropHeight = 0.2f;
@@ -12,24 +13,19 @@ public class ItemPlacement : MonoBehaviour {
 
     private void Start() {
         rb = gameObject.GetComponent<Rigidbody>();
-    }
-
-    
-
-    public void TryPlacement(Transform item) {
-        float angle = Vector3.Angle(item.up, Vector3.up);
-        if (angle > 25f) {
-
-        }
+        StartCoroutine(SlowDown());
     }
 
     private void OnCollisionEnter(Collision collision) {
-        rb.velocity = Vector3.zero;
-
+        if (collided) return;
+        collided = true;
         StartCoroutine(SlowDown());
     }
 
     private IEnumerator SlowDown() {
+
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
         float time = slowDownTime;
 
@@ -45,7 +41,7 @@ public class ItemPlacement : MonoBehaviour {
             yield return null;
         }
 
-        Destroy(this);
+        this.enabled = false;
     }
 
 
@@ -60,6 +56,8 @@ public class ItemPlacement : MonoBehaviour {
         if (!Physics.Raycast(g.transform.position, Vector3.down, out hit, rayLength)) return;
         if (hit.transform.tag == "Interactable") return;
 
-        g.AddComponent<ItemPlacement>();    // Adding components every time causes lag, change approach
+        ItemPlacement p = g.GetComponent<ItemPlacement>();
+        p.enabled = true;
+        p.collided = false;
     }
 }

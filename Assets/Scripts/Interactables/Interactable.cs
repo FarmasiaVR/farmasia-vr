@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour {
     protected virtual void Start() {
         State = InteractState.None;
         gameObject.AddComponent<ObjectHighlight>();
+        gameObject.AddComponent<ItemPlacement>();
     }
 
     public virtual void Interact(Hand hand) {

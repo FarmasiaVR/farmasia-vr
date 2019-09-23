@@ -13,7 +13,7 @@ public class ObjectHighlight : MonoBehaviour {
     private void Start() {
         material = GetComponent<Renderer>().material;
         startColor = material.color;
-        highlightColor = startColor + new Color32(40,40,40,0);
+        highlightColor = startColor + new Color32(60,60,60,0);
     }
 
     private void OnDestroy() {
@@ -32,7 +32,7 @@ public class ObjectHighlight : MonoBehaviour {
         while (coll.Contains(gameObject)) {
             bool isClosest = gameObject == coll.GetGrabObject();
 
-            if (coll.Hand.IsGrabbed) {
+            if (gameObject.GetComponent<Interactable>().State == InteractState.Grabbed) {
                 Unhighlight();
             } else if (isClosest) {
                 Highlight();

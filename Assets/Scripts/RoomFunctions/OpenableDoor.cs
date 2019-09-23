@@ -6,6 +6,10 @@ public class OpenableDoor : MonoBehaviour {
     #region fields
     [SerializeField]
     private float maxAngle = 90;
+
+    [SerializeField]
+    private float offsetAngle = -45;
+
     private float startAngle;
 
     public float Velocity { get; set; }
@@ -31,7 +35,7 @@ public class OpenableDoor : MonoBehaviour {
     #endregion
 
     private void Start() {
-        startAngle = transform.eulerAngles.y;
+        startAngle = transform.eulerAngles.y + offsetAngle;
         grabLength = float.MaxValue;
         Assert.IsNotNull(handle);
     }
