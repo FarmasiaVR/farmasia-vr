@@ -43,6 +43,7 @@ public class Hand : MonoBehaviour {
     }
 
     private void Update() {
+        UpdateControls();
         UpdateVelocity();
 
         if (IsGrabbed) {

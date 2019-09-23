@@ -29,6 +29,7 @@ public class TeleportControls : MonoBehaviour {
 
     private void Update() {
         if (VRInput.GetControlDown(Control.Menu, handType)) {
+            Logger.Print("TELEPORT TRUE: " + handType);
             StartTeleport();
         }
         if (VRInput.GetControlUp(Control.Menu, handType)) {
@@ -57,15 +58,12 @@ public class TeleportControls : MonoBehaviour {
 
         isInvalidTeleport = hit == null || hit.gameObject.tag != "Floor";
 
-        Logger.PrintVariables("count", positions.Length);
-
         line.positionCount = positions.Length;
         line.SetPositions(positions);
     }
 
     private void TeleportToPosition() {
         if (isInvalidTeleport) {
-            Logger.Print("Invalid teleport");
             return;
         }
 

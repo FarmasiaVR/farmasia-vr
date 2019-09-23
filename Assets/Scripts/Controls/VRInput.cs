@@ -49,47 +49,47 @@ public static class VRInput {
 
     public static void SetControlState(Control c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
 
-        HandControl hc = new HandControl(c, handType);
+        HandControl key = new HandControl(c, handType);
 
-        ControlState state = controls[hc];
+        ControlState state = controls[key];
         state.GetDown = getUp;
         state.Down = down;
         state.GetUp = getUp;
 
-        controls[hc] = state;
+        controls[key] = state;
     }
 
     public static void ControlDown(Control c, SteamVR_Input_Sources handType) {
 
-        HandControl hc = new HandControl(c, handType);
+        HandControl key = new HandControl(c, handType);
 
-        ControlState state = controls[hc];
+        ControlState state = controls[key];
         state.GetDown = Time.frameCount;
         state.Down = true;
 
-        controls[hc] = state;
+        controls[key] = state;
     }
     public static void ControlUp(Control c, SteamVR_Input_Sources handType) {
 
-        HandControl hc = new HandControl(c, handType);
+        HandControl key = new HandControl(c, handType);
 
-        ControlState state = controls[hc];
+        ControlState state = controls[key];
         state.Down = false;
         state.GetUp = Time.frameCount;
 
-        controls[hc] = state;
+        controls[key] = state;
     }
 
     public static bool GetControlDown(Control c, SteamVR_Input_Sources handType) {
-        HandControl hc = new HandControl(c, handType);
-        return controls[hc].GetDown == Time.frameCount;
+        HandControl key = new HandControl(c, handType);
+        return controls[key].GetDown == Time.frameCount;
     }
     public static bool GetControl(Control c, SteamVR_Input_Sources handType) {
-        HandControl hc = new HandControl(c, handType);
-        return controls[hc].Down;
+        HandControl key = new HandControl(c, handType);
+        return controls[key].Down;
     }
     public static bool GetControlUp(Control c, SteamVR_Input_Sources handType) {
-        HandControl hc = new HandControl(c, handType);
-        return controls[hc].GetUp == Time.frameCount;
+        HandControl key = new HandControl(c, handType);
+        return controls[key].GetUp == Time.frameCount;
     }
 }
