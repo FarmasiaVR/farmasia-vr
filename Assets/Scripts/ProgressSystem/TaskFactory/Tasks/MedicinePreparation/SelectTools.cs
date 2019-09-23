@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class SelectTools : TaskBase {
     #region Fields
-    private string[] conditions = { "SyringePickedUp", "LuerlockPickedUp" };
+    private string[] conditions = { "SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp" };
     #endregion
 
     #region Constructor
@@ -34,14 +34,18 @@ public class SelectTools : TaskBase {
             return;
         }
         ObjectType type = item.ObjectType;
-
-        if (type == ObjectType.Syringe) {
-            EnableCondition("SyringePickedUp");
+        switch (type) {
+            case ObjectType.Syringe:
+                EnableCondition("SyringePickedUp");
+                break;
+            case ObjectType.Needle:
+                EnableCondition("NeedlePickedUp");
+                break;
+            case ObjectType.Luerlock:
+                EnableCondition("LuerlockPickedUp");
+                break;
         }
-        if (type == ObjectType.Luerlock) {
-            EnableCondition("LuerlockPickedUp");
-        }
-        CheckClearConditions(true);
+        CheckClearConditions(false);
     }
     #endregion
 
@@ -50,7 +54,7 @@ public class SelectTools : TaskBase {
     /// Once all conditions done, used for Finishing current task.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(0, "Tools Selected", MessageType.Congratulate);
+        UISystem.Instance.CreatePopup(0, "Tool selected", MessageType.Congratulate);
         base.FinishTask();
     }
 

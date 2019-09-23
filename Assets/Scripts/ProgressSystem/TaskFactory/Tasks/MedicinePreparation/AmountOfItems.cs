@@ -26,19 +26,22 @@ public class AmountOfItems : TaskBase {
         }
         ObjectType type = item.ObjectType;
         
-        if (type == ObjectType.Syringe) {
-            EnableCondition("Syringe");
+        switch (type) {
+            case ObjectType.Syringe:
+                EnableCondition("Syringe");
+                break;
+            case ObjectType.Needle:
+                EnableCondition("Needle");
+                break;
+            case ObjectType.Luerlock:
+                EnableCondition("Luerlock");
+                break;
+            case ObjectType.Bottle:
+                //check that the chosen bottle is the wanted size
+                EnableCondition("RightSizeBottle");
+                break;
         }
-        if (type == ObjectType.Needle) {
-            EnableCondition("Needle");
-        }
-        if (type == ObjectType.Luerlock) {
-            EnableCondition("Luerlock");
-        }
-        if (type == ObjectType.Bottle) {
-            //check that the chosen bottle is the wanted size
-            EnableCondition("RightSizeBottle");
-        }
+        
         bool check = CheckClearConditions(true);
         //checked when player exits the room
         if (!check) {
