@@ -22,7 +22,6 @@ public class AmountOfItems : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
             return;
         }
         ObjectType type = item.ObjectType;
@@ -43,17 +42,17 @@ public class AmountOfItems : TaskBase {
         bool check = CheckClearConditions(true);
         //checked when player exits the room
         if (!check) {
-            Logger.Print("All conditions not fulfilled but task closed.");
+            UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfItems);
             base.FinishTask();
             G.Instance.Progress.AddTask(TaskFactory.GetTask(TaskType.MissingItems));
         }
-    }
+    } 
     #endregion
 
     #region Public Methods
     public override void FinishTask() {
-        Logger.Print("All conditions fulfilled, task finished!");
+        UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.AmountOfItems);
         base.FinishTask();
     }

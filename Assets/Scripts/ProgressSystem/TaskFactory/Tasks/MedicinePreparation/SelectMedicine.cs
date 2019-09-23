@@ -45,7 +45,7 @@ public class SelectMedicine : TaskBase {
     /// Once all tasks are finished, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Medicine Selected!", MessageType.Notify);
+        UISystem.Instance.CreatePopup(0, "Medicine selected", MessageType.Congratulate);
         base.FinishTask();
     }
     /// <summary>

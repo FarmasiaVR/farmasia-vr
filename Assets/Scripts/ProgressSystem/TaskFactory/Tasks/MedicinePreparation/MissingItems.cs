@@ -19,7 +19,6 @@ public class MissingItems : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
             return;
         }
         ObjectType type = item.ObjectType;
@@ -42,7 +41,7 @@ public class MissingItems : TaskBase {
     #endregion 
 
     public override void FinishTask() {
-        Logger.Print("All conditions fulfilled, task finished!");
+        UISystem.Instance.CreatePopup(0, "Missing items picked up", MessageType.Congratulate);
         base.FinishTask();
     }
 

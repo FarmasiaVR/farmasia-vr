@@ -36,7 +36,7 @@ public class Layout2 : TaskBase {
         EnableCondition("ItemsArranged");
         bool check = CheckClearConditions(true);
         if (!check) {
-            Logger.Print("All conditions not fulfilled but task closed.");
+            UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.Layout2); 
             base.FinishTask();
         }
@@ -45,7 +45,7 @@ public class Layout2 : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        Logger.Print("All conditions fulfilled, task finished!");
+        UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.Layout2);
         base.FinishTask();
     }

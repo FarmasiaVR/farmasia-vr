@@ -20,7 +20,6 @@ public class Layout1 : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print("was null");
             return;
         }
         ObjectType type = item.ObjectType;
@@ -31,7 +30,7 @@ public class Layout1 : TaskBase {
         EnableCondition("ItemsArranged");
         bool check = CheckClearConditions(true);
         if (!check && AtLeastThree()) {
-            Logger.Print("All conditions not fulfilled but task closed.");
+            UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.Layout1);
             base.FinishTask();
         }
@@ -44,7 +43,7 @@ public class Layout1 : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        Logger.Print("All conditions fulfilled, task finished!");
+        UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.Layout1);
         base.FinishTask();
     }
