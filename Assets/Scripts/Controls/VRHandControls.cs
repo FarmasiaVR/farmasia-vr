@@ -7,6 +7,7 @@ public class VRHandControls : MonoBehaviour {
     public SteamVR_Action_Boolean grab;
     public SteamVR_Action_Boolean menuClick;
     public SteamVR_Action_Boolean padClick;
+    public SteamVR_Action_Boolean grip;
 
     public SteamVR_Action_Skeleton skeleton;
 
@@ -32,6 +33,9 @@ public class VRHandControls : MonoBehaviour {
 
         padClick.AddOnStateDownListener(PadDown, handType);
         padClick.AddOnStateUpListener(PadUp, handType);
+
+        grip.AddOnStateDownListener(GripDown, handType);
+        grip.AddOnStateUpListener(GripUp, handType);
     }
 
     #region Trigger
@@ -66,4 +70,15 @@ public class VRHandControls : MonoBehaviour {
         hand.GrabUninteract();
     }
     #endregion
+
+    #region Grip
+    public void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        Logger.Print("GRip down");
+    }
+
+    public void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        Logger.Print("GRip up");
+    }
+    #endregion
 }
+
