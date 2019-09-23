@@ -9,6 +9,7 @@ public class ProgressManager {
     public List<ITask> ActiveTasks { get; private set; }
     public List<TaskType> DoneTypes { get; private set; }
     public ScoreCalculator Calculator { get; }
+    private float waitTime = 5.0f;
     #endregion
 
     #region initialization
