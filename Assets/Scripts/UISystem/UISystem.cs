@@ -4,10 +4,13 @@ public class UISystem : MonoBehaviour {
     #region Fields
     public static UISystem Instance { get; private set; }
     [SerializeField]
-    private GameObject handUIPrefab;
+    [Tooltip("If empty, drag the HandUI object from left hand into here.")]
+    private GameObject handuiInScene;
     [SerializeField]
+    [Tooltip("Drag Popup prefab here!")]
     private GameObject popupPrefab;
     [SerializeField]
+    [Tooltip("Drag Description prefab here!")]
     private GameObject descriptionPrefab;
 
     private GameObject currentPopup;
@@ -51,8 +54,8 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
-        GameObject uiComponent = Instantiate(gobj, handUIPrefab.transform.position + gobj.transform.position, Quaternion.Euler(handUIPrefab.transform.eulerAngles + gobj.transform.eulerAngles));
-        uiComponent.transform.SetParent(handUIPrefab.transform, true);
+        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform.position + gobj.transform.position, Quaternion.Euler(handuiInScene.transform.eulerAngles + gobj.transform.eulerAngles));
+        uiComponent.transform.SetParent(handuiInScene.transform, true);
         return uiComponent;
     }
     #endregion
