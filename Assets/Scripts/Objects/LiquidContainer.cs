@@ -33,4 +33,15 @@ public class LiquidContainer : MonoBehaviour {
     private void OnValidate() {
         Amount = amount;
     }
+
+    public int Transfer(int value) {
+        int oldAmount = Amount;
+        Amount += value;
+        return oldAmount - Amount;
+    }
+
+    public void Transfer(LiquidContainer container, int value) {
+        int transferAmount = Math.Max(Amount - Capacity, Math.Min(Amount, value));
+        Transfer(container.Transfer(value));
+    }
 }
