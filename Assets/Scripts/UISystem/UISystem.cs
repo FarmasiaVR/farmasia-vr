@@ -36,7 +36,7 @@ public class UISystem : MonoBehaviour {
     }
 
     private GameObject PopupInit() {
-        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, popup.transform.rotation);
+        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, Quaternion.Euler(handUI.transform.eulerAngles + popup.transform.eulerAngles));
         popupMessage.transform.SetParent(handUI.transform, true);
         return popupMessage;
     }
