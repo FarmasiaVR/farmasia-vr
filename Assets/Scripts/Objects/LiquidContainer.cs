@@ -13,7 +13,10 @@ public class LiquidContainer : MonoBehaviour {
         get { return amount; }
         set {
             amount = Math.Max(Math.Min(value, Capacity), 0);
-            liquid.SetFillPercentage(((float) amount) / capacity);
+            // liquid is null when OnValidate is called twice before Awake
+            // when playing in Editor Mode
+            // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
+            liquid?.SetFillPercentage(((float) amount) / capacity);
         }
     }
 
@@ -25,7 +28,7 @@ public class LiquidContainer : MonoBehaviour {
     }
     #endregion
 
-    private void Start() {
+    private void Awake() {
         liquid = GetComponentInChildren<LiquidObject>();
         Assert.IsNotNull(liquid);
     }
