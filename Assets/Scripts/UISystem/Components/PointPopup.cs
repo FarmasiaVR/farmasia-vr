@@ -5,13 +5,13 @@ public class PointPopup : MonoBehaviour {
     private AudioSource sound;
     private GameObject textObject;
     private TextMeshPro textField;
-    private Color colour;
+    private Color color;
     #endregion
 
     #region Variables
     private float timer = 0.0f;
     private float visualTime = 3.0f;
-    private float fadeInAndOut = 0.5f;
+    private float fadeInAndOut = 0.7f;
     private float red = 0.0f;
     private float green = 0.0f;
     private float blue = 0.0f;
