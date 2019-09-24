@@ -4,10 +4,16 @@ public class UISystem : MonoBehaviour {
     #region Fields
     public static UISystem Instance { get; private set; }
     [SerializeField]
-    public GameObject handUI;
+    private GameObject handUIPrefab;
     [SerializeField]
-    public GameObject popup;
+    private GameObject popupPrefab;
+    [SerializeField]
+    private GameObject descriptionPrefab;
+
     private GameObject currentPopup;
+    private GameObject currentDescription;
+    private Description description;
+
     #endregion
 
     #region Initialisation
@@ -24,21 +30,30 @@ public class UISystem : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    /// <summary>
-    /// Sets the current Popup. Removes old one if it exists.
-    /// </summary>
-    /// <param name="message">Reference to the object to place.</param>
-    private void SetCurrentPopup(GameObject message) {
+    private void SetCurrentPopup(GameObject newPopup) {
         if (currentPopup != null) {
             Destroy(currentPopup);
         }
-        currentPopup = message;
+        currentPopup = newPopup;
+        description.SetTransparency(false);
     }
 
-    private GameObject PopupInit() {
-        GameObject popupMessage = Instantiate(popup, handUI.transform.position + popup.transform.position, Quaternion.Euler(handUI.transform.eulerAngles + popup.transform.eulerAngles));
-        popupMessage.transform.SetParent(handUI.transform, true);
-        return popupMessage;
+    private void SetCurrentDescription(GameObject newDescription) {
+        if (currentDescription != null) {
+            Destroy(currentDescription);
+        }
+        currentDescription = newDescription;
+        description = currentDescription.GetComponent<Description>();
+    }
+
+    /// <summary>
+    /// Initiates UIComponent into players hand.
+    /// </summary>
+    /// <returns>Reference to the instantiated GameObject</returns>
+    private GameObject InitUIComponent(GameObject gobj) {
+        GameObject uiComponent = Instantiate(gobj, handUIPrefab.transform.position + gobj.transform.position, Quaternion.Euler(handUIPrefab.transform.eulerAngles + gobj.transform.eulerAngles));
+        uiComponent.transform.SetParent(handUIPrefab.transform, true);
+        return uiComponent;
     }
     #endregion
 
@@ -48,22 +63,33 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     public void DeleteCurrent() {
         currentPopup = null;
+        description.SetTransparency(true);
+    }
+
+    public void ChangeDescription(string descript, Color color) {
+        GameObject desc = currentDescription;
+        if (currentDescription == null) {
+            desc = InitUIComponent(descriptionPrefab);
+            description = desc.GetComponent<Description>();
+            SetCurrentDescription(desc);
+        }
+        description.SetDescription(descript, color);
     }
 
     /// <summary>
-    /// Creates a Popup with given specifications and sets it as current.
+    /// Used for creating a popup.
     /// </summary>
     /// <param name="point">Amount of points for the task. Some tasks do not use this.</param>
     /// <param name="message">Message to be displayed for the player.</param>
     /// <param name="type">Type of message. Different types have different colours.</param>
     public void CreatePopup(int point, string message, MessageType type) {
-        GameObject popupMessage = PopupInit();
+        GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
         SetCurrentPopup(popupMessage);
     }
 
     public void CreatePopup(string message, MessageType type) {
-        GameObject popupMessage = PopupInit();
+        GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
         SetCurrentPopup(popupMessage);
     }

@@ -21,6 +21,7 @@ public class ProgressManager {
         DoneTypes = new List<TaskType>();
         Calculator = new ScoreCalculator();
         AddTasks();
+        UISystem.Instance.ChangeDescription(ActiveTasks.First().GetDescription(), new Color(255, 255, 255, 1.0f));
     }
     #endregion
 
