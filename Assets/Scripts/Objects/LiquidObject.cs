@@ -1,61 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class LiquidObject : MonoBehaviour {
 
     #region fields
-    //[SerializeField]
-    //private LiquidContainer lc;
-    private MeshRenderer renderer;
+    private MeshRenderer mesh;
 
-    [SerializeField]
-    private float size = 100;
-
-    [SerializeField]
-    private float amount = 100;
-
-    [SerializeField]
-    private float radius = 0.4f;
+    private float prevLength;
     private float length;
-    private float minLength = 0;
 
     [SerializeField]
     private float maxLength = 0.2f;
-
     #endregion
 
     private void Start() {
-        renderer = gameObject.GetComponent<MeshRenderer>();
-        transform.localScale = new Vector3(radius, 0, radius);
-        // Get size from liquid class
-        // Get max length and radius from somewhere
+        mesh = gameObject.GetComponent<MeshRenderer>();
     }
 
-    private void Update() {
-        UpdateAmount();
-
-        float fillRate = amount / size;
-        float newLength = maxLength * fillRate;
-
-        Vector3 s = transform.localScale;
-        transform.localScale = new Vector3(s.x, length,s.z);
-
-        Vector3 p = transform.localPosition;
-        float newPos = p.y + (newLength - length);
-        transform.localPosition = new Vector3(p.x, newPos, p.z);
-
-        if (newLength == 0) {
-            renderer.enabled = false;
-        } else {
-            if (!renderer.enabled) renderer.enabled = true;
+    public void SetFillPercentage(float percentage) {
+        if (percentage < 0 || percentage > 1) {
+            throw new ArgumentOutOfRangeException("percentage", percentage, "Percentage should be [0, 1]");
         }
 
-        length = newLength;
+        prevLength = length;
+        length = percentage * maxLength;
+
+        ScaleAroundBottom();
+        mesh.enabled = length > 0;
     }
 
-    private void UpdateAmount() {
-        // Get amount from liquid class, where ever it might be
-        //amount = lc.getAmount();
+    private void ScaleAroundBottom() {
+        // localScale scales around pivot (default is center of object)
+        // Therefore, translation needed
+        Vector3 s = transform.localScale;
+        transform.localScale = new Vector3(s.x, length, s.z);
+
+        // Translate by scale delta amount
+        Vector3 p = transform.localPosition;
+        float newPos = p.y + (length - prevLength);
+        transform.localPosition = new Vector3(p.x, newPos, p.z);
     }
-}
+}        
