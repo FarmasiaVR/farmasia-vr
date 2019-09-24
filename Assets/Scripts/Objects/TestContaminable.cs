@@ -8,7 +8,8 @@ public class TestContaminable : Interactable {
 
     protected override void Start() {
         base.Start();
-        type = InteractableType.GrabbableAndInteractable;
+        SetFlags(true, InteractableType.Grabbable, InteractableType.Interactable);
+
         states = GetComponent<GeneralItem>();
     }
 

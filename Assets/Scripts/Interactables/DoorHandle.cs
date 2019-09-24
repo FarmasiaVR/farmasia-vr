@@ -9,7 +9,7 @@
     protected override void Start() {
         base.Start();
         door = transform.parent.GetComponent<OpenableDoor>();
-        type = InteractableType.Interactable;
+        SetFlags(true, InteractableType.Interactable);
     }
 
     private void Update() {

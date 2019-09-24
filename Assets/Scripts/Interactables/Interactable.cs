@@ -3,8 +3,9 @@
 public class Interactable : MonoBehaviour {
 
     #region fields
-    protected InteractableType type;
-    public InteractableType Type { get => type; }
+    protected int typeFlags;
+    // protected InteractableType type;
+    // public int TypeFlags { get => typeFlags; }
     #endregion
 
     public InteractState State;
@@ -20,5 +21,12 @@ public class Interactable : MonoBehaviour {
     public virtual void Interacting(Hand hand) {
     }
     public virtual void Uninteract(Hand hand) {
+    }
+
+    public bool GetFlags(params InteractableType[] types) {
+        return BitField.GetFlags(typeFlags, types);
+    }
+    public void SetFlags(bool value, params InteractableType[] types) {
+        BitField.SetFlags(ref typeFlags, value, types);
     }
 }

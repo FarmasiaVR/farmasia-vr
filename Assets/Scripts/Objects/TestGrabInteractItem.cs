@@ -2,7 +2,8 @@
 
     protected override void Start() {
         base.Start();
-        type = InteractableType.GrabbableAndInteractable;
+        SetFlags(true, InteractableType.Grabbable, InteractableType.Interactable);
+
     }
 
     public override void Interact(Hand hand) {

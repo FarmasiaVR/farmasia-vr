@@ -105,12 +105,10 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (Interactable.Type == InteractableType.Grabbable) {
+        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable) || Interactable.GetFlags(InteractableType.Grabbable)) {
             Grab();
-        } else if (Interactable.Type == InteractableType.Interactable) {
+        } else if (Interactable.GetFlags(InteractableType.Interactable)) {
             Interactable.Interact(this);
-        } else if (Interactable.Type == InteractableType.GrabbableAndInteractable) {
-            Grab();
         }
     }
 
@@ -132,7 +130,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.Type == InteractableType.GrabbableAndInteractable) {
+        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Interact(this);
         }
     }
@@ -144,7 +142,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.Type == InteractableType.GrabbableAndInteractable) {
+        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Uninteract(this);
         }
     }

@@ -2,7 +2,7 @@
 
     protected override void Start() {
         base.Start();
-        type = InteractableType.Interactable;
+        SetFlags(true, InteractableType.Interactable);
     }
 
     public override void Interact(Hand hand) {
