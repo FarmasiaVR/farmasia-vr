@@ -4,58 +4,68 @@ public class LuerlockAdapter : GeneralItem {
 
     #region fields
     [SerializeField]
-    private GameObject attachedObject1;
-    public GameObject AttachedObject1 {
-        get => attachedObject1;
+    private GameObject attachedObjectLeft;
+    public GameObject AttachedObjectLeft {
+        get => attachedObjectLeft;
         set {
-            if (attachedObject1 != null)
+            if (attachedObjectLeft != null)
             {
-                attachedObject1.transform.parent = null;
-                attachedObject1 = null;
+                attachedObjectLeft.GetComponent<Rigidbody>().isKinematic = false;
+                attachedObjectLeft.transform.parent = null;
+                attachedObjectLeft = null;
             }
-            attachedObject1 = value;
+            attachedObjectLeft = value;
 
-            attachedObject1.GetComponent<Rigidbody>().isKinematic = true;
-            attachedObject1.transform.SetParent(this.transform);
-            attachedObject1.transform.localPosition = Vector3.zero;
+            attachedObjectLeft.GetComponent<Rigidbody>().isKinematic = true;
+            attachedObjectLeft.transform.SetParent(this.transform);
+            attachedObjectLeft.transform.localPosition = Vector3.zero;
         }
     }
 
     [SerializeField]
-    private GameObject attachedObject2;
-    public GameObject AttachedObject2 {
-        get => attachedObject2;
+    private GameObject attachedObjectRight;
+    public GameObject AttachedObjectRight {
+        get => attachedObjectRight;
         set {
-            if (attachedObject2 != null)
+            if (attachedObjectRight != null)
             {
-                attachedObject2.transform.parent = null;
-                attachedObject2 = null;
+                attachedObjectRight.GetComponent<Rigidbody>().isKinematic = false;
+                attachedObjectRight.transform.parent = null;
+                attachedObjectRight = null;
             }
-            attachedObject2 = value;
-            attachedObject2.GetComponent<Rigidbody>().isKinematic = true;
-            attachedObject2.transform.SetParent(this.transform);
+            attachedObjectRight = value;
+            attachedObjectRight.GetComponent<Rigidbody>().isKinematic = true;
+            attachedObjectRight.transform.SetParent(this.transform);
         }
     }
     #endregion
 
-    protected override void Start() {
-        base.Start();
+    protected new void Start() {
         ObjectType = ObjectType.Luerlock;
+        CollisionSubscription.SubscribeToTrigger(transform.Find("Left collider").gameObject, ObjectEnterLeftCollider, null, null);
+        CollisionSubscription.SubscribeToTrigger(transform.Find("Right collider").gameObject, ObjectEnterRightCollider, null, null);
+    }
+
+    private void ObjectEnterLeftCollider(Collider collider)
+    {
+        Logger.Print("Object enter left collider");
+        AttachSyringe(collider.gameObject);
+    }
+
+    private void ObjectEnterRightCollider(Collider collider)
+    {
+        Logger.Print("Object enter right collider");
+        AttachSyringe(collider.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         GameObject collisionObject = collision.gameObject;
 
-        if (collisionObject == AttachedObject1 || collisionObject == AttachedObject2)
+        if (collisionObject == AttachedObjectLeft || collisionObject == AttachedObjectRight)
         {
             Physics.IgnoreCollision(collision.collider, gameObject.GetComponent<Collider>());
             return;
-        }
-
-        if (collisionObject.GetComponent<GeneralItem>().ObjectType == ObjectType.Syringe)
-        {
-            AttachSyringe(collisionObject);
         }
 
         Logger.Print("Luerlock adapter hit something");
@@ -64,17 +74,17 @@ public class LuerlockAdapter : GeneralItem {
     private void AttachSyringe(GameObject syringe)
     {
         if (syringe.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe ||
-            AttachedObject1 == syringe || AttachedObject2 == syringe)
+            AttachedObjectLeft == syringe || AttachedObjectRight == syringe)
         {
             return;
         }
 
-        if (AttachedObject1 == null)
+        if (AttachedObjectLeft == null)
         {
-            AttachedObject1 = syringe;
-        } else if (attachedObject2 == null)
+            AttachedObjectLeft = syringe;
+        } else if (attachedObjectRight == null)
         {
-            AttachedObject2 = syringe;
+            AttachedObjectRight = syringe;
         }
     }
 }
