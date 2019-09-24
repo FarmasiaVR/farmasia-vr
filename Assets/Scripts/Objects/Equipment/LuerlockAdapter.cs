@@ -9,68 +9,65 @@ public class LuerlockAdapter : GeneralItem {
     [SerializeField]
     private GameObject attachedObjectRight;
 
+    [SerializeField]
+    private GameObject leftCollider;
+
+    [SerializeField]
+    private GameObject rightCollider;
+
     #endregion
 
-    protected new void Start() {
+    protected override void Start() {
+        Logger.Print("Start luerlock adapter");
         ObjectType = ObjectType.Luerlock;
-        CollisionSubscription.SubscribeToTrigger(transform.Find("Left collider").gameObject, ObjectEnterLeftCollider, null, null);
-        CollisionSubscription.SubscribeToTrigger(transform.Find("Right collider").gameObject, ObjectEnterRightCollider, null, null);
+        leftCollider = transform.Find("Left collider").gameObject;
+        rightCollider = transform.Find("Right collider").gameObject;
+        CollisionSubscription.SubscribeToTrigger(leftCollider, ObjectEnterLeftCollider, null, null);
+        CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRightCollider, null, null);
     }
-
+    
     private void ReplaceObject(ref GameObject attachedObject, GameObject newObject) {
+        Logger.Print("ReplaceObject");
         if (attachedObject != null) {
             attachedObject.GetComponent<Rigidbody>().isKinematic = false;
             attachedObject.transform.parent = null;
-            attachedObject = null;
         }
         attachedObject = newObject;
+        if (newObject == null) { return; }
+
         attachedObject.GetComponent<Rigidbody>().isKinematic = true;
-        attachedObject.transform.SetParent(this.transform);
+        attachedObject.transform.SetParent(transform, true);
+        attachedObject.transform.localPosition = new Vector3(0, 0, attachedObject.transform.localPosition.z);
     }
 
     private void ObjectEnterLeftCollider(Collider collider) {
-        Logger.Print("Object enter left collider");
-        AttachSyringe(collider.gameObject);
-
-        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe ||
-           attachedObjectLeft == collider.gameObject) {
+        float angle = RotationAngle(collider.transform);
+        Logger.Print("Object enter left collider with angle: " + angle);
+        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe || attachedObjectLeft == collider.gameObject || attachedObjectRight == collider.gameObject ||
+            angle < 89.5 || angle > 90.5)
+        {
             return;
         }
-
+        Physics.IgnoreCollision(collider, gameObject.GetComponent<Collider>());
         ReplaceObject(ref attachedObjectLeft, collider.gameObject);
     }
 
     private void ObjectEnterRightCollider(Collider collider) {
-
-        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe ||
-           attachedObjectRight == collider.gameObject) {
+        
+        float angle = RotationAngle(collider.transform);
+        Logger.Print("Object enter right collider with angle: " + angle);
+        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe || attachedObjectLeft == collider.gameObject || attachedObjectRight == collider.gameObject ||
+            angle < 89.5 || angle > 90.5)
+        {
             return;
         }
-
+        Physics.IgnoreCollision(collider, gameObject.GetComponent<Collider>());
         ReplaceObject(ref attachedObjectRight, collider.gameObject);
-
-        Logger.Print("Object enter right collider");
-        AttachSyringe(collider.gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        GameObject collisionObject = collision.gameObject;
-
-        if (collisionObject == attachedObjectLeft || collisionObject == attachedObjectRight) {
-            Physics.IgnoreCollision(collision.collider, gameObject.GetComponent<Collider>());
-            return;
-        }
-
-        Logger.Print("Luerlock adapter hit something");
+    private float RotationAngle(Transform collider)
+    {
+        return Quaternion.Angle(transform.rotation, collider.transform.rotation);
     }
 
-    private void AttachSyringe(GameObject syringe) {
-
-
-        if (attachedObjectLeft == null) {
-            attachedObjectLeft = syringe;
-        } else if (attachedObjectRight == null) {
-            attachedObjectRight = syringe;
-        }
-    }
 }
