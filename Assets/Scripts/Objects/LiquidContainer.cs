@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 public class LiquidContainer : MonoBehaviour {
 
     #region fields
+    [SerializeField]
     private LiquidObject liquid;
 
     [SerializeField]
@@ -29,22 +30,29 @@ public class LiquidContainer : MonoBehaviour {
     #endregion
 
     private void Awake() {
-        liquid = GetComponentInChildren<LiquidObject>();
         Assert.IsNotNull(liquid);
+    }
+
+    private void Start() {
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void OnValidate() {
         Amount = amount;
     }
 
-    public int Transfer(int value) {
-        int oldAmount = Amount;
-        Amount += value;
-        return oldAmount - Amount;
+    public int GetReceiveCapacity() {
+        return Capacity - Amount;
     }
 
-    public void Transfer(LiquidContainer container, int value) {
-        int transferAmount = Math.Max(Amount - Capacity, Math.Min(Amount, value));
-        Transfer(container.Transfer(value));
+    public void TransferTo(LiquidContainer target, int amount) {
+        if (amount < 0) {
+            throw new ArgumentException("value must be non-negative", "amount");
+        }
+        int canSend = Math.Min(Amount, amount);
+        int toTransfer = Math.Min(canSend, target.GetReceiveCapacity());
+
+        Amount -= toTransfer;
+        target.Amount += toTransfer;
     }
 }

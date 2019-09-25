@@ -4,17 +4,17 @@ using UnityEngine;
 public class LiquidObject : MonoBehaviour {
 
     #region fields
-    private MeshRenderer mesh;
-
-    private float prevLength;
-    private float length;
-
     [SerializeField]
-    private float maxLength = 0.2f;
+    private MeshRenderer mesh;
+    private MeshRenderer parent;
+
+    private float percentage;
+
     #endregion
 
-    private void Start() {
-        mesh = gameObject.GetComponent<MeshRenderer>();
+    private void OnValidate() {
+        parent = GetComponentInParent<MeshRenderer>();
+        UpdateObject();
     }
 
     public void SetFillPercentage(float percentage) {
@@ -22,22 +22,21 @@ public class LiquidObject : MonoBehaviour {
             throw new ArgumentOutOfRangeException("percentage", percentage, "Percentage should be [0, 1]");
         }
 
-        prevLength = length;
-        length = percentage * maxLength;
-
-        ScaleAroundBottom();
-        mesh.enabled = length > 0;
+        this.percentage = percentage;
+        UpdateObject();
     }
 
-    private void ScaleAroundBottom() {
+    private void UpdateObject() {
         // localScale scales around pivot (default is center of object)
         // Therefore, translation needed
-        Vector3 s = transform.localScale;
-        transform.localScale = new Vector3(s.x, length, s.z);
+        transform.localScale = new Vector3(1, percentage, 1);
 
         // Translate by scale delta amount
-        Vector3 p = transform.localPosition;
-        float newPos = p.y + (length - prevLength);
-        transform.localPosition = new Vector3(p.x, newPos, p.z);
+        float newY = percentage - 1;
+        transform.localPosition = new Vector3(0, newY, 0);
+
+        if (mesh != null) {
+            mesh.enabled = percentage > 0;
+        }
     }
 }        

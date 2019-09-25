@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 public class TestEquipment : GeneralItem {
 
     [SerializeField]
-    private GameObject targetObject;
-    private LiquidContainer other;
-    private LiquidContainer container;
+    private KeyCode transferButton;
+    [SerializeField]
+    private LiquidContainer src;
+    [SerializeField]
+    private LiquidContainer dest;
 
     protected override void Start() {
         base.Start();
-        container = GetComponent<LiquidContainer>();
-        Assert.IsNotNull(container);
-        other = targetObject.GetComponent<LiquidContainer>();
+        Assert.IsNotNull(src);
     }
 
     public void Update() {
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            container.Transfer(other, 10);
+        if (Input.GetKey(transferButton)) {
+            int transferRate = 1; // 1 unit / update
+            src.TransferTo(dest, transferRate);
         }
     }
 }
