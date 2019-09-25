@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class MissingItems : TaskBase {
     #region Fields
-    private string[] conditions = {"Syringe", "Needle", "Luerlock", "RightSizeBottle"};
+    private string[] conditions;
     #endregion
 
     #region Constructor
@@ -11,6 +12,7 @@ public class MissingItems : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public MissingItems() : base(TaskType.MissingItems, true, false) {
+        conditions = new string[0];
         Subscribe();
         AddConditions(conditions);
     }
@@ -36,16 +38,17 @@ public class MissingItems : TaskBase {
         }
         ObjectType type = item.ObjectType;
         
-        if (type == ObjectType.Syringe) {
+        //how to check specific missing items??
+        if (type == ObjectType.Syringe && Array.Exists(conditions, element => element == "Syringe")) {
             EnableCondition("Syringe");
         }
-        if (type == ObjectType.Needle) {
+        if (type == ObjectType.Needle && Array.Exists(conditions, element => element == "Needle")) {
             EnableCondition("Needle");
         }
-        if (type == ObjectType.Luerlock) {
+        if (type == ObjectType.Luerlock && Array.Exists(conditions, element => element == "Luerlock")) {
             EnableCondition("Luerlock");
         }
-        if (type == ObjectType.Bottle) {
+        if (type == ObjectType.Bottle && Array.Exists(conditions, element => element == "RightSizeBottle")) {
             //check that the chosen bottle has the wanted size
             EnableCondition("RightSizeBottle");
         }
@@ -54,6 +57,10 @@ public class MissingItems : TaskBase {
     #endregion 
 
     #region Public Methods
+    public void SetMissingConditions(string[] missingConditions) {
+        conditions = missingConditions;
+    }
+
     /// <summary>
     /// Once all conditions are true, this method is called.
     /// </summary>

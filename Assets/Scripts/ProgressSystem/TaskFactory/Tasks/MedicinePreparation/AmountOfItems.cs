@@ -57,7 +57,11 @@ public class AmountOfItems : TaskBase {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfItems);
             base.FinishTask();
-            G.Instance.Progress.AddTask(TaskFactory.GetTask(TaskType.MissingItems));
+
+            ITask missingTask = TaskFactory.GetTask(TaskType.MissingItems);
+            G.Instance.Progress.AddTask(missingTask);
+            string[] missingConditions = new string[4];
+            missingTask.AddMissingConditions(missingConditions);
         }
     } 
     #endregion
