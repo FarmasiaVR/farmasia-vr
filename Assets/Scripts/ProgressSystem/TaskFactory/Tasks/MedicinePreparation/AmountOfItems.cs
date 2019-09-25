@@ -24,7 +24,7 @@ public class AmountOfItems : TaskBase {
         base.SubscribeEvent(Amount, EventType.AmountOfItems);
     }
     /// <summary>
-    /// Once fired by and event, checks which item was picked and sets the corresponding condition to be true.
+    /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Amount(CallbackData data) {

@@ -5,5 +5,6 @@
     Medicine,
     Needle,
     Bottle,
-    Dropper
+    Dropper,
+    BottleCap
 }

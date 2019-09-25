@@ -26,7 +26,7 @@ public class Layout2 : TaskBase {
         base.SubscribeEvent(FinalArrangeItems, EventType.FinalArrangeItems);
     }
     /// <summary>
-    /// Once fired by and event, checks if the tasks dealing with the amount of items have been completed and if the items are arranged.
+    /// Once fired by an event, checks if the tasks dealing with the amount of items have been completed and if the items are arranged.
     /// Sets the corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
@@ -51,6 +51,7 @@ public class Layout2 : TaskBase {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.Layout2); 
             base.FinishTask();
+            FinishLayout1();
         }
     }
     /// <summary>
@@ -71,6 +72,17 @@ public class Layout2 : TaskBase {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.Layout2);
         base.FinishTask();
+        FinishLayout1();
+    }
+
+    /// <summary>
+    /// Removes Layout1 task if not removed before.
+    /// </summary>
+    public void FinishLayout1() {
+        if (!G.Instance.Progress.DoneTypes.Contains(TaskType.Layout1)) {
+            Layout1 layoutInstance = G.Instance.Progress.ActiveTasks.Find(x => x.GetTaskType().Equals(TaskType.Layout1)) as Layout1;
+            layoutInstance.RemoveTaskFromOutside();
+        }
     }
 
     /// <summary>

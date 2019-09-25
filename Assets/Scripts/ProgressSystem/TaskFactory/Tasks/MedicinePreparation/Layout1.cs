@@ -25,7 +25,7 @@ public class Layout1 : TaskBase {
         base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
     }
     /// <summary>
-    /// Once fired by and event, checks how many items have been picked up and if they are arranged.
+    /// Once fired by an event, checks how many items have been picked up and if they are arranged.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
@@ -86,6 +86,14 @@ public class Layout1 : TaskBase {
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.Layout1);
+        base.FinishTask();
+    }
+
+    /// <summary>
+    /// This method is called if the task needs to be removed before progressing in game. 
+    /// The task is removed without completion.
+    /// </summary>
+    public void RemoveTaskFromOutside() {
         base.FinishTask();
     }
     

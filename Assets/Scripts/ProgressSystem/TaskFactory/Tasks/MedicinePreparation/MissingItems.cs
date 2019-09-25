@@ -26,7 +26,7 @@ public class MissingItems : TaskBase {
         base.SubscribeEvent(Missing, EventType.Missing);
     }
     /// <summary>
-    /// Once fired by and event, checks which items have been picked up.
+    /// Once fired by an event, checks which items have been picked up.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>

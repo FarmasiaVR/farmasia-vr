@@ -7,5 +7,6 @@
     ArrangeItems,
     FinalArrangeItems,
     AmountOfItems,
-    Missing
+    Missing,
+    Disinfect
 }
