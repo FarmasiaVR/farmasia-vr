@@ -67,6 +67,7 @@ public class Hand : MonoBehaviour {
             GrabUninteract();
         }
     }
+
     // Alternative: set Rigidbody to kinematic, might cause bugs though
     private void UpdateGrabbedObject() {
         GrabbedRigidbody.velocity = Vector3.zero;
@@ -105,9 +106,9 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable) || Interactable.GetFlags(InteractableType.Grabbable)) {
+        if (Interactable.Types.IsOn(InteractableType.Grabbable)) {
             Grab();
-        } else if (Interactable.GetFlags(InteractableType.Interactable)) {
+        } else if (Interactable.Types.IsOn(InteractableType.Interactable)) {
             Interactable.Interact(this);
         }
     }
@@ -130,7 +131,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable)) {
+        if (Interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Interact(this);
         }
     }
@@ -142,7 +143,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.GetFlags(InteractableType.Grabbable, InteractableType.Interactable)) {
+        if (Interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Uninteract(this);
         }
     }

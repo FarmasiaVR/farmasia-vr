@@ -6,6 +6,6 @@
 
     protected override void Start() {
         base.Start();
-        SetFlags(true, InteractableType.Grabbable);
+        Types.Set(InteractableType.Grabbable);
     }
 }

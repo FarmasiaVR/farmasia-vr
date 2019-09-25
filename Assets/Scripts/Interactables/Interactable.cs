@@ -3,14 +3,13 @@
 public class Interactable : MonoBehaviour {
 
     #region fields
-    protected int typeFlags;
-    // protected InteractableType type;
-    // public int TypeFlags { get => typeFlags; }
-    #endregion
+    public EnumBitField<InteractableType> Types { get; protected set; }
 
     public InteractState State;
+    #endregion
 
     protected virtual void Start() {
+        Types = new EnumBitField<InteractableType>();
         State = InteractState.None;
         gameObject.AddComponent<ObjectHighlight>();
         gameObject.AddComponent<ItemPlacement>();
@@ -21,12 +20,5 @@ public class Interactable : MonoBehaviour {
     public virtual void Interacting(Hand hand) {
     }
     public virtual void Uninteract(Hand hand) {
-    }
-
-    public bool GetFlags(params InteractableType[] types) {
-        return BitField.GetFlags(typeFlags, types);
-    }
-    public void SetFlags(bool value, params InteractableType[] types) {
-        BitField.SetFlags(ref typeFlags, value, types);
     }
 }
