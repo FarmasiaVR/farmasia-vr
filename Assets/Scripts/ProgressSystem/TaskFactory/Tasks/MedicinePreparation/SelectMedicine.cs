@@ -6,7 +6,8 @@ public class SelectMedicine : TaskBase {
 
     #region Constructor
     /// <summary>
-    /// Initializes Select Medicine task. Is removed once done, and doesnt require previous task completion.
+    /// Constructor for SelectMedicine task. 
+    ///  Is removed when finished and doesn't require previous task completion.
     /// </summary>
     public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
         Subscribe();
@@ -23,9 +24,9 @@ public class SelectMedicine : TaskBase {
     }
 
     /// <summary>
-    /// Callback method for PickupObject trigger.
+    /// Once fired by an event, checks if the item is bottle and sets the corresponding condition to be true.
     /// </summary>
-    /// <param name="data">Refers to data that the trigger returns</param>
+    /// <param name="data">Refers to the data returned by the trigger.</param>
     private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
@@ -42,21 +43,23 @@ public class SelectMedicine : TaskBase {
 
     #region Public Methods
     /// <summary>
-    /// Once all tasks are finished, this method is called.
+    /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup("Medicine selected", MessageType.Done);
         base.FinishTask();
     }
+
     /// <summary>
-    /// Used for getting current tasks description.
+    /// Used for getting the task's description.
     /// </summary>
     /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
         return "Valitse sopiva lääkepullo.";
     }
+    
     /// <summary>
-    /// Used for getting the hint for current task.
+    /// Used for getting the hint for this task.
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {

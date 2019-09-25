@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AmountOfItems : TaskBase {
@@ -8,6 +6,10 @@ public class AmountOfItems : TaskBase {
     #endregion
 
     #region Constructor
+    ///  <summary>
+    ///  Constructor for AmountOfItems task.
+    ///  Is removed when finished and doesn't require previous task completion.
+    ///  </summary>
     public AmountOfItems() : base(TaskType.AmountOfItems, true, false) {
         Subscribe();
         AddConditions(conditions);
@@ -15,9 +17,16 @@ public class AmountOfItems : TaskBase {
     #endregion
 
     #region Event Subscriptions
+    /// <summary>
+    /// Subscribes to required Events.
+    /// </summary>
     public override void Subscribe() { 
         base.SubscribeEvent(Amount, EventType.AmountOfItems);
     }
+    /// <summary>
+    /// Once fired by and event, checks which item was picked and sets the corresponding condition to be true.
+    /// </summary>
+    /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Amount(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
@@ -54,14 +63,27 @@ public class AmountOfItems : TaskBase {
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Once all conditions are true, this method is called.
+    /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
         G.Instance.Progress.Calculator.Add(TaskType.AmountOfItems);
         base.FinishTask();
     }
+    
+    /// <summary>
+    /// Used for getting the task's description.
+    /// </summary>
+    /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
         return "Tarkista valitsemiesi välineiden määrä.";
     }
+
+    /// <summary>
+    /// Used for getting the hint for this task.
+    /// </summary>
+    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla."; 
     }
