@@ -10,7 +10,7 @@ public enum TaskType {
     Layout2,
     Disinfect,
     MedicineToSyringe,
-    Luerlock,
+    LuerlockAttach,
     SyringeAttach,
     SterileBag,
     Finish

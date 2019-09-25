@@ -9,5 +9,6 @@
     AmountOfItems,
     Missing,
     Disinfect,
-    MedicineToSyringe
+    MedicineToSyringe,
+    AttachLuerlock
 }
