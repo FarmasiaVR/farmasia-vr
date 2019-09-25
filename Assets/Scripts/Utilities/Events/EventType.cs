@@ -8,5 +8,6 @@
     FinalArrangeItems,
     AmountOfItems,
     Missing,
-    Disinfect
+    Disinfect,
+    MedicineToSyringe
 }
