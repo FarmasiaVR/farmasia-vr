@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 /// <summary>
 /// Version 2 of current task.
 /// </summary>
@@ -138,6 +139,20 @@ public class TaskBase : ITask {
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Returns an array of the conditions that have not yet been cleared.
+    /// </summary>
+    /// <returns>An array of the names of the conditions (strings)</returns>
+    protected string[] GetNonClearedConditions() {
+        List<string> nonCleared = new List<string>();
+        foreach (KeyValuePair<string, bool> condition in clearConditions) {
+            if (!condition.Value) {
+                nonCleared.Add(condition.Key);
+            }
+        }
+        return nonCleared.ToArray();
     }
     #endregion
 

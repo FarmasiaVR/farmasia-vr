@@ -58,10 +58,9 @@ public class AmountOfItems : TaskBase {
             G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfItems);
             base.FinishTask();
 
-            ITask missingTask = TaskFactory.GetTask(TaskType.MissingItems);
+            MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
+            missingTask.SetMissingConditions(GetNonClearedConditions());
             G.Instance.Progress.AddTask(missingTask);
-            string[] missingConditions = new string[4];
-            missingTask.AddMissingConditions(missingConditions);
         }
     } 
     #endregion
