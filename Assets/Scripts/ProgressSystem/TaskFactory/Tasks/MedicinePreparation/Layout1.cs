@@ -2,6 +2,7 @@ using UnityEngine;
 public class Layout1 : TaskBase {
     #region Fields
     private string[] conditions = { "AtLeastThree", "ItemsArranged" };
+    private int itemCount;
     #endregion
 
     #region Constructor
@@ -10,6 +11,7 @@ public class Layout1 : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public Layout1() : base(TaskType.Layout1, true, false) {
+        itemCount = 0;
         Subscribe();
         AddConditions(conditions);
     }
@@ -33,12 +35,15 @@ public class Layout1 : TaskBase {
         if (item == null) {
             return;
         }
-        ObjectType type = item.ObjectType;
+
+        itemCount++;
         if (AtLeastThree()) {
             EnableCondition("AtLeastThree");
+            if (ItemsArranged()) {
+                EnableCondition("ItemsArranged");
+            }
         }
-        //checks that the items are arranged correctly
-        EnableCondition("ItemsArranged");
+        
         bool check = CheckClearConditions(true);
         if (!check && AtLeastThree()) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
@@ -46,13 +51,31 @@ public class Layout1 : TaskBase {
             base.FinishTask();
         }
     }
-    //checks that at least three items are placed before going through the door
     /// <summary>
     /// Checks that at least three items are placed.
     /// </summary>
     /// <returns>"Returns true if at least three items are found."</returns>
     private bool AtLeastThree() {
+        if (itemCount >= 3) {
+            return true;
+        }
         return false;
+    }
+    /// <summary>
+    /// Checks that the items are arranged according to rules.
+    /// </summary>
+    /// <returns>"Returns true if the items are arranged."</returns>
+    private bool ItemsArranged() {
+        //code missing
+        return false;
+    }
+    /// <summary>
+    /// Sets the item count to be zero when exiting the room.
+    /// </summary>
+    private void InitializeCount() {
+        //callback missing
+        itemCount = 0;
+        DisableConditions();
     }
     #endregion
 

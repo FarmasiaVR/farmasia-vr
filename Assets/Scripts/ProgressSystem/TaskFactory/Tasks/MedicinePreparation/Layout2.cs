@@ -40,16 +40,26 @@ public class Layout2 : TaskBase {
                     select n).Count();
             if (exists == 0) {
                 EnableCondition("AllItems"); 
+                if (ItemsArranged()) {
+                    EnableCondition("ItemsArranged");
+                }
             } 
         }
-        //checks before moving to the next task if any of the items is on the prohibited area or on top of each other
-        EnableCondition("ItemsArranged");
+        
         bool check = CheckClearConditions(true);
-        if (!check) {
+        if (!check && base.clearConditions["AllItems"]) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.Layout2); 
             base.FinishTask();
         }
+    }
+    /// <summary>
+    /// Checks that the items are arranged according to rules.
+    /// </summary>
+    /// <returns>"Returns true if the items are arranged."</returns>
+    private bool ItemsArranged() {
+        //code missing
+        return false;
     }
     #endregion
 

@@ -57,6 +57,15 @@ public class TaskBase : ITask {
     }
 
     /// <summary>
+    /// Disables all conditions.
+    /// </summary>
+    public void DisableConditions() {
+        foreach (KeyValuePair<string, bool> condition in clearConditions) {
+            clearConditions[condition.Key] = false;
+        }
+    }
+
+    /// <summary>
     /// Adds conditions with list of string conditions.
     /// </summary>
     /// <param name="conditions">List of string conditions</param>

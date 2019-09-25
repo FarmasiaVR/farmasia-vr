@@ -46,7 +46,7 @@ public class AmountOfItems : TaskBase {
                 EnableCondition("Luerlock");
                 break;
             case ObjectType.Bottle:
-                //check that the chosen bottle is the wanted size
+                //check that the chosen bottle has the wanted size
                 EnableCondition("RightSizeBottle");
                 break;
         }
