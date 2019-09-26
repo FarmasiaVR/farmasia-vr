@@ -51,13 +51,25 @@ namespace Valve.VR
         
         private static SteamVR_Action_Pose p_mixedreality_ExternalCamera;
         
-        private static SteamVR_Action_Boolean p_testControlsSet_Grab;
+        private static SteamVR_Action_Boolean p_testControlsSet_TriggerClick;
         
-        private static SteamVR_Action_Boolean p_testControlsSet_GrabInteract;
+        private static SteamVR_Action_Boolean p_testControlsSet_PadClick;
         
-        private static SteamVR_Action_Boolean p_testControlsSet_Teleport;
+        private static SteamVR_Action_Boolean p_testControlsSet_Menu;
         
         private static SteamVR_Action_Boolean p_testControlsSet_Grip;
+        
+        private static SteamVR_Action_Boolean p_testControlsSet_PadTouch;
+        
+        private static SteamVR_Action_Boolean p_testControlsSet_TriggerTouch;
+        
+        private static SteamVR_Action_Vector2 p_testControlsSet_PadTouchValue;
+        
+        private static SteamVR_Action_Single p_testControlsSet_TriggerValue;
+        
+        private static SteamVR_Action_Skeleton p_testControlsSet_LeftSkeleton;
+        
+        private static SteamVR_Action_Skeleton p_testControlsSet_RightSkeleton;
         
         public static SteamVR_Action_Boolean default_InteractUI
         {
@@ -195,27 +207,27 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Boolean testControlsSet_Grab
+        public static SteamVR_Action_Boolean testControlsSet_TriggerClick
         {
             get
             {
-                return SteamVR_Actions.p_testControlsSet_Grab.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_testControlsSet_TriggerClick.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Boolean testControlsSet_GrabInteract
+        public static SteamVR_Action_Boolean testControlsSet_PadClick
         {
             get
             {
-                return SteamVR_Actions.p_testControlsSet_GrabInteract.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_testControlsSet_PadClick.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Boolean testControlsSet_Teleport
+        public static SteamVR_Action_Boolean testControlsSet_Menu
         {
             get
             {
-                return SteamVR_Actions.p_testControlsSet_Teleport.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_testControlsSet_Menu.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
@@ -224,6 +236,54 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.p_testControlsSet_Grip.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean testControlsSet_PadTouch
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_PadTouch.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean testControlsSet_TriggerTouch
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_TriggerTouch.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Vector2 testControlsSet_PadTouchValue
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_PadTouchValue.GetCopy<SteamVR_Action_Vector2>();
+            }
+        }
+        
+        public static SteamVR_Action_Single testControlsSet_TriggerValue
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_TriggerValue.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Skeleton testControlsSet_LeftSkeleton
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_LeftSkeleton.GetCopy<SteamVR_Action_Skeleton>();
+            }
+        }
+        
+        public static SteamVR_Action_Skeleton testControlsSet_RightSkeleton
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_RightSkeleton.GetCopy<SteamVR_Action_Skeleton>();
             }
         }
         
@@ -247,10 +307,16 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
-                    SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract,
-                    SteamVR_Actions.testControlsSet_Teleport,
-                    SteamVR_Actions.testControlsSet_Grip};
+                    SteamVR_Actions.testControlsSet_TriggerClick,
+                    SteamVR_Actions.testControlsSet_PadClick,
+                    SteamVR_Actions.testControlsSet_Menu,
+                    SteamVR_Actions.testControlsSet_Grip,
+                    SteamVR_Actions.testControlsSet_PadTouch,
+                    SteamVR_Actions.testControlsSet_TriggerTouch,
+                    SteamVR_Actions.testControlsSet_PadTouchValue,
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_LeftSkeleton,
+                    SteamVR_Actions.testControlsSet_RightSkeleton};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -268,10 +334,16 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
-                    SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract,
-                    SteamVR_Actions.testControlsSet_Teleport,
-                    SteamVR_Actions.testControlsSet_Grip};
+                    SteamVR_Actions.testControlsSet_TriggerClick,
+                    SteamVR_Actions.testControlsSet_PadClick,
+                    SteamVR_Actions.testControlsSet_Menu,
+                    SteamVR_Actions.testControlsSet_Grip,
+                    SteamVR_Actions.testControlsSet_PadTouch,
+                    SteamVR_Actions.testControlsSet_TriggerTouch,
+                    SteamVR_Actions.testControlsSet_PadTouchValue,
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_LeftSkeleton,
+                    SteamVR_Actions.testControlsSet_RightSkeleton};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -288,20 +360,26 @@ namespace Valve.VR
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
-                    SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract,
-                    SteamVR_Actions.testControlsSet_Teleport,
-                    SteamVR_Actions.testControlsSet_Grip};
+                    SteamVR_Actions.testControlsSet_TriggerClick,
+                    SteamVR_Actions.testControlsSet_PadClick,
+                    SteamVR_Actions.testControlsSet_Menu,
+                    SteamVR_Actions.testControlsSet_Grip,
+                    SteamVR_Actions.testControlsSet_PadTouch,
+                    SteamVR_Actions.testControlsSet_TriggerTouch};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
-                    SteamVR_Actions.buggy_Throttle};
+                    SteamVR_Actions.buggy_Throttle,
+                    SteamVR_Actions.testControlsSet_TriggerValue};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.platformer_Move,
-                    SteamVR_Actions.buggy_Steering};
+                    SteamVR_Actions.buggy_Steering,
+                    SteamVR_Actions.testControlsSet_PadTouchValue};
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
                     SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand};
+                    SteamVR_Actions.default_SkeletonRightHand,
+                    SteamVR_Actions.testControlsSet_LeftSkeleton,
+                    SteamVR_Actions.testControlsSet_RightSkeleton};
             Valve.VR.SteamVR_Input.actionsNonPoseNonSkeletonIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -315,10 +393,14 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Throttle,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
-                    SteamVR_Actions.testControlsSet_Grab,
-                    SteamVR_Actions.testControlsSet_GrabInteract,
-                    SteamVR_Actions.testControlsSet_Teleport,
-                    SteamVR_Actions.testControlsSet_Grip};
+                    SteamVR_Actions.testControlsSet_TriggerClick,
+                    SteamVR_Actions.testControlsSet_PadClick,
+                    SteamVR_Actions.testControlsSet_Menu,
+                    SteamVR_Actions.testControlsSet_Grip,
+                    SteamVR_Actions.testControlsSet_PadTouch,
+                    SteamVR_Actions.testControlsSet_TriggerTouch,
+                    SteamVR_Actions.testControlsSet_PadTouchValue,
+                    SteamVR_Actions.testControlsSet_TriggerValue};
         }
         
         private static void PreInitActions()
@@ -340,10 +422,16 @@ namespace Valve.VR
             SteamVR_Actions.p_buggy_Brake = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/buggy/in/Brake")));
             SteamVR_Actions.p_buggy_Reset = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/buggy/in/Reset")));
             SteamVR_Actions.p_mixedreality_ExternalCamera = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/mixedreality/in/ExternalCamera")));
-            SteamVR_Actions.p_testControlsSet_Grab = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Grab")));
-            SteamVR_Actions.p_testControlsSet_GrabInteract = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/GrabInteract")));
-            SteamVR_Actions.p_testControlsSet_Teleport = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Teleport")));
+            SteamVR_Actions.p_testControlsSet_TriggerClick = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/TriggerClick")));
+            SteamVR_Actions.p_testControlsSet_PadClick = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/PadClick")));
+            SteamVR_Actions.p_testControlsSet_Menu = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Menu")));
             SteamVR_Actions.p_testControlsSet_Grip = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/Grip")));
+            SteamVR_Actions.p_testControlsSet_PadTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/PadTouch")));
+            SteamVR_Actions.p_testControlsSet_TriggerTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/TriggerTouch")));
+            SteamVR_Actions.p_testControlsSet_PadTouchValue = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/TestControlsSet/in/PadTouchValue")));
+            SteamVR_Actions.p_testControlsSet_TriggerValue = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/TriggerValue")));
+            SteamVR_Actions.p_testControlsSet_LeftSkeleton = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/TestControlsSet/in/LeftSkeleton")));
+            SteamVR_Actions.p_testControlsSet_RightSkeleton = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/TestControlsSet/in/RightSkeleton")));
         }
     }
 }

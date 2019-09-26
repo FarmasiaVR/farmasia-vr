@@ -6,7 +6,12 @@ using Valve.VR;
 
 public static class VRInput {
 
+    #region fields
     private static Dictionary<HandControl, ControlState> controls;
+
+    private static VRHandControls[] hands;
+    private static Vector2[] padTouches;
+    private static float[] triggerValues;
 
     private struct HandControl {
         Control Control;
@@ -35,7 +40,9 @@ public static class VRInput {
             return hashCode;
         }
     }
+    #endregion
 
+    #region Constructors
     static VRInput() {
         controls = new Dictionary<HandControl, ControlState>();
 
@@ -45,8 +52,14 @@ public static class VRInput {
             controls.Add(new HandControl(control, SteamVR_Input_Sources.RightHand), new ControlState());
             controls.Add(new HandControl(control, SteamVR_Input_Sources.LeftHand), new ControlState());
         }
+            
+        hands = new VRHandControls[2];
+        padTouches = new Vector2[4];
+        triggerValues = new float[4];
     }
+    #endregion
 
+    #region Controls
     public static void SetControlState(Control c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
 
         HandControl key = new HandControl(c, handType);
@@ -80,16 +93,165 @@ public static class VRInput {
         controls[key] = state;
     }
 
-    public static bool GetControlDown(Control c, SteamVR_Input_Sources handType) {
+    public static bool GetControlDown(SteamVR_Input_Sources handType, Control c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].GetDown == Time.frameCount;
     }
-    public static bool GetControl(Control c, SteamVR_Input_Sources handType) {
+    public static bool GetControl(SteamVR_Input_Sources handType, Control c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].Down;
     }
-    public static bool GetControlUp(Control c, SteamVR_Input_Sources handType) {
+    public static bool GetControlUp(SteamVR_Input_Sources handType, Control c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].GetUp == Time.frameCount;
     }
+    #endregion
+
+    #region Skeletons
+    public static void SetHandControls(SteamVR_Input_Sources handType, VRHandControls hand) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            hands[0] = hand;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            hands[1] = hand;
+        }
+    }
+    public static SteamVR_Action_Skeleton Skeleton(SteamVR_Input_Sources handType) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            return RightSkeleton;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            return LeftSkeleton;
+        }
+
+        return null;
+    }
+
+    public static SteamVR_Action_Skeleton RightSkeleton {
+        get {
+            return hands[0].Skeleton;
+        }
+    }
+    public static SteamVR_Action_Skeleton LeftSkeleton {
+        get {
+            return hands[1].Skeleton;
+        }
+    }
+    #endregion
+
+    #region Pad touch value
+    public static void SetPadTouchValue(SteamVR_Input_Sources handType, Vector2 value, Vector2 delta) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            RightPadValue = value;
+            RightPadDelta = delta;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            LeftPadValue = value;
+            LeftPadDelta = delta;
+        }
+    }
+
+    public static Vector2 PadTouchValue(SteamVR_Input_Sources handType) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            return RightPadValue;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            return LeftPadValue;
+        }
+
+        return Vector2.zero;
+    }
+
+    public static Vector2 PadTouchDelta(SteamVR_Input_Sources handType) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            return RightPadDelta;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            return LeftPadDelta;
+        }
+
+        return Vector2.zero;
+    }
+
+    public static Vector2 RightPadValue {
+        get {
+            return padTouches[0];
+        }
+        private set {
+            padTouches[0] = value;
+        }
+    }
+    public static Vector2 RightPadDelta {
+        get {
+            return padTouches[1];
+        }
+        private set {
+            padTouches[1] = value;
+        }
+    }
+    public static Vector2 LeftPadValue {
+        get {
+            return padTouches[2];
+        }
+        private set {
+            padTouches[2] = value;
+        }
+    }
+    public static Vector2 LeftPadDelta {
+        get {
+            return padTouches[3];
+        }
+        private set {
+            padTouches[3] = value;
+        }
+    }
+    #endregion
+
+    #region Trigger value
+    public static void SetTriggerValue(SteamVR_Input_Sources handType, float value, float delta) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            RightTriggerValue = value; 
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            LeftTriggerValue = value;
+        }
+    }
+
+    public static float TriggerValue(SteamVR_Input_Sources handType) {
+        if (handType == SteamVR_Input_Sources.RightHand) {
+            return RightTriggerValue;
+        } else if (handType == SteamVR_Input_Sources.LeftHand) {
+            return LeftTriggerValue;
+        }
+
+        return 0;
+    }
+
+    public static float RightTriggerValue {
+        get {
+            return triggerValues[0];
+        }
+        private set {
+            triggerValues[0] = value;
+        }
+    }
+    public static float RightTriggerDelta {
+        get {
+            return triggerValues[1];
+        }
+        private set {
+            triggerValues[1] = value;
+        }
+    }
+    public static float LeftTriggerValue {
+        get {
+            return triggerValues[2];
+        }
+        private set {
+            triggerValues[2] = value;
+        }
+    }
+    public static float LeftTriggerDelta {
+        get {
+            return triggerValues[3];
+        }
+        private set {
+            triggerValues[3] = value;
+        }
+    }
+    #endregion
 }

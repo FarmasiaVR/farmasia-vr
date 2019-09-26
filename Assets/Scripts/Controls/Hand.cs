@@ -53,17 +53,17 @@ public class Hand : MonoBehaviour {
 
     private void UpdateControls() {
 
-        if (VRInput.GetControlDown(Control.TriggerClick, handType)) {
+        if (VRInput.GetControlDown(handType, Control.TriggerClick)) {
             InteractWithObject();
         }
-        if (VRInput.GetControlUp(Control.TriggerClick, handType)) {
+        if (VRInput.GetControlUp(handType, Control.TriggerClick)) {
             UninteractWithObject();
         }
 
-        if (VRInput.GetControlDown(Control.PadClick, handType)) {
+        if (VRInput.GetControlDown(handType, Control.PadClick)) {
             GrabInteract();
         }
-        if (VRInput.GetControlUp(Control.PadClick, handType)) {
+        if (VRInput.GetControlUp(handType, Control.PadClick)) {
             GrabUninteract();
         }
     }
