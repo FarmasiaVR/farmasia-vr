@@ -6,6 +6,6 @@
 
     protected override void Start() {
         base.Start();
-        Types.Set(InteractableType.Grabbable);
+        Types.On(InteractableType.Grabbable);
     }
 }
