@@ -12,5 +12,7 @@ public class Syringe : GeneralItem {
         container = GetComponent<LiquidContainer>();
         Assert.IsNotNull(container);
         ObjectType = ObjectType.Syringe;
+
+        Types.On(InteractableType.LuerlockAttachable);
     }
 }

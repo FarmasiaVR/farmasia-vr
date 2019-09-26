@@ -1,5 +1,6 @@
 ﻿public enum InteractableType {
     Grabbable,
     Interactable,
-    Draggable
+    Draggable,
+    LuerlockAttachable
 }

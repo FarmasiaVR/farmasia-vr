@@ -3,30 +3,26 @@
 public class LuerlockAdapter : GeneralItem {
 
     #region fields
-    [SerializeField]
-    private GameObject attachedObjectLeft;
+    private static float angleLimit = 25;
+
+    private GameObject leftObject, rightObject;
 
     [SerializeField]
-    private GameObject attachedObjectRight;
-
-    [SerializeField]
-    private GameObject leftCollider;
-
-    [SerializeField]
-    private GameObject rightCollider;
-
+    private GameObject leftCollider, rightCollider;
     #endregion
 
     protected override void Start() {
+        // base.Start();
         Logger.Print("Start luerlock adapter");
         ObjectType = ObjectType.Luerlock;
         leftCollider = transform.Find("Left collider").gameObject;
         rightCollider = transform.Find("Right collider").gameObject;
-        CollisionSubscription.SubscribeToTrigger(leftCollider, ObjectEnterLeftCollider, null, null);
-        CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRightCollider, null, null);
+        CollisionSubscription.SubscribeToTrigger(leftCollider, ObjectEnterLeft, null, null);
+        CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRight, null, null);
     }
-    
+
     private void ReplaceObject(ref GameObject attachedObject, GameObject newObject) {
+
         Logger.Print("ReplaceObject");
         if (attachedObject != null) {
             attachedObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -40,34 +36,42 @@ public class LuerlockAdapter : GeneralItem {
         attachedObject.transform.localPosition = new Vector3(0, 0, attachedObject.transform.localPosition.z);
     }
 
-    private void ObjectEnterLeftCollider(Collider collider) {
-        float angle = RotationAngle(collider.transform);
-        Logger.Print("Object enter left collider with angle: " + angle);
-        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe || attachedObjectLeft == collider.gameObject || attachedObjectRight == collider.gameObject ||
-            angle < 89.5 || angle > 90.5)
-        {
+    #region Attaching
+    private void ObjectEnterRight(Collider collider) {
+
+        Interactable interatable = collider.GetComponent<Interactable>();
+
+        float angle = Quaternion.Angle(rightCollider.transform.rotation, collider.transform.rotation);
+
+        if (angle > angleLimit || Attached(true) || interatable.Types.IsOff(InteractableType.LuerlockAttachable)) {
             return;
         }
-        Physics.IgnoreCollision(collider, gameObject.GetComponent<Collider>());
-        ReplaceObject(ref attachedObjectLeft, collider.gameObject);
-    }
 
-    private void ObjectEnterRightCollider(Collider collider) {
-        
-        float angle = RotationAngle(collider.transform);
-        Logger.Print("Object enter right collider with angle: " + angle);
-        if (collider.GetComponent<GeneralItem>().ObjectType != ObjectType.Syringe || attachedObjectLeft == collider.gameObject || attachedObjectRight == collider.gameObject ||
-            angle < 89.5 || angle > 90.5)
-        {
+        // Position Offset Here
+
+        ReplaceObject(ref rightObject, collider.gameObject);
+    }
+    private void ObjectEnterLeft(Collider collider) {
+
+        Interactable interatable = collider.GetComponent<Interactable>();
+
+        float angle = Quaternion.Angle(leftCollider.transform.rotation, collider.transform.rotation);
+
+        if (angle > angleLimit || Attached(false) || interatable.Types.IsOff(InteractableType.LuerlockAttachable)) {
             return;
         }
-        Physics.IgnoreCollision(collider, gameObject.GetComponent<Collider>());
-        ReplaceObject(ref attachedObjectRight, collider.gameObject);
+
+        // Position Offset Here
+
+        ReplaceObject(ref leftObject, collider.gameObject);
     }
 
-    private float RotationAngle(Transform collider)
-    {
-        return Quaternion.Angle(transform.rotation, collider.transform.rotation);
+    public bool Attached(bool right) {
+        if (right) {
+            return rightObject != null;
+        } else {
+            return leftObject != null;
+        }
     }
-
+    #endregion
 }
