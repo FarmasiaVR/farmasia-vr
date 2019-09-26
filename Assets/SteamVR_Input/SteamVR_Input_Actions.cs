@@ -67,10 +67,6 @@ namespace Valve.VR
         
         private static SteamVR_Action_Single p_testControlsSet_TriggerValue;
         
-        private static SteamVR_Action_Skeleton p_testControlsSet_LeftSkeleton;
-        
-        private static SteamVR_Action_Skeleton p_testControlsSet_RightSkeleton;
-        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -271,22 +267,6 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Skeleton testControlsSet_LeftSkeleton
-        {
-            get
-            {
-                return SteamVR_Actions.p_testControlsSet_LeftSkeleton.GetCopy<SteamVR_Action_Skeleton>();
-            }
-        }
-        
-        public static SteamVR_Action_Skeleton testControlsSet_RightSkeleton
-        {
-            get
-            {
-                return SteamVR_Actions.p_testControlsSet_RightSkeleton.GetCopy<SteamVR_Action_Skeleton>();
-            }
-        }
-        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[] {
@@ -314,9 +294,7 @@ namespace Valve.VR
                     SteamVR_Actions.testControlsSet_PadTouch,
                     SteamVR_Actions.testControlsSet_TriggerTouch,
                     SteamVR_Actions.testControlsSet_PadTouchValue,
-                    SteamVR_Actions.testControlsSet_TriggerValue,
-                    SteamVR_Actions.testControlsSet_LeftSkeleton,
-                    SteamVR_Actions.testControlsSet_RightSkeleton};
+                    SteamVR_Actions.testControlsSet_TriggerValue};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -341,9 +319,7 @@ namespace Valve.VR
                     SteamVR_Actions.testControlsSet_PadTouch,
                     SteamVR_Actions.testControlsSet_TriggerTouch,
                     SteamVR_Actions.testControlsSet_PadTouchValue,
-                    SteamVR_Actions.testControlsSet_TriggerValue,
-                    SteamVR_Actions.testControlsSet_LeftSkeleton,
-                    SteamVR_Actions.testControlsSet_RightSkeleton};
+                    SteamVR_Actions.testControlsSet_TriggerValue};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -377,9 +353,7 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
                     SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand,
-                    SteamVR_Actions.testControlsSet_LeftSkeleton,
-                    SteamVR_Actions.testControlsSet_RightSkeleton};
+                    SteamVR_Actions.default_SkeletonRightHand};
             Valve.VR.SteamVR_Input.actionsNonPoseNonSkeletonIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -430,8 +404,6 @@ namespace Valve.VR
             SteamVR_Actions.p_testControlsSet_TriggerTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/TriggerTouch")));
             SteamVR_Actions.p_testControlsSet_PadTouchValue = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/TestControlsSet/in/PadTouchValue")));
             SteamVR_Actions.p_testControlsSet_TriggerValue = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/TriggerValue")));
-            SteamVR_Actions.p_testControlsSet_LeftSkeleton = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/TestControlsSet/in/LeftSkeleton")));
-            SteamVR_Actions.p_testControlsSet_RightSkeleton = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/TestControlsSet/in/RightSkeleton")));
         }
     }
 }
