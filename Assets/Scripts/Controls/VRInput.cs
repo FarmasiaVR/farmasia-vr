@@ -14,10 +14,10 @@ public static class VRInput {
     private static float[] triggerValues;
 
     private struct HandControl {
-        Control Control;
+        ControlType Control;
         SteamVR_Input_Sources HandType;
 
-        public HandControl(Control control, SteamVR_Input_Sources handType) {
+        public HandControl(ControlType control, SteamVR_Input_Sources handType) {
             this.Control = control;
             this.HandType = handType;
         }
@@ -46,9 +46,9 @@ public static class VRInput {
     static VRInput() {
         controls = new Dictionary<HandControl, ControlState>();
 
-        Control[] types = Enum.GetValues(typeof(Control)).Cast<Control>().ToArray();
+        ControlType[] types = Enum.GetValues(typeof(ControlType)).Cast<ControlType>().ToArray();
 
-        foreach (Control control in types) {
+        foreach (ControlType control in types) {
             controls.Add(new HandControl(control, SteamVR_Input_Sources.RightHand), new ControlState());
             controls.Add(new HandControl(control, SteamVR_Input_Sources.LeftHand), new ControlState());
         }
@@ -60,7 +60,7 @@ public static class VRInput {
     #endregion
 
     #region Controls
-    public static void SetControlState(Control c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
+    public static void SetControlState(ControlType c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
 
         HandControl key = new HandControl(c, handType);
 
@@ -72,7 +72,7 @@ public static class VRInput {
         controls[key] = state;
     }
 
-    public static void ControlDown(Control c, SteamVR_Input_Sources handType) {
+    public static void ControlDown(ControlType c, SteamVR_Input_Sources handType) {
 
         HandControl key = new HandControl(c, handType);
 
@@ -82,7 +82,7 @@ public static class VRInput {
 
         controls[key] = state;
     }
-    public static void ControlUp(Control c, SteamVR_Input_Sources handType) {
+    public static void ControlUp(ControlType c, SteamVR_Input_Sources handType) {
 
         HandControl key = new HandControl(c, handType);
 
@@ -93,15 +93,15 @@ public static class VRInput {
         controls[key] = state;
     }
 
-    public static bool GetControlDown(SteamVR_Input_Sources handType, Control c) {
+    public static bool GetControlDown(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].GetDown == Time.frameCount;
     }
-    public static bool GetControl(SteamVR_Input_Sources handType, Control c) {
+    public static bool GetControl(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].Down;
     }
-    public static bool GetControlUp(SteamVR_Input_Sources handType, Control c) {
+    public static bool GetControlUp(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].GetUp == Time.frameCount;
     }

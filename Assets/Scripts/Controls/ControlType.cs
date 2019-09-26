@@ -1,4 +1,5 @@
-﻿public enum Control {
+﻿public enum ControlType {
+    NotAssigned,
     TriggerTouch,
     TriggerClick,
     Menu,

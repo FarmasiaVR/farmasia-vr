@@ -83,19 +83,19 @@ public class VRHandControls : MonoBehaviour {
 
     #region Trigger
     private void TriggerTouchDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.TriggerTouch, handType);
+        VRInput.ControlDown(ControlType.TriggerTouch, handType);
     }
 
     private void TriggerTouchUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.TriggerTouch, handType);
+        VRInput.ControlUp(ControlType.TriggerTouch, handType);
     }
 
     private void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.TriggerClick, handType);
+        VRInput.ControlDown(ControlType.TriggerClick, handType);
     }
 
     private void TriggerUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.TriggerClick, handType);
+        VRInput.ControlUp(ControlType.TriggerClick, handType);
     }
 
     private void TriggerValueChange(SteamVR_Action_Single fromAction, SteamVR_Input_Sources fromSource, float newAxis, float newDelta) {
@@ -105,29 +105,29 @@ public class VRHandControls : MonoBehaviour {
 
     #region Menu
     private void MenuDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.Menu, handType);
+        VRInput.ControlDown(ControlType.Menu, handType);
     }
 
     private void MenuUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.Menu, handType);
+        VRInput.ControlUp(ControlType.Menu, handType);
     }
     #endregion
 
     #region Pad
     private void PadTouchDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.PadTouch, handType);
+        VRInput.ControlDown(ControlType.PadTouch, handType);
     }
 
     private void PadTouchUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.PadTouch, handType);
+        VRInput.ControlUp(ControlType.PadTouch, handType);
     }
 
     private void PadDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.PadClick , handType);
+        VRInput.ControlDown(ControlType.PadClick , handType);
     }
 
     private void PadUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.PadClick, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
 
     private void PadTouchValueChange(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta) {
@@ -137,11 +137,11 @@ public class VRHandControls : MonoBehaviour {
 
     #region Grip
     private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(Control.Grip, handType);
+        VRInput.ControlDown(ControlType.Grip, handType);
     }
 
     private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlUp(Control.Grip, handType);
+        VRInput.ControlUp(ControlType.Grip, handType);
     }
     #endregion
 }
