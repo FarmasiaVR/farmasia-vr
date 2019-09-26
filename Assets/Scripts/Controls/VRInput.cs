@@ -49,6 +49,9 @@ public static class VRInput {
         ControlType[] types = Enum.GetValues(typeof(ControlType)).Cast<ControlType>().ToArray();
 
         foreach (ControlType control in types) {
+            if (control == ControlType.NotAssigned) {
+                continue;
+            }
             controls.Add(new HandControl(control, SteamVR_Input_Sources.RightHand), new ControlState());
             controls.Add(new HandControl(control, SteamVR_Input_Sources.LeftHand), new ControlState());
         }
