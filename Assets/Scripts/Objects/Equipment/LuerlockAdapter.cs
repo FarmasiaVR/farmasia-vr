@@ -13,7 +13,6 @@ public class LuerlockAdapter : GeneralItem {
 
     protected override void Start() {
         // base.Start();
-        Logger.Print("Start luerlock adapter");
         ObjectType = ObjectType.Luerlock;
         leftCollider = transform.Find("Left collider").gameObject;
         rightCollider = transform.Find("Right collider").gameObject;

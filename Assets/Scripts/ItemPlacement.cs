@@ -11,8 +11,13 @@ public class ItemPlacement : MonoBehaviour {
     private static float slowDownTime = 1;
     private static float slowFactor = 0.7f;
 
-    private void Start() {
+    private void Awake() {
         rb = gameObject.GetComponent<Rigidbody>();
+
+        if (rb == null) {
+            throw new System.Exception("no rigidbody");
+        }
+        
         StartCoroutine(SlowDown());
     }
 

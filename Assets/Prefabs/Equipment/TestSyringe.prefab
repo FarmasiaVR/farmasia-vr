@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 2147914411083325927}
   - component: {fileID: 5918145904874053915}
   - component: {fileID: 3419122500617779050}
-  - component: {fileID: 6193697517265233679}
   m_Layer: 0
   m_Name: TestSyringe
   m_TagString: Untagged
@@ -121,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 3140615456537613300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4523, y: 1.253, z: 1.871135}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1819990343992198886}
   - {fileID: 9123881123165898672}
@@ -160,21 +159,6 @@ MonoBehaviour:
   State: 0
   objectType: 0
   isClean: 0
---- !u!114 &6193697517265233679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140615456537613300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1cfd7363510d0241a45d1086b6b89b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liquid: {fileID: 379560597428184100}
-  amount: 0
-  capacity: 0
 --- !u!1 &5691909676694882264
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +272,7 @@ PrefabInstance:
     - target: {fileID: 8067146742206830370, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0057
+      value: -0.0078
       objectReference: {fileID: 0}
     - target: {fileID: 8067146742206830370, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
@@ -343,7 +327,7 @@ PrefabInstance:
     - target: {fileID: 8067146742206830370, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.044163566
+      value: 0.039288178
       objectReference: {fileID: 0}
     - target: {fileID: 8067146742206830370, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
@@ -355,11 +339,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8067146740602620392, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32dbe3815180f394eba2d1767aa895c2, type: 3}
 --- !u!4 &379560597971335919 stripped
@@ -368,15 +347,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7687709856632991181}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &379560597428184100 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8067146740602620393, guid: 32dbe3815180f394eba2d1767aa895c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 7687709856632991181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be48b6af965b1a42a8071139abcfcb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

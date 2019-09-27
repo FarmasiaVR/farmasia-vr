@@ -10,6 +10,8 @@ public class LiquidContainer : MonoBehaviour {
 
     [SerializeField]
     private int amount;
+
+    // percentage can be NaN
     public int Amount {
         get { return amount; }
         set {
@@ -17,7 +19,14 @@ public class LiquidContainer : MonoBehaviour {
             // liquid is null when OnValidate is called twice before Awake
             // when playing in Editor Mode
             // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
-            liquid?.SetFillPercentage(((float) amount) / capacity);
+            float percentage = (float)amount / capacity;
+
+            if (float.IsNaN(percentage)) {
+                Logger.PrintVariables("amount", amount, "capacity", capacity, "value", value);
+            }
+
+            percentage = float.IsNaN(percentage) ? 0 : percentage;
+            liquid?.SetFillPercentage(percentage);
         }
     }
 
@@ -54,5 +63,16 @@ public class LiquidContainer : MonoBehaviour {
 
         Amount -= toTransfer;
         target.Amount += toTransfer;
+    }
+
+    public static LiquidContainer FindLiquidContainer(Transform t) {
+
+        LiquidContainer c = t.GetComponent<LiquidContainer>();
+
+        if (c != null) {
+            return c;
+        }
+
+        return t.Find("Liquid")?.GetComponent<LiquidContainer>();
     }
 }

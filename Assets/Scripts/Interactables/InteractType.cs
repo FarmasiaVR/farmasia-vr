@@ -2,5 +2,6 @@
     Grabbable,
     Interactable,
     Draggable,
-    LuerlockAttachable
+    LuerlockAttachable,
+    HasLiquid
 }

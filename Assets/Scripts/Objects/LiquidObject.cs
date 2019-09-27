@@ -14,10 +14,19 @@ public class LiquidObject : MonoBehaviour {
 
     private void OnValidate() {
         parent = GetComponentInParent<MeshRenderer>();
+
+        if (float.IsNaN(percentage)) {
+            throw new Exception("Value was NaN");
+        }
         UpdateObject();
     }
 
     public void SetFillPercentage(float percentage) {
+
+        if (float.IsNaN(percentage)) {
+            throw new Exception("Value was NaN");
+        }
+
         if (percentage < 0 || percentage > 1) {
             throw new ArgumentOutOfRangeException("percentage", percentage, "Percentage should be [0, 1]");
         }
@@ -29,6 +38,8 @@ public class LiquidObject : MonoBehaviour {
     private void UpdateObject() {
         // localScale scales around pivot (default is center of object)
         // Therefore, translation needed
+        
+
         transform.localScale = new Vector3(1, percentage, 1);
 
         // Translate by scale delta amount

@@ -11,7 +11,7 @@ public class ObjectHighlight : MonoBehaviour {
     #endregion
 
     private void Start() {
-        material = GetComponent<Renderer>().material;
+        material = Renderer.material;
         startColor = material.color;
         highlightColor = startColor + new Color32(60,60,60,0);
     }
@@ -44,5 +44,27 @@ public class ObjectHighlight : MonoBehaviour {
         }
 
         Unhighlight();
+    }
+
+    // Fix better
+    private Renderer Renderer {
+        get {
+
+            Renderer r = GetComponent<Renderer>();
+
+            if (r != null) {
+                return r;
+            }
+
+            foreach (Transform t in transform) {
+                r = t.GetComponent<Renderer>();
+
+                if (r != null) {
+                    return r;
+                }
+            }
+
+            throw new System.Exception("No renderer was found");
+        }
     }
 }

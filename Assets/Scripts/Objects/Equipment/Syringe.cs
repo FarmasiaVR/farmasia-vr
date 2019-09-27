@@ -8,16 +8,11 @@ public class Syringe : GeneralItem {
     #endregion
 
     protected override void Start() {
-
-        Logger.Print("SYRINGE START");
-
         base.Start();
-        container = GetComponent<LiquidContainer>();
+        container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(container);
         ObjectType = ObjectType.Syringe;
 
-        Types.On(InteractableType.LuerlockAttachable);
-
-        Debug.Log(Types.IsOn(InteractableType.Grabbable));
+        Types.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid);
     }
 }
