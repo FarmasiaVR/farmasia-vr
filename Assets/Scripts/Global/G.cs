@@ -15,7 +15,7 @@ public sealed class G {
     static G() {}
 
     private G() {
-        Progress = new ProgressManager();
+        Progress = new ProgressManager(false);
         Pipeline = new PipelineManager();
     }
 

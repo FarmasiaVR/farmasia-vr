@@ -13,8 +13,6 @@ public static class TaskFactory {
                 return new SelectTools();
             case TaskType.SelectMedicine:
                 return new SelectMedicine();
-            case TaskType.Finish:
-                return new Finish();
             /*case TaskType.AmountOfItems:
                 return new AmountOfItems();
             case TaskType.Layout1:

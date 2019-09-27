@@ -3,6 +3,7 @@
 /// </summary>
 public interface ITask {
     TaskType GetTaskType();
+    void SetReferredManager(ProgressManager manager);
     void FinishTask();
     string GetDescription();
     string GetHint();

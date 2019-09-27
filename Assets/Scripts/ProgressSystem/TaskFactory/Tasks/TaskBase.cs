@@ -5,6 +5,7 @@
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
+    protected ProgressManager manager;
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
@@ -33,12 +34,51 @@ public class TaskBase : ITask {
     /// </summary>
     private void Remove() {
         if (removeWhenFinished) {
-            G.Instance.Progress.RemoveTask(this);
+            manager.RemoveTask(this);
         }
     }
     #endregion
 
+    #region Virtual Methods
+    /// <summary>
+    /// Used for finishing current task. Task is either removed or preserved.
+    /// </summary>
+    public virtual void FinishTask() {
+        UnsubscribeAllEvents();
+        Remove();
+    }
+
+    /// <summary>
+    /// Used for getting task's description to show on UI.
+    /// </summary>
+    /// <returns>
+    /// Returns string presentation of description.
+    /// </returns>
+    public virtual string GetDescription() {
+        return "No Description";
+    }
+
+    /// <summary>
+    /// Used for getting task's hint when hint trigger is triggered.
+    /// </summary>
+    /// <returns>
+    /// Return string presentation of hint.
+    /// </returns>
+    public virtual string GetHint() {
+        return "No Hints";
+    }
+
+    /// <summary>
+    /// Used for defining custom Subscribtions per task. (Override)
+    /// </summary>
+    public virtual void Subscribe() {
+    }
+    #endregion
+
     #region Public Methods
+    public void SetReferredManager(ProgressManager manager) {
+        this.manager = manager;
+    }
     /// <summary>
     /// Return the type of current task.
     /// </summary>
@@ -98,7 +138,7 @@ public class TaskBase : ITask {
 
     #region Protected Methods
     protected bool CheckAllPreviousTaskCompletion() {
-        if (G.Instance.Progress.ActiveTasks.Count <= 1) {
+        if (manager.ActiveTasks.Count <= 1) {
             return true;
         }
         return false;
@@ -111,7 +151,7 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        List<TaskType> completed = G.Instance.Progress.DoneTypes;
+        List<TaskType> completed = manager.DoneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;
@@ -153,42 +193,6 @@ public class TaskBase : ITask {
             }
         }
         return nonCleared.ToArray();
-    }
-    #endregion
-
-    #region Virtual Methods
-    /// <summary>
-    /// Used for finishing current task. Task is either removed or preserved.
-    /// </summary>
-    public virtual void FinishTask() {
-        UnsubscribeAllEvents();
-        Remove();
-    }
-
-    /// <summary>
-    /// Used for getting task's description to show on UI.
-    /// </summary>
-    /// <returns>
-    /// Returns string presentation of description.
-    /// </returns>
-    public virtual string GetDescription() {
-        return "No Description";
-    }
-
-    /// <summary>
-    /// Used for getting task's hint when hint trigger is triggered.
-    /// </summary>
-    /// <returns>
-    /// Return string presentation of hint.
-    /// </returns>
-    public virtual string GetHint() {
-        return "No Hints";
-    }
-
-    /// <summary>
-    /// Used for defining custom Subscribtions per task. (Override)
-    /// </summary>
-    public virtual void Subscribe() {
     }
     #endregion
 }
