@@ -61,7 +61,7 @@ public class LuerlockAdapter : GeneralItem {
     private void ObjectEnterLeft(Collider collider) {
         Logger.Print("Object entered luerlock adapter left collider");
 
-        if (leftObject == null && ConnectingIsAllowed(rightCollider, collider)) {
+        if (leftObject == null && ConnectingIsAllowed(leftCollider, collider)) {
             // Position Offset here
             ReplaceObject(ref leftObject, collider.gameObject);
         }
