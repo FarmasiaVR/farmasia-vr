@@ -36,33 +36,35 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     #region Attaching
-    private void ObjectEnterRight(Collider collider) {
-
-        Interactable interatable = collider.GetComponent<Interactable>();
-
-        float angle = Quaternion.Angle(rightCollider.transform.rotation, collider.transform.rotation);
-
-        if (angle > angleLimit || Attached(true) || interatable.Types.IsOff(InteractableType.LuerlockAttachable)) {
-            return;
+    private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
+        float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingCollider.transform.rotation);
+        if (collisionAngle > 90 + angleLimit || collisionAngle < 90 - angleLimit) {
+            Logger.Print("Bad angle: " + collisionAngle.ToString());
+            return false;
         }
+        Interactable connectingInteractable = connectingCollider.GetComponent<Interactable>();
+        if (connectingInteractable.Types.IsOff(InteractableType.LuerlockAttachable)) {
+            Logger.Print("Interactable is not of type LuerlockAttachable");
+            return false;
+        }
+        return true;
+    }
 
-        // Position Offset Here
+    private void ObjectEnterRight(Collider collider) {
+        Logger.Print("Object entered luerlock adapter right collider");
 
-        ReplaceObject(ref rightObject, collider.gameObject);
+        if (rightObject == null && ConnectingIsAllowed(rightCollider, collider)) {
+            // Position Offset here
+            ReplaceObject(ref rightObject, collider.gameObject);
+        }
     }
     private void ObjectEnterLeft(Collider collider) {
+        Logger.Print("Object entered luerlock adapter left collider");
 
-        Interactable interatable = collider.GetComponent<Interactable>();
-
-        float angle = Quaternion.Angle(leftCollider.transform.rotation, collider.transform.rotation);
-
-        if (angle > angleLimit || Attached(false) || interatable.Types.IsOff(InteractableType.LuerlockAttachable)) {
-            return;
+        if (leftObject == null && ConnectingIsAllowed(rightCollider, collider)) {
+            // Position Offset here
+            ReplaceObject(ref leftObject, collider.gameObject);
         }
-
-        // Position Offset Here
-
-        ReplaceObject(ref leftObject, collider.gameObject);
     }
 
     public bool Attached(bool right) {
