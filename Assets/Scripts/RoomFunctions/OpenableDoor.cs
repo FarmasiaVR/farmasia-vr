@@ -44,7 +44,6 @@ public class OpenableDoor : MonoBehaviour {
         Vector3 handPos = hand.coll.transform.position;
 
         float handDistance = (handPos - handle.position).magnitude;
-        Logger.PrintVariables("Distance from handle", handDistance);
         if (handDistance > 0.25) {
             hand.UninteractWithObject();
             ReleaseDoor();

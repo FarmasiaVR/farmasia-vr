@@ -1,19 +1,19 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectHighlight : MonoBehaviour {
 
     #region fields
-    private Material material;
-    private Color startColor;
+    private List<Material> materials;
+    private List<Color> startColors;
     private Color highlightColor;
 
     #endregion
 
     private void Start() {
-        material = Renderer.material;
-        startColor = material.color;
-        highlightColor = startColor + new Color32(60,60,60,0);
+        InitializeLists();
+        highlightColor = new Color32(60,60,60,0);
     }
 
     private void OnDestroy() {
@@ -21,11 +21,15 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        material.color = highlightColor;
+        foreach (Material m in materials) {
+            m.color += highlightColor;
+        }
     }
 
     public void Unhighlight() {
-        material.color = startColor;
+        for (int i = 0; i < materials.Capacity; i++) {
+            materials[i].color = startColors[i];
+        }
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
@@ -46,25 +50,19 @@ public class ObjectHighlight : MonoBehaviour {
         Unhighlight();
     }
 
-    // Fix better
-    private Renderer Renderer {
-        get {
+    private void InitializeLists() {
+        List<Material> m = new List<Material>();
+        List<Color> c = new List<Color>();
 
-            Renderer r = GetComponent<Renderer>();
-
+        foreach (Transform t in transform) {
+            Renderer r = t.GetComponent<Renderer>();
             if (r != null) {
-                return r;
+                m.Add(r.material);
+                c.Add(r.material.color);
             }
-
-            foreach (Transform t in transform) {
-                r = t.GetComponent<Renderer>();
-
-                if (r != null) {
-                    return r;
-                }
-            }
-
-            throw new System.Exception("No renderer was found");
         }
+
+        materials = m;
+        startColors = c;
     }
 }
