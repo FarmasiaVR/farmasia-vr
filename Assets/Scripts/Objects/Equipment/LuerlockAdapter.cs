@@ -28,10 +28,17 @@ public class LuerlockAdapter : GeneralItem {
 
     private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject) {
 
+
         Logger.Print("ReplaceObject");
         if (attachedObject.GameObject != null) {
-            attachedObject.Rigidbody.isKinematic = false;
-            attachedObject.Rigidbody.WakeUp();
+
+            if (attachedObject.GameObject == newObject) {
+                return;
+            }
+
+            attachedObject.GameObject.AddComponent<Rigidbody>();
+            // attachedObject.Rigidbody.isKinematic = false;
+            // attachedObject.Rigidbody.WakeUp();
             attachedObject.GameObject.transform.parent = null;
             attachedObject.GameObject.transform.localScale = attachedObject.Scale;
         }
@@ -42,16 +49,19 @@ public class LuerlockAdapter : GeneralItem {
         attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
         attachedObject.Scale = newObject.transform.localScale;
 
+        Vector3 oldPos = newObject.transform.position;
         Vector3 newScale = new Vector3(
             attachedObject.Scale.x / transform.lossyScale.x,
             attachedObject.Scale.y / transform.lossyScale.y,
             attachedObject.Scale.z / transform.lossyScale.z);
 
-        attachedObject.Rigidbody.isKinematic = true;
-        attachedObject.Rigidbody.Sleep();
+        Destroy(attachedObject.Rigidbody);
+        //attachedObject.Rigidbody.isKinematic = true;
+        //attachedObject.Rigidbody.Sleep();
 
-        attachedObject.GameObject.transform.SetParent(transform, true);
+        attachedObject.GameObject.transform.parent = transform;
         attachedObject.GameObject.transform.localScale = newScale;
+        attachedObject.GameObject.transform.position = oldPos;
         attachedObject.GameObject.transform.localPosition = new Vector3(0, 0, attachedObject.GameObject.transform.localPosition.z);
     }
 

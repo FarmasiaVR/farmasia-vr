@@ -1,10 +1,15 @@
-﻿public static class Controls {
+﻿using Valve.VR;
+
+public static class Controls {
 
     #region fields
     private static ControlType grab;
     private static ControlType grabInteract;
 
     private static ControlType teleport;
+
+    public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
+
     #endregion
 
     #region Getters
@@ -40,6 +45,7 @@
             return teleport;
         }
     }
+
     #endregion
 
     #region Constructors
