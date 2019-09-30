@@ -79,7 +79,7 @@ public class LuerlockAdapter : GeneralItem {
     private void ObjectEnterRight(Collider collider) {
         Logger.Print("Object entered luerlock adapter right collider");
 
-        if (rightObject == null && ConnectingIsAllowed(rightCollider, collider)) {
+        if (rightObject.GameObject == null && ConnectingIsAllowed(rightCollider, collider)) {
             // Position Offset here
             ReplaceObject(ref rightObject, GetInteractableObject(collider.transform));
         }
@@ -87,7 +87,7 @@ public class LuerlockAdapter : GeneralItem {
     private void ObjectEnterLeft(Collider collider) {
         Logger.Print("Object entered luerlock adapter left collider");
 
-        if (leftObject == null && ConnectingIsAllowed(leftCollider, collider)) {
+        if (leftObject.GameObject == null && ConnectingIsAllowed(leftCollider, collider)) {
             // Position Offset here
             ReplaceObject(ref leftObject, GetInteractableObject(collider.transform));
         }
@@ -95,9 +95,9 @@ public class LuerlockAdapter : GeneralItem {
 
     public bool Attached(bool right) {
         if (right) {
-            return rightObject != null;
+            return rightObject.GameObject != null;
         } else {
-            return leftObject != null;
+            return leftObject.GameObject != null;
         }
     }
     #endregion
