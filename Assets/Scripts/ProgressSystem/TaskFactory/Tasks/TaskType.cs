@@ -12,6 +12,7 @@ public enum TaskType {
     MedicineToSyringe,
     LuerlockAttach,
     SyringeAttach,
+    AmountOfMedicine,
     SterileBag,
     Finish
 }

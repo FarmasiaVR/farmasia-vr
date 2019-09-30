@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class LuerlockAttach : TaskBase {
+public class SyringeAttach : TaskBase {
     #region Fields
-    private string[] conditions = { "LuerlockAttached", "RightPositionOfLuerlock", "PreviousTaskCompletion" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    private string[] conditions = { "SyringeAttached", "RightSyringeSize", "PreviousTaskCompletion" };
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.LuerlockAttach};
     #endregion
 
     #region Constructor
     ///  <summary>
-    ///  Constructor for LuerlockAttach task.
+    ///  Constructor for SyringeAttach task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
+    public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -22,24 +22,25 @@ public class LuerlockAttach : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(AttachLuerlock, EventType.AttachLuerlock);
+        base.SubscribeEvent(AttachSyringe, EventType.AttachSyringe);
     }
     /// <summary>
-    /// Once fired by an event, checks if and how Luerlock was attached as well as previous required task completion.
+    /// Once fired by an event, checks if syringe was attached to Luerlock, which syringe size was chosen
+    /// as well as previous required task completion.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void AttachLuerlock(CallbackData data) {
+    private void AttachSyringe(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
         }
         ObjectType type = item.ObjectType;
-        if (type == ObjectType.Luerlock) {
-            EnableCondition("LuerlockAttached");
-            if (CheckLuerlockPosition()) {
-                EnableCondition("RightPositionOfLuerlock");
+        if (type == ObjectType.Syringe) {
+            EnableCondition("SyringeAttached");
+            if (SyringeSize(item)) {
+                EnableCondition("RightSyringeSize");
             }
         }
 
@@ -48,19 +49,19 @@ public class LuerlockAttach : TaskBase {
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["LuerlockAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
-            UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
+        if (!check && base.clearConditions["SyringeAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
+            UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen", MessageType.Mistake);
+            G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
             base.FinishTask();
         }
     }
     /// <summary>
-    /// Method checks whether the given item has been placed correctly.
+    /// Method checks the size of the given item.
     /// </summary>
-    /// <param name="item">"Refers to an item object."</param>
-    /// <returns>"Returns true if the item has been correctly attached to the Luerlock object."</returns>
-    private bool CheckLuerlockPosition(GeneralItem item) {
-        //missing code, check the position of attached Luerlock
+    /// <param name="item">"Refers to an item with a size."</param>
+    /// <returns>"Returns true if the item has the expected size."</returns>
+    private bool SyringeSize(GeneralItem item) {
+        //missing code, check the size of the item
         return false;
     }
     #endregion
@@ -70,8 +71,8 @@ public class LuerlockAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Luerlock was successfully attached", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.LuerlockAttach);
+        UISystem.Instance.CreatePopup(1, "Right syringe size was chosen", MessageType.Notify);
+        G.Instance.Progress.Calculator.Add(TaskType.SyringeAttach);
         base.FinishTask();
     }
     
@@ -80,7 +81,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Luerlock-to-luerlock-välikappaleen kiinnitys.";
+        return "Yhdistä Luerlock-to-luerlock-välikappaleeseen toinen ruisku.";
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Kiinnitä Luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
+        return "Kiinnitä Luerlock-to-luerlock-välikappaleeseen myös 1.0ml ruisku.";
     }
     #endregion
 }

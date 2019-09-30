@@ -10,5 +10,7 @@
     Missing,
     Disinfect,
     MedicineToSyringe,
-    AttachLuerlock
+    AttachLuerlock,
+    AttachSyringe,
+    AmountOfMedicine
 }
