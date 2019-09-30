@@ -12,5 +12,6 @@
     MedicineToSyringe,
     AttachLuerlock,
     AttachSyringe,
-    AmountOfMedicine
+    AmountOfMedicine,
+    SterileBag
 }
