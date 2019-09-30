@@ -23,22 +23,46 @@ public class HandCollider : MonoBehaviour {
     }
 
     public void OnTriggerEnter(Collider coll) {
-        if (coll.gameObject.tag != iTag) {
+
+        Logger.PrintVariables("Entered object", coll.transform.name);
+
+        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+
+        Logger.PrintVariables("Getted object", interactable);
+
+
+        if (interactable == null) {
             return;
         }
 
-        GrabObjects.Add(coll.gameObject);
+
+        GrabObjects.Add(interactable);
 
         ObjectHighlight hObject = coll.gameObject.GetComponent<ObjectHighlight>();
+        if (hObject == null) {
+            return;
+        }
         hObject.StartCoroutine(hObject.InsideCheck(this));
     }
     public void OnTriggerExit(Collider coll) {
-        if (coll.gameObject.tag != iTag) {
+
+        Logger.PrintVariables("EXited object", coll.transform.name);
+
+
+        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+
+        Logger.PrintVariables("Getted object", interactable);
+
+
+        if (interactable == null) {
             return;
         }
 
-        GrabObjects.Remove(coll.gameObject);
+        GrabObjects.Remove(interactable);
     }
+
+    
+
 
     public bool Contains(GameObject obj) {
         return GrabObjects.Contains(obj);

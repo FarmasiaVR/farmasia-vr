@@ -12,7 +12,7 @@ public class LuerlockAdapter : GeneralItem {
     #endregion
 
     protected override void Start() {
-        // base.Start();
+        base.Start();
         ObjectType = ObjectType.Luerlock;
         leftCollider = transform.Find("Left collider").gameObject;
         rightCollider = transform.Find("Right collider").gameObject;
@@ -42,7 +42,13 @@ public class LuerlockAdapter : GeneralItem {
             Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
         }
-        Interactable connectingInteractable = connectingCollider.GetComponent<Interactable>();
+
+        Interactable connectingInteractable = Interactable.GetInteractable(connectingCollider.transform);
+
+        if (connectingInteractable == null) {
+            return false;
+        }
+
         if (connectingInteractable.Types.IsOff(InteractableType.LuerlockAttachable)) {
             Logger.Print("Interactable is not of type LuerlockAttachable");
             return false;
@@ -55,7 +61,7 @@ public class LuerlockAdapter : GeneralItem {
 
         if (rightObject == null && ConnectingIsAllowed(rightCollider, collider)) {
             // Position Offset here
-            ReplaceObject(ref rightObject, collider.gameObject);
+            ReplaceObject(ref rightObject, GetInteractableObject(collider.transform));
         }
     }
     private void ObjectEnterLeft(Collider collider) {
@@ -63,7 +69,7 @@ public class LuerlockAdapter : GeneralItem {
 
         if (leftObject == null && ConnectingIsAllowed(leftCollider, collider)) {
             // Position Offset here
-            ReplaceObject(ref leftObject, collider.gameObject);
+            ReplaceObject(ref leftObject, GetInteractableObject(collider.transform));
         }
     }
 
