@@ -137,15 +137,15 @@ public class TaskBase : ITask {
     #endregion
 
     #region Protected Methods
-    protected bool CheckAllPreviousTaskCompletion() {
-        if (manager.ActiveTasks.Count <= 1) {
-            return true;
+    protected bool CheckIsCurrent() {
+        if (manager.ActiveTasks.IndexOf(this) > 0) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /// <summary>
-    /// Used for checking if previous tasks before current task are completed.
+    /// Used for checking if certain previous tasks before current task are completed.
     /// </summary>
     /// <returns>
     /// Returns true if previous tasks are completed, otherwise false.
