@@ -3,7 +3,7 @@
 public class LuerlockAdapter : GeneralItem {
 
     #region fields
-    private static float angleLimit = 25;
+    private static float angleLimit = 90;
 
     private AttachedObject leftObject, rightObject;
 
@@ -63,7 +63,7 @@ public class LuerlockAdapter : GeneralItem {
         }
 
         float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingInteractable.transform.rotation);
-        if (collisionAngle > angleLimit + 90) {
+        if (collisionAngle > angleLimit) {
             Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
         }
@@ -72,6 +72,8 @@ public class LuerlockAdapter : GeneralItem {
             Logger.Print("Interactable is not of type LuerlockAttachable");
             return false;
         }
+
+        Logger.Print("Angle: " + collisionAngle.ToString());
         return true;
     }
 
