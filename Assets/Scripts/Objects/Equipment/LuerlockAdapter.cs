@@ -57,15 +57,14 @@ public class LuerlockAdapter : GeneralItem {
 
     #region Attaching
     private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
-        float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingCollider.transform.rotation);
-        if (collisionAngle > angleLimit + 90) {
-            Logger.Print("Bad angle: " + collisionAngle.ToString());
+        Interactable connectingInteractable = Interactable.GetInteractable(connectingCollider.transform);
+        if (connectingInteractable == null) {
             return false;
         }
 
-        Interactable connectingInteractable = Interactable.GetInteractable(connectingCollider.transform);
-
-        if (connectingInteractable == null) {
+        float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingInteractable.transform.rotation);
+        if (collisionAngle > angleLimit + 90) {
+            Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
         }
 
