@@ -5,10 +5,16 @@ public class LuerlockAdapter : GeneralItem {
     #region fields
     private static float angleLimit = 25;
 
-    private GameObject leftObject, rightObject;
+    private AttachedObject leftObject, rightObject;
 
     [SerializeField]
     private GameObject leftCollider, rightCollider;
+
+    private struct AttachedObject {
+        public GameObject GameObject;
+        public Rigidbody Rigidbody;
+        public Vector3 Scale;
+    }
     #endregion
 
     protected override void Start() {
@@ -20,25 +26,39 @@ public class LuerlockAdapter : GeneralItem {
         CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRight, null, null);
     }
 
-    private void ReplaceObject(ref GameObject attachedObject, GameObject newObject) {
+    private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject) {
 
         Logger.Print("ReplaceObject");
-        if (attachedObject != null) {
-            attachedObject.GetComponent<Rigidbody>().isKinematic = false;
-            attachedObject.transform.parent = null;
+        if (attachedObject.GameObject != null) {
+            attachedObject.Rigidbody.isKinematic = false;
+            attachedObject.Rigidbody.WakeUp();
+            attachedObject.GameObject.transform.parent = null;
+            attachedObject.GameObject.transform.localScale = attachedObject.Scale;
         }
-        attachedObject = newObject;
+
+        attachedObject.GameObject = newObject;
         if (newObject == null) { return; }
 
-        attachedObject.GetComponent<Rigidbody>().isKinematic = true;
-        attachedObject.transform.SetParent(transform, true);
-        attachedObject.transform.localPosition = new Vector3(0, 0, attachedObject.transform.localPosition.z);
+        attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
+        attachedObject.Scale = newObject.transform.localScale;
+
+        Vector3 newScale = new Vector3(
+            attachedObject.Scale.x / transform.lossyScale.x,
+            attachedObject.Scale.y / transform.lossyScale.y,
+            attachedObject.Scale.z / transform.lossyScale.z);
+
+        attachedObject.Rigidbody.isKinematic = true;
+        attachedObject.Rigidbody.Sleep();
+
+        attachedObject.GameObject.transform.SetParent(transform, true);
+        attachedObject.GameObject.transform.localScale = newScale;
+        attachedObject.GameObject.transform.localPosition = new Vector3(0, 0, attachedObject.GameObject.transform.localPosition.z);
     }
 
     #region Attaching
     private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
         float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingCollider.transform.rotation);
-        if (collisionAngle > 90 + angleLimit || collisionAngle < 90 - angleLimit) {
+        if (collisionAngle > angleLimit + 90) {
             Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
         }

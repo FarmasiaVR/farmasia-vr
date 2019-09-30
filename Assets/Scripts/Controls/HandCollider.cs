@@ -24,12 +24,7 @@ public class HandCollider : MonoBehaviour {
 
     public void OnTriggerEnter(Collider coll) {
 
-        Logger.PrintVariables("Entered object", coll.transform.name);
-
         GameObject interactable = Interactable.GetInteractableObject(coll.transform);
-
-        Logger.PrintVariables("Getted object", interactable);
-
 
         if (interactable == null) {
             return;
@@ -46,13 +41,7 @@ public class HandCollider : MonoBehaviour {
     }
     public void OnTriggerExit(Collider coll) {
 
-        Logger.PrintVariables("EXited object", coll.transform.name);
-
-
         GameObject interactable = Interactable.GetInteractableObject(coll.transform);
-
-        Logger.PrintVariables("Getted object", interactable);
-
 
         if (interactable == null) {
             return;
