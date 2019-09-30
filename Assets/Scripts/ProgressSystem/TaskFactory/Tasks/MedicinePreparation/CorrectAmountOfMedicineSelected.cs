@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class AmountOfMedicine : TaskBase {
+/// <summary>
+/// Correct amount of medicine pulled into smaller syringes through LuerLock.
+/// </summary>
+public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
     private string[] conditions = { "RightAmountOfMedicine", "PreviousTasksCompleted" };
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach, TaskType.SyringeAttach};
@@ -11,7 +14,7 @@ public class AmountOfMedicine : TaskBase {
     ///  Constructor for AmountOfMedicine task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public AmountOfMedicine() : base(TaskType.AmountOfMedicine, true, true) {
+    public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -49,7 +52,7 @@ public class AmountOfMedicine : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfMedicine);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();
         }
     }
@@ -70,7 +73,7 @@ public class AmountOfMedicine : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of medicine", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.AmountOfMedicine);
+        G.Instance.Progress.Calculator.Add(TaskType.CorrectAmountOfMedicineSelected);
         base.FinishTask();
     }
     

@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
-
+/// <summary>
+/// Checks for rest of the missing items. (deprecated) This task is given to CorrectItemsInLaminarCabinet.
+/// </summary>
 public class MissingItems : TaskBase {
     #region Fields
     private string[] conditions;

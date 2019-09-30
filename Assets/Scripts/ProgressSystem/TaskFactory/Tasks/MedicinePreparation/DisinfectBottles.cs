@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-public class Disinfect : TaskBase {
+/// <summary>
+/// Disinfect bottle cork. If not done, object will be contaminated.
+/// </summary>
+public class DisinfectBottles : TaskBase {
     #region Fields
     private string[] conditions = { "BottleCapDisinfected", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.AmountOfItems, TaskType.Layout2};
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectItemsInLaminarCabinet, TaskType.CorrectLayoutInLaminarCabinet};
     #endregion
 
     #region Constructor
@@ -11,7 +14,7 @@ public class Disinfect : TaskBase {
     ///  Constructor for Disinfect task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public Disinfect() : base(TaskType.Disinfect, true, true) {
+    public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -47,7 +50,7 @@ public class Disinfect : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Bottle cap was not disinfected", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.Disinfect);
+            G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
             base.FinishTask();
         }
     }
@@ -59,7 +62,7 @@ public class Disinfect : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Bottle cap disinfected", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.Disinfect);
+        G.Instance.Progress.Calculator.Add(TaskType.DisinfectBottles);
         base.FinishTask();
     }
     

@@ -3,7 +3,7 @@ using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
     private string[] conditions = { "RightSizeSyringe", "NeedleToSyringe", "NeedleThroughBottleCap", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.Disinfect};
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.DisinfectBottles};
     #endregion
 
     #region Constructor

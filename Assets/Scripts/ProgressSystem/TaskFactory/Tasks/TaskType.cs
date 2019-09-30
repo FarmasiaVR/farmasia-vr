@@ -4,15 +4,15 @@
 public enum TaskType {
     SelectTools,
     SelectMedicine,
-    Layout1,
-    AmountOfItems,
+    CorrectLayoutInThroughput,
+    CorrectItemsInLaminarCabinet,
     MissingItems,
-    Layout2,
-    Disinfect,
+    CorrectLayoutInLaminarCabinet,
+    DisinfectBottles,
     MedicineToSyringe,
     LuerlockAttach,
     SyringeAttach,
-    AmountOfMedicine,
+    CorrectAmountOfMedicineSelected,
     SterileBag,
     Finish
 }

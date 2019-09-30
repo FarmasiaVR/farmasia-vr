@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Layout2 : TaskBase {
+public class CorrectLayoutInLaminarCabinet : TaskBase {
     #region Fields
     private string[] conditions = {"AllItems", "ItemsArranged"};
     #endregion
@@ -12,7 +12,7 @@ public class Layout2 : TaskBase {
     ///  Constructor for Layout2 task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public Layout2() : base(TaskType.Layout2, true, false) {
+    public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -32,7 +32,7 @@ public class Layout2 : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void FinalArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.DoneTypes.Contains(TaskType.AmountOfItems)) {
+        if (G.Instance.Progress.DoneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
             List<ITask> list = G.Instance.Progress.ActiveTasks;
             int exists = 0;
             exists = (from n in list
@@ -49,7 +49,7 @@ public class Layout2 : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["AllItems"]) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.Layout2); 
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
             base.FinishTask();
             FinishLayout1();
         }
@@ -70,7 +70,7 @@ public class Layout2 : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.Layout2);
+        G.Instance.Progress.Calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
         base.FinishTask();
         FinishLayout1();
     }
@@ -79,8 +79,8 @@ public class Layout2 : TaskBase {
     /// Removes Layout1 task if not removed before.
     /// </summary>
     public void FinishLayout1() {
-        if (!G.Instance.Progress.DoneTypes.Contains(TaskType.Layout1)) {
-            Layout1 layoutInstance = G.Instance.Progress.ActiveTasks.Find(x => x.GetTaskType().Equals(TaskType.Layout1)) as Layout1;
+        if (!G.Instance.Progress.DoneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
+            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.ActiveTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
             layoutInstance.RemoveTaskFromOutside();
         }
     }

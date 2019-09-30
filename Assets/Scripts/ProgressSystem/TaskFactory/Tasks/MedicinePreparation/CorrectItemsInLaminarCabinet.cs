@@ -1,6 +1,8 @@
 using UnityEngine;
-
-public class AmountOfItems : TaskBase {
+/// <summary>
+/// Correct amount of items inserted into Fume Cupboard.
+/// </summary>
+public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
     private string[] conditions = {"Syringe", "Needle", "Luerlock", "RightSizeBottle"};
     #endregion
@@ -10,7 +12,7 @@ public class AmountOfItems : TaskBase {
     ///  Constructor for AmountOfItems task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public AmountOfItems() : base(TaskType.AmountOfItems, true, false) {
+    public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
@@ -55,7 +57,7 @@ public class AmountOfItems : TaskBase {
         //checked when player exits the room
         if (!check) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.AmountOfItems);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             base.FinishTask();
 
             MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
@@ -71,7 +73,7 @@ public class AmountOfItems : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.AmountOfItems);
+        G.Instance.Progress.Calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
         base.FinishTask();
     }
     

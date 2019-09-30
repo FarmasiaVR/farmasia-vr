@@ -1,5 +1,8 @@
 using UnityEngine;
-public class Layout1 : TaskBase {
+/// <summary>
+/// Checks if Throughput Cupboard (läpiantokaappi) has correct layout.
+/// </summary>
+public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
     private string[] conditions = { "AtLeastThree", "ItemsArranged" };
     private int itemCount;
@@ -10,7 +13,7 @@ public class Layout1 : TaskBase {
     ///  Constructor for Layout1 task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public Layout1() : base(TaskType.Layout1, true, false) {
+    public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
         itemCount = 0;
         Subscribe();
         AddConditions(conditions);
@@ -47,7 +50,7 @@ public class Layout1 : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && AtLeastThree()) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.Layout1);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
         }
     }
@@ -85,7 +88,7 @@ public class Layout1 : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.Layout1);
+        G.Instance.Progress.Calculator.Add(TaskType.CorrectLayoutInThroughput);
         base.FinishTask();
     }
 

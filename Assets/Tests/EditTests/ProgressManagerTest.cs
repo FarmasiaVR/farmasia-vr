@@ -31,6 +31,18 @@ namespace Tests {
         }
 
         [Test]
+        public void ManagerPreservesNonRemovableTask() {
+            manager.ResetTasks(false);
+            TestTask task = new TestTask();
+            TestTask3 task3 = new TestTask3();
+            manager.AddTask(task3);
+            int count = manager.ActiveTasks.Count;
+            task3.FinishTask();
+            Assert.IsTrue(manager.ActiveTasks.Count == count+1, "Did not preserve Task3 when finishing it.");
+
+        }
+
+        [Test]
         public void TasksCanGenerateNewTasks() {
             manager.ResetTasks(false);
             TestTask2 task2 = new TestTask2();
@@ -79,6 +91,31 @@ public class TestTask : TaskBase {
 public class TestTask2 : TaskBase {
 
     public TestTask2() : base(TaskType.SelectMedicine, true, true) {
+
+    }
+    public override void FinishTask() {
+        manager.AddNewTaskBeforeTask(new TestTask(), this);
+        manager.ListActiveTasks();
+        base.FinishTask();
+    }
+
+    public override string GetDescription() {
+        return base.GetDescription();
+    }
+
+    public override string GetHint() {
+        return base.GetHint();
+    }
+
+    public override void Subscribe() {
+        base.Subscribe();
+    }
+}
+
+
+public class TestTask3 : TaskBase {
+
+    public TestTask3() : base(TaskType.SelectMedicine, false, true) {
 
     }
     public override void FinishTask() {

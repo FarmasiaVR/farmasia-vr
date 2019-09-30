@@ -8,6 +8,8 @@ public class ProgressManager {
     #region fields
     private bool tasksFinished = false;
     private bool testMode;
+
+    public List<ITask> OptionalSteps { get; private set; }
     public List<ITask> ActiveTasks { get; private set; }
     public List<TaskType> DoneTypes { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
@@ -58,7 +60,6 @@ public class ProgressManager {
     #endregion
 
     #region Public Methods
-
     /// <summary>
     /// Used for settings new tasks after certain points, for example player 
     /// </summary>
@@ -68,8 +69,6 @@ public class ProgressManager {
         newTask.SetReferredManager(this);
         ActiveTasks.Insert(ActiveTasks.IndexOf(previousTask), newTask);
     }
-
-
 
     /// <summary>
     /// Adds a task to the current active list.
@@ -106,7 +105,6 @@ public class ProgressManager {
     public void TestPrint(string text) {
         Logger.Print(text);
     }
-
 
     /// <summary>
     /// Removes task from current active list and adds them to doneTasks list.
