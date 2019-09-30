@@ -7,7 +7,7 @@ public class TeleportArc {
     private const float distance = 0.1f;
     private const float acceleration = 0.2f;
     private const float angle = 1f;
-    private const float maxLineDistance = 20;
+    private const float maxLineDistance = 100;
     #endregion
 
     public void ShootArc(Vector3 startPos, Vector3 startDir, out Vector3[] outArc, out GameObject hitObject, out Vector3 hitPos) {

@@ -21,13 +21,13 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        foreach (Material m in materials) {
-            m.color += highlightColor;
+        for (int i = 0; i < materials.Count; i++) {
+            materials[i].color = startColors[i] + highlightColor;
         }
     }
 
     public void Unhighlight() {
-        for (int i = 0; i < materials.Capacity; i++) {
+        for (int i = 0; i < materials.Count; i++) {
             materials[i].color = startColors[i];
         }
     }
@@ -54,15 +54,22 @@ public class ObjectHighlight : MonoBehaviour {
         List<Material> m = new List<Material>();
         List<Color> c = new List<Color>();
 
+        AddObjectMaterial(transform);
+
         foreach (Transform t in transform) {
-            Renderer r = t.GetComponent<Renderer>();
+            AddObjectMaterial(t);
+        }
+
+        materials = m;
+        startColors = c;
+
+
+        void AddObjectMaterial(Transform tt) {
+            Renderer r = tt.GetComponent<Renderer>();
             if (r != null) {
                 m.Add(r.material);
                 c.Add(r.material.color);
             }
         }
-
-        materials = m;
-        startColors = c;
     }
 }
