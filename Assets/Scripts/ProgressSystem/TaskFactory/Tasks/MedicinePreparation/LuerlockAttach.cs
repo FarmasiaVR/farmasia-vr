@@ -38,7 +38,7 @@ public class LuerlockAttach : TaskBase {
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Luerlock) {
             EnableCondition("LuerlockAttached");
-            if (CheckLuerlockPosition()) {
+            if (CheckLuerlockPosition(item)) {
                 EnableCondition("RightPositionOfLuerlock");
             }
         }
