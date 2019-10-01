@@ -27,8 +27,8 @@ public class LuerlockAdapter : GeneralItem {
         ObjectType = ObjectType.Luerlock;
         leftCollider = transform.Find("Left collider").gameObject;
         rightCollider = transform.Find("Right collider").gameObject;
-        CollisionSubscription.SubscribeToTrigger(leftCollider, ObjectEnterLeft, null, null);
-        CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRight, null, null);
+        CollisionSubscription.SubscribeToTrigger(leftCollider, new TriggerListener().OnEnter(ObjectEnterLeft));
+        CollisionSubscription.SubscribeToTrigger(rightCollider, new TriggerListener().OnEnter(ObjectEnterRight));
 
         rb = GetComponent<Rigidbody>();
     }
