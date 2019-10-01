@@ -230,5 +230,15 @@ public class Hand : MonoBehaviour {
     private void GrabObject() {
         GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
     }
+
+    public static Hand GrabbingHand(Rigidbody rb) {
+        foreach (VRHandControls controls in VRInput.Hands) {
+            if (rb == controls.Hand.GrabbedRigidbody) {
+                return controls.Hand;
+            }
+        }
+
+        return null;
+    }
     #endregion
 }

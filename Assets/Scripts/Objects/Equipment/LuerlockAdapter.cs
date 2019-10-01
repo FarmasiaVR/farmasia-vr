@@ -6,11 +6,14 @@ public class LuerlockAdapter : GeneralItem {
     private const string luerlockTag = "Luerlock Position";
 
     private static float angleLimit = 5;
+    private static float maxDistance = 0.025f;
 
     private AttachedObject leftObject, rightObject;
 
     [SerializeField]
     private GameObject leftCollider, rightCollider;
+
+    private Rigidbody rb;
 
     private struct AttachedObject {
         public GameObject GameObject;
@@ -26,6 +29,8 @@ public class LuerlockAdapter : GeneralItem {
         rightCollider = transform.Find("Right collider").gameObject;
         CollisionSubscription.SubscribeToTrigger(leftCollider, ObjectEnterLeft, null, null);
         CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRight, null, null);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update() {
@@ -49,6 +54,10 @@ public class LuerlockAdapter : GeneralItem {
         float collisionAngle = Vector3.Angle(adapterCollider.transform.up, connectingInteractable.transform.up);
         if (collisionAngle > angleLimit) {
             Logger.Print("Bad angle: " + collisionAngle.ToString());
+            return false;
+        }
+
+        if (!WithinDistance(adapterCollider, connectingInteractable.transform)) {
             return false;
         }
 
@@ -102,6 +111,15 @@ public class LuerlockAdapter : GeneralItem {
         attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
         attachedObject.Scale = newObject.transform.localScale;
 
+        // FIX
+        if (Hand.GrabbingHand(rb) != null) {
+            Hand.GrabbingHand(attachedObject.Rigidbody)?.Release();
+        } else {
+
+            // ERRORS WILL COME HERE
+
+        }
+
         Vector3 newScale = new Vector3(
             attachedObject.Scale.x / transform.lossyScale.x,
             attachedObject.Scale.y / transform.lossyScale.y,
@@ -117,6 +135,9 @@ public class LuerlockAdapter : GeneralItem {
         SetLuerlockPosition(colliderT, attachedObject.GameObject.transform);
     }
 
+    private bool WithinDistance(GameObject collObject, Transform t) {
+        return Vector3.Distance(collObject.transform.position, LuerlockPosition(t).position) < maxDistance;
+    }
     private void SetLuerlockPosition(GameObject collObject, Transform t) {
 
         Transform target = LuerlockPosition(t);

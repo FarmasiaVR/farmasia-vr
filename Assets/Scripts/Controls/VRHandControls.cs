@@ -29,7 +29,7 @@ public class VRHandControls : MonoBehaviour {
 
     public SteamVR_Input_Sources handType;
 
-    private Hand hand;
+    public Hand Hand { get; private set; }
     private TeleportControls teleport;
     #endregion
 
@@ -39,7 +39,7 @@ public class VRHandControls : MonoBehaviour {
             throw new System.Exception("All controls are not initialized");
         }
 
-        hand = GetComponent<Hand>();
+        Hand = GetComponent<Hand>();
         teleport = GetComponent<TeleportControls>();
 
         VRInput.SetHandControls(handType, this);

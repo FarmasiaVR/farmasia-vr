@@ -9,7 +9,7 @@ public static class VRInput {
     #region fields
     private static Dictionary<HandControl, ControlState> controls;
 
-    private static VRHandControls[] hands;
+    public static VRHandControls[] Hands { get; private set; }
     private static Vector2[] padTouches;
     private static float[] triggerValues;
 
@@ -56,7 +56,7 @@ public static class VRInput {
             controls.Add(new HandControl(control, SteamVR_Input_Sources.LeftHand), new ControlState());
         }
             
-        hands = new VRHandControls[2];
+        Hands = new VRHandControls[2];
         padTouches = new Vector2[4];
         triggerValues = new float[4];
     }
@@ -113,9 +113,9 @@ public static class VRInput {
     #region Skeletons
     public static void SetHandControls(SteamVR_Input_Sources handType, VRHandControls hand) {
         if (handType == SteamVR_Input_Sources.RightHand) {
-            hands[0] = hand;
+            Hands[0] = hand;
         } else if (handType == SteamVR_Input_Sources.LeftHand) {
-            hands[1] = hand;
+            Hands[1] = hand;
         }
     }
     public static SteamVR_Action_Skeleton Skeleton(SteamVR_Input_Sources handType) {
@@ -130,12 +130,12 @@ public static class VRInput {
 
     public static SteamVR_Action_Skeleton RightSkeleton {
         get {
-            return hands[0].Skeleton;
+            return Hands[0].Skeleton;
         }
     }
     public static SteamVR_Action_Skeleton LeftSkeleton {
         get {
-            return hands[1].Skeleton;
+            return Hands[1].Skeleton;
         }
     }
     #endregion
