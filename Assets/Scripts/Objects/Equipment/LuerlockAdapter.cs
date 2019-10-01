@@ -62,7 +62,6 @@ public class LuerlockAdapter : GeneralItem {
         attachedObject.GameObject.transform.parent = transform;
         attachedObject.GameObject.transform.localScale = newScale;
         attachedObject.GameObject.transform.position = oldPos;
-        attachedObject.GameObject.transform.localPosition = new Vector3(0, 0, attachedObject.GameObject.transform.localPosition.z);
     }
 
     #region Attaching
@@ -72,7 +71,8 @@ public class LuerlockAdapter : GeneralItem {
             return false;
         }
 
-        float collisionAngle = Quaternion.Angle(adapterCollider.transform.rotation, connectingInteractable.transform.rotation);
+
+        float collisionAngle = Vector3.Angle(adapterCollider.transform.up, connectingInteractable.transform.up);
         if (collisionAngle > angleLimit) {
             Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
