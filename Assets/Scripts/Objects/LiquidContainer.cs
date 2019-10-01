@@ -11,22 +11,20 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
-    // percentage can be NaN
     public int Amount {
         get { return amount; }
         set {
-            amount = Math.Max(Math.Min(value, Capacity), 0);
-            // liquid is null when OnValidate is called twice before Awake
-            // when playing in Editor Mode
-            // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
-            float percentage = (float)amount / capacity;
-
-            if (float.IsNaN(percentage)) {
-                Logger.PrintVariables("amount", amount, "capacity", capacity, "value", value);
+            if (Capacity == 0) {
+                amount = 0;
+                liquid?.SetFillPercentage(0);
+            } else {
+                amount = Math.Max(Math.Min(value, Capacity), 0);
+                // liquid is null when OnValidate is called twice before Awake
+                // when playing in Editor Mode
+                // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
+                float percentage = (float)amount / capacity;
+                liquid?.SetFillPercentage(percentage);
             }
-
-            percentage = float.IsNaN(percentage) ? 0 : percentage;
-            liquid?.SetFillPercentage(percentage);
         }
     }
 
@@ -34,7 +32,7 @@ public class LiquidContainer : MonoBehaviour {
     private int capacity;
     public int Capacity {
         get { return capacity; }
-        set { capacity = value; }
+        private set { capacity = Math.Max(value, 0); }
     }
     #endregion
 
@@ -47,6 +45,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnValidate() {
+        Capacity = capacity;
         Amount = amount;
     }
 
