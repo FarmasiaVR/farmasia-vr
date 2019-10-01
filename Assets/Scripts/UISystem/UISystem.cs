@@ -4,8 +4,7 @@ using UnityEngine;
 public class UISystem : MonoBehaviour {
     #region Fields
     public static UISystem Instance { get; private set; }
-    [SerializeField]
-    [Tooltip("If empty, drag the HandUI object from left hand into here.")]
+
     private GameObject handuiInScene;
     [SerializeField]
     [Tooltip("Drag Popup prefab here!")]
@@ -13,9 +12,8 @@ public class UISystem : MonoBehaviour {
     [SerializeField]
     [Tooltip("Drag Description prefab here!")]
     private GameObject descriptionPrefab;
-    [SerializeField]
-    [Tooltip("Drag VRPlayer here!")]
-    public GameObject player;
+
+    public GameObject player { get; private set; }
     private Hand hand;
     [SerializeField]
     [Tooltip("Defines if description is hidden or not.")]
@@ -44,6 +42,8 @@ public class UISystem : MonoBehaviour {
         } else {
             Instance = this;
         }
+        player = GameObject.FindGameObjectWithTag("Player");
+        handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = player.transform.Find("Controller (left)").gameObject.GetComponent<Hand>();
     }
 
