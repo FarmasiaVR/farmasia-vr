@@ -57,7 +57,7 @@ public class PointPopup : MonoBehaviour {
         if (!fadeInCompleted) {
             transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
             textField.color = new Color(red, green, blue, transparency);
-            textObject.transform.position += new Vector3(0, 0.01f, 0);
+            textObject.transform.localPosition += new Vector3(0, 0.01f, 0);
             if (timer > fadeInAndOut) {
 
                 textField.color = new Color(red, green, blue, transparency);
@@ -74,7 +74,7 @@ public class PointPopup : MonoBehaviour {
             } else {
                 transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
                 textField.color = new Color(red, green, blue, transparency);
-                textObject.transform.position += new Vector3(0, -0.01f, 0);
+                textObject.transform.localPosition += new Vector3(0, -0.01f, 0);
                 if (timer > fadeInAndOut) {
                     timer -= fadeInAndOut;
                     Remove();
