@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 
 public class TransferController : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class TransferController : MonoBehaviour
     private KeyCode switchKey = KeyCode.T;
     #endregion
 
-    private void FixedUpdate() {
+    private void Update() {
         if (Input.GetKey(transferKey)) {
             LiquidContainer src = LiquidContainer.FindLiquidContainer(source.transform);
             LiquidContainer dst = LiquidContainer.FindLiquidContainer(sink.transform);
