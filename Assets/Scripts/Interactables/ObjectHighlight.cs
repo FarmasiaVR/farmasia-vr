@@ -14,7 +14,8 @@ public class ObjectHighlight : MonoBehaviour {
 
     private void Start() {
         InitializeLists();
-        highlightColor = new Color32(60,60,60,100);
+        //highlightColor = new Color32(0,120,100,1);
+        highlightColor = new Color32(150,0,0,1);
         normalColor = new Color32(0,0,0,0);
     }
 
@@ -24,17 +25,18 @@ public class ObjectHighlight : MonoBehaviour {
 
     public void Highlight() {
         for (int i = 0; i < materials.Count; i++) {
-            materials[i].SetColor("_EMISSION", highlightColor);
+            materials[i].SetColor("_EmissionColor", highlightColor);
         }
     }
 
     public void Unhighlight() {
         for (int i = 0; i < materials.Count; i++) {
-            materials[i].SetColor("_EMISSION", normalColor);
+            materials[i].SetColor("_EmissionColor", normalColor);
         }
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
+        Logger.Print("Checking inside");
         while (coll.Contains(gameObject)) {
             bool isClosest = gameObject == coll.GetGrabObject();
 
@@ -56,15 +58,18 @@ public class ObjectHighlight : MonoBehaviour {
         List<Material> m = new List<Material>();
         //List<Color> c = new List<Color>();
 
-        AddObjectMaterial(transform);
-
-        foreach (Transform t in transform) {
-            AddObjectMaterial(t);
-        }
+        AddAllChildren(transform);
 
         materials = m;
         //startColors = c;
 
+        void AddAllChildren(Transform c) {
+            AddObjectMaterial(c);
+
+            foreach (Transform t in c) {
+                AddAllChildren(t);
+            }
+        }
 
         void AddObjectMaterial(Transform tt) {
             Renderer r = tt.GetComponent<Renderer>();

@@ -187,7 +187,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
+        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.None;
 
         ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
