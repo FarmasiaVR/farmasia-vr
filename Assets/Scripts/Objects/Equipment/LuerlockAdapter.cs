@@ -26,6 +26,14 @@ public class LuerlockAdapter : GeneralItem {
         CollisionSubscription.SubscribeToTrigger(rightCollider, ObjectEnterRight, null, null);
     }
 
+    private void Update() {
+
+        if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
+            ReplaceObject(ref leftObject, null);
+            ReplaceObject(ref rightObject, null);
+        }
+    }
+
     private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject) {
 
 
