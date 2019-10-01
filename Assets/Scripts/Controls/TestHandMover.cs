@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Valve.VR;
 
 public class TestHandMover : MonoBehaviour {
 
@@ -15,20 +16,39 @@ public class TestHandMover : MonoBehaviour {
 
     private float handSpeed = 1;
 
-    private Hand right, left;
-    private Hand current;
+    private Transform right, left;
+    private bool usingRight;
     private bool isGrabbing;
+
+    private bool active;
     #endregion
 
     private void Start() {
-        right = transform.GetChild(0).GetComponent<Hand>();
-        left = transform.GetChild(1).GetComponent<Hand>();
-        current = left;
+        right = transform.GetChild(1);
+        left = transform.GetChild(0);
     }
 
     private void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            active = true;
+            Destroy(transform.GetComponent<SteamVR_PlayArea>());
+            Destroy(right.GetComponent<SteamVR_Behaviour>());
+            Destroy(left.GetComponent<SteamVR_Behaviour>());
+        }
+
+        if (!active) {
+            return;
+        }
+
         UpdateHands();
         UpdateMovement();
+    }
+
+    private Transform Current {
+        get {
+            return usingRight ? right : left;
+        }
     }
 
     private void UpdateHands() {
@@ -71,43 +91,48 @@ public class TestHandMover : MonoBehaviour {
             movement.y--;
         }
 
-        current.transform.Translate(movement * handSpeed * Time.deltaTime);
+        Current.transform.Translate(movement * handSpeed * Time.deltaTime);
     }
 
     private void ActivateLeft() {
-        if (current != left) {
-            current = left;
+        if (usingRight) {
+            usingRight = false;
             return;
         }
         GrabObject();
     }
 
     private void ActivateRight() {
-        if (current != right) {
-            current = right;
+        if (!usingRight) {
+            usingRight = true;
             return;
         }
         GrabObject();
     }
 
     private void GrabObject() {
-        current.InteractWithObject();
+
+        var handType = usingRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
+
+        VRInput.ControlDown(Controls.Grab, handType);
     }
 
     private void ReleaseLeftObject() {
-        if (current == left) {
-            current.UninteractWithObject();
+        if (Current == left) {
+            VRInput.ControlUp(Controls.Grab, SteamVR_Input_Sources.LeftHand);
         }
     }
 
     private void ReleaseRightObject() {
-        if (current == right) {
-            current.UninteractWithObject();
+        if (Current == right) {
+            VRInput.ControlUp(Controls.Grab, SteamVR_Input_Sources.RightHand);
         }
     }
 
     private void Interact() {
-        current?.GrabInteract();
+        var handType = usingRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
+
+        VRInput.ControlDown(Controls.GrabInteract, handType);
     }
 
     private bool IsPressed(KeyCode c) {

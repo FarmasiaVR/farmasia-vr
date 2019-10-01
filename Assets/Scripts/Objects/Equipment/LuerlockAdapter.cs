@@ -3,7 +3,7 @@
 public class LuerlockAdapter : GeneralItem {
 
     #region fields
-    private static float angleLimit = 90;
+    private static float angleLimit = 5;
 
     private AttachedObject leftObject, rightObject;
 

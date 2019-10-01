@@ -63,7 +63,7 @@ public static class VRInput {
     #endregion
 
     #region Controls
-    public static void SetControlState(ControlType c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
+    private static void SetControlState(ControlType c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
 
         HandControl key = new HandControl(c, handType);
 
