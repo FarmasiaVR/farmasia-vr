@@ -3,6 +3,8 @@
 public class LuerlockAdapter : GeneralItem {
 
     #region fields
+    private const string luerlockTag = "Luerlock Position";
+
     private static float angleLimit = 5;
 
     private AttachedObject leftObject, rightObject;
@@ -29,48 +31,12 @@ public class LuerlockAdapter : GeneralItem {
     private void Update() {
 
         if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
-            ReplaceObject(ref leftObject, null);
-            ReplaceObject(ref rightObject, null);
+            ReplaceObject(ref leftObject, null, false);
+            ReplaceObject(ref rightObject, null, true);
         }
     }
 
-    private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject) {
-
-
-        Logger.Print("ReplaceObject");
-        if (attachedObject.GameObject != null) {
-
-            if (attachedObject.GameObject == newObject) {
-                return;
-            }
-
-            attachedObject.GameObject.AddComponent<Rigidbody>();
-            // attachedObject.Rigidbody.isKinematic = false;
-            // attachedObject.Rigidbody.WakeUp();
-            attachedObject.GameObject.transform.parent = null;
-            attachedObject.GameObject.transform.localScale = attachedObject.Scale;
-        }
-
-        attachedObject.GameObject = newObject;
-        if (newObject == null) { return; }
-
-        attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
-        attachedObject.Scale = newObject.transform.localScale;
-
-        Vector3 oldPos = newObject.transform.position;
-        Vector3 newScale = new Vector3(
-            attachedObject.Scale.x / transform.lossyScale.x,
-            attachedObject.Scale.y / transform.lossyScale.y,
-            attachedObject.Scale.z / transform.lossyScale.z);
-
-        Destroy(attachedObject.Rigidbody);
-        //attachedObject.Rigidbody.isKinematic = true;
-        //attachedObject.Rigidbody.Sleep();
-
-        attachedObject.GameObject.transform.parent = transform;
-        attachedObject.GameObject.transform.localScale = newScale;
-        attachedObject.GameObject.transform.position = oldPos;
-    }
+    
 
     #region Attaching
     private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
@@ -100,7 +66,7 @@ public class LuerlockAdapter : GeneralItem {
 
         if (rightObject.GameObject == null && ConnectingIsAllowed(rightCollider, collider)) {
             // Position Offset here
-            ReplaceObject(ref rightObject, GetInteractableObject(collider.transform));
+            ReplaceObject(ref rightObject, GetInteractableObject(collider.transform), true);
         }
     }
     private void ObjectEnterLeft(Collider collider) {
@@ -108,8 +74,59 @@ public class LuerlockAdapter : GeneralItem {
 
         if (leftObject.GameObject == null && ConnectingIsAllowed(leftCollider, collider)) {
             // Position Offset here
-            ReplaceObject(ref leftObject, GetInteractableObject(collider.transform));
+            ReplaceObject(ref leftObject, GetInteractableObject(collider.transform), false);
         }
+    }
+
+    private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject, bool right) {
+
+        GameObject colliderT = right ? rightCollider : leftCollider;
+
+        Logger.Print("ReplaceObject");
+        if (attachedObject.GameObject != null) {
+
+            if (attachedObject.GameObject == newObject) {
+                return;
+            }
+
+            attachedObject.GameObject.AddComponent<Rigidbody>();
+            // attachedObject.Rigidbody.isKinematic = false;
+            // attachedObject.Rigidbody.WakeUp();
+            attachedObject.GameObject.transform.parent = null;
+            attachedObject.GameObject.transform.localScale = attachedObject.Scale;
+        }
+
+        attachedObject.GameObject = newObject;
+        if (newObject == null) { return; }
+
+        attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
+        attachedObject.Scale = newObject.transform.localScale;
+
+        Vector3 newScale = new Vector3(
+            attachedObject.Scale.x / transform.lossyScale.x,
+            attachedObject.Scale.y / transform.lossyScale.y,
+            attachedObject.Scale.z / transform.lossyScale.z);
+
+        Destroy(attachedObject.Rigidbody);
+        //attachedObject.Rigidbody.isKinematic = true;
+        //attachedObject.Rigidbody.Sleep();
+
+        attachedObject.GameObject.transform.parent = transform;
+        attachedObject.GameObject.transform.localScale = newScale;
+        attachedObject.GameObject.transform.up = colliderT.transform.up;
+        SetLuerlockPosition(colliderT, attachedObject.GameObject.transform);
+    }
+
+    private void SetLuerlockPosition(GameObject collObject, Transform t) {
+
+        Transform target = LuerlockPosition(t);
+
+        if (target == null) {
+            throw new System.Exception("Luerlock position not found");
+        }
+
+        Vector3 offset = collObject.transform.position - target.position;
+        t.position += offset;
     }
 
     public bool Attached(bool right) {
@@ -118,6 +135,24 @@ public class LuerlockAdapter : GeneralItem {
         } else {
             return leftObject.GameObject != null;
         }
+    }
+
+    public static Transform LuerlockPosition(Transform t) {
+
+        if (t.tag == luerlockTag) {
+            return t;
+        }
+
+        foreach (Transform c in t) {
+
+            Transform l = LuerlockPosition(c);
+            
+            if (l != null) {
+                return l;
+            }
+        }
+
+        return null;
     }
     #endregion
 }
