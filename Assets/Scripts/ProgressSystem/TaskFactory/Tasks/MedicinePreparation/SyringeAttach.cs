@@ -51,7 +51,7 @@ public class SyringeAttach : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["SyringeAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
+            G.Instance.Progress.calculator.Subtract(TaskType.SyringeAttach);
             base.FinishTask();
         }
     }
@@ -72,7 +72,7 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right syringe size was chosen", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.SyringeAttach);
+        G.Instance.Progress.calculator.Add(TaskType.SyringeAttach);
         base.FinishTask();
     }
     

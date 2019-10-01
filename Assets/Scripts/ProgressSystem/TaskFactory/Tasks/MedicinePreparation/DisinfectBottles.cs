@@ -50,7 +50,7 @@ public class DisinfectBottles : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Bottle cap was not disinfected", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
+            G.Instance.Progress.calculator.Subtract(TaskType.DisinfectBottles);
             base.FinishTask();
         }
     }
@@ -62,7 +62,7 @@ public class DisinfectBottles : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Bottle cap disinfected", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.DisinfectBottles);
+        G.Instance.Progress.calculator.Add(TaskType.DisinfectBottles);
         base.FinishTask();
     }
     

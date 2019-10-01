@@ -32,8 +32,8 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void FinalArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.DoneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            List<ITask> list = G.Instance.Progress.ActiveTasks;
+        if (G.Instance.Progress.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
+            List<ITask> list = G.Instance.Progress.activeTasks;
             int exists = 0;
             exists = (from n in list
                     where n.GetTaskType().Equals(TaskType.MissingItems)
@@ -49,7 +49,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["AllItems"]) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
+            G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
             base.FinishTask();
             FinishLayout1();
         }
@@ -70,7 +70,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
+        G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
         base.FinishTask();
         FinishLayout1();
     }
@@ -79,8 +79,8 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Removes Layout1 task if not removed before.
     /// </summary>
     public void FinishLayout1() {
-        if (!G.Instance.Progress.DoneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
-            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.ActiveTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
+        if (!G.Instance.Progress.doneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
+            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.activeTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
             layoutInstance.RemoveTaskFromOutside();
         }
     }

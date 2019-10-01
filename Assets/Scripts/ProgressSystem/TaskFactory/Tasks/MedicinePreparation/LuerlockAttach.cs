@@ -50,7 +50,7 @@ public class LuerlockAttach : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["LuerlockAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
             UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
+            G.Instance.Progress.calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
         }
     }
@@ -71,7 +71,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Luerlock was successfully attached", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.LuerlockAttach);
+        G.Instance.Progress.calculator.Add(TaskType.LuerlockAttach);
         base.FinishTask();
     }
     

@@ -57,7 +57,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         //checked when player exits the room
         if (!check) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+            G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             base.FinishTask();
 
             MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
@@ -73,7 +73,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
+        G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
         base.FinishTask();
     }
     

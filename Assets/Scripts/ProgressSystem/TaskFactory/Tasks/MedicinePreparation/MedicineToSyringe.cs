@@ -57,7 +57,7 @@ public class MedicineToSyringe : TaskBase {
         if (!check && base.clearConditions["NeedleToSyringe"] && base.clearConditions["NeedleThroughBottleCap"] 
                 && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Medicine was not successfully taken", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.MedicineToSyringe);
+            G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
     }
@@ -69,7 +69,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Medicine was successfully taken", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.MedicineToSyringe);
+        G.Instance.Progress.calculator.Add(TaskType.MedicineToSyringe);
         base.FinishTask();
     }
     

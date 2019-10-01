@@ -52,7 +52,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
+            G.Instance.Progress.calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();
         }
     }
@@ -73,7 +73,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of medicine", MessageType.Notify);
-        G.Instance.Progress.Calculator.Add(TaskType.CorrectAmountOfMedicineSelected);
+        G.Instance.Progress.calculator.Add(TaskType.CorrectAmountOfMedicineSelected);
         base.FinishTask();
     }
     

@@ -17,17 +17,17 @@ namespace Tests {
 
         [Test]
         public void ManagerAddsNewTasks() {
-            int count = manager.ActiveTasks.Count;
+            int count = manager.activeTasks.Count;
             manager.AddTask(new TestTask());
-            Assert.IsTrue(manager.ActiveTasks.Count == count + 1, "Manager did not add task");
+            Assert.IsTrue(manager.activeTasks.Count == count + 1, "Manager did not add task");
         }
 
         [Test]
         public void ManagerCanRemoveTasks() {
-            int count = manager.ActiveTasks.Count;
-            List<ITask> tasks = manager.ActiveTasks;
+            int count = manager.activeTasks.Count;
+            List<ITask> tasks = manager.activeTasks;
             manager.RemoveTask(tasks.Last());
-            Assert.IsTrue(manager.ActiveTasks.Count == (count - 1), "Manager did not remove task");
+            Assert.IsTrue(manager.activeTasks.Count == (count - 1), "Manager did not remove task");
         }
 
         [Test]
@@ -36,9 +36,9 @@ namespace Tests {
             TestTask task = new TestTask();
             TestTask3 task3 = new TestTask3();
             manager.AddTask(task3);
-            int count = manager.ActiveTasks.Count;
+            int count = manager.activeTasks.Count;
             task3.FinishTask();
-            Assert.IsTrue(manager.ActiveTasks.Count == count+1, "Did not preserve Task3 when finishing it.");
+            Assert.IsTrue(manager.activeTasks.Count == count+1, "Did not preserve Task3 when finishing it.");
 
         }
 
@@ -47,9 +47,9 @@ namespace Tests {
             manager.ResetTasks(false);
             TestTask2 task2 = new TestTask2();
             manager.AddTask(task2);
-            int count = manager.ActiveTasks.Count;
+            int count = manager.activeTasks.Count;
             task2.FinishTask();
-            Assert.IsTrue(manager.ActiveTasks.Count == count, "Didn't add new task when finishing TestTask2");
+            Assert.IsTrue(manager.activeTasks.Count == count, "Didn't add new task when finishing TestTask2");
             manager.ListActiveTasks();
         }
 
@@ -58,9 +58,9 @@ namespace Tests {
             manager.ResetTasks(false);
             TestTask task = new TestTask();
             manager.AddTask(task);
-            int count = manager.ActiveTasks.Count;
-            manager.ActiveTasks.First().FinishTask();
-            Assert.IsTrue(manager.ActiveTasks.First().GetType() == typeof(Finish), "Finish task doesnt exist, although it should!");
+            int count = manager.activeTasks.Count;
+            manager.activeTasks.First().FinishTask();
+            Assert.IsTrue(manager.activeTasks.First().GetType() == typeof(Finish), "Finish task doesnt exist, although it should!");
             manager.ListActiveTasks();
         }
     }

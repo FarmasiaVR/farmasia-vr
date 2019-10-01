@@ -138,7 +138,7 @@ public class TaskBase : ITask {
 
     #region Protected Methods
     protected bool CheckIsCurrent() {
-        if (manager.ActiveTasks.IndexOf(this) > 0) {
+        if (manager.activeTasks.IndexOf(this) > 0) {
             return false;
         }
         return true;
@@ -151,7 +151,7 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        List<TaskType> completed = manager.DoneTypes;
+        List<TaskType> completed = manager.doneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;
