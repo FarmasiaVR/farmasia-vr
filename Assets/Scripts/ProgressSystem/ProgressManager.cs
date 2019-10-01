@@ -9,10 +9,10 @@ public class ProgressManager {
     private bool tasksFinished = false;
     private bool testMode;
 
-    public List<ITask> OptionalSteps { get; private set; }
-    public List<ITask> ActiveTasks { get; private set; }
-    public List<TaskType> DoneTypes { get; private set; }
-    public ScoreCalculator Calculator { get; private set; }
+    public List<ITask> optionalSteps { get; private set; }
+    public List<ITask> activeTasks { get; private set; }
+    public List<TaskType> doneTypes { get; private set; }
+    public ScoreCalculator calculator { get; private set; }
     private float waitTime = 5.0f;
     #endregion
 
@@ -22,28 +22,28 @@ public class ProgressManager {
     /// </summary>
     public ProgressManager(bool testMode) {
         this.testMode = testMode;
-        ActiveTasks = new List<ITask>();
-        DoneTypes = new List<TaskType>();
-        Calculator = new ScoreCalculator();
+        activeTasks = new List<ITask>();
+        doneTypes = new List<TaskType>();
+        calculator = new ScoreCalculator();
         AddTasks();
     }
     #endregion
 
-    #region Private Methods
+    #region Start and Finish
     /// <summary>
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
     /// </summary>
     private void AddTasks() {
-        ActiveTasks = Enum.GetValues(typeof(TaskType))
+        activeTasks = Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
             .Select(v => TaskFactory.GetTask(v))
             .Where(v => v != null)
             .ToList();
-        foreach (ITask task in ActiveTasks) {
+        foreach (ITask task in activeTasks) {
             task.SetReferredManager(this);
         }
-        ChangeDescription();
+        UpdateDescription();
     }
 
     /// <summary>
@@ -52,14 +52,23 @@ public class ProgressManager {
     private void FinishProgress() {
         Finish fin = new Finish();
         fin.SetReferredManager(this);
-        ActiveTasks.Add(new Finish());
+        activeTasks.Add(new Finish());
         if (!testMode) {
-            ActiveTasks.Last().FinishTask();
+            activeTasks.Last().FinishTask();
         }
     }
     #endregion
 
-    #region Public Methods
+    #region Task Addition
+    /// <summary>
+    /// Adds a task to the current active list.
+    /// </summary>
+    /// <param name="task">Refers to task to be added.</param>
+    public void AddTask(ITask task) {
+        task.SetReferredManager(this);
+        activeTasks.Add(task);
+    }
+
     /// <summary>
     /// Used for settings new tasks after certain points, for example player 
     /// </summary>
@@ -67,43 +76,15 @@ public class ProgressManager {
     /// <param name="previousTask"></param>
     public void AddNewTaskBeforeTask(ITask newTask, ITask previousTask) {
         newTask.SetReferredManager(this);
-        ActiveTasks.Insert(ActiveTasks.IndexOf(previousTask), newTask);
+        activeTasks.Insert(activeTasks.IndexOf(previousTask), newTask);
     }
+    #endregion
 
-    /// <summary>
-    /// Adds a task to the current active list.
-    /// </summary>
-    /// <param name="task">Refers to task to be added.</param>
-    public void AddTask(ITask task) {
-        task.SetReferredManager(this);
-        ActiveTasks.Add(task);
-    }
-
-
+    #region Task Methods
     public void ListActiveTasks() {
-        foreach (ITask task in ActiveTasks) {
+        foreach (ITask task in activeTasks) {
             Logger.Print(task.GetType());
         }
-    }
-
-    private void ChangeDescription() {
-        if (!testMode) {
-            UISystem.Instance.ChangeDescription(ActiveTasks.First().GetDescription(), new Color(255, 255, 255, 1.0f));
-        }
-    }
-
-    public void ResetTasks(bool init) {
-        tasksFinished = false;
-        ActiveTasks = new List<ITask>();
-        DoneTypes = new List<TaskType>();
-        Calculator = new ScoreCalculator();
-        if (init) {
-            AddTasks();
-        }
-    }
-
-    public void TestPrint(string text) {
-        Logger.Print(text);
     }
 
     /// <summary>
@@ -112,11 +93,11 @@ public class ProgressManager {
     /// </summary>
     /// <param name="task">Refers to task to be removed.</param>
     public void RemoveTask(ITask task) {
-        DoneTypes.Add(task.GetTaskType());
-        ActiveTasks.Remove(task);
-        ChangeDescription();
+        doneTypes.Add(task.GetTaskType());
+        activeTasks.Remove(task);
+        UpdateDescription();
         if (!tasksFinished) {
-            if (ActiveTasks.Count == 0) {
+            if (activeTasks.Count == 0) {
                 tasksFinished = true;
                 if (testMode) {
                     FinishProgress();
@@ -124,8 +105,26 @@ public class ProgressManager {
                     G.Instance.Pipeline.New().Delay(waitTime).Func(FinishProgress);
                 }
             } else {
-                Debug.Log("Still " + ActiveTasks.Count + " left!");
+                Debug.Log("Still " + activeTasks.Count + " left!");
             }
+        }
+    }
+
+    public void ResetTasks(bool init) {
+        tasksFinished = false;
+        activeTasks = new List<ITask>();
+        doneTypes = new List<TaskType>();
+        calculator = new ScoreCalculator();
+        if (init) {
+            AddTasks();
+        }
+    }
+    #endregion
+
+    #region Description Methods
+    private void UpdateDescription() {
+        if (!testMode) {
+            UISystem.Instance.UpdateDescription(activeTasks);
         }
     }
     #endregion
