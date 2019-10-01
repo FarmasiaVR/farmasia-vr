@@ -57,11 +57,17 @@ public class LiquidContainer : MonoBehaviour {
         if (amount < 0) {
             throw new ArgumentException("value must be non-negative", "amount");
         }
+
+        // If target == null, it means you're emptying the source
+        // container.
+        int receiveCapacity = target?.GetReceiveCapacity() ?? int.MaxValue;
         int canSend = Math.Min(Amount, amount);
-        int toTransfer = Math.Min(canSend, target.GetReceiveCapacity());
+        int toTransfer = Math.Min(canSend, receiveCapacity);
 
         Amount -= toTransfer;
-        target.Amount += toTransfer;
+        if (target != null) {
+            target.Amount += toTransfer;
+        }
     }
 
     public static LiquidContainer FindLiquidContainer(Transform t) {
