@@ -37,6 +37,7 @@ public class LuerlockAttach : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Luerlock) {
+            // check that luerlock has been attached to first syringe
             EnableCondition("LuerlockAttached");
             if (CheckLuerlockPosition(item)) {
                 EnableCondition("RightPositionOfLuerlock");

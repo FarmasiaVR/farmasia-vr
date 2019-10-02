@@ -40,7 +40,6 @@ public class MissingItems : TaskBase {
         }
         ObjectType type = item.ObjectType;
         
-        //how to check specific missing items??
         if (type == ObjectType.Syringe && Array.Exists(conditions, element => element == "Syringe")) {
             EnableCondition("Syringe");
         }
@@ -51,8 +50,10 @@ public class MissingItems : TaskBase {
             EnableCondition("Luerlock");
         }
         if (type == ObjectType.Bottle && Array.Exists(conditions, element => element == "RightSizeBottle")) {
-            //check that the chosen bottle has the wanted size
-            EnableCondition("RightSizeBottle");
+            MedicineBottle bottle = item as MedicineBottle;
+            if (bottle.GetContainer().Capacity == 100) {
+                EnableCondition("RightSizeBottle");
+            }
         }
         CheckClearConditions(true);
     }

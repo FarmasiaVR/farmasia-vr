@@ -11,7 +11,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Constructor
     ///  <summary>
-    ///  Constructor for AmountOfMedicine task.
+    ///  Constructor for CorrectAmountOfMedicineSelected task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
@@ -39,7 +39,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             return;
         }
         ObjectType type = item.ObjectType;
-        if (type == ObjectType.Medicine) {
+        if (type == ObjectType.Syringe) {
             if (AmountRight(item)) {
                 EnableCondition("RightAmountOfMedicine");
             }
@@ -57,12 +57,16 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
     }
     /// <summary>
-    /// Method checks if the size of a given item corresponds to the one expected.
+    /// Method checks if the container of a given item has an amount that corresponds to the one expected.
     /// </summary>
-    /// <param name="item">"Refers to an item with a size."</param>
+    /// <param name="item">"Refers to an item with a container."</param>
     /// <returns>"Returns true if the condition is fulfilled."</returns>
     private bool AmountRight(GeneralItem item) {
-        //code missing, checks if the size of medicine object is correct
+        Syringe syringe = item as Syringe;
+            // right amount should be float
+            if (syringe.GetContainer().Amount == 15) {
+                return true;
+            }
         return false;
     }   
     #endregion

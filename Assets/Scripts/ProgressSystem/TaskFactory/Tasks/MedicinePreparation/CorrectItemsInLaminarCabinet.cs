@@ -9,7 +9,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Constructor
     ///  <summary>
-    ///  Constructor for AmountOfItems task.
+    ///  Constructor for CorrectItemsInLaminarCabinet task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
@@ -48,8 +48,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 EnableCondition("Luerlock");
                 break;
             case ObjectType.Bottle:
-                //check that the chosen bottle has the wanted size
-                EnableCondition("RightSizeBottle");
+                MedicineBottle bottle = item as MedicineBottle;
+                if (bottle.GetContainer().Capacity == 100) {
+                    EnableCondition("RightSizeBottle");
+                }
                 break;
         }
         

@@ -38,13 +38,16 @@ public class MedicineToSyringe : TaskBase {
         ObjectType type = item.ObjectType;
         switch (type) {
             case ObjectType.Syringe:
-                //check whether the chosen syringe has the right size
-                EnableCondition("RightSizeSyringe");
+                Syringe syringe = item as Syringe;
+                if (syringe.GetContainer().Capacity == 20) {
+                    EnableCondition("RightSizeSyringe");
+                }
                 break;
             case ObjectType.Needle:
                 EnableCondition("NeedleToSyringe");
                 break;
             case ObjectType.BottleCap:
+                //check if the needle goes through the bottlecap
                 EnableCondition("NeedleThroughBottleCap");
                 break;
         }

@@ -15,4 +15,8 @@ public class Syringe : GeneralItem {
 
         Types.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid);
     }
+    
+    public LiquidContainer GetContainer() {
+        return container;
+    }
 }

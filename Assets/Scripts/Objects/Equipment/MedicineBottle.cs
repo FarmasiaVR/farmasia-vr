@@ -13,4 +13,8 @@ public class MedicineBottle : GeneralItem {
         Assert.IsNotNull(container);
         ObjectType = ObjectType.Bottle;
     }
+
+    public LiquidContainer GetContainer() {
+        return container;
+    }
 }

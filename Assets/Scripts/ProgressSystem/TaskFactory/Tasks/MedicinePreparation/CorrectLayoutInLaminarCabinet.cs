@@ -9,7 +9,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
 
     #region Constructor
     ///  <summary>
-    ///  Constructor for Layout2 task.
+    ///  Constructor for CorrectLayoutInLaminarCabinet task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {

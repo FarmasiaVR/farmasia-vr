@@ -38,6 +38,7 @@ public class SyringeAttach : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
+            //check that syringe was attached to luerlock
             EnableCondition("SyringeAttached");
             if (SyringeSize(item)) {
                 EnableCondition("RightSyringeSize");
@@ -61,7 +62,10 @@ public class SyringeAttach : TaskBase {
     /// <param name="item">"Refers to an item with a size."</param>
     /// <returns>"Returns true if the item has the expected size."</returns>
     private bool SyringeSize(GeneralItem item) {
-        //missing code, check the size of the item
+        Syringe syringe = item as Syringe;
+            if (syringe.GetContainer().Capacity == 1) {
+                return true;
+            }
         return false;
     }
     #endregion
