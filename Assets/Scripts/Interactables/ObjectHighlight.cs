@@ -6,14 +6,17 @@ public class ObjectHighlight : MonoBehaviour {
 
     #region fields
     private List<Material> materials;
-    private List<Color> startColors;
+    //private List<Color> startColors;
     private Color highlightColor;
+    private Color normalColor;
 
     #endregion
 
     private void Start() {
         InitializeLists();
-        highlightColor = new Color32(60,60,60,0);
+        //highlightColor = new Color32(0,120,100,1);
+        highlightColor = new Color32(150,0,0,1);
+        normalColor = new Color32(0,0,0,0);
     }
 
     private void OnDestroy() {
@@ -22,17 +25,18 @@ public class ObjectHighlight : MonoBehaviour {
 
     public void Highlight() {
         for (int i = 0; i < materials.Count; i++) {
-            materials[i].color = startColors[i] + highlightColor;
+            materials[i].SetColor("_EmissionColor", highlightColor);
         }
     }
 
     public void Unhighlight() {
         for (int i = 0; i < materials.Count; i++) {
-            materials[i].color = startColors[i];
+            materials[i].SetColor("_EmissionColor", normalColor);
         }
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
+        Logger.Print("Checking inside");
         while (coll.Contains(gameObject)) {
             bool isClosest = gameObject == coll.GetGrabObject();
 
@@ -52,23 +56,27 @@ public class ObjectHighlight : MonoBehaviour {
 
     private void InitializeLists() {
         List<Material> m = new List<Material>();
-        List<Color> c = new List<Color>();
+        //List<Color> c = new List<Color>();
 
-        AddObjectMaterial(transform);
-
-        foreach (Transform t in transform) {
-            AddObjectMaterial(t);
-        }
+        AddAllChildren(transform);
 
         materials = m;
-        startColors = c;
+        //startColors = c;
 
+        void AddAllChildren(Transform c) {
+            AddObjectMaterial(c);
+
+            foreach (Transform t in c) {
+                AddAllChildren(t);
+            }
+        }
 
         void AddObjectMaterial(Transform tt) {
             Renderer r = tt.GetComponent<Renderer>();
             if (r != null) {
+                r.material.EnableKeyword("_EMISSION");
                 m.Add(r.material);
-                c.Add(r.material.color);
+                //c.Add(r.material.color);
             }
         }
     }
