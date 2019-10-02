@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
-    private string[] conditions = { "RightSizeSyringe", "NeedleToSyringe", "NeedleThroughBottleCap", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.DisinfectBottles};
+    private string[] conditions = { "RightAmountInSyringe", "PreviousTasksCompleted" };
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.SelectTools, TaskType.SelectMedicine};
+    // COMMENTED FOR DEMO private string[] conditions = { "RightSizeSyringe", "NeedleToSyringe", "NeedleThroughBottleCap", "PreviousTasksCompleted" };
+    // COMMENTED FOR DEMO private List<TaskType> requiredTasks = new List<TaskType> {TaskType.DisinfectBottles};
     #endregion
 
     #region Constructor
@@ -30,6 +32,32 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        if (item == null) {
+            return;
+        }
+        ObjectType type = item.ObjectType;
+        
+        if (type == ObjectType.Syringe) {
+            Syringe syringe = item as Syringe;
+            if (syringe.GetContainer().Amount == 20) {
+                    EnableCondition("RightAmountInSyringe");
+            }
+        }
+
+        if (CheckPreviousTaskCompletion(requiredTasks)) {
+            EnableCondition("PreviousTasksCompleted");
+        }
+
+        bool check = CheckClearConditions(true);
+        if (!check && base.clearConditions["PreviousTasksCompleted"]) {
+            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine", MessageType.Mistake);
+            G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
+            base.FinishTask();
+        }
+    }
+    /* COMMENTED FOR DEMO private void ToSyringe(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
@@ -63,7 +91,7 @@ public class MedicineToSyringe : TaskBase {
             G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
-    }
+    } */
     #endregion
 
     #region Public Methods
