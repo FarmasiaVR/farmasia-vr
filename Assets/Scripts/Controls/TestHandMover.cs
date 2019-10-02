@@ -21,6 +21,19 @@ public class TestHandMover : MonoBehaviour {
     private bool isGrabbing;
 
     private bool active;
+
+    private Transform Current {
+        get {
+            return usingRight ? right : left;
+        }
+    }
+
+    private SteamVR_Input_Sources HandType {
+        get {
+            return usingRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
+        }
+    }
+
     #endregion
 
     private void Start() {
@@ -29,25 +42,14 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (active) {
+            UpdateHands();
+            UpdateMovement();
+        } else if (Input.GetKeyDown(KeyCode.Space)) {
             active = true;
             Destroy(transform.GetComponent<SteamVR_PlayArea>());
             Destroy(right.GetComponent<SteamVR_Behaviour>());
             Destroy(left.GetComponent<SteamVR_Behaviour>());
-        }
-
-        if (!active) {
-            return;
-        }
-
-        UpdateHands();
-        UpdateMovement();
-    }
-
-    private Transform Current {
-        get {
-            return usingRight ? right : left;
         }
     }
 
@@ -111,10 +113,11 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void GrabObject() {
+        VRInput.ControlDown(Controls.Grab, HandType);
+    }
 
-        var handType = usingRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
-
-        VRInput.ControlDown(Controls.Grab, handType);
+    private void Interact() {
+        VRInput.ControlDown(Controls.GrabInteract, HandType);
     }
 
     private void ReleaseLeftObject() {
@@ -127,12 +130,6 @@ public class TestHandMover : MonoBehaviour {
         if (Current == right) {
             VRInput.ControlUp(Controls.Grab, SteamVR_Input_Sources.RightHand);
         }
-    }
-
-    private void Interact() {
-        var handType = usingRight ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
-
-        VRInput.ControlDown(Controls.GrabInteract, handType);
     }
 
     private bool IsPressed(KeyCode c) {
