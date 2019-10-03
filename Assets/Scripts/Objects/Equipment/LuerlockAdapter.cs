@@ -41,7 +41,7 @@ public class LuerlockAdapter : GeneralItem {
         }
     }
 
-    
+
 
     #region Attaching
     private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
@@ -98,8 +98,10 @@ public class LuerlockAdapter : GeneralItem {
                 return;
             }
 
-            attachedObject.GameObject.AddComponent<Rigidbody>();
-            // attachedObject.Rigidbody.isKinematic = false;
+            Physics.IgnoreCollision(GetComponent<Collider>(), attachedObject.GameObject.GetComponent<Collider>(), false);
+
+            // attachedObject.GameObject.AddComponent<Rigidbody>();
+            attachedObject.Rigidbody.isKinematic = false;
             // attachedObject.Rigidbody.WakeUp();
             attachedObject.GameObject.transform.parent = null;
             attachedObject.GameObject.transform.localScale = attachedObject.Scale;
@@ -120,13 +122,15 @@ public class LuerlockAdapter : GeneralItem {
 
         }
 
+        Physics.IgnoreCollision(GetComponent<Collider>(), attachedObject.GameObject.GetComponent<Collider>(), true);
+
         Vector3 newScale = new Vector3(
             attachedObject.Scale.x / transform.lossyScale.x,
             attachedObject.Scale.y / transform.lossyScale.y,
             attachedObject.Scale.z / transform.lossyScale.z);
 
-        Destroy(attachedObject.Rigidbody);
-        //attachedObject.Rigidbody.isKinematic = true;
+        // Destroy(attachedObject.Rigidbody);
+        attachedObject.Rigidbody.isKinematic = true;
         //attachedObject.Rigidbody.Sleep();
 
         attachedObject.GameObject.transform.parent = transform;
@@ -167,7 +171,7 @@ public class LuerlockAdapter : GeneralItem {
         foreach (Transform c in t) {
 
             Transform l = LuerlockPosition(c);
-            
+
             if (l != null) {
                 return l;
             }
