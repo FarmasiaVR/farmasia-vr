@@ -44,7 +44,7 @@ public class UISystem : MonoBehaviour {
         }
         player = GameObject.FindGameObjectWithTag("Player");
         handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
-        hand = player.transform.Find("Controller (left)").gameObject.GetComponent<Hand>();
+        hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
     }
 
     /// <summary>
