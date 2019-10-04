@@ -11,11 +11,19 @@ public class PassThroughCabinet : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        GameObject foundObject = other.transform.gameObject;
+        if (foundObject.GetComponent<GeneralItem>() == null) {
+            return;
+        }
         objectsInsideArea.Add(other.transform.gameObject);
         UISystem.Instance.CreatePopup("Added object to Area!", MessageType.Notify);
     }
 
     private void OnTriggerExit(Collider other) {
+        GameObject foundObject = other.transform.gameObject;
+        if (foundObject.GetComponent<GeneralItem>() == null) {
+            return;
+        }
         objectsInsideArea.Remove(other.transform.gameObject);
         UISystem.Instance.CreatePopup("Removed Object From Area!", MessageType.Notify);
     }

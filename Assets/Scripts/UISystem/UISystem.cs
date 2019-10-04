@@ -52,7 +52,7 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
-        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform.position + gobj.transform.localPosition, Quaternion.Euler(handuiInScene.transform.eulerAngles + gobj.transform.eulerAngles));
+        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform.position + gobj.transform.localPosition, handuiInScene.transform.rotation * gobj.transform.rotation);
         uiComponent.transform.SetParent(handuiInScene.transform, true);
         return uiComponent;
     }
