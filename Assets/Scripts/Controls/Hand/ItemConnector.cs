@@ -7,7 +7,7 @@ public class ItemConnector {
 
     public bool IsGrabbed { get; private set; }
 
-    private Rigidbody GrabbedRigidbody;
+    public Rigidbody GrabbedRigidbody { get; private set; }
 
     private Vector3 grabOffset;
     private Vector3 rotOffset;

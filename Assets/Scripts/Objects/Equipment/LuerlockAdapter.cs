@@ -115,7 +115,7 @@ public class LuerlockAdapter : GeneralItem {
 
         // FIX
         if (Hand.GrabbingHand(rb) != null) {
-            Hand.GrabbingHand(attachedObject.Rigidbody)?.Release();
+            Hand.GrabbingHand(attachedObject.Rigidbody)?.Connector.ReleaseItemFromHand();
         } else {
 
             // ERRORS WILL COME HERE

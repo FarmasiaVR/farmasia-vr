@@ -110,4 +110,14 @@ public class Hand : MonoBehaviour {
         Logger.Print("Joint force broken: " + breakForce);
         Connector.ReleaseItemFromHand();
     }
+
+    public static Hand GrabbingHand(Rigidbody rb) {
+        foreach (VRHandControls controls in VRInput.Hands) {
+            if (rb == controls.Hand.Connector.GrabbedRigidbody) {
+                return controls.Hand;
+            }
+        }
+
+        return null;
+    }
 }

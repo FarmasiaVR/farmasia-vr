@@ -1,145 +1,145 @@
-﻿using UnityEngine;
+﻿//using UnityEngine;
 
-public class RigidbodyGrab : GrabFunctionality {
+//public class RigidbodyGrab : GrabFunctionality {
 
-    #region fields
-    public bool IsGrabbed { get; set; }
+//    #region fields
+//    public bool IsGrabbed { get; set; }
 
-    private FixedJoint joint;
-    private FixedJoint Joint {
-        get {
-            if (joint == null) {
-                AddJoint();
-            }
-            return joint;
-        }
-    }
+//    private FixedJoint joint;
+//    private FixedJoint Joint {
+//        get {
+//            if (joint == null) {
+//                AddJoint();
+//            }
+//            return joint;
+//        }
+//    }
 
-    public HandCollider Coll { get; private set; }
+//    public HandCollider Coll { get; private set; }
 
 
-    public Rigidbody GrabbedRigidbody { get; private set; }
-    private Vector3 grabOffset;
-    private Vector3 rotOffset;
+//    public Rigidbody GrabbedRigidbody { get; private set; }
+//    private Vector3 grabOffset;
+//    private Vector3 rotOffset;
 
-    public Hand Hand { get; set; }
-    #endregion
+//    public Hand Hand { get; set; }
+//    #endregion
 
-    private void AddJoint() {
-        joint = gameObject.AddComponent<FixedJoint>();
-        joint.breakForce = 20000;
-        joint.breakTorque = 20000;
-    }
+//    private void AddJoint() {
+//        joint = gameObject.AddComponent<FixedJoint>();
+//        joint.breakForce = 20000;
+//        joint.breakTorque = 20000;
+//    }
 
-    #region Interaction overrides
-    public override void Interact(Interactable interactable) {
-        Grab();
-    }
-    public override void Uninteract(Interactable interactable) {
-        Release();
-    }
+//    #region Interaction overrides
+//    public override void Interact(Interactable interactable) {
+//        Grab();
+//    }
+//    public override void Uninteract(Interactable interactable) {
+//        Release();
+//    }
 
-    public override void GrabInteract(Interactable interactable) {
-        if (interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
-            interactable.Interact(Hand);
-        }
-    }
+//    public override void GrabInteract(Interactable interactable) {
+//        if (interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
+//            interactable.Interact(Hand);
+//        }
+//    }
 
-    public override void GrabUninteract(Interactable interactable) {
-        if (interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
-            interactable.Uninteract(Hand);
-        }
-    }
-    #endregion
+//    public override void GrabUninteract(Interactable interactable) {
+//        if (interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
+//            interactable.Uninteract(Hand);
+//        }
+//    }
+//    #endregion
 
-    private void Grab() {
-        GrabObject();
+//    private void Grab() {
+//        GrabObject();
 
-        if (GrabbedRigidbody == null) {
-            return;
-        }
+//        if (GrabbedRigidbody == null) {
+//            return;
+//        }
 
-        // Fix later
-        // GrabbedRigidbody.transform.position = transform.GetChild(0).position;
+//        // Fix later
+//        // GrabbedRigidbody.transform.position = transform.GetChild(0).position;
 
-        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
+//        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
 
-        Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
+//        Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 
-        if (other.IsGrabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
-            other.Release();
-        }
+//        if (other.IsGrabbed && other.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
+//            other.Release();
+//        }
 
-        IsGrabbed = true;
-        InitializeOffset();
-        InitVelocities();
-        AttachGrabbedObject();
-    }
+//        IsGrabbed = true;
+//        InitializeOffset();
+//        InitVelocities();
+//        AttachGrabbedObject();
+//    }
 
-    private void OnJointBreak(float breakForce) {
-        Logger.Print("Joint force broken: " + breakForce);
-        Release();
-    }
+//    private void OnJointBreak(float breakForce) {
+//        Logger.Print("Joint force broken: " + breakForce);
+//        Release();
+//    }
 
-    public void Release() {
-        IsGrabbed = false;
+//    public void Release() {
+//        IsGrabbed = false;
 
-        DeattachGrabbedObject();
+//        DeattachGrabbedObject();
 
-        if (GrabbedRigidbody == null) {
-            return;
-        }
+//        if (GrabbedRigidbody == null) {
+//            return;
+//        }
 
-        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.None;
+//        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.None;
 
-        ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
+//        ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
-        GrabbedRigidbody.velocity = controls.Skeleton.velocity;
-        GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
-    }
+//        GrabbedRigidbody.velocity = controls.Skeleton.velocity;
+//        GrabbedRigidbody.angularVelocity = controls.Skeleton.angularVelocity;
+//    }
 
-    private void AttachGrabbedObject() {
-        Joint.connectedBody = GrabbedRigidbody;
-    }
+//    private void AttachGrabbedObject() {
+//        Joint.connectedBody = GrabbedRigidbody;
+//    }
 
-    private void DeattachGrabbedObject() {
-        Joint.connectedBody = null;
-    }
+//    private void DeattachGrabbedObject() {
+//        Joint.connectedBody = null;
+//    }
 
-    private void InitializeOffset() {
-        grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
-        rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
+//    private void InitializeOffset() {
+//        grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
+//        rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
 
-        Logger.Print("Grab offset: " + grabOffset);
-    }
+//        Logger.Print("Grab offset: " + grabOffset);
+//    }
 
-    private void InitVelocities() {
-        lastPos = transform.position;
-        lastEulerAngles = transform.eulerAngles;
-    }
+//    private void InitVelocities() {
+//        lastPos = transform.position;
+//        lastEulerAngles = transform.eulerAngles;
+//    }
 
-    private Vector3 ColliderPosition {
-        get {
-            return transform.GetChild(0).transform.position;
-        }
-    }
-    private Vector3 ColliderEulerAngles {
-        get {
-            return transform.eulerAngles;
-        }
-    }
+//    private Vector3 ColliderPosition {
+//        get {
+//            return transform.GetChild(0).transform.position;
+//        }
+//    }
+//    private Vector3 ColliderEulerAngles {
+//        get {
+//            return transform.eulerAngles;
+//        }
+//    }
 
-    private void GrabObject() {
-        GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
-    }
+//    private void GrabObject() {
+//        GrabbedRigidbody = Interactable.GetComponent<Rigidbody>();
+//    }
 
-    public static Hand GrabbingHand(Rigidbody rb) {
-        foreach (VRHandControls controls in VRInput.Hands) {
-            if (rb == controls.Hand.GrabbedRigidbody) {
-                return controls.Hand;
-            }
-        }
+//    public static Hand GrabbingHand(Rigidbody rb) {
+//        foreach (VRHandControls controls in VRInput.Hands) {
+//            if (rb == controls.Hand.GrabbedRigidbody) {
+//                return controls.Hand;
+//            }
+//        }
 
-        return null;
-    }
-}
+//        return null;
+//    }
+//}

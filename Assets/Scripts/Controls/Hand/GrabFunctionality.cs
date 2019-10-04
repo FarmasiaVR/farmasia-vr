@@ -16,7 +16,7 @@ public class GrabFunctionality : MonoBehaviour {
         Logger.Warning("GrabUninteract Not implemented");
     }
 
-    public static RigidbodyGrab AddRigidbodyGrab(GameObject gameObject) {
-        return gameObject.AddComponent<RigidbodyGrab>();
-    }
+    //public static RigidbodyGrab AddRigidbodyGrab(GameObject gameObject) {
+    //    return gameObject.AddComponent<RigidbodyGrab>();
+    //}
 }
