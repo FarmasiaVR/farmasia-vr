@@ -12,7 +12,7 @@ public class PointPopup : MonoBehaviour {
     private float timer = 0.0f;
     private float speed = 0.01f;
     private float visualTime = 3.0f;
-    private float fadeInAndOut = 0.7f;
+    private float fadeInAndOut = 0.3f;
 
     private float red = 0.0f;
     private float green = 0.0f;
@@ -20,6 +20,7 @@ public class PointPopup : MonoBehaviour {
     private float transparency = 0.0f;
     private bool fadeInCompleted = false;
     private bool visualCompleted = false;
+    private float xy = 0.0f;
     #endregion
 
     #region Initialisation
@@ -29,7 +30,6 @@ public class PointPopup : MonoBehaviour {
         textField.color = new Color(red, green, blue, 0);
         sound = GetComponent<AudioSource>();
         sound.enabled = false;
-        CalculateStartingPosition();
     }
     #endregion
 
@@ -39,8 +39,9 @@ public class PointPopup : MonoBehaviour {
     /// </summary>
     private void CalculateStartingPosition() {
         float startingPoint = 0.0f;
-        startingPoint += (visualTime * speed);
-        textObject.transform.localPosition -= new Vector3(0, startingPoint, 0);
+        //startingPoint += (fadeInAndOut * speed);
+        startingPoint = 0.14f;
+        textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y - startingPoint, textObject.transform.localPosition.z);
     }
 
     /// <summary>
@@ -61,6 +62,10 @@ public class PointPopup : MonoBehaviour {
         Destroy(transform.gameObject);
     }
 
+    private void Start() {
+        CalculateStartingPosition();
+    }
+
     /// <summary>
     /// Used for animating the Popup. Once animation is done, Popup destroys itself.
     /// </summary>
@@ -70,6 +75,7 @@ public class PointPopup : MonoBehaviour {
             transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
             textField.color = new Color(red, green, blue, transparency);
             textObject.transform.localPosition += new Vector3(0, speed, 0);
+            xy += speed;
             if (timer > fadeInAndOut) {
 
                 textField.color = new Color(red, green, blue, transparency);
@@ -78,7 +84,9 @@ public class PointPopup : MonoBehaviour {
                 sound.enabled = true;
             }
         } else {
+            Logger.Print(xy);
             if (!visualCompleted) {
+                Logger.Print("IS UP!: " + textObject.transform.localPosition);
                 if (timer > visualTime) {
                     timer -= visualTime;
                     visualCompleted = true;
