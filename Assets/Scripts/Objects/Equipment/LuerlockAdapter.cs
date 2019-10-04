@@ -5,8 +5,8 @@ public class LuerlockAdapter : GeneralItem {
     #region fields
     private const string luerlockTag = "Luerlock Position";
 
-    private static float angleLimit = 5;
-    private static float maxDistance = 0.025f;
+    private static float angleLimit = 10;
+    private static float maxDistance = 0.1f;
 
     private AttachedObject leftObject, rightObject;
 
@@ -98,7 +98,7 @@ public class LuerlockAdapter : GeneralItem {
                 return;
             }
 
-            Physics.IgnoreCollision(GetComponent<Collider>(), attachedObject.GameObject.GetComponent<Collider>(), false);
+            IgnoreCollisions(transform, attachedObject.GameObject.transform, false);
 
             // attachedObject.GameObject.AddComponent<Rigidbody>();
             attachedObject.Rigidbody.isKinematic = false;
@@ -122,7 +122,7 @@ public class LuerlockAdapter : GeneralItem {
 
         }
 
-        Physics.IgnoreCollision(GetComponent<Collider>(), attachedObject.GameObject.GetComponent<Collider>(), true);
+        IgnoreCollisions(transform, attachedObject.GameObject.transform, true);
 
         Vector3 newScale = new Vector3(
             attachedObject.Scale.x / transform.lossyScale.x,
@@ -178,6 +178,31 @@ public class LuerlockAdapter : GeneralItem {
         }
 
         return null;
+    }
+
+    private static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
+
+        Collider coll = a.GetComponent<Collider>();
+
+        if (coll != null) {
+            IgnoreCollisionsCollider(coll, b, ignore);
+        }
+
+        foreach (Transform child in a) {
+            IgnoreCollisions(child, b, ignore);
+        }
+    }
+    private static void IgnoreCollisionsCollider(Collider a, Transform b, bool ignore) {
+
+        Collider coll = b.GetComponent<Collider>();
+
+        if (coll != null) {
+            Physics.IgnoreCollision(a, coll, ignore);
+        }
+
+        foreach (Transform child in b) {
+            IgnoreCollisionsCollider(a, child, ignore);
+        }
     }
     #endregion
 }

@@ -40,6 +40,14 @@ public class ItemConnector {
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
 
+        Logger.PrintVariables("hand", hand);
+        Logger.PrintVariables("hand other", hand.Other);
+        Logger.PrintVariables("hand other isgrabbed", hand.Other.IsGrabbed);
+        Logger.PrintVariables("hand other connector", hand.Other.Connector);
+        Logger.PrintVariables("hand other connector Rigidbody", hand.Other.Connector.GrabbedRigidbody);
+        Logger.PrintVariables("grabbed rigid", GrabbedRigidbody);
+
+
         if (hand.Other.IsGrabbed && hand.Other.Connector.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
             hand.Other.Connector.ReleaseItemFromHand();
         }

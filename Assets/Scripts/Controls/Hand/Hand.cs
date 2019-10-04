@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using Valve.VR;
 
 public class Hand : MonoBehaviour {
@@ -26,6 +27,8 @@ public class Hand : MonoBehaviour {
         coll = transform.GetChild(0).GetComponent<HandCollider>();
         controls = GetComponent<VRHandControls>();
         Connector = new ItemConnector(this);
+
+        Assert.IsNotNull(other, "Other hand was null");
     }
 
     private void Update() {
