@@ -26,7 +26,7 @@ public class Hand : MonoBehaviour {
         HandType = GetComponent<VRHandControls>().handType;
         coll = transform.GetChild(0).GetComponent<HandCollider>();
         controls = GetComponent<VRHandControls>();
-        Connector = new ItemConnector(this);
+        Connector = new ItemConnector();
 
         Assert.IsNotNull(other, "Other hand was null");
     }
@@ -65,8 +65,15 @@ public class Hand : MonoBehaviour {
         }
 
         if (Interactable.Types.IsOn(InteractableType.Grabbable)) {
-            // Grab();
-            Connector.ConnectItemToHand(Interactable);
+
+            if (Interactable.State == InteractState.LuerlockAttatch) {
+
+                // needs access to luerlock
+                Connector.ConnectItemToLuerlock(null, Interactable);
+            } else {
+                Connector.ConnectItemToHand(this, Interactable);
+            }
+
         } else if (Interactable.Types.IsOn(InteractableType.Interactable)) {
             Interactable.Interact(this);
         }
@@ -76,7 +83,13 @@ public class Hand : MonoBehaviour {
         if (IsGrabbed) {
             if (VRControlSettings.HoldToGrab) {
                 // Release();
-                Connector.ReleaseItemFromHand();
+                if (Interactable.State == InteractState.LuerlockAttatch) {
+
+                    Connector.ReleaseItemFromLuerlock();
+                } else {
+
+                    Connector.ReleaseItemFromHand();
+                }
             }
         } else if (Interactable != null) {
             Interactable.Uninteract(this);
@@ -108,7 +121,7 @@ public class Hand : MonoBehaviour {
         }
     }
     #endregion
-    
+
     private void OnJointBreak(float breakForce) {
         Logger.Print("Joint force broken: " + breakForce);
         Connector.ReleaseItemFromHand();

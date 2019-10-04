@@ -4,6 +4,7 @@ public class ItemConnector {
 
     #region fields
     private Hand hand;
+    private LuerlockAdapter luerlock;
 
     public bool IsGrabbed { get; private set; }
 
@@ -23,12 +24,14 @@ public class ItemConnector {
     }
     #endregion
 
-    public ItemConnector(Hand hand) {
-        this.hand = hand;
-    }
-
     #region Hand grab
-    public void ConnectItemToHand(Interactable interactable) {
+    public void ConnectItemToHand(Hand hand, Interactable interactable) {
+
+        this.hand = hand;
+
+        if (interactable.State == InteractState.Grabbed) {
+            hand.Other.Connector.ReleaseItemFromHand();
+        }
 
         GrabbedRigidbody = interactable.GetComponent<Rigidbody>();
 
@@ -36,21 +39,9 @@ public class ItemConnector {
             throw new System.Exception("Interactable had no rigidbody");
         }
 
-        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.Grabbed;
+        GrabbedRigidbody.GetComponent<Interactable>().State.On(InteractState.Grabbed);
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
-
-        Logger.PrintVariables("hand", hand);
-        Logger.PrintVariables("hand other", hand.Other);
-        Logger.PrintVariables("hand other isgrabbed", hand.Other.IsGrabbed);
-        Logger.PrintVariables("hand other connector", hand.Other.Connector);
-        Logger.PrintVariables("hand other connector Rigidbody", hand.Other.Connector.GrabbedRigidbody);
-        Logger.PrintVariables("grabbed rigid", GrabbedRigidbody);
-
-
-        if (hand.Other.IsGrabbed && hand.Other.Connector.GrabbedRigidbody.gameObject == GrabbedRigidbody.gameObject) {
-            hand.Other.Connector.ReleaseItemFromHand();
-        }
 
         IsGrabbed = true;
         InitializeOffset();
@@ -71,6 +62,11 @@ public class ItemConnector {
 
     #region Hand release
     public void ReleaseItemFromHand() {
+
+        if (hand.Interactable.State != InteractState.Grabbed) {
+            throw new System.Exception("Trying to release ungrabbed item");
+        }
+
         IsGrabbed = false;
 
         DeattachGrabbedObject();
@@ -79,7 +75,7 @@ public class ItemConnector {
             return;
         }
 
-        GrabbedRigidbody.GetComponent<Interactable>().State = InteractState.None;
+        GrabbedRigidbody.GetComponent<Interactable>().State.Off(InteractState.Grabbed);
 
         ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
@@ -89,6 +85,28 @@ public class ItemConnector {
 
     private void DeattachGrabbedObject() {
         Joint.connectedBody = null;
+    }
+    #endregion
+
+    #region Luerlock grab
+    public void ConnectItemToLuerlock(LuerlockAdapter luerlock, Interactable interactable) {
+
+        this.luerlock = luerlock;
+
+        if (luerlock.State == InteractState.Grabbed) {
+            Hand.GrabbingHand(luerlock.Rigidbody).Connector.ReleaseItemFromHand();
+        }
+
+
+    }
+
+    public void ReleaseItemFromLuerlock(int side, Interactable Interactable) {
+
+        //if (luerlock.Interactable.State != InteractState.Grabbed) {
+        //    throw new System.Exception("Trying to release ungrabbed item");
+        //}
+
+
     }
     #endregion
 

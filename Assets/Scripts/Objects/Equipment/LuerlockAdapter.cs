@@ -1,43 +1,59 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LuerlockAdapter : GeneralItem {
 
     #region fields
+    public const int RIGHT = 0;
+    public const int LEFT = 1;
+
     private const string luerlockTag = "Luerlock Position";
 
     private static float angleLimit = 10;
     private static float maxDistance = 0.1f;
 
-    private AttachedObject leftObject, rightObject;
+    private AttachedObject[] objects;
 
-    [SerializeField]
-    private GameObject leftCollider, rightCollider;
+    private GameObject[] colliders;
 
-    private Rigidbody rb;
+    public ItemConnector Connector { get; private set; }
 
     private struct AttachedObject {
-        public GameObject GameObject;
-        public Rigidbody Rigidbody;
+        public Interactable Interactable;
         public Vector3 Scale;
+        public GameObject GameObject {
+            get {
+                return Interactable?.gameObject;
+            }
+        }
+        public Rigidbody Rigidbody {
+            get {
+                return Interactable?.Rigidbody;
+            }
+        }
     }
     #endregion
 
     protected override void Start() {
         base.Start();
-        ObjectType = ObjectType.Luerlock;
-        leftCollider = transform.Find("Left collider").gameObject;
-        rightCollider = transform.Find("Right collider").gameObject;
-        CollisionSubscription.SubscribeToTrigger(leftCollider, new TriggerListener().OnEnter(ObjectEnterLeft));
-        CollisionSubscription.SubscribeToTrigger(rightCollider, new TriggerListener().OnEnter(ObjectEnterRight));
 
-        rb = GetComponent<Rigidbody>();
+        objects = new AttachedObject[2];
+        colliders = new GameObject[2];
+
+        ObjectType = ObjectType.Luerlock;
+        colliders[LEFT] = transform.Find("Left collider").gameObject;
+        colliders[RIGHT] = transform.Find("Right collider").gameObject;
+        CollisionSubscription.SubscribeToTrigger(colliders[LEFT], new TriggerListener().OnEnter(ObjectEnterLeft));
+        CollisionSubscription.SubscribeToTrigger(colliders[RIGHT], new TriggerListener().OnEnter(ObjectEnterRight));
+
+        Connector = new ItemConnector();
     }
 
     private void Update() {
 
         if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
-            ReplaceObject(ref leftObject, null, false);
-            ReplaceObject(ref rightObject, null, true);
+            ReplaceObject(LEFT, null);
+            ReplaceObject(RIGHT, null);
         }
     }
 
@@ -73,70 +89,73 @@ public class LuerlockAdapter : GeneralItem {
     private void ObjectEnterRight(Collider collider) {
         Logger.Print("Object entered luerlock adapter right collider");
 
-        if (rightObject.GameObject == null && ConnectingIsAllowed(rightCollider, collider)) {
+        if (objects[RIGHT].GameObject == null && ConnectingIsAllowed(colliders[RIGHT], collider)) {
             // Position Offset here
-            ReplaceObject(ref rightObject, GetInteractableObject(collider.transform), true);
+            ReplaceObject(RIGHT, GetInteractableObject(collider.transform));
         }
     }
     private void ObjectEnterLeft(Collider collider) {
         Logger.Print("Object entered luerlock adapter left collider");
 
-        if (leftObject.GameObject == null && ConnectingIsAllowed(leftCollider, collider)) {
+        if (objects[LEFT].GameObject == null && ConnectingIsAllowed(colliders[LEFT], collider)) {
             // Position Offset here
-            ReplaceObject(ref leftObject, GetInteractableObject(collider.transform), false);
+            ReplaceObject(LEFT, GetInteractableObject(collider.transform));
         }
     }
 
-    private void ReplaceObject(ref AttachedObject attachedObject, GameObject newObject, bool right) {
+    private void ReplaceObject(int side, GameObject newObject) {
 
-        GameObject colliderT = right ? rightCollider : leftCollider;
+        GameObject colliderT = colliders[side];
+
+        AttachedObject obj = objects[side];
 
         Logger.Print("ReplaceObject");
-        if (attachedObject.GameObject != null) {
+        if (obj.GameObject != null) {
 
-            if (attachedObject.GameObject == newObject) {
+            if (obj.GameObject == newObject) {
                 return;
             }
 
-            IgnoreCollisions(transform, attachedObject.GameObject.transform, false);
+            IgnoreCollisions(transform, obj.GameObject.transform, false);
 
             // attachedObject.GameObject.AddComponent<Rigidbody>();
-            attachedObject.Rigidbody.isKinematic = false;
+            obj.Rigidbody.isKinematic = false;
             // attachedObject.Rigidbody.WakeUp();
-            attachedObject.GameObject.transform.parent = null;
-            attachedObject.GameObject.transform.localScale = attachedObject.Scale;
+            obj.GameObject.transform.parent = null;
+            obj.GameObject.transform.localScale = obj.Scale;
         }
 
-        attachedObject.GameObject = newObject;
+        obj.Interactable = newObject.GetComponent<Interactable>();
         if (newObject == null) { return; }
 
-        attachedObject.Rigidbody = newObject.GetComponent<Rigidbody>();
-        attachedObject.Scale = newObject.transform.localScale;
+        obj.Scale = newObject.transform.localScale;
 
         // FIX
-        if (Hand.GrabbingHand(rb) != null) {
-            Hand.GrabbingHand(attachedObject.Rigidbody)?.Connector.ReleaseItemFromHand();
+        if (Hand.GrabbingHand(Rigidbody) != null) {
+            Hand.GrabbingHand(obj.Rigidbody)?.Connector.ReleaseItemFromHand();
         } else {
 
             // ERRORS WILL COME HERE
 
         }
 
-        IgnoreCollisions(transform, attachedObject.GameObject.transform, true);
+        IgnoreCollisions(transform, obj.GameObject.transform, true);
 
         Vector3 newScale = new Vector3(
-            attachedObject.Scale.x / transform.lossyScale.x,
-            attachedObject.Scale.y / transform.lossyScale.y,
-            attachedObject.Scale.z / transform.lossyScale.z);
+            obj.Scale.x / transform.lossyScale.x,
+            obj.Scale.y / transform.lossyScale.y,
+            obj.Scale.z / transform.lossyScale.z);
 
         // Destroy(attachedObject.Rigidbody);
-        attachedObject.Rigidbody.isKinematic = true;
+        obj.Rigidbody.isKinematic = true;
         //attachedObject.Rigidbody.Sleep();
 
-        attachedObject.GameObject.transform.parent = transform;
-        attachedObject.GameObject.transform.localScale = newScale;
-        attachedObject.GameObject.transform.up = colliderT.transform.up;
-        SetLuerlockPosition(colliderT, attachedObject.GameObject.transform);
+        obj.GameObject.transform.parent = transform;
+        obj.GameObject.transform.localScale = newScale;
+        obj.GameObject.transform.up = colliderT.transform.up;
+        SetLuerlockPosition(colliderT, obj.GameObject.transform);
+
+        objects[side] = obj;
     }
 
     private bool WithinDistance(GameObject collObject, Transform t) {
@@ -154,12 +173,8 @@ public class LuerlockAdapter : GeneralItem {
         t.position += offset;
     }
 
-    public bool Attached(bool right) {
-        if (right) {
-            return rightObject.GameObject != null;
-        } else {
-            return leftObject.GameObject != null;
-        }
+    public bool Attached(int side) {
+        return objects[side].GameObject != null;
     }
 
     public static Transform LuerlockPosition(Transform t) {
@@ -198,11 +213,34 @@ public class LuerlockAdapter : GeneralItem {
 
         if (coll != null) {
             Physics.IgnoreCollision(a, coll, ignore);
+            foreach (Transform child in b) {
+                IgnoreCollisionsCollider(a, child, ignore);
+            }
+        }
+    }
+
+    public int GrabbingSide(Interactable interactable) {
+        if (interactable.Rigidbody == objects[RIGHT].Rigidbody) {
+            return RIGHT;
+        } else if (interactable.Rigidbody == objects[LEFT].Rigidbody) {
+            return LEFT;
+        }
+        return -1;
+    }
+
+    public static KeyValuePair<int, LuerlockAdapter> GrabbingLuerlock(Rigidbody rb) {
+
+        LuerlockAdapter[] luerlocks = GameObject.FindObjectsOfType<LuerlockAdapter>();
+
+        foreach (LuerlockAdapter luerlock in luerlocks) {
+            if (rb == luerlock.objects[RIGHT].Rigidbody) {
+                return new KeyValuePair<int, LuerlockAdapter>(RIGHT, luerlock);
+            } else if (rb == luerlock.objects[LEFT].Rigidbody) {
+                return new KeyValuePair<int, LuerlockAdapter>(LEFT, luerlock);
+            }
         }
 
-        foreach (Transform child in b) {
-            IgnoreCollisionsCollider(a, child, ignore);
-        }
+        return new KeyValuePair<int, LuerlockAdapter>(-1, null);
     }
     #endregion
 }

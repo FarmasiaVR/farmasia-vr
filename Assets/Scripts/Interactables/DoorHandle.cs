@@ -28,14 +28,14 @@
         door.SetAngleOffset(hand.coll.transform.position);
 
         this.hand = hand;
-        State = InteractState.Grabbed;
+        State.On(InteractState.Grabbed);
     }
 
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
 
         this.hand = null;
-        State = InteractState.None;
+        State.Off(InteractState.Grabbed);
         door.ReleaseDoor();
     }
 }
