@@ -10,8 +10,10 @@ public class PointPopup : MonoBehaviour {
 
     #region Variables
     private float timer = 0.0f;
+    private float speed = 0.01f;
     private float visualTime = 3.0f;
     private float fadeInAndOut = 0.7f;
+
     private float red = 0.0f;
     private float green = 0.0f;
     private float blue = 0.0f;
@@ -27,10 +29,20 @@ public class PointPopup : MonoBehaviour {
         textField.color = new Color(red, green, blue, 0);
         sound = GetComponent<AudioSource>();
         sound.enabled = false;
+        CalculateStartingPosition();
     }
     #endregion
 
     #region Private Methods
+    /// <summary>
+    /// Calculates and sets transform starting position. Used for animation.
+    /// </summary>
+    private void CalculateStartingPosition() {
+        float startingPoint = 0.0f;
+        startingPoint += (visualTime * speed);
+        textObject.transform.localPosition -= new Vector3(0, startingPoint, 0);
+    }
+
     /// <summary>
     /// Flips the scale of the Popup. This is required depending on does it follow rotation or camera.
     /// </summary>
@@ -57,7 +69,7 @@ public class PointPopup : MonoBehaviour {
         if (!fadeInCompleted) {
             transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
             textField.color = new Color(red, green, blue, transparency);
-            textObject.transform.localPosition += new Vector3(0, 0.01f, 0);
+            textObject.transform.localPosition += new Vector3(0, speed, 0);
             if (timer > fadeInAndOut) {
 
                 textField.color = new Color(red, green, blue, transparency);
@@ -74,7 +86,7 @@ public class PointPopup : MonoBehaviour {
             } else {
                 transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
                 textField.color = new Color(red, green, blue, transparency);
-                textObject.transform.localPosition += new Vector3(0, -0.01f, 0);
+                textObject.transform.localPosition += new Vector3(0, speed, 0);
                 if (timer > fadeInAndOut) {
                     timer -= fadeInAndOut;
                     Remove();
