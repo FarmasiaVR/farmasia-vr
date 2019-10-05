@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class LuerlockAttach : TaskBase {
     #region Fields
-    private string[] conditions = { "LuerlockAttached", "RightPositionOfLuerlock", "PreviousTaskCompletion" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    private string[] conditions = { "LuerlockAttached", "PreviousTaskCompletion" };
+    // Commented for DEMO private string[] conditions = { "LuerlockAttached", "RightPositionOfLuerlock", "PreviousTaskCompletion" };
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.SelectTools};
+    // Commented for DEMO private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     #endregion
 
     #region Constructor
@@ -37,11 +39,11 @@ public class LuerlockAttach : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Luerlock) {
-            // check that luerlock has been attached to first syringe
+            // check that luerlock has been attached to correct syringe
             EnableCondition("LuerlockAttached");
-            if (CheckLuerlockPosition(item)) {
+            /* Commented for DEMO if (CheckLuerlockPosition(item)) {
                 EnableCondition("RightPositionOfLuerlock");
-            }
+            }*/
         }
 
         if (CheckPreviousTaskCompletion(requiredTasks)) {
@@ -49,11 +51,11 @@ public class LuerlockAttach : TaskBase {
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["LuerlockAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
+        /* Commented for DEMO if (!check && base.clearConditions["LuerlockAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
             UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
-        }
+        }*/
     }
     /// <summary>
     /// Method checks whether the given item has been placed correctly.
