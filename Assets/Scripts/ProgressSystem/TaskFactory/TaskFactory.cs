@@ -15,6 +15,8 @@ public static class TaskFactory {
                 return new SelectMedicine();
             case TaskType.MedicineToSyringe:
                 return new MedicineToSyringe();
+            case TaskType.LuerlockAttach:
+                return new LuerlockAttach();
             /*case TaskType.AmountOfItems:
                 return new AmountOfItems();
             case TaskType.Layout1:

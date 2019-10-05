@@ -13,5 +13,6 @@
     AttachLuerlock,
     AttachSyringe,
     AmountOfMedicine,
+    CleanUp,
     SterileBag
 }
