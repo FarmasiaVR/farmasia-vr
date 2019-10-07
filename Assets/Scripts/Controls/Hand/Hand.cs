@@ -68,8 +68,10 @@ public class Hand : MonoBehaviour {
 
             if (Interactable.State == InteractState.LuerlockAttatch) {
 
+                var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
+
                 // needs access to luerlock
-                Connector.ConnectItemToLuerlock(null, Interactable);
+                pair.Value.Connector.ConnectItemToLuerlock(pair.Value, Interactable, pair.Key);
             } else {
                 Connector.ConnectItemToHand(this, Interactable);
             }
@@ -85,7 +87,9 @@ public class Hand : MonoBehaviour {
                 // Release();
                 if (Interactable.State == InteractState.LuerlockAttatch) {
 
-                    Connector.ReleaseItemFromLuerlock();
+                    var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
+
+                    pair.Value.Connector.ReleaseItemFromLuerlock(pair.Key, Interactable);
                 } else {
 
                     Connector.ReleaseItemFromHand();

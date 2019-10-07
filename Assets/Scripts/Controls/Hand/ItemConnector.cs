@@ -3,6 +3,8 @@
 public class ItemConnector {
 
     #region fields
+    private const string luerlockTag = "Luerlock Position";
+
     private Hand hand;
     private LuerlockAdapter luerlock;
 
@@ -89,7 +91,7 @@ public class ItemConnector {
     #endregion
 
     #region Luerlock grab
-    public void ConnectItemToLuerlock(LuerlockAdapter luerlock, Interactable interactable) {
+    public void ConnectItemToLuerlock(LuerlockAdapter luerlock, Interactable interactable, int side) {
 
         this.luerlock = luerlock;
 
@@ -97,8 +99,107 @@ public class ItemConnector {
             Hand.GrabbingHand(luerlock.Rigidbody).Connector.ReleaseItemFromHand();
         }
 
-
+        ReplaceObject(side, interactable.gameObject);
     }
+
+    private void ReplaceObject(int side, GameObject newObject) {
+
+        GameObject colliderT = luerlock.Colliders[side];
+
+        LuerlockAdapter.AttachedObject obj = luerlock.Objects[side];
+
+        Logger.Print("ReplaceObject");
+        if (obj.GameObject != null) {
+
+            if (obj.GameObject == newObject) {
+                return;
+            }
+
+            IgnoreCollisions(luerlock.transform, obj.GameObject.transform, false);
+
+            // attachedObject.GameObject.AddComponent<Rigidbody>();
+            obj.Rigidbody.isKinematic = false;
+            // attachedObject.Rigidbody.WakeUp();
+            obj.GameObject.transform.parent = null;
+            obj.GameObject.transform.localScale = obj.Scale;
+        }
+
+        if (newObject == null) {
+            obj.Interactable = null;
+            luerlock.Objects[side] = obj;
+            return;
+        }
+
+        obj.Interactable = newObject.GetComponent<Interactable>();
+        
+
+        obj.Scale = newObject.transform.localScale;
+
+        // FIX
+        if (Hand.GrabbingHand(luerlock.Rigidbody) != null) {
+            Hand.GrabbingHand(obj.Rigidbody)?.Connector.ReleaseItemFromHand();
+        } else {
+
+            // ERRORS WILL COME HERE
+
+        }
+
+        IgnoreCollisions(luerlock.transform, obj.GameObject.transform, true);
+
+        Vector3 newScale = new Vector3(
+            obj.Scale.x / luerlock.transform.lossyScale.x,
+            obj.Scale.y / luerlock.transform.lossyScale.y,
+            obj.Scale.z / luerlock.transform.lossyScale.z);
+
+        // Destroy(attachedObject.Rigidbody);
+        obj.Rigidbody.isKinematic = true;
+        //attachedObject.Rigidbody.Sleep();
+
+        obj.GameObject.transform.parent = luerlock.transform;
+        obj.GameObject.transform.localScale = newScale;
+        obj.GameObject.transform.up = colliderT.transform.up;
+        SetLuerlockPosition(colliderT, obj.GameObject.transform);
+
+        luerlock.Objects[side] = obj;
+    }
+
+    private static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
+
+        Collider coll = a.GetComponent<Collider>();
+
+        if (coll != null) {
+            IgnoreCollisionsCollider(coll, b, ignore);
+        }
+
+        foreach (Transform child in a) {
+            IgnoreCollisions(child, b, ignore);
+        }
+    }
+    private static void IgnoreCollisionsCollider(Collider a, Transform b, bool ignore) {
+
+        Collider coll = b.GetComponent<Collider>();
+
+        if (coll != null) {
+            Physics.IgnoreCollision(a, coll, ignore);
+            foreach (Transform child in b) {
+                IgnoreCollisionsCollider(a, child, ignore);
+            }
+        }
+    }
+
+    private void SetLuerlockPosition(GameObject collObject, Transform t) {
+
+        Transform target = LuerlockAdapter.LuerlockPosition(t);
+
+        if (target == null) {
+            throw new System.Exception("Luerlock position not found");
+        }
+
+        Vector3 offset = collObject.transform.position - target.position;
+        t.position += offset;
+    }
+
+    
 
     public void ReleaseItemFromLuerlock(int side, Interactable Interactable) {
 
