@@ -14,7 +14,6 @@ public class ObjectHighlight : MonoBehaviour {
 
     private void Start() {
         InitializeLists();
-        //highlightColor = new Color32(0,120,100,1);
         highlightColor = new Color32(100,120,100,1);
         normalColor = new Color32(0,0,0,0);
     }
