@@ -25,16 +25,15 @@ public class ProgressManager {
         activeTasks = new List<ITask>();
         doneTypes = new List<TaskType>();
         calculator = new ScoreCalculator();
-        AddTasks();
     }
     #endregion
 
-    #region Start and Finish
+    #region Task Addition
     /// <summary>
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
     /// </summary>
-    private void AddTasks() {
+    public void AddTasks() {
         activeTasks = Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
             .Select(v => TaskFactory.GetTask(v))
@@ -46,21 +45,6 @@ public class ProgressManager {
         UpdateDescription();
     }
 
-    /// <summary>
-    /// Once all tasks are finished, FinishProgress is called to create a Congratulation popup.
-    /// </summary>
-    private void FinishProgress() {
-        Finish fin = new Finish();
-        fin.SetReferredManager(this);
-        activeTasks.Add(new Finish());
-        if (!testMode) {
-            activeTasks.Last().FinishTask();
-        }
-        UpdateDescription();
-    }
-    #endregion
-
-    #region Task Addition
     /// <summary>
     /// Adds a task to the current active list.
     /// </summary>
@@ -119,6 +103,21 @@ public class ProgressManager {
         if (init) {
             AddTasks();
         }
+    }
+    #endregion
+
+    #region Finish
+    /// <summary>
+    /// Once all tasks are finished, FinishProgress is called to create a Congratulation popup.
+    /// </summary>
+    private void FinishProgress() {
+        Finish fin = new Finish();
+        fin.SetReferredManager(this);
+        activeTasks.Add(new Finish());
+        if (!testMode) {
+            activeTasks.Last().FinishTask();
+        }
+        UpdateDescription();
     }
     #endregion
 

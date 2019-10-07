@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
 namespace Tests {
@@ -9,7 +7,9 @@ namespace Tests {
     /// Tests ProgressManager and how it should handle tasks.
     /// </summary>
     public class TestProgressManager {
-        ProgressManager manager;
+
+        private ProgressManager manager;
+
         [SetUp]
         public void SetUp() {
             manager = new ProgressManager(true);
@@ -17,122 +17,51 @@ namespace Tests {
 
         [Test]
         public void ManagerAddsNewTasks() {
-            int count = manager.activeTasks.Count;
             manager.AddTask(new TestTask());
-            Assert.IsTrue(manager.activeTasks.Count == count + 1, "Manager did not add task");
+            Assert.AreEqual(1, manager.activeTasks.Count, "Manager did not add task");
         }
 
         [Test]
         public void ManagerCanRemoveTasks() {
-            int count = manager.activeTasks.Count;
-            List<ITask> tasks = manager.activeTasks;
-            manager.RemoveTask(tasks.Last());
-            Assert.IsTrue(manager.activeTasks.Count == (count - 1), "Manager did not remove task");
+            manager.AddTask(new TestTask());
+            manager.AddTask(new TestTask());
+            manager.RemoveTask(manager.activeTasks.Last());
+            Assert.AreEqual(1, manager.activeTasks.Count, "Manager did not remove task");
         }
 
         [Test]
         public void ManagerPreservesNonRemovableTask() {
-            manager.ResetTasks(false);
-            TestTask task = new TestTask();
-            TestTask3 task3 = new TestTask3();
-            manager.AddTask(task3);
-            int count = manager.activeTasks.Count;
-            task3.FinishTask();
-            Assert.IsTrue(manager.activeTasks.Count == count+1, "Did not preserve Task3 when finishing it.");
-
+            manager.AddTask(new TestTask());
+            manager.AddTask(new TestTask2());
+            manager.activeTasks.Last().FinishTask();
+            Assert.AreEqual(2, manager.activeTasks.Count, "Did not preserve Task3 when finishing it.");
         }
 
         [Test]
-        public void TasksCanGenerateNewTasks() {
-            manager.ResetTasks(false);
-            TestTask2 task2 = new TestTask2();
-            manager.AddTask(task2);
-            int count = manager.activeTasks.Count;
-            task2.FinishTask();
-            Assert.IsTrue(manager.activeTasks.Count == count, "Didn't add new task when finishing TestTask2");
-            manager.ListActiveTasks();
+        public void ManagerCanAddTaskBefore() {
+            TaskBase task = new TestTask();
+            manager.AddTask(task);
+            manager.AddNewTaskBeforeTask(new TestTask(), task);
+            Assert.AreEqual(2, manager.activeTasks.Count, "Didn't add new task");
+            Assert.AreEqual(task, manager.activeTasks.Last(), "Didn't put new task in correct order");
         }
 
         [Test]
         public void ManagerCreatesFinishTask() {
-            manager.ResetTasks(false);
-            TestTask task = new TestTask();
-            manager.AddTask(task);
-            int count = manager.activeTasks.Count;
-            manager.activeTasks.First().FinishTask();
-            Assert.IsTrue(manager.activeTasks.First().GetType() == typeof(Finish), "Finish task doesnt exist, although it should!");
-            manager.ListActiveTasks();
+            manager.AddTask(new TestTask());
+            manager.activeTasks.Last().FinishTask();
+            Assert.AreEqual(1, manager.activeTasks.Count, "Finish task is not added when the last task is finished");
+            Assert.IsTrue(manager.activeTasks.Last().GetType() == typeof(Finish), "The added task is not a Finish task");
         }
     }
-}
 
-public class TestTask : TaskBase {
+    public class TestTask : TaskBase {
 
-    public TestTask() : base(TaskType.SelectTools, true, true) {
-
-    }
-    public override void FinishTask() {
-        base.FinishTask();
+        public TestTask() : base(TaskType.SelectTools, true, true) {}
     }
 
-    public override string GetDescription() {
-        return base.GetDescription();
-    }
+    public class TestTask2 : TaskBase {
 
-    public override string GetHint() {
-        return base.GetHint();
-    }
-
-    public override void Subscribe() {
-        base.Subscribe();
-    }
-}
-
-public class TestTask2 : TaskBase {
-
-    public TestTask2() : base(TaskType.SelectMedicine, true, true) {
-
-    }
-    public override void FinishTask() {
-        manager.AddNewTaskBeforeTask(new TestTask(), this);
-        manager.ListActiveTasks();
-        base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return base.GetDescription();
-    }
-
-    public override string GetHint() {
-        return base.GetHint();
-    }
-
-    public override void Subscribe() {
-        base.Subscribe();
-    }
-}
-
-
-public class TestTask3 : TaskBase {
-
-    public TestTask3() : base(TaskType.SelectMedicine, false, true) {
-
-    }
-    public override void FinishTask() {
-        manager.AddNewTaskBeforeTask(new TestTask(), this);
-        manager.ListActiveTasks();
-        base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return base.GetDescription();
-    }
-
-    public override string GetHint() {
-        return base.GetHint();
-    }
-
-    public override void Subscribe() {
-        base.Subscribe();
+        public TestTask2() : base(TaskType.SelectMedicine, false, true) {}
     }
 }

@@ -15,8 +15,9 @@ public sealed class G {
     static G() {}
 
     private G() {
-        Progress = new ProgressManager(false);
         Pipeline = new PipelineManager();
+        Progress = new ProgressManager(false);
+        Progress.AddTasks();
     }
 
     public void Update(float deltaTime) {
