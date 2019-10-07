@@ -15,7 +15,7 @@ public class ObjectHighlight : MonoBehaviour {
     private void Start() {
         InitializeLists();
         //highlightColor = new Color32(0,120,100,1);
-        highlightColor = new Color32(150,0,0,1);
+        highlightColor = new Color32(100,120,100,1);
         normalColor = new Color32(0,0,0,0);
     }
 
@@ -36,7 +36,6 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public IEnumerator InsideCheck(HandCollider coll) {
-        Logger.Print("Checking inside");
         while (coll.Contains(gameObject)) {
             bool isClosest = gameObject == coll.GetGrabObject();
 
@@ -52,6 +51,10 @@ public class ObjectHighlight : MonoBehaviour {
         }
 
         Unhighlight();
+    }
+
+    public static ObjectHighlight GetHighlightFromTransform(Transform t) {
+        return Interactable.GetInteractableObject(t).GetComponent<ObjectHighlight>();
     }
 
     private void InitializeLists() {
