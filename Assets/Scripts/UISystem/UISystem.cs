@@ -105,46 +105,52 @@ public class UISystem : MonoBehaviour {
                     ResetSwipe(swipeUp, up);
                 }
             }
-            if (VRInput.LeftPadValue.x == 0.0f && oldXValue == 0.0f) {
+            /*if (VRInput.LeftPadValue.x == 0.0f && oldXValue == 0.0f) {
                 if (swipeLeft) {
                     ResetSwipe(swipeLeft, left);
                 }
                 if (swipeRight) {
                     ResetSwipe(swipeRight, right);
                 }
-            }
+            }*/
             if (VRInput.LeftPadValue.y < 0.0f) {
                 swipeUp = true;
             }
             if (VRInput.LeftPadValue.y > 0.0f) {
                 swipeDown = true;
             }
-            if (VRInput.LeftPadValue.x < 0.0f) {
+            /*if (VRInput.LeftPadValue.x < 0.0f) {
                 swipeRight = true;
             }
             if (VRInput.LeftPadValue.x > 0.0f) {
                 swipeLeft = true;
-            }
-            if (swipeLeft) {
-                float valueUpDifference = Mathf.Abs(oldXValue) - Mathf.Abs(VRInput.LeftPadValue.x);
+            }*/
+
+            /*if (swipeRight) {
+                float valueUpDifference = oldXValue - VRInput.LeftPadValue.x;
+
                 if (valueUpDifference >= 0) {
                     right += valueUpDifference;
                     if (right > 1.0f) {
                         NextDescription(true);
-                        ResetSwipe(swipeLeft, left);
+                        ResetSwipe(swipeRight, right);
+                    } else {
+                        ResetSwipe(swipeRight, right);
                     }
                 }
             }
             if (swipeLeft) {
-                float valueUpDifference = Mathf.Abs(VRInput.LeftPadValue.x) - Mathf.Abs(oldXValue);
+                float valueUpDifference = VRInput.LeftPadValue.x - oldXValue;
                 if (valueUpDifference >= 0) {
                     left += valueUpDifference;
                     if (left > 1.0f) {
                         NextDescription(false);
                         ResetSwipe(swipeLeft, left);
+                    } else {
+                        ResetSwipe(swipeLeft, left);
                     }
                 }
-            }
+            }*/
 
             if (swipeUp) {
                 float valueUpDifference = VRInput.LeftPadValue.y - oldYValue;
@@ -154,6 +160,8 @@ public class UISystem : MonoBehaviour {
                         SetDescriptionVisibility(true);
                         ResetSwipe(swipeUp, up);
                     }
+                } else {
+                    ResetSwipe(swipeUp, up);
                 }
             }
             if (swipeDown) {
@@ -164,10 +172,12 @@ public class UISystem : MonoBehaviour {
                         SetDescriptionVisibility(false);
                         ResetSwipe(swipeDown, down);
                     }
+                } else {
+                    ResetSwipe(swipeDown, down);
                 }
             }
             oldYValue = VRInput.LeftPadValue.y;
-            oldXValue = VRInput.LeftPadValue.x;
+            /*oldXValue = VRInput.LeftPadValue.x;*/
         }
     }
     #endregion
