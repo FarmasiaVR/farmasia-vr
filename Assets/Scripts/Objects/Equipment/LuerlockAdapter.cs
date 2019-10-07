@@ -43,10 +43,22 @@ public class LuerlockAdapter : GeneralItem {
         ObjectType = ObjectType.Luerlock;
         Colliders[LEFT] = transform.Find("Left collider").gameObject;
         Colliders[RIGHT] = transform.Find("Right collider").gameObject;
-        CollisionSubscription.SubscribeToTrigger(Colliders[LEFT], new TriggerListener().OnEnter(ObjectEnterLeft));
-        CollisionSubscription.SubscribeToTrigger(Colliders[RIGHT], new TriggerListener().OnEnter(ObjectEnterRight));
+
+        SubscribeCollisions();
 
         Connector = new ItemConnector();
+    }
+    private void SubscribeCollisions() {
+
+        void ObjectEnterLeft(Collider collider) {
+            ObjectEnter(collider, LEFT);
+        }
+        void ObjectEnterRight(Collider collider) {
+            ObjectEnter(collider, RIGHT);
+        }
+
+        CollisionSubscription.SubscribeToTrigger(Colliders[LEFT], new TriggerListener().OnEnter(ObjectEnterLeft));
+        CollisionSubscription.SubscribeToTrigger(Colliders[RIGHT], new TriggerListener().OnEnter(ObjectEnterRight));
     }
 
     private void Update() {
@@ -86,24 +98,17 @@ public class LuerlockAdapter : GeneralItem {
         return true;
     }
 
-    private void ObjectEnterRight(Collider collider) {
-        Logger.Print("Object entered luerlock adapter right collider");
+    private void ObjectEnter(Collider collider, int side) {
+        GameObject intObject = GetInteractableObject(collider.transform);
+        if (intObject == null) {
+            return;
+        }
 
-        if (Objects[RIGHT].GameObject == null && ConnectingIsAllowed(Colliders[RIGHT], collider)) {
+        if (Objects[side].GameObject == null && ConnectingIsAllowed(Colliders[side], collider)) {
             // Position Offset here
-            Connector.ConnectItemToLuerlock(this, GetInteractableObject(collider.transform).GetComponent<Interactable>(), RIGHT);
+            Connector.ConnectItemToLuerlock(this, intObject.GetComponent<Interactable>(), side);
         }
     }
-    private void ObjectEnterLeft(Collider collider) {
-        Logger.Print("Object entered luerlock adapter left collider");
-
-        if (Objects[LEFT].GameObject == null && ConnectingIsAllowed(Colliders[LEFT], collider)) {
-            // Position Offset here
-            Connector.ConnectItemToLuerlock(this, GetInteractableObject(collider.transform).GetComponent<Interactable>(), LEFT);
-        }
-    }
-
-    
 
     private bool WithinDistance(GameObject collObject, Transform t) {
         return Vector3.Distance(collObject.transform.position, LuerlockPosition(t).position) < maxDistance;

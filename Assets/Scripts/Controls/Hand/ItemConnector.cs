@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ItemConnector {
+public class ItemConnectora {
 
     #region fields
     private const string luerlockTag = "Luerlock Position";
@@ -65,6 +65,10 @@ public class ItemConnector {
     #region Hand release
     public void ReleaseItemFromHand() {
 
+        if (!hand.IsGrabbed) {
+            Logger.Print("Hand is not grabbíng");
+        }
+
         if (hand.Interactable.State != InteractState.Grabbed) {
             throw new System.Exception("Trying to release ungrabbed item");
         }
@@ -99,7 +103,7 @@ public class ItemConnector {
             Hand.GrabbingHand(luerlock.Rigidbody).Connector.ReleaseItemFromHand();
         }
 
-        ReplaceObject(side, interactable.gameObject);
+        ReplaceObject(side, interactable?.gameObject);
     }
 
     private void ReplaceObject(int side, GameObject newObject) {
