@@ -33,7 +33,7 @@ public class HandCollider : MonoBehaviour {
 
         GrabObjects.Add(interactable);
 
-        ObjectHighlight hObject = coll.gameObject.GetComponent<ObjectHighlight>();
+        ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
         if (hObject == null) {
             return;
         }
