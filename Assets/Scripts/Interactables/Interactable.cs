@@ -7,12 +7,12 @@ public class Interactable : MonoBehaviour {
 
     public EnumBitField<InteractableType> Types { get; protected set; } = new EnumBitField<InteractableType>();
 
-    public InteractState State;
+    public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
+
+    private Rigidbody rb;
     #endregion
 
     protected virtual void Start() {
-        Types = new EnumBitField<InteractableType>();
-        State = InteractState.None;
         gameObject.AddComponent<ObjectHighlight>();
         gameObject.AddComponent<ItemPlacement>();
 
@@ -40,5 +40,16 @@ public class Interactable : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public Rigidbody Rigidbody {
+        get {
+
+            if (rb == null) {
+                rb = GetComponent<Rigidbody>();
+            }
+
+            return rb;
+        }
     }
 }

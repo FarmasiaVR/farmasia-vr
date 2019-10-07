@@ -41,6 +41,14 @@ public class EnumBitField<T> where T : Enum {
         return a.Value != b.Value;
     }
 
+    public static bool operator ==(EnumBitField<T> a, T b) {
+        return a.IsOn(b);
+    }
+
+    public static bool operator !=(EnumBitField<T> a, T b) {
+        return a.IsOff(b);
+    }
+
     public override bool Equals(object obj) {
         if (ReferenceEquals(null, obj)) {
             return false;

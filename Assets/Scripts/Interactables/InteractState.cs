@@ -1,4 +1,4 @@
 ﻿public enum InteractState {
-    None,
-    Grabbed
+    Grabbed,
+    LuerlockAttatch
 }
