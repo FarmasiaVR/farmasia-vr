@@ -17,6 +17,14 @@ public class Description : MonoBehaviour {
         textField = textObject.GetComponent<TextMeshPro>();
     }
 
+    public List<ITask> getActiveList() {
+        return activeTasks;
+    }
+
+    public int getPointer() {
+        return pointer;
+    }
+
     public void SetActiveList(List<ITask> tasks) {
         activeTasks = tasks;
     }
@@ -26,18 +34,32 @@ public class Description : MonoBehaviour {
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>1: if at the top, -1: if near the start, 0: in the middle, -2: if both 0</returns>
+    public int CheckPointerEdge() {
+        if (activeTasks.Count == 0 || activeTasks.Count == 1) {
+            return -2;
+        }
+        if ((pointer + 1) >= activeTasks.Count) {
+            return 1;
+        }
+        if ((pointer - 1) < 0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    /// <summary>
     /// Checks if pointer is over or under activetask range.
     /// </summary>
     /// <param name="i">Amount of steps pointer takes</param>
     /// <returns>Returns: 1 - Over the range, 0 - inside range, -1 - Under range</returns>
     private int CheckPointerPosition(int i) {
-        if (pointer == 0) {
-            return 0;
-        }
         if ((pointer + i) > (activeTasks.Count - 1)) {
             return 1;
         }
-        if (pointer < 0) {
+        if ((pointer + i) < 0) {
             return -1;
         }
         return 0;
@@ -48,19 +70,24 @@ public class Description : MonoBehaviour {
         SetDescriptionByPointer();
     }
 
-    public void MoveDescWithPointer(int i) {
+    public bool MoveDescWithPointer(int i) {
+        bool returnValue = true;
         int position = CheckPointerPosition(i);
         if (position == 1) {
-            pointer = (activeTasks.Count);
+            pointer = (activeTasks.Count - 1);
+            returnValue = false;
         } else if (position == -1) {
             pointer = 0;
+            returnValue = false;
+        } else {
+            pointer += i;
         }
-        pointer += i;
+
         SetDescriptionByPointer();
+        return returnValue;
     }
 
     private void SetDescriptionByPointer() {
-        Logger.Print("Tällä hetkellä " + pointer);
         if (activeTasks.Count == 0) {
             SetDescription("", Color.white);
             return;
@@ -80,6 +107,12 @@ public class Description : MonoBehaviour {
     public void SetDescription(string description, Color color) {
         textField.text = description;
         SetColor(color);
+    }
+
+    public void RemoteFinishShownTask() {
+        if (activeTasks.Count != 0) {
+            activeTasks[pointer].FinishTask();
+        }
     }
 
 }
