@@ -13,6 +13,8 @@ public static class TaskFactory {
                 return new SelectTools();
             case TaskType.SelectMedicine:
                 return new SelectMedicine();
+            case TaskType.CorrectLayoutInThroughput:
+                return new CorrectLayoutInThroughput();
             case TaskType.MedicineToSyringe:
                 return new MedicineToSyringe();
             case TaskType.LuerlockAttach:

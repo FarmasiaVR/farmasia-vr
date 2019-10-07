@@ -15,9 +15,13 @@ public class PassThroughCabinet : MonoBehaviour {
         if (foundObject.GetComponent<GeneralItem>() == null) {
             return;
         }
-        objectsInsideArea.Add(other.transform.gameObject);
-        Events.FireEvent(EventType.ArrangeItems, CallbackData.String("" + objectsInsideArea.Count));
-        UISystem.Instance.CreatePopup("Added object to Area!", MessageType.Notify);
+        
+        if (!objectsInsideArea.Contains(foundObject)) {
+            objectsInsideArea.Add(foundObject);
+            Events.FireEvent(EventType.ArrangeItems, CallbackData.String("" + objectsInsideArea.Count));
+        }
+        
+        //UISystem.Instance.CreatePopup("Added object to Area!", MessageType.Notify);
     }
 
     private void OnTriggerExit(Collider other) {
@@ -27,7 +31,7 @@ public class PassThroughCabinet : MonoBehaviour {
         }
         objectsInsideArea.Remove(other.transform.gameObject);
         Events.FireEvent(EventType.ArrangeItems, CallbackData.String("" + objectsInsideArea.Count));
-        UISystem.Instance.CreatePopup("Removed Object From Area!", MessageType.Notify);
+        //UISystem.Instance.CreatePopup("Removed Object From Area!", MessageType.Notify);
     }
 
     // Update is called once per frame

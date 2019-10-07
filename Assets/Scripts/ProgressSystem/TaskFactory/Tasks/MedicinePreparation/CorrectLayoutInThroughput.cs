@@ -41,6 +41,7 @@ public class CorrectLayoutInThroughput : TaskBase {
             }*/
         }
         bool check = CheckClearConditions(true);
+        Logger.Print("Check cleared: " + check);
         /*if (!check && AtLeastThree()) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
@@ -71,7 +72,8 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
+        Logger.Print("Finish");
+        UISystem.Instance.CreatePopup("Items in läpiantokaappi", MessageType.Done);
         G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInThroughput);
         base.FinishTask();
     }
