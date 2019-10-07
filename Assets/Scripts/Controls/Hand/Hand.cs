@@ -19,14 +19,14 @@ public class Hand : MonoBehaviour {
     private Hand other;
     public Hand Other { get => other; }
 
-    public ItemConnector Connector { get; private set; }
+    public HandConnector Connector { get; private set; }
     #endregion
 
     private void Start() {
         HandType = GetComponent<VRHandControls>().handType;
         coll = transform.GetChild(0).GetComponent<HandCollider>();
         controls = GetComponent<VRHandControls>();
-        Connector = new ItemConnector();
+        Connector = new HandConnector(transform);
 
         Assert.IsNotNull(other, "Other hand was null");
     }
@@ -55,7 +55,7 @@ public class Hand : MonoBehaviour {
     #region Interaction
     public void InteractWithObject() {
         if (IsGrabbed) {
-            Connector.ReleaseItemFromHand();
+            Connector.ReleaseItem(Interactable, 0);
             return;
         }
 
@@ -71,9 +71,9 @@ public class Hand : MonoBehaviour {
                 var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
 
                 // needs access to luerlock
-                pair.Value.Connector.ConnectItemToLuerlock(pair.Value, Interactable, pair.Key);
+                pair.Value.Connector.ConnectItem(Interactable, pair.Key);
             } else {
-                Connector.ConnectItemToHand(this, Interactable);
+                Connector.ConnectItem(Interactable, 0);
             }
 
         } else if (Interactable.Types.IsOn(InteractableType.Interactable)) {
@@ -89,10 +89,10 @@ public class Hand : MonoBehaviour {
 
                     var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
 
-                    pair.Value.Connector.ReleaseItemFromLuerlock(pair.Key, Interactable);
+                    pair.Value.Connector.ReleaseItem(Interactable, pair.Key);
                 } else {
 
-                    Connector.ReleaseItemFromHand();
+                    Connector.ReleaseItem(Interactable, 0);
                 }
             }
         } else if (Interactable != null) {
@@ -128,7 +128,7 @@ public class Hand : MonoBehaviour {
 
     private void OnJointBreak(float breakForce) {
         Logger.Print("Joint force broken: " + breakForce);
-        Connector.ReleaseItemFromHand();
+        Connector.ReleaseItem(Interactable, 0);
     }
 
     public static Hand GrabbingHand(Rigidbody rb) {

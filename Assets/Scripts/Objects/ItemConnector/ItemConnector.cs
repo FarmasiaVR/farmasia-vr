@@ -2,13 +2,13 @@
 
 public abstract class ItemConnector {
 
-    public Component Component;
+    public Transform Object { get; private set; }
 
-    public ItemConnector(Component component) {
-        this.Component = component;
+    public ItemConnector(Transform obj) {
+        this.Object = obj;
     }
 
-    public abstract void AttachItem();
+    public abstract void ConnectItem(Interactable interactable, int options);
 
-    public abstract void ReleaseItem();
+    public abstract void ReleaseItem(Interactable interactable, int options);
 }

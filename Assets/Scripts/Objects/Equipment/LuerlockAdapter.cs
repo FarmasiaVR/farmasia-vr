@@ -16,7 +16,7 @@ public class LuerlockAdapter : GeneralItem {
 
     public GameObject[] Colliders { get; private set; }
 
-    public ItemConnector Connector { get; private set; }
+    public LuerlockConnector Connector { get; private set; }
 
     public struct AttachedObject {
         public Interactable Interactable;
@@ -46,7 +46,7 @@ public class LuerlockAdapter : GeneralItem {
 
         SubscribeCollisions();
 
-        Connector = new ItemConnector();
+        Connector = new LuerlockConnector(transform);
     }
     private void SubscribeCollisions() {
 
@@ -64,8 +64,8 @@ public class LuerlockAdapter : GeneralItem {
     private void Update() {
 
         if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
-            Connector.ConnectItemToLuerlock(this, null, RIGHT);
-            Connector.ConnectItemToLuerlock(this, null, LEFT);
+            Connector.ConnectItem(null, RIGHT);
+            Connector.ConnectItem(null, LEFT);
         }
     }
 
@@ -106,7 +106,7 @@ public class LuerlockAdapter : GeneralItem {
 
         if (Objects[side].GameObject == null && ConnectingIsAllowed(Colliders[side], collider)) {
             // Position Offset here
-            Connector.ConnectItemToLuerlock(this, intObject.GetComponent<Interactable>(), side);
+            Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
         }
     }
 
