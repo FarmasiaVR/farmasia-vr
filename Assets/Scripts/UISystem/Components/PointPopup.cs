@@ -10,17 +10,19 @@ public class PointPopup : MonoBehaviour {
 
     #region Variables
     private float timer = 0.0f;
-    private float speed = 0.01f;
     private float visualTime = 3.0f;
     private float fadeInAndOut = 0.3f;
-
+    private float speed = 0.007f;
+    private float endPoint;
+    private float distanceTravelled = 0.0f;
+    private float distanceToTravel = 0.2f;
+    private float startingPoint;
     private float red = 0.0f;
     private float green = 0.0f;
     private float blue = 0.0f;
     private float transparency = 0.0f;
     private bool fadeInCompleted = false;
     private bool visualCompleted = false;
-    private float xy = 0.0f;
     #endregion
 
     #region Initialisation
@@ -30,6 +32,13 @@ public class PointPopup : MonoBehaviour {
         textField.color = new Color(red, green, blue, 0);
         sound = GetComponent<AudioSource>();
         sound.enabled = false;
+        timer = 0.0f;
+        transparency = 0.0f;
+        distanceTravelled = 0.0f;
+
+        endPoint = transform.localPosition.z;
+        startingPoint = transform.localPosition.z + distanceToTravel;
+
     }
     #endregion
 
@@ -38,10 +47,7 @@ public class PointPopup : MonoBehaviour {
     /// Calculates and sets transform starting position. Used for animation.
     /// </summary>
     private void CalculateStartingPosition() {
-        float startingPoint = 0.0f;
-        //startingPoint += (fadeInAndOut * speed);
-        startingPoint = 0.14f;
-        textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y - startingPoint, textObject.transform.localPosition.z);
+        textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
     }
 
     /// <summary>
@@ -72,37 +78,38 @@ public class PointPopup : MonoBehaviour {
     private void Update() {
         timer += Time.deltaTime;
         if (!fadeInCompleted) {
-            transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
-            textField.color = new Color(red, green, blue, transparency);
-            textObject.transform.localPosition += new Vector3(0, speed, 0);
-            xy += speed;
-            if (timer > fadeInAndOut) {
+            textObject.transform.localPosition += new Vector3(0, 0, -speed);
+            distanceTravelled += speed;
+            transparency = distanceTravelled / distanceToTravel;
+            textField.alpha = transparency;
 
-                textField.color = new Color(red, green, blue, transparency);
+            if (distanceTravelled > distanceToTravel) {
+                transparency = 1.0f;
+                textField.alpha = transparency;
                 timer -= fadeInAndOut;
                 fadeInCompleted = true;
                 sound.enabled = true;
+                timer = 0.0f;
             }
         } else {
-            Logger.Print(xy);
             if (!visualCompleted) {
-                Logger.Print("IS UP!: " + textObject.transform.localPosition);
                 if (timer > visualTime) {
-                    timer -= visualTime;
+                    timer = 0.0f;
                     visualCompleted = true;
                 }
             } else {
-                transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
-                textField.color = new Color(red, green, blue, transparency);
-                textObject.transform.localPosition += new Vector3(0, -speed, 0);
-                if (timer > fadeInAndOut) {
-                    timer -= fadeInAndOut;
+                textObject.transform.localPosition += new Vector3(0, 0, speed);
+                distanceTravelled -= speed;
+                transparency = distanceTravelled / distanceToTravel;
+                textField.alpha = transparency;
+
+                if (distanceTravelled <= 0.0f) {
+                    timer = 0.0f;
                     Remove();
                 }
             }
         }
     }
-
 
     private void SetColour(MessageType type) {
         switch (type) {
@@ -132,6 +139,7 @@ public class PointPopup : MonoBehaviour {
                 blue = 0;
                 break;
         }
+        textField.color = new Color(red, green, blue, 0);
     }
     #endregion
 
