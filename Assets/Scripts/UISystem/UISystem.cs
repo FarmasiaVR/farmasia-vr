@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UISystem : MonoBehaviour {
@@ -24,12 +25,26 @@ public class UISystem : MonoBehaviour {
     private Description description;
     #endregion
 
+    #region Arrows and Number
+    private TextMeshPro arrowLeft;
+    private bool arrowLeftVisible;
+    private TextMeshPro arrowRight;
+    private bool arrowRightVisible;
+    private TextMeshPro taskNumber;
+    private bool taskNumberVisible;
+    #endregion
+
     #region Actions
-    private bool swipeUpStarted = false;
-    private float continuousUp = 0.0f;
-    private bool swipeDownStarted = false;
-    private float continuousDown = 0.0f;
-    private float oldPadValue = 0.0f;
+    private bool swipeUp = false;
+    private bool swipeDown = false;
+    private bool swipeLeft = false;
+    private bool swipeRight = false;
+    private float up = 0.0f;
+    private float down = 0.0f;
+    private float left = 0.0f;
+    private float right = 0.0f;
+    private float oldYValue = 0.0f;
+    private float oldXValue = 0.0f;
     #endregion
 
     #region Initialisation
@@ -45,6 +60,9 @@ public class UISystem : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
+        arrowLeft = GameObject.FindGameObjectWithTag("Arrow (Left)").GetComponent<TextMeshPro>();
+        arrowRight = GameObject.FindGameObjectWithTag("Arrow (Right)").GetComponent<TextMeshPro>();
+        taskNumber = GameObject.FindGameObjectWithTag("TaskNumber").GetComponent<TextMeshPro>();
     }
 
     /// <summary>
@@ -52,20 +70,20 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
-        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform.position + gobj.transform.localPosition, handuiInScene.transform.rotation * gobj.transform.rotation);
+        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform);
         uiComponent.transform.SetParent(handuiInScene.transform, true);
         return uiComponent;
     }
     #endregion
 
     #region Private Methods
-    private void ResetSwipeUpChecking() {
-        swipeUpStarted = false;
-        continuousUp = 0.0f;
+    private void ResetSwipe(bool swipeDirection, float swipeAmount) {
+        swipeDirection = false;
+        swipeAmount = 0.0f;
     }
     private void ResetSwipeDownChecking() {
-        swipeDownStarted = false;
-        continuousDown = 0.0f;
+        swipeDown = false;
+        down = 0.0f;
     }
     #endregion
 
@@ -76,42 +94,80 @@ public class UISystem : MonoBehaviour {
     /// Swipe left and right change descriptions.
     /// </summary>
     private void Update() {
+        KeyListener();
+
         if (!hand.IsGrabbed) {
-            if (VRInput.LeftPadValue.y == 0.0f && oldPadValue == 0.0f) {
-                if (swipeDownStarted) {
-                    ResetSwipeDownChecking();
+            if (VRInput.LeftPadValue.y == 0.0f && oldYValue == 0.0f) {
+                if (swipeDown) {
+                    ResetSwipe(swipeDown, down);
                 }
-                if (swipeUpStarted) {
-                    ResetSwipeUpChecking();
+                if (swipeUp) {
+                    ResetSwipe(swipeUp, up);
+                }
+            }
+            if (VRInput.LeftPadValue.x == 0.0f && oldXValue == 0.0f) {
+                if (swipeLeft) {
+                    ResetSwipe(swipeLeft, left);
+                }
+                if (swipeRight) {
+                    ResetSwipe(swipeRight, right);
                 }
             }
             if (VRInput.LeftPadValue.y < 0.0f) {
-                swipeUpStarted = true;
+                swipeUp = true;
             }
             if (VRInput.LeftPadValue.y > 0.0f) {
-                swipeDownStarted = true;
+                swipeDown = true;
             }
-            if (swipeUpStarted) {
-                float valueUpDifference = VRInput.LeftPadValue.y - oldPadValue;
+            if (VRInput.LeftPadValue.x < 0.0f) {
+                swipeRight = true;
+            }
+            if (VRInput.LeftPadValue.x > 0.0f) {
+                swipeLeft = true;
+            }
+            if (swipeLeft) {
+                float valueUpDifference = Mathf.Abs(oldXValue) - Mathf.Abs(VRInput.LeftPadValue.x);
                 if (valueUpDifference >= 0) {
-                    continuousUp += valueUpDifference;
-                    if (continuousUp > 1.0f) {
+                    right += valueUpDifference;
+                    if (right > 1.0f) {
+                        NextDescription(true);
+                        ResetSwipe(swipeLeft, left);
+                    }
+                }
+            }
+            if (swipeLeft) {
+                float valueUpDifference = Mathf.Abs(VRInput.LeftPadValue.x) - Mathf.Abs(oldXValue);
+                if (valueUpDifference >= 0) {
+                    left += valueUpDifference;
+                    if (left > 1.0f) {
+                        NextDescription(false);
+                        ResetSwipe(swipeLeft, left);
+                    }
+                }
+            }
+
+            if (swipeUp) {
+                float valueUpDifference = VRInput.LeftPadValue.y - oldYValue;
+                if (valueUpDifference >= 0) {
+                    up += valueUpDifference;
+                    if (up > 1.0f) {
                         SetDescriptionVisibility(true);
-                        ResetSwipeUpChecking();
+                        ResetSwipe(swipeUp, up);
                     }
                 }
             }
-            if (swipeDownStarted) {
-                float valueDownDifference = oldPadValue - VRInput.LeftPadValue.y;
+            if (swipeDown) {
+                float valueDownDifference = oldYValue - VRInput.LeftPadValue.y;
                 if (valueDownDifference >= 0) {
-                    continuousDown += valueDownDifference;
-                    if (continuousDown > 1.0f) {
+                    down += valueDownDifference;
+                    if (down > 1.0f) {
                         SetDescriptionVisibility(false);
-                        ResetSwipeUpChecking();
+                        ResetSwipe(swipeDown, down);
                     }
                 }
             }
-            oldPadValue = VRInput.LeftPadValue.y;
+            oldYValue = VRInput.LeftPadValue.y;
+            oldXValue = VRInput.LeftPadValue.x;
         }
     }
     #endregion
@@ -153,6 +209,48 @@ public class UISystem : MonoBehaviour {
     #endregion
 
     #region Description Methods
+
+    private void SetArrowVisibility() {
+        int value = description.CheckPointerEdge();
+        if (value == -2) {
+            arrowLeft.enabled = false;
+            arrowRight.enabled = false;
+            return;
+        }
+        if (value == 1) {
+            arrowLeft.enabled = true;
+            arrowRight.enabled = false;
+            return;
+        }
+        if (value == -1) {
+            arrowLeft.enabled = false;
+            arrowRight.enabled = true;
+            return;
+        }
+        arrowLeft.enabled = true;
+        arrowRight.enabled = true;
+    }
+
+    private void setPointerNumber() {
+        int value = (description.getPointer() + 1);
+        int count = description.getActiveList().Count;
+        if (count == 0 || count == 1) {
+            taskNumber.text = "";
+            return;
+        }
+        taskNumber.text = "" + value;
+    }
+
+    private void NextDescription(bool right) {
+        if (right) {
+            description.MoveDescWithPointer(1);
+        } else {
+            description.MoveDescWithPointer(-1);
+        }
+        setPointerNumber();
+        SetArrowVisibility();
+    }
+
     private void SetDescriptionVisibility(bool on) {
         visible = on;
         descriptionMesh.enabled = on;
@@ -168,6 +266,7 @@ public class UISystem : MonoBehaviour {
     }
 
     public void UpdateDescription(List<ITask> tasks) {
+
         GameObject desc = currentDescription;
         if (desc == null) {
             desc = InitUIComponent(descriptionPrefab);
@@ -176,6 +275,31 @@ public class UISystem : MonoBehaviour {
         }
         description.SetActiveList(tasks);
         description.MovePointerAndDescToFirst();
+        setPointerNumber();
+        SetArrowVisibility();
     }
     #endregion
+
+    #region Test Functions
+    private void KeyListener() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            CreatePopup("THIS IS A TEST", MessageType.Mistake);
+        }
+        if (Input.GetKeyDown(KeyCode.B)) {
+            NextDescription(true);
+        }
+        if (Input.GetKeyDown(KeyCode.V)) {
+            NextDescription(false);
+        }
+        if (Input.GetKeyDown(KeyCode.N)) {
+            description.RemoteFinishShownTask();
+        }
+        if (Input.GetKeyDown(KeyCode.M)) {
+            foreach (ITask task in description.getActiveList()) {
+                Logger.Print(task.GetType());
+            }
+        }
+    }
+    #endregion
+
 }
