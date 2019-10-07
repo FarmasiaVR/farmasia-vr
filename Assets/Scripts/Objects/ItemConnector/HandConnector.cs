@@ -86,7 +86,9 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        GrabbedRigidbody.GetComponent<Interactable>().State.Off(InteractState.Grabbed);
+        if (!Hand.Other.IsGrabbed || Hand.Other.Connector.GrabbedRigidbody != GrabbedRigidbody) {
+            GrabbedRigidbody.GetComponent<Interactable>().State.Off(InteractState.Grabbed);
+        }
 
         ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
 
