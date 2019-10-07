@@ -4,8 +4,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = { "AtLeastThree", "ItemsArranged" };
-    private int itemCount;
+    private string[] conditions = { "AtLeastThree"/*, "ItemsArranged"*/ };
     #endregion
 
     #region Constructor
@@ -14,7 +13,6 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
-        itemCount = 0;
         Subscribe();
         AddConditions(conditions);
     }
@@ -27,43 +25,29 @@ public class CorrectLayoutInThroughput : TaskBase {
     public override void Subscribe() {
         base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
     }
+
     /// <summary>
     /// Once fired by an event, checks how many items have been picked up and if they are arranged.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangeItems(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        itemCount++;
-        if (AtLeastThree()) {
+        Logger.Print(data.DataString + " counted!");
+        int itemCount = int.Parse(data.DataString);
+        if (itemCount >= 2) {
             EnableCondition("AtLeastThree");
-            if (ItemsArranged()) {
+            /*if (ItemsArranged()) {
                 EnableCondition("ItemsArranged");
-            }
+            }*/
         }
-        
         bool check = CheckClearConditions(true);
-        if (!check && AtLeastThree()) {
+        /*if (!check && AtLeastThree()) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
-        }
+        }*/
     }
-    /// <summary>
-    /// Checks that at least three items are placed.
-    /// </summary>
-    /// <returns>"Returns true if at least three items are found."</returns>
-    private bool AtLeastThree() {
-        if (itemCount >= 3) {
-            return true;
-        }
-        return false;
-    }
+
     /// <summary>
     /// Checks that the items are arranged according to rules.
     /// </summary>
@@ -72,12 +56,12 @@ public class CorrectLayoutInThroughput : TaskBase {
         //code missing
         return false;
     }
+
     /// <summary>
     /// Sets the item count to be zero when exiting the room.
     /// </summary>
     private void InitializeCount() {
         //callback missing
-        itemCount = 0;
         DisableConditions();
     }
     #endregion
@@ -99,7 +83,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     public void RemoveTaskFromOutside() {
         base.FinishTask();
     }
-    
+
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>
