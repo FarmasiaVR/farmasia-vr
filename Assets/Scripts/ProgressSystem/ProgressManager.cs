@@ -56,6 +56,7 @@ public class ProgressManager {
         if (!testMode) {
             activeTasks.Last().FinishTask();
         }
+        UpdateDescription();
     }
     #endregion
 

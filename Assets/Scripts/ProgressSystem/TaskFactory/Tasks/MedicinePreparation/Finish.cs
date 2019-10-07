@@ -21,7 +21,7 @@ public class Finish : TaskBase {
     }
 
     public override string GetDescription() {
-        return base.GetDescription();
+        return "Free roam activated!";
     }
 
     public override string GetHint() {
