@@ -15,11 +15,11 @@ public class HandConnector : ItemConnector {
     private Vector3 grabOffset;
     private Vector3 rotOffset;
 
-    private FixedJoint joint;
-    private FixedJoint Joint {
+    private Joint joint;
+    private Joint Joint {
         get {
             if (joint == null) {
-                AddJoint(Hand.gameObject);
+                joint = JointConfiguration.AddJoint(Hand.gameObject);
             }
             return joint;
         }
@@ -33,8 +33,10 @@ public class HandConnector : ItemConnector {
     #region Attaching
     public override void ConnectItem(Interactable interactable, int options) {
 
+        Logger.Print("Connect item");
+
         if (interactable.State == InteractState.Grabbed) {
-            Hand.Other.Connector.ReleaseItem(interactable, 0);
+            Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem(0);
         }
 
         GrabbedRigidbody = interactable.GetComponent<Rigidbody>();
@@ -52,10 +54,6 @@ public class HandConnector : ItemConnector {
         AttachGrabbedObject();
     }
 
-
-
-
-
     private void InitializeOffset() {
         grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
         rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
@@ -64,12 +62,13 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachGrabbedObject() {
+        Logger.Print("Attach item");
         Joint.connectedBody = GrabbedRigidbody;
     }
     #endregion
 
     #region Releasing
-    public override void ReleaseItem(Interactable interactable, int options) {
+    public override void ReleaseItem(int options) {
         if (!Hand.IsGrabbed) {
             Logger.Print("Hand is not grabbíng");
         }
@@ -100,12 +99,6 @@ public class HandConnector : ItemConnector {
         Joint.connectedBody = null;
     }
     #endregion
-
-    private void AddJoint(GameObject gObject) {
-        joint = gObject.AddComponent<FixedJoint>();
-        joint.breakForce = 20000;
-        joint.breakTorque = 20000;
-    }
 
     private Vector3 ColliderPosition {
         get {

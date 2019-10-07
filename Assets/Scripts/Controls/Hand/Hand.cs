@@ -55,7 +55,7 @@ public class Hand : MonoBehaviour {
     #region Interaction
     public void InteractWithObject() {
         if (IsGrabbed) {
-            Connector.ReleaseItem(Interactable, 0);
+            Connector.ReleaseItem(0);
             return;
         }
 
@@ -89,10 +89,10 @@ public class Hand : MonoBehaviour {
 
                     var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
 
-                    pair.Value.Connector.ReleaseItem(Interactable, pair.Key);
+                    pair.Value.Connector.ReleaseItem(pair.Key);
                 } else {
 
-                    Connector.ReleaseItem(Interactable, 0);
+                    Connector.ReleaseItem(0);
                 }
             }
         } else if (Interactable != null) {
@@ -128,7 +128,7 @@ public class Hand : MonoBehaviour {
 
     private void OnJointBreak(float breakForce) {
         Logger.Print("Joint force broken: " + breakForce);
-        Connector.ReleaseItem(Interactable, 0);
+        Connector.ReleaseItem(0);
     }
 
     public static Hand GrabbingHand(Rigidbody rb) {

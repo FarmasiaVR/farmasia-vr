@@ -6,18 +6,35 @@ public class LuerlockConnector : ItemConnector {
 
     #region fields
     public LuerlockAdapter Luerlock { get; private set; }
+
+    public Joint[] Joints { get; private set; }
     #endregion
 
     public LuerlockConnector(Transform obj) : base(obj) {
         Luerlock = Object.GetComponent<LuerlockAdapter>();
+        Joints = new Joint[2];
     }
+
+    private Joint Joint(int side) {
+
+        if (Joints[side] == null) {
+            Joints[side] = JointConfiguration.AddJoint(Luerlock.gameObject);
+            
+        }
+
+        return Joints[side];
+    }
+
+    
 
     #region Attaching
     public override void ConnectItem(Interactable interactable, int side) {
 
         if (Luerlock.State == InteractState.Grabbed) {
-            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem(Luerlock, 0);
+            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem(0);
         }
+
+        Luerlock.Objects[side].Interactable.State.On(InteractState.LuerlockAttatch);
 
         ReplaceObject(side, interactable?.gameObject);
     }
@@ -37,6 +54,9 @@ public class LuerlockConnector : ItemConnector {
 
             IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, false);
 
+            Joint(side).connectedBody = null;
+
+            return;
             // attachedObject.GameObject.AddComponent<Rigidbody>();
             obj.Rigidbody.isKinematic = false;
             // attachedObject.Rigidbody.WakeUp();
@@ -55,6 +75,16 @@ public class LuerlockConnector : ItemConnector {
 
         IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, true);
 
+
+        // Attaching
+
+        Luerlock.Objects[side] = obj;
+
+        SetLuerlockPosition(colliderT, obj.GameObject.transform);
+
+        Joint(side).connectedBody = obj.Rigidbody;
+
+        return;
         Vector3 newScale = new Vector3(
             obj.Scale.x / Luerlock.transform.lossyScale.x,
             obj.Scale.y / Luerlock.transform.lossyScale.y,
@@ -110,13 +140,14 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     #region Releasing
-    public override void ReleaseItem(Interactable Interactable, int side) {
+    public override void ReleaseItem(int side) {
 
         //if (luerlock.Interactable.State != InteractState.Grabbed) {
         //    throw new System.Exception("Trying to release ungrabbed item");
         //}
 
-
+        Joint(side).connectedBody = null;
+        Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttatch);
     }
     #endregion
 }

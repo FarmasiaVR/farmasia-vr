@@ -61,6 +61,19 @@ public class LuerlockAdapter : GeneralItem {
         CollisionSubscription.SubscribeToTrigger(Colliders[RIGHT], new TriggerListener().OnEnter(ObjectEnterRight));
     }
 
+    private void OnJointBreak(float breakForce) {
+        Logger.Print("Joint force broken: " + breakForce);
+
+        for (int i = 0; i < Connector.Joints.Length; i++) {//have list of joints
+            Joint joint = Connector.Joints[i];
+            if (breakForce != joint.currentForce.magnitude) {
+                continue;
+            }
+            Connector.ReleaseItem(i);
+            break;
+        }
+    }
+
     private void Update() {
 
         if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
