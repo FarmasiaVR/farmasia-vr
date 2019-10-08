@@ -41,6 +41,4 @@ public class ObjectFactory : MonoBehaviour {
         }
         lastPicked = handObject;
     }
-
-
 }
