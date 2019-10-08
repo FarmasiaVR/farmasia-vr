@@ -22,7 +22,9 @@ public class ObjectFactory : MonoBehaviour {
     }
 
     private void CreateNewCopy() {
-        if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) Destroy(latestCopy);
+        if (latestCopy != null) {
+            if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) Destroy(latestCopy);
+        }
 
         latestCopy = Instantiate(CopyObject);
         interactable = latestCopy;
