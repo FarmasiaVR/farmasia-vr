@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using Valve.VR;
 
-public class VRPadSwipeTest : MonoBehaviour
-{
+public class VRPadSwipeTest : MonoBehaviour {
 
-    private VRPadSwipeDetection swipe = new VRPadSwipeDetection(SteamVR_Input_Sources.RightHand);
+    private VRPadSwipeDetection swipe = new VRPadSwipeDetection(false, 0.75f, 0.25f);
 
     private void Awake() {
         swipe.OnSwipeRight = () => { Logger.Print("Yay callback"); };

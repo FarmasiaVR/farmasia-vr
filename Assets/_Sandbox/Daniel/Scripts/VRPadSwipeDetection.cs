@@ -3,10 +3,6 @@ using Valve.VR;
 
 public class VRPadSwipeDetection {
 
-    private const float TIMEOUT_SEC = 0.250f;
-    // Range: [0, 2] (pad values range from [-1, 1])
-    private float SWIPE_THRESHOLD = 0.75f;
-
     #region Delegates
     public delegate void SwipeCallback();
     #endregion
@@ -18,6 +14,9 @@ public class VRPadSwipeDetection {
     public SwipeCallback OnSwipeDown { get; set; }
     private SteamVR_Input_Sources handType;
     private Pipeline timeout;
+    private float timeoutSec;
+    // Range: [0, 2] (pad values range from [-1, 1])
+    private float swipeThreshold;
     // isSwiping is true if a pad down event
     // has fired and the timeout has not yet triggered
     private bool isSwiping;
@@ -25,8 +24,13 @@ public class VRPadSwipeDetection {
     private float deltaX, deltaY;
     #endregion
 
-    public VRPadSwipeDetection(SteamVR_Input_Sources handType) {
-        this.handType = handType;
+    /// <param name="handType">True for left hand pad, false for right hand pad</param>
+    /// <param name="swipeThreshold">How long the swipe needs to be to trigger the callback, range: [0, 2]</param>
+    /// <param name="timeoutSec">How long the swipe is allowed to last before becoming invalid</param>
+    public VRPadSwipeDetection(bool leftHand, float swipeThreshold, float timeoutSec) {
+        this.handType = leftHand ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
+        this.swipeThreshold = Mathf.Min(Mathf.Max(swipeThreshold, 0), 2);
+        this.timeoutSec = timeoutSec;
         Reset();
     }
 
@@ -42,7 +46,7 @@ public class VRPadSwipeDetection {
                 if (deltaX == 0 && deltaY == 0) {
                     deltaX = pos.x - startX;
                     deltaY = pos.y - startY;
-                    timeout = new Pipeline().Delay(TIMEOUT_SEC).Func(Reset);
+                    timeout = new Pipeline().Delay(timeoutSec).Func(Reset);
                 } else {
                     deltaX += delta.x;
                     deltaY += delta.y;
@@ -59,16 +63,16 @@ public class VRPadSwipeDetection {
         
         if (VRInput.GetControlUp(handType, ControlType.PadTouch)) {
             if (isSwiping) {
-                if (deltaX > SWIPE_THRESHOLD) {
-                    OnSwipeRight?.Invoke();
-                } else if (deltaX < -SWIPE_THRESHOLD) {
-                    OnSwipeLeft?.Invoke();
+                if (deltaX > swipeThreshold) {
+                    OnSwipeRight?.Invoke(deltaX);
+                } else if (deltaX < -swipeThreshold) {
+                    OnSwipeLeft?.Invoke(deltaX);
                 }
 
-                if (deltaY > SWIPE_THRESHOLD) {
-                    OnSwipeUp?.Invoke();
-                } else if (deltaY < -SWIPE_THRESHOLD) {
-                    OnSwipeDown?.Invoke();
+                if (deltaY > swipeThreshold) {
+                    OnSwipeUp?.Invoke(deltaX);
+                } else if (deltaY < -swipeThreshold) {
+                    OnSwipeDown?.Invoke(deltaX);
                 }
 
                 Reset();
