@@ -11,6 +11,8 @@ public class Syringe : GeneralItem {
 
     [SerializeField]
     private Transform handle;
+
+    private Vector3 lastPos;
     #endregion
 
     protected override void Start() {
@@ -28,11 +30,16 @@ public class Syringe : GeneralItem {
         Vector3 pos = handle.localPosition;
         pos.y = SyringePos();
         handle.localPosition = pos;
+        lastPos = pos;
     }
 
     private float SyringePos() {
-        float factor = 1.0f * Container.Amount / Container.Capacity;
+        return Factor * (maxPosition - defaultPosition);
+    }
 
-        return factor * (maxPosition - defaultPosition);
+    private float Factor {
+        get {
+            return 1.0f * Container.Amount / Container.Capacity;
+        }
     }
 }

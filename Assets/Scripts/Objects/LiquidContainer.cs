@@ -18,6 +18,10 @@ public class LiquidContainer : MonoBehaviour {
         get { return amount; }
     }
 
+    public void SetAmountPercentage(float percentage) {
+        int amount = (int)(percentage * Capacity);
+        SetAmount(amount);
+    }
     public void SetAmount(int value) {
         if (Capacity == 0) {
             amount = 0;
