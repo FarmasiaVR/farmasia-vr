@@ -45,6 +45,7 @@ public class UISystem : MonoBehaviour {
     private float right = 0.0f;
     private float oldYValue = 0.0f;
     private float oldXValue = 0.0f;
+    private VRPadSwipeDetection swipe = new VRPadSwipeDetection(true, 0.75f, 0.25f);
     #endregion
 
     #region Initialisation
@@ -63,6 +64,11 @@ public class UISystem : MonoBehaviour {
         arrowLeft = GameObject.FindGameObjectWithTag("Arrow (Left)").GetComponent<TextMeshPro>();
         arrowRight = GameObject.FindGameObjectWithTag("Arrow (Right)").GetComponent<TextMeshPro>();
         taskNumber = GameObject.FindGameObjectWithTag("TaskNumber").GetComponent<TextMeshPro>();
+
+        swipe.OnSwipeUp = (dy) => SetDescriptionVisibility(true);
+        swipe.OnSwipeDown = (dy) => SetDescriptionVisibility(false);
+        swipe.OnSwipeLeft = (dx) => NextDescription(false);
+        swipe.OnSwipeRight = (dx) => NextDescription(true);
     }
 
     /// <summary>
@@ -96,88 +102,10 @@ public class UISystem : MonoBehaviour {
     private void Update() {
         KeyListener();
 
-        if (!hand.IsGrabbed) {
-            if (VRInput.LeftPadValue.y == 0.0f && oldYValue == 0.0f) {
-                if (swipeDown) {
-                    ResetSwipe(swipeDown, down);
-                }
-                if (swipeUp) {
-                    ResetSwipe(swipeUp, up);
-                }
-            }
-            /*if (VRInput.LeftPadValue.x == 0.0f && oldXValue == 0.0f) {
-                if (swipeLeft) {
-                    ResetSwipe(swipeLeft, left);
-                }
-                if (swipeRight) {
-                    ResetSwipe(swipeRight, right);
-                }
-            }*/
-            if (VRInput.LeftPadValue.y < 0.0f) {
-                swipeUp = true;
-            }
-            if (VRInput.LeftPadValue.y > 0.0f) {
-                swipeDown = true;
-            }
-            /*if (VRInput.LeftPadValue.x < 0.0f) {
-                swipeRight = true;
-            }
-            if (VRInput.LeftPadValue.x > 0.0f) {
-                swipeLeft = true;
-            }*/
-
-            /*if (swipeRight) {
-                float valueUpDifference = oldXValue - VRInput.LeftPadValue.x;
-
-                if (valueUpDifference >= 0) {
-                    right += valueUpDifference;
-                    if (right > 1.0f) {
-                        NextDescription(true);
-                        ResetSwipe(swipeRight, right);
-                    } else {
-                        ResetSwipe(swipeRight, right);
-                    }
-                }
-            }
-            if (swipeLeft) {
-                float valueUpDifference = VRInput.LeftPadValue.x - oldXValue;
-                if (valueUpDifference >= 0) {
-                    left += valueUpDifference;
-                    if (left > 1.0f) {
-                        NextDescription(false);
-                        ResetSwipe(swipeLeft, left);
-                    } else {
-                        ResetSwipe(swipeLeft, left);
-                    }
-                }
-            }*/
-
-            if (swipeUp) {
-                float valueUpDifference = VRInput.LeftPadValue.y - oldYValue;
-                if (valueUpDifference >= 0) {
-                    up += valueUpDifference;
-                    if (up > 1.0f) {
-                        SetDescriptionVisibility(true);
-                        ResetSwipe(swipeUp, up);
-                    }
-                } else {
-                    ResetSwipe(swipeUp, up);
-                }
-            }
-            if (swipeDown) {
-                float valueDownDifference = oldYValue - VRInput.LeftPadValue.y;
-                if (valueDownDifference >= 0) {
-                    down += valueDownDifference;
-                    if (down > 1.0f) {
-                        SetDescriptionVisibility(false);
-                        ResetSwipe(swipeDown, down);
-                    }
-                } else {
-                    ResetSwipe(swipeDown, down);
-                }
-            }
-            oldYValue = VRInput.LeftPadValue.y;
-            /*oldXValue = VRInput.LeftPadValue.x;*/
+        if (hand.IsGrabbed) {
+            swipe.Reset();
+        } else {
+            swipe.Update(Time.deltaTime);
         }
     }
     #endregion

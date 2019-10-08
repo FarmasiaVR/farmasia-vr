@@ -80,7 +80,7 @@ public class VRPadSwipeDetection {
         }
     }
 
-    private void Reset() {
+    public void Reset() {
         timeout = new Pipeline();
         isSwiping = false;
         deltaX = 0;
