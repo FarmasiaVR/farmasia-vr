@@ -23,7 +23,7 @@ public class UISystem : MonoBehaviour {
     private GameObject currentDescription;
     private MeshRenderer descriptionMesh;
     private Description description;
-    private VRPadSwipeDetection swipe = new VRPadSwipeDetection(true, 0.75f, 0.25f);
+    private VRPadSwipeDetection swipe;
     #endregion
 
     #region TextMesh objects
@@ -49,6 +49,7 @@ public class UISystem : MonoBehaviour {
         arrowRight = GameObject.FindGameObjectWithTag("Arrow (Right)").GetComponent<TextMeshPro>();
         taskNumber = GameObject.FindGameObjectWithTag("TaskNumber").GetComponent<TextMeshPro>();
 
+        swipe = new VRPadSwipeDetection(G.Instance.Pipeline, true, 0.75f, 0.25f);
         swipe.OnSwipeUp = (dy) => SetDescriptionVisibility(true);
         swipe.OnSwipeDown = (dy) => SetDescriptionVisibility(false);
         swipe.OnSwipeLeft = (dx) => NextDescription(false);
