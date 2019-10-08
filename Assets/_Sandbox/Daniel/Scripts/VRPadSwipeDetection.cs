@@ -4,7 +4,7 @@ using Valve.VR;
 public class VRPadSwipeDetection {
 
     #region Delegates
-    public delegate void SwipeCallback();
+    public delegate void SwipeCallback(float delta);
     #endregion
 
     #region Fields
