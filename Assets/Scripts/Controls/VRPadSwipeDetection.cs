@@ -20,7 +20,6 @@ public class VRPadSwipeDetection {
     // isSwiping is true if a pad down event
     // has fired and the timeout has not yet triggered
     private bool isSwiping;
-    private float startX, startY;
     private float deltaX, deltaY;
     #endregion
 
@@ -35,32 +34,20 @@ public class VRPadSwipeDetection {
     }
 
     public void Update(float deltaTime) {
-        timeout.Update(deltaTime);
-
         if (VRInput.GetControl(handType, ControlType.PadTouch)) {
-            Vector2 pos = VRInput.PadTouchValue(handType);
-            Vector2 delta = VRInput.PadTouchDelta(handType);
+            if (VRInput.GetControlDown(handType, ControlType.PadTouch)) {
+                isSwiping = true;
+                timeout = G.Instance.Pipeline.New().Delay(timeoutSec).Func(Reset);
+                return;
+            }
+
             if (isSwiping) {
-                // Initial delta value is calculated from the initial touch position and the current position
-                // PadTouchDelta returns the position since the previous position was (0, 0) when not touched
-                if (deltaX == 0 && deltaY == 0) {
-                    deltaX = pos.x - startX;
-                    deltaY = pos.y - startY;
-                    timeout = new Pipeline().Delay(timeoutSec).Func(Reset);
-                } else {
-                    deltaX += delta.x;
-                    deltaY += delta.y;
-                }
+                Vector2 delta = VRInput.PadTouchDelta(handType);
+                deltaX += delta.x;
+                deltaY += delta.y;
             }
         }
 
-        if (VRInput.GetControlDown(handType, ControlType.PadTouch)) {
-            Vector2 pos = VRInput.PadTouchValue(handType);
-            startX = pos.x;
-            startY = pos.y;
-            isSwiping = true;
-        }
-        
         if (VRInput.GetControlUp(handType, ControlType.PadTouch)) {
             if (isSwiping) {
                 if (deltaX > swipeThreshold) {
@@ -81,11 +68,9 @@ public class VRPadSwipeDetection {
     }
 
     public void Reset() {
-        timeout = new Pipeline();
+        timeout?.Abort();
         isSwiping = false;
         deltaX = 0;
         deltaY = 0;
-        startX = 0;
-        startY = 0;
     }
 }
