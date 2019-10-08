@@ -2,10 +2,10 @@
 
 public class VRPadSwipeTest : MonoBehaviour {
 
-    private VRPadSwipeDetection swipe;
+    private VRPadSwipe swipe;
 
     private void Awake() {
-        swipe = new VRPadSwipeDetection(G.Instance.Pipeline, false, 0.75f, 0.25f);
+        swipe = new VRPadSwipe(G.Instance.Pipeline, false, 0.75f, 0.25f);
         swipe.OnSwipeRight = (dx) => Logger.Print("Swipe right, delta: " + dx);
         swipe.OnSwipeLeft = (dx) => Logger.Print("Swipe left, delta: " + dx);
         swipe.OnSwipeDown = (dy) => Logger.Print("Swipe down, delta: " + dy);

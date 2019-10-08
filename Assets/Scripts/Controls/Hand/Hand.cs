@@ -22,7 +22,7 @@ public class Hand : MonoBehaviour {
 
     public HandConnector Connector { get; private set; }
 
-    public VRPadSwipeDetection Swipe { get; private set; }
+    public VRPadSwipe Swipe { get; private set; }
     #endregion
 
     private void Start() {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Valve.VR;
 
-public class VRPadSwipeDetection {
+public class VRPadSwipe {
 
     #region Delegates
     public delegate void SwipeCallback(float delta);
@@ -28,7 +28,7 @@ public class VRPadSwipeDetection {
     /// <param name="isLeftHand">True for left hand pad, false for right hand pad</param>
     /// <param name="swipeThreshold">How long the swipe needs to be to trigger the callback, range: [0, 2]</param>
     /// <param name="timeoutSec">How long the swipe is allowed to last before becoming invalid</param>
-    public VRPadSwipeDetection(PipelineManager manager, bool isLeftHand, float swipeThreshold, float timeoutSec) {
+    public VRPadSwipe(PipelineManager manager, bool isLeftHand, float swipeThreshold, float timeoutSec) {
         this.pipelineManager = manager;
         this.handType = isLeftHand ? SteamVR_Input_Sources.LeftHand : SteamVR_Input_Sources.RightHand;
         this.swipeThreshold = Mathf.Min(Mathf.Max(swipeThreshold, 0), 2);
