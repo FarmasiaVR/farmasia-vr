@@ -10,6 +10,9 @@ public class Interactable : MonoBehaviour {
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
     private Rigidbody rb;
+
+    // CAN'T BE A PROPERTY
+    public Interactors Interactors;
     #endregion
 
     protected virtual void Start() {

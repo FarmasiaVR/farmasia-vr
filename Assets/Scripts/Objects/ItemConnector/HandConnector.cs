@@ -27,7 +27,7 @@ public class HandConnector : ItemConnector {
     #endregion
 
     public HandConnector(Transform obj) : base(obj) {
-        Hand = Object.GetComponent<Hand>();
+        Hand = obj.GetComponent<Hand>();
     }
 
     #region Attaching
@@ -46,6 +46,7 @@ public class HandConnector : ItemConnector {
         }
 
         GrabbedRigidbody.GetComponent<Interactable>().State.On(InteractState.Grabbed);
+        interactable.Interactors.SetHand(Hand);
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
         IsGrabbed = true;
@@ -85,6 +86,7 @@ public class HandConnector : ItemConnector {
         }
 
         if (!Hand.Other.IsGrabbed || Hand.Other.Connector.GrabbedRigidbody != GrabbedRigidbody) {
+            Interactable.GetInteractable(GrabbedRigidbody.transform).Interactors.SetHand(null);
             GrabbedRigidbody.GetComponent<Interactable>().State.Off(InteractState.Grabbed);
         }
 

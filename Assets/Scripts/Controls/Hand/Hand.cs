@@ -77,14 +77,16 @@ public class Hand : MonoBehaviour {
 
         if (Interactable.Type == InteractableType.Grabbable) {
 
-            if (Interactable.State == InteractState.LuerlockAttatch) {
+            Connector.ConnectItem(Interactable, 0);
 
-                var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
+            //if (Interactable.State == InteractState.LuerlockAttatch) {
 
-                pair.Value.Connector.ConnectItem(Interactable, pair.Key);
-            } else {
-                Connector.ConnectItem(Interactable, 0);
-            }
+            //    var pair = Interactable.Interactors.LuerlockPair;
+
+            //    pair.Value.Connector.ConnectItem(Interactable, pair.Key);
+            //} else {
+            //    Connector.ConnectItem(Interactable, 0);
+            //}
 
         } else if (Interactable.Type == InteractableType.Interactable) {
             Interactable.Interact(this);
@@ -95,14 +97,20 @@ public class Hand : MonoBehaviour {
         if (IsGrabbed) {
             if (VRControlSettings.HoldToGrab) {
 
-                if (Interactable.State == InteractState.LuerlockAttatch) {
+                Connector.ReleaseItem(0);
 
-                    var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
+                //if (Interactable.State == InteractState.LuerlockAttatch) {
 
-                    pair.Value.Connector.ReleaseItem(pair.Key);
-                } else {
-                    Connector.ReleaseItem(0);
-                }
+                //    var pair = Interactable.Interactors.LuerlockPair;
+
+                //    if (pair.Value == null) {
+                //        throw new System.Exception("Interacting luerlock was null, key: " + pair.Key);
+                //    }
+
+                //    pair.Value.Connector.ReleaseItem(pair.Key);
+                //} else {
+                //    Connector.ReleaseItem(0);
+                //}
             }
         } else if (Interactable != null) {
             Interactable.Uninteract(this);
@@ -115,7 +123,12 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Interactable = coll.GetGrab();
+        //  Interactable = coll.GetGrab();
+
+        if (Interactable == null) {
+            Logger.Warning("Tryying to interact with null objet");
+            UninteractWithObject();
+        }
 
         if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Interact(this);
@@ -127,7 +140,12 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Interactable = coll.GetGrab();
+        //Interactable = coll.GetGrab();
+
+        if (Interactable == null) {
+            Logger.Warning("Tryying to interact with null objet");
+            UninteractWithObject();
+        }
 
         if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Uninteract(this);

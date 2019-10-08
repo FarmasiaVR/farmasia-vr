@@ -11,7 +11,7 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     public LuerlockConnector(Transform obj) : base(obj) {
-        Luerlock = Object.GetComponent<LuerlockAdapter>();
+        Luerlock = obj.GetComponent<LuerlockAdapter>();
         Joints = new Joint[2];
     }
 
@@ -33,8 +33,6 @@ public class LuerlockConnector : ItemConnector {
         if (Luerlock.State == InteractState.Grabbed) {
             Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem(0);
         }
-
-        Luerlock.Objects[side].Interactable.State.On(InteractState.LuerlockAttatch);
 
         ReplaceObject(side, interactable?.gameObject);
     }
@@ -72,6 +70,13 @@ public class LuerlockConnector : ItemConnector {
 
         obj.Interactable = newObject.GetComponent<Interactable>();
         obj.Scale = newObject.transform.localScale;
+
+        obj.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(side, Luerlock));
+
+        Logger.PrintVariables("luerlock", Luerlock.name);
+        Logger.PrintVariables("obj luer: ", obj.Interactable.Interactors.LuerlockPair.Value.gameObject.name);
+
+        obj.Interactable.State.On(InteractState.LuerlockAttatch);
 
         IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, true);
 
@@ -147,7 +152,10 @@ public class LuerlockConnector : ItemConnector {
         //}
 
         Joint(side).connectedBody = null;
+        Luerlock.Objects[side].Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
+        Logger.Print("Removed luerlock from item");
         Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttatch);
+        ReplaceObject(side, null);
     }
     #endregion
 }

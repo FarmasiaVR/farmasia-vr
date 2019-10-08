@@ -35,7 +35,9 @@ public class ObjectFactory : MonoBehaviour {
         interactable = latestCopy;
         latestCopy.SetActive(true);
 
-        LuerlockConnector.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+        if (handObject != null) {
+            LuerlockConnector.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+        }
         if (lastPicked != null) {
             LuerlockConnector.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
         }

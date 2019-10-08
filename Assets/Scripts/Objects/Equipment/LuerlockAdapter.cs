@@ -159,19 +159,19 @@ public class LuerlockAdapter : GeneralItem {
     //    return -1;
     //}
 
-    public static KeyValuePair<int, LuerlockAdapter> GrabbingLuerlock(Rigidbody rb) {
+    //public static KeyValuePair<int, LuerlockAdapter> GrabbingLuerlock(Rigidbody rb) {
 
-        LuerlockAdapter[] luerlocks = GameObject.FindObjectsOfType<LuerlockAdapter>();
+    //    LuerlockAdapter[] luerlocks = GameObject.FindObjectsOfType<LuerlockAdapter>();
 
-        foreach (LuerlockAdapter luerlock in luerlocks) {
-            if (rb == luerlock.Objects[RIGHT].Rigidbody) {
-                return new KeyValuePair<int, LuerlockAdapter>(RIGHT, luerlock);
-            } else if (rb == luerlock.Objects[LEFT].Rigidbody) {
-                return new KeyValuePair<int, LuerlockAdapter>(LEFT, luerlock);
-            }
-        }
+    //    foreach (LuerlockAdapter luerlock in luerlocks) {
+    //        if (rb == luerlock.Objects[RIGHT].Rigidbody) {
+    //            return new KeyValuePair<int, LuerlockAdapter>(RIGHT, luerlock);
+    //        } else if (rb == luerlock.Objects[LEFT].Rigidbody) {
+    //            return new KeyValuePair<int, LuerlockAdapter>(LEFT, luerlock);
+    //        }
+    //    }
 
-        return new KeyValuePair<int, LuerlockAdapter>(-1, null);
-    }
+    //    return new KeyValuePair<int, LuerlockAdapter>(-1, null);
+    //}
     #endregion
 }
