@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5888231561592145419}
   - component: {fileID: 5888231561592145416}
   - component: {fileID: 5888231561592145417}
-  - component: {fileID: -2828691067722123853}
   - component: {fileID: 2502335828355689382}
   - component: {fileID: 4314641033536923742}
+  - component: {fileID: -2828691067722123853}
   m_Layer: 0
   m_Name: Medicine bottle
   m_TagString: Interactable
@@ -98,21 +98,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-2828691067722123853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5888231561592145423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  State: 0
-  objectType: 5
-  isClean: 0
 --- !u!54 &2502335828355689382
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,6 +127,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 2, z: 0.7}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-2828691067722123853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5888231561592145423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 5
+  isClean: 0
 --- !u!1001 &4209174611660343866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,16 +298,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.9
       objectReference: {fileID: 0}
-    - target: {fileID: 8067146742206830368, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8067146742206830369, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: amount
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 8067146740602620394, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -318,6 +307,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067146742206830368, guid: 32dbe3815180f394eba2d1767aa895c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067146742206830369, guid: 32dbe3815180f394eba2d1767aa895c2,
+        type: 3}
+      propertyPath: amount
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8067146740602620392, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}

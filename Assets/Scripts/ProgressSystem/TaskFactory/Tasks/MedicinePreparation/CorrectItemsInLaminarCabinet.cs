@@ -49,7 +49,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 break;
             case ObjectType.Bottle:
                 MedicineBottle bottle = item as MedicineBottle;
-                if (bottle.GetContainer().Capacity == 100) {
+                if (bottle.Container.Capacity == 100) {
                     EnableCondition("RightSizeBottle");
                 }
                 break;

@@ -48,7 +48,6 @@ public class HandConnector : ItemConnector {
         GrabbedRigidbody.GetComponent<Interactable>().State.On(InteractState.Grabbed);
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
-
         IsGrabbed = true;
         InitializeOffset();
         AttachGrabbedObject();

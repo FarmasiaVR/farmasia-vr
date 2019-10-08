@@ -51,7 +51,7 @@ public class MissingItems : TaskBase {
         }
         if (type == ObjectType.Bottle && Array.Exists(conditions, element => element == "RightSizeBottle")) {
             MedicineBottle bottle = item as MedicineBottle;
-            if (bottle.GetContainer().Capacity == 100) {
+            if (bottle.Container.Capacity == 100) {
                 EnableCondition("RightSizeBottle");
             }
         }
