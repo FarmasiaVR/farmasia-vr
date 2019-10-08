@@ -8,6 +8,8 @@ public class ObjectFactory : MonoBehaviour {
     public GameObject CopyObject { get; set; }
     private GameObject latestCopy;
     private Interactable interactable;
+
+    private GameObject lastPicked;
     #endregion
 
     private void Start() {
@@ -22,12 +24,23 @@ public class ObjectFactory : MonoBehaviour {
     }
 
     private void CreateNewCopy() {
+        GameObject handObject = latestCopy;
+
         if (latestCopy != null) {
             if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) Destroy(latestCopy);
         }
 
         latestCopy = Instantiate(CopyObject);
+
         interactable = latestCopy;
         latestCopy.SetActive(true);
+
+        LuerlockConnector.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+        if (lastPicked != null) {
+            LuerlockConnector.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
+        }
+        lastPicked = handObject;
     }
+
+
 }
