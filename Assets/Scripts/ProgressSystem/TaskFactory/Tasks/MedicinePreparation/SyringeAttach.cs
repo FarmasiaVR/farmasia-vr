@@ -63,7 +63,7 @@ public class SyringeAttach : TaskBase {
     /// <returns>"Returns true if the item has the expected size."</returns>
     private bool SyringeSize(GeneralItem item) {
         Syringe syringe = item as Syringe;
-            if (syringe.GetContainer().Capacity == 1) {
+            if (syringe.Container.Capacity == 1) {
                 return true;
             }
         return false;

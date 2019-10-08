@@ -41,7 +41,7 @@ public class MedicineToSyringe : TaskBase {
         
         if (type == ObjectType.Syringe) {
             Syringe syringe = item as Syringe;
-            if (syringe.GetContainer().Amount == 20) {
+            if (syringe.Container.Amount == 20) {
                     EnableCondition("RightAmountInSyringe");
             }
         }

@@ -64,7 +64,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     private bool AmountRight(GeneralItem item) {
         Syringe syringe = item as Syringe;
             // right amount should be float
-            if (syringe.GetContainer().Amount == 15) {
+            if (syringe.Container.Amount == 15) {
                 return true;
             }
         return false;

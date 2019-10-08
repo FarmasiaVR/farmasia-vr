@@ -8,24 +8,29 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private LiquidObject liquid;
 
+    public delegate void AmountChange();
+    public AmountChange OnAmountChange { get; set; }
+
     [SerializeField]
     private int amount;
 
     public int Amount {
         get { return amount; }
-        set {
-            if (Capacity == 0) {
-                amount = 0;
-                liquid?.SetFillPercentage(0);
-            } else {
-                amount = Math.Max(Math.Min(value, Capacity), 0);
-                // liquid is null when OnValidate is called twice before Awake
-                // when playing in Editor Mode
-                // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
-                float percentage = (float)amount / capacity;
-                liquid?.SetFillPercentage(percentage);
-            }
+    }
+
+    public void SetAmount(int value) {
+        if (Capacity == 0) {
+            amount = 0;
+            liquid?.SetFillPercentage(0);
+        } else {
+            amount = Math.Max(Math.Min(value, Capacity), 0);
+            // liquid is null when OnValidate is called twice before Awake
+            // when playing in Editor Mode
+            // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
+            float percentage = (float)amount / capacity;
+            liquid?.SetFillPercentage(percentage);
         }
+        OnAmountChange?.Invoke();
     }
 
     [SerializeField]
@@ -46,7 +51,7 @@ public class LiquidContainer : MonoBehaviour {
 
     private void OnValidate() {
         Capacity = capacity;
-        Amount = amount;
+        SetAmount(amount);
     }
 
     public int GetReceiveCapacity() {
@@ -64,9 +69,9 @@ public class LiquidContainer : MonoBehaviour {
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
-        Amount -= toTransfer;
+        SetAmount(Amount - toTransfer);
         if (target != null) {
-            target.Amount += toTransfer;
+            target.SetAmount(target.Amount + toTransfer);
         }
     }
 
