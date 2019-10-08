@@ -77,13 +77,11 @@ public class TestHandMover : MonoBehaviour {
 
     private void UpdateHands() {
         if (JustPressed(HAND_GRAB)) {
-            GrabObject();
+            PassGrabInput();
         }
+        
         if (JustPressed(HAND_INTERACT)) {
-            Interact();
-        }
-        if (JustReleased(HAND_GRAB)) {
-            ReleaseObject();
+            PassInteractInput();
         }
     }
 
@@ -134,15 +132,11 @@ public class TestHandMover : MonoBehaviour {
         currentState = state;
     }
 
-    private void GrabObject() {
+    private void PassGrabInput() {
         VRInput.ControlDown(Controls.Grab, GetHandType());
     }
 
-    private void ReleaseObject() {
-        VRInput.ControlUp(Controls.Grab, GetHandType());
-    }
-
-    private void Interact() {
+    private void PassInteractInput() {
         VRInput.ControlDown(Controls.GrabInteract, GetHandType());
     }
 

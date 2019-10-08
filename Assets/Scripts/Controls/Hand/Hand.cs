@@ -41,6 +41,7 @@ public class Hand : MonoBehaviour {
 
     private void UpdateControls() {
 
+        // Grabbing
         if (VRInput.GetControlDown(HandType, Controls.Grab)) {
             InteractWithObject();
         }
@@ -48,6 +49,7 @@ public class Hand : MonoBehaviour {
             UninteractWithObject();
         }
 
+        // Interacting
         if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
             GrabInteract();
         }

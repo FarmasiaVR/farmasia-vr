@@ -76,13 +76,12 @@ public static class VRInput {
     }
 
     public static void ControlDown(ControlType c, SteamVR_Input_Sources handType) {
-
+        
         HandControl key = new HandControl(c, handType);
 
         ControlState state = controls[key];
         state.GetDown = Time.frameCount;
         state.Down = true;
-
         controls[key] = state;
     }
     public static void ControlUp(ControlType c, SteamVR_Input_Sources handType) {
@@ -92,12 +91,19 @@ public static class VRInput {
         ControlState state = controls[key];
         state.Down = false;
         state.GetUp = Time.frameCount;
-
         controls[key] = state;
     }
 
     public static bool GetControlDown(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
+
+        // Fix for TestHandMover
+        int frameDifference = controls[key].GetDown - Time.frameCount;
+        if (frameDifference == -1)
+        {
+            return controls[key].Down;
+        }
+
         return controls[key].GetDown == Time.frameCount;
     }
     public static bool GetControl(SteamVR_Input_Sources handType, ControlType c) {
