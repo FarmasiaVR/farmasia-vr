@@ -1,11 +1,11 @@
+using UnityEngine;
 using Valve.VR;
 
 public class VRPadSwipeDetection {
 
-    private const float TIMEOUT_MS = 250;
-    // Percentage of pad radius
-    // Pad values range from [-1, 1]
-    private float SWIPE_THRESHOLD = 0.2f;
+    private const float TIMEOUT_SEC = 0.250f;
+    // Range: [0, 2] (pad values range from [-1, 1])
+    private float SWIPE_THRESHOLD = 0.75f;
 
     #region Delegates
     public delegate void SwipeCallback();
@@ -21,45 +21,53 @@ public class VRPadSwipeDetection {
     // isSwiping is true if a pad down event
     // has fired and the timeout has not yet triggered
     private bool isSwiping;
-    // VRInput.[Left|Right]PadDelta can maybe be used,
-    // depending on when and how the value is changed
     private float startX, startY;
+    private float deltaX, deltaY;
     #endregion
 
     public VRPadSwipeDetection(SteamVR_Input_Sources handType) {
         this.handType = handType;
-        timeout = new Pipeline();
+        Reset();
     }
 
-    private void Update(float deltaTime) {
+    public void Update(float deltaTime) {
         timeout.Update(deltaTime);
 
-        if (VRInput.GetControlDown(handType, ControlType.PadTouch)) {
-            isSwiping = true;
-            startX = VRInput.PadTouchValue(handType).x;
-            startY = VRInput.PadTouchValue(handType).y;
-            timeout = new Pipeline().Delay(TIMEOUT_MS).Func(Reset);
+        if (VRInput.GetControl(handType, ControlType.PadTouch)) {
+            Vector2 pos = VRInput.PadTouchValue(handType);
+            Vector2 delta = VRInput.PadTouchDelta(handType);
+            if (isSwiping) {
+                // Initial delta value is calculated from the initial touch position and the current position
+                // PadTouchDelta returns the position since the previous position was (0, 0) when not touched
+                if (deltaX == 0 && deltaY == 0) {
+                    deltaX = pos.x - startX;
+                    deltaY = pos.y - startY;
+                    timeout = new Pipeline().Delay(TIMEOUT_SEC).Func(Reset);
+                } else {
+                    deltaX += delta.x;
+                    deltaY += delta.y;
+                }
+            }
         }
 
-        if (isSwiping && VRInput.GetControlUp(handType, ControlType.PadTouch)) {
-            float deltaX = VRInput.PadTouchValue(handType).x - startX;
-            float deltaY = VRInput.PadTouchValue(handType).y - startY;
-            if (deltaX > deltaY) {
+        if (VRInput.GetControlDown(handType, ControlType.PadTouch)) {
+            Vector2 pos = VRInput.PadTouchValue(handType);
+            startX = pos.x;
+            startY = pos.y;
+            isSwiping = true;
+        }
+        
+        if (VRInput.GetControlUp(handType, ControlType.PadTouch)) {
+            if (isSwiping) {
                 if (deltaX > SWIPE_THRESHOLD) {
-                    Logger.Print("Swipe right");
                     OnSwipeRight?.Invoke();
-                } else if (deltaX < SWIPE_THRESHOLD) {
-                    Logger.Print("Swipe left");
+                } else if (deltaX < -SWIPE_THRESHOLD) {
                     OnSwipeLeft?.Invoke();
                 }
 
-                Reset();
-            } else if (deltaY > deltaX) {
                 if (deltaY > SWIPE_THRESHOLD) {
-                    Logger.Print("Swipe up");
                     OnSwipeUp?.Invoke();
-                } else if (deltaY < SWIPE_THRESHOLD) {
-                    Logger.Print("Swipe down");
+                } else if (deltaY < -SWIPE_THRESHOLD) {
                     OnSwipeDown?.Invoke();
                 }
 
@@ -71,6 +79,8 @@ public class VRPadSwipeDetection {
     private void Reset() {
         timeout = new Pipeline();
         isSwiping = false;
+        deltaX = 0;
+        deltaY = 0;
         startX = 0;
         startY = 0;
     }
