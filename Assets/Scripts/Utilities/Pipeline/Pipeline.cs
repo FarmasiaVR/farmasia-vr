@@ -46,12 +46,15 @@ public class Pipeline {
         return this;
     }
 
+    public void Abort() {
+        actions.Clear();
+    }
+
     public void Update(float deltaTime) {
-        if (actions.Count > 0) {
-            actions[0].Update(deltaTime);
-            if (actions[0].IsDone) {
-                actions.RemoveAt(0);
-            }
+        PipelineAction top = actions[0];
+        top?.Update(deltaTime);
+        if (top?.IsDone ?? false) {
+            actions.RemoveAt(0);
         }
     }
 }
