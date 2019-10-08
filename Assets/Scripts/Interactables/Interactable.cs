@@ -5,7 +5,7 @@ public class Interactable : MonoBehaviour {
     #region fields
     private static string iTag = "Interactable";
 
-    public EnumBitField<InteractableType> Types { get; protected set; } = new EnumBitField<InteractableType>();
+    public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
@@ -24,6 +24,9 @@ public class Interactable : MonoBehaviour {
     public virtual void Interacting(Hand hand) {
     }
     public virtual void Uninteract(Hand hand) {
+    }
+
+    public virtual void UpdateInteract(Hand hand) {
     }
 
     public static Interactable GetInteractable(Transform t) {

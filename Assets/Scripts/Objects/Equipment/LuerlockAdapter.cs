@@ -102,7 +102,7 @@ public class LuerlockAdapter : GeneralItem {
             return false;
         }
 
-        if (connectingInteractable.Types.IsOff(InteractableType.LuerlockAttachable)) {
+        if (connectingInteractable.Type.IsOff(InteractableType.LuerlockAttachable)) {
             Logger.Print("Interactable is not of type LuerlockAttachable");
             return false;
         }

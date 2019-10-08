@@ -13,6 +13,10 @@ public class Syringe : GeneralItem {
     private Transform handle;
 
     private Vector3 lastPos;
+
+    private float liquidEjectSpeed = 250;
+
+    private bool swipeEnable;
     #endregion
 
     protected override void Start() {
@@ -21,9 +25,29 @@ public class Syringe : GeneralItem {
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
 
-        Types.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid);
+        Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid);
 
         Container.OnAmountChange += SetSyringeHandlePosition;
+    }
+
+    public override void Interact(Hand hand) {
+        swipeEnable = true;
+    }
+
+    public override void UpdateInteract(Hand hand) {
+
+        if (VRInput.GetControlUp(hand.HandType, ControlType.PadTouch)) {
+            swipeEnable = false;
+        }
+        if (VRInput.GetControlDown(hand.HandType, ControlType.PadTouch) || VRInput.GetControlUp(hand.HandType, ControlType.PadTouch) || swipeEnable) {
+            return;
+        }
+
+        float changeFactor = VRInput.PadTouchDelta(hand.HandType).y / 2;
+
+        int amount = (int)(changeFactor * liquidEjectSpeed * Time.deltaTime) + Container.Amount;
+
+        Container.SetAmount(amount);
     }
 
     public void SetSyringeHandlePosition() {

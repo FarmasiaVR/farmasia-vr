@@ -20,6 +20,8 @@ public class Hand : MonoBehaviour {
     public Hand Other { get => other; }
 
     public HandConnector Connector { get; private set; }
+
+    public VRPadSwipeDetection Swipe { get; private set; }
     #endregion
 
     private void Start() {
@@ -29,6 +31,7 @@ public class Hand : MonoBehaviour {
         Connector = new HandConnector(transform);
 
         Assert.IsNotNull(other, "Other hand was null");
+
     }
 
     private void Update() {
@@ -50,7 +53,12 @@ public class Hand : MonoBehaviour {
         if (VRInput.GetControlUp(HandType, Controls.GrabInteract)) {
             GrabUninteract();
         }
+
+        if (!IsGrabbed) {
+            Interactable.UpdateInteract(this);
+        }
     }
+
 
     #region Interaction
     public void InteractWithObject() {
@@ -64,19 +72,18 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (Interactable.Types.IsOn(InteractableType.Grabbable)) {
+        if (Interactable.Type == InteractableType.Grabbable) {
 
             if (Interactable.State == InteractState.LuerlockAttatch) {
 
                 var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
 
-                // needs access to luerlock
                 pair.Value.Connector.ConnectItem(Interactable, pair.Key);
             } else {
                 Connector.ConnectItem(Interactable, 0);
             }
 
-        } else if (Interactable.Types.IsOn(InteractableType.Interactable)) {
+        } else if (Interactable.Type == InteractableType.Interactable) {
             Interactable.Interact(this);
         }
     }
@@ -84,14 +91,13 @@ public class Hand : MonoBehaviour {
     public void UninteractWithObject() {
         if (IsGrabbed) {
             if (VRControlSettings.HoldToGrab) {
-                // Release();
+
                 if (Interactable.State == InteractState.LuerlockAttatch) {
 
                     var pair = LuerlockAdapter.GrabbingLuerlock(Interactable.Rigidbody);
 
                     pair.Value.Connector.ReleaseItem(pair.Key);
                 } else {
-
                     Connector.ReleaseItem(0);
                 }
             }
@@ -108,7 +114,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
+        if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Interact(this);
         }
     }
@@ -120,7 +126,7 @@ public class Hand : MonoBehaviour {
 
         Interactable = coll.GetGrab();
 
-        if (Interactable.Types.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
+        if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
             Interactable.Uninteract(this);
         }
     }
