@@ -6,6 +6,7 @@ public class Hand : MonoBehaviour {
 
     #region fields
     public bool IsGrabbed { get => Connector.IsGrabbed; }
+    public bool IsClean { get; set; }
 
     public SteamVR_Input_Sources HandType { get; private set; }
 
