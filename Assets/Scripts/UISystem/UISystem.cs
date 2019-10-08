@@ -23,29 +23,13 @@ public class UISystem : MonoBehaviour {
     private GameObject currentDescription;
     private MeshRenderer descriptionMesh;
     private Description description;
-    #endregion
-
-    #region Arrows and Number
-    private TextMeshPro arrowLeft;
-    private bool arrowLeftVisible;
-    private TextMeshPro arrowRight;
-    private bool arrowRightVisible;
-    private TextMeshPro taskNumber;
-    private bool taskNumberVisible;
-    #endregion
-
-    #region Actions
-    private bool swipeUp = false;
-    private bool swipeDown = false;
-    private bool swipeLeft = false;
-    private bool swipeRight = false;
-    private float up = 0.0f;
-    private float down = 0.0f;
-    private float left = 0.0f;
-    private float right = 0.0f;
-    private float oldYValue = 0.0f;
-    private float oldXValue = 0.0f;
     private VRPadSwipeDetection swipe = new VRPadSwipeDetection(true, 0.75f, 0.25f);
+    #endregion
+
+    #region TextMesh objects
+    private TextMeshPro arrowLeft;
+    private TextMeshPro arrowRight;
+    private TextMeshPro taskNumber;
     #endregion
 
     #region Initialisation
@@ -82,17 +66,6 @@ public class UISystem : MonoBehaviour {
     }
     #endregion
 
-    #region Private Methods
-    private void ResetSwipe(bool swipeDirection, float swipeAmount) {
-        swipeDirection = false;
-        swipeAmount = 0.0f;
-    }
-    private void ResetSwipeDownChecking() {
-        swipeDown = false;
-        down = 0.0f;
-    }
-    #endregion
-
     #region MonoBehaviour Methods
     /// <summary>
     /// Used for handling Description change and visibility with VRInput.
@@ -102,10 +75,9 @@ public class UISystem : MonoBehaviour {
     private void Update() {
         KeyListener();
 
+        swipe.Update(Time.deltaTime);
         if (hand.IsGrabbed) {
             swipe.Reset();
-        } else {
-            swipe.Update(Time.deltaTime);
         }
     }
     #endregion
@@ -147,7 +119,6 @@ public class UISystem : MonoBehaviour {
     #endregion
 
     #region Description Methods
-
     private void SetArrowVisibility() {
         int value = description.CheckPointerEdge();
         if (value == -2) {
@@ -204,7 +175,6 @@ public class UISystem : MonoBehaviour {
     }
 
     public void UpdateDescription(List<ITask> tasks) {
-
         GameObject desc = currentDescription;
         if (desc == null) {
             desc = InitUIComponent(descriptionPrefab);
@@ -239,5 +209,4 @@ public class UISystem : MonoBehaviour {
         }
     }
     #endregion
-
 }
