@@ -55,7 +55,7 @@ public class Hand : MonoBehaviour {
             GrabUninteract();
         }
 
-        if (!IsGrabbed) {
+        if (IsGrabbed && Interactable != null) {
             Interactable.UpdateInteract(this);
         }
     }

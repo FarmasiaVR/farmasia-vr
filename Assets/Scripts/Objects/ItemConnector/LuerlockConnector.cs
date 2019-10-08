@@ -102,7 +102,7 @@ public class LuerlockConnector : ItemConnector {
         Luerlock.Objects[side] = obj;
     }
 
-    private static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
+    public static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
 
         Collider coll = a.GetComponent<Collider>();
 
