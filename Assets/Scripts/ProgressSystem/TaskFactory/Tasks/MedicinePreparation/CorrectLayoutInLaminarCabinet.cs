@@ -32,8 +32,8 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void FinalArrangeItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            List<ITask> list = G.Instance.Progress.activeTasks;
+        if (G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
+            List<ITask> list = G.Instance.Progress.currentPackage.activeTasks;
             int exists = 0;
             exists = (from n in list
                     where n.GetTaskType().Equals(TaskType.MissingItems)
@@ -79,8 +79,8 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Removes Layout1 task if not removed before.
     /// </summary>
     public void FinishLayout1() {
-        if (!G.Instance.Progress.doneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
-            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.activeTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
+        if (!G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
+            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.currentPackage.activeTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
             layoutInstance.RemoveTaskFromOutside();
         }
     }

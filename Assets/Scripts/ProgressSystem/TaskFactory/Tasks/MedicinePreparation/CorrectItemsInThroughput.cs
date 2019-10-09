@@ -12,7 +12,7 @@ public class CorrectItemsInThroughput : TaskBase {
     ///  Constructor for CorrectItemsInThroughput task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
+    public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         Subscribe();
         AddConditions(conditions);
     }
