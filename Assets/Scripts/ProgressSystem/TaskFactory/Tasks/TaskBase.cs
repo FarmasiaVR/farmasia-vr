@@ -5,7 +5,7 @@
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
-    protected ProgressManager manager;
+    protected Package package;
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
@@ -30,11 +30,15 @@ public class TaskBase : ITask {
 
     #region Private Methods
     /// <summary>
-    /// Removes current task if the task has been set to be removed.
+    /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
     /// </summary>
     private void Remove() {
-        if (removeWhenFinished) {
-            manager.RemoveTask(this);
+        if (package != null) {
+            if (removeWhenFinished) {
+                package.RemoveTask(this);
+            } else {
+                package.MoveTaskToManager(this);
+            }
         }
     }
     #endregion
@@ -76,8 +80,8 @@ public class TaskBase : ITask {
     #endregion
 
     #region Public Methods
-    public void SetReferredManager(ProgressManager manager) {
-        this.manager = manager;
+    public void SetPackage(Package package) {
+        this.package = package;
     }
     /// <summary>
     /// Return the type of current task.
@@ -137,9 +141,16 @@ public class TaskBase : ITask {
     #endregion
 
     #region Protected Methods
+    /// <summary>
+    /// Checks if task is currently executed in package. Aka first in it.
+    /// </summary>
+    /// <returns>True if is current, false if not.</returns>
     protected bool CheckIsCurrent() {
-        if (manager.activeTasks.IndexOf(this) > 0) {
-            return false;
+        if (package != null) {
+            if (package.activeTasks.IndexOf(this) > 0) {
+                return false;
+            }
+            return true;
         }
         return true;
     }
@@ -151,7 +162,7 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        List<TaskType> completed = manager.doneTypes;
+        List<TaskType> completed = package.doneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;

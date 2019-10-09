@@ -4,6 +4,7 @@
 public enum TaskType {
     SelectTools,
     SelectMedicine,
+    CorrectItemsInThroughput,
     CorrectLayoutInThroughput,
     CorrectItemsInLaminarCabinet,
     MissingItems,
