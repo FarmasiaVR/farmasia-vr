@@ -77,6 +77,7 @@ public class OpenableDoor : MonoBehaviour {
         Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
         Logger.PrintVariables("Velocity", Velocity);
         IsLocked = false;
+        //Events.FireEvent(EventType.ArrangedItemsInThroughput, CallbackData.String("" + PassThroughCabinet.objectsInsideArea.Count));
     }
 
     private void Update() {

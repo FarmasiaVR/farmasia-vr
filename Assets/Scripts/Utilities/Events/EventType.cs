@@ -4,7 +4,7 @@
     C,
     PickupObject,
     PutObject,
-    ArrangeItems,
+    ArrangedItemsInThroughput,
     FinalArrangeItems,
     AmountOfItems,
     Missing,

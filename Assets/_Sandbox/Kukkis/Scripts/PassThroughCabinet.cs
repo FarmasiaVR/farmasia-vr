@@ -18,7 +18,7 @@ public class PassThroughCabinet : MonoBehaviour {
         
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
-            Events.FireEvent(EventType.ArrangeItems, CallbackData.String("" + objectsInsideArea.Count));
+            //Events.FireEvent(EventType.ArrangedItemsInThroughput, CallbackData.String("" + objectsInsideArea.Count));
         }
         
         //UISystem.Instance.CreatePopup("Added object to Area!", MessageType.Notify);
@@ -30,7 +30,7 @@ public class PassThroughCabinet : MonoBehaviour {
             return;
         }
         objectsInsideArea.Remove(other.transform.gameObject);
-        Events.FireEvent(EventType.ArrangeItems, CallbackData.String("" + objectsInsideArea.Count));
+        //Events.FireEvent(EventType.ArrangedItemsInThroughput, CallbackData.String("" + objectsInsideArea.Count));
         //UISystem.Instance.CreatePopup("Removed Object From Area!", MessageType.Notify);
     }
 

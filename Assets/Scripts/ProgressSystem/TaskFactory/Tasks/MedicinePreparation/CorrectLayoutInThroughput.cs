@@ -4,7 +4,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = { "AtLeastThree"/*, "ItemsArranged"*/ };
+    private string[] conditions = { "AtLeastTwo", "ItemsArranged" };
     #endregion
 
     #region Constructor
@@ -23,7 +23,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
+        base.SubscribeEvent(ArrangedItems, EventType.ArrangedItemsInThroughput);
     }
 
     /// <summary>
@@ -31,22 +31,20 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void ArrangeItems(CallbackData data) {
-        Logger.Print(data.DataString + " counted!");
+    private void ArrangedItems(CallbackData data) {
         int itemCount = int.Parse(data.DataString);
         if (itemCount >= 2) {
-            EnableCondition("AtLeastThree");
-            /*if (ItemsArranged()) {
+            EnableCondition("AtLeastTwo");
+            if (ItemsArranged()) {
                 EnableCondition("ItemsArranged");
-            }*/
+            }
         }
         bool check = CheckClearConditions(true);
-        Logger.Print("Check cleared: " + check);
-        /*if (!check && AtLeastThree()) {
+        if (!check && (itemCount >= 2)) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
-        }*/
+        }
     }
 
     /// <summary>
@@ -57,14 +55,6 @@ public class CorrectLayoutInThroughput : TaskBase {
         //code missing
         return false;
     }
-
-    /// <summary>
-    /// Sets the item count to be zero when exiting the room.
-    /// </summary>
-    private void InitializeCount() {
-        //callback missing
-        DisableConditions();
-    }
     #endregion
 
     #region Public Methods
@@ -72,7 +62,6 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        Logger.Print("Finish");
         UISystem.Instance.CreatePopup("Items in läpiantokaappi", MessageType.Done);
         G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInThroughput);
         base.FinishTask();
