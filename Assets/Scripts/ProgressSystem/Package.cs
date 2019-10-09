@@ -33,13 +33,13 @@ public class Package {
     /// </summary>
     /// <param name="task">Given task to add.</param>
     public void AddTask(ITask task) {
-        //task.setPackage(this);
+        task.SetPackage(this);
         activeTasks.Add(task);
         manager.UpdateDescription();
     }
 
     public void AddNewTaskBeforeTask(ITask task, ITask previousTask) {
-        //task.setPackage(this);
+        task.SetPackage(this);
         activeTasks.Insert(activeTasks.IndexOf(previousTask), task);
     }
     #endregion
@@ -53,14 +53,13 @@ public class Package {
     public void RemoveTask(ITask task) {
         doneTypes.Add(task.GetTaskType());
         activeTasks.Remove(task);
-        manager.UpdateDescription();
         if (activeTasks.Count == 0) {
             packageCompleted = true;
             manager.ChangePackage();
         } else {
             Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
         }
-
+        manager.UpdateDescription();
     }
     #endregion
 
@@ -69,11 +68,12 @@ public class Package {
     /// Moves task back to ProgressManager
     /// </summary>
     /// <param name="task">Reference to the task that will be moved</param>
-    private void MoveTaskToManager(ITask task) {
+    public void MoveTaskToManager(ITask task) {
         if (activeTasks.Contains(task)) {
             Logger.Print("Moving task back to manager.");
             manager.AddTask(task);
             activeTasks.Remove(task);
+            manager.UpdateDescription();
         }
     }
 
@@ -83,6 +83,15 @@ public class Package {
     /// <param name="type">Given type of task to move.</param>
     public void MoveTaskFromManager(TaskType type) {
         manager.MoveToPackage(this, type);
+    }
+    #endregion
+
+    #region Helpful Methods
+    public void PrintAllTasks() {
+        Logger.Print("Package name: " + name + "\nThese tasks are inside currently\n");
+        foreach(ITask task in activeTasks) {
+            Logger.Print(task.GetType());
+        }
     }
     #endregion
 }
