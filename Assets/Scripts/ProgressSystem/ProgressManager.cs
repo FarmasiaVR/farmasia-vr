@@ -24,8 +24,9 @@ public class ProgressManager {
         packages = new List<Package>();
         calculator = new ScoreCalculator();
         AddTasks();
-        GeneratePackages();
+        GenerateScenarioOne();
         currentPackage = packages.First();
+        UpdateDescription();
     }
     #endregion
 
@@ -33,7 +34,7 @@ public class ProgressManager {
     /// <summary>
     /// Used to generate every package. Package is defined with a list of tasks.
     /// </summary>
-    private void GeneratePackages() {
+    private void GenerateScenarioOne() {
         TaskType[] selectTasks = {
             TaskType.SelectTools,
             TaskType.SelectMedicine,
