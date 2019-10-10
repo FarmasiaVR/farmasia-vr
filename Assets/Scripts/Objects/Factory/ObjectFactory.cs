@@ -36,10 +36,10 @@ public class ObjectFactory : MonoBehaviour {
         latestCopy.SetActive(true);
 
         if (handObject != null) {
-            LuerlockConnector.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+            CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
         }
         if (lastPicked != null) {
-            LuerlockConnector.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
+            CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
         }
         lastPicked = handObject;
     }

@@ -50,7 +50,7 @@ public class LuerlockConnector : ItemConnector {
                 return;
             }
 
-            IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, false);
+            CollisionIgnore.IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, false);
 
             Joint(side).connectedBody = null;
 
@@ -78,7 +78,7 @@ public class LuerlockConnector : ItemConnector {
 
         obj.Interactable.State.On(InteractState.LuerlockAttatch);
 
-        IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, true);
+        CollisionIgnore.IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, true);
 
 
         // Attaching
@@ -105,30 +105,6 @@ public class LuerlockConnector : ItemConnector {
         SetLuerlockPosition(colliderT, obj.GameObject.transform);
 
         Luerlock.Objects[side] = obj;
-    }
-
-    public static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
-
-        Collider coll = a.GetComponent<Collider>();
-
-        if (coll != null) {
-            IgnoreCollisionsCollider(coll, b, ignore);
-        }
-
-        foreach (Transform child in a) {
-            IgnoreCollisions(child, b, ignore);
-        }
-    }
-    private static void IgnoreCollisionsCollider(Collider a, Transform b, bool ignore) {
-
-        Collider coll = b.GetComponent<Collider>();
-
-        if (coll != null) {
-            Physics.IgnoreCollision(a, coll, ignore);
-            foreach (Transform child in b) {
-                IgnoreCollisionsCollider(a, child, ignore);
-            }
-        }
     }
 
     private void SetLuerlockPosition(GameObject collObject, Transform t) {
