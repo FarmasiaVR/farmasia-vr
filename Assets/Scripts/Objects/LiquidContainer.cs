@@ -14,6 +14,8 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
+    private GeneralItem item;
+
     public int Amount {
         get { return amount; }
     }
@@ -51,6 +53,10 @@ public class LiquidContainer : MonoBehaviour {
 
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
+        item = (GeneralItem)Interactable.GetInteractable(transform);
+        if (item == null) {
+            throw new Exception("Liquid container attached to non GeneralItem object");
+        }
     }
 
     private void OnValidate() {
@@ -92,10 +98,17 @@ public class LiquidContainer : MonoBehaviour {
 
     private void OnTriggerEnter(Collider c) {
 
+        Logger.Print("Liquid container enter: " + c.gameObject.name);
+
         Syringe syringe = Interactable.GetInteractable(c.transform) as Syringe;
 
         if (syringe == null) {
+            Logger.Print("No syringe");
             return;
+        }
+
+        if (item.ObjectType == ObjectType.Bottle) {
+            syringe.State.On(InteractState.InBottle);
         }
 
         syringe.BottleContainer = this;
@@ -106,6 +119,10 @@ public class LiquidContainer : MonoBehaviour {
 
         if (syringe == null) {
             return;
+        }
+
+        if (item.ObjectType == ObjectType.Bottle) {
+            syringe.State.Off(InteractState.InBottle);
         }
 
         syringe.BottleContainer = null;

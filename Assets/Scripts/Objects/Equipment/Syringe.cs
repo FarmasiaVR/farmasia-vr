@@ -12,7 +12,7 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    private float liquidEjectSpeed = 5000;
+    private float liquidEjectSpeed = 25000;
 
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private float swipeTime;
@@ -73,7 +73,9 @@ public class Syringe : GeneralItem {
     }
 
     private void Eject(int amount) {
-        Container.SetAmount(amount + Container.Amount);
+        if (amount < 0) {
+            Container.SetAmount(amount + Container.Amount);
+        }
     }
     private void LuerlockEject(int amount) {
 

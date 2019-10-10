@@ -32,6 +32,8 @@ public class LuerlockAdapter : GeneralItem {
             }
         }
     }
+
+    private static float breakDistance = 0.2f;
     #endregion
 
     protected override void Start() {
@@ -80,9 +82,26 @@ public class LuerlockAdapter : GeneralItem {
             Connector.ConnectItem(null, RIGHT);
             Connector.ConnectItem(null, LEFT);
         }
+
+        CheckBreakDistance();
     }
 
+    private void CheckBreakDistance() {
+        CheckObjectDistance(0);
+        CheckObjectDistance(1);
+    }
+    private void CheckObjectDistance(int side) {
 
+        if (Objects[side].GameObject == null) {
+            return;
+        }
+
+        float distance = Vector3.Distance(LuerlockPosition(Objects[side].GameObject.transform).position, Colliders[side].transform.position);
+
+        if (distance > breakDistance) {
+            Connector.ReleaseItem(side);
+        }
+    }
 
     #region Attaching
     private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
