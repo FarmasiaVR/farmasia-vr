@@ -89,4 +89,25 @@ public class LiquidContainer : MonoBehaviour {
 
         return t.Find("Liquid")?.GetComponent<LiquidContainer>();
     }
+
+    private void OnTriggerEnter(Collider c) {
+
+        Syringe syringe = Interactable.GetInteractable(c.transform) as Syringe;
+
+        if (syringe == null) {
+            return;
+        }
+
+        syringe.BottleContainer = this;
+    }
+    private void OnTriggerExit(Collider c) {
+
+        Syringe syringe = Syringe.GetInteractable(c.transform) as Syringe;
+
+        if (syringe == null) {
+            return;
+        }
+
+        syringe.BottleContainer = null;
+    }
 }

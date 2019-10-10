@@ -17,6 +17,7 @@ public class Syringe : GeneralItem {
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private float swipeTime;
 
+    public LiquidContainer BottleContainer { get; set; }
 
     // private Pipeline pipeline = new Pipeline();
 
@@ -99,6 +100,19 @@ public class Syringe : GeneralItem {
     }
     private void BottleEject(int amount) {
 
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) {
+            return;
+        }
+
+        if (BottleContainer == null) {
+            return;
+        }
+
+        if (amount > 0) {
+            BottleContainer.TransferTo(Container, amount);
+        } else {
+            Container.TransferTo(BottleContainer, -amount);
+        }
     }
 
     public void SetSyringeHandlePosition() {
@@ -116,4 +130,5 @@ public class Syringe : GeneralItem {
             return 1.0f * Container.Amount / Container.Capacity;
         }
     }
+
 }
