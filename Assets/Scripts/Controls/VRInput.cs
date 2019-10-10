@@ -96,12 +96,9 @@ public static class VRInput {
 
     public static bool GetControlDown(SteamVR_Input_Sources handType, ControlType c) {
 
-    #if UNITY_VRCOMPUTER
         HandControl key = new HandControl(c, handType);
-        return controls[key].GetDown == Time.frameCount;
 
-    #else
-        HandControl key = new HandControl(c, handType);
+    #if UNITY_NONVRCOMPUTER
 
         // Fix for TestHandMover
 
@@ -111,9 +108,11 @@ public static class VRInput {
         }
 
         return controls[key].GetDown == Time.frameCount;
-
+    #else 
+        return controls[key].GetDown == Time.frameCount;
     #endif
     }
+
     public static bool GetControl(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].Down;
