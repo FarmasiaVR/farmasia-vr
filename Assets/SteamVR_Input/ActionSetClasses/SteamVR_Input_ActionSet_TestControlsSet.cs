@@ -17,19 +17,67 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_TestControlsSet : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Boolean Grab
+        public virtual SteamVR_Action_Boolean TriggerClick
         {
             get
             {
-                return SteamVR_Actions.testControlsSet_Grab;
+                return SteamVR_Actions.testControlsSet_TriggerClick;
             }
         }
         
-        public virtual SteamVR_Action_Boolean GrabInteract
+        public virtual SteamVR_Action_Boolean PadClick
         {
             get
             {
-                return SteamVR_Actions.testControlsSet_GrabInteract;
+                return SteamVR_Actions.testControlsSet_PadClick;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Menu
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_Menu;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Grip
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_Grip;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean PadTouch
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_PadTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean TriggerTouch
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_TriggerTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 PadTouchValue
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_PadTouchValue;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single TriggerValue
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_TriggerValue;
             }
         }
     }

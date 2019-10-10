@@ -1,42 +1,43 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 public static class Logger {
 
-    /// <summary>
-    /// Prints the gives strings
-    /// </summary>
-    /// <param name="vars"></param>
-    public static void Print(params object[] vars) {
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < vars.Length - 1; i++) {
-            sb.Append(ObjectToString(vars[i]) + " ");
-        }
-        sb.Append(ObjectToString(vars[vars.Length - 1]));
-
-        Debug.Log(sb.ToString());
+    public static void Print(object message) {
+        Debug.Log(ObjectToString(message));
     }
 
-    private static string ObjectToString(object o) {
-        if (o == null) {
-            return "null";
-        } else {
-            return o.ToString();
-        }
+    public static void PrintObjects(string delimeter, params object[] objects) {
+        Debug.Log(ObjectsToString(delimeter, objects));
     }
 
-    public static void PrintVariablesLine(params object[] vars) {
+    public static void PrintFormat(string format, params object[] args) {
+        Debug.LogFormat(format, args);
+    }
 
-        StringBuilder sb = new StringBuilder();
+    public static void Warning(object message) {
+        Debug.LogWarning(ObjectToString(message));
+    }
 
-        foreach (object o in vars) {
-            sb.Append(VarString(o) + ": ");
-        }
+    public static void WarningObjects(string delimeter, params object[] objects) {
+        Debug.LogWarning(ObjectsToString(delimeter, objects));
+    }
+
+    public static void WarningFormat(string format, params object[] args) {
+        Debug.LogWarningFormat(format, args);
+    }
+
+    public static void Error(object message) {
+        Debug.LogError(ObjectToString(message));
+    }
+
+    public static void ErrorObjects(string delimeter, params object[] objects) {
+        Debug.LogError(ObjectsToString(delimeter, objects));
+    }
+
+    public static void ErrorFormat(string format, params object[] args) {
+        Debug.LogErrorFormat(format, args);
     }
 
     /// <summary>
@@ -44,7 +45,6 @@ public static class Logger {
     /// </summary>
     /// <param name="vars">Array with even amount of objects. Odd number is for variable name, even values are for the actual variable values</param>
     public static void PrintVariables(params object[] vars) {
-
         if (vars.Length % 2 != 0) {
             throw new Exception("Var count is not divisible by 2");
         }
@@ -54,20 +54,26 @@ public static class Logger {
         }
     }
 
-    private static string VarString(object o) {
-        
-        if (o == null) {
-            return nameof(o) + ": null";
-        }
-
-        return nameof(o) + ": " + o.ToString();
+    private static string ObjectToString(object o) {
+        return o?.ToString() ?? "null";
     }
-    private static string VarString(object n, object o) {
 
-        if (o == null) {
-            return n + ": null";
+    private static String ObjectsToString(string delimiter, params object[] objects) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < objects.Length - 1; i++) {
+            sb.Append(ObjectToString(objects[i])).Append(delimiter);
         }
+        sb.Append(ObjectToString(objects[objects.Length - 1]));
 
-        return n + ": " + o.ToString();
+        return sb.ToString();
+    }
+
+    private static string VarString(object o) {
+        return VarString(nameof(o), o);
+    }
+
+    private static string VarString(object n, object o) {
+        return n + ": " + o?.ToString() ?? "null";
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
 
+    #region fields
     private Hand hand;
     private static string iTag = "Interactable";
     public HashSet<GameObject> GrabObjects { get; private set; }
+    #endregion
 
     private void Start() {
         GrabObjects = new HashSet<GameObject>();
@@ -24,46 +24,49 @@ public class HandCollider : MonoBehaviour {
 
     public void OnTriggerEnter(Collider coll) {
 
-        if (coll.gameObject.tag != iTag) {
+        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+
+        if (interactable == null) {
             return;
         }
 
-        GrabObjects.Add(coll.gameObject);
 
-        ObjectHighlight hObject = coll.gameObject.GetComponent<ObjectHighlight>();
+        GrabObjects.Add(interactable);
+
+        ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
+        if (hObject == null) {
+            return;
+        }
         hObject.StartCoroutine(hObject.InsideCheck(this));
     }
     public void OnTriggerExit(Collider coll) {
 
-        if (coll.gameObject.tag != iTag) {
+        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+
+        if (interactable == null) {
             return;
         }
 
-        GrabObjects.Remove(coll.gameObject);
+        GrabObjects.Remove(interactable);
     }
+
+    
+
 
     public bool Contains(GameObject obj) {
         return GrabObjects.Contains(obj);
     }
 
     public Interactable GetGrab() {
-
         GameObject o = GetGrabObject();
-
-        if (o == null) {
-            return null;
-        }
-
-        return GetGrabObject().GetComponent<Interactable>();
+        return o?.GetComponent<Interactable>() ?? null;
     }
 
     public GameObject GetGrabObject() {
-
         float closestDistance = float.MaxValue;
         GameObject closest = null;
 
         foreach (GameObject rb in GrabObjects) {
-
             float distance = Vector3.Distance(transform.position, rb.transform.position);
 
             if (distance < closestDistance) {

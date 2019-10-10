@@ -1,4 +1,5 @@
 ﻿public static class AngleLock {
+
     public static float TrimAngleDeg(float current) {
         float angle = current;
         while (angle < 0)

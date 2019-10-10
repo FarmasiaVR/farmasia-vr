@@ -1,5 +1,10 @@
-﻿public enum MessageType {
-    mistake,
-    error,
-    warning
+﻿/// <summary>
+/// Enum for different Message Types.
+/// </summary>
+public enum MessageType {
+    Mistake,
+    Notify,
+    Warning,
+    Error,
+    Done
 }

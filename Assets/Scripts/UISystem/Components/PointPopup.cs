@@ -1,90 +1,168 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
-
 public class PointPopup : MonoBehaviour {
+    #region Fields
+    private AudioSource sound;
+    private GameObject textObject;
+    private TextMeshPro textField;
+    private Color color;
+    #endregion
 
-    AudioSource audio;
-
+    #region Variables
     private float timer = 0.0f;
     private float visualTime = 3.0f;
-    private float fadeInAndOut = 2.0f;
-
+    private float fadeInAndOut = 0.3f;
+    private float speed = 0.007f;
+    private float endPoint;
+    private float distanceTravelled = 0.0f;
+    private float distanceToTravel = 0.2f;
+    private float startingPoint;
+    private float red = 0.0f;
+    private float green = 0.0f;
+    private float blue = 0.0f;
     private float transparency = 0.0f;
-
     private bool fadeInCompleted = false;
     private bool visualCompleted = false;
+    #endregion
 
-    private string text;
-    private int point;
-
-    [SerializeField]
-    private GameObject textObject;
-    [SerializeField]
-    private TextMeshPro textField;
-    private Color colour;
-
-    
-
-    public PointPopup() {
-
-
-    }
-
-    void Start() {
+    #region Initialisation
+    private void Awake() {
         textObject = transform.gameObject;
         textField = textObject.GetComponent<TextMeshPro>();
-        textField.color = new Color(255, 0, 0, 0);
-        audio = GetComponent<AudioSource>();
-        audio.enabled = false;
+        textField.color = new Color(red, green, blue, 0);
+        sound = GetComponent<AudioSource>();
+        sound.enabled = false;
+        timer = 0.0f;
+        transparency = 0.0f;
+        distanceTravelled = 0.0f;
+
+        endPoint = transform.localPosition.z;
+        startingPoint = transform.localPosition.z + distanceToTravel;
 
     }
+    #endregion
 
-    public void setPointAndText(int point, string text) {
-        this.text = text;
-        this.point = point;
+    #region Private Methods
+    /// <summary>
+    /// Calculates and sets transform starting position. Used for animation.
+    /// </summary>
+    private void CalculateStartingPosition() {
+        textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
     }
 
-    public void setText() {
-        textField.text = text + "\n" + point;
+    /// <summary>
+    /// Flips the scale of the Popup. This is required depending on does it follow rotation or camera.
+    /// </summary>
+    /// <param name="x">-1 = Inverted, 1 = Normal</param>
+    private void FlipScale(float x) {
+        transform.localScale.Set(x, transform.localScale.y, transform.localScale.z);
     }
 
+    /// <summary>
+    /// Called only if popup lifespan is at the end.
+    /// Removes current Popup from UISystem and then destroys itself.
+    /// Object might be destoyed earlier by another popup in UISystem.
+    /// </summary>
+    private void Remove() {
+        UISystem.Instance.DeleteCurrent();
+        Destroy(transform.gameObject);
+    }
 
+    private void Start() {
+        CalculateStartingPosition();
+    }
+
+    /// <summary>
+    /// Used for animating the Popup. Once animation is done, Popup destroys itself.
+    /// </summary>
     private void Update() {
-
-
         timer += Time.deltaTime;
-
         if (!fadeInCompleted) {
-            transparency += 1.0f / (fadeInAndOut / Time.deltaTime);
-            textField.color = new Color(255, 0, 0, transparency);
-            textObject.transform.position += new Vector3(0, 0.01f, 0);
-            if (timer > fadeInAndOut) {
-                
-                textField.color = new Color(255, 0, 0, transparency);
+            textObject.transform.localPosition += new Vector3(0, 0, -speed);
+            distanceTravelled += speed;
+            transparency = distanceTravelled / distanceToTravel;
+            textField.alpha = transparency;
+
+            if (distanceTravelled > distanceToTravel) {
+                transparency = 1.0f;
+                textField.alpha = transparency;
                 timer -= fadeInAndOut;
                 fadeInCompleted = true;
-                audio.enabled = true;
+                sound.enabled = true;
+                timer = 0.0f;
             }
-
         } else {
             if (!visualCompleted) {
-
                 if (timer > visualTime) {
-                    timer -= visualTime;
+                    timer = 0.0f;
                     visualCompleted = true;
                 }
-
             } else {
-                transparency -= 1.0f / (fadeInAndOut / Time.deltaTime);
-                textField.color = new Color(255, 0, 0, transparency);
-                textObject.transform.position += new Vector3(0, -0.01f, 0);
-                if (timer > fadeInAndOut) {
-                    timer -= fadeInAndOut;
-                    Destroy(transform.gameObject);
+                textObject.transform.localPosition += new Vector3(0, 0, speed);
+                distanceTravelled -= speed;
+                transparency = distanceTravelled / distanceToTravel;
+                textField.alpha = transparency;
+
+                if (distanceTravelled <= 0.0f) {
+                    timer = 0.0f;
+                    Remove();
                 }
             }
         }
-
     }
+
+    private void SetColour(MessageType type) {
+        switch (type) {
+            case MessageType.Error:
+                red = 0;
+                green = 0;
+                blue = 0;
+                break;
+            case MessageType.Mistake:
+                red = 255;
+                green = 0;
+                blue = 0;
+                break;
+            case MessageType.Notify:
+                red = 255;
+                green = 255;
+                blue = 0;
+                break;
+            case MessageType.Warning:
+                red = 255;
+                green = 147;
+                blue = 0;
+                break;
+            case MessageType.Done:
+                red = 0;
+                green = 255;
+                blue = 0;
+                break;
+        }
+        textField.color = new Color(red, green, blue, 0);
+    }
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    /// Used for changing default text and type of instantiated popup.
+    /// </summary>
+    /// <param name="text">Message showed to player.</param>
+    /// <param name="type">Message Type changes message's colour.</param>
+    public void SetPopup(string text, MessageType type) {
+        SetColour(type);
+        textField.text = text;
+    }
+
+    /// <summary>
+    /// Used for changing default point, text and type of copied popup (from prefab).
+    /// </summary>
+    /// <param name="point">Amount of points gained from task completion. (or failure).</param>
+    /// <param name="text">Message showed to player.</param>
+    /// <param name="type">Message Type changes message's colour.</param>
+    public void SetPopup(int point, string text, MessageType type) {
+        SetColour(type);
+        textField.text = text + "\n" + point;
+    }
+    #endregion
 }

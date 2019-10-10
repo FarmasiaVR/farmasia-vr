@@ -4,5 +4,15 @@
     C,
     PickupObject,
     PutObject,
-    ArrangeItems
+    ArrangeItems,
+    FinalArrangeItems,
+    AmountOfItems,
+    Missing,
+    Disinfect,
+    MedicineToSyringe,
+    AttachLuerlock,
+    AttachSyringe,
+    AmountOfMedicine,
+    CleanUp,
+    SterileBag
 }

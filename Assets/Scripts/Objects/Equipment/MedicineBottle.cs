@@ -1,38 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MedicineBottle : GeneralItem {
 
-    [SerializeField]
-    private ObjectType objectType = ObjectType.Bottle;
-    public ObjectType ObjectType { get => objectType; }
+    #region fields
+    private LiquidContainer container;
+    #endregion
 
-    [SerializeField]
-    private int size = 100;
-    public int Size {
-        get => size;
-        set {
-            if (size >= 0)
-                size = value;
-        } 
-    }
-
-    [SerializeField]
-    private string content = "medicine";
-    public string Content { get => content; }
-
-    [SerializeField]
-    private int contentLeft = 100;
-    public int ContentLeft {
-        get => contentLeft;
-        set {
-            if (value <= size && value > 0)
-                contentLeft = value;
-        }
-    }
-    void Start() {
+    protected override void Start() {
         base.Start();
+        container = LiquidContainer.FindLiquidContainer(transform);
+        Assert.IsNotNull(container);
+        ObjectType = ObjectType.Bottle;
     }
 
+    public LiquidContainer GetContainer() {
+        return container;
+    }
 }

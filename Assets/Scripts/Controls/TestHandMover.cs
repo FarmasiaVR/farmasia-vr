@@ -1,94 +1,182 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using Valve.VR;
 
 public class TestHandMover : MonoBehaviour {
 
-    private bool usingRight;
+    #region fields
+    private const KeyCode ACTIVATE = KeyCode.Space;
+    private const KeyCode USE_CAMERA = KeyCode.K;
+    private const KeyCode USE_RIGHT = KeyCode.L;
+    private const KeyCode USE_LEFT = KeyCode.J;
+    private const KeyCode HAND_GRAB = KeyCode.Mouse0;
+    private const KeyCode HAND_INTERACT = KeyCode.Mouse1;
+    private const KeyCode MOVE_FORWARD = KeyCode.W;
+    private const KeyCode MOVE_LEFT = KeyCode.A;
+    private const KeyCode MOVE_BACKWARDS = KeyCode.S;
+    private const KeyCode MOVE_RIGHT = KeyCode.D;
+    private const KeyCode MOVE_UP = KeyCode.E;
+    private const KeyCode MOVE_DOWN = KeyCode.Q;
 
-    Vector3 movement;
-
-    private float handSpeed = 1;
-
-    private Hand right, left;
-
-    // Start is called before the first frame update
-    void Start() {
-        right = transform.GetChild(0).GetComponent<Hand>();
-        left = transform.GetChild(1).GetComponent<Hand>();
+    private enum ControlState {
+        HAND_LEFT, HAND_RIGHT, CAMERA
     }
 
-    // Update is called once per frame
-    void Update() {
-        UpdateInteract();
-        UpdateHandStatus();
-        CheckInput();
-        MoveHand();
+    private ControlState currentState = ControlState.CAMERA;
+
+    private float speedMovement = 1;
+    private float speedVertical = 1;
+    private float speedHorizontal = 1;
+
+    // Camera rotation
+    private float yaw = 0;
+    private float pitch = 0;
+
+    private Transform right, left, cam;
+
+    private bool active;
+    #endregion
+
+    private void Start() {
+        right = transform.GetChild(1);
+        left = transform.GetChild(0);
+        cam = transform.GetChild(2);
     }
 
-    private void UpdateInteract() {
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !usingRight) {
-            left.InteractWithObject();
-        } else if (Input.GetKeyDown(KeyCode.Mouse1) && usingRight) {
-            right.InteractWithObject();
-        }
-
-        if (Input.GetKeyUp(KeyCode.Mouse0) && !usingRight) {
-            left.UninteractWithObject();
-        } else if (Input.GetKeyUp(KeyCode.Mouse1) && usingRight) {
-            right.UninteractWithObject();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse2) && !usingRight) {
-            left.GrabInteract();
-        } else if (Input.GetKeyUp(KeyCode.Mouse2) && usingRight) {
-            right.GrabInteract();
+    private void Update() {
+        if (active) {
+            CheckStateChange();
+            UpdateState();
+            UpdateMovement();
+        } else if (Input.GetKeyDown(ACTIVATE)) {
+            active = true;
+            Cursor.lockState = currentState == ControlState.CAMERA ? CursorLockMode.Locked : CursorLockMode.None;
+            Destroy(transform.GetComponent<SteamVR_PlayArea>());
+            Destroy(right.GetComponent<SteamVR_Behaviour_Pose>());
+            Destroy(left.GetComponent<SteamVR_Behaviour_Pose>());
         }
     }
 
-    private void UpdateHandStatus() {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && usingRight) {
-            usingRight = false;
-        } else if (Input.GetKeyDown(KeyCode.Mouse1) && !usingRight) {
-            usingRight = true;
+    private void CheckStateChange() {
+        if (JustPressed(USE_LEFT)) {
+            SetState(ControlState.HAND_LEFT);
+        } else if (JustPressed(USE_RIGHT)) {
+            SetState(ControlState.HAND_RIGHT);
+        } else if (JustPressed(USE_CAMERA)) {
+            SetState(ControlState.CAMERA);
         }
     }
 
-    private void CheckInput() {
+    private void UpdateState() {
+        if (currentState == ControlState.HAND_LEFT || currentState == ControlState.HAND_RIGHT) {
+            UpdateHands();
+        } else if (currentState == ControlState.CAMERA) {
+            UpdateCamera();
+        }
+    }
 
-        movement = Vector3.zero;
+    private void UpdateHands() {
+        if (JustPressed(HAND_GRAB)) {
+            GrabObject();
+        }
+        if (JustPressed(HAND_INTERACT)) {
+            Interact();
+        }
+        if (JustReleased(HAND_GRAB)) {
+            ReleaseObject();
+        }
+    }
 
-        if (Pressing(KeyCode.W)) {
+    private void UpdateCamera() {
+        yaw += speedHorizontal * Input.GetAxis("Mouse X");
+        pitch -= speedVertical * Input.GetAxis("Mouse Y");
+
+        GetCurrentTransform().eulerAngles = new Vector3(pitch, yaw, 0);
+    }
+
+    private void UpdateMovement() {
+        Vector3 movement = Vector3.zero;
+
+        if (IsPressed(MOVE_FORWARD)) {
             movement.z++;
         }
-        if (Pressing(KeyCode.S)) {
+        if (IsPressed(MOVE_BACKWARDS)) {
             movement.z--;
         }
 
-        if (Pressing(KeyCode.D)) {
+        if (IsPressed(MOVE_RIGHT)) {
             movement.x++;
         }
-        if (Pressing(KeyCode.A)) {
+        if (IsPressed(MOVE_LEFT)) {
             movement.x--;
         }
 
-        if (Pressing(KeyCode.E)) {
+        if (IsPressed(MOVE_UP)) {
             movement.y++;
         }
-        if (Pressing(KeyCode.Q)) {
+        if (IsPressed(MOVE_DOWN)) {
             movement.y--;
+        }
+
+        GetCurrentTransform().Translate(movement * speedMovement * Time.deltaTime);
+    }
+
+    private void SetState(ControlState state) {
+        if (state == ControlState.CAMERA) {
+            Cursor.lockState = CursorLockMode.Locked;
+        } else if (state == ControlState.HAND_LEFT) {
+            Cursor.lockState = CursorLockMode.None;
+        } else if (state == ControlState.HAND_RIGHT) {
+            Cursor.lockState = CursorLockMode.None;
+        } else {
+            throw new NotImplementedException("ControlState not implemented: " + state);
+        }
+        currentState = state;
+    }
+
+    private void GrabObject() {
+        VRInput.ControlDown(Controls.Grab, GetHandType());
+    }
+
+    private void ReleaseObject() {
+        VRInput.ControlUp(Controls.Grab, GetHandType());
+    }
+
+    private void Interact() {
+        VRInput.ControlDown(Controls.GrabInteract, GetHandType());
+    }
+
+    private Transform GetCurrentTransform() {
+        if (currentState == ControlState.CAMERA) {
+            return cam;
+        } else if (currentState == ControlState.HAND_LEFT) {
+            return left;
+        } else if (currentState == ControlState.HAND_RIGHT) {
+            return right;
+        } else {
+            throw new NotImplementedException("ControlState not implemented: " + currentState); 
         }
     }
 
-    private void MoveHand() {
-
-        Transform hand = usingRight ? right.transform : left.transform;
-
-        hand.Translate(movement * handSpeed * Time.deltaTime);
+    private SteamVR_Input_Sources GetHandType() {
+        if (currentState == ControlState.HAND_LEFT) {
+            return SteamVR_Input_Sources.LeftHand;
+        } else if (currentState == ControlState.HAND_RIGHT) {
+            return SteamVR_Input_Sources.RightHand;
+        } else {
+            throw new InvalidOperationException("No hand is currently being controlled!");
+        }
     }
 
-    private bool Pressing(KeyCode c) {
+    private bool IsPressed(KeyCode c) {
         return Input.GetKey(c);
+    }
+
+    private bool JustPressed(KeyCode c) {
+        return Input.GetKeyDown(c);
+    }
+
+    private bool JustReleased(KeyCode c) {
+        return Input.GetKeyUp(c);
     }
 }

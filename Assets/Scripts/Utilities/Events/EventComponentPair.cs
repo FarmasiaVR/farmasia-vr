@@ -3,9 +3,11 @@ using UnityEngine;
 
 public struct CallbackComponentPair {
 
+    #region fields
     public Events.EventEmptyCallback CallbackNoData;
     public Events.EventDataCallback CallbackWithData;
     public Component Component;
+    #endregion
 
     public CallbackComponentPair(Events.EventDataCallback callback, Component component) {
         CallbackNoData = null;
@@ -19,7 +21,6 @@ public struct CallbackComponentPair {
     }
 
     public override bool Equals(object obj) {
-
         if (GetType() != obj.GetType()) {
             return false;
         }

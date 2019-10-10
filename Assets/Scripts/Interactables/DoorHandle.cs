@@ -1,48 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿public class DoorHandle : Interactable {
 
-public class DoorHandle : Interactable {
-
+    #region fields
     private Hand hand;
     private OpenableDoor door;
-    private bool grabbed;
+
+    #endregion
 
     protected override void Start() {
         base.Start();
-
         door = transform.parent.GetComponent<OpenableDoor>();
-
-        type = InteractableType.Interactable;
+        Types.Set(InteractableType.Interactable);
     }
 
     private void Update() {
-        if (grabbed) {
-            UpdatePosition();
+        if (State == InteractState.Grabbed) {
+            door.SetByHandPosition(hand);
         }
     }
 
     private void UpdatePosition() {
-        door.SetByHandPosition(hand);
     }
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-
         Logger.Print("Door interact");
 
-        this.hand = hand;
+        door.SetAngleOffset(hand.coll.transform.position);
 
-        grabbed = true;
+        this.hand = hand;
+        State.On(InteractState.Grabbed);
     }
+
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
 
         this.hand = null;
-
-        grabbed = false;
+        State.Off(InteractState.Grabbed);
         door.ReleaseDoor();
     }
-
-
 }
