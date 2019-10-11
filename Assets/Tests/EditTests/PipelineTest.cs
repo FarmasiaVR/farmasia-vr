@@ -153,11 +153,29 @@ namespace Tests {
         [Test]
         public void TestFuncPreDelay() {
             bool hasExecuted = false;
-            Pipeline subject = new Pipeline().Func(() => { hasExecuted = true; }).PreDelay(1);
+            Pipeline subject = new Pipeline().Func(() => hasExecuted = true).PreDelay(1);
             subject.Update(1);
             Assert.IsFalse(hasExecuted, "PreDelay does not prepend delay in Pipeline");
             subject.Update(0);
             Assert.IsTrue(hasExecuted, "Reordered functor was not called");
+        }
+
+        [Test]
+        public void TestAbortSetsIsDone() {
+            bool hasExecuted = true;
+            Pipeline subject = new Pipeline().Func(() => hasExecuted = true);
+            subject.Abort();
+            Assert.IsTrue(subject.IsDone, "Calling Abort does not set IsDone to false");
+            subject.Update(0);
+            Assert.IsTrue(hasExecuted, "Functor called even after the pipeline has been aborted");
+        }
+        
+        [Test]
+        public void TestAbortFromFunctor() {
+            Pipeline subject = new Pipeline();
+            subject.Func(() => subject.Abort());
+            subject.Update(0);
+            Assert.Pass("Pipeline does not crash when aborting from within the pipeline itself");
         }
     }
 
