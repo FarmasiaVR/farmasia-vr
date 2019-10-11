@@ -19,7 +19,6 @@ public class LuerlockConnector : ItemConnector {
 
         if (Joints[side] == null) {
             Joints[side] = JointConfiguration.AddJoint(Luerlock.gameObject);
-            
         }
 
         return Joints[side];
@@ -29,6 +28,8 @@ public class LuerlockConnector : ItemConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable, int side) {
+
+        Logger.Print("Connect item: " + interactable.name);
 
         if (Luerlock.State == InteractState.Grabbed) {
             Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem(0);
@@ -47,6 +48,7 @@ public class LuerlockConnector : ItemConnector {
         if (obj.GameObject != null) {
 
             if (obj.GameObject == newObject) {
+                Logger.Print("Attaching same object!");
                 return;
             }
 
@@ -65,6 +67,8 @@ public class LuerlockConnector : ItemConnector {
         if (newObject == null) {
             obj.Interactable = null;
             Luerlock.Objects[side] = obj;
+
+            Logger.Print("New object null!");
             return;
         }
 
@@ -128,6 +132,7 @@ public class LuerlockConnector : ItemConnector {
         //}
 
         Joint(side).connectedBody = null;
+        MonoBehaviour.Destroy(Joint(side));
         Luerlock.Objects[side].Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
         Logger.Print("Removed luerlock from item");
         Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttatch);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -51,11 +52,25 @@ public class LiquidContainer : MonoBehaviour {
         Assert.IsNotNull(liquid);
     }
 
+
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
-        item = (GeneralItem)Interactable.GetInteractable(transform);
-        if (item == null) {
-            throw new Exception("Liquid container attached to non GeneralItem object");
+
+        StartCoroutine(SearchInteractable());
+
+        IEnumerator SearchInteractable() {
+
+            yield return null;
+
+            Interactable interactable = Interactable.GetInteractable(transform);
+
+            Logger.Print("interactable found: " + interactable.name);
+
+            item = (GeneralItem)interactable;
+
+            if (item == null) {
+                throw new Exception("Liquid container attached to non GeneralItem object");
+            }
         }
     }
 
@@ -110,6 +125,8 @@ public class LiquidContainer : MonoBehaviour {
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
         }
+
+        Logger.Print("In syringe");
 
         syringe.BottleContainer = this;
     }

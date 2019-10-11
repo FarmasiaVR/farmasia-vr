@@ -45,6 +45,7 @@ public class Interactable : MonoBehaviour {
             t = t.parent;
         }
 
+        Logger.Warning("No interactable found");
         return null;
     }
 

@@ -68,6 +68,11 @@ public class LuerlockAdapter : GeneralItem {
 
         for (int i = 0; i < Connector.Joints.Length; i++) {//have list of joints
             Joint joint = Connector.Joints[i];
+
+            if (joint == null) {
+                return;
+            }
+
             if (breakForce != joint.currentForce.magnitude) {
                 continue;
             }
@@ -136,8 +141,12 @@ public class LuerlockAdapter : GeneralItem {
             return;
         }
 
+        Logger.Print("Object enter collider: " + side + ", " + collider.transform.name);
+
         if (Objects[side].GameObject == null && ConnectingIsAllowed(Colliders[side], collider)) {
             // Position Offset here
+
+            Logger.Print("Connecting item");
             Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
         }
     }

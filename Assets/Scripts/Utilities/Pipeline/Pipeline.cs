@@ -51,9 +51,15 @@ public class Pipeline {
     }
 
     public void Update(float deltaTime) {
+
+        if (actions.Count == 0) {
+            return;
+        }
+
         PipelineAction top = actions[0];
         top?.Update(deltaTime);
         if (top?.IsDone ?? false) {
+            Logger.PrintVariables("pipeline count", actions.Count);
             actions.RemoveAt(0);
         }
     }

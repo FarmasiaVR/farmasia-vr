@@ -19,7 +19,7 @@ public static class JointConfiguration {
 
     public static Joint AddJoint(GameObject obj) {
 
-        return AddFixedJoint(obj);
+         return AddFixedJoint(obj);
 
         ConfigurableJoint joint = obj.AddComponent<ConfigurableJoint>();
 
