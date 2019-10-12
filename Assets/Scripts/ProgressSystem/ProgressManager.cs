@@ -40,7 +40,8 @@ public class ProgressManager {
             TaskType.SelectMedicine,
             TaskType.CorrectItemsInThroughput
         };
-        TaskType[] workSpaceTasks = { TaskType.CorrectLayoutInLaminarCabinet,
+        TaskType[] workSpaceTasks = { 
+            TaskType.CorrectItemsInLaminarCabinet,
             TaskType.MedicineToSyringe,
             TaskType.LuerlockAttach,
             TaskType.SyringeAttach,
@@ -123,7 +124,7 @@ public class ProgressManager {
     /// <param name="package">Packages to move task to.</param>
     /// <param name="taskType">Type to move.</param>
     /// <param name="previousTask">Task point where found task will be moved.</param>
-    public void moveToPackageBeforeTask(Package package, TaskType taskType, ITask previousTask) {
+    public void MoveToPackageBeforeTask(Package package, TaskType taskType, ITask previousTask) {
         ITask foundTask = FindTaskWithType(taskType);
         if (foundTask != null) {
             package.AddNewTaskBeforeTask(foundTask, previousTask);

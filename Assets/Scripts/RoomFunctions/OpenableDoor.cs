@@ -18,7 +18,7 @@ public class OpenableDoor : MonoBehaviour {
     [SerializeField]
     private float friction = 0.9f;
 
-    public bool IsLocked { get; set; } = true;
+    public bool IsNotMoving { get; set; } = true;
 
     private Vector3 lastEulerAngles;
 
@@ -76,8 +76,7 @@ public class OpenableDoor : MonoBehaviour {
     public void ReleaseDoor() {
         Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
         Logger.PrintVariables("Velocity", Velocity);
-        IsLocked = false;
-        //Events.FireEvent(EventType.ArrangedItemsInThroughput, CallbackData.String("" + PassThroughCabinet.objectsInsideArea.Count));
+        IsNotMoving = false;
     }
 
     private void Update() {
@@ -94,7 +93,7 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     private void RotateDoor() {
-        if (IsLocked) {
+        if (IsNotMoving) {
             return;
         }
 
