@@ -38,12 +38,19 @@ public class Package {
         manager.UpdateDescription();
     }
 
+    /// <summary>
+    /// Adds a task before certain index.
+    /// </summary>
+    /// <param name="task">New task to add before index.</param>
+    /// <param name="previousTask">Refers to the task that called this method.</param>
     public void AddNewTaskBeforeTask(ITask task, ITask previousTask) {
-        task.SetPackage(this);
-        activeTasks.Insert(activeTasks.IndexOf(previousTask), task);
+        if (activeTasks.Contains(previousTask)) {
+            task.SetPackage(this);
+            activeTasks.Insert(activeTasks.IndexOf(previousTask), task);
+            manager.UpdateDescription();
+        }
     }
     #endregion
-
 
     #region Task Removal
     /// <summary>
@@ -51,15 +58,17 @@ public class Package {
     /// </summary>
     /// <param name="task">Reference to given task.</param>
     public void RemoveTask(ITask task) {
-        doneTypes.Add(task.GetTaskType());
-        activeTasks.Remove(task);
-        if (activeTasks.Count == 0) {
-            packageCompleted = true;
-            manager.ChangePackage();
-        } else {
-            Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
+        if (activeTasks.Contains(task)) {
+            doneTypes.Add(task.GetTaskType());
+            activeTasks.Remove(task);
+            if (activeTasks.Count == 0) {
+                packageCompleted = true;
+                manager.ChangePackage();
+            } else {
+                Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
+            }
+            manager.UpdateDescription();
         }
-        manager.UpdateDescription();
     }
     #endregion
 
@@ -89,7 +98,7 @@ public class Package {
     #region Helpful Methods
     public void PrintAllTasks() {
         Logger.Print("Package name: " + name + "\nThese tasks are inside currently\n");
-        foreach(ITask task in activeTasks) {
+        foreach (ITask task in activeTasks) {
             Logger.Print(task.GetType());
         }
     }
