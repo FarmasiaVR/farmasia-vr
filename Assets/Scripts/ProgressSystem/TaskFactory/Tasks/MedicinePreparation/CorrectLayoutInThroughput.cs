@@ -23,7 +23,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(ArrangedItems, EventType.ArrangedItemsInThroughput);
+        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInThroughput);
     }
 
     /// <summary>

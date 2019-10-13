@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class PassThroughCabinet : MonoBehaviour {
     public List<GameObject> objectsInsideArea;
-    public List<String> missingObjects;
+    public Dictionary<String, int> missingObjects;
     // Start is called before the first frame update
     void Start() {
         objectsInsideArea = new List<GameObject>();
-        missingObjects = new List<String>() {"Needle", "Luerlock", "Bottle", "Syringe"};
+        missingObjects = new Dictionary<String, int>();
+        missingObjects.Add("Needles", 7);
+        missingObjects.Add("Big syringe", 1);
+        missingObjects.Add("Small syringes", 6);
+        missingObjects.Add("Luerlock", 1);
+        missingObjects.Add("Bottle", 1);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -22,9 +27,22 @@ public class PassThroughCabinet : MonoBehaviour {
             objectsInsideArea.Add(foundObject);
             ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
             String itemType = Enum.GetName(type.GetType(), type);
-            if (missingObjects.Contains(itemType)) {
-                missingObjects.Remove(itemType);
+            
+            if (itemType == "Syringe") {
+                Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
+                if (syringe.Container.Capacity == 20) {
+                    itemType = "Big syringe";
+                } else if (syringe.Container.Capacity == 1) {
+                    itemType = "Small syringes";
+                }
             }
+            if (itemType == "Needle") {
+                itemType = "Needles";
+            }
+
+            if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
+                missingObjects[itemType]--; 
+            }      
         }
     }
 
@@ -36,15 +54,56 @@ public class PassThroughCabinet : MonoBehaviour {
         objectsInsideArea.Remove(foundObject);
         ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
         String itemType = Enum.GetName(type.GetType(), type);
-        if (!missingObjects.Contains(itemType)) {
-            missingObjects.Add(itemType);
-        } 
+        
+        if (itemType == "Syringe") {
+            Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
+            if (syringe.Container.Capacity == 20) {
+                itemType = "Big syringe";
+            } else if (syringe.Container.Capacity == 1) {
+                itemType = "Small syringes";
+            }
+        }
+        if (itemType == "Needle") {
+            itemType = "Needles";
+        }
+
+        if (missingObjects.ContainsKey(itemType)) {
+            switch (itemType) {
+                case "Needles":
+                    if (missingObjects[itemType] < 7) {
+                        missingObjects[itemType]++;
+                    }
+                    break;
+                case "Big syringe":
+                    if (missingObjects[itemType] == 0) {
+                       missingObjects[itemType]++; 
+                    }
+                    break;
+                case "Small syringes":
+                    if (missingObjects[itemType] < 6) {
+                       missingObjects[itemType]++; 
+                    }
+                    break;
+                case "Luerlock":
+                    if (missingObjects[itemType] == 0) {
+                       missingObjects[itemType]++; 
+                    }
+                    break;
+                case "Bottle": 
+                    if (missingObjects[itemType] == 0) {
+                       missingObjects[itemType]++; 
+                    }       
+                    break;
+            }
+        }  
     }
 
     public String GetMissingItems() {
         String missing = "Missing items:";
-        foreach(String value in missingObjects) {
-            missing = missing + " " + value + ",";
+        foreach(KeyValuePair<String, int> value in missingObjects) {
+            if (value.Value > 0) {
+                missing = missing + " " + value.Key + " " + value.Value + ",";    
+            } 
         }
         return missing;
     }

@@ -17,10 +17,26 @@ public static class TaskFactory {
                 return new CorrectItemsInThroughput();
             case TaskType.CorrectLayoutInThroughput:
                 return new CorrectLayoutInThroughput();
+            case TaskType.CorrectItemsInLaminarCabinet:
+                return new CorrectItemsInThroughput();
+            case TaskType.CorrectLayoutInLaminarCabinet:
+                return new CorrectLayoutInThroughput();
+            case TaskType.DisinfectBottles:
+                return new DisinfectBottles();
             case TaskType.MedicineToSyringe:
                 return new MedicineToSyringe();
             case TaskType.LuerlockAttach:
                 return new LuerlockAttach();
+            case TaskType.SyringeAttach:
+                return new SyringeAttach();
+            case TaskType.CorrectAmountOfMedicineSelected:
+                return new CorrectAmountOfMedicineSelected();
+            case TaskType.SterileBag:
+                return new SterileBag();
+            case TaskType.ScenarioOneCleanUp:
+                return new ScenarioOneCleanUp();
+            case TaskType.Finish:
+                return new Finish();
             default:
                 return null;
         }

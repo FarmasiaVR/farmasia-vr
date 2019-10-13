@@ -23,13 +23,13 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() { 
-        base.SubscribeEvent(Amount, EventType.AmountOfItems);
+        base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
     /// <summary>
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void Amount(CallbackData data) {
+    private void CorrectItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {

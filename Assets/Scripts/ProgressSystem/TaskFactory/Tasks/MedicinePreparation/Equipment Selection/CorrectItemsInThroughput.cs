@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Correct amount of items inserted into Throughput.
@@ -5,6 +6,10 @@ using UnityEngine;
 public class CorrectItemsInThroughput : TaskBase {
     #region Fields
     private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
+    private int smallSyringes;
+    private int needles;
+    private int objectCount;
+    private int checkTimes;
     #endregion
 
     #region Constructor
@@ -15,6 +20,10 @@ public class CorrectItemsInThroughput : TaskBase {
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         Subscribe();
         AddConditions(conditions);
+        smallSyringes = 0;
+        needles = 0;
+        objectCount = 0;
+        checkTimes = 0;
     }
     #endregion
 
@@ -23,53 +32,65 @@ public class CorrectItemsInThroughput : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() { 
-        base.SubscribeEvent(Amount, EventType.AmountOfItems);
+        base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInThroughput);
     }
     /// <summary>
-    /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
+    /// Once fired by an event, checks which items are in the throughput cabinet and sets the corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void Amount(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
+    private void CorrectItems(CallbackData data) {
+        List<GameObject> objects = data.DataObject as List<GameObject>;
+        if (objects.Count == 0) {
             return;
         }
-        ObjectType type = item.ObjectType;
-        
-        switch (type) {
-            case ObjectType.Syringe:
-                Syringe syringe = item as Syringe;
-                if (syringe.Container.Capacity == 20) {
-                    EnableCondition("Syringe"); 
-                } else {
-                    EnableCondition("SmallSyringes");
-                }
-                break;
-            case ObjectType.Needle:
-                EnableCondition("Needles");
-                break;
-            case ObjectType.Luerlock:
-                EnableCondition("Luerlock");
-                break;
-            case ObjectType.Bottle:
-                MedicineBottle bottle = item as MedicineBottle;
-                if (bottle.Container.Capacity == 100) {
-                    EnableCondition("RightSizeBottle");
-                }
-                break;
+        checkTimes++;
+        objectCount = objects.Count;
+
+        foreach(GameObject value in objects) {
+            GeneralItem item = value.GetComponent<GeneralItem>();
+            ObjectType type = item.ObjectType;
+            switch (type) {
+                case ObjectType.Syringe:
+                    Syringe syringe = item as Syringe;
+                    if (syringe.Container.Capacity == 20) {
+                        EnableCondition("Syringe"); 
+                    } else if (syringe.Container.Capacity == 1) {
+                        smallSyringes++;
+                        if (smallSyringes == 6) {
+                            EnableCondition("SmallSyringes");
+                        }
+                    }
+                    break;
+                case ObjectType.Needle:
+                    needles++;
+                    if (needles == 7) {
+                        EnableCondition("Needles"); 
+                    }
+                    break;
+                case ObjectType.Luerlock:
+                    EnableCondition("Luerlock");
+                    break;
+                case ObjectType.Bottle:
+                    MedicineBottle bottle = item as MedicineBottle;
+                    if (bottle.Container.Capacity == 100) {
+                        EnableCondition("RightSizeBottle");
+                    }
+                    break;
+            }
         }
         
         bool check = CheckClearConditions(true);
-        //checked when player touches the door the first time
         if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
-            base.FinishTask();
-
-            MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
+            if (checkTimes == 1) {
+                UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
+                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+            }
+            smallSyringes = 0;
+            needles = 0;
+            DisableConditions();
+            /*MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
             missingTask.SetMissingConditions(GetNonClearedConditions());
-            G.Instance.Progress.AddTask(missingTask);
+            G.Instance.Progress.AddTask(missingTask);*/
         }
     } 
     #endregion
@@ -79,8 +100,14 @@ public class CorrectItemsInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
+        if (checkTimes == 1) {
+            if (objectCount == 16) {
+                UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
+                G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
+            } else {
+                UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
+            }
+        }
         base.FinishTask();
     }
     

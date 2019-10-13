@@ -23,14 +23,14 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(FinalArrangeItems, EventType.FinalArrangeItems);
+        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
     }
     /// <summary>
     /// Once fired by an event, checks if the tasks dealing with the amount of items have been completed and if the items are arranged.
     /// Sets the corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void FinalArrangeItems(CallbackData data) {
+    private void ArrangedItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         if (G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
             List<ITask> list = G.Instance.Progress.currentPackage.activeTasks;
