@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,6 +99,13 @@ public class PassThroughCabinet : MonoBehaviour {
                     break;
             }
         }  
+    }
+
+    /// <summary>
+    /// Returns list presentation of contained gameobjects.
+    /// </summary>
+    public List<GameObject> GetContainedItems() {
+        return objectsInsideArea;
     }
 
     public String GetMissingItems() {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Checks if Throughput Cupboard (läpiantokaappi) has correct layout.
@@ -5,6 +6,7 @@ using UnityEngine;
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
     private string[] conditions = { "ItemsArranged" };
+    private PassThroughCabinet cabinet;
     #endregion
 
     #region Constructor
@@ -13,6 +15,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)").GetComponent<PassThroughCabinet>();
         Subscribe();
         AddConditions(conditions);
     }
@@ -32,6 +35,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangedItems(CallbackData data) {
+
         if (ItemsArranged()) {
             EnableCondition("ItemsArranged");
         }
@@ -48,8 +52,23 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns true if the items are arranged."</returns>
     private bool ItemsArranged() {
-        //code missing
-        return false;
+        /* KESKEN
+        List<GameObject> objects = cabinet.GetContainedItems();
+        Collider collisionMashUp = null;
+        foreach (GameObject leobject in objects) {
+            Collider col = leobject.GetComponent<Collider>();
+            
+            if (collisionMashUp == null) {
+                collisionMashUp = col;
+                continue;
+            }
+            
+            if () {
+                return false;
+            }
+            
+        }*/
+        return true;
     }
     #endregion
 
