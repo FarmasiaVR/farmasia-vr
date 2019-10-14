@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class TrashBin : MonoBehaviour {
     public List<GameObject> objectsInArea;
+    public int droppedItemsInArea;
+    public bool droppedItemsPutBeforeTime;
     // Start is called before the first frame update
     void Start() {
         objectsInArea = new List<GameObject>();
+        droppedItemsInArea = 0;
+        droppedItemsPutBeforeTime = false;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -18,8 +22,13 @@ public class TrashBin : MonoBehaviour {
         
         if (!objectsInArea.Contains(foundObject)) {
             objectsInArea.Add(foundObject);
-            ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-            String itemType = Enum.GetName(type.GetType(), type);      
+            if (!foundObject.GetComponent<GeneralItem>().IsClean) {
+                droppedItemsInArea++;
+                if (G.Instance.Progress.currentPackage.name != "Clean up") {
+                    droppedItemsPutBeforeTime = true;
+                    UISystem.Instance.CreatePopup("Dropped item was put to trash before time", MessageType.Notify);
+                }
+            }     
         }
     }
 

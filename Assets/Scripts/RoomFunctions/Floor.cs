@@ -21,6 +21,7 @@ public class Floor : MonoBehaviour {
         if (!objectsOnArea.Contains(foundObject)) {
             objectsOnArea.Add(foundObject);   
             droppedItems++;   
+            foundObject.GetComponent<GeneralItem>().IsClean = false;
         }
     }
 
@@ -30,7 +31,9 @@ public class Floor : MonoBehaviour {
             return;
         }
         objectsOnArea.Remove(foundObject);
-        Events.FireEvent(EventType.CleanUp, CallbackData.Boolean(false));
+        if (G.Instance.Progress.currentPackage.name != "Clean up") {
+            UISystem.Instance.CreatePopup("Dropped items shouldn't be cleaned before finishing other tasks", MessageType.Warning);
+        }
     }
 
     // Update is called once per frame

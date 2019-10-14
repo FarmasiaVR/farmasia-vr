@@ -10,6 +10,6 @@ public class GeneralItem : Grabbable {
 
     [SerializeField]
     private bool isClean;
-    public bool IsClean { get => isClean; private set => isClean = value; }
+    public bool IsClean { get => isClean; set => isClean = value; }
     #endregion
 }

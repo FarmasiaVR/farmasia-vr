@@ -5,9 +5,7 @@ using UnityEngine;
 /// </summary>
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
-    private string[] conditions = { "SyringesPutToTrash", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectAmountOfMedicineSelected};
-    private int syringes;
+    private string[] conditions = { "DroppedItemsPutToTrash", "PreviousTasksCompleted" };
     #endregion
 
     #region Constructor
@@ -18,7 +16,6 @@ public class ScenarioOneCleanUp : TaskBase {
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
         Subscribe();
         AddConditions(conditions);
-        syringes = 6;
     }
     #endregion
 
@@ -35,27 +32,14 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CleanUp(CallbackData data) {
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
+        bool allDroppedItemsInTrash = data.DataBoolean;
+        if (G.Instance.Progress.currentPackage.name == "Clean up") {
             EnableCondition("PreviousTasksCompleted");
         }
         
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
+        if (allDroppedItemsInTrash) {
+            EnableCondition("DroppedItemsPutToTrash");
         }
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Syringe) {
-            if (!base.clearConditions["PreviousTasksCompleted"]) {
-                UISystem.Instance.CreatePopup(0, "Items were cleaned too early", MessageType.Mistake);
-                base.FinishTask(); 
-                return;
-            }
-            syringes--;
-            if (syringes == 0) {
-                EnableCondition("SyringesPutToTrash");
-            }
-        }  
         
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
@@ -71,8 +55,14 @@ public class ScenarioOneCleanUp : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.ScenarioOneCleanUp);
+        GameObject gm = GameObject.FindWithTag("TrashBin");
+        if (!gm.GetComponent<TrashBin>().droppedItemsPutBeforeTime) {
+            UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
+            G.Instance.Progress.calculator.Add(TaskType.ScenarioOneCleanUp);
+        } else {
+            UISystem.Instance.CreatePopup(0, "Items were taken to trash too soon", MessageType.Notify);
+        }
+        
         base.FinishTask();
     }
     
