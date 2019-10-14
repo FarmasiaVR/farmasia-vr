@@ -14,7 +14,7 @@ public enum TaskType {
     LuerlockAttach,
     SyringeAttach,
     CorrectAmountOfMedicineSelected,
-    SterileBag,
+    ItemsToSterileBag,
     ScenarioOneCleanUp,
     Finish
 }

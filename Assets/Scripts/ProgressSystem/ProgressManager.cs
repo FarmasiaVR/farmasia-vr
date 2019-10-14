@@ -46,7 +46,7 @@ public class ProgressManager {
             TaskType.LuerlockAttach,
             TaskType.SyringeAttach,
             TaskType.CorrectAmountOfMedicineSelected,
-            TaskType.SterileBag
+            TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = { TaskType.ScenarioOneCleanUp };
 

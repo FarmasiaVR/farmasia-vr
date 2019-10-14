@@ -31,8 +31,8 @@ public static class TaskFactory {
                 return new SyringeAttach();
             case TaskType.CorrectAmountOfMedicineSelected:
                 return new CorrectAmountOfMedicineSelected();
-            case TaskType.SterileBag:
-                return new SterileBag();
+            case TaskType.ItemsToSterileBag:
+                return new ItemsToSterileBag();
             case TaskType.ScenarioOneCleanUp:
                 return new ScenarioOneCleanUp();
             case TaskType.Finish:

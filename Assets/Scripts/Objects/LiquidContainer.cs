@@ -140,6 +140,8 @@ public class LiquidContainer : MonoBehaviour {
 
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.Off(InteractState.InBottle);
+            //test event trigger
+            Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));
         }
 
         syringe.BottleContainer = null;

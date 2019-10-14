@@ -30,27 +30,23 @@ public class MedicineToSyringe : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(CallbackData data) {
         if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            // check that happens in laminar cabinet
             G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
+        // check that happens in laminar cabinet
+        Syringe syringe = data.DataObject as Syringe;
+        if (syringe == null) {
             return;
         }
-        ObjectType type = item.ObjectType;
         
-        if (type == ObjectType.Syringe) {
-            Syringe syringe = item as Syringe;
-            if (syringe.Container.Capacity == 20) {
-                EnableCondition("RightAmountInSyringe");
-            }
+        if (syringe.Container.Capacity == 20) {
+            EnableCondition("RightAmountInSyringe");
         }
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine, you need 20ml", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
