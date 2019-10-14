@@ -19,48 +19,6 @@ public class ObjectFactory : MonoBehaviour {
         CreateNewCopy();
     }
 
-    private void Update() {
-        if (interactable.State == InteractState.Grabbed) {
-            latestCopy.GetComponent<Rigidbody>().isKinematic = false;
-            CreateNewCopy();
-        }
-    }
-
-    private IEnumerator CheckCollisionRelease(GameObject g1, GameObject g2) {
-        yield return null;
-
-        while (triggerColliderCount.Inside) {
-            yield return null;
-        }
-
-        CollisionIgnore.IgnoreCollisions(g1.transform, g2.transform, false);
-    }
-
-    private void CreateNewCopy() {
-        GameObject handObject = latestCopy;
-        
-        if (latestCopy != null) {
-            triggerColliderCount.SetInteractable(handObject);
-
-            if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) Destroy(latestCopy);
-        }
-
-        latestCopy = Instantiate(CopyObject);
-
-        interactable = latestCopy;
-        latestCopy.SetActive(true);
-
-        if (handObject != null) {
-            CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
-            StartCoroutine(CheckCollisionRelease(handObject, latestCopy));
-        }
-        if (lastPicked != null) {
-            CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
-        }
-        lastPicked = handObject;
-
-        
-    }
 
     #region Collider initialiazation
 
@@ -74,8 +32,6 @@ public class ObjectFactory : MonoBehaviour {
         triggerCopy.transform.name = CopyObject.transform.name + " (TriggerCopy)";
 
         triggerColliderCount = triggerCopy.AddComponent<ColliderHitCount>();
-
-        Logger.PrintVariables("´trigger coll", triggerColliderCount);
 
         RecursiveCopyColliders(CopyObject.transform, triggerCopy.transform);
     }
@@ -104,4 +60,51 @@ public class ObjectFactory : MonoBehaviour {
         to.transform.name = from.transform.name + " (TriggerCopy)";
     }
     #endregion
+
+    private void Update() {
+        if (interactable.State == InteractState.Grabbed) {
+            latestCopy.GetComponent<Rigidbody>().isKinematic = false;
+            CreateNewCopy();
+        }
+    }
+
+    private IEnumerator CheckCollisionRelease(GameObject g1, GameObject g2, Interactable currentInteractable) {
+        yield return null;
+
+        while (triggerColliderCount.Inside) {
+            if (currentInteractable != interactable) {
+                yield break;
+            }
+            yield return null;
+        }
+
+        CollisionIgnore.IgnoreCollisions(g1.transform, g2.transform, false);
+    }
+
+    private void CreateNewCopy() {
+        GameObject handObject = latestCopy;
+
+        if (latestCopy != null) {
+            triggerColliderCount.SetInteractable(handObject);
+
+            if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) {
+                Destroy(latestCopy);
+            }
+        }
+
+        latestCopy = Instantiate(CopyObject);
+        latestCopy.transform.position = transform.position;
+
+        interactable = latestCopy;
+        latestCopy.SetActive(true);
+
+        if (handObject != null) {
+            CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+            StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));
+        }
+        if (lastPicked != null) {
+            CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
+        }
+        lastPicked = handObject;
+    }
 }
