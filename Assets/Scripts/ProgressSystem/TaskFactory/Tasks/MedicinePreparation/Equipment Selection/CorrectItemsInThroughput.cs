@@ -83,7 +83,7 @@ public class CorrectItemsInThroughput : TaskBase {
         if (!check) {
             if (checkTimes == 1) {
                 UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
-                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
             smallSyringes = 0;
             needles = 0;
@@ -103,7 +103,7 @@ public class CorrectItemsInThroughput : TaskBase {
         if (checkTimes == 1) {
             if (objectCount == 16) {
                 UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
-                G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInLaminarCabinet);
+                G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInThroughput);
             } else {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
             }

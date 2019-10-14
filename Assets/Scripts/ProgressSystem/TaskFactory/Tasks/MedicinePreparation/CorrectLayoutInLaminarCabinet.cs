@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,17 +32,10 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     private void ArrangedItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         if (G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            List<ITask> list = G.Instance.Progress.currentPackage.activeTasks;
-            int exists = 0;
-            exists = (from n in list
-                    where n.GetTaskType().Equals(TaskType.MissingItems)
-                    select n).Count();
-            if (exists == 0) {
-                EnableCondition("AllItems"); 
-                if (ItemsArranged()) {
-                    EnableCondition("ItemsArranged");
-                }
-            } 
+            EnableCondition("AllItems"); 
+            if (ItemsArranged()) {
+                EnableCondition("ItemsArranged");
+            }
         }
         
         bool check = CheckClearConditions(true);
@@ -51,7 +43,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
             base.FinishTask();
-            FinishLayout1();
         }
     }
     /// <summary>
@@ -72,17 +63,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
         base.FinishTask();
-        FinishLayout1();
-    }
-
-    /// <summary>
-    /// Removes Layout1 task if not removed before.
-    /// </summary>
-    public void FinishLayout1() {
-        if (!G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
-            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.currentPackage.activeTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
-            layoutInstance.RemoveTaskFromOutside();
-        }
     }
 
     /// <summary>

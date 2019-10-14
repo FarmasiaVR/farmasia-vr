@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
-    private string[] conditions = { "RightAmountInSyringe", "PreviousTasksCompleted" };
+    private string[] conditions = { "RightSyringeSize", "RightAmountInSyringe", "PreviousTasksCompleted" };
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.SelectTools, TaskType.SelectMedicine};
-    // COMMENTED FOR DEMO private string[] conditions = { "RightSizeSyringe", "NeedleToSyringe", "NeedleThroughBottleCap", "PreviousTasksCompleted" };
     // COMMENTED FOR DEMO private List<TaskType> requiredTasks = new List<TaskType> {TaskType.DisinfectBottles};
     #endregion
 

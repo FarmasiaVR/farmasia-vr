@@ -4,7 +4,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = { "AtLeastTwo", "ItemsArranged" };
+    private string[] conditions = { "ItemsArranged" };
     #endregion
 
     #region Constructor
@@ -32,15 +32,11 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangedItems(CallbackData data) {
-        int itemCount = int.Parse(data.DataString);
-        if (itemCount >= 2) {
-            EnableCondition("AtLeastTwo");
-            if (ItemsArranged()) {
-                EnableCondition("ItemsArranged");
-            }
+        if (ItemsArranged()) {
+            EnableCondition("ItemsArranged");
         }
         bool check = CheckClearConditions(true);
-        if (!check && (itemCount >= 2)) {
+        if (!check) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
@@ -62,16 +58,8 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Items in läpiantokaappi", MessageType.Done);
+        UISystem.Instance.CreatePopup(1, "Items arranged", MessageType.Notify);
         G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInThroughput);
-        base.FinishTask();
-    }
-
-    /// <summary>
-    /// This method is called if the task needs to be removed before progressing in game. 
-    /// The task is removed without completion.
-    /// </summary>
-    public void RemoveTaskFromOutside() {
         base.FinishTask();
     }
 
