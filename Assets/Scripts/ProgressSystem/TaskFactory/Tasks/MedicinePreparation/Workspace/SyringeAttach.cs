@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
     #region Fields
-    private string[] conditions = { "SyringeAttached", "RightSyringeSize", "PreviousTaskCompletion" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.LuerlockAttach};
+    private string[] conditions = { "RightSyringeSize", "PreviousTaskCompletion" };
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
+    private int smallSyringes;
     #endregion
 
     #region Constructor
@@ -14,6 +15,7 @@ public class SyringeAttach : TaskBase {
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
         AddConditions(conditions);
+        smallSyringes = 0;
     }
     #endregion
 
@@ -31,6 +33,17 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachSyringe(CallbackData data) {
+        if (G.Instance.Progress.currentPackage.name != "Workspace") {
+            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
+            return;
+        }
+        if (CheckPreviousTaskCompletion(requiredTasks)) {
+            EnableCondition("PreviousTasksCompleted");
+        } else {
+            return;
+        }
+        //check that done in laminar cabinet
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
@@ -38,35 +51,22 @@ public class SyringeAttach : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
-            //check that syringe was attached to luerlock
-            EnableCondition("SyringeAttached");
-            if (SyringeSize(item)) {
-                EnableCondition("RightSyringeSize");
+            Syringe syringe = item.GetComponent<Syringe>();
+            if (syringe.Container.Capacity == 1) {
+                smallSyringes++;
             }
         }
 
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTaskCompletion");
+        if (smallSyringes == 6) {
+            EnableCondition("RightSyringeSize");
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["SyringeAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
-            UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen", MessageType.Mistake);
+        if (!check && base.clearConditions["PreviousTaskCompletion"]) {
+            UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.SyringeAttach);
             base.FinishTask();
         }
-    }
-    /// <summary>
-    /// Method checks the size of the given item.
-    /// </summary>
-    /// <param name="item">"Refers to an item with a size."</param>
-    /// <returns>"Returns true if the item has the expected size."</returns>
-    private bool SyringeSize(GeneralItem item) {
-        Syringe syringe = item as Syringe;
-            if (syringe.Container.Capacity == 1) {
-                return true;
-            }
-        return false;
     }
     #endregion
 
@@ -75,7 +75,7 @@ public class SyringeAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Right syringe size was chosen", MessageType.Notify);
+        UISystem.Instance.CreatePopup(1, "Right syringe sizes were chosen", MessageType.Notify);
         G.Instance.Progress.calculator.Add(TaskType.SyringeAttach);
         base.FinishTask();
     }

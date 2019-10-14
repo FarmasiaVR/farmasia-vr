@@ -3,9 +3,7 @@ using UnityEngine;
 public class LuerlockAttach : TaskBase {
     #region Fields
     private string[] conditions = { "LuerlockAttached", "PreviousTaskCompletion" };
-    // Commented for DEMO private string[] conditions = { "LuerlockAttached", "RightPositionOfLuerlock", "PreviousTaskCompletion" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.SelectTools};
-    // Commented for DEMO private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     #endregion
 
     #region Constructor
@@ -32,39 +30,37 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachLuerlock(CallbackData data) {
+        if (G.Instance.Progress.currentPackage.name != "Workspace") {
+            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
+            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
+            return;
+        }
+        //check that is done in laminar cabinet
+        if (CheckPreviousTaskCompletion(requiredTasks)) {
+            EnableCondition("PreviousTaskCompletion");
+        } else {
+            return;
+        }
+
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
         }
         ObjectType type = item.ObjectType;
-        if (type == ObjectType.Luerlock) {
-            // check that luerlock has been attached to correct syringe
-            EnableCondition("LuerlockAttached");
-            /* Commented for DEMO if (CheckLuerlockPosition(item)) {
-                EnableCondition("RightPositionOfLuerlock");
-            }*/
-        }
-
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTaskCompletion");
+        if (type == ObjectType.Syringe) {
+            Syringe syringe = item.GetComponent<Syringe>();
+            if (syringe.Container.Capacity == 20) {
+                EnableCondition("LuerlockAttached");
+            }
         }
 
         bool check = CheckClearConditions(true);
-        /* Commented for DEMO if (!check && base.clearConditions["LuerlockAttached"] && base.clearConditions["PreviousTaskCompletion"]) {
+        if (!check && base.clearConditions["LuerlockAttached"]) {
             UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
-        }*/
-    }
-    /// <summary>
-    /// Method checks whether the given item has been placed correctly.
-    /// </summary>
-    /// <param name="item">"Refers to an item object."</param>
-    /// <returns>"Returns true if the item has been correctly attached to the Luerlock object."</returns>
-    private bool CheckLuerlockPosition(GeneralItem item) {
-        //missing code, check the position of attached Luerlock
-        return false;
+        }
     }
     #endregion
 

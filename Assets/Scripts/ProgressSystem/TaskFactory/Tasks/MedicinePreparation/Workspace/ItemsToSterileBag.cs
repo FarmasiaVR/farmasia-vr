@@ -47,13 +47,14 @@ public class ItemsToSterileBag : TaskBase {
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe syringe = item as Syringe;
-                if (syringe.Container.Capacity == 1) {
+                //should be 0,15ml
+                if (syringe.Container.Capacity == 1 && syringe.Container.Amount == 15) {
                     smallSyringesCount++;
                 }
             }
         }
 
-        GameObject lc = GameObject.FindWithTag("LaminarCabinet");
+        /*GameObject lc = GameObject.FindWithTag("LaminarCabinet");
         LaminarCabinet laminar = lc.GetComponent<LaminarCabinet>();
         List<GameObject> inLaminar = laminar.objectsInsideArea;
         int usedSmallSyringes = 0;
@@ -67,10 +68,10 @@ public class ItemsToSterileBag : TaskBase {
                     usedSmallSyringes++;
                 }
             }
-        }
+        }*/
 
         
-        if ((smallSyringesCount == 6) || (smallSyringesCount == usedSmallSyringes)) {
+        if (smallSyringesCount == 6) {
             EnableCondition("SyringesPut");
         }
 

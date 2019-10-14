@@ -151,8 +151,23 @@ public class LuerlockAdapter : GeneralItem {
 
             Logger.Print("Connecting item");
             Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
+            Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
+            Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }
+
+    /*private void OnTriggerExit(Collider collider) {
+
+        Syringe syringe = Syringe.GetInteractable(collider.transform) as Syringe;
+
+        if (syringe == null) {
+            return;
+        }
+
+        syringe.State.Off(InteractState.LuerlockAttach);
+        //test event trigger
+        Events.FireEvent(EventType.CorrectAmountOfMedicineSelected, CallbackData.Object(syringe));
+    }*/
 
     private bool WithinDistance(GameObject collObject, Transform t) {
         return Vector3.Distance(collObject.transform.position, LuerlockPosition(t).position) < maxDistance;

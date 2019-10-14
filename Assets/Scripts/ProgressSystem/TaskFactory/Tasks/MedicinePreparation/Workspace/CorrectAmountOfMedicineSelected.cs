@@ -5,8 +5,10 @@ using UnityEngine;
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
-    private string[] conditions = { "RightAmountOfMedicine", "PreviousTasksCompleted" };
+    private string[] conditions = { "SixSyringes", "RightAmountOfMedicine", "PreviousTasksCompleted" };
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach, TaskType.SyringeAttach};
+    private int syringes;
+    private int rightAmountInSyringes;
     #endregion
 
     #region Constructor
@@ -17,6 +19,8 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
         AddConditions(conditions);
+        syringes = 0;
+        rightAmountInSyringes = 0;
     }
     #endregion
 
@@ -33,6 +37,17 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Medicine(CallbackData data) {
+        if (G.Instance.Progress.currentPackage.name != "Workspace") {
+            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
+            return;
+        }
+        if (CheckPreviousTaskCompletion(requiredTasks)) {
+            EnableCondition("PreviousTasksCompleted");
+        } else {
+            return;
+        }
+        //check that happens in laminar cabinet
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
@@ -40,35 +55,29 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
-            if (AmountRight(item)) {
-                EnableCondition("RightAmountOfMedicine");
-            }
+            Syringe syringe = item.GetComponent<Syringe>();
+            //should be 0,15ml
+            if (syringe.Container.Capacity == 1) {
+                syringes++;
+                if (syringe.Container.Amount == 15) {
+                    rightAmountInSyringes++;
+                } 
+            } 
         }  
-        
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
+        if (syringes == 6) {
+            EnableCondition("SixSyringes");
+        }
+        if (rightAmountInSyringes == 6) {
+            EnableCondition("RightAmountOfMedicine");
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTasksCompleted"]) {
+        if (!check && base.clearConditions["SixSyringes"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();
         }
-    }
-    /// <summary>
-    /// Method checks if the container of a given item has an amount that corresponds to the one expected.
-    /// </summary>
-    /// <param name="item">"Refers to an item with a container."</param>
-    /// <returns>"Returns true if the condition is fulfilled."</returns>
-    private bool AmountRight(GeneralItem item) {
-        Syringe syringe = item as Syringe;
-            // right amount should be float
-            if (syringe.Container.Amount == 15) {
-                return true;
-            }
-        return false;
-    }   
+    }  
     #endregion
 
     #region Public Methods
