@@ -10,9 +10,12 @@ public class ObjectFactory : MonoBehaviour {
     private Interactable interactable;
 
     private GameObject lastPicked;
+
+    public ColliderHitCount triggerColliderCount;
     #endregion
 
     private void Start() {
+        CreateColliderCopy();
         CreateNewCopy();
     }
 
@@ -23,10 +26,22 @@ public class ObjectFactory : MonoBehaviour {
         }
     }
 
+    private IEnumerator CheckCollisionRelease(GameObject g1, GameObject g2) {
+        yield return null;
+
+        while (triggerColliderCount.Inside) {
+            yield return null;
+        }
+
+        CollisionIgnore.IgnoreCollisions(g1.transform, g2.transform, false);
+    }
+
     private void CreateNewCopy() {
         GameObject handObject = latestCopy;
-
+        
         if (latestCopy != null) {
+            triggerColliderCount.SetInteractable(handObject);
+
             if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) Destroy(latestCopy);
         }
 
@@ -37,10 +52,56 @@ public class ObjectFactory : MonoBehaviour {
 
         if (handObject != null) {
             CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
+            StartCoroutine(CheckCollisionRelease(handObject, latestCopy));
         }
         if (lastPicked != null) {
             CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
         }
         lastPicked = handObject;
+
+        
     }
+
+    #region Collider initialiazation
+
+    private void CreateColliderCopy() {
+
+        GameObject triggerCopy = new GameObject();
+
+        triggerCopy.transform.position = CopyObject.transform.position;
+        triggerCopy.transform.rotation = CopyObject.transform.rotation;
+        triggerCopy.transform.localScale = CopyObject.transform.localScale;
+        triggerCopy.transform.name = CopyObject.transform.name + " (TriggerCopy)";
+
+        triggerColliderCount = triggerCopy.AddComponent<ColliderHitCount>();
+
+        Logger.PrintVariables("´trigger coll", triggerColliderCount);
+
+        RecursiveCopyColliders(CopyObject.transform, triggerCopy.transform);
+    }
+
+    private void RecursiveCopyColliders(Transform original, Transform copy) {
+
+        Collider coll = original.GetComponent<Collider>();
+        if (coll != null) {
+            ComponentCopy.Copy<Collider>(coll, copy.gameObject).isTrigger = true;
+            triggerColliderCount.SubscribeToCollisions(copy.gameObject);
+        }
+
+        foreach (Transform originalChild in original) {
+
+            GameObject copyChild = new GameObject();
+            copyChild.transform.parent = copy.transform;
+            CopyTransform(originalChild, copyChild.transform);
+
+            RecursiveCopyColliders(originalChild, copyChild.transform);
+        }
+    }
+    private void CopyTransform(Transform from, Transform to) {
+        to.transform.localPosition = from.transform.localPosition;
+        to.transform.localRotation = from.transform.localRotation;
+        to.transform.localScale = from.transform.localScale;
+        to.transform.name = from.transform.name + " (TriggerCopy)";
+    }
+    #endregion
 }
