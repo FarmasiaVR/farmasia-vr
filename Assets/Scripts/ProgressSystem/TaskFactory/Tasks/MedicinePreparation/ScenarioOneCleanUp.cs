@@ -47,8 +47,7 @@ public class ScenarioOneCleanUp : TaskBase {
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
             if (!base.clearConditions["PreviousTasksCompleted"]) {
-                UISystem.Instance.CreatePopup(0, "Syringes were cleaned too early", MessageType.Mistake);
-                G.Instance.Progress.calculator.Subtract(TaskType.ScenarioOneCleanUp);
+                UISystem.Instance.CreatePopup(0, "Items were cleaned too early", MessageType.Mistake);
                 base.FinishTask(); 
                 return;
             }
@@ -60,7 +59,7 @@ public class ScenarioOneCleanUp : TaskBase {
         
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
-            UISystem.Instance.CreatePopup(-1, "Syringes were not taken to trash", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Items were not taken to trash", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
         }
@@ -72,7 +71,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Syringes were taken to trash", MessageType.Notify);
+        UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
         G.Instance.Progress.calculator.Add(TaskType.ScenarioOneCleanUp);
         base.FinishTask();
     }
@@ -90,7 +89,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vie pelin aikana lattialle pudonneet lääkeruiskut roskakoriin.";
+        return "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";
     }
     #endregion
 }
