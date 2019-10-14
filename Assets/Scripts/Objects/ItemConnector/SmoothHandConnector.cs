@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandConnector : ItemConnector {
+public class SmoothHandConnector : ItemConnector {
 
 
     #region fields
@@ -15,20 +15,10 @@ public class HandConnector : ItemConnector {
     private Vector3 grabOffset;
     private Vector3 rotOffset;
 
-    private Joint joint;
-    private Joint Joint {
-        get {
-            if (joint == null) {
-                joint = JointConfiguration.AddJoint(Hand.gameObject);
-            }
-            return joint;
-        }
-    }
-
     private SmoothConnection connection;
     #endregion
 
-    public HandConnector(Transform obj) : base(obj) {
+    public SmoothHandConnector(Transform obj) : base(obj) {
         Hand = obj.GetComponent<Hand>();
     }
 
@@ -53,13 +43,7 @@ public class HandConnector : ItemConnector {
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
         IsGrabbed = true;
         InitializeOffset();
-
-        if (interactable.Type == InteractableType.SmallObject) {
-            SmoothAttachGrabbedObject();
-        } else {
-            AttachGrabbedObject();
-        }
-
+        AttachGrabbedObject();
     }
 
     private void InitializeOffset() {
@@ -68,9 +52,6 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachGrabbedObject() {
-        Joint.connectedBody = GrabbedRigidbody;
-    }
-    private void SmoothAttachGrabbedObject() {
         connection = SmoothConnection.AttachItem(this, Hand.transform, GrabbedRigidbody.gameObject, grabOffset, rotOffset);
     }
     #endregion
@@ -86,12 +67,9 @@ public class HandConnector : ItemConnector {
         }
 
         IsGrabbed = false;
-        Interactable interactable = Interactable.GetInteractable(GrabbedRigidbody.transform);
-        if (interactable.Type == InteractableType.SmallObject) {
-            SmoothDeattachGrabbedObject();
-        } else {
-            DeattachGrabbedObject();
-        }
+
+        DeattachGrabbedObject();
+
         if (GrabbedRigidbody == null) {
             return;
         }
@@ -108,9 +86,6 @@ public class HandConnector : ItemConnector {
     }
 
     private void DeattachGrabbedObject() {
-        Joint.connectedBody = null;
-    }
-    private void SmoothDeattachGrabbedObject() {
         MonoBehaviour.Destroy(connection);
         GrabbedRigidbody.useGravity = true;
     }
