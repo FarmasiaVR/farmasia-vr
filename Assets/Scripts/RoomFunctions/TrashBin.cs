@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TrashBin : MonoBehaviour {
+
+    #region fields
     public List<GameObject> objectsInArea;
     public int droppedItemsInArea;
     public bool droppedItemsPutBeforeTime;
+    #endregion
+    
     // Start is called before the first frame update
     void Start() {
         objectsInArea = new List<GameObject>();

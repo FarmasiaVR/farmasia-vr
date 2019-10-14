@@ -7,6 +7,7 @@ public class ScoreCalculator {
     List<string> zero;
     List<string> onePlus;
     List<string> oneMinus;
+    List<string> beforeTime;
     private int score;
     private int maxScore;
     #endregion
@@ -19,6 +20,7 @@ public class ScoreCalculator {
         zero = new List<string>();
         onePlus = new List<string>();
         oneMinus = new List<string>();
+        beforeTime = new List<string>();
         score = 0;
         maxScore = 10;
         AddTasks();
@@ -59,6 +61,15 @@ public class ScoreCalculator {
     }
 
     /// <summary>
+    /// Subtracts a point from given task. Moves it to before time list.
+    /// </summary>
+    /// <param name="task">Refers to a task to subtract a point.</param>
+    public void SubtractBeforeTime(TaskType task) {
+        score--;
+        beforeTime.Add(task.ToString());
+    }
+
+    /// <summary>
     /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
@@ -66,7 +77,8 @@ public class ScoreCalculator {
         return "The current score is " + score + " out of " + maxScore + "." + "\t" +
         "Tasks with +1 score: " + String.Join(", ", onePlus.ToArray()) + "\t" +
         "Tasks with -1 score: " + String.Join(", ", oneMinus.ToArray()) + "\t" +
-        "Tasks with 0 score: " + String.Join(", ", zero.ToArray());
+        "Tasks with 0 score: " + String.Join(", ", zero.ToArray()) + "\t" +
+        "Tasks tried before time: " + String.Join(", ", beforeTime.ToArray());
     }
     #endregion
 }

@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
-    private string[] conditions = { "RightSyringeSize", "RightAmountInSyringe", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.SelectTools, TaskType.SelectMedicine};
-    // COMMENTED FOR DEMO private List<TaskType> requiredTasks = new List<TaskType> {TaskType.DisinfectBottles};
+    private string[] conditions = { "RightAmountInSyringe" };
     #endregion
 
     #region Constructor
@@ -31,6 +29,11 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(CallbackData data) {
+        if (G.Instance.Progress.currentPackage.name != "Workspace") {
+            // check that happens in laminar cabinet
+            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+            return;
+        }
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
@@ -40,57 +43,18 @@ public class MedicineToSyringe : TaskBase {
         
         if (type == ObjectType.Syringe) {
             Syringe syringe = item as Syringe;
-            if (syringe.Container.Amount == 20) {
-                    EnableCondition("RightAmountInSyringe");
+            if (syringe.Container.Capacity == 20) {
+                EnableCondition("RightAmountInSyringe");
             }
         }
 
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
-        }
-
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTasksCompleted"]) {
+        if (!check) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
     }
-    /* COMMENTED FOR DEMO private void ToSyringe(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-        ObjectType type = item.ObjectType;
-        switch (type) {
-            case ObjectType.Syringe:
-                Syringe syringe = item as Syringe;
-                if (syringe.GetContainer().Capacity == 20) {
-                    EnableCondition("RightSizeSyringe");
-                }
-                break;
-            case ObjectType.Needle:
-                EnableCondition("NeedleToSyringe");
-                break;
-            case ObjectType.BottleCap:
-                //check if the needle goes through the bottlecap
-                EnableCondition("NeedleThroughBottleCap");
-                break;
-        }
-
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
-        }
-
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["NeedleToSyringe"] && base.clearConditions["NeedleThroughBottleCap"] 
-                && base.clearConditions["PreviousTasksCompleted"]) {
-            UISystem.Instance.CreatePopup(-1, "Medicine was not successfully taken", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
-            base.FinishTask();
-        }
-    } */
     #endregion
 
     #region Public Methods

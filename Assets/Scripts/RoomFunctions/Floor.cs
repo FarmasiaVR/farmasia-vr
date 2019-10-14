@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Floor : MonoBehaviour {
+
+    #region fields
     public List<GameObject> objectsOnArea;
     public int droppedItems;
+    #endregion
+    
     // Start is called before the first frame update
     void Start() {
         objectsOnArea = new List<GameObject>();

@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PassThroughCabinet : MonoBehaviour {
+
+    #region fields
     public List<GameObject> objectsInsideArea;
     public Dictionary<String, int> missingObjects;
+    #endregion
+    
     // Start is called before the first frame update
     void Start() {
         objectsInsideArea = new List<GameObject>();
