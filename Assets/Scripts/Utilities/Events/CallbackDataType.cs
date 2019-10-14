@@ -1,5 +1,6 @@
 ﻿public enum CallbackDataType {
     NoData,
     String,
-    Object
+    Object,
+    Boolean
 }

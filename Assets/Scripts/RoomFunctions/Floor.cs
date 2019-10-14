@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour {
     public List<GameObject> objectsOnArea;
+    public int droppedItems;
     // Start is called before the first frame update
     void Start() {
         objectsOnArea = new List<GameObject>();
+        droppedItems = 0;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -17,9 +19,8 @@ public class Floor : MonoBehaviour {
         }
         
         if (!objectsOnArea.Contains(foundObject)) {
-            objectsOnArea.Add(foundObject);
-            ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-            String itemType = Enum.GetName(type.GetType(), type);      
+            objectsOnArea.Add(foundObject);   
+            droppedItems++;   
         }
     }
 
@@ -29,8 +30,7 @@ public class Floor : MonoBehaviour {
             return;
         }
         objectsOnArea.Remove(foundObject);
-        ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-        String itemType = Enum.GetName(type.GetType(), type);  
+        Events.FireEvent(EventType.CleanUp, CallbackData.Boolean(false));
     }
 
     // Update is called once per frame

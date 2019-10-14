@@ -23,16 +23,6 @@ public class TrashBin : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
-            return;
-        }
-        objectsInArea.Remove(foundObject);
-        ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-        String itemType = Enum.GetName(type.GetType(), type);  
-    }
-
     // Update is called once per frame
     void Update() { 
     }
