@@ -11,7 +11,6 @@ public class TrashBin : MonoBehaviour {
     public bool droppedItemsPutBeforeTime;
     #endregion
     
-    // Start is called before the first frame update
     void Start() {
         objectsInArea = new List<GameObject>();
         droppedItemsInArea = 0;
@@ -36,7 +35,9 @@ public class TrashBin : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() { 
+    void Update() {
+        foreach (GameObject obj in objectsInArea) {
+            Destroy(obj);
+        }    
     }
 }
