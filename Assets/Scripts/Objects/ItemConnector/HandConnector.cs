@@ -71,7 +71,7 @@ public class HandConnector : ItemConnector {
         Joint.connectedBody = GrabbedRigidbody;
     }
     private void SmoothAttachGrabbedObject() {
-        connection = SmoothConnection.AttachItem(this, Hand.transform, GrabbedRigidbody.gameObject, grabOffset, rotOffset);
+        connection = SmoothConnection.AttachItem(this, Hand.Offset, GrabbedRigidbody.gameObject);
     }
     #endregion
 

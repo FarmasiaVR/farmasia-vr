@@ -22,6 +22,8 @@ public class Hand : MonoBehaviour {
 
     public HandConnector Connector { get; private set; }
 
+    public Transform Offset { get; private set; }
+
     public VRPadSwipe Swipe { get; private set; }
     #endregion
 
@@ -33,6 +35,7 @@ public class Hand : MonoBehaviour {
 
         Assert.IsNotNull(other, "Other hand was null");
 
+        Offset = transform.Find("Offset");
     }
 
     private void Update() {
@@ -76,6 +79,9 @@ public class Hand : MonoBehaviour {
         }
 
         if (Interactable.Type == InteractableType.Grabbable) {
+
+            Offset.position = Interactable.transform.position;
+            Offset.rotation = Interactable.transform.rotation;
 
             Connector.ConnectItem(Interactable, 0);
 

@@ -7,17 +7,18 @@ public class SmoothConnection : MonoBehaviour {
     private ItemConnector connector;
 
     private Transform target;
-    private Vector3 posOffset, rotOffset;
 
     private Rigidbody rb;
 
     private float maxDistance = 0.3f;
 
-    private float maxForceFactor = 100000;
+    private float maxForceFactor = 100;
     private float maxForce;
 
-    private float maxRotateForceFactor = 10000;
+    private float maxRotateForceFactor = 100;
     private float maxRotateForce;
+
+    private float rotationLerpFactor = 0.5f;
 
     private float brakeFactor = 0.75f;
 
@@ -35,7 +36,7 @@ public class SmoothConnection : MonoBehaviour {
         maxRotateForce = maxRotateForceFactor * rb.mass;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         CheckBreakCondition();
         Move();
         Rotate();
@@ -43,7 +44,8 @@ public class SmoothConnection : MonoBehaviour {
     }
 
     private void CheckBreakCondition() {
-        float distance = Vector3.Distance(rb.transform.position, TargetPos);
+
+        float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
             BreakConnection();
         }
@@ -55,48 +57,66 @@ public class SmoothConnection : MonoBehaviour {
 
     private void Move() {
 
-        float factor = Vector3.Distance(transform.position, TargetPos) / maxDistance;
-        Vector3 direction = TargetPos - transform.position;
+        float factor = Vector3.Distance(transform.position, target.position) / maxDistance;
+        Vector3 direction = target.position - transform.position;
 
-        Logger.PrintVariables("direction", direction, "factor", factor, "maxForce", maxForce);
-
-        Vector3 force = direction.normalized * factor * maxForce * Time.deltaTime;
-
-        Logger.PrintVariables("Force", force);
+        Vector3 force = direction.normalized * factor * maxForce;
 
         rb.AddForce(force);
     }
 
     private void Rotate() {
 
-        Quaternion required = Quaternion.FromToRotation(transform.eulerAngles, TargetRot);
+        rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
 
-        rb.AddTorque(required.eulerAngles * maxRotateForce * Time.deltaTime);
+        return;
+
+        rb.MoveRotation(LerpRotation(transform.eulerAngles, target.eulerAngles));
+
+        return;
+
+        Quaternion required = Quaternion.FromToRotation(transform.eulerAngles, target.eulerAngles);
+
+        Vector3 cross = Vector3.Cross(transform.eulerAngles, target.eulerAngles);
+
+        Logger.PrintVariables("required", required.eulerAngles, "current", transform.eulerAngles, "target", target.eulerAngles, "force", maxRotateForce);
+
+        Vector3 torque = cross * maxRotateForce;
+
+        Logger.PrintVariables("Torque", torque, "angular vel", rb.angularVelocity);
+
+
+        rb.AddTorque(torque);
     }
+
+    private Quaternion LerpRotation(Vector3 from, Vector3 to) {
+
+        Vector3 rot = Vector3.zero;
+
+        rot.x = LerpFloat(from.x, to.x);
+        rot.y = LerpFloat(from.y, to.y);
+        rot.z = LerpFloat(from.z, to.z);
+
+        return Quaternion.Euler(rot);
+    }
+    private float LerpFloat(float start, float end) {
+
+        float diff = end - start;
+
+        return start + diff * rotationLerpFactor;
+    }
+
 
     private void Brake() {
         rb.velocity = rb.velocity * brakeFactor;
+        rb.angularVelocity = Vector3.zero;
     }
 
-    private Vector3 TargetPos {
-        get {
-            return target.position + posOffset;
-        }
-    }
-    private Vector3 TargetRot {
-        get {
-            return transform.eulerAngles + rotOffset;
-        }
-    }
-
-    public static SmoothConnection AttachItem(ItemConnector connector, Transform target, GameObject addTo, Vector3 posOffset, Vector3 rotOffset) {
-
+    public static SmoothConnection AttachItem(ItemConnector connector, Transform target, GameObject addTo) {
         SmoothConnection conn = addTo.gameObject.AddComponent<SmoothConnection>();
 
         conn.connector = connector;
         conn.target = target;
-        conn.posOffset = posOffset;
-        conn.rotOffset = rotOffset;
 
         return conn;
     }
