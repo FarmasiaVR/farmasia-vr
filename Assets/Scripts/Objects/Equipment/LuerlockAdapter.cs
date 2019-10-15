@@ -44,7 +44,7 @@ public class LuerlockAdapter : GeneralItem {
 
         ObjectType = ObjectType.Luerlock;
 
-        Type.On(InteractableType.SmallObject);
+        // Type.On(InteractableType.SmallObject);
 
         Colliders[LEFT] = transform.Find("Left collider").gameObject;
         Colliders[RIGHT] = transform.Find("Right collider").gameObject;
@@ -153,6 +153,9 @@ public class LuerlockAdapter : GeneralItem {
             Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
             Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
             Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
+        } else {
+            Logger.Print("Not connected");
+            Logger.PrintVariables("old obj", Objects[side].GameObject);
         }
     }
 

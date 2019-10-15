@@ -44,7 +44,6 @@ public class LuerlockConnector : ItemConnector {
 
         LuerlockAdapter.AttachedObject obj = Luerlock.Objects[side];
 
-        Logger.Print("ReplaceObject");
         if (obj.GameObject != null) {
 
             if (obj.GameObject == newObject) {
@@ -55,13 +54,6 @@ public class LuerlockConnector : ItemConnector {
             CollisionIgnore.IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, false);
 
             Joint(side).connectedBody = null;
-
-            return;
-            // attachedObject.GameObject.AddComponent<Rigidbody>();
-            obj.Rigidbody.isKinematic = false;
-            // attachedObject.Rigidbody.WakeUp();
-            obj.GameObject.transform.parent = null;
-            obj.GameObject.transform.localScale = obj.Scale;
         }
 
         if (newObject == null) {
@@ -92,23 +84,6 @@ public class LuerlockConnector : ItemConnector {
         SetLuerlockPosition(colliderT, obj.GameObject.transform);
 
         Joint(side).connectedBody = obj.Rigidbody;
-
-        return;
-        Vector3 newScale = new Vector3(
-            obj.Scale.x / Luerlock.transform.lossyScale.x,
-            obj.Scale.y / Luerlock.transform.lossyScale.y,
-            obj.Scale.z / Luerlock.transform.lossyScale.z);
-
-        // Destroy(attachedObject.Rigidbody);
-        obj.Rigidbody.isKinematic = true;
-        //attachedObject.Rigidbody.Sleep();
-
-        obj.GameObject.transform.parent = Luerlock.transform;
-        obj.GameObject.transform.localScale = newScale;
-        obj.GameObject.transform.up = colliderT.transform.up;
-        SetLuerlockPosition(colliderT, obj.GameObject.transform);
-
-        Luerlock.Objects[side] = obj;
     }
 
     private void SetLuerlockPosition(GameObject collObject, Transform t) {
@@ -134,7 +109,6 @@ public class LuerlockConnector : ItemConnector {
         Joint(side).connectedBody = null;
         MonoBehaviour.Destroy(Joint(side));
         Luerlock.Objects[side].Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
-        Logger.Print("Removed luerlock from item");
         Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttatch);
         ReplaceObject(side, null);
     }
