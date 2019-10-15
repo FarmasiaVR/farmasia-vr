@@ -15,7 +15,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
-        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)").GetComponent<PassThroughCabinet>();
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<PassThroughCabinet>();
         Subscribe();
         AddConditions(conditions);
     }
