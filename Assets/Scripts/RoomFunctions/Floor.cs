@@ -10,7 +10,6 @@ public class Floor : MonoBehaviour {
     public int droppedItems;
     #endregion
     
-    // Start is called before the first frame update
     void Start() {
         objectsOnArea = new List<GameObject>();
         droppedItems = 0;
@@ -38,9 +37,5 @@ public class Floor : MonoBehaviour {
         if (G.Instance.Progress.currentPackage.name != "Clean up") {
             UISystem.Instance.CreatePopup("Dropped items shouldn't be cleaned before finishing other tasks", MessageType.Warning);
         }
-    }
-
-    // Update is called once per frame
-    void Update() { 
     }
 }

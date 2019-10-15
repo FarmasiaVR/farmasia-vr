@@ -18,9 +18,6 @@
         }
     }
 
-    private void UpdatePosition() {
-    }
-
     public override void Interact(Hand hand) {
         base.Interact(hand);
         Logger.Print("Door interact");

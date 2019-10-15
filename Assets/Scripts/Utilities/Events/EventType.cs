@@ -15,5 +15,6 @@
     AttachSyringe,
     AmountOfMedicine,
     CleanUp,
-    SterileBag
+    SterileBag,
+    RoomDoor
 }
