@@ -22,7 +22,6 @@ public class Syringe : GeneralItem {
     // private Pipeline pipeline = new Pipeline();
 
     #endregion
-
     protected override void Start() {
         base.Start();
         Container = LiquidContainer.FindLiquidContainer(transform);
@@ -34,7 +33,6 @@ public class Syringe : GeneralItem {
         
 
         Container.OnAmountChange += SetSyringeHandlePosition;
-
         SetSyringeHandlePosition();
     }
 

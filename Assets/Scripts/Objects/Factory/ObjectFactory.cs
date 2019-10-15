@@ -15,6 +15,13 @@ public class ObjectFactory : MonoBehaviour {
     #endregion
 
     private void Start() {
+
+        IEnumerator Init() {
+            yield return null;
+            CreateColliderCopy();
+            CreateNewCopy();
+        }
+
         CreateColliderCopy();
         CreateNewCopy();
     }
@@ -26,23 +33,29 @@ public class ObjectFactory : MonoBehaviour {
 
         GameObject triggerCopy = new GameObject();
 
-        triggerCopy.transform.position = CopyObject.transform.position;
-        triggerCopy.transform.rotation = CopyObject.transform.rotation;
-        triggerCopy.transform.localScale = CopyObject.transform.localScale;
-        triggerCopy.transform.name = CopyObject.transform.name + " (TriggerCopy)";
+        CopyTransform(CopyObject.transform, triggerCopy.transform);
+
+
 
         triggerColliderCount = triggerCopy.AddComponent<ColliderHitCount>();
-
+        CopyObject.SetActive(true);
         RecursiveCopyColliders(CopyObject.transform, triggerCopy.transform);
+        CopyObject.SetActive(false);
     }
 
     private void RecursiveCopyColliders(Transform original, Transform copy) {
 
         Collider coll = original.GetComponent<Collider>();
         if (coll != null) {
-            ComponentCopy.Copy<Collider>(coll, copy.gameObject).isTrigger = true;
+            Vector3 size = coll.bounds.size;
+
+            Logger.PrintVariables("coll siez", coll.bounds.size, "coll extents", coll.bounds.extents);
+
+            AddCollider(copy.gameObject, size);
+            // ComponentCopy.Copy<Collider>(coll, copy.gameObject).isTrigger = true;
             triggerColliderCount.SubscribeToCollisions(copy.gameObject);
         }
+
 
         foreach (Transform originalChild in original) {
 
@@ -53,10 +66,19 @@ public class ObjectFactory : MonoBehaviour {
             RecursiveCopyColliders(originalChild, copyChild.transform);
         }
     }
+    private void AddCollider(GameObject g, Vector3 size) {
+
+        BoxCollider coll = g.AddComponent<BoxCollider>();
+
+        coll.size = size;
+        coll.isTrigger = true;
+    }
+
+
     private void CopyTransform(Transform from, Transform to) {
-        to.transform.localPosition = from.transform.localPosition;
+        to.transform.position = from.transform.position;
         to.transform.localRotation = from.transform.localRotation;
-        to.transform.localScale = from.transform.localScale;
+        // to.transform.localScale = from.transform.localScale;
         to.transform.name = from.transform.name + " (TriggerCopy)";
     }
     #endregion
