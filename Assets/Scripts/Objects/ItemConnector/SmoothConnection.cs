@@ -16,6 +16,9 @@ public class SmoothConnection : MonoBehaviour {
     private float maxForceFactor = 100000;
     private float maxForce;
 
+    private float maxRotateForceFactor = 10000;
+    private float maxRotateForce;
+
     private float brakeFactor = 0.75f;
 
     private void Start() {
@@ -25,8 +28,11 @@ public class SmoothConnection : MonoBehaviour {
             throw new System.Exception("Rigidbody was null");
         }
 
+        rb.maxAngularVelocity = Mathf.Infinity;
+
         rb.useGravity = false;
         maxForce = maxForceFactor * rb.mass;
+        maxRotateForce = maxRotateForceFactor * rb.mass;
     }
 
     private void Update() {
@@ -54,7 +60,7 @@ public class SmoothConnection : MonoBehaviour {
 
         Logger.PrintVariables("direction", direction, "factor", factor, "maxForce", maxForce);
 
-        Vector3 force = direction * factor * maxForce * Time.deltaTime;
+        Vector3 force = direction.normalized * factor * maxForce * Time.deltaTime;
 
         Logger.PrintVariables("Force", force);
 
@@ -63,8 +69,9 @@ public class SmoothConnection : MonoBehaviour {
 
     private void Rotate() {
 
+        Quaternion required = Quaternion.FromToRotation(transform.eulerAngles, TargetRot);
 
-
+        rb.AddTorque(required.eulerAngles * maxRotateForce * Time.deltaTime);
     }
 
     private void Brake() {
