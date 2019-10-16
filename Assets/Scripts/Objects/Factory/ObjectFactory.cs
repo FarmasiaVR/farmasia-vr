@@ -49,7 +49,7 @@ public class ObjectFactory : MonoBehaviour {
         if (coll != null) {
             Vector3 size = coll.bounds.size;
 
-            Logger.PrintVariables("coll siez", coll.bounds.size, "coll extents", coll.bounds.extents);
+            //Logger.PrintVariables("coll size", coll.bounds.size, "coll extents", coll.bounds.extents);
 
             AddCollider(copy.gameObject, size);
             // ComponentCopy.Copy<Collider>(coll, copy.gameObject).isTrigger = true;

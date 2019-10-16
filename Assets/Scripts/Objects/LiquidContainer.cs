@@ -64,7 +64,7 @@ public class LiquidContainer : MonoBehaviour {
 
             Interactable interactable = Interactable.GetInteractable(transform);
 
-            Logger.Print("interactable found: " + interactable.name);
+            //Logger.Print("interactable found: " + interactable.name);
 
             item = (GeneralItem)interactable;
 

@@ -29,7 +29,6 @@ public class ScoreCalculator {
     /// </summary>
     private void AddTasks() {
         foreach (ITask task in tasks) {
-            Logger.Print(task.GetTaskType());
             points.Add(task.GetTaskType(), task.GetPoints());
             maxScore += task.GetPoints();
         }
