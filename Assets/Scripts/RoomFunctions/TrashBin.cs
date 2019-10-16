@@ -11,7 +11,7 @@ public class TrashBin : MonoBehaviour {
     public bool droppedItemsPutBeforeTime;
     #endregion
     
-    void Start() {
+    private void Start() {
         objectsInArea = new List<GameObject>();
         droppedItemsInArea = 0;
         droppedItemsPutBeforeTime = false;
@@ -35,7 +35,7 @@ public class TrashBin : MonoBehaviour {
         }
     }
 
-    void Update() {
+    private void Update() {
         foreach (GameObject obj in objectsInArea) {
             Destroy(obj);
         }    

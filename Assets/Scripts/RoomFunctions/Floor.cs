@@ -10,7 +10,7 @@ public class Floor : MonoBehaviour {
     public int droppedItems;
     #endregion
     
-    void Start() {
+    private void Start() {
         objectsOnArea = new List<GameObject>();
         droppedItems = 0;
     }
