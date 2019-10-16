@@ -18,9 +18,9 @@ public static class TaskFactory {
             case TaskType.CorrectLayoutInThroughput:
                 return new CorrectLayoutInThroughput();
             case TaskType.CorrectItemsInLaminarCabinet:
-                return new CorrectItemsInThroughput();
+                return new CorrectItemsInLaminarCabinet();
             case TaskType.CorrectLayoutInLaminarCabinet:
-                return new CorrectLayoutInThroughput();
+                return new CorrectLayoutInLaminarCabinet();
             case TaskType.DisinfectBottles:
                 return new DisinfectBottles();
             case TaskType.MedicineToSyringe:
