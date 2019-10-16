@@ -21,6 +21,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         AddConditions(conditions);
         syringes = 0;
         rightAmountInSyringes = 0;
+        points = 6;
     }
     #endregion
 
@@ -86,7 +87,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right amount of medicine", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectAmountOfMedicineSelected);
         base.FinishTask();
     }
     

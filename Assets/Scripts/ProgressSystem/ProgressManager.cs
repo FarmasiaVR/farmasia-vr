@@ -22,8 +22,8 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
-        calculator = new ScoreCalculator();
         AddTasks();
+        calculator = new ScoreCalculator(allTasks);
         GenerateScenarioOne();
         currentPackage = packages.First();
         UpdateDescription();

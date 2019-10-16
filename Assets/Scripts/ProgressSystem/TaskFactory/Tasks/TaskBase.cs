@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 
 /// <summary>
-/// Version 2 of current task.
+/// Base for every task. 
+/// Handles everything related to task given task and also has useful methods.
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
+    protected int points;
     protected Package package;
     protected TaskType taskType;
     protected bool isFinished = false;
@@ -22,6 +24,7 @@ public class TaskBase : ITask {
     /// <param name="remove">Task removed when finished from list.</param>
     /// <param name="previous">Task requires previous tasks completion linearly.</param>
     public TaskBase(TaskType type, bool remove, bool previous) {
+        points = 0;
         taskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
@@ -80,6 +83,13 @@ public class TaskBase : ITask {
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Used for summary at the end of the game.
+    /// </summary>
+    /// <returns>Integer of maximum points for current task.</returns>
+    public int GetPoints() {
+        return points;
+    }
     public void SetPackage(Package package) {
         this.package = package;
     }

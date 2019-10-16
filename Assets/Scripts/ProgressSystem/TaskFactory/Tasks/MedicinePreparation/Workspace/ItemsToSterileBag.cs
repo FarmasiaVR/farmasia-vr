@@ -15,6 +15,7 @@ public class ItemsToSterileBag : TaskBase {
         smallSyringesCount = 0;
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 

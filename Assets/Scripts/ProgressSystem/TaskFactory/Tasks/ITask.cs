@@ -6,6 +6,7 @@ public interface ITask {
     void SetPackage(Package package);
     void FinishTask();
     string GetDescription();
+    int GetPoints();
     string GetHint();
     void Subscribe();
     void SubscribeEvent(Events.EventDataCallback action, EventType Event);

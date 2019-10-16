@@ -18,6 +18,7 @@ public class CorrectLayoutInThroughput : TaskBase {
         cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<PassThroughCabinet>();
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -78,7 +79,6 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items arranged", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInThroughput);
         base.FinishTask();
     }
 

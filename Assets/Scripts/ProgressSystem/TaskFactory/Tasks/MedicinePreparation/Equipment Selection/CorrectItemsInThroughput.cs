@@ -24,6 +24,7 @@ public class CorrectItemsInThroughput : TaskBase {
         needles = 0;
         objectCount = 0;
         checkTimes = 0;
+        points = 2;
     }
     #endregion
 
@@ -103,7 +104,6 @@ public class CorrectItemsInThroughput : TaskBase {
         if (checkTimes == 1) {
             if (objectCount == 16) {
                 UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
-                G.Instance.Progress.calculator.Add(TaskType.CorrectItemsInThroughput);
             } else {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
             }

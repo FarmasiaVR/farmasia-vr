@@ -14,6 +14,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -61,7 +62,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
         base.FinishTask();
     }
 

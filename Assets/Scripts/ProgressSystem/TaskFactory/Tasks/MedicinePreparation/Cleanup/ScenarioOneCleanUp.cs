@@ -16,6 +16,7 @@ public class ScenarioOneCleanUp : TaskBase {
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -58,7 +59,6 @@ public class ScenarioOneCleanUp : TaskBase {
         GameObject gm = GameObject.FindWithTag("TrashBin");
         if (!gm.GetComponent<TrashBin>().droppedItemsPutBeforeTime) {
             UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
-            G.Instance.Progress.calculator.Add(TaskType.ScenarioOneCleanUp);
         } else {
             UISystem.Instance.CreatePopup(0, "Items were taken to trash too soon", MessageType.Notify);
         }

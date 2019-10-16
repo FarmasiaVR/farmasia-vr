@@ -13,6 +13,7 @@ public class MedicineToSyringe : TaskBase {
     public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true, true) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -59,7 +60,6 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Medicine was successfully taken", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.MedicineToSyringe);
         base.FinishTask();
     }
     

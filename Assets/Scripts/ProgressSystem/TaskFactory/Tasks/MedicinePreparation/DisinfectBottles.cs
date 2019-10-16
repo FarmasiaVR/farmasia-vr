@@ -17,6 +17,7 @@ public class DisinfectBottles : TaskBase {
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -62,7 +63,6 @@ public class DisinfectBottles : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Bottle cap disinfected", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.DisinfectBottles);
         base.FinishTask();
     }
     

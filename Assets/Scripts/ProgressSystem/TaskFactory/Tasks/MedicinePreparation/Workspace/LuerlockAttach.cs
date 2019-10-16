@@ -14,6 +14,7 @@ public class LuerlockAttach : TaskBase {
     public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -70,7 +71,6 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Luerlock was successfully attached", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.LuerlockAttach);
         base.FinishTask();
     }
     

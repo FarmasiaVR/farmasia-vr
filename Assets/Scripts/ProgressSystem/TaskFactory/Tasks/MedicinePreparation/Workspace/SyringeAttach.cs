@@ -16,6 +16,7 @@ public class SyringeAttach : TaskBase {
         Subscribe();
         AddConditions(conditions);
         smallSyringes = 0;
+        points = 1;
     }
     #endregion
 
@@ -76,7 +77,6 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Right syringe sizes were chosen", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.SyringeAttach);
         base.FinishTask();
     }
     
