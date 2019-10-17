@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Base for every task. 
@@ -115,8 +116,8 @@ public class TaskBase : ITask {
     /// Disables all conditions.
     /// </summary>
     public void DisableConditions() {
-        foreach (KeyValuePair<string, bool> condition in clearConditions) {
-            clearConditions[condition.Key] = false;
+        foreach (string condition in clearConditions.Keys.ToList()) {
+            clearConditions[condition] = false;
         }
     }
 
