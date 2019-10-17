@@ -21,8 +21,8 @@ public class PassThroughCabinet : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
+        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
+        if (foundObject?.GetComponent<GeneralItem>() == null) {
             return;
         }
         
@@ -50,8 +50,8 @@ public class PassThroughCabinet : MonoBehaviour {
     }
 
     private void OnTriggerExit(Collider other) {
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
+        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
+        if (foundObject?.GetComponent<GeneralItem>() == null) {
             return;
         }
         objectsInsideArea.Remove(foundObject);
