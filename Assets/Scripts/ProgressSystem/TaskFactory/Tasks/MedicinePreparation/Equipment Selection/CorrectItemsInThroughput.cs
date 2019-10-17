@@ -39,7 +39,7 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        if (data.DataString != DoorGoTo.EnterPreparation.ToString()) {
+        if (data.DataString != DoorGoTo.EnterWorkspace.ToString()) {
             return;
         }
         if (cabinet == null) {
