@@ -117,8 +117,4 @@ public class PassThroughCabinet : MonoBehaviour {
         }
         return missing;
     }
-
-    // Update is called once per frame
-    void Update() { 
-    }
 }

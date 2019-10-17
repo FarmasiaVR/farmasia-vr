@@ -14,6 +14,9 @@ public class RoomDoorHandle : Interactable {
     }
 
     public override void Interact(Hand hand) {
+        if (destination == DoorGoTo.None) {
+            return;
+        }
         Events.FireEvent(EventType.RoomDoor, CallbackData.String(destination.ToString()));
     }
 }

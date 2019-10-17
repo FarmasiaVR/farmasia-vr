@@ -6,10 +6,10 @@ using UnityEngine;
 public class CorrectItemsInThroughput : TaskBase {
     #region Fields
     private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
-    private int smallSyringes;
-    private int needles;
+    private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
+    private PassThroughCabinet cabinet;
     #endregion
 
     #region Constructor
@@ -20,11 +20,10 @@ public class CorrectItemsInThroughput : TaskBase {
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         Subscribe();
         AddConditions(conditions);
-        smallSyringes = 0;
-        needles = 0;
-        objectCount = 0;
+        SetItemsToZero();
         checkTimes = 0;
         points = 2;
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<PassThroughCabinet>();
     }
     #endregion
 
@@ -33,21 +32,28 @@ public class CorrectItemsInThroughput : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() { 
-        base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInThroughput);
+        base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
     /// <summary>
     /// Once fired by an event, checks which items are in the throughput cabinet and sets the corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        List<GameObject> objects = data.DataObject as List<GameObject>;
-        if (objects.Count == 0) {
+        if (data.DataString != DoorGoTo.EnterPreparation.ToString()) {
+            return;
+        }
+        if (cabinet == null) {
+            Logger.Print("There is no Pass-Through Cabinet or Component PassThroughCabinet :S");
+            return;
+        }
+        List<GameObject> containedObjects = cabinet.GetContainedItems();
+        if (containedObjects.Count == 0) {
             return;
         }
         checkTimes++;
-        objectCount = objects.Count;
+        objectCount = containedObjects.Count;
 
-        foreach(GameObject value in objects) {
+        foreach(GameObject value in containedObjects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
             switch (type) {
@@ -89,11 +95,15 @@ public class CorrectItemsInThroughput : TaskBase {
             smallSyringes = 0;
             needles = 0;
             DisableConditions();
-            /*MissingItems missingTask = TaskFactory.GetTask(TaskType.MissingItems) as MissingItems;
-            missingTask.SetMissingConditions(GetNonClearedConditions());
-            G.Instance.Progress.AddTask(missingTask);*/
         }
-    } 
+    }
+    #endregion
+
+    #region Private Methods
+    private void SetItemsToZero() {
+        smallSyringes = 0;
+        needles = 0;
+}
     #endregion
 
     #region Public Methods
