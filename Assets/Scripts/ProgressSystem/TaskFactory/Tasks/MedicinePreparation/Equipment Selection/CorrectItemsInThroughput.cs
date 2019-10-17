@@ -118,6 +118,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
             }
         }
+        GameObject.Find("GObject").GetComponent<RoomTeleport>().teleportPlayerAndPassthroughCabinet();
         base.FinishTask();
     }
     
