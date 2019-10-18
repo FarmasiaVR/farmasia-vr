@@ -27,8 +27,11 @@ public class RoomTeleport : MonoBehaviour {
             return;
         }
         foreach (GameObject cabinetItem in cabinet.GetContainedItems()) {
-            Vector3 localPosition = cabinetItem.transform.InverseTransformPoint(passThroughTriggerLocal.transform.position);
-            cabinetItem.transform.position = new Vector3(passThroughTele.transform.position.x + localPosition.x, passThroughTele.transform.position.y + localPosition.y + 0.1f, passThroughTele.transform.position.z + localPosition.z);
+            Vector3 lepos = passThroughTele.transform.position + (cabinetItem.transform.position - passThroughTriggerLocal.transform.position);
+            float rotDelta = Quaternion.Angle(passThroughTriggerLocal.transform.rotation, passThroughTele.transform.rotation);
+            cabinetItem.transform.position = lepos;
+            cabinetItem.transform.RotateAround(passThroughTele.transform.position, passThroughTele.transform.up, rotDelta);
+
         }
         Vector3 playerLocalPosition = player.transform.InverseTransformPoint(playerLocalPoint.transform.position);
         player.transform.position = new Vector3(playerTele.transform.position.x + playerLocalPosition.x, playerTele.transform.position.y + playerLocalPosition.y, playerTele.transform.position.z + playerLocalPosition.z);
