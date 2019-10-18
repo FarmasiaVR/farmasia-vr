@@ -8,13 +8,13 @@ public class ThroughputController : MonoBehaviour {
     [SerializeField]
     private GameObject destination;
 
-    private PassThroughCabinet srcCabinet;
-    private PassThroughCabinet dstCabinet;
+    private CabinetBase srcCabinet;
+    private CabinetBase dstCabinet;
     #endregion
 
     private void Start() {
-        srcCabinet = source?.GetComponentInChildren<PassThroughCabinet>();
-        dstCabinet = destination?.GetComponentInChildren<PassThroughCabinet>();
+        srcCabinet = source?.GetComponentInChildren<CabinetBase>();
+        dstCabinet = destination?.GetComponentInChildren<CabinetBase>();
     }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {

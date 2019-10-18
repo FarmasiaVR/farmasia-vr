@@ -6,10 +6,10 @@ using UnityEngine;
 public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
     private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
-    private int smallSyringes;
-    private int needles;
+    private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
+    private CabinetBase laminarCabinet;
     #endregion
 
     #region Constructor

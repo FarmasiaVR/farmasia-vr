@@ -6,7 +6,7 @@ using UnityEngine;
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
     private string[] conditions = { "ItemsArranged" };
-    private PassThroughCabinet cabinet;
+    private CabinetBase cabinet;
     #endregion
 
     #region Constructor
@@ -15,7 +15,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
-        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<PassThroughCabinet>();
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
         Subscribe();
         AddConditions(conditions);
         points = 1;

@@ -9,7 +9,7 @@ public class CorrectItemsInThroughput : TaskBase {
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
-    private PassThroughCabinet cabinet;
+    private CabinetBase cabinet;
     #endregion
 
     #region Constructor
@@ -23,7 +23,7 @@ public class CorrectItemsInThroughput : TaskBase {
         SetItemsToZero();
         checkTimes = 0;
         points = 2;
-        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<PassThroughCabinet>();
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
     }
     #endregion
 
@@ -118,7 +118,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
             }
         }
-        GameObject.Find("GObject").GetComponent<RoomTeleport>().teleportPlayerAndPassthroughCabinet();
+        GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
         base.FinishTask();
     }
     

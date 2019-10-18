@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassThroughCabinet : MonoBehaviour {
-
+public class CabinetBase : MonoBehaviour {
     #region fields
     public List<GameObject> objectsInsideArea;
     public Dictionary<String, int> missingObjects;
     #endregion
-    
+
     // Start is called before the first frame update
     void Start() {
         objectsInsideArea = new List<GameObject>();
@@ -25,12 +24,12 @@ public class PassThroughCabinet : MonoBehaviour {
         if (foundObject?.GetComponent<GeneralItem>() == null) {
             return;
         }
-        
+
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
             String itemType = Enum.GetName(type.GetType(), type);
-            
+
             if (itemType == "Syringe") {
                 Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
                 if (syringe.Container.Capacity == 20) {
@@ -44,8 +43,8 @@ public class PassThroughCabinet : MonoBehaviour {
             }
 
             if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
-                missingObjects[itemType]--; 
-            }      
+                missingObjects[itemType]--;
+            }
         }
     }
 
@@ -57,7 +56,7 @@ public class PassThroughCabinet : MonoBehaviour {
         objectsInsideArea.Remove(foundObject);
         ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
         String itemType = Enum.GetName(type.GetType(), type);
-        
+
         if (itemType == "Syringe") {
             Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
             if (syringe.Container.Capacity == 20) {
@@ -79,26 +78,26 @@ public class PassThroughCabinet : MonoBehaviour {
                     break;
                 case "Big syringe":
                     if (missingObjects[itemType] == 0) {
-                       missingObjects[itemType]++; 
+                        missingObjects[itemType]++;
                     }
                     break;
                 case "Small syringes":
                     if (missingObjects[itemType] < 6) {
-                       missingObjects[itemType]++; 
+                        missingObjects[itemType]++;
                     }
                     break;
                 case "Luerlock":
                     if (missingObjects[itemType] == 0) {
-                       missingObjects[itemType]++; 
+                        missingObjects[itemType]++;
                     }
                     break;
-                case "Bottle": 
+                case "Bottle":
                     if (missingObjects[itemType] == 0) {
-                       missingObjects[itemType]++; 
-                    }       
+                        missingObjects[itemType]++;
+                    }
                     break;
             }
-        }  
+        }
     }
 
     /// <summary>
@@ -110,10 +109,10 @@ public class PassThroughCabinet : MonoBehaviour {
 
     public String GetMissingItems() {
         String missing = "Missing items:";
-        foreach(KeyValuePair<String, int> value in missingObjects) {
+        foreach (KeyValuePair<String, int> value in missingObjects) {
             if (value.Value > 0) {
-                missing = missing + " " + value.Key + " " + value.Value + ",";    
-            } 
+                missing = missing + " " + value.Key + " " + value.Value + ",";
+            }
         }
         return missing;
     }
