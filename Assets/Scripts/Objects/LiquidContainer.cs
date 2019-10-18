@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -46,10 +47,13 @@ public class LiquidContainer : MonoBehaviour {
         get { return capacity; }
         private set { capacity = Math.Max(value, 0); }
     }
+
+    private Dictionary<int, int> enteredObjects;
     #endregion
 
     private void Awake() {
         Assert.IsNotNull(liquid);
+        enteredObjects = new Dictionary<int, int>();
     }
 
 
@@ -115,7 +119,15 @@ public class LiquidContainer : MonoBehaviour {
 
         Logger.Print("Liquid container enter: " + c.gameObject.name);
 
-        Syringe syringe = Interactable.GetInteractable(c.transform) as Syringe;
+        Interactable interactable = Interactable.GetInteractable(c.transform);
+
+        if (interactable == null) {
+            return;
+        }
+
+        AddToDictionary(interactable);
+
+        Syringe syringe = interactable as Syringe;
 
         if (syringe == null) {
             Logger.Print("No syringe");
@@ -130,18 +142,52 @@ public class LiquidContainer : MonoBehaviour {
 
         syringe.BottleContainer = this;
     }
+    private void AddToDictionary(Interactable interactable) {
+
+        int id = interactable.GetInstanceID();
+
+        if (enteredObjects.ContainsKey(id)) {
+            enteredObjects[id]++;
+        } else {
+            enteredObjects.Add(id, 1);
+        }
+    }
+    private bool RemoveFromDictionary(Interactable interactable) {
+        int id = interactable.GetInstanceID();
+
+        if (enteredObjects.ContainsKey(id)) {
+            enteredObjects[id]++;
+
+            if (enteredObjects[id] == 0) {
+                enteredObjects.Remove(id);
+                return true;
+            }
+        } else {
+            Logger.Warning("Object exited invalid amount of times");
+        }
+
+        return false;
+    }
     private void OnTriggerExit(Collider c) {
 
-        Syringe syringe = Syringe.GetInteractable(c.transform) as Syringe;
+        Interactable interactable = Interactable.GetInteractable(c.transform);
+
+        if (interactable == null) {
+            return;
+        }
+
+        bool exited = RemoveFromDictionary(interactable);
+
+        Syringe syringe = interactable as Syringe;
 
         if (syringe == null) {
             return;
         }
 
-        if (item.ObjectType == ObjectType.Bottle) {
+        if (item.ObjectType == ObjectType.Bottle && exited) {
             syringe.State.Off(InteractState.InBottle);
             //test event trigger
-            Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));
+            // Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));
         }
 
         syringe.BottleContainer = null;

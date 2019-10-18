@@ -44,7 +44,7 @@ public class LuerlockAdapter : GeneralItem {
 
         ObjectType = ObjectType.Luerlock;
 
-        // Type.On(InteractableType.SmallObject);
+        Type.On(InteractableType.SmallObject);
 
         Colliders[LEFT] = transform.Find("Left collider").gameObject;
         Colliders[RIGHT] = transform.Find("Right collider").gameObject;

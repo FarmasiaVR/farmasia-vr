@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmoothConnection : MonoBehaviour {
+public class SmoothConnection : ItemConnection {
 
-    private ItemConnector connector;
+    protected override ItemConnector Connector { get; set; }
 
     private Transform target;
 
@@ -36,7 +36,7 @@ public class SmoothConnection : MonoBehaviour {
         maxRotateForce = maxRotateForceFactor * rb.mass;
     }
 
-    private void FixedUpdate() {
+    protected override void FixedUpdate() {
         CheckBreakCondition();
         Move();
         Rotate();
@@ -52,7 +52,7 @@ public class SmoothConnection : MonoBehaviour {
     }
 
     private void BreakConnection() {
-        connector.ReleaseItem(0);
+        Connector.ReleaseItem(0);
     }
 
     private void Move() {
@@ -112,10 +112,10 @@ public class SmoothConnection : MonoBehaviour {
         rb.angularVelocity = Vector3.zero;
     }
 
-    public static SmoothConnection AttachItem(ItemConnector connector, Transform target, GameObject addTo) {
+    public static SmoothConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
         SmoothConnection conn = addTo.gameObject.AddComponent<SmoothConnection>();
 
-        conn.connector = connector;
+        conn.Connector = connector;
         conn.target = target;
 
         return conn;

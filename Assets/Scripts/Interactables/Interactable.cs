@@ -36,7 +36,6 @@ public class Interactable : MonoBehaviour {
         return GetInteractableObject(t)?.GetComponent<Interactable>();
     }
     public static GameObject GetInteractableObject(Transform t) {
-
         while (t != null) {
             if (t.tag == iTag) {
                 return t.gameObject;
@@ -44,8 +43,6 @@ public class Interactable : MonoBehaviour {
 
             t = t.parent;
         }
-
-        Logger.Warning("No interactable found");
         return null;
     }
 
