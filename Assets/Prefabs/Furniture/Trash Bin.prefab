@@ -104,7 +104,6 @@ GameObject:
   - component: {fileID: 4921979351537460390}
   - component: {fileID: 191378467664286134}
   - component: {fileID: 8728491789949557023}
-  - component: {fileID: 3265799051216489867}
   m_Layer: 0
   m_Name: Trash Bin Trigger
   m_TagString: TrashBin
@@ -185,21 +184,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3265799051216489867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5781453622683416085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectsInArea: []
-  droppedItemsInArea: 0
-  droppedItemsPutBeforeTime: 0
 --- !u!1 &5799405897786997430
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4785781490704949997}
+  - component: {fileID: 1986698142243287815}
   m_Layer: 0
   m_Name: Trash Bin
   m_TagString: Untagged
@@ -328,6 +313,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1986698142243287815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7231021466953462767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsInArea: []
+  droppedItemsInArea: 0
+  droppedItemsPutBeforeTime: 0
+  childCollider: {fileID: 5781453622683416085}
 --- !u!1 &7372881326486495111
 GameObject:
   m_ObjectHideFlags: 0

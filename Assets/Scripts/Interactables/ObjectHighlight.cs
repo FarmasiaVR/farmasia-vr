@@ -12,7 +12,7 @@ public class ObjectHighlight : MonoBehaviour {
 
     #endregion
 
-    private void Start() {
+    private void Awake() {
         InitializeLists();
         highlightColor = new Color32(100,120,100,1);
         normalColor = new Color32(0,0,0,0);
