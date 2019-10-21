@@ -88,7 +88,7 @@ public class OpenableDoor : MonoBehaviour {
         Velocity *= friction;
 
         if (Mathf.Abs(Velocity) < minVelocity) {
-            Velocity = Velocity > 0 ? minVelocity : -minVelocity;
+            Velocity = 0;
         }
     }
 
