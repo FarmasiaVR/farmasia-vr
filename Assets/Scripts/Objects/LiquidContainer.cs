@@ -16,7 +16,7 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
-    private GeneralItem item;
+    private ContainerItem cItem;
 
     public int Amount {
         get { return amount; }
@@ -47,13 +47,10 @@ public class LiquidContainer : MonoBehaviour {
         get { return capacity; }
         private set { capacity = Math.Max(value, 0); }
     }
-
-    private Dictionary<int, int> enteredObjects;
     #endregion
 
     private void Awake() {
         Assert.IsNotNull(liquid);
-        enteredObjects = new Dictionary<int, int>();
     }
 
 
@@ -70,11 +67,13 @@ public class LiquidContainer : MonoBehaviour {
 
             //Logger.Print("interactable found: " + interactable.name);
 
-            item = (GeneralItem)interactable;
+            GeneralItem gItem = (GeneralItem)interactable;
 
-            if (item == null) {
+            if (gItem == null) {
                 throw new Exception("Liquid container attached to non GeneralItem object");
             }
+
+            cItem = new ContainerItem(this, gItem);
         }
     }
 
@@ -116,80 +115,10 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider c) {
-
-        Logger.Print("Liquid container enter: " + c.gameObject.name);
-
-        Interactable interactable = Interactable.GetInteractable(c.transform);
-
-        if (interactable == null) {
-            return;
-        }
-
-        AddToDictionary(interactable);
-
-        Syringe syringe = interactable as Syringe;
-
-        if (syringe == null) {
-            Logger.Print("No syringe");
-            return;
-        }
-
-        if (item.ObjectType == ObjectType.Bottle) {
-            syringe.State.On(InteractState.InBottle);
-        }
-
-        Logger.Print("In syringe");
-
-        syringe.BottleContainer = this;
+        cItem?.TriggerEnter(c);
     }
-    private void AddToDictionary(Interactable interactable) {
-
-        int id = interactable.GetInstanceID();
-
-        if (enteredObjects.ContainsKey(id)) {
-            enteredObjects[id]++;
-        } else {
-            enteredObjects.Add(id, 1);
-        }
-    }
-    private bool RemoveFromDictionary(Interactable interactable) {
-        int id = interactable.GetInstanceID();
-
-        if (enteredObjects.ContainsKey(id)) {
-            enteredObjects[id]++;
-
-            if (enteredObjects[id] == 0) {
-                enteredObjects.Remove(id);
-                return true;
-            }
-        } else {
-            Logger.Warning("Object exited invalid amount of times");
-        }
-
-        return false;
-    }
+ 
     private void OnTriggerExit(Collider c) {
-
-        Interactable interactable = Interactable.GetInteractable(c.transform);
-
-        if (interactable == null) {
-            return;
-        }
-
-        bool exited = RemoveFromDictionary(interactable);
-
-        Syringe syringe = interactable as Syringe;
-
-        if (syringe == null) {
-            return;
-        }
-
-        if (item.ObjectType == ObjectType.Bottle && exited) {
-            syringe.State.Off(InteractState.InBottle);
-            //test event trigger
-            // Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));
-        }
-
-        syringe.BottleContainer = null;
+        cItem?.TriggerExit(c);
     }
 }
