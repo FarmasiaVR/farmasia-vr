@@ -59,7 +59,6 @@ public class HandConnector : ItemConnector {
         } else {
             AttachGrabbedObject();
         }
-
     }
 
     private void InitializeOffset() {
@@ -87,7 +86,7 @@ public class HandConnector : ItemConnector {
 
         IsGrabbed = false;
         Interactable interactable = Interactable.GetInteractable(GrabbedRigidbody.transform);
-        if (interactable.Type == InteractableType.SmallObject) {
+        if (AllowSmooth(interactable)) {
             SmoothDeattachGrabbedObject();
         } else {
             DeattachGrabbedObject();
@@ -105,6 +104,31 @@ public class HandConnector : ItemConnector {
 
         GrabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
         GrabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
+    }
+
+    private bool AllowSmooth(Interactable interactable) {
+
+        if (interactable.Type != InteractableType.SmallObject) {
+            return false;
+        }
+
+        if (interactable.State == InteractState.LuerlockAttatch) {
+
+            LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+
+            int count = 0;
+            foreach (var obj in luerlock.Objects) {
+                if (obj.GameObject != null) {
+                    count++;
+                }
+            }
+
+            if (count == 2) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void DeattachGrabbedObject() {
