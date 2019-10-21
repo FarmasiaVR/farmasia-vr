@@ -12,7 +12,7 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    private float liquidEjectSpeed = 25000;
+    private float liquidTransferSpeed = 15;
 
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private float swipeTime;
@@ -57,7 +57,7 @@ public class Syringe : GeneralItem {
         }
 
         float changeFactor = -VRInput.PadTouchDelta(hand.HandType).y;
-        int amount = (int)(changeFactor * liquidEjectSpeed * Time.deltaTime);
+        int amount = (int)(changeFactor * liquidTransferSpeed * Container.Capacity * Time.deltaTime);
 
         if (amount == 0) {
             return;
@@ -132,5 +132,4 @@ public class Syringe : GeneralItem {
             return 1.0f * Container.Amount / Container.Capacity;
         }
     }
-
 }
