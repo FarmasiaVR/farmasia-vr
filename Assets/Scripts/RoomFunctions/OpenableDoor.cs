@@ -10,7 +10,7 @@ public class OpenableDoor : MonoBehaviour {
     [SerializeField]
     private float offsetAngle = -45;
 
-    public float startAngle { get; private set; }
+    private float startAngle;
 
     public float Velocity { get; set; }
     private float minVelocity = 0.1f;
@@ -30,6 +30,12 @@ public class OpenableDoor : MonoBehaviour {
     public float Angle {
         get {
             return transform.eulerAngles.y;
+        }
+    }
+
+    public bool IsClosed {
+        get {
+            return Mathf.Abs(startAngle - offsetAngle - Angle) < 1;
         }
     }
     #endregion

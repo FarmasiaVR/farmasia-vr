@@ -32,9 +32,9 @@ public class CabinetBase : MonoBehaviour {
 
             if (itemType == "Syringe") {
                 Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
-                if (syringe.Container.Capacity == 20) {
+                if (syringe.Container.Capacity == 5000) {
                     itemType = "Big syringe";
-                } else if (syringe.Container.Capacity == 1) {
+                } else if (syringe.Container.Capacity == 1000) {
                     itemType = "Small syringes";
                 }
             }
@@ -59,9 +59,9 @@ public class CabinetBase : MonoBehaviour {
 
         if (itemType == "Syringe") {
             Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
-            if (syringe.Container.Capacity == 20) {
+            if (syringe.Container.Capacity == 5000) {
                 itemType = "Big syringe";
-            } else if (syringe.Container.Capacity == 1) {
+            } else if (syringe.Container.Capacity == 1000) {
                 itemType = "Small syringes";
             }
         }

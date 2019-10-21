@@ -25,7 +25,7 @@ public class CorrectItemsInThroughput : TaskBase {
         checkTimes = 0;
         points = 2;
         cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
-        door = gameObject.transform.parent.Find("Door").GetComponent<OpenableDoor>();
+        door = cabinet.transform.parent.Find("Door").GetComponent<OpenableDoor>();
     }
     #endregion
 
@@ -61,9 +61,9 @@ public class CorrectItemsInThroughput : TaskBase {
             switch (type) {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 20) {
+                    if (syringe.Container.Capacity == 5000) {
                         EnableCondition("Syringe"); 
-                    } else if (syringe.Container.Capacity == 1) {
+                    } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
                             EnableCondition("SmallSyringes");
@@ -88,7 +88,7 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         }
         
-        if (door.startAngle == door.Angle) {
+        if (door.IsClosed) {
             bool check = CheckClearConditions(true);
             if (!check) {
                 if (checkTimes == 1) {
@@ -97,7 +97,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 } else {
                     UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
                 }
-                UISystem.Instance.CreatePopup(cabinet.GetMissingItems, MessageType.Notify);
+                UISystem.Instance.CreatePopup(cabinet.GetMissingItems(), MessageType.Notify);
                 smallSyringes = 0;
                 needles = 0;
                 DisableConditions();
