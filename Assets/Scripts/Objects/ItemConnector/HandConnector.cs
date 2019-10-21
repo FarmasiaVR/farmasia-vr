@@ -117,18 +117,21 @@ public class HandConnector : ItemConnector {
             return false;
         }
 
+        LuerlockAdapter luerlock;
+
         if (interactable.State == InteractState.LuerlockAttatch) {
 
-            LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+             luerlock = interactable.Interactors.LuerlockPair.Value;
 
-            int count = 0;
-            foreach (var obj in luerlock.Objects) {
-                if (obj.GameObject != null) {
-                    count++;
-                }
+            if (luerlock.ObjectCount > 0) {
+                return false;
             }
+        }
 
-            if (count > 0) {
+        luerlock = interactable as LuerlockAdapter;
+
+        if (luerlock != null) {
+            if (luerlock.ObjectCount > 0) {
                 return false;
             }
         }

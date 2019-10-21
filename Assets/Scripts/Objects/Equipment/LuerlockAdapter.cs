@@ -34,6 +34,19 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     private static float breakDistance = 0.2f;
+
+    public int ObjectCount {
+        get {
+            int count = 0;
+            foreach (var obj in Objects) {
+                if (obj.GameObject != null) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+    }
     #endregion
 
     protected override void Start() {
