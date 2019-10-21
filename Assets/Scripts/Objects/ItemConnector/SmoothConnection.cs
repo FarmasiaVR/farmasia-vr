@@ -22,6 +22,8 @@ public class SmoothConnection : ItemConnection {
 
     private float brakeFactor = 0.75f;
 
+    private List<Rigidbody> rigidbodies;
+
     private void Start() {
         rb = GetComponent<Rigidbody>();
 
@@ -31,9 +33,54 @@ public class SmoothConnection : ItemConnection {
 
         rb.maxAngularVelocity = Mathf.Infinity;
 
+        rigidbodies = new List<Rigidbody>();
+
+        float mass = SetupRigidbodies();
+
+        maxForce = maxForceFactor * mass;
+        maxRotateForce = maxRotateForceFactor * mass;
+    }
+
+    private float SetupRigidbodies() {
+
+        Interactable interactable = Interactable.GetInteractable(rb.transform);
+        LuerlockAdapter luerlock;
+
+        if (interactable.State == InteractState.LuerlockAttatch) {
+
+            luerlock = interactable.Interactors.LuerlockPair.Value;
+
+        } else {
+            luerlock = interactable as LuerlockAdapter;
+        }
+
+        if (luerlock == null) {
+            return rb.mass;
+        }
+
         rb.useGravity = false;
-        maxForce = maxForceFactor * rb.mass;
-        maxRotateForce = maxRotateForceFactor * rb.mass;
+        rigidbodies.Add(rb);
+        float mass = luerlock.Rigidbody.mass;
+
+        foreach (var obj in luerlock.Objects) {
+            if (obj.Rigidbody != null) {
+                mass += obj.Rigidbody.mass;
+                obj.Rigidbody.useGravity = false;
+                rigidbodies.Add(obj.Rigidbody);
+            }
+        }
+
+        return mass;
+    }
+
+    private void OnDestroy() {
+        ReleaseRigidbodies();
+    }
+
+    public void ReleaseRigidbodies() {
+        foreach (Rigidbody r in rigidbodies) {
+            r.useGravity = true;
+        }
     }
 
     protected override void FixedUpdate() {

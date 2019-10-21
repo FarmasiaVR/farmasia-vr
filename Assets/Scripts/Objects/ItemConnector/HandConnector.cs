@@ -112,7 +112,7 @@ public class HandConnector : ItemConnector {
     }
     private void SmoothDeattachGrabbedObject() {
         MonoBehaviour.Destroy(connection);
-        GrabbedRigidbody.useGravity = true;
+        //GrabbedRigidbody.useGravity = true;
     }
     #endregion
 
