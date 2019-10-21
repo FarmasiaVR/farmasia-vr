@@ -9,6 +9,7 @@ public class HandConnector : ItemConnector {
     public Hand Hand { get; private set; }
 
     public bool IsGrabbed { get; private set; }
+    private bool smoothgrab;
 
     public Rigidbody GrabbedRigidbody { get; private set; }
 
@@ -54,7 +55,7 @@ public class HandConnector : ItemConnector {
         IsGrabbed = true;
         InitializeOffset();
 
-        if (interactable.Type == InteractableType.SmallObject) {
+        if (AllowSmooth(interactable)) {
             SmoothAttachGrabbedObject();
         } else {
             AttachGrabbedObject();
@@ -67,9 +68,11 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachGrabbedObject() {
+        smoothgrab = false;
         Joint.connectedBody = GrabbedRigidbody;
     }
     private void SmoothAttachGrabbedObject() {
+        smoothgrab = true;
         connection = SmoothConnection.AddSmoothConnection(this, Hand.Offset, GrabbedRigidbody.gameObject);
     }
     #endregion
@@ -86,7 +89,7 @@ public class HandConnector : ItemConnector {
 
         IsGrabbed = false;
         Interactable interactable = Interactable.GetInteractable(GrabbedRigidbody.transform);
-        if (AllowSmooth(interactable)) {
+        if (smoothgrab) {
             SmoothDeattachGrabbedObject();
         } else {
             DeattachGrabbedObject();
@@ -94,6 +97,8 @@ public class HandConnector : ItemConnector {
         if (GrabbedRigidbody == null) {
             return;
         }
+
+        smoothgrab = false;
 
         if (!Hand.Other.IsGrabbed || Hand.Other.Connector.GrabbedRigidbody != GrabbedRigidbody) {
             Interactable.GetInteractable(GrabbedRigidbody.transform).Interactors.SetHand(null);
@@ -123,7 +128,7 @@ public class HandConnector : ItemConnector {
                 }
             }
 
-            if (count == 2) {
+            if (count > 0) {
                 return false;
             }
         }
