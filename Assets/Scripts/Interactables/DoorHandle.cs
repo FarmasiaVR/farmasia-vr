@@ -9,16 +9,13 @@
     protected override void Start() {
         base.Start();
         door = transform.parent.GetComponent<OpenableDoor>();
-        Types.Set(InteractableType.Interactable);
+        Type.Set(InteractableType.Interactable);
     }
 
     private void Update() {
         if (State == InteractState.Grabbed) {
             door.SetByHandPosition(hand);
         }
-    }
-
-    private void UpdatePosition() {
     }
 
     public override void Interact(Hand hand) {

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -8,24 +10,35 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private LiquidObject liquid;
 
+    public delegate void AmountChange();
+    public AmountChange OnAmountChange { get; set; }
+
     [SerializeField]
     private int amount;
 
+    private ContainerItem cItem;
+
     public int Amount {
         get { return amount; }
-        set {
-            if (Capacity == 0) {
-                amount = 0;
-                liquid?.SetFillPercentage(0);
-            } else {
-                amount = Math.Max(Math.Min(value, Capacity), 0);
-                // liquid is null when OnValidate is called twice before Awake
-                // when playing in Editor Mode
-                // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
-                float percentage = (float)amount / capacity;
-                liquid?.SetFillPercentage(percentage);
-            }
+    }
+
+    public void SetAmountPercentage(float percentage) {
+        int amount = (int)(percentage * Capacity);
+        SetAmount(amount);
+    }
+    public void SetAmount(int value) {
+        if (Capacity == 0) {
+            amount = 0;
+            liquid?.SetFillPercentage(0);
+        } else {
+            amount = Math.Max(Math.Min(value, Capacity), 0);
+            // liquid is null when OnValidate is called twice before Awake
+            // when playing in Editor Mode
+            // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
+            float percentage = (float)amount / capacity;
+            liquid?.SetFillPercentage(percentage);
         }
+        OnAmountChange?.Invoke();
     }
 
     [SerializeField]
@@ -40,13 +53,33 @@ public class LiquidContainer : MonoBehaviour {
         Assert.IsNotNull(liquid);
     }
 
+
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
+
+        StartCoroutine(SearchInteractable());
+
+        IEnumerator SearchInteractable() {
+
+            yield return null;
+
+            Interactable interactable = Interactable.GetInteractable(transform);
+
+            //Logger.Print("interactable found: " + interactable.name);
+
+            GeneralItem gItem = (GeneralItem)interactable;
+
+            if (gItem == null) {
+                throw new Exception("Liquid container attached to non GeneralItem object");
+            }
+
+            cItem = new ContainerItem(this, gItem);
+        }
     }
 
     private void OnValidate() {
         Capacity = capacity;
-        Amount = amount;
+        SetAmount(amount);
     }
 
     public int GetReceiveCapacity() {
@@ -64,9 +97,9 @@ public class LiquidContainer : MonoBehaviour {
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
-        Amount -= toTransfer;
+        SetAmount(Amount - toTransfer);
         if (target != null) {
-            target.Amount += toTransfer;
+            target.SetAmount(target.Amount + toTransfer);
         }
     }
 
@@ -79,5 +112,13 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         return t.Find("Liquid")?.GetComponent<LiquidContainer>();
+    }
+
+    private void OnTriggerEnter(Collider c) {
+        cItem?.TriggerEnter(c);
+    }
+ 
+    private void OnTriggerExit(Collider c) {
+        cItem?.TriggerExit(c);
     }
 }

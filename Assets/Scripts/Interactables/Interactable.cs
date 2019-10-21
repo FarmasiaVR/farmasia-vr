@@ -5,11 +5,14 @@ public class Interactable : MonoBehaviour {
     #region fields
     private static string iTag = "Interactable";
 
-    public EnumBitField<InteractableType> Types { get; protected set; } = new EnumBitField<InteractableType>();
+    public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
     private Rigidbody rb;
+
+    // CAN'T BE A PROPERTY
+    public Interactors Interactors;
     #endregion
 
     protected virtual void Start() {
@@ -26,11 +29,13 @@ public class Interactable : MonoBehaviour {
     public virtual void Uninteract(Hand hand) {
     }
 
+    public virtual void UpdateInteract(Hand hand) {
+    }
+
     public static Interactable GetInteractable(Transform t) {
         return GetInteractableObject(t)?.GetComponent<Interactable>();
     }
     public static GameObject GetInteractableObject(Transform t) {
-
         while (t != null) {
             if (t.tag == iTag) {
                 return t.gameObject;
@@ -38,7 +43,6 @@ public class Interactable : MonoBehaviour {
 
             t = t.parent;
         }
-
         return null;
     }
 
@@ -51,5 +55,20 @@ public class Interactable : MonoBehaviour {
 
             return rb;
         }
+    }
+
+    public static implicit operator Interactable(GameObject g) {
+
+        if (g == null) {
+            throw new System.Exception("Gameobject was null");
+        }
+
+        Interactable i = g.GetComponent<Interactable>();
+
+        if (i == null) {
+            throw new System.Exception("Interactable not found, use method Interactable.GetInteractable() instead");
+        }
+
+        return i;
     }
 }

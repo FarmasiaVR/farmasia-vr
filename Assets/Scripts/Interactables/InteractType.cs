@@ -3,5 +3,6 @@
     Interactable,
     Draggable,
     LuerlockAttachable,
-    HasLiquid
+    HasLiquid,
+    SmallObject
 }

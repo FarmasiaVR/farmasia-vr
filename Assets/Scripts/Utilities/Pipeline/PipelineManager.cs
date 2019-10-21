@@ -11,13 +11,12 @@ public class PipelineManager {
     }
 
     public Pipeline New() {
-        Pipeline p = new Pipeline();
-        pipelines.Add(p);
-        return p;
+        return Add(new Pipeline());
     }
 
-    public void Add(Pipeline pipeline) {
+    public Pipeline Add(Pipeline pipeline) {
         pipelines.Add(pipeline);
+        return pipeline;
     }
 
     public void Update(float deltaTime) {

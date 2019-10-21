@@ -18,7 +18,7 @@ public class OpenableDoor : MonoBehaviour {
     [SerializeField]
     private float friction = 0.9f;
 
-    public bool IsLocked { get; set; } = true;
+    public bool IsNotMoving { get; set; } = true;
 
     private Vector3 lastEulerAngles;
 
@@ -27,9 +27,15 @@ public class OpenableDoor : MonoBehaviour {
     private float grabLength;
     private float angleOffset;
 
-    private float Angle {
+    public float Angle {
         get {
             return transform.eulerAngles.y;
+        }
+    }
+
+    public bool IsClosed {
+        get {
+            return Mathf.Abs(startAngle - offsetAngle - Angle) < 1;
         }
     }
     #endregion
@@ -76,7 +82,7 @@ public class OpenableDoor : MonoBehaviour {
     public void ReleaseDoor() {
         Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
         Logger.PrintVariables("Velocity", Velocity);
-        IsLocked = false;
+        IsNotMoving = false;
     }
 
     private void Update() {
@@ -88,12 +94,12 @@ public class OpenableDoor : MonoBehaviour {
         Velocity *= friction;
 
         if (Mathf.Abs(Velocity) < minVelocity) {
-            Velocity = Velocity > 0 ? minVelocity : -minVelocity;
+            Velocity = 0;
         }
     }
 
     private void RotateDoor() {
-        if (IsLocked) {
+        if (IsNotMoving) {
             return;
         }
 

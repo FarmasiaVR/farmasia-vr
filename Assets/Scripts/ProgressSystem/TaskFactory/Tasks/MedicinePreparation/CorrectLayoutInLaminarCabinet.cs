@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +14,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -23,27 +23,20 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(FinalArrangeItems, EventType.FinalArrangeItems);
+        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
     }
     /// <summary>
     /// Once fired by an event, checks if the tasks dealing with the amount of items have been completed and if the items are arranged.
     /// Sets the corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void FinalArrangeItems(CallbackData data) {
+    private void ArrangedItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            List<ITask> list = G.Instance.Progress.activeTasks;
-            int exists = 0;
-            exists = (from n in list
-                    where n.GetTaskType().Equals(TaskType.MissingItems)
-                    select n).Count();
-            if (exists == 0) {
-                EnableCondition("AllItems"); 
-                if (ItemsArranged()) {
-                    EnableCondition("ItemsArranged");
-                }
-            } 
+        if (G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
+            EnableCondition("AllItems"); 
+            if (ItemsArranged()) {
+                EnableCondition("ItemsArranged");
+            }
         }
         
         bool check = CheckClearConditions(true);
@@ -51,7 +44,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
             base.FinishTask();
-            FinishLayout1();
         }
     }
     /// <summary>
@@ -70,19 +62,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInLaminarCabinet);
         base.FinishTask();
-        FinishLayout1();
-    }
-
-    /// <summary>
-    /// Removes Layout1 task if not removed before.
-    /// </summary>
-    public void FinishLayout1() {
-        if (!G.Instance.Progress.doneTypes.Contains(TaskType.CorrectLayoutInThroughput)) {
-            CorrectLayoutInThroughput layoutInstance = G.Instance.Progress.activeTasks.Find(x => x.GetTaskType().Equals(TaskType.CorrectLayoutInThroughput)) as CorrectLayoutInThroughput;
-            layoutInstance.RemoveTaskFromOutside();
-        }
     }
 
     /// <summary>

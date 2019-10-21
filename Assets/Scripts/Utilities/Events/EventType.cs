@@ -4,9 +4,10 @@
     C,
     PickupObject,
     PutObject,
-    ArrangeItems,
-    FinalArrangeItems,
-    AmountOfItems,
+    CorrectItemsInThroughput,
+    CorrectLayoutInThroughput,
+    CorrectItemsInLaminarCabinet,
+    CorrectLayoutInLaminarCabinet,
     Missing,
     Disinfect,
     MedicineToSyringe,
@@ -14,5 +15,6 @@
     AttachSyringe,
     AmountOfMedicine,
     CleanUp,
-    SterileBag
+    SterileBag,
+    RoomDoor
 }

@@ -5,27 +5,83 @@ using UnityEngine;
 
 public class ProgressManager {
 
-    #region fields
-    private bool tasksFinished = false;
+    #region Fields
     private bool testMode;
-
-    public List<ITask> optionalSteps { get; private set; }
-    public List<ITask> activeTasks { get; private set; }
-    public List<TaskType> doneTypes { get; private set; }
+    public HashSet<ITask> allTasks { get; private set; }
+    public List<Package> packages { get; private set; }
+    public Package currentPackage { get; private set; }
     public ScoreCalculator calculator { get; private set; }
     private float waitTime = 5.0f;
     #endregion
 
-    #region initialization
+    #region Constructor
     /// <summary>
     /// Initiates ProgressManager fields.
     /// </summary>
     public ProgressManager(bool testMode) {
         this.testMode = testMode;
-        activeTasks = new List<ITask>();
-        doneTypes = new List<TaskType>();
-        calculator = new ScoreCalculator();
+        allTasks = new HashSet<ITask>();
+        packages = new List<Package>();
+        AddTasks();
+        calculator = new ScoreCalculator(allTasks);
+        GenerateScenarioOne();
+        currentPackage = packages.First();
+        UpdateDescription();
     }
+    #endregion
+
+    #region Initialization
+    /// <summary>
+    /// Used to generate every package. Package is defined with a list of tasks.
+    /// </summary>
+    private void GenerateScenarioOne() {
+        TaskType[] selectTasks = {
+            TaskType.SelectTools,
+            TaskType.SelectMedicine,
+            TaskType.CorrectItemsInThroughput
+        };
+        TaskType[] workSpaceTasks = { 
+            TaskType.CorrectItemsInLaminarCabinet,
+            TaskType.MedicineToSyringe,
+            TaskType.LuerlockAttach,
+            TaskType.SyringeAttach,
+            TaskType.CorrectAmountOfMedicineSelected,
+            TaskType.ItemsToSterileBag
+        };
+        TaskType[] cleanUpTasks = { TaskType.ScenarioOneCleanUp };
+
+        Package equipmentSelection = CreatePackageWithList("Equipment Selection", new List<TaskType>(selectTasks));
+        Package workSpace = CreatePackageWithList("Workspace", new List<TaskType>(workSpaceTasks));
+        Package cleanUp = CreatePackageWithList("Clean Up", new List<TaskType>(cleanUpTasks));
+        packages.Add(equipmentSelection);
+        packages.Add(workSpace);
+        packages.Add(cleanUp);
+    }
+
+    #region Package Init Functions
+    /// <summary>
+    /// Creates a new package.
+    /// </summary>
+    /// <param name="name">Name of the new package.</param>
+    /// <param name="tasks">List of predefined tasks.</param>
+    /// <returns></returns>
+    private Package CreatePackageWithList(string name, List<TaskType> tasks) {
+        Package package = new Package(name, this);
+        TakeTasksToPackage(package, tasks);
+        return package;
+    }
+
+    /// <summary>
+    /// Takes tasks from ProgressManager to designated package.
+    /// </summary>
+    /// <param name="package">Package to move tasks to.</param>
+    /// <param name="types">List of types to move.</param>
+    private void TakeTasksToPackage(Package package, List<TaskType> types) {
+        foreach (TaskType type in types) {
+            MoveToPackage(package, type);
+        }
+    }
+    #endregion
     #endregion
 
     #region Task Addition
@@ -34,97 +90,112 @@ public class ProgressManager {
     /// Adds tasks into currently activeTasks.
     /// </summary>
     public void AddTasks() {
-        activeTasks = Enum.GetValues(typeof(TaskType))
+        allTasks = new HashSet<ITask>(Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
             .Select(v => TaskFactory.GetTask(v))
             .Where(v => v != null)
-            .ToList();
-        foreach (ITask task in activeTasks) {
-            task.SetReferredManager(this);
-        }
-        UpdateDescription();
+            .ToList());
     }
 
-    /// <summary>
-    /// Adds a task to the current active list.
-    /// </summary>
-    /// <param name="task">Refers to task to be added.</param>
     public void AddTask(ITask task) {
-        task.SetReferredManager(this);
-        activeTasks.Add(task);
+        if (!allTasks.Contains(task)) {
+            allTasks.Add(task);
+        }
+    }
+    #endregion
+
+    #region Task Movement
+    /// <summary>
+    /// Moves task to package with given TaskType.
+    /// </summary>
+    /// <param name="package">Package to move task to.</param>
+    /// <param name="taskType">Type of task to move.</param>
+    public void MoveToPackage(Package package, TaskType taskType) {
+        ITask foundTask = FindTaskWithType(taskType);
+        if (foundTask != null) {
+            package.AddTask(foundTask);
+            allTasks.Remove(foundTask);
+        }
     }
 
     /// <summary>
-    /// Used for settings new tasks after certain points, for example player 
+    /// Moves task to package into given point. Used by packages.
     /// </summary>
-    /// <param name="newTask"></param>
-    /// <param name="previousTask"></param>
-    public void AddNewTaskBeforeTask(ITask newTask, ITask previousTask) {
-        newTask.SetReferredManager(this);
-        activeTasks.Insert(activeTasks.IndexOf(previousTask), newTask);
+    /// <param name="package">Packages to move task to.</param>
+    /// <param name="taskType">Type to move.</param>
+    /// <param name="previousTask">Task point where found task will be moved.</param>
+    public void MoveToPackageBeforeTask(Package package, TaskType taskType, ITask previousTask) {
+        ITask foundTask = FindTaskWithType(taskType);
+        if (foundTask != null) {
+            package.AddNewTaskBeforeTask(foundTask, previousTask);
+            allTasks.Remove(foundTask);
+        }
+    }
+
+    /// <summary>
+    /// Finds task with given type.
+    /// </summary>
+    /// <param name="taskType">Type of task to find.</param>
+    /// <returns></returns>
+    private ITask FindTaskWithType(TaskType taskType) {
+        ITask foundTask = null;
+        foreach (ITask task in allTasks) {
+            if (task.GetTaskType() == taskType) {
+                foundTask = task;
+                break;
+            }
+        }
+        return foundTask;
     }
     #endregion
 
     #region Task Methods
-    public void ListActiveTasks() {
-        foreach (ITask task in activeTasks) {
+    public void ListAllTasksInManager() {
+        foreach (ITask task in allTasks) {
             Logger.Print(task.GetType());
-        }
-    }
-
-    /// <summary>
-    /// Removes task from current active list and adds them to doneTasks list.
-    /// Task is closed once it is removed from the active list.
-    /// </summary>
-    /// <param name="task">Refers to task to be removed.</param>
-    public void RemoveTask(ITask task) {
-        doneTypes.Add(task.GetTaskType());
-        activeTasks.Remove(task);
-        UpdateDescription();
-        if (!tasksFinished) {
-            if (activeTasks.Count == 0) {
-                tasksFinished = true;
-                if (testMode) {
-                    FinishProgress();
-                } else {
-                    G.Instance.Pipeline.New().Delay(waitTime).Func(FinishProgress);
-                }
-            } else {
-                Debug.Log("Still " + activeTasks.Count + " left!");
-            }
-        }
-    }
-
-    public void ResetTasks(bool init) {
-        tasksFinished = false;
-        activeTasks = new List<ITask>();
-        doneTypes = new List<TaskType>();
-        calculator = new ScoreCalculator();
-        if (init) {
-            AddTasks();
         }
     }
     #endregion
 
-    #region Finish
-    /// <summary>
-    /// Once all tasks are finished, FinishProgress is called to create a Congratulation popup.
-    /// </summary>
-    private void FinishProgress() {
-        Finish fin = new Finish();
-        fin.SetReferredManager(this);
-        activeTasks.Add(new Finish());
-        if (!testMode) {
-            activeTasks.Last().FinishTask();
+    #region Finishing Packages and Manager
+
+    public void ChangePackage() {
+        int index = packages.IndexOf(currentPackage);
+        if (packages[index + 1] != null) {
+            currentPackage = packages[index + 1];
+        } else {
+            FinishProgress();
         }
-        UpdateDescription();
+
+    }
+
+
+    /// <summary>
+    /// Calls every task inside allTasks Set and finishes them.
+    /// </summary>
+    public void FinishProgress() {
+        foreach (ITask task in allTasks) {
+            task.FinishTask();
+        }
+    }
+
+    /// <summary>
+    /// Called when task is finished and set to remove itself.
+    /// </summary>
+    /// <param name="task">Reference to the task that will be removed.</param>
+    public void RemoveTask(ITask task) {
+        if (allTasks.Contains(task)) {
+            allTasks.Remove(task);
+        }
     }
     #endregion
 
     #region Description Methods
-    private void UpdateDescription() {
+    public void UpdateDescription() {
         if (!testMode) {
-            UISystem.Instance.UpdateDescription(activeTasks);
+            if (currentPackage != null) {
+                UISystem.Instance.UpdateDescription(currentPackage.activeTasks);
+            }
         }
     }
     #endregion

@@ -19,20 +19,20 @@ public static class JointConfiguration {
 
     public static Joint AddJoint(GameObject obj) {
 
-        return AddFixedJoint(obj);
+         return AddFixedJoint(obj);
 
-        ConfigurableJoint joint = obj.AddComponent<ConfigurableJoint>();
+        //ConfigurableJoint joint = obj.AddComponent<ConfigurableJoint>();
 
-        joint.breakForce = breakForce;
-        joint.breakTorque = breakTorque;
+        //joint.breakForce = breakForce;
+        //joint.breakTorque = breakTorque;
 
-        joint.xMotion = ConfigurableJointMotion.Locked;
-        joint.yMotion = ConfigurableJointMotion.Locked;
-        joint.zMotion = ConfigurableJointMotion.Locked;
+        //joint.xMotion = ConfigurableJointMotion.Locked;
+        //joint.yMotion = ConfigurableJointMotion.Locked;
+        //joint.zMotion = ConfigurableJointMotion.Locked;
 
-        joint.projectionMode = JointProjectionMode.PositionAndRotation;
+        //joint.projectionMode = JointProjectionMode.PositionAndRotation;
 
-        Logger.Print("Returning joint");
-        return joint;
+        //Logger.Print("Returning joint");
+        //return joint;
     }
 }

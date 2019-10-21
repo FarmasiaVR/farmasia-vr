@@ -15,7 +15,7 @@ namespace Tests {
             manager = new ProgressManager(true);
         }
 
-        [Test]
+        /*[Test]
         public void ManagerAddsNewTasks() {
             manager.AddTask(new TestTask());
             Assert.AreEqual(1, manager.activeTasks.Count, "Manager did not add task");
@@ -52,16 +52,16 @@ namespace Tests {
             manager.activeTasks.Last().FinishTask();
             Assert.AreEqual(1, manager.activeTasks.Count, "Finish task is not added when the last task is finished");
             Assert.IsTrue(manager.activeTasks.Last().GetType() == typeof(Finish), "The added task is not a Finish task");
-        }
+        }*/
     }
 
     public class TestTask : TaskBase {
 
-        public TestTask() : base(TaskType.SelectTools, true, true) {}
+        public TestTask() : base(TaskType.SelectTools, true, true) { }
     }
 
     public class TestTask2 : TaskBase {
 
-        public TestTask2() : base(TaskType.SelectMedicine, false, true) {}
+        public TestTask2() : base(TaskType.SelectMedicine, false, true) { }
     }
 }

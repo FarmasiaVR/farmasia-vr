@@ -9,6 +9,7 @@ public class HandConnector : ItemConnector {
     public Hand Hand { get; private set; }
 
     public bool IsGrabbed { get; private set; }
+    private bool smoothgrab;
 
     public Rigidbody GrabbedRigidbody { get; private set; }
 
@@ -24,10 +25,12 @@ public class HandConnector : ItemConnector {
             return joint;
         }
     }
+
+    private ItemConnection connection;
     #endregion
 
     public HandConnector(Transform obj) : base(obj) {
-        Hand = Object.GetComponent<Hand>();
+        Hand = obj.GetComponent<Hand>();
     }
 
     #region Attaching
@@ -46,24 +49,31 @@ public class HandConnector : ItemConnector {
         }
 
         GrabbedRigidbody.GetComponent<Interactable>().State.On(InteractState.Grabbed);
+        interactable.Interactors.SetHand(Hand);
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
-
         IsGrabbed = true;
         InitializeOffset();
-        AttachGrabbedObject();
+
+        if (AllowSmooth(interactable)) {
+            SmoothAttachGrabbedObject();
+        } else {
+            AttachGrabbedObject();
+        }
     }
 
     private void InitializeOffset() {
         grabOffset = GrabbedRigidbody.transform.position - ColliderPosition;
         rotOffset = GrabbedRigidbody.transform.eulerAngles - ColliderEulerAngles;
-
-        Logger.Print("Grab offset: " + grabOffset);
     }
 
     private void AttachGrabbedObject() {
-        Logger.Print("Attach item");
+        smoothgrab = false;
         Joint.connectedBody = GrabbedRigidbody;
+    }
+    private void SmoothAttachGrabbedObject() {
+        smoothgrab = true;
+        connection = SmoothConnection.AddSmoothConnection(this, Hand.Offset, GrabbedRigidbody.gameObject);
     }
     #endregion
 
@@ -78,14 +88,20 @@ public class HandConnector : ItemConnector {
         }
 
         IsGrabbed = false;
-
-        DeattachGrabbedObject();
-
+        Interactable interactable = Interactable.GetInteractable(GrabbedRigidbody.transform);
+        if (smoothgrab) {
+            SmoothDeattachGrabbedObject();
+        } else {
+            DeattachGrabbedObject();
+        }
         if (GrabbedRigidbody == null) {
             return;
         }
 
+        smoothgrab = false;
+
         if (!Hand.Other.IsGrabbed || Hand.Other.Connector.GrabbedRigidbody != GrabbedRigidbody) {
+            Interactable.GetInteractable(GrabbedRigidbody.transform).Interactors.SetHand(null);
             GrabbedRigidbody.GetComponent<Interactable>().State.Off(InteractState.Grabbed);
         }
 
@@ -95,8 +111,40 @@ public class HandConnector : ItemConnector {
         GrabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
     }
 
+    private bool AllowSmooth(Interactable interactable) {
+
+        if (interactable.Type != InteractableType.SmallObject) {
+            return false;
+        }
+
+        LuerlockAdapter luerlock;
+
+        if (interactable.State == InteractState.LuerlockAttatch) {
+
+             luerlock = interactable.Interactors.LuerlockPair.Value;
+
+            if (luerlock.ObjectCount > 0) {
+                return false;
+            }
+        }
+
+        luerlock = interactable as LuerlockAdapter;
+
+        if (luerlock != null) {
+            if (luerlock.ObjectCount > 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private void DeattachGrabbedObject() {
         Joint.connectedBody = null;
+    }
+    private void SmoothDeattachGrabbedObject() {
+        MonoBehaviour.Destroy(connection);
+        //GrabbedRigidbody.useGravity = true;
     }
     #endregion
 

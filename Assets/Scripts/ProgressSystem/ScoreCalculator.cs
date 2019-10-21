@@ -3,24 +3,22 @@ using System.Linq;
 using System.Collections.Generic;
 
 public class ScoreCalculator {
+
     #region Fields
-    List<string> zero;
-    List<string> onePlus;
-    List<string> oneMinus;
-    private int score;
-    private int maxScore;
+    Dictionary<TaskType, int> points;
+    HashSet<ITask> tasks;
+    HashSet<String> beforeTime;
+    private int maxScore = 0;
     #endregion
 
     #region Constructor
     /// <summary>
     /// Initializes ScoreCalculator for point calculation.
     /// </summary>
-    public ScoreCalculator() {
-        zero = new List<string>();
-        onePlus = new List<string>();
-        oneMinus = new List<string>();
-        score = 0;
-        maxScore = 10;
+    public ScoreCalculator(HashSet<ITask> allTasks) {
+        points = new Dictionary<TaskType, int>();
+        tasks = allTasks;
+        beforeTime = new HashSet<String>();
         AddTasks();
     }
     #endregion
@@ -30,32 +28,33 @@ public class ScoreCalculator {
     /// Adds all tasks into the list of zero points.
     /// </summary>
     private void AddTasks() {
-        zero = Enum.GetValues(typeof(TaskType))
-            .Cast<TaskType>()
-            .Select(v => v.ToString())
-            .ToList();
+        foreach (ITask task in tasks) {
+            points.Add(task.GetTaskType(), task.GetPoints());
+            maxScore += task.GetPoints();
+        }
     }
     #endregion
 
     #region Public Methods
     /// <summary>
-    /// Adds point to given task. Moves it to plus list.
-    /// </summary>
-    /// <param name="task">Refers to a task to add a point.</param>
-    public void Add(TaskType task) {
-        score++;
-        onePlus.Add(task.ToString());
-        zero.Remove(task.ToString());
-    }
-
-    /// <summary>
-    /// Subtracts a point from given task. Moves it to minus list.
+    /// Subtracts a point from given task.
     /// </summary>
     /// <param name="task">Refers to a task to subtract a point.</param>
     public void Subtract(TaskType task) {
-        score--;
-        oneMinus.Add(task.ToString());
-        zero.Remove(task.ToString());
+        if (!points.ContainsKey(task)) {
+            return;
+        }
+        points[task] -= 1;
+
+    }
+
+    /// <summary>
+    /// Subtracts a point from given task. Moves it to before time list.
+    /// </summary>
+    /// <param name="task">Refers to a task to subtract a point.</param>
+    public void SubtractBeforeTime(TaskType task) {
+        Subtract(task);
+        beforeTime.Add(task.ToString());
     }
 
     /// <summary>
@@ -63,10 +62,25 @@ public class ScoreCalculator {
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public string GetScoreString() {
-        return "The current score is " + score + " out of " + maxScore + "." + "\t" +
-        "Tasks with +1 score: " + String.Join(", ", onePlus.ToArray()) + "\t" +
-        "Tasks with -1 score: " + String.Join(", ", oneMinus.ToArray()) + "\t" +
-        "Tasks with 0 score: " + String.Join(", ", zero.ToArray());
+        String summary = "";
+        String scoreCountPerTask = "";
+        String beforeTimeSummary = "Tasks that were attempted in advance:\n";
+        String addedBeforeTimeList = "";
+        int score = 0;
+
+        foreach (TaskType type in points.Keys) {
+            scoreCountPerTask += "\n Task:" + type.ToString() + ": " + points[type] + "point(s).";
+            score += points[type];
+        }
+        foreach (String before in beforeTime) {
+            if (beforeTime.Last<String>().Equals(before)) {
+                addedBeforeTimeList += before;
+                break;
+            }
+            addedBeforeTimeList += before + ", ";
+        }
+        summary += "Overall Score: " + score + "/" + maxScore + "!";
+        return summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }
     #endregion
 }

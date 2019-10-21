@@ -3,9 +3,10 @@
 /// </summary>
 public interface ITask {
     TaskType GetTaskType();
-    void SetReferredManager(ProgressManager manager);
+    void SetPackage(Package package);
     void FinishTask();
     string GetDescription();
+    int GetPoints();
     string GetHint();
     void Subscribe();
     void SubscribeEvent(Events.EventDataCallback action, EventType Event);

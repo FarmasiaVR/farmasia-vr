@@ -7,9 +7,10 @@ public class Pipeline {
     public delegate T GetTFunction<T>();
 
     #region fields
-    public bool IsDone { get => actions.Count == 0; }
+    public bool IsDone { get => isAborted || actions.Count == 0; }
     public int Count { get => actions.Count; }
     private List<PipelineAction> actions;
+    private bool isAborted;
     #endregion
 
     public Pipeline() {
@@ -46,12 +47,19 @@ public class Pipeline {
         return this;
     }
 
+    public void Abort() {
+        isAborted = true;
+    }
+
     public void Update(float deltaTime) {
-        if (actions.Count > 0) {
-            actions[0].Update(deltaTime);
-            if (actions[0].IsDone) {
-                actions.RemoveAt(0);
-            }
+        if (IsDone) {
+            return;
+        }
+
+        PipelineAction top = actions[0];
+        top?.Update(deltaTime);
+        if (top?.IsDone ?? false) {
+            actions.RemoveAt(0);
         }
     }
 }

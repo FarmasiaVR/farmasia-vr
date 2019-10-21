@@ -55,7 +55,7 @@ public static class VRInput {
             controls.Add(new HandControl(control, SteamVR_Input_Sources.RightHand), new ControlState());
             controls.Add(new HandControl(control, SteamVR_Input_Sources.LeftHand), new ControlState());
         }
-            
+
         Hands = new VRHandControls[2];
         padTouches = new Vector2[4];
         triggerValues = new float[4];
@@ -82,7 +82,6 @@ public static class VRInput {
         ControlState state = controls[key];
         state.GetDown = Time.frameCount;
         state.Down = true;
-
         controls[key] = state;
     }
     public static void ControlUp(ControlType c, SteamVR_Input_Sources handType) {
@@ -92,14 +91,28 @@ public static class VRInput {
         ControlState state = controls[key];
         state.Down = false;
         state.GetUp = Time.frameCount;
-
         controls[key] = state;
     }
 
     public static bool GetControlDown(SteamVR_Input_Sources handType, ControlType c) {
+
         HandControl key = new HandControl(c, handType);
+
+    #if UNITY_NONVRCOMPUTER
+
+        // Fix for TestHandMover
+
+        int frameDifference = controls[key].GetDown - Time.frameCount;
+        if (frameDifference == -1) {
+            return controls[key].Down;
+        }
+
         return controls[key].GetDown == Time.frameCount;
+    #else 
+        return controls[key].GetDown == Time.frameCount;
+    #endif
     }
+
     public static bool GetControl(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
         return controls[key].Down;
@@ -208,7 +221,7 @@ public static class VRInput {
     #region Trigger value
     public static void SetTriggerValue(SteamVR_Input_Sources handType, float value, float delta) {
         if (handType == SteamVR_Input_Sources.RightHand) {
-            RightTriggerValue = value; 
+            RightTriggerValue = value;
         } else if (handType == SteamVR_Input_Sources.LeftHand) {
             LeftTriggerValue = value;
         }

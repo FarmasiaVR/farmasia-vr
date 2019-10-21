@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Checks if Throughput Cupboard (läpiantokaappi) has correct layout.
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = { "AtLeastThree"/*, "ItemsArranged"*/ };
+    private string[] conditions = { "ItemsArranged" };
+    private CabinetBase cabinet;
     #endregion
 
     #region Constructor
@@ -13,8 +15,10 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
+        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
         Subscribe();
         AddConditions(conditions);
+        points = 1;
     }
     #endregion
 
@@ -23,7 +27,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(ArrangeItems, EventType.ArrangeItems);
+        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInThroughput);
     }
 
     /// <summary>
@@ -31,22 +35,17 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void ArrangeItems(CallbackData data) {
-        Logger.Print(data.DataString + " counted!");
-        int itemCount = int.Parse(data.DataString);
-        if (itemCount >= 2) {
-            EnableCondition("AtLeastThree");
-            /*if (ItemsArranged()) {
-                EnableCondition("ItemsArranged");
-            }*/
+    private void ArrangedItems(CallbackData data) {
+
+        if (ItemsArranged()) {
+            EnableCondition("ItemsArranged");
         }
         bool check = CheckClearConditions(true);
-        Logger.Print("Check cleared: " + check);
-        /*if (!check && AtLeastThree()) {
+        if (!check) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
-        }*/
+        }
     }
 
     /// <summary>
@@ -54,16 +53,23 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns true if the items are arranged."</returns>
     private bool ItemsArranged() {
-        //code missing
-        return false;
-    }
-
-    /// <summary>
-    /// Sets the item count to be zero when exiting the room.
-    /// </summary>
-    private void InitializeCount() {
-        //callback missing
-        DisableConditions();
+        /* KESKEN
+        List<GameObject> objects = cabinet.GetContainedItems();
+        Collider collisionMashUp = null;
+        foreach (GameObject leobject in objects) {
+            Collider col = leobject.GetComponent<Collider>();
+            
+            if (collisionMashUp == null) {
+                collisionMashUp = col;
+                continue;
+            }
+            
+            if () {
+                return false;
+            }
+            
+        }*/
+        return true;
     }
     #endregion
 
@@ -72,17 +78,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        Logger.Print("Finish");
-        UISystem.Instance.CreatePopup("Items in läpiantokaappi", MessageType.Done);
-        G.Instance.Progress.calculator.Add(TaskType.CorrectLayoutInThroughput);
-        base.FinishTask();
-    }
-
-    /// <summary>
-    /// This method is called if the task needs to be removed before progressing in game. 
-    /// The task is removed without completion.
-    /// </summary>
-    public void RemoveTaskFromOutside() {
+        UISystem.Instance.CreatePopup(1, "Items arranged", MessageType.Notify);
         base.FinishTask();
     }
 

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
-/// Version 2 of current task.
+/// Base for every task. 
+/// Handles everything related to task given task and also has useful methods.
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
-    protected ProgressManager manager;
+    protected int points;
+    protected Package package;
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
@@ -22,6 +25,7 @@ public class TaskBase : ITask {
     /// <param name="remove">Task removed when finished from list.</param>
     /// <param name="previous">Task requires previous tasks completion linearly.</param>
     public TaskBase(TaskType type, bool remove, bool previous) {
+        points = 0;
         taskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
@@ -30,11 +34,15 @@ public class TaskBase : ITask {
 
     #region Private Methods
     /// <summary>
-    /// Removes current task if the task has been set to be removed.
+    /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
     /// </summary>
     private void Remove() {
-        if (removeWhenFinished) {
-            manager.RemoveTask(this);
+        if (package != null) {
+            if (removeWhenFinished) {
+                package.RemoveTask(this);
+            } else {
+                package.MoveTaskToManager(this);
+            }
         }
     }
     #endregion
@@ -76,8 +84,15 @@ public class TaskBase : ITask {
     #endregion
 
     #region Public Methods
-    public void SetReferredManager(ProgressManager manager) {
-        this.manager = manager;
+    /// <summary>
+    /// Used for summary at the end of the game.
+    /// </summary>
+    /// <returns>Integer of maximum points for current task.</returns>
+    public int GetPoints() {
+        return points;
+    }
+    public void SetPackage(Package package) {
+        this.package = package;
     }
     /// <summary>
     /// Return the type of current task.
@@ -101,8 +116,8 @@ public class TaskBase : ITask {
     /// Disables all conditions.
     /// </summary>
     public void DisableConditions() {
-        foreach (KeyValuePair<string, bool> condition in clearConditions) {
-            clearConditions[condition.Key] = false;
+        foreach (string condition in clearConditions.Keys.ToList()) {
+            clearConditions[condition] = false;
         }
     }
 
@@ -137,9 +152,16 @@ public class TaskBase : ITask {
     #endregion
 
     #region Protected Methods
+    /// <summary>
+    /// Checks if task is currently executed in package. Aka first in it.
+    /// </summary>
+    /// <returns>True if is current, false if not.</returns>
     protected bool CheckIsCurrent() {
-        if (manager.activeTasks.IndexOf(this) > 0) {
-            return false;
+        if (package != null) {
+            if (package.activeTasks.IndexOf(this) > 0) {
+                return false;
+            }
+            return true;
         }
         return true;
     }
@@ -151,7 +173,7 @@ public class TaskBase : ITask {
     /// Returns true if previous tasks are completed, otherwise false.
     /// </returns>
     protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
-        List<TaskType> completed = manager.doneTypes;
+        List<TaskType> completed = package.doneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
                 return false;
@@ -167,6 +189,9 @@ public class TaskBase : ITask {
     /// <param name="checkAll"></param>
     /// <returns></returns>
     protected bool CheckClearConditions(bool checkAll) {
+        foreach (string cond in GetNonClearedConditions()) {
+            Logger.Print(cond);
+        }
         if (checkAll) {
             if (!clearConditions.ContainsValue(false)) {
                 FinishTask();
