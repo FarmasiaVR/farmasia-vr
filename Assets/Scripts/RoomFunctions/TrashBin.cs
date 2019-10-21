@@ -9,15 +9,20 @@ public class TrashBin : MonoBehaviour {
     public List<GameObject> objectsInArea;
     public int droppedItemsInArea;
     public bool droppedItemsPutBeforeTime;
+
+    [SerializeField]
+    private GameObject childCollider;
     #endregion
     
     private void Start() {
         objectsInArea = new List<GameObject>();
         droppedItemsInArea = 0;
         droppedItemsPutBeforeTime = false;
+
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterTrashbin(collider)));
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void EnterTrashbin(Collider other) {
         GameObject foundObject = other.transform.gameObject;
         if (foundObject.GetComponent<GeneralItem>() == null) {
             return;

@@ -15,13 +15,6 @@ public class ObjectFactory : MonoBehaviour {
     #endregion
 
     private void Start() {
-
-        IEnumerator Init() {
-            yield return null;
-            CreateColliderCopy();
-            CreateNewCopy();
-        }
-
         CreateColliderCopy();
         CreateNewCopy();
     }
@@ -119,6 +112,9 @@ public class ObjectFactory : MonoBehaviour {
 
         interactable = latestCopy;
         latestCopy.SetActive(true);
+
+        // fix pls
+        latestCopy.GetComponent<ItemPlacement>()?.CancelItemPlacement();
 
         if (handObject != null) {
             CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);

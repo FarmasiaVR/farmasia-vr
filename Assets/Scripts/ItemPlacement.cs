@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+// Replace
 public class ItemPlacement : MonoBehaviour {
 
     private Rigidbody rb;
@@ -17,7 +18,14 @@ public class ItemPlacement : MonoBehaviour {
         if (rb == null) {
             throw new System.Exception("no rigidbody");
         }
-        
+
+        // StartSlowDown();
+    }
+
+    public void CancelItemPlacement() {
+        StopAllCoroutines();
+    }
+    private void StartSlowDown() {
         StartCoroutine(SlowDown());
     }
 
@@ -50,8 +58,9 @@ public class ItemPlacement : MonoBehaviour {
     }
 
 
+    // Replace
     public static void ReleaseSafely(GameObject g) {
-        if (g.GetComponent<ItemPlacement>() != null) return;
+        if (g.GetComponent<ItemPlacement>() == null) return;
         if (g.GetComponent<Interactable>().State != InteractState.Grabbed) return;
 
         float boundsDistance = Vector3.Distance(g.GetComponent<Collider>().bounds.ClosestPoint(g.transform.position - Vector3.down * maxDistance), g.transform.position);
@@ -64,5 +73,6 @@ public class ItemPlacement : MonoBehaviour {
         ItemPlacement p = g.GetComponent<ItemPlacement>();
         p.enabled = true;
         p.collided = false;
+        p.StartSlowDown();
     }
 }
