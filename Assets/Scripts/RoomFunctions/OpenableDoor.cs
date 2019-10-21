@@ -10,7 +10,7 @@ public class OpenableDoor : MonoBehaviour {
     [SerializeField]
     private float offsetAngle = -45;
 
-    private float startAngle;
+    public float startAngle { get; private set; }
 
     public float Velocity { get; set; }
     private float minVelocity = 0.1f;
@@ -27,7 +27,7 @@ public class OpenableDoor : MonoBehaviour {
     private float grabLength;
     private float angleOffset;
 
-    private float Angle {
+    public float Angle {
         get {
             return transform.eulerAngles.y;
         }

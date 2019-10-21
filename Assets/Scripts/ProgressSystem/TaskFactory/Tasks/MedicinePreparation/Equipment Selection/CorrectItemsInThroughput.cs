@@ -5,11 +5,12 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
+    private string[] conditions = {"BigSyringe", "SmallSyringes", /*"Needles",*/ "Luerlock", "RightSizeBottle"};
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
     private CabinetBase cabinet;
+    private OpenableDoor door;
     #endregion
 
     #region Constructor
@@ -24,6 +25,7 @@ public class CorrectItemsInThroughput : TaskBase {
         checkTimes = 0;
         points = 2;
         cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
+        door = gameObject.transform.parent.Find("Door").GetComponent<OpenableDoor>();
     }
     #endregion
 
@@ -43,7 +45,7 @@ public class CorrectItemsInThroughput : TaskBase {
             return;
         }
         if (cabinet == null) {
-            Logger.Print("There is no Pass-Through Cabinet or Component PassThroughCabinet :S");
+            Logger.Print("There is no Pass-Through Cabinet or Component PassThroughCabinet");
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
@@ -68,12 +70,12 @@ public class CorrectItemsInThroughput : TaskBase {
                         }
                     }
                     break;
-                case ObjectType.Needle:
+                /*case ObjectType.Needle:
                     needles++;
                     if (needles == 7) {
                         EnableCondition("Needles"); 
                     }
-                    break;
+                    break;*/
                 case ObjectType.Luerlock:
                     EnableCondition("Luerlock");
                     break;
@@ -86,15 +88,22 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         }
         
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            if (checkTimes == 1) {
-                UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
-                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInThroughput);
+        if (door.startAngle == door.Angle) {
+            bool check = CheckClearConditions(true);
+            if (!check) {
+                if (checkTimes == 1) {
+                    UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
+                    G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInThroughput);
+                } else {
+                    UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
+                }
+                UISystem.Instance.CreatePopup(cabinet.GetMissingItems, MessageType.Notify);
+                smallSyringes = 0;
+                needles = 0;
+                DisableConditions();
             }
-            smallSyringes = 0;
-            needles = 0;
-            DisableConditions();
+        } else {
+            UISystem.Instance.CreatePopup("Close the pass-through cabinet door", MessageType.Notify);
         }
     }
     #endregion
@@ -112,7 +121,8 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
-            if (objectCount == 16) {
+            //count changed from 16 to 9 for DEMO
+            if (objectCount == 9) {
                 UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
@@ -127,7 +137,7 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Tarkista valitsemiesi välineiden määrä.";
+        return "Laita valitsemasi työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     }
 
     /// <summary>
@@ -135,7 +145,7 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla."; 
+        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen."; 
     }
     #endregion
 }

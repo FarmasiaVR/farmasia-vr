@@ -12,7 +12,7 @@ public class CabinetBase : MonoBehaviour {
     void Start() {
         objectsInsideArea = new List<GameObject>();
         missingObjects = new Dictionary<String, int>();
-        missingObjects.Add("Needles", 7);
+        /* DEMO missingObjects.Add("Needles", 7);*/
         missingObjects.Add("Big syringe", 1);
         missingObjects.Add("Small syringes", 6);
         missingObjects.Add("Luerlock", 1);
@@ -38,9 +38,9 @@ public class CabinetBase : MonoBehaviour {
                     itemType = "Small syringes";
                 }
             }
-            if (itemType == "Needle") {
+            /* DEMO if (itemType == "Needle") {
                 itemType = "Needles";
-            }
+            }*/
 
             if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
                 missingObjects[itemType]--;
@@ -65,17 +65,17 @@ public class CabinetBase : MonoBehaviour {
                 itemType = "Small syringes";
             }
         }
-        if (itemType == "Needle") {
+        /* DEMO if (itemType == "Needle") {
             itemType = "Needles";
-        }
+        }*/
 
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
-                case "Needles":
+                /* DEMO case "Needles":
                     if (missingObjects[itemType] < 7) {
                         missingObjects[itemType]++;
                     }
-                    break;
+                    break;*/
                 case "Big syringe":
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
