@@ -189,6 +189,9 @@ public class TaskBase : ITask {
     /// <param name="checkAll"></param>
     /// <returns></returns>
     protected bool CheckClearConditions(bool checkAll) {
+        foreach (string cond in GetNonClearedConditions()) {
+            Logger.Print(cond);
+        }
         if (checkAll) {
             if (!clearConditions.ContainsValue(false)) {
                 FinishTask();

@@ -62,7 +62,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
                     if (syringe.Container.Capacity == 5000) {
-                        EnableCondition("Syringe"); 
+                        EnableCondition("BigSyringe"); 
                     } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
@@ -81,7 +81,7 @@ public class CorrectItemsInThroughput : TaskBase {
                     break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
-                    if (bottle.Container.Capacity == 100) {
+                    if (bottle.Container.Capacity == 80000) {
                         EnableCondition("RightSizeBottle");
                     }
                     break;

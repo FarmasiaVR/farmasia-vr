@@ -42,6 +42,13 @@ public class CabinetBase : MonoBehaviour {
                 itemType = "Needles";
             }*/
 
+            if (itemType == "Bottle") {
+                MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
+                if (bottle.Container.Capacity != 80000) {
+                    return;
+                }
+            }
+
             if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
                 missingObjects[itemType]--;
             }
@@ -65,6 +72,14 @@ public class CabinetBase : MonoBehaviour {
                 itemType = "Small syringes";
             }
         }
+
+        if (itemType == "Bottle") {
+            MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
+            if (bottle.Container.Capacity != 80000) {
+                return;
+            }
+        }
+
         /* DEMO if (itemType == "Needle") {
             itemType = "Needles";
         }*/
