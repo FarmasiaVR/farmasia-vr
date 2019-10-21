@@ -25,22 +25,17 @@ public class ContainerItem {
             return;
         }
 
-        Logger.Print("Liquid container enter: " + c.gameObject.name);
-
         AddToDictionary(interactable);
 
         Syringe syringe = interactable as Syringe;
 
         if (syringe == null) {
-            Logger.Print("No syringe");
             return;
         }
 
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
         }
-
-        Logger.Print("In syringe");
 
         syringe.BottleContainer = container;
     }
@@ -50,8 +45,6 @@ public class ContainerItem {
         if (interactable == null) {
             return;
         }
-
-        Logger.Print("Liquid container exit: " + c.gameObject.name);
 
         bool exited = RemoveFromDictionary(interactable);
 
@@ -63,7 +56,6 @@ public class ContainerItem {
 
         if (item.ObjectType == ObjectType.Bottle && exited) {
             syringe.State.Off(InteractState.InBottle);
-            Logger.Print("Syringe exited bottle");
             syringe.BottleContainer = null;
             //test event trigger
             // Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));

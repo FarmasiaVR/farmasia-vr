@@ -5,24 +5,19 @@ using UnityEngine;
 public static class CollisionIgnore {
 
     public static void IgnoreCollisions(Transform a, Transform b, bool ignore) {
-        Collider coll = a.GetComponent<Collider>();
 
-        if (coll != null) {
-            IgnoreCollisionsCollider(coll, b, ignore);
+        Collider[] goA_colliders = a.GetComponentsInChildren<Collider>();
+        Collider[] goB_colliders = b.GetComponentsInChildren<Collider>();
+
+        if (goA_colliders.Length == 0 || goB_colliders.Length == 0) {
+            return;
         }
 
-        foreach (Transform child in a) {
-            IgnoreCollisions(child, b, ignore);
-        }
-    }
-
-    private static void IgnoreCollisionsCollider(Collider a, Transform b, bool ignore) {
-        Collider coll = b.GetComponent<Collider>();
-
-        if (coll != null) {
-            Physics.IgnoreCollision(a, coll, ignore);
-            foreach (Transform child in b) {
-                IgnoreCollisionsCollider(a, child, ignore);
+        foreach (Collider cA in goA_colliders) {
+            foreach (Collider cB in goB_colliders) {
+                if (cA.enabled && cB.enabled) {
+                    Physics.IgnoreCollision(cA, cB, ignore);
+                }
             }
         }
     }
