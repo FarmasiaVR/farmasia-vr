@@ -18,4 +18,6 @@
     SterileBag,
     RoomDoor,
     ItemDroppedInTrash,
+    ItemDroppedOnFloor,
+    ItemLiftedOffFloor,
 }

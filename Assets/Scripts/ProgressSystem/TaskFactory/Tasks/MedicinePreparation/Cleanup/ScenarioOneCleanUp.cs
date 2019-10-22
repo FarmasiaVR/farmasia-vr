@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using UnityEngine;
 /// <summary>
 /// In case syringes were dropped, this task is created to check if the player puts the dropped syringes to trash before finishing the game.
 /// </summary>
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
     private string[] conditions = { "DroppedItemsPutToTrash", "PreviousTasksCompleted" };
-    private bool hasTrashBeenUsed;
     #endregion
 
     #region Constructor
@@ -27,7 +24,8 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(CleanUp, EventType.CleanUp);
-        base.SubscribeEvent(data => hasTrashBeenUsed = true, EventType.ItemDroppedInTrash);
+        base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
+        base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
     }
     /// <summary>
     /// Once fired by an event, checks if dropped syringes are put to trash and if required previous tasks are completed.
@@ -51,22 +49,25 @@ public class ScenarioOneCleanUp : TaskBase {
             base.FinishTask();
         }
     }
+
+    private void ItemDroppedInTrash(CallbackData data) {
+        GeneralItem item = data.DataObject as GeneralItem;
+        if (!item.IsClean && G.Instance.Progress.currentPackage.name != "Clean up") {
+            UISystem.Instance.CreatePopup("Esineet laitettu roskakoriin liian aikaisin.", MessageType.Mistake);
+            base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
+        }
+    }
+
+    private void ItemLiftedOffFloor(CallbackData data) {
+        GeneralItem item = data.DataObject as GeneralItem;
+        if (!item.IsClean && G.Instance.Progress.currentPackage.name != "Clean up") {
+            UISystem.Instance.CreatePopup("Siivosit liian aikaisin.", MessageType.Mistake);
+            base.UnsubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
+        }
+    }
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
-    public override void FinishTask() {
-        if (hasTrashBeenUsed) {
-            UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
-        } else {
-            UISystem.Instance.CreatePopup(0, "Items were taken to trash too soon", MessageType.Notify);
-        }
-
-        base.FinishTask();
-    }
-
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>

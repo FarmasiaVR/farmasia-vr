@@ -141,6 +141,11 @@ public class TaskBase : ITask {
         subscribedEvents.Add(action, Event);
     }
 
+    public void UnsubscribeEvent(Events.EventDataCallback action, EventType type) {
+        Events.UnsubscribeFromEvent(action, type);
+        subscribedEvents.Remove(action);
+    }
+
     /// <summary>
     /// Unsubscribes from all events inside Dictionary.
     /// </summary>
