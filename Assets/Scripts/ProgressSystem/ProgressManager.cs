@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ProgressManager {
 
     #region Fields
     private bool testMode;
-    public HashSet<ITask> allTasks { get; private set; }
-    public List<Package> packages { get; private set; }
-    public Package currentPackage { get; private set; }
-    public ScoreCalculator calculator { get; private set; }
+    private HashSet<ITask> allTasks;
+    private List<Package> packages;
+    public Package CurrentPackage { get; private set; }
+    public ScoreCalculator Calculator { get; private set; }
     private float waitTime = 5.0f;
     #endregion
 
@@ -23,9 +22,9 @@ public class ProgressManager {
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
         AddTasks();
-        calculator = new ScoreCalculator(allTasks);
+        Calculator = new ScoreCalculator(allTasks);
         GenerateScenarioOne();
-        currentPackage = packages.First();
+        CurrentPackage = packages.First();
         UpdateDescription();
     }
     #endregion
@@ -160,9 +159,9 @@ public class ProgressManager {
     #region Finishing Packages and Manager
 
     public void ChangePackage() {
-        int index = packages.IndexOf(currentPackage);
+        int index = packages.IndexOf(CurrentPackage);
         if (packages[index + 1] != null) {
-            currentPackage = packages[index + 1];
+            CurrentPackage = packages[index + 1];
         } else {
             FinishProgress();
         }
@@ -193,10 +192,14 @@ public class ProgressManager {
     #region Description Methods
     public void UpdateDescription() {
         if (!testMode) {
-            if (currentPackage != null) {
-                UISystem.Instance.UpdateDescription(currentPackage.activeTasks);
+            if (CurrentPackage != null) {
+                UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
             }
         }
     }
     #endregion
+
+    public bool IsCurrentPackage(string name) {
+        return String.Equals(CurrentPackage, name);
+    }
 }

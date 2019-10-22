@@ -30,8 +30,8 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
             UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
@@ -48,7 +48,7 @@ public class MedicineToSyringe : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine, you need 20ml", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.MedicineToSyringe);
+            G.Instance.Progress.Calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
     }

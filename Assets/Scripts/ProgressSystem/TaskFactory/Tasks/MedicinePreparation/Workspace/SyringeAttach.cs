@@ -34,8 +34,8 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachSyringe(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
             UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
@@ -65,7 +65,7 @@ public class SyringeAttach : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTaskCompletion"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.SyringeAttach);
+            G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
             base.FinishTask();
         }
     }

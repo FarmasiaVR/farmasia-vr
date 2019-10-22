@@ -34,7 +34,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CleanUp(CallbackData data) {
         bool allDroppedItemsInTrash = data.DataBoolean;
-        if (G.Instance.Progress.currentPackage.name == "Clean up") {
+        if (G.Instance.Progress.IsCurrentPackage("Clean up")) {
             EnableCondition("PreviousTasksCompleted");
         }
 
@@ -45,14 +45,14 @@ public class ScenarioOneCleanUp : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Items were not taken to trash", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.ScenarioOneCleanUp);
+            G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
         }
     }
 
     private void ItemDroppedInTrash(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
-        if (!item.IsClean && G.Instance.Progress.currentPackage.name != "Clean up") {
+        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
             UISystem.Instance.CreatePopup("Esineet laitettu roskakoriin liian aikaisin.", MessageType.Mistake);
             base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
         }
@@ -60,7 +60,7 @@ public class ScenarioOneCleanUp : TaskBase {
 
     private void ItemLiftedOffFloor(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
-        if (!item.IsClean && G.Instance.Progress.currentPackage.name != "Clean up") {
+        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
             UISystem.Instance.CreatePopup("Siivosit liian aikaisin.", MessageType.Mistake);
             base.UnsubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         }

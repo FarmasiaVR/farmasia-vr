@@ -38,8 +38,8 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Medicine(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
             UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
@@ -75,7 +75,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["SixSyringes"]) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();
         }
     }  

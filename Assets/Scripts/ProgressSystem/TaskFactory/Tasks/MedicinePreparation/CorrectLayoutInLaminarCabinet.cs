@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CorrectLayoutInLaminarCabinet : TaskBase {
@@ -32,7 +31,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangedItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.currentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
+        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
             EnableCondition("AllItems"); 
             if (ItemsArranged()) {
                 EnableCondition("ItemsArranged");
@@ -42,7 +41,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["AllItems"]) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet); 
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
             base.FinishTask();
         }
     }

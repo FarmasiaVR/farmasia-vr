@@ -93,7 +93,7 @@ public class CorrectItemsInThroughput : TaskBase {
             if (!check) {
                 if (checkTimes == 1) {
                     UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
-                    G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInThroughput);
+                    G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
                 } else {
                     UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
                 }

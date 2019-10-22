@@ -31,8 +31,8 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachLuerlock(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
+        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
@@ -59,7 +59,7 @@ public class LuerlockAttach : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["LuerlockAttached"]) {
             UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.LuerlockAttach);
+            G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
         }
     }

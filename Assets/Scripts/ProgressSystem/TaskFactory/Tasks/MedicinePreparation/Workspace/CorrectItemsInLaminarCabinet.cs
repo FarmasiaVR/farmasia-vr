@@ -84,7 +84,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (!check) {
             if (checkTimes == 1) {
                 UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
             smallSyringes = 0;
             needles = 0;

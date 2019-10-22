@@ -43,7 +43,7 @@ public class CorrectLayoutInThroughput : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.CorrectLayoutInThroughput);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInThroughput);
             base.FinishTask();
         }
     }
