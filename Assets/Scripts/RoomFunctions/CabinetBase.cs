@@ -21,17 +21,18 @@ public class CabinetBase : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        if (foundObject?.GetComponent<GeneralItem>() == null) {
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (item == null) {
             return;
         }
 
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
-            ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
+            ObjectType type = item.ObjectType;
             String itemType = Enum.GetName(type.GetType(), type);
 
             if (itemType == "Syringe") {
-                Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
+                Syringe syringe = item as Syringe;
                 if (syringe.Container.Capacity == 5000) {
                     itemType = "Big syringe";
                 } else if (syringe.Container.Capacity == 1000) {
@@ -42,14 +43,14 @@ public class CabinetBase : MonoBehaviour {
                 itemType = "Needles";
             }*/
 
-            if (itemType == "Bottle") {
-                MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
+            else if (itemType == "Bottle") {
+                MedicineBottle bottle = item as MedicineBottle;
                 if (bottle.Container.Capacity != 80000) {
                     return;
                 }
             }
 
-            if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
+            if (missingObjects.ContainsKey(itemType) && missingObjects[itemType] > 0) {
                 missingObjects[itemType]--;
             }
         }
@@ -57,24 +58,24 @@ public class CabinetBase : MonoBehaviour {
 
     private void OnTriggerExit(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        if (foundObject?.GetComponent<GeneralItem>() == null) {
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (item == null) {
             return;
         }
+
         objectsInsideArea.Remove(foundObject);
-        ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
+        ObjectType type = item.ObjectType;
         String itemType = Enum.GetName(type.GetType(), type);
 
         if (itemType == "Syringe") {
-            Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
+            Syringe syringe = item as Syringe;
             if (syringe.Container.Capacity == 5000) {
                 itemType = "Big syringe";
             } else if (syringe.Container.Capacity == 1000) {
                 itemType = "Small syringes";
             }
-        }
-
-        if (itemType == "Bottle") {
-            MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
+        } else if (itemType == "Bottle") {
+            MedicineBottle bottle = item as MedicineBottle;
             if (bottle.Container.Capacity != 80000) {
                 return;
             }

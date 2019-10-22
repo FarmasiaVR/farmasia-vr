@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class ItemsToSterileBag : TaskBase {
+
     #region Fields
     private string[] conditions = { "SyringesPut" };
     private int smallSyringesCount;
@@ -34,7 +36,7 @@ public class ItemsToSterileBag : TaskBase {
     private void PutToBag(CallbackData data) {
         GameObject gm = GameObject.FindWithTag("Bag");
         SterileBag sterileBag = gm.GetComponent<SterileBag>();
-        if (!sterileBag.isClosed) {
+        if (!sterileBag.IsClosed) {
             UISystem.Instance.CreatePopup("Close sterile bag", MessageType.Notify);
             return;
         }

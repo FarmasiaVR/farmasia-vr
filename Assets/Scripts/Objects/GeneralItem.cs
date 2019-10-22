@@ -13,7 +13,7 @@ public class GeneralItem : Grabbable {
     #endregion
 
     public static GeneralItem Find(Transform t) {
-        return Interactable.GetInteractableObject(t).GetComponent<GeneralItem>();
+        return Interactable.GetInteractableObject(t)?.GetComponent<GeneralItem>();
     }
 
     protected virtual void OnCollisionEnter(Collision coll) {

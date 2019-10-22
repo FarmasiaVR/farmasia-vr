@@ -1,52 +1,40 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SterileBag : MonoBehaviour {
 
-    #region fields
+    #region Fields
     public List<GameObject> objectsInBag;
-    public bool isClosed;
-    public bool isSterile;
+    public bool IsClosed { get; private set; }
+    public bool IsSterile { get; private set; }
     #endregion
     
     // Start is called before the first frame update
     void Start() {
         objectsInBag = new List<GameObject>();
-        isClosed = false;
-        isSterile = true;
+        IsClosed = false;
+        IsSterile = true;
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (isClosed) {
-            return;
-        }
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
+        GeneralItem item = GeneralItem.Find(other.transform);
+        if (item == null || IsClosed) {
             return;
         }
         
-        if (!objectsInBag.Contains(foundObject)) {
-            objectsInBag.Add(foundObject);
-            if (!foundObject.GetComponent<GeneralItem>().IsClean) {
-                isSterile = false;
+        if (!objectsInBag.Contains(other.gameObject)) {
+            objectsInBag.Add(other.gameObject);
+            if (!item.IsClean) {
+                IsSterile = false;
             }
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (isClosed) {
-            return;
+        GameObject foundObject = other.gameObject;
+        GeneralItem item = GeneralItem.Find(other.transform);
+        if (!IsClosed && item != null) {
+            objectsInBag.Remove(foundObject);
         }
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
-            return;
-        }
-        objectsInBag.Remove(foundObject);
-    }
-
-    // Update is called once per frame
-    void Update() { 
     }
 }
