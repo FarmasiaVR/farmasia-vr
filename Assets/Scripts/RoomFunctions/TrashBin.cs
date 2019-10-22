@@ -1,24 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrashBin : MonoBehaviour {
 
     #region fields
-    public List<GameObject> objectsInArea;
-    public int droppedItemsInArea;
-    public bool droppedItemsPutBeforeTime;
+    public int droppedItemsInArea { get; private set; }
 
     [SerializeField]
     private GameObject childCollider;
     #endregion
-    
-    private void Start() {
-        objectsInArea = new List<GameObject>();
-        droppedItemsInArea = 0;
-        droppedItemsPutBeforeTime = false;
 
+    private void Start() {
+        droppedItemsInArea = 0;
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterTrashbin(collider)));
     }
 
@@ -27,22 +19,13 @@ public class TrashBin : MonoBehaviour {
         if (foundObject.GetComponent<GeneralItem>() == null) {
             return;
         }
-        
-        if (!objectsInArea.Contains(foundObject)) {
-            objectsInArea.Add(foundObject);
-            if (!foundObject.GetComponent<GeneralItem>().IsClean) {
-                droppedItemsInArea++;
-                if (G.Instance.Progress.currentPackage.name != "Clean up") {
-                    droppedItemsPutBeforeTime = true;
-                    UISystem.Instance.CreatePopup("Dropped item was put to trash before time", MessageType.Notify);
-                }
-            }     
-        }
-    }
 
-    private void Update() {
-        foreach (GameObject obj in objectsInArea) {
-            Destroy(obj);
-        }    
+        droppedItemsInArea++;
+        if (!foundObject.GetComponent<GeneralItem>().IsClean) {
+            if (G.Instance.Progress.currentPackage.name != "Clean up") {
+                UISystem.Instance.CreatePopup("Dropped item was put to trash before time", MessageType.Notify);
+            }
+        }
+        Destroy(foundObject);
     }
 }

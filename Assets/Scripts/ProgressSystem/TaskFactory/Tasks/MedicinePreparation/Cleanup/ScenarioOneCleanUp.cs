@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
     private string[] conditions = { "DroppedItemsPutToTrash", "PreviousTasksCompleted" };
+    private bool hasTrashBeenUsed;
     #endregion
 
     #region Constructor
@@ -26,6 +27,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(CleanUp, EventType.CleanUp);
+        base.SubscribeEvent(data => hasTrashBeenUsed = true, EventType.ItemDroppedInTrash);
     }
     /// <summary>
     /// Once fired by an event, checks if dropped syringes are put to trash and if required previous tasks are completed.
@@ -37,18 +39,18 @@ public class ScenarioOneCleanUp : TaskBase {
         if (G.Instance.Progress.currentPackage.name == "Clean up") {
             EnableCondition("PreviousTasksCompleted");
         }
-        
+
         if (allDroppedItemsInTrash) {
             EnableCondition("DroppedItemsPutToTrash");
         }
-        
+
         bool check = CheckClearConditions(true);
         if (!check && base.clearConditions["PreviousTasksCompleted"]) {
             UISystem.Instance.CreatePopup(-1, "Items were not taken to trash", MessageType.Mistake);
             G.Instance.Progress.calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
         }
-    }   
+    }
     #endregion
 
     #region Public Methods
@@ -56,16 +58,15 @@ public class ScenarioOneCleanUp : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        GameObject gm = GameObject.FindWithTag("TrashBin");
-        if (!gm.GetComponent<TrashBin>().droppedItemsPutBeforeTime) {
+        if (hasTrashBeenUsed) {
             UISystem.Instance.CreatePopup(1, "Items were taken to trash", MessageType.Notify);
         } else {
             UISystem.Instance.CreatePopup(0, "Items were taken to trash too soon", MessageType.Notify);
         }
-        
+
         base.FinishTask();
     }
-    
+
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>

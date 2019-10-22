@@ -16,5 +16,6 @@
     AmountOfMedicine,
     CleanUp,
     SterileBag,
-    RoomDoor
+    RoomDoor,
+    ItemDroppedInTrash,
 }
