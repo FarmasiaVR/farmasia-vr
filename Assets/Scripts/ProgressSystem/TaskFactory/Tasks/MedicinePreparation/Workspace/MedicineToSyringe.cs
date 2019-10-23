@@ -41,7 +41,7 @@ public class MedicineToSyringe : TaskBase {
             return;
         }
         
-        if (syringe.Container.Capacity == 20) {
+        if (syringe.Container.Capacity == 5000) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }
 
@@ -76,7 +76,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Valitse oikeankokoinen ruisku, jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+        return "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
     }
     #endregion
 }
