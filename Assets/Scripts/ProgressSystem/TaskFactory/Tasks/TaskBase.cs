@@ -128,7 +128,6 @@ public class TaskBase : ITask {
     /// <param name="conditions">List of conditions</param>
     public void AddConditions(int[] conditions) {
         foreach (int condition in conditions) {
-            Logger.Print(condition);
             clearConditions.Add(condition, false);
         }
     }
