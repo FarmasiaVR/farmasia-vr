@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needles, Luerlock, RightSizeBottle }
+    public enum Conditions { BigSyringe, SmallSyringes, /*Needles, */Luerlock, RightSizeBottle }
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
@@ -21,11 +21,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        smallSyringes = 0;
-        needles = 0;
-        objectCount = 0;
+        SetItemsToZero();
         checkTimes = 0;
         points = 2;
+        laminarCabinet = GameObject.FindGameObjectWithTag("LaminarCabinet")?.GetComponent<CabinetBase>();
     }
     #endregion
 
@@ -41,58 +40,83 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        List<GameObject> objects = data.DataObject as List<GameObject>;
+        if (!data.DataBoolean) {
+            UISystem.Instance.CreatePopup("Turn on the laminar cabinet ventilation", MessageType.Notify);
+            return;
+        }
+
+        if (laminarCabinet == null) {
+            Logger.Print("There is no Laminar Cabinet or Component LaminarCabinet");
+            return;
+        }
+        List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
             return;
         }
         checkTimes++;
         objectCount = objects.Count;
 
+        CheckConditions(objects);
+        
+        bool check = CheckClearConditions(true);
+        if (!check) {
+            MissingItems(checkTimes);
+        }
+    } 
+    #endregion
+
+    #region Private Methods
+    private void SetItemsToZero() {
+        smallSyringes = 0;
+        needles = 0;
+    }
+
+    private void CheckConditions(List<GameObject> objects) {
         foreach(GameObject value in objects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 20) {
+                    if (syringe.Container.Capacity == 5000) {
                         EnableCondition(Conditions.BigSyringe); 
-                    } else if (syringe.Container.Capacity == 1) {
+                    } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
                             EnableCondition(Conditions.SmallSyringes);
                         }
                     }
                     break;
-                case ObjectType.Needle:
+                /*case ObjectType.Needle:
                     needles++;
                     if (needles == 7) {
                         EnableCondition(Conditions.Needles); 
                     }
-                    break;
+                    break;*/
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
                     break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
-                    if (bottle.Container.Capacity == 100) {
+                    if (bottle.Container.Capacity == 80000) {
                         EnableCondition(Conditions.RightSizeBottle);
                     }
                     break;
             }
+        }   
+    }
+
+    private void MissingItems(int checkTimes) {
+        if (checkTimes == 1) {
+            UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+        } else {
+            UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
         }
-        
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            if (checkTimes == 1) {
-                UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
-            }
-            smallSyringes = 0;
-            needles = 0;
-            DisableConditions();
-        }
-    } 
-    #endregion
+        SetItemsToZero();
+        DisableConditions();
+    }
+    #endregion 
 
     #region Public Methods
     /// <summary>
@@ -100,7 +124,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
-            if (objectCount == 16) {
+            // count changed from 16 to 9, needles missing
+            if (objectCount == 9) {
                 UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
@@ -114,7 +139,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Tarkista valitsemiesi välineiden määrä.";
+        return "Vie valitsemasi työvälineet laminaarikaappiin ja paina kaapin ilmanvaihto päälle.";
     }
 
     /// <summary>
@@ -122,7 +147,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla."; 
+        string missingItemsHint = laminarCabinet.GetMissingItems();
+        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Ilmanvaihto laitetaan päälle laminaarikaapin nappia painamalla. " + missingItemsHint; 
     }
     #endregion
 }

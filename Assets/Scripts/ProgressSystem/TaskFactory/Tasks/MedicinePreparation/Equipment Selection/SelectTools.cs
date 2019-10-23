@@ -71,7 +71,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä tarvittavia välineitä.";
+        return "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
     }
     #endregion
 }

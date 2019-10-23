@@ -64,7 +64,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä yksi.";
+        return "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
     }
     #endregion
 }

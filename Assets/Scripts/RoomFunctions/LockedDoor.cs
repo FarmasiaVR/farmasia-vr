@@ -11,9 +11,6 @@ public class LockedDoor : MonoBehaviour {
         Events.FireEvent(EventType.CorrectItemsInThroughput, CallbackData.Object(gm.GetComponent<CabinetBase>().objectsInsideArea));
         if (G.Instance.Progress.IsCurrentPackage("Workspace")) {
             Events.FireEvent(EventType.CorrectLayoutInThroughput, CallbackData.String("" + gm.GetComponent<CabinetBase>().objectsInsideArea.Count));
-            //move to second room
-        } else {
-            UISystem.Instance.CreatePopup(gm.GetComponent<CabinetBase>().GetMissingItems(), MessageType.Notify);
         }
     }
 }

@@ -56,6 +56,26 @@ public class CorrectItemsInThroughput : TaskBase {
         checkTimes++;
         objectCount = containedObjects.Count;
 
+        CheckConditions(containedObjects);
+        
+        if (door.IsClosed) {
+            bool check = CheckClearConditions(true);
+            if (!check) {
+               MissingItems(checkTimes);
+            }
+        } else {
+            UISystem.Instance.CreatePopup("Close the pass-through cabinet door", MessageType.Notify);
+        }
+    }
+    #endregion
+
+    #region Private Methods
+    private void SetItemsToZero() {
+        smallSyringes = 0;
+        needles = 0;
+    }
+
+    private void CheckConditions(List<GameObject> containedObjects) {
         foreach(GameObject value in containedObjects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
@@ -88,32 +108,18 @@ public class CorrectItemsInThroughput : TaskBase {
                     break;
             }
         }
-        
-        if (door.IsClosed) {
-            bool check = CheckClearConditions(true);
-            if (!check) {
-                if (checkTimes == 1) {
-                    UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
-                    G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
-                } else {
-                    UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
-                }
-                UISystem.Instance.CreatePopup(cabinet.GetMissingItems(), MessageType.Notify);
-                smallSyringes = 0;
-                needles = 0;
-                DisableConditions();
-            }
-        } else {
-            UISystem.Instance.CreatePopup("Close the pass-through cabinet door", MessageType.Notify);
-        }
     }
-    #endregion
 
-    #region Private Methods
-    private void SetItemsToZero() {
-        smallSyringes = 0;
-        needles = 0;
-}
+    private void MissingItems(int checkTimes) {
+        if (checkTimes == 1) {
+            UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
+        } else {
+            UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
+        }
+        SetItemsToZero();
+        DisableConditions();
+    }
     #endregion
 
     #region Public Methods
@@ -146,7 +152,8 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen."; 
+        string missingItemsHint = cabinet.GetMissingItems();
+        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. " + missingItemsHint; 
     }
     #endregion
 }
