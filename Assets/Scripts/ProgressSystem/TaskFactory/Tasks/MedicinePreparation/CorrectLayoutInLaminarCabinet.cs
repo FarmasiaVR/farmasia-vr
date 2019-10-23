@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class CorrectLayoutInLaminarCabinet : TaskBase {
     #region Fields
-    private string[] conditions = {"AllItems", "ItemsArranged"};
+    public enum Conditions { AllItems, ItemsArranged }
     #endregion
 
     #region Constructor
@@ -12,7 +13,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     ///  </summary>
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -32,14 +33,14 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     private void ArrangedItems(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            EnableCondition("AllItems"); 
+            EnableCondition(Conditions.AllItems); 
             if (ItemsArranged()) {
-                EnableCondition("ItemsArranged");
+                EnableCondition(Conditions.ItemsArranged);
             }
         }
         
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["AllItems"]) {
+        if (!check && base.clearConditions[(int) Conditions.AllItems]) {
             UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
             base.FinishTask();

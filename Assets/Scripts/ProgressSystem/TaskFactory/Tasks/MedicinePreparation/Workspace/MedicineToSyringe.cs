@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 public class MedicineToSyringe : TaskBase {
     #region Fields
-    private string[] conditions = { "RightAmountInSyringe" };
+
+    public enum Conditions { RightAmountInSyringe }
     #endregion
 
     #region Constructor
@@ -12,7 +12,7 @@ public class MedicineToSyringe : TaskBase {
     ///  </summary>
     public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -42,7 +42,7 @@ public class MedicineToSyringe : TaskBase {
         }
         
         if (syringe.Container.Capacity == 20) {
-            EnableCondition("RightAmountInSyringe");
+            EnableCondition(Conditions.RightAmountInSyringe);
         }
 
         bool check = CheckClearConditions(true);

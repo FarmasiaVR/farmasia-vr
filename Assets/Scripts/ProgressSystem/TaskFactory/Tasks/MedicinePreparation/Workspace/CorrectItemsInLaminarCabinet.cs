@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
-    private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
+    public enum Conditions { BigSyringe, SmallSyringes, Needles, Luerlock, RightSizeBottle }
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
@@ -19,7 +20,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         smallSyringes = 0;
         needles = 0;
         objectCount = 0;
@@ -54,27 +55,27 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
                     if (syringe.Container.Capacity == 20) {
-                        EnableCondition("Syringe"); 
+                        EnableCondition(Conditions.BigSyringe); 
                     } else if (syringe.Container.Capacity == 1) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
-                            EnableCondition("SmallSyringes");
+                            EnableCondition(Conditions.SmallSyringes);
                         }
                     }
                     break;
                 case ObjectType.Needle:
                     needles++;
                     if (needles == 7) {
-                        EnableCondition("Needles"); 
+                        EnableCondition(Conditions.Needles); 
                     }
                     break;
                 case ObjectType.Luerlock:
-                    EnableCondition("Luerlock");
+                    EnableCondition(Conditions.Luerlock);
                     break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 100) {
-                        EnableCondition("RightSizeBottle");
+                        EnableCondition(Conditions.RightSizeBottle);
                     }
                     break;
             }

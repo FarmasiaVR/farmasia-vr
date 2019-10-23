@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
-    private string[] conditions = { "SixSyringes", "RightAmountOfMedicine", "PreviousTasksCompleted" };
+    public enum Conditions { SixSyringes, RightAmountOfMedicine, PreviousTasksCompleted }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach, TaskType.SyringeAttach};
     private int syringes;
     private int rightAmountInSyringes;
@@ -18,7 +19,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     ///  </summary>
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         syringes = 0;
         rightAmountInSyringes = 0;
         points = 6;
@@ -44,7 +45,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             return;
         }
         if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
+            EnableCondition(Conditions.PreviousTasksCompleted);
         } else {
             return;
         }
@@ -66,14 +67,14 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             } 
         }  
         if (syringes == 6) {
-            EnableCondition("SixSyringes");
+            EnableCondition(Conditions.SixSyringes);
         }
         if (rightAmountInSyringes == 6) {
-            EnableCondition("RightAmountOfMedicine");
+            EnableCondition(Conditions.RightAmountOfMedicine);
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["SixSyringes"]) {
+        if (!check && base.clearConditions[(int) Conditions.SixSyringes]) {
             UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();

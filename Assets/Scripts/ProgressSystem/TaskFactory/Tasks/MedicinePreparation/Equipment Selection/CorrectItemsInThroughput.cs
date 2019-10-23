@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 /// <summary>
 /// Correct amount of items inserted into Throughput.
 /// </summary>
 public class CorrectItemsInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = {"BigSyringe", "SmallSyringes", /*"Needles",*/ "Luerlock", "RightSizeBottle"};
+    public enum Conditions { BigSyringe, SmallSyringes, /*Needles, */Luerlock, RightSizeBottle }
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
@@ -20,7 +21,7 @@ public class CorrectItemsInThroughput : TaskBase {
     ///  </summary>
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         SetItemsToZero();
         checkTimes = 0;
         points = 2;
@@ -41,7 +42,7 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        if (data.DataString != DoorGoTo.EnterWorkspace.ToString()) {
+        if ((DoorGoTo) data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
         if (cabinet == null) {
@@ -62,11 +63,11 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
                     if (syringe.Container.Capacity == 5000) {
-                        EnableCondition("BigSyringe"); 
+                        EnableCondition(Conditions.BigSyringe); 
                     } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
-                            EnableCondition("SmallSyringes");
+                            EnableCondition(Conditions.SmallSyringes);
                         }
                     }
                     break;
@@ -77,12 +78,12 @@ public class CorrectItemsInThroughput : TaskBase {
                     }
                     break;*/
                 case ObjectType.Luerlock:
-                    EnableCondition("Luerlock");
+                    EnableCondition(Conditions.Luerlock);
                     break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 80000) {
-                        EnableCondition("RightSizeBottle");
+                        EnableCondition(Conditions.RightSizeBottle);
                     }
                     break;
             }

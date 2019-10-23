@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using System;
 public class SelectTools : TaskBase {
     #region Fields
-    private string[] conditions = { "SyringePickedUp", "NeedlePickedUp", "LuerlockPickedUp" };
+    public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp } 
     #endregion
 
     #region Constructor
@@ -11,7 +12,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     public SelectTools() : base(TaskType.SelectTools, true, false) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
@@ -35,13 +36,13 @@ public class SelectTools : TaskBase {
         ObjectType type = item.ObjectType;
         switch (type) {
             case ObjectType.Syringe:
-                EnableCondition("SyringePickedUp");
+                EnableCondition(Conditions.SyringePickedUp);
                 break;
             case ObjectType.Needle:
-                EnableCondition("NeedlePickedUp");
+                EnableCondition(Conditions.NeedlePickedUp);
                 break;
             case ObjectType.Luerlock:
-                EnableCondition("LuerlockPickedUp");
+                EnableCondition(Conditions.LuerlockPickedUp);
                 break;
         }
         CheckClearConditions(false);

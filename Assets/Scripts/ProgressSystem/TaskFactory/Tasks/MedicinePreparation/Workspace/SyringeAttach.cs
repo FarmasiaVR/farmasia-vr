@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
     #region Fields
-    private string[] conditions = { "RightSyringeSize", "PreviousTaskCompletion" };
+    public enum Conditions { RightSyringeSize, PreviousTasksCompletion }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
     private int smallSyringes;
     #endregion
@@ -14,7 +15,7 @@ public class SyringeAttach : TaskBase {
     ///  </summary>
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         smallSyringes = 0;
         points = 1;
     }
@@ -40,7 +41,7 @@ public class SyringeAttach : TaskBase {
             return;
         }
         if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
+            EnableCondition(Conditions.PreviousTasksCompletion);
         } else {
             return;
         }
@@ -59,11 +60,11 @@ public class SyringeAttach : TaskBase {
         }
 
         if (smallSyringes == 6) {
-            EnableCondition("RightSyringeSize");
+            EnableCondition(Conditions.RightSyringeSize);
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTaskCompletion"]) {
+        if (!check) {
             UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
             base.FinishTask();

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using System;
 public class SelectMedicine : TaskBase {
     #region Fields
-    private string[] conditions = { "BottlePickup" };
+    public enum Conditions { BottlePickup }
     #endregion
 
     #region Constructor
@@ -11,7 +12,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
@@ -35,7 +36,7 @@ public class SelectMedicine : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Bottle) {
-            EnableCondition("BottlePickup");
+            EnableCondition(Conditions.BottlePickup);
         }
         CheckClearConditions(true);
     }

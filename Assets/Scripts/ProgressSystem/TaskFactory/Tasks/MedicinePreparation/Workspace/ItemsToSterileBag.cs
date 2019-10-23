@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemsToSterileBag : TaskBase {
 
     #region Fields
-    private string[] conditions = { "SyringesPut" };
+    public enum Conditions { SyringesPut }
     private int smallSyringesCount;
     #endregion
 
@@ -16,7 +17,7 @@ public class ItemsToSterileBag : TaskBase {
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, true, false) {
         smallSyringesCount = 0;
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -75,7 +76,7 @@ public class ItemsToSterileBag : TaskBase {
 
         
         if (smallSyringesCount == 6) {
-            EnableCondition("SyringesPut");
+            EnableCondition(Conditions.SyringesPut);
         }
 
         CheckClearConditions(true);

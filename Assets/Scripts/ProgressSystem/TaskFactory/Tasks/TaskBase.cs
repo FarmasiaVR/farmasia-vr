@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// Base for every task. 
-/// Handles everything related to task given task and also has useful methods.
+/// Inherited by every task. 
+/// Handles everything related to the given task and also has useful methods.
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
@@ -14,7 +15,7 @@ public class TaskBase : ITask {
     protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
     protected bool previousTasksCompleted = false;
-    protected Dictionary<string, bool> clearConditions = new Dictionary<string, bool>();
+    protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
     #endregion
 
@@ -36,12 +37,12 @@ public class TaskBase : ITask {
     /// <summary>
     /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
     /// </summary>
-    private void Remove() {
+    private void RemoveFromPackage() {
         if (package != null) {
             if (removeWhenFinished) {
-                package.RemoveTask(this);
+                package.RemoveTask((ITask) this);
             } else {
-                package.MoveTaskToManager(this);
+                package.MoveTaskToManager((ITask) this);
             }
         }
     }
@@ -53,7 +54,7 @@ public class TaskBase : ITask {
     /// </summary>
     public virtual void FinishTask() {
         UnsubscribeAllEvents();
-        Remove();
+        RemoveFromPackage();
     }
 
     /// <summary>
@@ -106,9 +107,9 @@ public class TaskBase : ITask {
     /// Enables condition with given string.
     /// </summary>
     /// <param name="condition">String representation of condition.</param>
-    public void EnableCondition(string condition) {
-        if (clearConditions.ContainsKey(condition)) {
-            clearConditions[condition] = true;
+    public void EnableCondition(Enum condition) {
+        if (clearConditions.ContainsKey(condition.GetHashCode())) {
+            clearConditions[condition.GetHashCode()] = true;
         }
     }
 
@@ -116,17 +117,18 @@ public class TaskBase : ITask {
     /// Disables all conditions.
     /// </summary>
     public void DisableConditions() {
-        foreach (string condition in clearConditions.Keys.ToList()) {
+        foreach (int condition in clearConditions.Keys.ToList()) {
             clearConditions[condition] = false;
         }
     }
 
     /// <summary>
-    /// Adds conditions with list of string conditions.
+    /// Adds integer values to conditions.
     /// </summary>
-    /// <param name="conditions">List of string conditions</param>
-    public void AddConditions(string[] conditions) {
-        foreach (string condition in conditions) {
+    /// <param name="conditions">List of conditions</param>
+    public void AddConditions(int[] conditions) {
+        foreach (int condition in conditions) {
+            Logger.Print(condition);
             clearConditions.Add(condition, false);
         }
     }
@@ -162,13 +164,7 @@ public class TaskBase : ITask {
     /// </summary>
     /// <returns>True if is current, false if not.</returns>
     protected bool CheckIsCurrent() {
-        if (package != null) {
-            if (package.activeTasks.IndexOf(this) > 0) {
-                return false;
-            }
-            return true;
-        }
-        return true;
+        return (package?.activeTasks.IndexOf((ITask)this) ?? 0) == 0;
     }
 
     /// <summary>
@@ -194,7 +190,7 @@ public class TaskBase : ITask {
     /// <param name="checkAll"></param>
     /// <returns></returns>
     protected bool CheckClearConditions(bool checkAll) {
-        foreach (string cond in GetNonClearedConditions()) {
+        foreach (int cond in GetNonClearedConditions()) {
             Logger.Print(cond);
         }
         if (checkAll) {
@@ -215,14 +211,14 @@ public class TaskBase : ITask {
     /// Returns an array of the conditions that have not yet been cleared.
     /// </summary>
     /// <returns>An array of the names of the conditions (strings)</returns>
-    protected string[] GetNonClearedConditions() {
-        List<string> nonCleared = new List<string>();
-        foreach (KeyValuePair<string, bool> condition in clearConditions) {
+    protected List<int> GetNonClearedConditions() {
+        List<int> nonCleared = new List<int>();
+        foreach (KeyValuePair<int, bool> condition in clearConditions) {
             if (!condition.Value) {
                 nonCleared.Add(condition.Key);
             }
         }
-        return nonCleared.ToArray();
+        return nonCleared;
     }
     #endregion
 }

@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 /// <summary>
 /// Checks if Throughput Cupboard (läpiantokaappi) has correct layout.
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    private string[] conditions = { "ItemsArranged" };
+    public enum Conditions { ItemsArranged }
     private CabinetBase cabinet;
     #endregion
 
@@ -17,7 +17,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
         cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -38,7 +38,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     private void ArrangedItems(CallbackData data) {
 
         if (ItemsArranged()) {
-            EnableCondition("ItemsArranged");
+            EnableCondition(Conditions.ItemsArranged);
         }
         bool check = CheckClearConditions(true);
         if (!check) {

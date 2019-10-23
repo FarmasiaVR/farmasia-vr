@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class LuerlockAttach : TaskBase {
     #region Fields
-    private string[] conditions = { "LuerlockAttached", "PreviousTaskCompletion" };
+    public enum Conditions { LuerlockAttached, PreviousTaskCompletion }
     List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     #endregion
 
@@ -13,7 +14,7 @@ public class LuerlockAttach : TaskBase {
     ///  </summary>
     public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -38,7 +39,7 @@ public class LuerlockAttach : TaskBase {
         }
         //check that is done in laminar cabinet
         if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTaskCompletion");
+            EnableCondition(Conditions.PreviousTaskCompletion);
         } else {
             return;
         }
@@ -52,12 +53,12 @@ public class LuerlockAttach : TaskBase {
         if (type == ObjectType.Syringe) {
             Syringe syringe = item.GetComponent<Syringe>();
             if (syringe.Container.Capacity == 20) {
-                EnableCondition("LuerlockAttached");
+                EnableCondition(Conditions.LuerlockAttached);
             }
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["LuerlockAttached"]) {
+        if (!check && base.clearConditions[(int) Conditions.LuerlockAttached]) {
             UISystem.Instance.CreatePopup(-1, "Luerlock was not successfully attached", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();

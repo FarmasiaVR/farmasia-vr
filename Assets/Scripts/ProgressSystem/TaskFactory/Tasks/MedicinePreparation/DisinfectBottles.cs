@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
@@ -5,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DisinfectBottles : TaskBase {
     #region Fields
-    private string[] conditions = { "BottleCapDisinfected", "PreviousTasksCompleted" };
+    public enum Conditions { BottleCapDisinfected, PreviousTasksCompleted }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectItemsInLaminarCabinet, TaskType.CorrectLayoutInLaminarCabinet};
     #endregion
 
@@ -16,7 +17,7 @@ public class DisinfectBottles : TaskBase {
     ///  </summary>
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -41,15 +42,15 @@ public class DisinfectBottles : TaskBase {
         }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.BottleCap) {
-            EnableCondition("BottleCapDisinfected");
+            EnableCondition(Conditions.BottleCapDisinfected);
         }
 
         if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
+            EnableCondition(Conditions.PreviousTasksCompleted);
         }
         
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTasksCompleted"]) {
+        if (!check && base.clearConditions[(int) Conditions.PreviousTasksCompleted]) {
             UISystem.Instance.CreatePopup(-1, "Bottle cap was not disinfected", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
             base.FinishTask();

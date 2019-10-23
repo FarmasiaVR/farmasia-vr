@@ -16,7 +16,7 @@ public class MissingItems : TaskBase {
     public MissingItems() : base(TaskType.MissingItems, true, false) {
         conditions = new string[0];
         Subscribe();
-        AddConditions(conditions);
+        //AddConditions(conditions);
     }
     #endregion
 
@@ -41,18 +41,18 @@ public class MissingItems : TaskBase {
         ObjectType type = item.ObjectType;
         
         if (type == ObjectType.Syringe && Array.Exists(conditions, element => element == "Syringe")) {
-            EnableCondition("Syringe");
+            //EnableCondition("Syringe");
         }
         if (type == ObjectType.Needle && Array.Exists(conditions, element => element == "Needle")) {
-            EnableCondition("Needle");
+            //EnableCondition("Needle");
         }
         if (type == ObjectType.Luerlock && Array.Exists(conditions, element => element == "Luerlock")) {
-            EnableCondition("Luerlock");
+            //EnableCondition("Luerlock");
         }
         if (type == ObjectType.Bottle && Array.Exists(conditions, element => element == "RightSizeBottle")) {
             MedicineBottle bottle = item as MedicineBottle;
             if (bottle.Container.Capacity == 100) {
-                EnableCondition("RightSizeBottle");
+                //EnableCondition("RightSizeBottle");
             }
         }
         CheckClearConditions(true);

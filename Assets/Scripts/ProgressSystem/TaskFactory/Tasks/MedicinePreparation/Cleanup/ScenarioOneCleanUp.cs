@@ -1,9 +1,11 @@
+using System;
+
 /// <summary>
 /// In case syringes were dropped, this task is created to check if the player puts the dropped syringes to trash before finishing the game.
 /// </summary>
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
-    private string[] conditions = { "DroppedItemsPutToTrash", "PreviousTasksCompleted" };
+    public enum Conditions { DroppedItemsPutToTrash, PreviousTasksCompleted }
     #endregion
 
     #region Constructor
@@ -13,7 +15,7 @@ public class ScenarioOneCleanUp : TaskBase {
     ///  </summary>
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
         Subscribe();
-        AddConditions(conditions);
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -35,15 +37,15 @@ public class ScenarioOneCleanUp : TaskBase {
     private void CleanUp(CallbackData data) {
         bool allDroppedItemsInTrash = data.DataBoolean;
         if (G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            EnableCondition("PreviousTasksCompleted");
+            EnableCondition(Conditions.PreviousTasksCompleted);
         }
 
         if (allDroppedItemsInTrash) {
-            EnableCondition("DroppedItemsPutToTrash");
+            EnableCondition(Conditions.DroppedItemsPutToTrash);
         }
 
         bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTasksCompleted"]) {
+        if (!check) {
             UISystem.Instance.CreatePopup(-1, "Items were not taken to trash", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
