@@ -17,6 +17,6 @@ public class RoomDoorHandle : Interactable {
         if (destination == DoorGoTo.None) {
             return;
         }
-        Events.FireEvent(EventType.RoomDoor, CallbackData.String(destination.ToString()));
+        Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
     }
 }
