@@ -26,7 +26,7 @@ public class Hand : MonoBehaviour {
     private void Start() {
         handCollider = GetComponentInChildren<HandCollider>();
         HandType = GetComponent<VRHandControls>()?.handType ?? SteamVR_Input_Sources.Any;
-        Connector = new HandConnector(transform);
+        Connector = new HandConnector(this);
 
         Assert.IsFalse(HandType == SteamVR_Input_Sources.Any, "Invalid hand type");
         Assert.IsNotNull(handCollider, "Missing HandCollider component");
@@ -67,7 +67,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        GrabbedInteractable = handCollider.GetGrab();
+        GrabbedInteractable = handCollider.GetGrabbedInteractable();
         if (GrabbedInteractable == null) {
             return;
         }

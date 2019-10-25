@@ -63,7 +63,7 @@ public class Syringe : GeneralItem {
             return;
         }
 
-        if (State == InteractState.LuerlockAttatch) {
+        if (State == InteractState.LuerlockAttached) {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {
             BottleEject(amount);

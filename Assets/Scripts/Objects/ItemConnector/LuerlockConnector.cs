@@ -74,7 +74,7 @@ public class LuerlockConnector : ItemConnector {
         Logger.PrintVariables("luerlock", Luerlock.name);
         Logger.PrintVariables("obj luer: ", obj.Interactable.Interactors.LuerlockPair.Value.gameObject.name);
 
-        obj.Interactable.State.On(InteractState.LuerlockAttatch);
+        obj.Interactable.State.On(InteractState.LuerlockAttached);
 
         CollisionIgnore.IgnoreCollisions(Luerlock.transform, obj.GameObject.transform, true);
 
@@ -112,7 +112,7 @@ public class LuerlockConnector : ItemConnector {
         Joint(side).connectedBody = null;
         MonoBehaviour.Destroy(Joint(side));
         Luerlock.Objects[side].Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
-        Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttatch);
+        Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(side, null);
     }
     #endregion

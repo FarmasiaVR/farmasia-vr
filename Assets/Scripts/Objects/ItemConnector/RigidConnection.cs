@@ -35,7 +35,7 @@ public class RigidConnection: ItemConnection {
         Interactable interactable = Interactable.GetInteractable(rb.transform);
         LuerlockAdapter luerlock;
 
-        if (interactable.State == InteractState.LuerlockAttatch) {
+        if (interactable.State == InteractState.LuerlockAttached) {
 
             luerlock = interactable.Interactors.LuerlockPair.Value;
 

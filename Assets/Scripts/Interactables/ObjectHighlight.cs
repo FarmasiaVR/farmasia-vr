@@ -36,7 +36,7 @@ public class ObjectHighlight : MonoBehaviour {
 
     public IEnumerator InsideCheck(HandCollider coll) {
         while (coll.Contains(gameObject)) {
-            bool isClosest = gameObject == coll.GetGrabObject();
+            bool isClosest = gameObject == coll.GetGrabbedObject();
 
             if (gameObject.GetComponent<Interactable>().State == InteractState.Grabbed) {
                 Unhighlight();
