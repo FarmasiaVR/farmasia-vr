@@ -12,24 +12,9 @@ public class HandMeshToggler : MonoBehaviour {
         hand = GetComponent<Hand>();
         status = enabled;
 
-        //Events.SubscribeToEvent(UpdateMesh, this, EventType.InteractWithObject);
-        //Events.SubscribeToEvent(UpdateMesh, this, EventType.UninteractWithObject);
-        //Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabInteractWithObject);
-        //Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabUninteractWithObject);
-
         StartCoroutine(FindRenderersLate());
 
         IEnumerator FindRenderersLate() {
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
             yield return null;
             renderers = GetComponentsInChildren<Renderer>();
         }
