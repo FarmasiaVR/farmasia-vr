@@ -10,7 +10,6 @@
     CorrectLayoutInLaminarCabinet,
     Missing,
     Disinfect,
-    MedicineToSyringe,
     AttachLuerlock,
     AttachSyringe,
     AmountOfMedicine,
@@ -26,4 +25,8 @@
     UninteractWithObject,
     GrabUninteractWithObject,
     GrabInteractWithObject,
+    ItemPlacedInCabinet,
+    VentilationBlocked,
+    SyringeToMedicineBottle,
+    SyringeFromMedicineBottle
 }

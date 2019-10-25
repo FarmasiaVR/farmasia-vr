@@ -35,6 +35,7 @@ public class ContainerItem {
 
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
+            Events.FireEvent(EventType.SyringeToMedicineBottle, CallbackData.Object(syringe));
         }
 
         syringe.BottleContainer = container;
@@ -57,8 +58,7 @@ public class ContainerItem {
         if (item.ObjectType == ObjectType.Bottle && exited) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
-            //test event trigger
-            // Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(syringe));
+            Events.FireEvent(EventType.SyringeFromMedicineBottle, CallbackData.Object(syringe));
         }
     }
 

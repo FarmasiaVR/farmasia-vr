@@ -1,19 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CorrectLayoutInLaminarCabinet : TaskBase {
     #region Fields
-    public enum Conditions { AllItems, ItemsArranged }
+    private CabinetBase laminarCabinet;
     #endregion
 
     #region Constructor
     ///  <summary>
     ///  Constructor for CorrectLayoutInLaminarCabinet task.
-    ///  Is removed when finished and doesn't require previous task completion.
+    ///  Is moved to manager when finished and doesn't require previous task completion.
     ///  </summary>
-    public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, true, false) {
+    public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false, false) {
+        base.unsubscribeAllEvents = false;
         Subscribe();
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -23,36 +24,45 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
+        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(VentilationBlocked, EventType.VentilationBlocked);
+        SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
     }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+        }
+        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+    }
+
     /// <summary>
-    /// Once fired by an event, checks if the tasks dealing with the amount of items have been completed and if the items are arranged.
-    /// Sets the corresponding conditions to be true.
+    /// Checks if items have been arranged inside Laminar Cabinet.
     /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
+    /// <param name="data"></param>
     private void ArrangedItems(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            EnableCondition(Conditions.AllItems); 
-            if (ItemsArranged()) {
-                EnableCondition(Conditions.ItemsArranged);
-            }
+        if (laminarCabinet == null) {
+            return;
         }
-        
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions[(int) Conditions.AllItems]) {
-            UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
+        if (!ItemsArranged()) {
+            UISystem.Instance.CreatePopup(-1, "Työvälineet ei ryhmissä.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
-            base.FinishTask();
         }
     }
+
+    private void VentilationBlocked(CallbackData data) {
+        UISystem.Instance.CreatePopup(-1, "Ilmanvaihto estynyt.", MessageType.Mistake);
+        G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
+    }
+
     /// <summary>
     /// Checks that the items are arranged according to rules.
     /// </summary>
     /// <returns>"Returns true if the items are arranged."</returns>
     private bool ItemsArranged() {
         //code missing
-        return false;
+        return true;
     }
     #endregion
 
@@ -61,7 +71,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Items in order", MessageType.Notify);
         base.FinishTask();
     }
 
@@ -72,13 +81,13 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public override string GetDescription() {
         return "Siirrä välineet läpiantokaapista kaappiin.";
     }
-    
+
     /// <summary>
     /// Used for getting the hint for this task.
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vie ja asettele valitsemasi työvälineet sekä lääkepullo läpiantokaapista kaappiin."; 
+        return "Vie ja asettele valitsemasi työvälineet sekä lääkepullo läpiantokaapista kaappiin.";
     }
     #endregion
 }

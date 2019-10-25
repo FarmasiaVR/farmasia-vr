@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
-    public enum Conditions { ItemsArranged }
     private CabinetBase cabinet;
     #endregion
 
@@ -15,9 +14,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
-        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
         Subscribe();
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -36,15 +33,9 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangedItems(CallbackData data) {
-
         if (ItemsArranged()) {
-            EnableCondition(Conditions.ItemsArranged);
-        }
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Items not arranged", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Työvälineet ei ryhmissä.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInThroughput);
-            base.FinishTask();
         }
     }
 
@@ -78,7 +69,6 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Items arranged", MessageType.Notify);
         base.FinishTask();
     }
 
@@ -87,7 +77,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Asettele välineet läpiantokaappiin.";
+        return "";
     }
 
     /// <summary>
@@ -95,7 +85,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vie valitsemasi työvälineet ja lääkepullo läpiantokaapin kautta toiseen huoneeseen.";
+        return "";
     }
     #endregion
 }

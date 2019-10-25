@@ -6,8 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DisinfectBottles : TaskBase {
     #region Fields
-    public enum Conditions { BottleCapDisinfected, PreviousTasksCompleted }
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectItemsInLaminarCabinet, TaskType.CorrectLayoutInLaminarCabinet};
+    public enum Conditions { BottleCapDisinfected }
     #endregion
 
     #region Constructor
@@ -33,28 +32,16 @@ public class DisinfectBottles : TaskBase {
     /// Once fired by an event, checks if bottle cap was disinfected and previous tasks completed.
     /// Sets corresponding conditions to be true.
     /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
+    /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.BottleCap) {
-            EnableCondition(Conditions.BottleCapDisinfected);
-        }
-
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition(Conditions.PreviousTasksCompleted);
-        }
-        
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions[(int) Conditions.PreviousTasksCompleted]) {
-            UISystem.Instance.CreatePopup(-1, "Bottle cap was not disinfected", MessageType.Mistake);
+        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
+            base.EnableCondition(Conditions.BottleCapDisinfected);
+            UISystem.Instance.CreatePopup(1, "Pullon korkki putsattu onnistuneesti", MessageType.Done);
+        } else {
+            UISystem.Instance.CreatePopup(-1, "Korkki putsattu ", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
-            base.FinishTask();
         }
+        base.UnsubscribeAllEvents();
     }
     #endregion
 
@@ -63,10 +50,13 @@ public class DisinfectBottles : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Bottle cap disinfected", MessageType.Notify);
+        bool clear = base.CheckClearConditions(true);
+        if (!clear) {
+            G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
+        }
         base.FinishTask();
     }
-    
+
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>
@@ -80,7 +70,7 @@ public class DisinfectBottles : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Muista desinfioida lääkepullon korkki ennen seuraavaa työvaihetta.";
+        return "";
     }
     #endregion
 }

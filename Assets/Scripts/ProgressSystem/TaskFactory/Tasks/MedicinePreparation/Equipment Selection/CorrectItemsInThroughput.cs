@@ -25,8 +25,6 @@ public class CorrectItemsInThroughput : TaskBase {
         SetItemsToZero();
         checkTimes = 0;
         points = 2;
-        cabinet = GameObject.FindGameObjectWithTag("PassThrough (Prep)")?.GetComponent<CabinetBase>();
-        door = cabinet.transform.parent.Find("Door").GetComponent<OpenableDoor>();
     }
     #endregion
 
@@ -34,9 +32,22 @@ public class CorrectItemsInThroughput : TaskBase {
     /// <summary>
     /// Subscribes to required Events.
     /// </summary>
-    public override void Subscribe() { 
+    public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
+
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase) data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
+            this.cabinet = cabinet;
+            door = cabinet.transform.parent.Find("Door").GetComponent<OpenableDoor>();
+        }
+        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+    }
+
+
     /// <summary>
     /// Once fired by an event, checks which items are in the throughput cabinet and sets the corresponding conditions to be true.
     /// </summary>
@@ -46,7 +57,6 @@ public class CorrectItemsInThroughput : TaskBase {
             return;
         }
         if (cabinet == null) {
-            Logger.Print("There is no Pass-Through Cabinet or Component PassThroughCabinet");
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
@@ -123,9 +133,6 @@ public class CorrectItemsInThroughput : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
             //count changed from 16 to 9 for DEMO
@@ -139,18 +146,10 @@ public class CorrectItemsInThroughput : TaskBase {
         base.FinishTask();
     }
     
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
         return "Laita valitsemasi työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         string missingItemsHint = cabinet.GetMissingItems();
         return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. " + missingItemsHint; 

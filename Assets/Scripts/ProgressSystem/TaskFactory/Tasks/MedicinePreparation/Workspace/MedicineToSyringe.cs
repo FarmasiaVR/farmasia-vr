@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+
 public class MedicineToSyringe : TaskBase {
     #region Fields
 
+    Dictionary<int, int> syringes = new Dictionary<int, int>();
     public enum Conditions { RightAmountInSyringe }
     #endregion
 
@@ -12,7 +15,7 @@ public class MedicineToSyringe : TaskBase {
     ///  </summary>
     public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true, true) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
     #endregion
@@ -22,25 +25,37 @@ public class MedicineToSyringe : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(ToSyringe, EventType.MedicineToSyringe);
+        SubscribeEvent(AddSyringe, EventType.SyringeToMedicineBottle);
+        SubscribeEvent(RemoveSyringe, EventType.SyringeToMedicineBottle);
     }
+
+    private void AddSyringe(CallbackData data) {
+        Syringe s = data.DataObject as Syringe;
+        syringes.Add(s.GetInstanceID(), s.Container.Amount);
+    }
+
+    private void RemoveSyringe(CallbackData data) {
+        Syringe s = data.DataObject as Syringe;
+        if (syringes.ContainsKey(s.GetInstanceID())) {
+            if (syringes[s.GetInstanceID()] != s.Container.Amount) {
+                ToSyringe(s);
+            }
+            syringes.Remove(s.GetInstanceID());
+        }
+    }
+
     /// <summary>
     /// Once fired by an event, checks which step of the MedicineToSyringe process has been taken and if required previous tasks are completed.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void ToSyringe(CallbackData data) {
+    private void ToSyringe(Syringe syringe) {
         if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
             UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
             return;
         }
-        // check that happens in laminar cabinet
-        Syringe syringe = data.DataObject as Syringe;
-        if (syringe == null) {
-            return;
-        }
-        
+
         if (syringe.Container.Capacity == 5000) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }
@@ -62,7 +77,7 @@ public class MedicineToSyringe : TaskBase {
         UISystem.Instance.CreatePopup(1, "Medicine was successfully taken", MessageType.Notify);
         base.FinishTask();
     }
-    
+
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>

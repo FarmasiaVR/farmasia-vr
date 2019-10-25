@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class CabinetBase : MonoBehaviour {
     #region fields
+    public enum CabinetType { PassThrough, Laminar }
+    [SerializeField]
+    public CabinetType type;
     public List<GameObject> objectsInsideArea;
     public Dictionary<String, int> missingObjects;
+    private bool itemPlaced = false;
     #endregion
 
     // Start is called before the first frame update
@@ -25,6 +29,11 @@ public class CabinetBase : MonoBehaviour {
         if (item == null) {
             return;
         }
+        if (!itemPlaced) {
+            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
+            itemPlaced = true;
+        }
+
 
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);

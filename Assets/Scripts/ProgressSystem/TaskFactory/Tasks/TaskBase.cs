@@ -15,6 +15,7 @@ public class TaskBase : ITask {
     protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
     protected bool previousTasksCompleted = false;
+    protected bool unsubscribeAllEvents = true;
     protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
     #endregion
@@ -40,9 +41,9 @@ public class TaskBase : ITask {
     private void RemoveFromPackage() {
         if (package != null) {
             if (removeWhenFinished) {
-                package.RemoveTask((ITask) this);
+                package.RemoveTask((ITask)this);
             } else {
-                package.MoveTaskToManager((ITask) this);
+                package.MoveTaskToManager((ITask)this);
             }
         }
     }
@@ -50,29 +51,19 @@ public class TaskBase : ITask {
 
     #region Virtual Methods
     /// <summary>
-    /// Used for finishing current task. Task is either removed or preserved.
+    /// Executed when task conditions are done.
     /// </summary>
     public virtual void FinishTask() {
-        UnsubscribeAllEvents();
+        if (unsubscribeAllEvents) {
+            UnsubscribeAllEvents();
+        }
         RemoveFromPackage();
     }
 
-    /// <summary>
-    /// Used for getting task's description to show on UI.
-    /// </summary>
-    /// <returns>
-    /// Returns string presentation of description.
-    /// </returns>
     public virtual string GetDescription() {
         return "No Description";
     }
 
-    /// <summary>
-    /// Used for getting task's hint when hint trigger is triggered.
-    /// </summary>
-    /// <returns>
-    /// Return string presentation of hint.
-    /// </returns>
     public virtual string GetHint() {
         return "No Hints";
     }
@@ -85,20 +76,13 @@ public class TaskBase : ITask {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Used for summary at the end of the game.
-    /// </summary>
-    /// <returns>Integer of maximum points for current task.</returns>
     public int GetPoints() {
         return points;
     }
     public void SetPackage(Package package) {
         this.package = package;
     }
-    /// <summary>
-    /// Return the type of current task.
-    /// </summary>
-    /// <returns>returns TaskType enum.</returns>
+
     public TaskType GetTaskType() {
         return taskType;
     }
@@ -189,9 +173,6 @@ public class TaskBase : ITask {
     /// <param name="checkAll"></param>
     /// <returns></returns>
     protected bool CheckClearConditions(bool checkAll) {
-        foreach (int cond in GetNonClearedConditions()) {
-            Logger.Print(cond);
-        }
         if (checkAll) {
             if (!clearConditions.ContainsValue(false)) {
                 FinishTask();
@@ -204,6 +185,21 @@ public class TaskBase : ITask {
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Check conditions with given list.
+    /// </summary>
+    /// <param name="conditions"></param>
+    /// <returns></returns>
+    protected bool CheckClearConditions(List<int> conditions) {
+        foreach (int condition in conditions) {
+            if (clearConditions[condition] == false) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     /// <summary>

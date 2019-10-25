@@ -24,7 +24,6 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         SetItemsToZero();
         checkTimes = 0;
         points = 2;
-        laminarCabinet = GameObject.FindGameObjectWithTag("LaminarCabinet")?.GetComponent<CabinetBase>();
     }
     #endregion
 
@@ -32,9 +31,19 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// <summary>
     /// Subscribes to required Events.
     /// </summary>
-    public override void Subscribe() { 
+    public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+        }
+        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+    }
+
     /// <summary>
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
@@ -46,7 +55,6 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         }
 
         if (laminarCabinet == null) {
-            Logger.Print("There is no Laminar Cabinet or Component LaminarCabinet");
             return;
         }
         List<GameObject> objects = laminarCabinet.GetContainedItems();
