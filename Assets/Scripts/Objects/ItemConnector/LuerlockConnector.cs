@@ -8,6 +8,8 @@ public class LuerlockConnector : ItemConnector {
     public LuerlockAdapter Luerlock { get; private set; }
 
     public Joint[] Joints { get; private set; }
+
+    private ItemConnection connection;
     #endregion
 
     public LuerlockConnector(Transform obj) : base(obj) {
@@ -84,6 +86,7 @@ public class LuerlockConnector : ItemConnector {
         SetLuerlockPosition(colliderT, obj.GameObject.transform);
 
         Joint(side).connectedBody = obj.Rigidbody;
+        connection = ItemConnection.AddRigidConnection(this, Luerlock.Colliders[side].transform, obj.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject, Transform t) {

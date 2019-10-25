@@ -13,7 +13,10 @@ public abstract class ItemConnection : MonoBehaviour {
         return SmoothConnection.Configuration(connector, target, addTo);
     }
     public static ItemConnection AddRigidConnection(ItemConnector connector, Transform target, GameObject addTo) {
-        return null;
+        return RigidConnection.Configuration(connector, target, addTo);
+    }
+    public static ItemConnection AddRotationConnection(ItemConnector connector, Transform target, GameObject addTo) {
+        return RotationConnection.Configuration(connector, target, addTo);
     }
     #endregion
 }

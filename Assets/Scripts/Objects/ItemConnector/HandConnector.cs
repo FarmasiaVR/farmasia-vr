@@ -34,8 +34,6 @@ public class HandConnector : ItemConnector {
     #region Attaching
     public override void ConnectItem(Interactable interactable, int options) {
 
-        Logger.Print("Connect item");
-
         if (interactable.State == InteractState.Grabbed) {
             Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem(0);
         }
@@ -67,7 +65,8 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedObject() {
         smoothgrab = false;
-        Joint.connectedBody = GrabbedRigidbody;
+        //Joint.connectedBody = GrabbedRigidbody;
+        connection = ItemConnection.AddRigidConnection(this, Hand.Offset, GrabbedRigidbody.gameObject);
     }
     private void SmoothAttachGrabbedObject() {
         smoothgrab = true;
