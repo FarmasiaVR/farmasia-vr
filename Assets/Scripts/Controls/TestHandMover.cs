@@ -35,6 +35,7 @@ public class TestHandMover : MonoBehaviour {
     private Transform right, left, cam;
 
     private bool active;
+    private bool grabbing;
     #endregion
 
     private void Start() {
@@ -49,6 +50,7 @@ public class TestHandMover : MonoBehaviour {
             UpdateState();
             UpdateMovement();
         } else if (Input.GetKeyDown(ACTIVATE)) {
+            Logger.Print("Activating test hand mover");
             active = true;
             Cursor.lockState = currentState == ControlState.CAMERA ? CursorLockMode.Locked : CursorLockMode.None;
             Destroy(transform.GetComponent<SteamVR_PlayArea>());
@@ -76,8 +78,17 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void UpdateHands() {
-        if (JustPressed(HAND_GRAB)) {
-            PassGrabInput();
+        if (Input.GetMouseButtonDown(0)) {
+            if (grabbing) {
+                Logger.Print("Released hand grab");
+                grabbing = false;
+                PassGrabInput();
+                PassUngrabInput();
+            } else {
+                Logger.Print("Started hand grab");
+                grabbing = true;
+                PassGrabInput();
+            }
         }
         
         if (JustPressed(HAND_INTERACT)) {
@@ -134,6 +145,10 @@ public class TestHandMover : MonoBehaviour {
 
     private void PassGrabInput() {
         VRInput.ControlDown(Controls.Grab, GetHandType());
+    }
+
+    private void PassUngrabInput() {
+        VRInput.ControlUp(Controls.Grab, GetHandType());
     }
 
     private void PassInteractInput() {
