@@ -4,15 +4,10 @@ using UnityEngine;
 public class HandCollider : MonoBehaviour {
 
     #region fields
-    private Hand hand;
     private static string iTag = "Interactable";
     public HashSet<GameObject> GrabObjects { get; private set; }
-    #endregion
 
-    private void Start() {
-        GrabObjects = new HashSet<GameObject>();
-    }
-
+    private Hand hand;
     public Hand Hand {
         get {
             if (hand == null) {
@@ -21,16 +16,17 @@ public class HandCollider : MonoBehaviour {
             return hand;
         }
     }
+    #endregion
 
-    public void OnTriggerEnter(Collider coll) {
+    private void Start() {
+        GrabObjects = new HashSet<GameObject>();
+    }
 
+    private void OnTriggerEnter(Collider coll) {
         GameObject interactable = Interactable.GetInteractableObject(coll.transform);
-
         if (interactable == null) {
             return;
         }
-
-
         GrabObjects.Add(interactable);
 
         ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
@@ -39,27 +35,21 @@ public class HandCollider : MonoBehaviour {
         }
         hObject.StartCoroutine(hObject.InsideCheck(this));
     }
-    public void OnTriggerExit(Collider coll) {
 
+    private void OnTriggerExit(Collider coll) {
         GameObject interactable = Interactable.GetInteractableObject(coll.transform);
-
         if (interactable == null) {
             return;
         }
-
         GrabObjects.Remove(interactable);
     }
-
-    
-
 
     public bool Contains(GameObject obj) {
         return GrabObjects.Contains(obj);
     }
 
     public Interactable GetGrab() {
-        GameObject o = GetGrabObject();
-        return o?.GetComponent<Interactable>() ?? null;
+        return GetGrabObject()?.GetComponent<Interactable>() ?? null;
     }
 
     public GameObject GetGrabObject() {
