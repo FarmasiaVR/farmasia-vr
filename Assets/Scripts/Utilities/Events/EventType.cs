@@ -20,4 +20,8 @@
     ItemDroppedInTrash,
     ItemDroppedOnFloor,
     ItemLiftedOffFloor,
+    InteractWithObject,
+    GrabUninteractWithObject,
+    GrabInteractWithObject,
+    UninteractWithObject,
 }
