@@ -11,28 +11,52 @@ public class HandMeshToggler : MonoBehaviour {
     void Start() {
         hand = GetComponent<Hand>();
         status = enabled;
-        renderers = GetComponentsInChildren<Renderer>();
 
-        Events.SubscribeToEvent(UpdateMesh, this, EventType.InteractWithObject);
-        Events.SubscribeToEvent(UpdateMesh, this, EventType.UninteractWithObject);
-        Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabInteractWithObject);
-        Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabUninteractWithObject);
+        //Events.SubscribeToEvent(UpdateMesh, this, EventType.InteractWithObject);
+        //Events.SubscribeToEvent(UpdateMesh, this, EventType.UninteractWithObject);
+        //Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabInteractWithObject);
+        //Events.SubscribeToEvent(UpdateMesh, this, EventType.GrabUninteractWithObject);
+
+        StartCoroutine(FindRenderersLate());
+
+        IEnumerator FindRenderersLate() {
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            renderers = GetComponentsInChildren<Renderer>();
+        }
     }
 
-    private void UpdateMesh(CallbackData data) {
+    private void Update() {
+        UpdateMesh();
+    }
 
-        Hand hand = data.DataObject as Hand;
+    private void UpdateMesh() {
 
-        if (hand.HandType != this.hand.HandType) {
+        if (hand.IsGrabbed) {
+            Show(false);
+        } else {
+            Show(true);
+        }
+    }
+
+    private void Show(bool hide) {
+
+        if (status == hide) {
             return;
         }
 
-        if (status != hand.IsGrabbed) {
-            status = hand.IsGrabbed;
-            SetRenderers();
-        }
+        status = hide;
+        SetRenderers();
     }
-
 
     private void SetRenderers() {
         foreach (Renderer r in renderers) {
