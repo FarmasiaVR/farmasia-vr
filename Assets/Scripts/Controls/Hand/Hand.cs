@@ -72,30 +72,32 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
         if (GrabbedInteractable.Type == InteractableType.Grabbable) {
             Offset.position = GrabbedInteractable.transform.position;
             Offset.rotation = GrabbedInteractable.transform.rotation;
             Connector.ConnectItem(GrabbedInteractable, 0);
+            Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
         } else if (GrabbedInteractable.Type == InteractableType.Interactable) {
             GrabbedInteractable.Interact(this);
+            Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
         }
     }
 
     public void ReleaseObject() {
         if (IsGrabbed) {
-            Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
             Connector.ReleaseItem(0);
+            Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
         } else if (GrabbedInteractable != null) {
             GrabbedInteractable.Uninteract(this);
+            Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
         }
         GrabbedInteractable = null;
     }
 
     public void GrabInteract() {
         if (CanGrabInteract()) {
-            Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
             GrabbedInteractable.Interact(this);
+            Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
         } else {
             Logger.Error("GrabInteract(): Invalid state");
             ReleaseObject();
@@ -105,6 +107,7 @@ public class Hand : MonoBehaviour {
     public void GrabUninteract() {
         if (CanGrabInteract()) {
             GrabbedInteractable.Uninteract(this);
+            Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
         } else {
             Logger.Error("GrabUninteract(): Invalid state");
             ReleaseObject();
