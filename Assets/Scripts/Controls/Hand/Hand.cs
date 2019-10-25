@@ -68,6 +68,9 @@ public class Hand : MonoBehaviour {
 
     #region Interaction
     public void InteractWithObject() {
+
+        Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
+
         if (IsGrabbed) {
             Connector.ReleaseItem(0);
             return;
@@ -100,6 +103,9 @@ public class Hand : MonoBehaviour {
     }
 
     public void UninteractWithObject() {
+
+        Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
+
         if (IsGrabbed) {
             if (VRControlSettings.HoldToGrab) {
 
@@ -125,6 +131,9 @@ public class Hand : MonoBehaviour {
     }
 
     public void GrabInteract() {
+
+        Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
+
         if (!IsGrabbed) {
             return;
         }
@@ -142,6 +151,9 @@ public class Hand : MonoBehaviour {
     }
 
     public void GrabUninteract() {
+
+        Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
+
         if (!IsGrabbed) {
             return;
         }
