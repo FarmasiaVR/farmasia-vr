@@ -5,6 +5,7 @@ using Valve.VR;
 public class Hand : MonoBehaviour {
 
     #region Fields
+    public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
 
@@ -13,7 +14,7 @@ public class Hand : MonoBehaviour {
     private HandCollider handCollider;
 
     public HandConnector Connector { get; private set; }
-    public Interactable GrabbedInteractable { get; private set; }
+    private Interactable interactedInteractable;
 
     [SerializeField]
     private Hand other;
@@ -37,9 +38,8 @@ public class Hand : MonoBehaviour {
     private void Update() {
         UpdateControls();
 
-        if (IsGrabbed && GrabbedInteractable != null) {
-            GrabbedInteractable.UpdateInteract(this);
-        }
+        Interactable interactable = IsGrabbed ? Connector.GrabbedInteractable : interactedInteractable;
+        interactable?.UpdateInteract(this);
     }
 
     private void UpdateControls() {
@@ -67,18 +67,19 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        GrabbedInteractable = handCollider.GetGrabbedInteractable();
-        if (GrabbedInteractable == null) {
+        Interactable interactable = handCollider.GetGrabbedInteractable();
+        if (interactable == null) {
             return;
         }
 
-        if (GrabbedInteractable.Type == InteractableType.Grabbable) {
-            Offset.position = GrabbedInteractable.transform.position;
-            Offset.rotation = GrabbedInteractable.transform.rotation;
-            Connector.ConnectItem(GrabbedInteractable, 0);
+        if (interactable.Type == InteractableType.Grabbable) {
+            Offset.position = interactable.transform.position;
+            Offset.rotation = interactable.transform.rotation;
+            Connector.ConnectItem(interactable, 0);
             Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
-        } else if (GrabbedInteractable.Type == InteractableType.Interactable) {
-            GrabbedInteractable.Interact(this);
+        } else if (interactable.Type == InteractableType.Interactable) {
+            interactedInteractable = interactable;
+            interactedInteractable.Interact(this);
             Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
         }
     }
@@ -87,16 +88,16 @@ public class Hand : MonoBehaviour {
         if (IsGrabbed) {
             Connector.ReleaseItem(0);
             Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
-        } else if (GrabbedInteractable != null) {
-            GrabbedInteractable.Uninteract(this);
+        } else if (interactedInteractable != null) {
+            interactedInteractable.Uninteract(this);
+            interactedInteractable = null;
             Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
         }
-        GrabbedInteractable = null;
     }
 
     public void GrabInteract() {
         if (CanGrabInteract()) {
-            GrabbedInteractable.Interact(this);
+            Connector.GrabbedInteractable.Interact(this);
             Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
         } else {
             Logger.Error("GrabInteract(): Invalid state");
@@ -106,7 +107,7 @@ public class Hand : MonoBehaviour {
 
     public void GrabUninteract() {
         if (CanGrabInteract()) {
-            GrabbedInteractable.Uninteract(this);
+            Connector.GrabbedInteractable.Uninteract(this);
             Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
         } else {
             Logger.Error("GrabUninteract(): Invalid state");
@@ -115,22 +116,15 @@ public class Hand : MonoBehaviour {
     }
 
     private bool CanGrabInteract() {
-        if (!IsGrabbed || GrabbedInteractable == null) {
-            return false;
-        }
-
-        return GrabbedInteractable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable);
+        return IsGrabbed && Connector.GrabbedInteractable.Type.AreOn(
+            InteractableType.Grabbable, InteractableType.Interactable
+        );
     }
     #endregion
 
-    private void OnJointBreak(float breakForce) {
-        Logger.Print("Joint force broken: " + breakForce);
-        Connector.ReleaseItem(0);
-    }
-
     public static Hand GrabbingHand(Rigidbody rb) {
         foreach (VRHandControls controls in VRInput.Hands) {
-            if (rb == controls.Hand.Connector.GrabbedRigidbody) {
+            if (rb == controls.Hand.Connector.GrabbedInteractable?.GetComponent<Rigidbody>()) {
                 return controls.Hand;
             }
         }

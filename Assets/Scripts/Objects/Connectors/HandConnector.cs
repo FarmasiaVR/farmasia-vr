@@ -5,9 +5,10 @@ public class HandConnector : ItemConnector {
     #region Fields
     public Hand Hand { get; private set; }
 
-    public bool IsGrabbed { get => GrabbedRigidbody != null; }
+    public bool IsGrabbed { get => GrabbedInteractable != null; }
 
-    public Rigidbody GrabbedRigidbody { get; private set; }
+    public Interactable GrabbedInteractable { get; private set; }
+    private Rigidbody grabbedRigidbody;
 
     private Vector3 grabPosOffset;
     private Vector3 grabRotOffset;
@@ -21,30 +22,31 @@ public class HandConnector : ItemConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable, int options) {
-        GrabbedRigidbody = interactable.GetComponent<Rigidbody>();
-        if (GrabbedRigidbody == null) {
+        if (interactable.GetComponent<Rigidbody>() == null) {
             Logger.Error("Interactable has no rigidbody");
             return;
         }
 
         // release item from other hand
-        bool isGrabbingSameObject = GrabbedRigidbody == Hand.Other.Connector.GrabbedRigidbody;
+        bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
             Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem(0);
         }
 
-        interactable.State.On(InteractState.Grabbed);
-        interactable.Interactors.SetHand(Hand);
+        GrabbedInteractable = interactable;
+        GrabbedInteractable.State.On(InteractState.Grabbed);
+        GrabbedInteractable.Interactors.SetHand(Hand);
+        grabbedRigidbody = interactable.GetComponent<Rigidbody>();
 
-        InitializeOffset();
+        InitializeOffset(grabbedRigidbody.transform);
         AttachGrabbedObject(interactable);
 
-        Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedRigidbody.gameObject));
+        Events.FireEvent(EventType.PickupObject, CallbackData.Object(grabbedRigidbody.gameObject));
     }
 
-    private void InitializeOffset() {
-        grabPosOffset = GrabbedRigidbody.transform.position - Hand.ColliderPosition;
-        grabRotOffset = GrabbedRigidbody.transform.eulerAngles - Hand.transform.eulerAngles;
+    private void InitializeOffset(Transform current) {
+        grabPosOffset = current.position - Hand.ColliderPosition;
+        grabRotOffset = current.eulerAngles - Hand.transform.eulerAngles;
     }
 
     private bool AllowSmoothAttach(Interactable interactable) {
@@ -61,9 +63,9 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedObject(Interactable interactable) {
         if (AllowSmoothAttach(interactable)) {
-            connection = SmoothConnection.AddSmoothConnection(this, Hand.Offset, GrabbedRigidbody.gameObject);
+            connection = SmoothConnection.AddSmoothConnection(this, Hand.Offset, grabbedRigidbody.gameObject);
         } else {
-            connection = ItemConnection.AddRigidConnection(this, Hand.Offset, GrabbedRigidbody.gameObject);
+            connection = ItemConnection.AddRigidConnection(this, Hand.Offset, grabbedRigidbody.gameObject);
         }
     }
     #endregion
@@ -75,25 +77,20 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        if (Hand.GrabbedInteractable.State != InteractState.Grabbed) {
+        if (GrabbedInteractable.State != InteractState.Grabbed) {
             Logger.Error("ReleaseItem(): Invalid state (item is not grabbed)");
             return;
         }
 
-        if (GrabbedRigidbody == null) {
-            Logger.Error("ReleaseItem(): Invalid state (current hand is not grabbing item)");
-            return;
-        }
-
-        Interactable interactable = Interactable.GetInteractable(GrabbedRigidbody.transform);
-        interactable.State.Off(InteractState.Grabbed);
-
         DeattachGrabbedObject();
+        ItemPlacement.ReleaseSafely(grabbedRigidbody.gameObject);
 
-        ItemPlacement.ReleaseSafely(GrabbedRigidbody.gameObject);
-        GrabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
-        GrabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
-        GrabbedRigidbody = null;
+        grabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
+        grabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
+        grabbedRigidbody = null;
+
+        GrabbedInteractable.State.Off(InteractState.Grabbed);
+        GrabbedInteractable = null;
     }
 
     private void DeattachGrabbedObject() {
