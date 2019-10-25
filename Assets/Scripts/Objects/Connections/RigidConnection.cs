@@ -92,10 +92,13 @@ public class RigidConnection: ItemConnection {
 
     private void Move() {
         rb.MovePosition(target.position);
+        Logger.PrintVariables("target", target.position, "this", rb.position);
+        //rb.position = target.position;
     }
 
     private void Rotate() {
-        rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
+        //rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
+        rb.MoveRotation(target.rotation);
     }
 
     public static RigidConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {

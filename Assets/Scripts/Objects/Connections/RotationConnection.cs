@@ -26,6 +26,9 @@ public class RotationConnection: ItemConnection {
     }
 
     private void CheckBreakCondition() {
+        if (rb.transform == null) {
+            Logger.Print("Missing transform");
+        }
 
         float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
@@ -38,7 +41,8 @@ public class RotationConnection: ItemConnection {
     }
 
     private void Rotate() {
-        rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
+        rb.MoveRotation(target.rotation);
+        //rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
     }
 
     public static RotationConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {

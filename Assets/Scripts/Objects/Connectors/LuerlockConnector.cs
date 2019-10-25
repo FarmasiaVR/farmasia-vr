@@ -9,12 +9,13 @@ public class LuerlockConnector : ItemConnector {
 
     public Joint[] Joints { get; private set; }
 
-    private ItemConnection connection;
+    private ItemConnection[] connections;
     #endregion
 
     public LuerlockConnector(Transform obj) : base(obj) {
         Luerlock = obj.GetComponent<LuerlockAdapter>();
         Joints = new Joint[2];
+        connections = new ItemConnection[2];
     }
 
     private Joint Joint(int side) {
@@ -86,7 +87,8 @@ public class LuerlockConnector : ItemConnector {
         SetLuerlockPosition(colliderT, obj.GameObject.transform);
 
         Joint(side).connectedBody = obj.Rigidbody;
-        connection = ItemConnection.AddRigidConnection(this, Luerlock.Colliders[side].transform, obj.GameObject);
+        connections[side] = ItemConnection.AddRotationConnection(this, Luerlock.Colliders[side].transform, obj.GameObject);
+        //connections[side] = ItemConnection.AddRigidConnection(this, Luerlock.Colliders[side].transform, obj.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject, Transform t) {
@@ -111,6 +113,7 @@ public class LuerlockConnector : ItemConnector {
 
         Joint(side).connectedBody = null;
         MonoBehaviour.Destroy(Joint(side));
+        MonoBehaviour.Destroy(connections[side]);
         Luerlock.Objects[side].Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
         Luerlock.Objects[side].Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(side, null);
