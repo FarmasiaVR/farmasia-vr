@@ -63,7 +63,7 @@ public class ItemPlacement : MonoBehaviour {
         if (g.GetComponent<ItemPlacement>() == null) return;
         if (g.GetComponent<Interactable>().State != InteractState.Grabbed) return;
 
-        float boundsDistance = Vector3.Distance(g.GetComponent<Collider>().bounds.ClosestPoint(g.transform.position - Vector3.down * maxDistance), g.transform.position);
+        float boundsDistance = Vector3.Distance(g.GetComponentInChildren<Collider>().bounds.ClosestPoint(g.transform.position - Vector3.down * maxDistance), g.transform.position);
         float rayLength = safeDropHeight + boundsDistance;
 
         RaycastHit hit;
