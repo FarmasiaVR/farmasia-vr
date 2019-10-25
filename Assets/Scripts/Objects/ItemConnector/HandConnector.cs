@@ -121,7 +121,7 @@ public class HandConnector : ItemConnector {
 
         if (interactable.State == InteractState.LuerlockAttatch) {
 
-             luerlock = interactable.Interactors.LuerlockPair.Value;
+            luerlock = interactable.Interactors.LuerlockPair.Value;
 
             if (luerlock.ObjectCount > 0) {
                 return false;
