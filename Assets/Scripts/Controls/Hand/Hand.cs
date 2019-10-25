@@ -4,52 +4,51 @@ using Valve.VR;
 
 public class Hand : MonoBehaviour {
 
-    #region fields
+    #region Fields
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
 
     public SteamVR_Input_Sources HandType { get; private set; }
 
-    private VRHandControls controls;
+    private HandCollider handCollider;
 
-    public HandCollider coll { get; private set; }
-
-    public Interactable Interactable { get; private set; }
+    public HandConnector Connector { get; private set; }
+    public Interactable GrabbedInteractable { get; private set; }
 
     [SerializeField]
     private Hand other;
     public Hand Other { get => other; }
 
-    public HandConnector Connector { get; private set; }
-
     public Transform Offset { get; private set; }
-
-    public VRPadSwipe Swipe { get; private set; }
+    public Vector3 ColliderPosition { get => handCollider.transform.position; }
     #endregion
 
     private void Start() {
-        HandType = GetComponent<VRHandControls>().handType;
-        coll = transform.GetChild(0).GetComponent<HandCollider>();
-        controls = GetComponent<VRHandControls>();
+        handCollider = GetComponentInChildren<HandCollider>();
+        HandType = GetComponent<VRHandControls>()?.handType ?? SteamVR_Input_Sources.Any;
         Connector = new HandConnector(transform);
 
+        Assert.IsFalse(HandType == SteamVR_Input_Sources.Any, "Invalid hand type");
+        Assert.IsNotNull(handCollider, "Missing HandCollider component");
         Assert.IsNotNull(other, "Other hand was null");
-
         Offset = transform.Find("Offset");
     }
 
     private void Update() {
         UpdateControls();
+
+        if (IsGrabbed && GrabbedInteractable != null) {
+            GrabbedInteractable.UpdateInteract(this);
+        }
     }
 
     private void UpdateControls() {
-
         // Grabbing
         if (VRInput.GetControlDown(HandType, Controls.Grab)) {
-            InteractWithObject();
+            GrabObject();
         }
         if (VRInput.GetControlUp(HandType, Controls.Grab)) {
-            UninteractWithObject();
+            ReleaseObject();
         }
 
         // Interacting
@@ -59,115 +58,65 @@ public class Hand : MonoBehaviour {
         if (VRInput.GetControlUp(HandType, Controls.GrabInteract)) {
             GrabUninteract();
         }
-
-        if (IsGrabbed && Interactable != null) {
-            Interactable.UpdateInteract(this);
-        }
     }
 
 
     #region Interaction
-    public void InteractWithObject() {
+    public void GrabObject() {
+        if (IsGrabbed) {
+            return;
+        }
+
+        GrabbedInteractable = handCollider.GetGrab();
+        if (GrabbedInteractable == null) {
+            return;
+        }
 
         Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
-
-        if (IsGrabbed) {
-            Connector.ReleaseItem(0);
-            return;
-        }
-
-        Interactable = coll.GetGrab();
-        if (Interactable == null) {
-            return;
-        }
-
-        if (Interactable.Type == InteractableType.Grabbable) {
-
-            Offset.position = Interactable.transform.position;
-            Offset.rotation = Interactable.transform.rotation;
-
-            Connector.ConnectItem(Interactable, 0);
-
-            //if (Interactable.State == InteractState.LuerlockAttatch) {
-
-            //    var pair = Interactable.Interactors.LuerlockPair;
-
-            //    pair.Value.Connector.ConnectItem(Interactable, pair.Key);
-            //} else {
-            //    Connector.ConnectItem(Interactable, 0);
-            //}
-
-        } else if (Interactable.Type == InteractableType.Interactable) {
-            Interactable.Interact(this);
+        if (GrabbedInteractable.Type == InteractableType.Grabbable) {
+            Offset.position = GrabbedInteractable.transform.position;
+            Offset.rotation = GrabbedInteractable.transform.rotation;
+            Connector.ConnectItem(GrabbedInteractable, 0);
+        } else if (GrabbedInteractable.Type == InteractableType.Interactable) {
+            GrabbedInteractable.Interact(this);
         }
     }
 
-    public void UninteractWithObject() {
-
-        Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
-
+    public void ReleaseObject() {
         if (IsGrabbed) {
-            if (VRControlSettings.HoldToGrab) {
-
-                Connector.ReleaseItem(0);
-
-                //if (Interactable.State == InteractState.LuerlockAttatch) {
-
-                //    var pair = Interactable.Interactors.LuerlockPair;
-
-                //    if (pair.Value == null) {
-                //        throw new System.Exception("Interacting luerlock was null, key: " + pair.Key);
-                //    }
-
-                //    pair.Value.Connector.ReleaseItem(pair.Key);
-                //} else {
-                //    Connector.ReleaseItem(0);
-                //}
-            }
-        } else if (Interactable != null) {
-            Interactable.Uninteract(this);
-            Interactable = null;
+            Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
+            Connector.ReleaseItem(0);
+        } else if (GrabbedInteractable != null) {
+            GrabbedInteractable.Uninteract(this);
         }
+        GrabbedInteractable = null;
     }
 
     public void GrabInteract() {
-
-        Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
-
-        if (!IsGrabbed) {
-            return;
-        }
-
-        //  Interactable = coll.GetGrab();
-
-        if (Interactable == null) {
-            Logger.Warning("Tryying to interact with null objet");
-            UninteractWithObject();
-        }
-
-        if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
-            Interactable.Interact(this);
+        if (CanGrabInteract()) {
+            Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
+            GrabbedInteractable.Interact(this);
+        } else {
+            Logger.Error("GrabInteract(): Invalid state");
+            ReleaseObject();
         }
     }
 
     public void GrabUninteract() {
+        if (CanGrabInteract()) {
+            GrabbedInteractable.Uninteract(this);
+        } else {
+            Logger.Error("GrabUninteract(): Invalid state");
+            ReleaseObject();
+        }
+    }
 
-        Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
-
-        if (!IsGrabbed) {
-            return;
+    private bool CanGrabInteract() {
+        if (!IsGrabbed || GrabbedInteractable == null) {
+            return false;
         }
 
-        //Interactable = coll.GetGrab();
-
-        if (Interactable == null) {
-            Logger.Warning("Tryying to interact with null objet");
-            UninteractWithObject();
-        }
-
-        if (Interactable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable)) {
-            Interactable.Uninteract(this);
-        }
+        return GrabbedInteractable.Type.AreOn(InteractableType.Grabbable, InteractableType.Interactable);
     }
     #endregion
 

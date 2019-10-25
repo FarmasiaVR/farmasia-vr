@@ -47,11 +47,11 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     public void SetByHandPosition(Hand hand) {
-        Vector3 handPos = hand.coll.transform.position;
+        Vector3 handPos = hand.ColliderPosition;
 
         float handDistance = (handPos - handle.position).magnitude;
         if (handDistance > 0.25) {
-            hand.UninteractWithObject();
+            hand.ReleaseObject();
             ReleaseDoor();
             return;
         }

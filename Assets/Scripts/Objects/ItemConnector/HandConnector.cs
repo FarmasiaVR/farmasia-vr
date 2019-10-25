@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandConnector : ItemConnector {
 
@@ -83,7 +81,7 @@ public class HandConnector : ItemConnector {
             Logger.Print("Hand is not grabbíng");
         }
 
-        if (Hand.Interactable.State != InteractState.Grabbed) {
+        if (Hand.GrabbedInteractable.State != InteractState.Grabbed) {
             throw new System.Exception("Trying to release ungrabbed item");
         }
 

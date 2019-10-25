@@ -22,7 +22,7 @@
         base.Interact(hand);
         Logger.Print("Door interact");
 
-        door.SetAngleOffset(hand.coll.transform.position);
+        door.SetAngleOffset(hand.ColliderPosition);
 
         this.hand = hand;
         State.On(InteractState.Grabbed);
