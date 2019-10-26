@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
     #region Fields
-    public enum Conditions { RightSyringeSize, PreviousTasksCompletion }
+    public enum Conditions { SmallSyringesAttached }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
+    private int syringes;
     private int smallSyringes;
     #endregion
 
@@ -16,6 +17,7 @@ public class SyringeAttach : TaskBase {
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+        syringes = 0;
         smallSyringes = 0;
         points = 1;
     }
@@ -35,39 +37,33 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachSyringe(CallbackData data) {
-        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
-            return;
-        }
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition(Conditions.PreviousTasksCompletion);
-        } else {
-            return;
-        }
-        //check that done in laminar cabinet
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
         }
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            return;
+        }
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
+            syringes++;
             Syringe syringe = item.GetComponent<Syringe>();
-            if (syringe.Container.Capacity == 1) {
+            if (syringe.Container.Capacity == 1000) {
                 smallSyringes++;
             }
         }
 
         if (smallSyringes == 6) {
-            EnableCondition(Conditions.RightSyringeSize);
+            EnableCondition(Conditions.SmallSyringesAttached);
         }
-
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
-            base.FinishTask();
+        if (syringes == 6) {
+            bool check = CheckClearConditions(true);
+            if (!check) {
+                UISystem.Instance.CreatePopup(0, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
+                G.Instance.Progress.Calculator.Subtract(TaskType.SyringeAttach);
+                base.FinishTask();
+            }
         }
     }
     #endregion

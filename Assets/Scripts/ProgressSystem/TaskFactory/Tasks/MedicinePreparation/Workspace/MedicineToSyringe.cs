@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
 
@@ -26,7 +26,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     public override void Subscribe() {
         SubscribeEvent(AddSyringe, EventType.SyringeToMedicineBottle);
-        SubscribeEvent(RemoveSyringe, EventType.SyringeToMedicineBottle);
+        SubscribeEvent(RemoveSyringe, EventType.SyringeFromMedicineBottle);
     }
 
     private void AddSyringe(CallbackData data) {
@@ -50,10 +50,10 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(Syringe syringe) {
-        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
+        if (!GameObject.FindGameObjectWithTag("LaminarCabinet").GetComponent<CabinetBase>().objectsInsideArea.Contains(syringe.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
-            return;
+            UISystem.Instance.CreatePopup(-1, "Task tried outside laminar cabinet", MessageType.Mistake);
+            return; 
         }
 
         if (syringe.Container.Capacity == 5000) {
@@ -62,7 +62,7 @@ public class MedicineToSyringe : TaskBase {
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine, you need 20ml", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Wrong amount of medicine, you need 20ml", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }

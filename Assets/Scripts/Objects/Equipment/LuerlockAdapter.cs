@@ -93,6 +93,7 @@ public class LuerlockAdapter : GeneralItem {
                 continue;
             }
             Connector.ReleaseItem(i);
+            //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
             break;
         }
     }
@@ -121,6 +122,7 @@ public class LuerlockAdapter : GeneralItem {
 
         if (distance > breakDistance) {
             Connector.ReleaseItem(side);
+            //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }
 
@@ -165,7 +167,6 @@ public class LuerlockAdapter : GeneralItem {
             Logger.Print("Connecting item");
             Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
             Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
-            Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         } else {
             Logger.Print("Not connected");
             Logger.PrintVariables("old obj", Objects[side].GameObject);

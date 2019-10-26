@@ -122,7 +122,8 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(-1, "Missing items", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Missing items", MessageType.Mistake);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
         } else {
             UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
@@ -137,9 +138,10 @@ public class CorrectItemsInThroughput : TaskBase {
         if (checkTimes == 1) {
             //count changed from 16 to 9 for DEMO
             if (objectCount == 9) {
-                UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(2, "Right amount of items", MessageType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Too many items", MessageType.Notify);
+                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
         }
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
