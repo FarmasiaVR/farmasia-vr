@@ -34,7 +34,7 @@ public class SyringeAttach : TaskBase {
         SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
         SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
     }
-    
+
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
@@ -44,11 +44,15 @@ public class SyringeAttach : TaskBase {
     }
 
     private void AddSyringe(CallbackData data) {
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            return;
+        }
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
 
         attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+        //
     }
 
     private void RemoveSyringe(CallbackData data) {
@@ -57,12 +61,12 @@ public class SyringeAttach : TaskBase {
         Syringe s = item.GetComponent<Syringe>();
 
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-            if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
-                AttachSyringe(s);
-            } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+            if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
                 UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
-            }
+            } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                AttachSyringe(s);
+            } 
             attachedSyringes.Remove(s.GetInstanceID());
         }
     }
@@ -74,15 +78,6 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachSyringe(Syringe syringe) {
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            return;
-        }
-        if (!laminarCabinet.objectsInsideArea.Contains(syringe.gameObject)) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-            UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
-            return;
-        }
-        
         syringes++;
         if (syringe.Container.Capacity == 1000) {
                 smallSyringes++;
