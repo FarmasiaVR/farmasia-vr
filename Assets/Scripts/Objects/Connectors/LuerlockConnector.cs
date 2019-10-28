@@ -111,7 +111,6 @@ public class LuerlockConnector : ItemConnector {
         //    throw new System.Exception("Trying to release ungrabbed item");
         //}
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(Luerlock.Objects[side]));
-        Events.FireEvent(EventType.AmountOfMedicine, CallbackData.Object(Luerlock.Objects[side]));
 
         Joint(side).connectedBody = null;
         MonoBehaviour.Destroy(Joint(side));

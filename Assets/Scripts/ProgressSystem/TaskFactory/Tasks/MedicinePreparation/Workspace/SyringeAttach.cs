@@ -50,12 +50,14 @@ public class SyringeAttach : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-
-        ///check if outside laminar cabinet
-
-        attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
         
-        base.package.MoveTaskToManager(this);
+        if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+            UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
+        } else {
+            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+            base.package.MoveTaskToManager(this);
+        }
     }
 
     private void RemoveSyringe(CallbackData data) {
@@ -65,8 +67,8 @@ public class SyringeAttach : TaskBase {
 
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
             if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-                UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
+                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+                UISystem.Instance.CreatePopup(-1, "Item disconnected outside laminar cabinet", MessageType.Mistake);
             } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                 AttachSyringe(s);
             } 
@@ -83,7 +85,7 @@ public class SyringeAttach : TaskBase {
     private void AttachSyringe(Syringe syringe) {
         syringes++;
         if (syringe.Container.Capacity == 1000) {
-                smallSyringes++;
+            smallSyringes++;
         }
 
         if (smallSyringes == 6) {

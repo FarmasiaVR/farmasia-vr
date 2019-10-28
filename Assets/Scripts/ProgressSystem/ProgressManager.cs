@@ -149,6 +149,10 @@ public class ProgressManager {
     #endregion
 
     #region Task Methods
+
+    public HashSet<ITask> GetAllTasks() {
+        return allTasks;
+    }
     public void ListAllTasksInManager() {
         foreach (ITask task in allTasks) {
             Logger.Print(task.GetType());

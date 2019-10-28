@@ -6,8 +6,9 @@ using UnityEngine;
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
-    public enum Conditions { SixSyringes, RightAmountOfMedicine }
+    public enum Conditions { RightAmountOfMedicine }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
+    private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private int syringes;
     private int rightAmountInSyringes;
     private CabinetBase laminarCabinet;
@@ -33,7 +34,8 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
-        base.SubscribeEvent(Medicine, EventType.AmountOfMedicine);
+        base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
+        base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
     }
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
@@ -42,49 +44,64 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
         base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
+
+    private void AddSyringe(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        Syringe s = item.GetComponent<Syringe>();
+        
+        attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+    }
+
+    private void RemoveSyringe(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        Syringe s = item.GetComponent<Syringe>();
+
+        if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
+            if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+                    UISystem.Instance.CreatePopup(-1, "Medicine taken outside laminar cabinet", MessageType.Mistake);
+                } else {
+                    Medicine(s);
+                }
+            } 
+            attachedSyringes.Remove(s.GetInstanceID());
+
+            foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
+                if (task.GetTaskType() == TaskType.SyringeAttach) {
+                   base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this); 
+                   break;
+                }
+            }
+        }
+    }
     /// <summary>
     /// Once fired by an event, checks if right amount has been chosen and if required previous tasks are completed.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void Medicine(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
+    private void Medicine(Syringe syringe) {
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             return;
         }
-        if (!laminarCabinet.objectsInsideArea.Contains(g)) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-            UISystem.Instance.CreatePopup(-1, "Tried taking medicine outside laminar cabinet", MessageType.Mistake);
-            base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
-            return;
-        }
-        
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Syringe) {
-            Syringe syringe = item.GetComponent<Syringe>();
-            syringes++;
-            if (syringe.Container.Amount == 150) {
-                rightAmountInSyringes++;
-            } 
-        }  
-        if (syringes == 6) {
-            EnableCondition(Conditions.SixSyringes);
-        }
+        syringes++;
+        if (syringe.Container.Amount == 150) {
+            rightAmountInSyringes++;
+        } 
         if (rightAmountInSyringes == 6) {
             EnableCondition(Conditions.RightAmountOfMedicine);
         }
-
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions[(int) Conditions.SixSyringes]) {
-            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
-            base.FinishTask();
+        
+        if (syringes == 6) {
+            bool check = CheckClearConditions(true);
+            if (!check) {
+                UISystem.Instance.CreatePopup(rightAmountInSyringes, "Wrong amount of medicine was taken", MessageType.Mistake);
+                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, syringes - rightAmountInSyringes);
+                base.FinishTask();
+            }
         }
-        base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
     }  
     #endregion
 
