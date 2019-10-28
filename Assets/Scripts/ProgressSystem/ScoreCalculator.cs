@@ -45,7 +45,18 @@ public class ScoreCalculator {
             return;
         }
         points[task] -= 1;
+    }
 
+    /// <summary>
+    /// Subtracts a point from given task.
+    /// </summary>
+    /// <param name="task">Refers to a task to subtract given points.</param>
+    /// <param name="subtractScore">Gives the amount of points to be subtracted.</param>
+    public void SubtractWithScore(TaskType task, int subtractScore) {
+        if (!points.ContainsKey(task)) {
+            return;
+        }
+        points[task] -= subtractScore;
     }
 
     /// <summary>

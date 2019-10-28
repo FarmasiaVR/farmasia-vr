@@ -6,10 +6,11 @@ using UnityEngine;
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
-    public enum Conditions { SixSyringes, RightAmountOfMedicine, PreviousTasksCompleted }
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach, TaskType.SyringeAttach};
+    public enum Conditions { SixSyringes, RightAmountOfMedicine }
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private int syringes;
     private int rightAmountInSyringes;
+    private CabinetBase laminarCabinet;
     #endregion
 
     #region Constructor
@@ -31,7 +32,15 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(Medicine, EventType.AmountOfMedicine);
+    }
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+        }
+        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
     /// <summary>
     /// Once fired by an event, checks if right amount has been chosen and if required previous tasks are completed.
@@ -39,29 +48,26 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Medicine(CallbackData data) {
-        if (!G.Instance.Progress.IsCurrentPackage("Workspace")) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
-            return;
-        }
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition(Conditions.PreviousTasksCompleted);
-        } else {
-            return;
-        }
-        //check that happens in laminar cabinet
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
         }
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            return;
+        }
+        if (!laminarCabinet.objectsInsideArea.Contains(g)) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+            UISystem.Instance.CreatePopup(-1, "Tried taking medicine outside laminar cabinet", MessageType.Mistake);
+            return;
+        }
+        
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
             Syringe syringe = item.GetComponent<Syringe>();
-            //should be 0,15ml
-            if (syringe.Container.Capacity == 1) {
+            if (syringe.Container.Capacity == 1000) {
                 syringes++;
-                if (syringe.Container.Amount == 15) {
+                if (syringe.Container.Amount == 150) {
                     rightAmountInSyringes++;
                 } 
             } 
@@ -87,7 +93,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Right amount of medicine", MessageType.Notify);
+        UISystem.Instance.CreatePopup(6, "Right amount of medicine was taken", MessageType.Notify);
         base.FinishTask();
     }
     

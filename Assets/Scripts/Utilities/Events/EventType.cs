@@ -11,7 +11,6 @@
     Missing,
     Disinfect,
     AttachLuerlock,
-    AttachSyringe,
     AmountOfMedicine,
     CleanUp,
     SterileBag,
@@ -28,5 +27,7 @@
     ItemPlacedInCabinet,
     VentilationBlocked,
     SyringeToMedicineBottle,
-    SyringeFromMedicineBottle
+    SyringeFromMedicineBottle,
+    SyringeToLuerlock,
+    SyringeFromLuerlock
 }
