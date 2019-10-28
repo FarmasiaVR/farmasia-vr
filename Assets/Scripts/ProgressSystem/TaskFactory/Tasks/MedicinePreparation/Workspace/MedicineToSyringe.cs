@@ -35,8 +35,9 @@ public class MedicineToSyringe : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        
     }
 
     private void AddSyringe(CallbackData data) {

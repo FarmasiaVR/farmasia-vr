@@ -7,7 +7,7 @@ using UnityEngine;
 public class CorrectAmountOfMedicineSelected : TaskBase {
     #region Fields
     public enum Conditions { RightAmountOfMedicine }
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private int syringes;
     private int rightAmountInSyringes;
@@ -21,7 +21,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     ///  </summary>
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         syringes = 0;
         rightAmountInSyringes = 0;
         points = 6;
@@ -41,15 +41,15 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
 
     private void AddSyringe(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-        
+
         attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
     }
 
@@ -66,13 +66,13 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                 } else {
                     Medicine(s);
                 }
-            } 
+            }
             attachedSyringes.Remove(s.GetInstanceID());
 
             foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
                 if (task.GetTaskType() == TaskType.SyringeAttach) {
-                   base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this); 
-                   break;
+                    base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
+                    break;
                 }
             }
         }
@@ -89,11 +89,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         syringes++;
         if (syringe.Container.Amount == 150) {
             rightAmountInSyringes++;
-        } 
+        }
         if (rightAmountInSyringes == 6) {
             EnableCondition(Conditions.RightAmountOfMedicine);
         }
-        
+
         if (syringes == 6) {
             bool check = CheckClearConditions(true);
             if (!check) {
@@ -102,7 +102,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                 base.FinishTask();
             }
         }
-    }  
+    }
     #endregion
 
     #region Public Methods
@@ -113,7 +113,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         UISystem.Instance.CreatePopup(6, "Right amount of medicine was taken", MessageType.Notify);
         base.FinishTask();
     }
-    
+
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>
