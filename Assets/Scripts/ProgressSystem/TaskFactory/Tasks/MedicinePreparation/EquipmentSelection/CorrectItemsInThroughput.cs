@@ -10,6 +10,7 @@ public class CorrectItemsInThroughput : TaskBase {
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
+    private string description = "Laita valitsemasi työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
@@ -21,7 +22,7 @@ public class CorrectItemsInThroughput : TaskBase {
     ///  </summary>
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SetItemsToZero();
         checkTimes = 0;
         points = 2;
@@ -39,13 +40,14 @@ public class CorrectItemsInThroughput : TaskBase {
 
 
     private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase) data.DataObject;
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
+
 
 
     /// <summary>
@@ -53,7 +55,7 @@ public class CorrectItemsInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        if ((DoorGoTo) data.DataObject != DoorGoTo.EnterWorkspace) {
+        if ((DoorGoTo)data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
         if (cabinet == null) {
@@ -67,14 +69,14 @@ public class CorrectItemsInThroughput : TaskBase {
         objectCount = containedObjects.Count;
 
         CheckConditions(containedObjects);
-        
+
         if (door.IsClosed) {
             bool check = CheckClearConditions(true);
             if (!check) {
-               MissingItems(checkTimes);
+                MissingItems(checkTimes);
             }
         } else {
-            UISystem.Instance.CreatePopup("Close the pass-through cabinet door", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MessageType.Notify);
         }
     }
     #endregion
@@ -86,14 +88,14 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     private void CheckConditions(List<GameObject> containedObjects) {
-        foreach(GameObject value in containedObjects) {
+        foreach (GameObject value in containedObjects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
                     if (syringe.Container.Capacity == 5000) {
-                        EnableCondition(Conditions.BigSyringe); 
+                        EnableCondition(Conditions.BigSyringe);
                     } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
@@ -122,11 +124,14 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(0, "Missing items", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Välineitä puuttuu", MessageType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
-            UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Välineitä puuttuu", MessageType.Mistake);
+
         }
+        description = cabinet.GetMissingItems();
+        G.Instance.Progress.UpdateDescription();
         SetItemsToZero();
         DisableConditions();
     }
@@ -146,14 +151,14 @@ public class CorrectItemsInThroughput : TaskBase {
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
         base.FinishTask();
     }
-    
+
     public override string GetDescription() {
-        return "Laita valitsemasi työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+        return description;
     }
 
     public override string GetHint() {
         string missingItemsHint = cabinet.GetMissingItems();
-        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. " + missingItemsHint; 
+        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. " + missingItemsHint;
     }
     #endregion
 }

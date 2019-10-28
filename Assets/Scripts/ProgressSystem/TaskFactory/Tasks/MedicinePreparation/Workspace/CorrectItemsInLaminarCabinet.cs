@@ -10,6 +10,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     private int smallSyringes, needles;
     private int objectCount;
     private int checkTimes;
+    private string description = "Vie valitsemasi työvälineet laminaarikaappiin ja paina kaapin ilmanvaihto päälle.";
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -40,8 +41,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
 
     /// <summary>
@@ -110,11 +111,13 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(0, "Missing items", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Työvälineitä puuttuu", MessageType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
         } else {
-            UISystem.Instance.CreatePopup("Missing items", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Työvälineitä puuttuu", MessageType.Mistake);
         }
+        //description = laminarCabinet.GetMissingItems();
+        //G.Instance.Progress.UpdateDescription();
         SetItemsToZero();
         DisableConditions();
     }
@@ -142,7 +145,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Vie valitsemasi työvälineet laminaarikaappiin ja paina kaapin ilmanvaihto päälle.";
+        return description;
     }
 
     /// <summary>
