@@ -5,14 +5,22 @@ public class MeshHider : MonoBehaviour {
     [SerializeField]
     private bool onlyHide;
 
-    private void Awake() {
+    [SerializeField]
+    private Material testHandMaterial;
 
-        if (!onlyHide) {
-            Destroy(GetComponent<Renderer>());
-        } else {
+    private void Awake() {
+#if UNITY_NONVRCOMPUTER
+        if (testHandMaterial != null) {
+            GetComponent<Renderer>().material = testHandMaterial;
+        }
+#else
+        if (onlyHide) {
             GetComponent<Renderer>().enabled = false;
+        } else {
+            Destroy(GetComponent<Renderer>());
         }
 
         Destroy(this);
+#endif
     }
 }

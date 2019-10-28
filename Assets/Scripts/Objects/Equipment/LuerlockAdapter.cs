@@ -93,18 +93,11 @@ public class LuerlockAdapter : GeneralItem {
                 continue;
             }
             Connector.ReleaseItem(i);
-            //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
             break;
         }
     }
 
     private void Update() {
-
-        if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
-            Connector.ConnectItem(null, RIGHT);
-            Connector.ConnectItem(null, LEFT);
-        }
-
         CheckBreakDistance();
     }
 
@@ -122,7 +115,6 @@ public class LuerlockAdapter : GeneralItem {
 
         if (distance > breakDistance) {
             Connector.ReleaseItem(side);
-            //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }
 
@@ -167,6 +159,7 @@ public class LuerlockAdapter : GeneralItem {
             Logger.Print("Connecting item");
             Connector.ConnectItem(intObject.GetComponent<Interactable>(), side);
             Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
+            Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
         } else {
             Logger.Print("Not connected");
             Logger.PrintVariables("old obj", Objects[side].GameObject);
@@ -182,8 +175,6 @@ public class LuerlockAdapter : GeneralItem {
         }
 
         syringe.State.Off(InteractState.LuerlockAttach);
-        //test event trigger
-        Events.FireEvent(EventType.CorrectAmountOfMedicineSelected, CallbackData.Object(syringe));
     }*/
 
     private bool WithinDistance(GameObject collObject, Transform t) {

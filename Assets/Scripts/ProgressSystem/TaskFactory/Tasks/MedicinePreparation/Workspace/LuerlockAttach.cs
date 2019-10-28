@@ -4,7 +4,8 @@ using UnityEngine;
 public class LuerlockAttach : TaskBase {
     #region Fields
     public enum Conditions { BigSyringeAttachedFirst }
-    List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    private CabinetBase laminarCabinet;
     #endregion
 
     #region Constructor
@@ -24,8 +25,18 @@ public class LuerlockAttach : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(AttachLuerlock, EventType.AttachLuerlock);
     }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+        }
+        base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+    }
+
     /// <summary>
     /// Once fired by an event, checks if and how Luerlock was attached as well as previous required task completion.
     /// Sets corresponding conditions to be true.
@@ -37,7 +48,7 @@ public class LuerlockAttach : TaskBase {
         if (item == null) {
             return;
         }
-        if (!GameObject.FindGameObjectWithTag("LaminarCabinet").GetComponent<CabinetBase>().objectsInsideArea.Contains(g)) {
+        if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
             return;
@@ -50,14 +61,14 @@ public class LuerlockAttach : TaskBase {
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
             Syringe syringe = item.GetComponent<Syringe>();
-            if (syringe.Container.Amount == 5000) {
+            if (syringe.Container.Capacity == 5000 && syringe.Container.Amount > 0) {
                 EnableCondition(Conditions.BigSyringeAttachedFirst);
             }
         }
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(0, "Luerlock was not first attached to big syringe", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Luerlock was not first attached to big syringe with medicine", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
         }

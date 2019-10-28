@@ -20,7 +20,7 @@ public class RotationConnection: ItemConnection {
         }
     }
 
-    protected override void FixedUpdate() {
+    protected override void Update() {
         CheckBreakCondition();
         Rotate();
     }

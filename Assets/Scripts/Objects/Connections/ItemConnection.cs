@@ -6,7 +6,7 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected abstract ItemConnector Connector { get; set; }
 
-    protected abstract void FixedUpdate();
+    protected abstract void Update();
 
     #region Static methods
     public static ItemConnection AddSmoothConnection(ItemConnector connector, Transform target, GameObject addTo) {
