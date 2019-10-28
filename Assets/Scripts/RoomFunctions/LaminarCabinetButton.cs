@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 public class LaminarCabinetButton : Interactable {
 
     protected override void Start() {

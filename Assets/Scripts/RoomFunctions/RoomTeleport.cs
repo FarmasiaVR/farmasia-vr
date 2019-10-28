@@ -37,5 +37,6 @@ public class RoomTeleport : MonoBehaviour {
         }
         Vector3 playerLocalPosition = player.transform.InverseTransformPoint(playerLocalPoint.transform.position);
         player.transform.position = new Vector3(playerTele.transform.position.x + playerLocalPosition.x, playerTele.transform.position.y + playerLocalPosition.y, playerTele.transform.position.z + playerLocalPosition.z);
+        //player.transform.position = new Vector3(playerTele.transform.position.x, playerTele.transform.position.y, playerTele.transform.position.z);
     }
 }
