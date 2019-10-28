@@ -35,10 +35,9 @@ public class PointPopup : MonoBehaviour {
         timer = 0.0f;
         transparency = 0.0f;
         distanceTravelled = 0.0f;
-
         endPoint = transform.localPosition.z;
         startingPoint = transform.localPosition.z + distanceToTravel;
-
+        FlipScale(-1);
     }
     #endregion
 

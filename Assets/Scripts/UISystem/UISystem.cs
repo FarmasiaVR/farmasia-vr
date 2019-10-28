@@ -62,7 +62,7 @@ public class UISystem : MonoBehaviour {
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
         GameObject uiComponent = Instantiate(gobj, handuiInScene.transform);
-        uiComponent.transform.SetParent(handuiInScene.transform, true);
+        uiComponent.transform.SetParent(handuiInScene.transform, false);
         return uiComponent;
     }
     #endregion
