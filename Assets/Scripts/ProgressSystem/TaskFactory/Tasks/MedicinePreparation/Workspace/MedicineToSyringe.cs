@@ -47,12 +47,12 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (syringes[s.GetInstanceID()] != s.Container.Amount) {
-                ToSyringe(s);
-            } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+            if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Task tried outside laminar cabinet", MessageType.Mistake);
-            }
+                UISystem.Instance.CreatePopup(-1, "Medicine taken outside laminar cabinet", MessageType.Mistake);
+            } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
+                ToSyringe(s);
+            } 
             syringes.Remove(s.GetInstanceID());
         }
     }
@@ -63,12 +63,6 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(Syringe syringe) {
-        if (!laminarCabinet.objectsInsideArea.Contains(syringe.gameObject)) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-            UISystem.Instance.CreatePopup(-1, "Task tried outside laminar cabinet", MessageType.Mistake);
-            return; 
-        }
-
         if (syringe.Container.Amount == 900 && syringe.Container.Capacity == 5000) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }

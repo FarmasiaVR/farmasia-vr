@@ -51,8 +51,11 @@ public class SyringeAttach : TaskBase {
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
 
+        ///check if outside laminar cabinet
+
         attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
-        //
+        
+        base.package.MoveTaskToManager(this);
     }
 
     private void RemoveSyringe(CallbackData data) {
@@ -93,9 +96,6 @@ public class SyringeAttach : TaskBase {
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, syringes - smallSyringes);
                 base.FinishTask();
             }
-        } else {
-            //move other task in front
-            Events.FireEvent(EventType.AmountOfMedicine, CallbackData.Object(syringe));
         }
     }
     #endregion

@@ -93,6 +93,15 @@ public class Package {
     public void MoveTaskFromManager(TaskType type) {
         manager.MoveToPackage(this, type);
     }
+
+    /// <summary>
+    /// Moves task from ProgressManager before given task
+    /// </summary>
+    /// <param name="type">Given type of task to move.</param>
+    /// <param name="previousTask">Task point where given task will be moved</param>
+    public void MoveTaskFromManagerBeforeTask(TaskType type, ITask previousTask) {
+        manager.MoveToPackageBeforeTask(this, type, previousTask);
+    }
     #endregion
 
     #region Helpful Methods

@@ -59,17 +59,16 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
             UISystem.Instance.CreatePopup(-1, "Tried taking medicine outside laminar cabinet", MessageType.Mistake);
+            base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
             return;
         }
         
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
             Syringe syringe = item.GetComponent<Syringe>();
-            if (syringe.Container.Capacity == 1000) {
-                syringes++;
-                if (syringe.Container.Amount == 150) {
-                    rightAmountInSyringes++;
-                } 
+            syringes++;
+            if (syringe.Container.Amount == 150) {
+                rightAmountInSyringes++;
             } 
         }  
         if (syringes == 6) {
@@ -85,6 +84,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
             base.FinishTask();
         }
+        base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
     }  
     #endregion
 
