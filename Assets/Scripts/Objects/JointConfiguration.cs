@@ -16,6 +16,13 @@ public static class JointConfiguration {
         return joint;
     }
 
+    public static Joint AddConfigurableJoint(GameObject obj) {
+
+        ConfigurableJoint joint = obj.AddComponent<ConfigurableJoint>();
+
+        return joint;
+    }
+
     public static Joint AddJoint(GameObject obj) {
          return AddFixedJoint(obj);
     }
