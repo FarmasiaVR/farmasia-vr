@@ -99,12 +99,6 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     private void Update() {
-
-        if (VRInput.GetControlDown(Valve.VR.SteamVR_Input_Sources.RightHand, ControlType.Grip)) {
-            Connector.ConnectItem(null, RIGHT);
-            Connector.ConnectItem(null, LEFT);
-        }
-
         CheckBreakDistance();
     }
 

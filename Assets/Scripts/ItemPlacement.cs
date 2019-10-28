@@ -37,6 +37,8 @@ public class ItemPlacement : MonoBehaviour {
 
     private IEnumerator SlowDown() {
 
+        Logger.Print("ITEM PLACEMENT");
+
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
