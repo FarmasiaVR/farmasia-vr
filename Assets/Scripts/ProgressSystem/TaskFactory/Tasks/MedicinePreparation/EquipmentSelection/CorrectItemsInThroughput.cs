@@ -42,7 +42,7 @@ public class CorrectItemsInThroughput : TaskBase {
         CabinetBase cabinet = (CabinetBase) data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
-            door = cabinet.transform.parent.Find("Door").GetComponent<OpenableDoor>();
+            door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
         }
         base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }

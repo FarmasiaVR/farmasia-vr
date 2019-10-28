@@ -10,6 +10,8 @@ public class CabinetBase : MonoBehaviour {
     public List<GameObject> objectsInsideArea;
     public Dictionary<String, int> missingObjects;
     private bool itemPlaced = false;
+    [SerializeField]
+    private GameObject childCollider;
     #endregion
 
     // Start is called before the first frame update
@@ -21,9 +23,12 @@ public class CabinetBase : MonoBehaviour {
         missingObjects.Add("Small syringes", 6);
         missingObjects.Add("Luerlock", 1);
         missingObjects.Add("Bottle", 1);
+
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void EnterCabinet(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
@@ -65,7 +70,7 @@ public class CabinetBase : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void ExitCabinet(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {

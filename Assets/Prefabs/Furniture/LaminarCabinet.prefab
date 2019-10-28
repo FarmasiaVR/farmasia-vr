@@ -632,7 +632,6 @@ GameObject:
   - component: {fileID: 8950865579505492857}
   - component: {fileID: 4678996250356485898}
   - component: {fileID: 6769334002599577668}
-  - component: {fileID: 9216268206156482781}
   m_Layer: 0
   m_Name: LaminarCabinet Trigger
   m_TagString: Untagged
@@ -713,19 +712,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9216268206156482781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6495493563646941958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 343fe3e9fb7fbad4eae2e0c7ba94d250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectsInsideArea: []
 --- !u!1 &6946999718599621080
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6749538049211848238}
+  - component: {fileID: -3317532115354667004}
   m_Layer: 0
   m_Name: LaminarCabinet
   m_TagString: Untagged
@@ -762,6 +749,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3317532115354667004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6946999718599621080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343fe3e9fb7fbad4eae2e0c7ba94d250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  objectsInsideArea: []
+  childCollider: {fileID: 6495493563646941958}
 --- !u!1 &7101446011149314130
 GameObject:
   m_ObjectHideFlags: 0
