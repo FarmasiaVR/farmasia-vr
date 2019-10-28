@@ -1,17 +1,14 @@
 using System;
 using UnityEngine;
 
-public class LaminarCabinetButton : MonoBehaviour {
-    #region fields
-    private bool isOn;
-    #endregion
+public class LaminarCabinetButton : Interactable {
 
-    private void Start() {
-        isOn = false;
+    protected override void Start() {
+        base.Start();
+        Type.Set(InteractableType.Interactable);
     }
 
-    public void CheckButtonState() {
-        isOn = !isOn;
-        Events.FireEvent(EventType.CorrectItemsInLaminarCabinet, CallbackData.Boolean(isOn));
+    public override void Interact(Hand hand) {
+        Events.FireEvent(EventType.CorrectItemsInLaminarCabinet, CallbackData.NoData());
     }
 }
