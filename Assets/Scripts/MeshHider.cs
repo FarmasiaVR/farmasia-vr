@@ -5,8 +5,11 @@ public class MeshHider : MonoBehaviour {
     [SerializeField]
     private bool onlyHide;
 
-    private void Awake() {
+    [SerializeField]
+    private Material testHandMaterial;
 
+    private void Awake() {
+#if !UNITY_NONVRCOMPUTER
         if (!onlyHide) {
             Destroy(GetComponent<Renderer>());
         } else {
@@ -14,5 +17,10 @@ public class MeshHider : MonoBehaviour {
         }
 
         Destroy(this);
+#else
+        if (testHandMaterial) {
+            GetComponent<Renderer>().material = testHandMaterial;
+        }
+#endif
     }
 }
