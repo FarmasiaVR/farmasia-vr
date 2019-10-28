@@ -78,12 +78,15 @@ public class SmoothConnection : ItemConnection {
     }
 
     public void ReleaseRigidbodies() {
+
+        Logger.Print("Enable gravity");
+
         foreach (Rigidbody r in rigidbodies) {
             r.useGravity = true;
         }
     }
 
-    protected override void FixedUpdate() {
+    protected override void Update() {
         CheckBreakCondition();
         Move();
         Rotate();
@@ -107,7 +110,7 @@ public class SmoothConnection : ItemConnection {
         float factor = Vector3.Distance(transform.position, target.position) / maxDistance;
         Vector3 direction = target.position - transform.position;
 
-        Vector3 force = direction.normalized * factor * maxForce;
+        Vector3 force = direction.normalized * factor * maxForce * Time.deltaTime * 50f;
 
         rb.AddForce(force);
     }
@@ -155,7 +158,9 @@ public class SmoothConnection : ItemConnection {
 
 
     private void Brake() {
-        rb.velocity = rb.velocity * brakeFactor;
+        // Maybe fix
+       // rb.velocity = rb.velocity - rb.velocity * brakeFactor * Time.deltaTime;
+         rb.velocity = rb.velocity * brakeFactor * Time.deltaTime * 50f;
         rb.angularVelocity = Vector3.zero;
     }
 

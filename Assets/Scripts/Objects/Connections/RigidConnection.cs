@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RigidConnection: ItemConnection {
+public class RigidConnection : ItemConnection {
 
     protected override ItemConnector Connector { get; set; }
 
@@ -32,6 +32,8 @@ public class RigidConnection: ItemConnection {
 
     private float SetupRigidbodies() {
 
+        Logger.Print("Setting rigidbodies");
+
         Interactable interactable = Interactable.GetInteractable(rb.transform);
         LuerlockAdapter luerlock;
 
@@ -43,13 +45,13 @@ public class RigidConnection: ItemConnection {
             luerlock = interactable as LuerlockAdapter;
         }
 
-        if (luerlock == null) {
-            return rb.mass;
-        }
-
         rb.useGravity = false;
         rigidbodies.Add(rb);
         float mass = luerlock.Rigidbody.mass;
+
+        if (luerlock == null) {
+            return rb.mass;
+        }
 
         foreach (var obj in luerlock.Objects) {
             if (obj.Rigidbody != null) {
@@ -67,15 +69,24 @@ public class RigidConnection: ItemConnection {
     }
 
     public void ReleaseRigidbodies() {
+
+        Logger.Print("Enable gravity");
+
         foreach (Rigidbody r in rigidbodies) {
             r.useGravity = true;
         }
     }
 
-    protected override void FixedUpdate() {
+    protected override void Update() {
+
+        Stop();
         CheckBreakCondition();
         Move();
         Rotate();
+    }
+
+    private void Stop() {
+        rb.velocity = Vector3.zero;
     }
 
     private void CheckBreakCondition() {
@@ -92,7 +103,6 @@ public class RigidConnection: ItemConnection {
 
     private void Move() {
         rb.MovePosition(target.position);
-        Logger.PrintVariables("target", target.position, "this", rb.position);
         //rb.position = target.position;
     }
 
