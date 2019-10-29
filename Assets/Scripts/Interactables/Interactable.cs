@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
@@ -55,6 +56,26 @@ public class Interactable : MonoBehaviour {
 
             return rb;
         }
+    }
+
+    public void DestroyInteractable() {
+
+        if (Interactors.Hand != null) {
+            Interactors.Hand.ReleaseObject();
+        }
+        // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
+        if (Interactors.LuerlockPair.Key >= 0 && Interactors.LuerlockPair.Value != null) {
+            Interactors.LuerlockPair.Value.Connector.ReleaseItem(Interactors.LuerlockPair.Key);
+        }
+        
+        IEnumerator DestroySequence() {
+            transform.position = new Vector3(10000, 10000, 10000);
+            yield return null;
+            yield return null;
+            Destroy(gameObject);
+        }
+
+        StartCoroutine(DestroySequence());
     }
 
     public static implicit operator Interactable(GameObject g) {
