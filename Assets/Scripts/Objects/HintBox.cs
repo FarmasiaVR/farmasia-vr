@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HintBox : Interactable {
@@ -11,6 +12,7 @@ public class HintBox : Interactable {
     private static float viewLimitY = 0.6f;
 
     private static GameObject hintPrefab;
+    private static GameObject hintTextPrefab;
 
     private Transform questionMark;
     private Transform playerCamera;
@@ -24,8 +26,9 @@ public class HintBox : Interactable {
 
     #region Initialization
     static void Init() {
-        if (hintPrefab == null) {
+        if (hintPrefab == null || hintTextPrefab == null) {
             hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
+            hintTextPrefab = Resources.Load<GameObject>("Prefabs/FloatingHint");
         }
     }
 
@@ -62,7 +65,7 @@ public class HintBox : Interactable {
     private void Update() {
         RotateBox();
     }
-
+    
     private void RotateBox() {
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
         questionMark.LookAt(playerCamera);
@@ -76,7 +79,20 @@ public class HintBox : Interactable {
             Interactors.Hand.ReleaseObject();
         }
 
+        ActivateHint();
+
         DestroyInteractable();
+    }
+    public void ActivateHint() {
+
+        GameObject newHintText = Instantiate(hintTextPrefab);
+
+        newHintText.transform.position = transform.position;
+        newHintText.transform.LookAt(Player.Camera.transform);
+
+        TextMeshPro text = newHintText.transform.Find("Text").GetComponent<TextMeshPro>();
+
+        text.text = message;
     }
     #region Creating
     public static void CreateHint(string message) {
