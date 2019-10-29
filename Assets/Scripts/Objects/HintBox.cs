@@ -23,8 +23,10 @@ public class HintBox : Interactable {
     #endregion
 
     #region Initialization
-    static HintBox() {
-        hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
+    static void Init() {
+        if (hintPrefab == null) {
+            hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
+        }
     }
 
     private void Awake() {
@@ -34,6 +36,8 @@ public class HintBox : Interactable {
 
     protected override void Start() {
         base.Start();
+
+        Type.On(InteractableType.Interactable, InteractableType.Draggable);
 
         playerCamera = Player.Camera.transform;
 
@@ -68,9 +72,16 @@ public class HintBox : Interactable {
         base.Interact(hand);
 
         Logger.PrintVariables("message", message);
+        if (Interactors.Hand != null) {
+            Interactors.Hand.ReleaseObject();
+        }
+
+        DestroyInteractable();
     }
     #region Creating
     public static void CreateHint(string message) {
+
+        Init();
 
         Vector3 hintPos = GetPositionInView();
 
@@ -100,11 +111,19 @@ public class HintBox : Interactable {
         }
     }
 
-   
 
+   // Alternatively, define few possible hint positions and pick one from them
+    //private static Vector3 RandomVector(Transform from) {
+
+    //    float Random() {
+    //        return UnityEngine.Random.value - 0.5f;
+    //    }
+
+    //    return from.right * Random() + from.up *
+    //}
     private static Vector3 RandomVector {
         get {
-            return new Vector3(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value).normalized* defaultDistance;
+            return new Vector3(UnityEngine.Random.value - 0.5f, UnityEngine.Random.value * 0.5f, 0.5f).normalized * defaultDistance;
         }
     }
     private static bool InViewLimit(Vector3 pos) {

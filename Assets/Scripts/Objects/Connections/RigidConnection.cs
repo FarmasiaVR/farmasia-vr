@@ -47,11 +47,12 @@ public class RigidConnection : ItemConnection {
 
         rb.useGravity = false;
         rigidbodies.Add(rb);
-        float mass = luerlock.Rigidbody.mass;
 
         if (luerlock == null) {
             return rb.mass;
         }
+
+        float mass = luerlock.Rigidbody.mass;
 
         foreach (var obj in luerlock.Objects) {
             if (obj.Rigidbody != null) {

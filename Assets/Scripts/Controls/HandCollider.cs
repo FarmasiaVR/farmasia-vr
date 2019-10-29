@@ -43,6 +43,7 @@ public class HandCollider : MonoBehaviour {
         GameObject closest = null;
 
         foreach (GameObject rb in grabObjects) {
+
             float distance = Vector3.Distance(transform.position, rb.transform.position);
 
             if (distance < closestDistance) {

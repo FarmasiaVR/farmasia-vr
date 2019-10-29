@@ -43,6 +43,11 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateControls() {
+
+        if (VRInput.GetControlDown(HandType, ControlType.Grip)) {
+            HintBox.CreateHint("TEst hin");
+        }
+
         // Grabbing
         if (VRInput.GetControlDown(HandType, Controls.Grab)) {
             GrabObject();
@@ -69,6 +74,7 @@ public class Hand : MonoBehaviour {
 
         Interactable interactable = handCollider.GetGrabbedInteractable();
         if (interactable == null) {
+            Logger.Warning("No interactable to grab");
             return;
         }
 
