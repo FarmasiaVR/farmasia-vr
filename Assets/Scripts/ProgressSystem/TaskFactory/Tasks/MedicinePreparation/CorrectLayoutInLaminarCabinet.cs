@@ -46,13 +46,13 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             return;
         }
         if (!ItemsArranged()) {
-            UISystem.Instance.CreatePopup(-1, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
         }
     }
 
     private void VentilationBlocked(CallbackData data) {
-        UISystem.Instance.CreatePopup(-1, "Ilmanvaihto estynyt.", MessageType.Mistake);
+        UISystem.Instance.CreatePopup(0, "Ilmanvaihto estynyt.", MessageType.Mistake);
         G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
     }
 
@@ -79,7 +79,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Siirrä välineet läpiantokaapista kaappiin.";
+        return "";
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vie ja asettele valitsemasi työvälineet sekä lääkepullo läpiantokaapista kaappiin.";
+        return "";
     }
     #endregion
 }

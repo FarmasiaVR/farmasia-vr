@@ -33,8 +33,8 @@ public class CorrectLayoutInThroughput : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ArrangedItems(CallbackData data) {
-        if (ItemsArranged()) {
-            UISystem.Instance.CreatePopup(-1, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
+        if (!ItemsArranged()) {
+            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInThroughput);
         }
     }
