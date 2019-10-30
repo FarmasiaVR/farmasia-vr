@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class HintBox : Interactable {
+public class HintBox : DragAcceptable {
 
     #region Fields
+    #region Settings
+    private static bool initialized = false;
     private static float defaultDistance = 0.5f;
+    private static Vector3[] positions;
+    private static float maxDistance = 2f;
+    private static float hintMaxAngleDiff = 75;
+
     private static float viewLimitX = 0.8f;
     private static float viewLimitY = 0.6f;
+    #endregion
 
     private static GameObject hintPrefab;
     private static GameObject hintTextPrefab;
@@ -26,9 +34,13 @@ public class HintBox : Interactable {
 
     #region Initialization
     static void Init() {
-        if (hintPrefab == null || hintTextPrefab == null) {
+        if (!initialized) {
             hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
             hintTextPrefab = Resources.Load<GameObject>("Prefabs/FloatingHint");
+
+            positions = GameObject.FindGameObjectsWithTag("Hint").Select(o => o.transform.position).ToArray();
+
+            initialized = true;
         }
     }
 
@@ -62,7 +74,8 @@ public class HintBox : Interactable {
     }
     #endregion
 
-    private void Update() {
+    protected override void Update() {
+        base.Update();
         RotateBox();
     }
     
@@ -71,35 +84,31 @@ public class HintBox : Interactable {
         questionMark.LookAt(playerCamera);
     }
 
-    public override void Interact(Hand hand) {
-        base.Interact(hand);
+    protected override void Activate() {
 
-        Logger.PrintVariables("message", message);
-        if (Interactors.Hand != null) {
-            Interactors.Hand.ReleaseObject();
+        if (Activated) {
+            return;
         }
 
-        ActivateHint();
-
-        DestroyInteractable();
-    }
-    public void ActivateHint() {
+        Activated = true;
 
         GameObject newHintText = Instantiate(hintTextPrefab);
 
-        newHintText.transform.position = transform.position;
+        newHintText.transform.position = startPos;
         newHintText.transform.LookAt(Player.Camera.transform);
 
         TextMeshPro text = newHintText.transform.Find("Text").GetComponent<TextMeshPro>();
 
         text.text = message;
+        grabbed = false;
+        SafeDestroy();
     }
     #region Creating
     public static void CreateHint(string message) {
 
         Init();
 
-        Vector3 hintPos = GetPositionInView();
+        Vector3 hintPos = GetHintPosition();
 
         GameObject newHint = Instantiate(hintPrefab);
         newHint.transform.position = hintPos;
@@ -108,40 +117,47 @@ public class HintBox : Interactable {
         hint.message = message;
     }
 
-    private static Vector3 GetPositionInView() {
+    private static Vector3 GetHintPosition() {
 
-        Vector3 r = Vector3.zero;
+        Vector3 currentPos = Player.Camera.transform.position;
 
-        int failsafe = 1000000;
+        List<Vector3> possible = new List<Vector3>();
 
-        while (true) {
-            failsafe--;
-            if (failsafe < 0) {
-                Logger.Error("No view found");
-                return r;
-            }
-            r = Player.Camera.transform.position + RandomVector;
-            if (InViewLimit(r) && IsVisible(r)) {
-                return r;
+        foreach (Vector3 pos in positions) {
+            if (Vector3.Distance(currentPos, pos) < maxDistance) {
+                possible.Add(pos);
             }
         }
-    }
-
-
-   // Alternatively, define few possible hint positions and pick one from them
-    //private static Vector3 RandomVector(Transform from) {
-
-    //    float Random() {
-    //        return UnityEngine.Random.value - 0.5f;
-    //    }
-
-    //    return from.right * Random() + from.up *
-    //}
-    private static Vector3 RandomVector {
-        get {
-            return new Vector3(UnityEngine.Random.value - 0.5f, UnityEngine.Random.value * 0.5f, 0.5f).normalized * defaultDistance;
+        if (possible.Count == 0) {
+            Logger.Warning("No suitable position was found, returning the default one");
+            return positions[0];
         }
+
+        return GetClosestPosition(possible);
     }
+    private static Vector3 GetClosestPosition(List<Vector3> positions) {
+
+        Vector3 forward = Player.Camera.transform.forward;
+        Vector3 camPos = Player.Camera.transform.position;
+
+        float smallestAngle = float.MaxValue;
+        Vector3 pos = Vector3.zero;
+
+        foreach (Vector3 p in positions) {
+            float angle = Vector3.Angle(p - camPos, forward);
+
+            Logger.PrintVariables("angle", angle, "pos", p, "smallest", smallestAngle, "smalles pos", pos);
+
+            if (angle < smallestAngle) {
+                smallestAngle = angle;
+                pos = p;
+            }
+        }
+
+        return pos;
+    }
+
+    // Currently unused but might be helpful
     private static bool InViewLimit(Vector3 pos) {
 
         Vector3 view = Player.Camera.WorldToViewportPoint(pos);
@@ -158,6 +174,8 @@ public class HintBox : Interactable {
 
         return true;
     }
+
+    // Currently unused but might be helpful
     private static bool IsVisible(Vector3 pos) {
 
         Vector3 camPos = Player.Camera.transform.position;
