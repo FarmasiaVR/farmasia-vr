@@ -7,6 +7,8 @@ public class ItemsToSterileBag : TaskBase {
     #region Fields
     public enum Conditions { SyringesPut }
     private int smallSyringesCount;
+    private string description = "Viimeistele ruiskujen kanssa työskentely.";
+    private string hint = "Laita molemmat käyttämäsi ruiskut steriiliin pussiin.";
     #endregion
 
     #region Constructor
@@ -38,7 +40,7 @@ public class ItemsToSterileBag : TaskBase {
         GameObject gm = GameObject.FindWithTag("Bag");
         SterileBag sterileBag = gm.GetComponent<SterileBag>();
         if (!sterileBag.IsClosed) {
-            UISystem.Instance.CreatePopup("Close sterile bag", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Sulje steriili pussi.", MessageType.Notify);
             return;
         }
 
@@ -88,7 +90,7 @@ public class ItemsToSterileBag : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Syringes put in sterile bag", MessageType.Done);
+        UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MessageType.Done);
         base.FinishTask();
     }
     
@@ -97,7 +99,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Viimeistele ruiskujen kanssa työskentely.";
+        return description;
     }
 
     /// <summary>
@@ -105,7 +107,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Laita molemmat käyttämäsi ruiskut steriiliin pussiin.";
+        return hint;
     }
     #endregion
 }

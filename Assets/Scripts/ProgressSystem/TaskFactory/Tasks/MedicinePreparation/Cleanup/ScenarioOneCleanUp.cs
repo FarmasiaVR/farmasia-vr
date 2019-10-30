@@ -6,6 +6,8 @@ using System;
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
     public enum Conditions { DroppedItemsPutToTrash, PreviousTasksCompleted }
+    private string description = "Siivoa lopuksi työtila.";
+    private string hint = "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";
     #endregion
 
     #region Constructor
@@ -46,7 +48,7 @@ public class ScenarioOneCleanUp : TaskBase {
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Items were not taken to trash", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Välineitä ei viety roskakoriin.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
         }
@@ -55,7 +57,7 @@ public class ScenarioOneCleanUp : TaskBase {
     private void ItemDroppedInTrash(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            UISystem.Instance.CreatePopup("Esineet laitettu roskakoriin liian aikaisin.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Esineet laitettiin roskakoriin liian aikaisin.", MessageType.Mistake);
             base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
         }
     }
@@ -75,7 +77,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Siivoa lopuksi työtila.";
+        return description;
     }
 
     /// <summary>
@@ -83,7 +85,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";
+        return hint;
     }
     #endregion
 }

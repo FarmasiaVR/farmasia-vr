@@ -124,14 +124,14 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(-1, "Välineitä puuttuu", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Välineitä puuttuu.", MessageType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
-            UISystem.Instance.CreatePopup("Välineitä puuttuu", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Välineitä puuttuu.", MessageType.Mistake);
 
         }
-        description = cabinet.GetMissingItems();
-        G.Instance.Progress.UpdateDescription();
+        //description = cabinet.GetMissingItems();
+        //G.Instance.Progress.UpdateDescription();
         SetItemsToZero();
         DisableConditions();
     }
@@ -142,9 +142,9 @@ public class CorrectItemsInThroughput : TaskBase {
         if (checkTimes == 1) {
             //count changed from 16 to 9 for DEMO
             if (objectCount == 9) {
-                UISystem.Instance.CreatePopup(2, "Right amount of items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(1, "Too many items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
         }

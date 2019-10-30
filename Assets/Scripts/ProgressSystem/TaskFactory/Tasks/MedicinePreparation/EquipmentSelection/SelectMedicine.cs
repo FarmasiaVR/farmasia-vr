@@ -3,6 +3,8 @@ using System;
 public class SelectMedicine : TaskBase {
     #region Fields
     public enum Conditions { BottlePickup }
+    private string description = "Valitse sopiva lääkepullo.";
+    private string hint = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
     #endregion
 
     #region Constructor
@@ -47,7 +49,7 @@ public class SelectMedicine : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Medicine selected", MessageType.Done);
+        UISystem.Instance.CreatePopup("Lääkepullo valittu.", MessageType.Done);
         base.FinishTask();
     }
 
@@ -56,7 +58,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
-        return "Valitse sopiva lääkepullo.";
+        return description;
     }
     
     /// <summary>
@@ -64,7 +66,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
+        return hint;
     }
     #endregion
 }

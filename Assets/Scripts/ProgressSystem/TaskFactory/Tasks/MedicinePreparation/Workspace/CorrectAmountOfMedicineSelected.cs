@@ -12,6 +12,8 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     private int syringes;
     private int rightAmountInSyringes;
     private CabinetBase laminarCabinet;
+    private string description = "Vedä ruiskuun lääkettä.";
+    private string hint = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
     #endregion
 
     #region Constructor
@@ -62,7 +64,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                 if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-                    UISystem.Instance.CreatePopup(-1, "Medicine taken outside laminar cabinet", MessageType.Mistake);
+                    UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
                 } else {
                     Medicine(s);
                 }
@@ -97,7 +99,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         if (syringes == 6) {
             bool check = CheckClearConditions(true);
             if (!check) {
-                UISystem.Instance.CreatePopup(rightAmountInSyringes, "Wrong amount of medicine was taken", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(rightAmountInSyringes, "Lääkettä otettiin väärä määrä.", MessageType.Mistake);
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, syringes - rightAmountInSyringes);
                 base.FinishTask();
             }
@@ -110,7 +112,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(6, "Right amount of medicine was taken", MessageType.Notify);
+        UISystem.Instance.CreatePopup(6, "Lääkettä otettiin tarvittava määrä.", MessageType.Notify);
         base.FinishTask();
     }
 
@@ -119,7 +121,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Vedä ruiskuun lääkettä.";
+        return description;
     }
 
     /// <summary>
@@ -127,7 +129,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+        return hint;
     }
     #endregion
 }

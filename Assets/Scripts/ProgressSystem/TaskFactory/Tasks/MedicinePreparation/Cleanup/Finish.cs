@@ -16,12 +16,12 @@ public class Finish : TaskBase {
     /// Once all tasks are completed, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Congratulations!\nAll tasks finished", MessageType.Done);
+        UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MessageType.Done);
         base.FinishTask();
     }
 
     public override string GetDescription() {
-        return "Free roam activated!";
+        return "Siirry pois työtilasta.";
     }
 
     public override string GetHint() {

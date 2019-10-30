@@ -6,6 +6,8 @@ public class LuerlockAttach : TaskBase {
     public enum Conditions { BigSyringeAttachedFirst }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     private CabinetBase laminarCabinet;
+    private string description = "Kiinnitä luerlock-to-luerlock-välikappale.";
+    private string hint = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
     #endregion
 
     #region Constructor
@@ -50,11 +52,11 @@ public class LuerlockAttach : TaskBase {
         }
         if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
             return;
         }
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            UISystem.Instance.CreatePopup("Take medicine to syringe before attaching to luerlock", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MessageType.Notify);
             return;
         }
 
@@ -68,7 +70,7 @@ public class LuerlockAttach : TaskBase {
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(0, "Luerlock was not first attached to big syringe with medicine", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin suureen ruiskuun.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
         }
@@ -80,7 +82,7 @@ public class LuerlockAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Luerlock was successfully attached", MessageType.Notify);
+        UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MessageType.Notify);
         base.FinishTask();
     }
     
@@ -89,7 +91,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Luerlock-to-luerlock-välikappaleen kiinnitys.";
+        return description;
     }
 
     /// <summary>
@@ -97,7 +99,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Kiinnitä Luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
+        return hint;
     }
     #endregion
 }

@@ -111,10 +111,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(-1, "Työvälineitä puuttuu", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MessageType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
         } else {
-            UISystem.Instance.CreatePopup("Työvälineitä puuttuu", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MessageType.Mistake);
         }
         //description = laminarCabinet.GetMissingItems();
         //G.Instance.Progress.UpdateDescription();
@@ -131,9 +131,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (checkTimes == 1) {
             // count changed from 16 to 9, needles missing
             if (objectCount == 9) {
-                UISystem.Instance.CreatePopup(2, "Right amount of items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(1, "Too many items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
         }

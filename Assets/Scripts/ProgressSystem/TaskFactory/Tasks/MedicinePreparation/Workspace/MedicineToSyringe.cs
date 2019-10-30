@@ -7,6 +7,8 @@ public class MedicineToSyringe : TaskBase {
     private Dictionary<int, int> syringes = new Dictionary<int, int>();
     public enum Conditions { RightAmountInSyringe }
     private CabinetBase laminarCabinet;
+    private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
+    private string hint = "Valitse oikeankokoinen ruisku (5ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
     #endregion
 
     #region Constructor
@@ -50,7 +52,7 @@ public class MedicineToSyringe : TaskBase {
         if (syringes.ContainsKey(s.GetInstanceID())) {
             if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Medicine taken outside laminar cabinet", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
             } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
                 ToSyringe(s);
             } 
@@ -70,7 +72,7 @@ public class MedicineToSyringe : TaskBase {
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(0, "Wrong amount of medicine or wrong syringe size", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko tai määrä lääkettä.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.MedicineToSyringe);
             base.FinishTask();
         }
@@ -82,7 +84,7 @@ public class MedicineToSyringe : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Medicine was successfully taken", MessageType.Notify);
+        UISystem.Instance.CreatePopup(1, "Lääkkeen ottaminen onnistui.", MessageType.Notify);
         base.FinishTask();
     }
 
@@ -91,7 +93,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Ota ruiskulla lääkettä lääkeainepullosta.";
+        return description;
     }
 
     /// <summary>
@@ -99,7 +101,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Valitse oikeankokoinen ruisku (5ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+        return hint;
     }
     #endregion
 }

@@ -9,6 +9,8 @@ public class SyringeAttach : TaskBase {
     private int syringes;
     private int smallSyringes;
     private CabinetBase laminarCabinet;
+    private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen toinen ruisku.";
+    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen myös 1.0ml ruisku.";
     #endregion
 
     #region Constructor
@@ -53,7 +55,7 @@ public class SyringeAttach : TaskBase {
         
         if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-            UISystem.Instance.CreatePopup(-1, "Item connected outside laminar cabinet", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
         } else {
             attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
             base.package.MoveTaskToManager(this);
@@ -68,7 +70,7 @@ public class SyringeAttach : TaskBase {
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
             if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-                UISystem.Instance.CreatePopup(-1, "Item disconnected outside laminar cabinet", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
             } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                 AttachSyringe(s);
             } 
@@ -94,7 +96,7 @@ public class SyringeAttach : TaskBase {
         if (syringes == 6) {
             bool check = CheckClearConditions(true);
             if (!check) {
-                UISystem.Instance.CreatePopup(smallSyringes, "Wrong syringe size was chosen for one or more of the syringes", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(smallSyringes, "Yhden tai useamman ruiskun koko oli väärä.", MessageType.Mistake);
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, syringes - smallSyringes);
                 base.FinishTask();
             }
@@ -107,7 +109,7 @@ public class SyringeAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(6, "Right syringe sizes were chosen", MessageType.Notify);
+        UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
         base.FinishTask();
     }
     
@@ -116,7 +118,7 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return "Yhdistä Luerlock-to-luerlock-välikappaleeseen toinen ruisku.";
+        return description;
     }
 
     /// <summary>
@@ -124,7 +126,7 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Kiinnitä Luerlock-to-luerlock-välikappaleeseen myös 1.0ml ruisku.";
+        return hint;
     }
     #endregion
 }

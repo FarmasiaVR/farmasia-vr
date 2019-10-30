@@ -46,7 +46,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             return;
         }
         if (!ItemsArranged()) {
-            UISystem.Instance.CreatePopup(-1, "Työvälineet ei ryhmissä.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
         }
     }

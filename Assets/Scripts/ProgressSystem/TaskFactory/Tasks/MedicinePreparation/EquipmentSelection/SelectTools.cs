@@ -3,6 +3,8 @@ using System;
 public class SelectTools : TaskBase {
     #region Fields
     public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp } 
+    private string description = "Valitse sopivat työvälineet.";
+    private string hint = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
     #endregion
 
     #region Constructor
@@ -54,7 +56,7 @@ public class SelectTools : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Tools Selected", MessageType.Done);
+        UISystem.Instance.CreatePopup("Työväline valittu.", MessageType.Done);
         base.FinishTask();
     }
 
@@ -63,7 +65,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
-        return "Valitse sopivat työvälineet.";
+        return description;
     }
 
     /// <summary>
@@ -71,7 +73,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
+        return hint;
     }
     #endregion
 }
