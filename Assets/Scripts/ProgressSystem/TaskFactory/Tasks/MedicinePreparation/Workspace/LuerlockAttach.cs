@@ -50,7 +50,7 @@ public class LuerlockAttach : TaskBase {
         if (item == null) {
             return;
         }
-        if (!laminarCabinet.objectsInsideArea.Contains(g)) {
+        if (laminarCabinet != null && !laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
             return;
