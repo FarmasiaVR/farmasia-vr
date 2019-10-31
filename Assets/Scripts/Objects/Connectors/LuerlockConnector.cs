@@ -110,7 +110,7 @@ public class LuerlockConnector : ItemConnector {
 
     #region Releasing
     public override void ReleaseItem() {
-        Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached));
+        Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         MonoBehaviour.Destroy(Joint);
         MonoBehaviour.Destroy(connection);
         attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
