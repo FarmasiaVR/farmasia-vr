@@ -74,6 +74,6 @@ public static class Logger {
     }
 
     private static string VarString(object n, object o) {
-        return n + ": " + o?.ToString() ?? "null";
+        return n + ": " + (o?.ToString() ?? "null");
     }
 }
