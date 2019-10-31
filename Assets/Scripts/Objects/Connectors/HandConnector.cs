@@ -21,7 +21,7 @@ public class HandConnector : ItemConnector {
     }
 
     #region Attaching
-    public override void ConnectItem(Interactable interactable, int options) {
+    public override void ConnectItem(Interactable interactable) {
         if (interactable.GetComponent<Rigidbody>() == null) {
             Logger.Error("Interactable has no rigidbody");
             return;
@@ -30,7 +30,7 @@ public class HandConnector : ItemConnector {
         // release item from other hand
         bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
-            Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem(0);
+            Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem();
         }
 
         GrabbedInteractable = interactable;
@@ -58,7 +58,7 @@ public class HandConnector : ItemConnector {
         LuerlockAdapter luerlock = isAttachedToLuerlock
                                     ? interactable.Interactors.LuerlockPair.Value
                                     : interactable as LuerlockAdapter;
-        return luerlock == null || luerlock.ObjectCount == 0;
+        return luerlock == null || !luerlock.HasAttachedObjects;
     }
 
     private void AttachGrabbedObject(Interactable interactable) {
@@ -71,7 +71,7 @@ public class HandConnector : ItemConnector {
     #endregion
 
     #region Releasing
-    public override void ReleaseItem(int options) {
+    public override void ReleaseItem() {
         if (!IsGrabbed) {
             Logger.Error("ReleaseItem(): Invalid state (is not grabbíng)");
             return;

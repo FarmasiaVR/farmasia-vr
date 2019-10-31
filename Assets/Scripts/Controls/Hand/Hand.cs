@@ -81,7 +81,7 @@ public class Hand : MonoBehaviour {
         if (interactable.Type == InteractableType.Grabbable) {
             Offset.position = interactable.transform.position;
             Offset.rotation = interactable.transform.rotation;
-            Connector.ConnectItem(interactable, 0);
+            Connector.ConnectItem(interactable);
             Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
         } else if (interactable.Type == InteractableType.Interactable) {
             interactedInteractable = interactable;
@@ -92,7 +92,7 @@ public class Hand : MonoBehaviour {
 
     public void ReleaseObject() {
         if (IsGrabbed) {
-            Connector.ReleaseItem(0);
+            Connector.ReleaseItem();
             Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
         } else if (interactedInteractable != null) {
             interactedInteractable.Uninteract(this);

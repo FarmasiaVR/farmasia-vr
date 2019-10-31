@@ -37,7 +37,7 @@ public class RotationConnection: ItemConnection {
     }
 
     private void BreakConnection() {
-        Connector.ReleaseItem(0);
+        Connector.ReleaseItem();
     }
 
     private void Rotate() {

@@ -82,24 +82,17 @@ public class Syringe : GeneralItem {
 
         var pair = Interactors.LuerlockPair;
 
-        if (pair.Key < 0) {
+        if (pair.Key < 0 || pair.Value == null) {
             return;
         }
 
-        int other = pair.Key == 0 ? 1 : 0;
+        Syringe leftSyringe = (Syringe)pair.Value.LeftConnector.AttachedInteractable;
+        Syringe rightSyringe = (Syringe)pair.Value.RightConnector.AttachedInteractable;
+        bool invert = (pair.Key == 0) == (amount < 0);
 
-        if (pair.Value == null) {
-            return;
-        }
-
-        LiquidContainer from = ((Syringe)(pair.Value.Objects[other].Interactable)).Container;
-        LiquidContainer to = ((Syringe)(pair.Value.Objects[pair.Key].Interactable)).Container;
-
-        if (amount > 0) {
-            from.TransferTo(to, amount);
-        } else {
-            to.TransferTo(from, -amount);
-        }
+        Syringe srcSyringe = invert ? rightSyringe : leftSyringe;
+        Syringe dstSyringe = invert ? leftSyringe : rightSyringe;
+        srcSyringe.Container.TransferTo(dstSyringe.Container, Mathf.Abs(amount));
     }
     private void BottleEject(int amount) {
 

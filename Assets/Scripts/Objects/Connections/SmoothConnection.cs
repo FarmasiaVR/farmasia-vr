@@ -62,12 +62,10 @@ public class SmoothConnection : ItemConnection {
         rigidbodies.Add(rb);
         float mass = luerlock.Rigidbody.mass;
 
-        foreach (var obj in luerlock.Objects) {
-            if (obj.Rigidbody != null) {
-                mass += obj.Rigidbody.mass;
-                obj.Rigidbody.useGravity = false;
-                rigidbodies.Add(obj.Rigidbody);
-            }
+        foreach (Rigidbody body in luerlock.AttachedRigidbodies) {
+            mass += body.mass;
+            body.useGravity = false;
+            rigidbodies.Add(body);
         }
 
         return mass;
@@ -102,7 +100,7 @@ public class SmoothConnection : ItemConnection {
     }
 
     private void BreakConnection() {
-        Connector.ReleaseItem(0);
+        Connector.ReleaseItem();
     }
 
     private void Move() {
