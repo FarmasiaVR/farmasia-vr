@@ -32,10 +32,10 @@ public class LuerlockConnector : ItemConnector {
 
     private AttachedObject attached;
     private ItemConnection connection;
-    private int side;
+    private LuerlockAdapter.Side side;
     #endregion
 
-    public LuerlockConnector(int side, LuerlockAdapter luerlock, GameObject collider) : base(luerlock.transform) {
+    public LuerlockConnector(LuerlockAdapter.Side side, LuerlockAdapter luerlock, GameObject collider) : base(luerlock.transform) {
         Luerlock = luerlock;
         attached = new AttachedObject();
         this.side = side;
@@ -78,8 +78,7 @@ public class LuerlockConnector : ItemConnector {
 
         attached.Scale = newObject.transform.localScale;
         attached.Interactable = newObject.GetComponent<Interactable>();
-        // TODO: Refactor and remove the usage of 'side'
-        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(side, Luerlock));
+        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, Luerlock));
         attached.Interactable.State.On(InteractState.LuerlockAttached);
 
         Logger.PrintVariables("luerlock", Luerlock.name);
@@ -113,7 +112,7 @@ public class LuerlockConnector : ItemConnector {
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         MonoBehaviour.Destroy(Joint);
         MonoBehaviour.Destroy(connection);
-        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<int, LuerlockAdapter>(-1, null));
+        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
         attached.Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(null);
     }

@@ -1,23 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LuerlockAdapter : GeneralItem {
 
-    public const int RIGHT = 0;
-    public const int LEFT = 1;
+    public enum Side {
+        Left, Right
+    }
     private const string luerlockTag = "Luerlock Position";
 
     #region Fields
-    public LuerlockConnector LeftConnector { get => connectors[LEFT]; }
-    public LuerlockConnector RightConnector { get => connectors[RIGHT]; }
-    private LuerlockConnector[] connectors;
+    public LuerlockConnector LeftConnector { get => GetConnector(Side.Left); }
+    public LuerlockConnector RightConnector { get => GetConnector(Side.Right); }
+    private Dictionary<Side, LuerlockConnector> connectors;
 
     public List<Rigidbody> AttachedRigidbodies {
         get {
             List<Rigidbody> bodies = new List<Rigidbody>();
-            foreach (var connector in connectors) {
-                if (connector.AttachedRigidbody != null) {
-                    bodies.Add(connector.AttachedRigidbody);
+            foreach (var pair in connectors) {
+                if (pair.Value.AttachedRigidbody != null) {
+                    bodies.Add(pair.Value.AttachedRigidbody);
                 }
             }
             return bodies;
@@ -27,8 +29,8 @@ public class LuerlockAdapter : GeneralItem {
     private int ObjectCount {
         get {
             int count = 0;
-            foreach (var connector in connectors) {
-                if (connector.HasAttachedObject) {
+            foreach (var pair in connectors) {
+                if (pair.Value.HasAttachedObject) {
                     count++;
                 }
             }
@@ -46,32 +48,26 @@ public class LuerlockAdapter : GeneralItem {
         ObjectType = ObjectType.Luerlock;
         Type.On(InteractableType.SmallObject);
 
-        connectors = new LuerlockConnector[] {
-            new LuerlockConnector(RIGHT, this, transform.Find("Right collider").gameObject),
-            new LuerlockConnector(LEFT, this, transform.Find("Left collider").gameObject)
+        connectors = new Dictionary<Side, LuerlockConnector> {
+            { Side.Left, new LuerlockConnector(Side.Left, this, transform.Find("Left collider").gameObject) },
+            { Side.Right, new LuerlockConnector(Side.Right, this, transform.Find("Right collider").gameObject) }
         };
 
         SubscribeCollisions();
     }
 
     private void SubscribeCollisions() {
-        connectors[RIGHT].Subscribe();
-        connectors[LEFT].Subscribe();
+        LeftConnector.Subscribe();
+        RightConnector.Subscribe();
     }
 
     private void OnJointBreak(float breakForce) {
-        // Search for the joint that broke
-        int index = -1;
-        for (int i = 0; i < connectors.Length; i++) {
-            Joint joint = connectors[i].Joint;
+        foreach (var pair in connectors) {
+            Joint joint = pair.Value.Joint;
             if (joint?.currentForce.magnitude == breakForce) {
-                index = i;
+                GetConnector(pair.Key).ReleaseItem();
                 break;
             }
-        }
-
-        if (index > -1) {
-            connectors[index].ReleaseItem();
         }
     }
 
@@ -80,8 +76,13 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     private void CheckBreakDistance() {
-        connectors[RIGHT].CheckObjectDistance();
-        connectors[LEFT].CheckObjectDistance();
+        LeftConnector.CheckObjectDistance();
+        RightConnector.CheckObjectDistance();
+    }
+
+    public LuerlockConnector GetConnector(Side side) {
+        LuerlockConnector value;
+        return connectors.TryGetValue(side, out value) ? value : null;
     }
 
     public static Transform LuerlockPosition(Transform t) {
