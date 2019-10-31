@@ -61,7 +61,7 @@ public class Interactable : MonoBehaviour {
     public void DestroyInteractable() {
 
         if (Interactors.Hand != null) {
-            Interactors.Hand.ReleaseObject();
+            Interactors.Hand.Uninteract();
         }
         // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
         if (Interactors.LuerlockPair.Value != null) {

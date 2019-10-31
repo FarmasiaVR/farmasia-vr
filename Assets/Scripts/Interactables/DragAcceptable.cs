@@ -6,7 +6,7 @@ public abstract class DragAcceptable : Interactable {
     #region Fields
     private float defaultForce = 2500;
     private float mass;
-    private float activateDistance = 0.4f;
+    private float activateDistance = 0.25f;
     private float brakeAmount = 10;
     protected Vector3 startPos;
     private float destroyTime = 0.5f;

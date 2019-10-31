@@ -13,7 +13,7 @@ public class DoorHandle : Interactable {
     private float startAngle;
     private float currentAngle = 0;
     private readonly float maxAngle = 45f;
-    private float handleSpeed = 5.5f;
+    private float handleSpeed = 200f;
     private Transform handle;
     #endregion
 
@@ -41,12 +41,6 @@ public class DoorHandle : Interactable {
         if (handle != null) {
             handle.eulerAngles = new Vector3(handle.eulerAngles.x, handle.eulerAngles.y, startAngle - currentAngle);
         }
-        PrintInfo();
-
-    }
-
-    private void PrintInfo() {
-        Logger.Print("Current State is:" + state + "\nCurrent Angle:" + startAngle);
     }
 
     private void CheckHandleState() {

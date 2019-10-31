@@ -5,6 +5,9 @@ public class HandCollider : MonoBehaviour {
 
     #region Fields
     private HashSet<GameObject> grabObjects;
+
+    [SerializeField]
+    private bool useHighlighting;
     #endregion
 
     private void Start() {
@@ -18,8 +21,10 @@ public class HandCollider : MonoBehaviour {
         }
         grabObjects.Add(interactable);
 
-        ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
-        hObject?.StartCoroutine(hObject?.InsideCheck(this));
+        if (useHighlighting) {
+            ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
+            hObject?.StartCoroutine(hObject?.InsideCheck(this));
+        }
     }
 
     private void OnTriggerExit(Collider coll) {
@@ -53,5 +58,43 @@ public class HandCollider : MonoBehaviour {
         }
 
         return closest;
+    }
+
+    public int CountWithinAngle(float maxAngle) {
+        return GetObjectsWithinAngle(maxAngle).Count;
+    }
+    public GameObject GetPointedObject(float maxAngle) {
+
+        List<GameObject> objects = GetObjectsWithinAngle(maxAngle);
+
+        float smallestAngle = float.MaxValue;
+        GameObject closest = null;
+
+        foreach (GameObject g in objects) {
+
+            float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
+
+            if (angle < smallestAngle) {
+                smallestAngle = angle;
+                closest = g;
+            }
+        }
+
+        return closest;
+    }
+
+    private List<GameObject> GetObjectsWithinAngle(float maxAngle) {
+
+        List<GameObject> list = new List<GameObject>();
+
+        foreach (GameObject g in grabObjects) {
+            float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
+
+            if (angle <= maxAngle) {
+                list.Add(g);
+            }
+        }
+
+        return list;
     }
 }
