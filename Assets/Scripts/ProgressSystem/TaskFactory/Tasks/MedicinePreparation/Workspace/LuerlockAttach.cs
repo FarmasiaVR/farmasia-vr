@@ -50,11 +50,17 @@ public class LuerlockAttach : TaskBase {
         if (item == null) {
             return;
         }
-        if (laminarCabinet != null && !laminarCabinet.objectsInsideArea.Contains(g)) {
+
+        if (laminarCabinet == null) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MessageType.Mistake);
+            return;
+        } else if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
             return;
         }
+        
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MessageType.Notify);
             return;
@@ -62,10 +68,7 @@ public class LuerlockAttach : TaskBase {
 
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
-            Syringe syringe = item.GetComponent<Syringe>();
-            if (syringe.Container.Capacity == 5000 && syringe.Container.Amount > 0) {
-                EnableCondition(Conditions.BigSyringeAttachedFirst);
-            }
+            BigSyringeCheck(item);
         }
 
         bool check = CheckClearConditions(true);
@@ -73,6 +76,13 @@ public class LuerlockAttach : TaskBase {
             UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin suureen ruiskuun.", MessageType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             base.FinishTask();
+        }
+    }
+
+    private void BigSyringeCheck(GeneralItem item) {
+        Syringe syringe = item.GetComponent<Syringe>();
+        if (syringe.Container.Capacity == 5000 && syringe.Container.Amount > 0) {
+            EnableCondition(Conditions.BigSyringeAttachedFirst);
         }
     }
     #endregion

@@ -50,9 +50,12 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+            if (laminarCabinet == null) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MessageType.Mistake);
+            } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MessageType.Mistake);
             } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
                 ToSyringe(s);
             } 

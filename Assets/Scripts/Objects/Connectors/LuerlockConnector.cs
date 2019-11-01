@@ -132,6 +132,7 @@ public class LuerlockConnector : ItemConnector {
             Logger.Print("Connecting item");
             ConnectItem(intObject.GetComponent<Interactable>());
             Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
+            Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
         } else {
             Logger.Print("Not connected");
             Logger.PrintVariables("old obj", attached.GameObject);
