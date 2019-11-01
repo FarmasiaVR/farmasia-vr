@@ -10,7 +10,7 @@ public class Hand : MonoBehaviour {
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
 
-    private static float extendedGrabTime = 3f;
+    private static float extendedGrabTime = 1.5f;
     private static float extendedGrabAngle = 30f;
 
     public SteamVR_Input_Sources HandType { get; private set; }
@@ -169,6 +169,10 @@ public class Hand : MonoBehaviour {
                 }
 
                 if (time <= 0) {
+                    Interactable i = original;
+                    if (i.Type == InteractableType.Grabbable) {
+                        original.transform.position = transform.position;
+                    }
                     InteractWith(original);
                     yield break;
                 }
