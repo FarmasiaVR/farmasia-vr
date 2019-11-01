@@ -1,6 +1,7 @@
 # Pharmacy VR Game - Will you manage to prepare eye medicine correctly?
 
 (Software engineering project, University of Helsinki 2019)
+[Video](https://youtu.be/pIKCZFZo2UA)
 
 ## Description
 
