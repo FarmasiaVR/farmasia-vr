@@ -35,6 +35,7 @@ public class ContainerItem {
 
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
+            syringe.hasBeenInBottle = true;
             Events.FireEvent(EventType.SyringeToMedicineBottle, CallbackData.Object(syringe));
         }
 

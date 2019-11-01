@@ -19,6 +19,8 @@ public class Syringe : GeneralItem {
 
     public LiquidContainer BottleContainer { get; set; }
 
+    public bool hasBeenInBottle;
+
     // private Pipeline pipeline = new Pipeline();
 
     #endregion
@@ -34,6 +36,8 @@ public class Syringe : GeneralItem {
 
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
+
+        hasBeenInBottle = false;
     }
 
     public override void Interact(Hand hand) {

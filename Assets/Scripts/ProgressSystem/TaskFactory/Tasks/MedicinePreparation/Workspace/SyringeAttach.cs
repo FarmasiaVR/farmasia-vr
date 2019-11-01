@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
     #region Fields
-    public enum Conditions { SmallSyringesAttached }
+    //public enum Conditions { SmallSyringesAttached }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    private int syringes;
-    private int smallSyringes;
+    //private int syringes;
+    //private int smallSyringes;
     private CabinetBase laminarCabinet;
-    private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen toinen ruisku.";
-    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen myös 1.0ml ruisku.";
+    private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
+    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1.0ml ruisku.";
     #endregion
 
     #region Constructor
@@ -20,9 +20,9 @@ public class SyringeAttach : TaskBase {
     ///  </summary>
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        syringes = 0;
-        smallSyringes = 0;
+        //AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+        //syringes = 0;
+        //smallSyringes = 0;
         points = 6;
     }
     #endregion
@@ -49,8 +49,10 @@ public class SyringeAttach : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-        attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
-
+        if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
+            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+        }
+        
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
@@ -72,11 +74,13 @@ public class SyringeAttach : TaskBase {
                 if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
                     UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                    attachedSyringes.Remove(s.GetInstanceID());
                 } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                     AttachSyringe(s);
                 }
+            } else {
+                attachedSyringes.Remove(s.GetInstanceID());
             }  
-            attachedSyringes.Remove(s.GetInstanceID());
         }
     }
 
@@ -87,11 +91,12 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachSyringe(Syringe syringe) {
-        syringes++;
-        if (syringe.Container.Capacity == 1000) {
+        if (attachedSyringes.Count == 6) {
+            FinishTask();
+        }
+        /*if (syringe.Container.Capacity == 1000) {
             smallSyringes++;
         }
-
         if (smallSyringes == 6) {
             EnableCondition(Conditions.SmallSyringesAttached);
         }
@@ -102,7 +107,7 @@ public class SyringeAttach : TaskBase {
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, syringes - smallSyringes);
                 base.FinishTask();
             }
-        }
+        }*/
     }
     #endregion
 
@@ -111,7 +116,7 @@ public class SyringeAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
+        //UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
         base.FinishTask();
     }
     
