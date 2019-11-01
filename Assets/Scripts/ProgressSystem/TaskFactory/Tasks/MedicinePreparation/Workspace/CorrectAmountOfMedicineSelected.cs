@@ -9,7 +9,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     public enum Conditions { RightAmountOfMedicine }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    private int syringes;
+    private int smallSyringes;
     private int rightAmountInSyringes;
     private CabinetBase laminarCabinet;
     private string description = "Vedä ruiskuun lääkettä.";
@@ -24,7 +24,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        syringes = 0;
+        smallSyringes = 0;
         rightAmountInSyringes = 0;
         points = 6;
     }
@@ -88,22 +88,28 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             return;
         }
-        syringes++;
-        if (syringe.Container.Amount == 150) {
-            rightAmountInSyringes++;
-        }
+        CheckSyringe(syringe);
         if (rightAmountInSyringes == 6) {
             EnableCondition(Conditions.RightAmountOfMedicine);
         }
 
-        if (syringes == 6) {
+        if (smallSyringes == 6) {
             bool check = CheckClearConditions(true);
             if (!check) {
                 UISystem.Instance.CreatePopup(rightAmountInSyringes, "Lääkettä otettiin väärä määrä.", MessageType.Mistake);
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, syringes - rightAmountInSyringes);
+                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, smallSyringes - rightAmountInSyringes);
                 base.FinishTask();
             }
         }
+    }
+
+    private void CheckSyringe(Syringe syringe) {
+        if (syringe.Container.Capacity == 1000) {
+            smallSyringes++;
+        }
+        if (syringe.Container.Amount == 150) {
+            rightAmountInSyringes++;
+        }  
     }
     #endregion
 

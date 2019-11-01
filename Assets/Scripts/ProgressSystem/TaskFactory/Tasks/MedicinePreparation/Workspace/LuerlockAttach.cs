@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public class LuerlockAttach : TaskBase {
     #region Fields
-    public enum Conditions { BigSyringeAttachedFirst }
+    public enum Conditions { SyringeWithMedicineAttached }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     private CabinetBase laminarCabinet;
-    private string description = "Kiinnitä luerlock-to-luerlock-välikappale.";
+    private string description = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
     private string hint = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
+    private int checkTimes;
     #endregion
 
     #region Constructor
@@ -19,6 +20,7 @@ public class LuerlockAttach : TaskBase {
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
+        checkTimes = 0;
     }
     #endregion
 
@@ -71,18 +73,22 @@ public class LuerlockAttach : TaskBase {
             BigSyringeCheck(item);
         }
 
+        checkTimes++;
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin suureen ruiskuun.", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
-            base.FinishTask();
+            if (checkTimes == 1) {
+                UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MessageType.Mistake);
+                G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
+            } else {
+                UISystem.Instance.CreatePopup("Kiinnitä ensin lääkkeellinen ruisku", MessageType.Mistake);
+            }  
         }
     }
 
     private void BigSyringeCheck(GeneralItem item) {
         Syringe syringe = item.GetComponent<Syringe>();
-        if (syringe.Container.Capacity == 5000 && syringe.Container.Amount > 0) {
-            EnableCondition(Conditions.BigSyringeAttachedFirst);
+        if (syringe.Container.Amount > 0) {
+            EnableCondition(Conditions.SyringeWithMedicineAttached);
         }
     }
     #endregion
@@ -92,7 +98,9 @@ public class LuerlockAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MessageType.Notify);
+        if (checkTimes == 1) {
+            UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MessageType.Notify);    
+        }
         base.FinishTask();
     }
     

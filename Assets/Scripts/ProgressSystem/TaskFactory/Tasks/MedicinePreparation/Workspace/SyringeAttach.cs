@@ -46,18 +46,18 @@ public class SyringeAttach : TaskBase {
     }
 
     private void AddSyringe(CallbackData data) {
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            return;
-        }
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-        
-        if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+        attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            return;
+        } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+            attachedSyringes.Remove(s.GetInstanceID());
         } else {
-            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
             base.package.MoveTaskToManager(this);
         }
     }
@@ -68,12 +68,14 @@ public class SyringeAttach : TaskBase {
         Syringe s = item.GetComponent<Syringe>();
 
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-            if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-                UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
-            } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
-                AttachSyringe(s);
-            } 
+            if (CheckPreviousTaskCompletion(requiredTasks)) {
+                if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+                    UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                    AttachSyringe(s);
+                }
+            }  
             attachedSyringes.Remove(s.GetInstanceID());
         }
     }

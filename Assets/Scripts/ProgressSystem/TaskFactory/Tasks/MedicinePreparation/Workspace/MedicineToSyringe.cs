@@ -5,7 +5,7 @@ public class MedicineToSyringe : TaskBase {
     #region Fields
 
     private Dictionary<int, int> syringes = new Dictionary<int, int>();
-    public enum Conditions { RightAmountInSyringe }
+    public enum Conditions { RightSize, RightAmountInSyringe }
     private CabinetBase laminarCabinet;
     private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
     private string hint = "Valitse oikeankokoinen ruisku (5ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
@@ -19,7 +19,7 @@ public class MedicineToSyringe : TaskBase {
     public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 1;
+        points = 2;
     }
     #endregion
 
@@ -69,15 +69,27 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(Syringe syringe) {
-        if (syringe.Container.Amount == 900 && syringe.Container.Capacity == 5000) {
-            EnableCondition(Conditions.RightAmountInSyringe);
+        if (syringe.Container.Amount == 900) {
+            EnableCondition(Conditions.RightAmountInSyringe); 
+        }
+        if (syringe.Container.Capacity == 5000) {
+            EnableCondition(Conditions.RightSize);
         }
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko tai määrä lääkettä.", MessageType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.MedicineToSyringe);
+            ReceivedPoints();
             base.FinishTask();
+        }
+    }
+
+    private void ReceivedPoints() {
+        if (base.GetNonClearedConditions().Count == 2) {
+            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MessageType.Mistake);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2); 
+        } else {
+            UISystem.Instance.CreatePopup(1, "Väärä ruiskun koko tai määrä lääkettä.", MessageType.Mistake);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 1);
         }
     }
     #endregion
@@ -87,7 +99,7 @@ public class MedicineToSyringe : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Lääkkeen ottaminen onnistui.", MessageType.Notify);
+        UISystem.Instance.CreatePopup(2, "Lääkkeen ottaminen onnistui.", MessageType.Notify);
         base.FinishTask();
     }
 
