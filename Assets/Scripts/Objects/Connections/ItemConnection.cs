@@ -23,6 +23,7 @@ public abstract class ItemConnection : MonoBehaviour {
         return RotationConnection.Configuration(connector, target, addTo);
     }
     public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, GameObject addTo) {
+        Logger.PrintVariables("Target", target, "AddTo", addTo);
         return ChildConnection.Configuration(connector, target, addTo);
     }
 
@@ -32,13 +33,13 @@ public abstract class ItemConnection : MonoBehaviour {
     /// <param name="g"></param>
     public static void RemoveConnection(GameObject g) {
 
-        ItemConnection c = g.GetComponent<ItemConnection>();
+        ItemConnection conn = g.GetComponent<ItemConnection>();
 
-        if (c != null) {
+        if (conn != null) {
 
             Logger.PrintVariables("Removing connection", g);
 
-            MonoBehaviour.Destroy(c);
+            MonoBehaviour.Destroy(conn);
         }
     }
     #endregion

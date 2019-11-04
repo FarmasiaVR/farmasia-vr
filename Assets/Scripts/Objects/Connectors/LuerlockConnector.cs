@@ -95,7 +95,10 @@ public class LuerlockConnector : ItemConnector {
 
         // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
         // Joint.connectedBody = attached.Rigidbody;
-        connection = ItemConnection.AddChildConnection(this, Collider.transform, attached.GameObject);
+        if (attached.GameObject == null) {
+            Logger.Error("Attached gameobject null");
+        }
+        connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject) {
