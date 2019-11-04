@@ -51,25 +51,29 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-
-        attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+        if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
+            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+        }
     }
 
     private void RemoveSyringe(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
-
+ 
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-            if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
-                if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-                    UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
-                } else {
-                    Medicine(s);
+            if (CheckPreviousTaskCompletion(requiredTasks)) {
+                if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                    if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                        G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+                        UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                    } else {
+                        Medicine(s);
+                    }
                 }
+            } else {
+                attachedSyringes.Remove(s.GetInstanceID());
             }
-            attachedSyringes.Remove(s.GetInstanceID());
 
             foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
                 if (task.GetTaskType() == TaskType.SyringeAttach) {
@@ -85,10 +89,10 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void Medicine(Syringe syringe) {
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            return;
+        if (attachedSyringes.Count == 6) {
+            FinishTask();
         }
-        CheckSyringe(syringe);
+        /*CheckSyringe(syringe);
         if (rightAmountInSyringes == 6) {
             EnableCondition(Conditions.RightAmountOfMedicine);
         }
@@ -100,7 +104,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, smallSyringes - rightAmountInSyringes);
                 base.FinishTask();
             }
-        }
+        }*/
     }
 
     private void CheckSyringe(Syringe syringe) {
@@ -118,7 +122,18 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(6, "Lääkettä otettiin tarvittava määrä.", MessageType.Notify);
+        int rightAmount = 0;
+        foreach (var i in attachedSyringes.Values) {
+            if (i == 150) {
+                rightAmount++;
+            }
+        }
+        if (rightAmount == 6) {
+            UISystem.Instance.CreatePopup("Valittiin oikean määrä lääkettä.", MessageType.Notify);
+        } else {
+            UISystem.Instance.CreatePopup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MessageType.Notify);
+        }
+        //UISystem.Instance.CreatePopup(6, "Lääkettä otettiin tarvittava määrä.", MessageType.Notify);
         base.FinishTask();
     }
 

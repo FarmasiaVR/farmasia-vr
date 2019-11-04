@@ -46,13 +46,13 @@ public class SyringeAttach : TaskBase {
     }
 
     private void AddSyringe(CallbackData data) {
+        //virhetilanteet: pieni ruisku yhdistetty ennen lääkkeellisen ruiskun laittamista
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
         if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
             attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
         }
-        
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
@@ -116,6 +116,22 @@ public class SyringeAttach : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
+        int rightSize = 0;
+        foreach (GameObject value in laminarCabinet.objectsInsideArea) {
+            GeneralItem item = value.GetComponent<GeneralItem>();
+            ObjectType type = item.ObjectType;
+            if (type == ObjectType.Syringe) {
+                Syringe s = item.GetComponent<Syringe>();
+                if (s.Container.Capacity == 1000 && attachedSyringes.ContainsKey(s.GetInstanceID())) {
+                    rightSize++;
+                }
+            }   
+        }
+        if (rightSize == 6) {
+            UISystem.Instance.CreatePopup("Valitut ruiskut olivat oikean kokoisia.", MessageType.Notify);
+        } else {
+            UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MessageType.Notify);
+        }
         //UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
         base.FinishTask();
     }
