@@ -62,13 +62,13 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     private void OnJointBreak(float breakForce) {
-        foreach (var pair in connectors) {
-            Joint joint = pair.Value.Joint;
-            if (joint?.currentForce.magnitude == breakForce) {
-                GetConnector(pair.Key).ReleaseItem();
-                break;
-            }
-        }
+        //foreach (var pair in connectors) {
+        //    Joint joint = pair.Value.Joint;
+        //    if (joint?.currentForce.magnitude == breakForce) {
+        //        GetConnector(pair.Key).ReleaseItem();
+        //        break;
+        //    }
+        //}
     }
 
     private void Update() {

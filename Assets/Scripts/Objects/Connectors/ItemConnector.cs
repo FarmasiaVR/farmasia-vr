@@ -10,5 +10,5 @@ public abstract class ItemConnector {
 
     public abstract void ConnectItem(Interactable interactable);
 
-    public abstract void ReleaseItem();
+    public abstract void OnReleaseItem();
 }

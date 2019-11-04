@@ -10,26 +10,31 @@ public class ChildConnection : ItemConnection {
     private Interactable interactable;
 
     private void Awake() {
+        Logger.Print("Child connection awake");
+        interactable = GetComponent<Interactable>();
         interactable.RigidbodyContainer.Disable();
         SafeSetParent(target, transform);
     }
 
     public static ChildConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
 
+        Logger.Print("Child connection config");
+
         ChildConnection conn = addTo.AddComponent<ChildConnection>();
 
         conn.Connector = connector;
         conn.target = target;
-        conn.interactable = addTo.GetComponent<Interactable>();
 
         return conn;
     }
 
-    private void OnDestroy() {
+    protected override void OnDestroy() {
         interactable.RigidbodyContainer.EnableAndDeparent();
+        Connector.OnReleaseItem();
     }
 
     public static void SafeSetParent(Transform parent, Transform child) {
-        child.parent = child;
+        Logger.PrintVariables("set", "variables", "parent", parent.name, "child", child.name);
+        child.SetParent(parent);
     }
 }

@@ -68,7 +68,8 @@ public class Interactable : MonoBehaviour {
         }
         // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
         if (Interactors.LuerlockPair.Value != null) {
-            Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).ReleaseItem();
+            GameObject removeFrom = Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).AttachedInteractable.gameObject;
+            ItemConnection.RemoveConnection(removeFrom);
         }
         
         IEnumerator DestroySequence() {

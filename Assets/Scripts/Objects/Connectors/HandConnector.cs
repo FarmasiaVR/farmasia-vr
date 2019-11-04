@@ -30,7 +30,7 @@ public class HandConnector : ItemConnector {
         // release item from other hand
         bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
-            Hand.GrabbingHand(interactable.Rigidbody).Connector.ReleaseItem();
+            ItemConnection.RemoveConnection(Hand.GrabbingHand(interactable.Rigidbody).Connector.GrabbedInteractable.gameObject);
         }
 
         GrabbedInteractable = interactable;
@@ -71,7 +71,7 @@ public class HandConnector : ItemConnector {
     #endregion
 
     #region Releasing
-    public override void ReleaseItem() {
+    public override void OnReleaseItem() {
         if (!IsGrabbed) {
             Logger.Error("ReleaseItem(): Invalid state (is not grabbíng)");
             return;
@@ -82,7 +82,6 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        DeattachGrabbedObject();
         ItemPlacement.ReleaseSafely(grabbedRigidbody.gameObject);
 
         grabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
@@ -91,10 +90,6 @@ public class HandConnector : ItemConnector {
 
         GrabbedInteractable.State.Off(InteractState.Grabbed);
         GrabbedInteractable = null;
-    }
-
-    private void DeattachGrabbedObject() {
-        MonoBehaviour.Destroy(connection);
     }
     #endregion
 }

@@ -44,7 +44,8 @@ public class HintBox : DragAcceptable {
         }
     }
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
     }

@@ -46,12 +46,13 @@ public class LuerlockConnector : ItemConnector {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
     }
 
+    
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
         Logger.Print("Connect item: " + interactable.name);
 
         if (Luerlock.State == InteractState.Grabbed) {
-            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem();
+            ItemConnection.RemoveConnection(Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.gameObject);
         }
 
         ReplaceObject(interactable?.gameObject);
@@ -108,10 +109,10 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     #region Releasing
-    public override void ReleaseItem() {
+    public override void OnReleaseItem() {
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
-        MonoBehaviour.Destroy(connection);
+        // MonoBehaviour.Destroy(connection);
         attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
         attached.Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(null);
@@ -179,7 +180,7 @@ public class LuerlockConnector : ItemConnector {
         float distance = Vector3.Distance(luerlockPosition, colliderPosition);
 
         if (distance > breakDistance) {
-            ReleaseItem();
+            ItemConnection.RemoveConnection(attached.GameObject);
             //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }
