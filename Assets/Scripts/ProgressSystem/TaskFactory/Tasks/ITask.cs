@@ -11,4 +11,5 @@ public interface ITask {
     void Subscribe();
     void SubscribeEvent(Events.EventDataCallback action, EventType Event);
     void UnsubscribeAllEvents();
+    void RemoveFromPackage();
 }

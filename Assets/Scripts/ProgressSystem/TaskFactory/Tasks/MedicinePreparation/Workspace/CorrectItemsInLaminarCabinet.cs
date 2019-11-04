@@ -6,11 +6,11 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightSizeBottle }
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
-    private string description = "Vie valitsemasi työvälineet laminaarikaappiin ja paina kaapin ilmanvaihto päälle.";
+    private string description = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -33,7 +33,6 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        Logger.Print("Subscribe laminar cabinet");
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
@@ -50,16 +49,13 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
     private void CorrectItems(CallbackData data) {
-
-        Logger.Print("Correct items");
-
         if (laminarCabinet == null) {
-            Logger.Print("Laminar cabinet was null");
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MessageType.Notify);
             return;
         }
         List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
-            Logger.Print("Object count was 0");
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MessageType.Notify);
             return;
         }
         checkTimes++;
@@ -102,10 +98,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                     EnableCondition(Conditions.Luerlock);
                     break;
                 case ObjectType.Bottle:
-                    MedicineBottle bottle = item as MedicineBottle;
-                    if (bottle.Container.Capacity == 80000) {
-                        EnableCondition(Conditions.RightSizeBottle);
-                    }
+                    EnableCondition(Conditions.MedicineBottle);
                     break;
             }
         }   
@@ -118,8 +111,6 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         } else {
             UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MessageType.Mistake);
         }
-        //description = laminarCabinet.GetMissingItems();
-        //G.Instance.Progress.UpdateDescription();
         SetItemsToZero();
         DisableConditions();
     }
@@ -155,7 +146,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         string missingItemsHint = laminarCabinet.GetMissingItems();
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Ilmanvaihto laitetaan päälle laminaarikaapin nappia painamalla. " + missingItemsHint; 
+        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint; 
     }
     #endregion
 }

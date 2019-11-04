@@ -6,9 +6,10 @@ public class MedicineToSyringe : TaskBase {
 
     private Dictionary<int, int> syringes = new Dictionary<int, int>();
     public enum Conditions { RightSize, RightAmountInSyringe }
+    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectItemsInLaminarCabinet};
     private CabinetBase laminarCabinet;
     private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
-    private string hint = "Valitse oikeankokoinen ruisku (5ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+    private string hint = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
     #endregion
 
     #region Constructor
@@ -45,6 +46,9 @@ public class MedicineToSyringe : TaskBase {
     private void AddSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         syringes.Add(s.GetInstanceID(), s.Container.Amount);
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MessageType.Notify);
+        }
     }
 
     private void RemoveSyringe(CallbackData data) {
@@ -57,6 +61,18 @@ public class MedicineToSyringe : TaskBase {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                 UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MessageType.Mistake);
             } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
+                if (!CheckPreviousTaskCompletion(requiredTasks)) {
+                    foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
+                        if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
+                            task.UnsubscribeAllEvents();
+                            task.RemoveFromPackage();
+                            break;
+                        }
+                    }
+                    
+                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MessageType.Mistake);
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
+                }
                 ToSyringe(s);
             } 
             syringes.Remove(s.GetInstanceID());

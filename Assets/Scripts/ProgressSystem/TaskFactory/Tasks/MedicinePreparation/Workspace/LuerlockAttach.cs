@@ -64,6 +64,16 @@ public class LuerlockAttach : TaskBase {
         }
         
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
+                if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
+                    task.UnsubscribeAllEvents();
+                    task.RemoveFromPackage();
+                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MessageType.Mistake);
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
+                    break;
+                }
+            }
+                         
             UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MessageType.Notify);
             return;
         }

@@ -18,11 +18,11 @@ public class CabinetBase : MonoBehaviour {
     void Start() {
         objectsInsideArea = new List<GameObject>();
         missingObjects = new Dictionary<String, int>();
-        /* DEMO missingObjects.Add("Needles", 7);*/
-        missingObjects.Add("Big syringe", 1);
-        missingObjects.Add("Small syringes", 6);
-        missingObjects.Add("Luerlock", 1);
-        missingObjects.Add("Bottle", 1);
+        missingObjects.Add("neula", 1);
+        missingObjects.Add("20ml ruisku", 1);
+        missingObjects.Add("1ml ruiskut", 6);
+        missingObjects.Add("luerlock", 1);
+        missingObjects.Add("lääkepullo", 1);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
@@ -44,29 +44,7 @@ public class CabinetBase : MonoBehaviour {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
             String itemType = Enum.GetName(type.GetType(), type);
-
-            if (itemType == "Syringe") {
-                Syringe syringe = item as Syringe;
-                if (syringe.Container.Capacity == 5000) {
-                    itemType = "Big syringe";
-                } else if (syringe.Container.Capacity == 1000) {
-                    itemType = "Small syringes";
-                }
-            }
-            /* DEMO if (itemType == "Needle") {
-                itemType = "Needles";
-            }*/
-
-            else if (itemType == "Bottle") {
-                MedicineBottle bottle = item as MedicineBottle;
-                if (bottle.Container.Capacity != 80000) {
-                    return;
-                }
-            }
-
-            if (missingObjects.ContainsKey(itemType) && missingObjects[itemType] > 0) {
-                missingObjects[itemType]--;
-            }
+            CheckItemType(itemType, item);
         }
     }
 
@@ -80,54 +58,55 @@ public class CabinetBase : MonoBehaviour {
         objectsInsideArea.Remove(foundObject);
         ObjectType type = item.ObjectType;
         String itemType = Enum.GetName(type.GetType(), type);
-
-        if (itemType == "Syringe") {
-            Syringe syringe = item as Syringe;
-            if (syringe.Container.Capacity == 5000) {
-                itemType = "Big syringe";
-            } else if (syringe.Container.Capacity == 1000) {
-                itemType = "Small syringes";
-            }
-        } else if (itemType == "Bottle") {
-            MedicineBottle bottle = item as MedicineBottle;
-            if (bottle.Container.Capacity != 80000) {
-                return;
-            }
-        }
-
-        /* DEMO if (itemType == "Needle") {
-            itemType = "Needles";
-        }*/
+        CheckItemType(itemType, item);
 
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
-                /* DEMO case "Needles":
-                    if (missingObjects[itemType] < 7) {
-                        missingObjects[itemType]++;
-                    }
-                    break;*/
-                case "Big syringe":
+                case "neula":
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Small syringes":
+                case "20ml ruisku":
+                    if (missingObjects[itemType] == 0) {
+                        missingObjects[itemType]++;
+                    }
+                    break;
+                case "1ml ruiskut":
                     if (missingObjects[itemType] < 6) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Luerlock":
+                case "luerlock":
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Bottle":
+                case "lääkepullo":
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
             }
         }
+    }
+
+    private String CheckItemType(String itemType, GeneralItem item) {
+        if (itemType == "Syringe") {
+            Syringe syringe = item as Syringe;
+            if (syringe.Container.Capacity == 20000) {
+                itemType = "20ml ruisku";
+            } else if (syringe.Container.Capacity == 1000) {
+                itemType = "1ml ruiskut";
+            }
+        } else if (itemType == "Bottle") {
+            itemType = "lääkepullo";
+        } else if (itemType == "Needle") {
+            itemType = "neula";
+        } else if (itemType == "Luerlock") {
+            itemType = "luerlock";
+        }
+        return itemType;
     }
 
     /// <summary>
@@ -141,7 +120,7 @@ public class CabinetBase : MonoBehaviour {
         String missing = "Puuttuvat välineet:";
         foreach (KeyValuePair<String, int> value in missingObjects) {
             if (value.Value > 0) {
-                missing = missing + " " + value.Key + " " + value.Value + ",";
+                missing = missing + " " + value.Key + " " + value.Value + " kpl,";
             }
         }
         return missing;

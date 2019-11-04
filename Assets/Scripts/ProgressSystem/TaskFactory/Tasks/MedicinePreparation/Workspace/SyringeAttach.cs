@@ -10,7 +10,7 @@ public class SyringeAttach : TaskBase {
     //private int smallSyringes;
     private CabinetBase laminarCabinet;
     private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
-    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1.0ml ruisku.";
+    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
     #endregion
 
     #region Constructor

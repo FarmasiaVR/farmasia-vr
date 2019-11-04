@@ -38,7 +38,7 @@ public class TaskBase : ITask {
     /// <summary>
     /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
     /// </summary>
-    private void RemoveFromPackage() {
+    public virtual void RemoveFromPackage() {
         if (package != null) {
             if (removeWhenFinished) {
                 package.RemoveTask((ITask)this);
