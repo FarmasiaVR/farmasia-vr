@@ -18,6 +18,7 @@ public class MeshHider : MonoBehaviour {
             GetComponent<Renderer>().enabled = false;
         } else {
             Destroy(GetComponent<Renderer>());
+            Destroy(GetComponent<MeshFilter>());
         }
 
         Destroy(this);

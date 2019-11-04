@@ -10,11 +10,25 @@ public class Interactable : MonoBehaviour {
 
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
-    private Rigidbody rb;
+    public RigidbodyContainer RB { get; private set; }
+    public Rigidbody Rigidbody {
+        get {
+            if (RB.Enabled) {
+                return RB.Rigidbody;
+            } else {
+                Logger.Print("Accessing rigidbody while disabled");
+                return null;
+            }
+        }
+    }
 
     // CAN'T BE A PROPERTY
     public Interactors Interactors;
     #endregion
+
+    protected virtual void Awake() {
+        RB = new RigidbodyContainer(this);
+    }
 
     protected virtual void Start() {
         gameObject.AddComponent<ObjectHighlight>();
@@ -45,17 +59,6 @@ public class Interactable : MonoBehaviour {
             t = t.parent;
         }
         return null;
-    }
-
-    public Rigidbody Rigidbody {
-        get {
-
-            if (rb == null) {
-                rb = GetComponent<Rigidbody>();
-            }
-
-            return rb;
-        }
     }
 
     public void DestroyInteractable() {
