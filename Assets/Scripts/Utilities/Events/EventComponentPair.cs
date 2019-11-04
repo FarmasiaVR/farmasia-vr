@@ -4,19 +4,12 @@ using UnityEngine;
 public struct CallbackComponentPair {
 
     #region fields
-    public Events.EventEmptyCallback CallbackNoData;
     public Events.EventDataCallback CallbackWithData;
     public Component Component;
     #endregion
 
     public CallbackComponentPair(Events.EventDataCallback callback, Component component) {
-        CallbackNoData = null;
         CallbackWithData = callback;
-        Component = component;
-    }
-    public CallbackComponentPair(Events.EventEmptyCallback callback, Component component) {
-        CallbackNoData = callback;
-        CallbackWithData = null;
         Component = component;
     }
 
@@ -27,7 +20,7 @@ public struct CallbackComponentPair {
 
         CallbackComponentPair other = (CallbackComponentPair)obj;
 
-        bool type = CallbackWithData == other.CallbackWithData && CallbackNoData == other.CallbackNoData;
+        bool type = CallbackWithData == other.CallbackWithData;
         bool comp = Component.Equals(other.Component);
 
         return type && comp;

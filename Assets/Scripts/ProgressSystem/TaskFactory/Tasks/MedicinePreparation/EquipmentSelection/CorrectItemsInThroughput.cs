@@ -6,8 +6,8 @@ using System.Collections.Generic;
 /// </summary>
 public class CorrectItemsInThroughput : TaskBase {
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, /*Needles, */Luerlock, RightSizeBottle }
-    private int smallSyringes, needles;
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightSizeBottle }
+    private int smallSyringes;
     private int objectCount;
     private int checkTimes;
     private string description = "Laita valitsemasi työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
@@ -84,7 +84,6 @@ public class CorrectItemsInThroughput : TaskBase {
     #region Private Methods
     private void SetItemsToZero() {
         smallSyringes = 0;
-        needles = 0;
     }
 
     private void CheckConditions(List<GameObject> containedObjects) {
@@ -103,12 +102,9 @@ public class CorrectItemsInThroughput : TaskBase {
                         }
                     }
                     break;
-                /*case ObjectType.Needle:
-                    needles++;
-                    if (needles == 7) {
-                        EnableCondition("Needles"); 
-                    }
-                    break;*/
+                case ObjectType.Needle:
+                    EnableCondition(Conditions.Needle); 
+                    break;
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
                     break;
@@ -140,8 +136,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #region Public Methods
     public override void FinishTask() {
         if (checkTimes == 1) {
-            //count changed from 16 to 9 for DEMO
-            if (objectCount == 9) {
+            if (objectCount == 10) {
                 UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);

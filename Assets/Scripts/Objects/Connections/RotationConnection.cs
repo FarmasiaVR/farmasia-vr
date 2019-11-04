@@ -21,6 +21,7 @@ public class RotationConnection: ItemConnection {
     }
 
     protected override void Update() {
+        return;
         CheckBreakCondition();
         Rotate();
     }

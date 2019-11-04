@@ -6,8 +6,8 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, /*Needles, */Luerlock, RightSizeBottle }
-    private int smallSyringes, needles;
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightSizeBottle }
+    private int smallSyringes;
     private int objectCount;
     private int checkTimes;
     private string description = "Vie valitsemasi työvälineet laminaarikaappiin ja paina kaapin ilmanvaihto päälle.";
@@ -33,6 +33,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
+        Logger.Print("Subscribe laminar cabinet");
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
@@ -49,11 +50,16 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
     private void CorrectItems(CallbackData data) {
+
+        Logger.Print("Correct items");
+
         if (laminarCabinet == null) {
+            Logger.Print("Laminar cabinet was null");
             return;
         }
         List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
+            Logger.Print("Object count was 0");
             return;
         }
         checkTimes++;
@@ -71,7 +77,6 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Private Methods
     private void SetItemsToZero() {
         smallSyringes = 0;
-        needles = 0;
     }
 
     private void CheckConditions(List<GameObject> objects) {
@@ -90,12 +95,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                         }
                     }
                     break;
-                /*case ObjectType.Needle:
-                    needles++;
-                    if (needles == 7) {
-                        EnableCondition(Conditions.Needles); 
-                    }
-                    break;*/
+                case ObjectType.Needle:
+                    EnableCondition(Conditions.Needle); 
+                    break;
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
                     break;
@@ -129,8 +131,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
-            // count changed from 16 to 9, needles missing
-            if (objectCount == 9) {
+            if (objectCount == 10) {
                 UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);
