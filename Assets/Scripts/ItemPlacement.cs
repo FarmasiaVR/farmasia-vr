@@ -13,7 +13,7 @@ public class ItemPlacement : MonoBehaviour {
     private static float slowFactor = 0.7f;
 
     private void Awake() {
-        rb = gameObject.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
         if (rb == null) {
             throw new System.Exception("no rigidbody");

@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class EnableFactory : MonoBehaviour {
     private void Start() {
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().isKinematic = true;
         gameObject.SetActive(false);
 
         GameObject factory = Instantiate(Resources.Load<GameObject>("Prefabs/Factory"));

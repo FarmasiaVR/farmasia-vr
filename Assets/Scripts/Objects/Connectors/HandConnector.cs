@@ -22,7 +22,7 @@ public class HandConnector : ItemConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
-        if (interactable.GetComponent<Rigidbody>() == null) {
+        if (interactable.Rigidbody == null) {
             Logger.Error("Interactable has no rigidbody");
             return;
         }
@@ -36,7 +36,7 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable = interactable;
         GrabbedInteractable.State.On(InteractState.Grabbed);
         GrabbedInteractable.Interactors.SetHand(Hand);
-        grabbedRigidbody = GrabbedInteractable.GetComponent<Rigidbody>();
+        grabbedRigidbody = GrabbedInteractable.Rigidbody;
 
         InitializeOffset(grabbedRigidbody.transform);
         AttachGrabbedObject(GrabbedInteractable);
