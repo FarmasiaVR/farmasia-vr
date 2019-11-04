@@ -70,7 +70,7 @@ public class LuerlockAttach : TaskBase {
 
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
-            BigSyringeCheck(item);
+            MedicineSyringeCheck(item);
         }
 
         checkTimes++;
@@ -85,7 +85,7 @@ public class LuerlockAttach : TaskBase {
         }
     }
 
-    private void BigSyringeCheck(GeneralItem item) {
+    private void MedicineSyringeCheck(GeneralItem item) {
         Syringe syringe = item.GetComponent<Syringe>();
         if (syringe.Container.Amount > 0) {
             EnableCondition(Conditions.SyringeWithMedicineAttached);

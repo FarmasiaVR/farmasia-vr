@@ -81,7 +81,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             switch (type) {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 5000) {
+                    if (syringe.Container.Capacity == 20000) {
                         EnableCondition(Conditions.BigSyringe); 
                     } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;

@@ -72,7 +72,7 @@ public class MedicineToSyringe : TaskBase {
         if (syringe.Container.Amount == 900) {
             EnableCondition(Conditions.RightAmountInSyringe); 
         }
-        if (syringe.Container.Capacity == 5000) {
+        if (syringe.Container.Capacity == 20000) {
             EnableCondition(Conditions.RightSize);
         }
 
