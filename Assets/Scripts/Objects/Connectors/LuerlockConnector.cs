@@ -54,6 +54,9 @@ public class LuerlockConnector : ItemConnector {
         if (Luerlock.State == InteractState.Grabbed) {
             ItemConnection.RemoveConnection(Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.gameObject);
         }
+        if (interactable.State == InteractState.Grabbed) {
+            ItemConnection.RemoveConnection(interactable.gameObject);
+        }
 
         ReplaceObject(interactable?.gameObject);
     }

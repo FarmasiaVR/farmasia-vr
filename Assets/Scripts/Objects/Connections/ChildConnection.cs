@@ -34,7 +34,7 @@ public class ChildConnection : ItemConnection {
     }
 
     public static void SafeSetParent(Transform parent, Transform child) {
-        Logger.PrintVariables("set", "variables", "parent", parent.name, "child", child.name);
+        Logger.PrintVariables("set", "variables", "parent", parent, "child", child);
         child.SetParent(parent);
     }
 }

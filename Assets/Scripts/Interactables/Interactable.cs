@@ -32,8 +32,6 @@ public class Interactable : MonoBehaviour {
 
     protected virtual void Start() {
         gameObject.AddComponent<ObjectHighlight>();
-        gameObject.AddComponent<ItemPlacement>();
-
         gameObject.tag = iTag;
     }
 

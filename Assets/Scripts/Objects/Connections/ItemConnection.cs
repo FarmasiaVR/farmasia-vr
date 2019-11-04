@@ -35,6 +35,9 @@ public abstract class ItemConnection : MonoBehaviour {
         ItemConnection c = g.GetComponent<ItemConnection>();
 
         if (c != null) {
+
+            Logger.PrintVariables("Removing connection", g);
+
             MonoBehaviour.Destroy(c);
         }
     }

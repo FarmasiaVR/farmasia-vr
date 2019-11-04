@@ -82,8 +82,6 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        ItemPlacement.ReleaseSafely(grabbedRigidbody.gameObject);
-
         grabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
         grabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
         grabbedRigidbody = null;
