@@ -25,7 +25,7 @@ public class LuerlockConnector : ItemConnector {
     #region Fields
     public LuerlockAdapter Luerlock { get; private set; }
     public GameObject Collider { get; private set; }
-    public Joint Joint { get; private set; }
+    // public Joint Joint { get; private set; }
     public bool HasAttachedObject { get => attached.GameObject != null; }
     public Rigidbody AttachedRigidbody { get => attached.Rigidbody; }
     public Interactable AttachedInteractable { get => attached.Interactable; }
@@ -66,7 +66,7 @@ public class LuerlockConnector : ItemConnector {
         // Disconnect existing joint
         if (attached.GameObject != null) {
             CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, false);
-            MonoBehaviour.Destroy(Joint);
+            // MonoBehaviour.Destroy(Joint);
         }
 
         // Replace with nothing
@@ -89,9 +89,9 @@ public class LuerlockConnector : ItemConnector {
         // Attaching
         SetLuerlockPosition(Collider);
 
-        Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
-        Joint.connectedBody = attached.Rigidbody;
-        connection = ItemConnection.AddRotationConnection(this, Collider.transform, attached.GameObject);
+        // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
+        // Joint.connectedBody = attached.Rigidbody;
+        connection = ItemConnection.AddChildConnection(this, Collider.transform, attached.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject) {
@@ -110,7 +110,7 @@ public class LuerlockConnector : ItemConnector {
     #region Releasing
     public override void ReleaseItem() {
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
-        MonoBehaviour.Destroy(Joint);
+        // MonoBehaviour.Destroy(Joint);
         MonoBehaviour.Destroy(connection);
         attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
         attached.Interactable.State.Off(InteractState.LuerlockAttached);
@@ -119,6 +119,7 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     private void ObjectEnter(Collider collider) {
+
         GameObject intObject = Interactable.GetInteractableObject(collider.transform);
         if (intObject == null) {
             return;

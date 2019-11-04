@@ -4,17 +4,17 @@ using UnityEngine;
 public class Interactable : MonoBehaviour {
 
     #region fields
-    private static string iTag = "Interactable";
+    public static string iTag = "Interactable";
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
-    public RigidbodyContainer RB { get; private set; }
+    public RigidbodyContainer RigidbodyContainer { get; private set; }
     public Rigidbody Rigidbody {
         get {
-            if (RB.Enabled) {
-                return RB.Rigidbody;
+            if (RigidbodyContainer.Enabled) {
+                return RigidbodyContainer.Rigidbody;
             } else {
                 Logger.Print("Accessing rigidbody while disabled");
                 return null;
@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour {
     #endregion
 
     protected virtual void Awake() {
-        RB = new RigidbodyContainer(this);
+        RigidbodyContainer = new RigidbodyContainer(this);
     }
 
     protected virtual void Start() {

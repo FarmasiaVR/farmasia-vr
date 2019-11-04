@@ -6,7 +6,9 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected abstract ItemConnector Connector { get; set; }
 
-    protected abstract void Update();
+    protected virtual void Update() {
+
+    }
 
     #region Static methods
     public static ItemConnection AddSmoothConnection(ItemConnector connector, Transform target, GameObject addTo) {
@@ -17,6 +19,9 @@ public abstract class ItemConnection : MonoBehaviour {
     }
     public static ItemConnection AddRotationConnection(ItemConnector connector, Transform target, GameObject addTo) {
         return RotationConnection.Configuration(connector, target, addTo);
+    }
+    public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, GameObject addTo) {
+        return ChildConnection.Configuration(connector, target, addTo);
     }
     #endregion
 }
