@@ -31,6 +31,10 @@ public class RigidbodyContainer {
 
     public void EnableAndDeparent() {
 
+        if (Enabled) {
+            return;
+        }
+
         Interactable parentInteractable = Interactable.GetInteractable(interactable.transform.parent);
 
         if (parentInteractable != null) {
@@ -46,6 +50,8 @@ public class RigidbodyContainer {
             throw new System.Exception("Rigidbody was not null");
         }
 
+        Enabled = true;
+
         Rigidbody = interactable.gameObject.AddComponent<Rigidbody>();
         state.SetRigidbody(Rigidbody);
     }
@@ -54,6 +60,8 @@ public class RigidbodyContainer {
         if (Rigidbody == null) {
             throw new System.Exception("Rigidbody was null");
         }
+
+        Enabled = false;
 
         SaveState();
         MonoBehaviour.Destroy(Rigidbody);
