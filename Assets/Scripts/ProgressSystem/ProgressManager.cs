@@ -47,7 +47,10 @@ public class ProgressManager {
             TaskType.CorrectAmountOfMedicineSelected,
             TaskType.ItemsToSterileBag
         };
-        TaskType[] cleanUpTasks = { TaskType.ScenarioOneCleanUp };
+        TaskType[] cleanUpTasks = { 
+            TaskType.ScenarioOneCleanUp,
+            TaskType.Finish 
+        };
 
         Package equipmentSelection = CreatePackageWithList("Equipment Selection", new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList("Workspace", new List<TaskType>(workSpaceTasks));

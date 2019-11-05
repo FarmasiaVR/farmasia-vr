@@ -69,6 +69,18 @@ public class Finish : TaskBase {
             }
         }
     }
+
+    private void LayoutInThroughPut() {
+
+    }
+
+    private void LayoutInLaminarCabinet() {
+
+    }
+
+    private void BottlesDisinfected() {
+
+    }
     #endregion
 
     #region Public Methods
@@ -78,6 +90,9 @@ public class Finish : TaskBase {
     public override void FinishTask() {
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
+        LayoutInThroughPut();
+        LayoutInLaminarCabinet();
+        BottlesDisinfected();
         UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MessageType.Done);
         base.FinishTask();
     }
