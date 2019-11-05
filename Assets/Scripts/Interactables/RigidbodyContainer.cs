@@ -19,13 +19,7 @@ public class RigidbodyContainer {
 
     public RigidbodyContainer(Interactable interactable) {
         this.interactable = interactable;
-
         Rigidbody = interactable.GetComponent<Rigidbody>();
-
-        if (Rigidbody == null) {
-            throw new System.Exception("Interactable has no rigidbody");
-        }
-
         Enabled = true;
     }
 

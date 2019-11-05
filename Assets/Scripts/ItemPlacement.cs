@@ -16,7 +16,8 @@ public class ItemPlacement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 
         if (rb == null) {
-            throw new System.Exception("no rigidbody");
+            // Remove ItemPlacement when object doesn't have a rigidbody
+            Destroy(this);
         }
 
         // StartSlowDown();
