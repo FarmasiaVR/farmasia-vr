@@ -49,9 +49,7 @@ public class HintBox : DragAcceptable {
         transform.localScale = Vector3.zero;
     }
 
-    protected override void Start() {
-        base.Start();
-
+    protected override void Start_Impl() {
         Type.On(InteractableType.Interactable, InteractableType.Draggable);
 
         playerCamera = Player.Camera.transform;

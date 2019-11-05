@@ -17,8 +17,7 @@ public class DoorHandle : Interactable {
     private Transform handle;
     #endregion
 
-    protected override void Start() {
-        base.Start();
+    protected override void Start_Impl() {
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
         handle = transform.GetChild(1).transform;

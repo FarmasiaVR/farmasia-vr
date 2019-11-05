@@ -27,10 +27,10 @@ public abstract class DragAcceptable : Interactable {
     }
     #endregion
 
-    protected override void Start() {
-        base.Start();
+    protected override void Start_Impl() {
         Initialize();
     }
+
     public void Initialize() {
         mass = Rigidbody.mass;
         Type.On(InteractableType.Interactable, InteractableType.Draggable);

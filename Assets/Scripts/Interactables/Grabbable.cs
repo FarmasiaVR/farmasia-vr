@@ -4,8 +4,7 @@
         throw new System.NotImplementedException();
     }
 
-    protected override void Start() {
-        base.Start();
+    protected override void Start_Impl() {
         Type.On(InteractableType.Grabbable);
     }
 }

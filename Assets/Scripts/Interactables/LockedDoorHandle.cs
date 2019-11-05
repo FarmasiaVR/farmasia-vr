@@ -6,8 +6,7 @@ public class LockedDoorHandle : Interactable {
 
     #endregion
 
-    protected override void Start() {
-        base.Start();
+    protected override void Start_Impl() {
         door = transform.parent.GetComponent<LockedDoor>();
         Type.Set(InteractableType.Interactable);
     }
@@ -16,9 +15,6 @@ public class LockedDoorHandle : Interactable {
         if (State == InteractState.Grabbed) {
             door.CheckExitPermission();
         }
-    }
-
-    private void UpdatePosition() {
     }
 
     public override void Interact(Hand hand) {

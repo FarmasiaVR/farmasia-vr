@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour {
             if (RB.Enabled) {
                 return RB.Rigidbody;
             } else {
-                Logger.Print("Accessing rigidbody while disabled");
+                Logger.Warning("Accessing rigidbody while disabled");
                 return null;
             }
         }
@@ -26,26 +26,26 @@ public class Interactable : MonoBehaviour {
     public Interactors Interactors;
     #endregion
 
-    protected virtual void Awake() {
+    private void Awake() {
         RB = new RigidbodyContainer(this);
+        Awake_Impl();
     }
 
-    protected virtual void Start() {
+    private void Start() {
         gameObject.AddComponent<ObjectHighlight>();
         gameObject.AddComponent<ItemPlacement>();
-
         gameObject.tag = iTag;
+        Start_Impl();
     }
 
-    public virtual void Interact(Hand hand) {
-    }
-    public virtual void Interacting(Hand hand) {
-    }
-    public virtual void Uninteract(Hand hand) {
-    }
+    protected virtual void Awake_Impl() {}
+    protected virtual void Start_Impl() {}
+    
 
-    public virtual void UpdateInteract(Hand hand) {
-    }
+    public virtual void Interact(Hand hand) {}
+    public virtual void Interacting(Hand hand) {}
+    public virtual void Uninteract(Hand hand) {}
+    public virtual void UpdateInteract(Hand hand) {}
 
     public static Interactable GetInteractable(Transform t) {
         return GetInteractableObject(t)?.GetComponent<Interactable>();
