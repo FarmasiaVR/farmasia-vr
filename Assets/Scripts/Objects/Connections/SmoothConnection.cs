@@ -71,8 +71,9 @@ public class SmoothConnection : ItemConnection {
         return mass;
     }
 
-    private void OnDestroy() {
+    protected override void OnDestroy() {
         ReleaseRigidbodies();
+        Connector.OnReleaseItem();
     }
 
     public void ReleaseRigidbodies() {
@@ -100,7 +101,7 @@ public class SmoothConnection : ItemConnection {
     }
 
     private void BreakConnection() {
-        Connector.ReleaseItem();
+        ItemConnection.RemoveConnection(gameObject);
     }
 
     private void Move() {

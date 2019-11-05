@@ -113,9 +113,6 @@ public class ObjectFactory : MonoBehaviour {
         interactable = latestCopy;
         latestCopy.SetActive(true);
 
-        // fix pls
-        latestCopy.GetComponent<ItemPlacement>()?.CancelItemPlacement();
-
         if (handObject != null) {
             CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
             StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));

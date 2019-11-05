@@ -25,7 +25,7 @@ public class LuerlockConnector : ItemConnector {
     #region Fields
     public LuerlockAdapter Luerlock { get; private set; }
     public GameObject Collider { get; private set; }
-    public Joint Joint { get; private set; }
+    // public Joint Joint { get; private set; }
     public bool HasAttachedObject { get => attached.GameObject != null; }
     public Rigidbody AttachedRigidbody { get => attached.Rigidbody; }
     public Interactable AttachedInteractable { get => attached.Interactable; }
@@ -46,12 +46,16 @@ public class LuerlockConnector : ItemConnector {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
     }
 
+    
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
         Logger.Print("Connect item: " + interactable.name);
 
         if (Luerlock.State == InteractState.Grabbed) {
-            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.ReleaseItem();
+            ItemConnection.RemoveConnection(Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.gameObject);
+        }
+        if (interactable.State == InteractState.Grabbed) {
+            ItemConnection.RemoveConnection(interactable.gameObject);
         }
 
         ReplaceObject(interactable?.gameObject);
@@ -66,7 +70,7 @@ public class LuerlockConnector : ItemConnector {
         // Disconnect existing joint
         if (attached.GameObject != null) {
             CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, false);
-            MonoBehaviour.Destroy(Joint);
+            // MonoBehaviour.Destroy(Joint);
         }
 
         // Replace with nothing
@@ -89,9 +93,12 @@ public class LuerlockConnector : ItemConnector {
         // Attaching
         SetLuerlockPosition(Collider);
 
-        Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
-        Joint.connectedBody = attached.Rigidbody;
-        connection = ItemConnection.AddRotationConnection(this, Collider.transform, attached.GameObject);
+        // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
+        // Joint.connectedBody = attached.Rigidbody;
+        if (attached.GameObject == null) {
+            Logger.Error("Attached gameobject null");
+        }
+        connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject) {
@@ -108,10 +115,10 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     #region Releasing
-    public override void ReleaseItem() {
+    public override void OnReleaseItem() {
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
-        MonoBehaviour.Destroy(Joint);
-        MonoBehaviour.Destroy(connection);
+        // MonoBehaviour.Destroy(Joint);
+        // MonoBehaviour.Destroy(connection);
         attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
         attached.Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(null);
@@ -119,12 +126,11 @@ public class LuerlockConnector : ItemConnector {
     #endregion
 
     private void ObjectEnter(Collider collider) {
+
         GameObject intObject = Interactable.GetInteractableObject(collider.transform);
         if (intObject == null) {
             return;
         }
-
-        Logger.Print("Object enter collider: " + side + ", " + collider.transform.name);
 
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
             // Position Offset here
@@ -178,7 +184,7 @@ public class LuerlockConnector : ItemConnector {
         float distance = Vector3.Distance(luerlockPosition, colliderPosition);
 
         if (distance > breakDistance) {
-            ReleaseItem();
+            ItemConnection.RemoveConnection(attached.GameObject);
             //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }

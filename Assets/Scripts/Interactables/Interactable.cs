@@ -4,17 +4,17 @@ using UnityEngine;
 public class Interactable : MonoBehaviour {
 
     #region fields
-    private static string iTag = "Interactable";
+    public static string iTag = "Interactable";
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
     public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
 
-    public RigidbodyContainer RB { get; private set; }
+    public RigidbodyContainer RigidbodyContainer { get; private set; }
     public Rigidbody Rigidbody {
         get {
-            if (RB.Enabled) {
-                return RB.Rigidbody;
+            if (RigidbodyContainer.Enabled) {
+                return RigidbodyContainer.Rigidbody;
             } else {
                 Logger.Warning("Accessing rigidbody while disabled");
                 return null;
@@ -26,14 +26,13 @@ public class Interactable : MonoBehaviour {
     public Interactors Interactors;
     #endregion
 
-    private void Awake() {
-        RB = new RigidbodyContainer(this);
+    protected virtual void Awake() {
+        RigidbodyContainer = new RigidbodyContainer(this);
         Awake_Interactable();
     }
 
     private void Start() {
         gameObject.AddComponent<ObjectHighlight>();
-        gameObject.AddComponent<ItemPlacement>();
         gameObject.tag = iTag;
         Start_Interactable();
     }
@@ -68,7 +67,8 @@ public class Interactable : MonoBehaviour {
         }
         // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
         if (Interactors.LuerlockPair.Value != null) {
-            Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).ReleaseItem();
+            GameObject removeFrom = Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).AttachedInteractable.gameObject;
+            ItemConnection.RemoveConnection(removeFrom);
         }
         
         IEnumerator DestroySequence() {

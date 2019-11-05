@@ -33,12 +33,12 @@ public class RotationConnection: ItemConnection {
 
         float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
-            BreakConnection();
+            ItemConnection.RemoveConnection(gameObject);
         }
     }
 
-    private void BreakConnection() {
-        Connector.ReleaseItem();
+    protected override void OnDestroy() {
+        Connector.OnReleaseItem();
     }
 
     private void Rotate() {
