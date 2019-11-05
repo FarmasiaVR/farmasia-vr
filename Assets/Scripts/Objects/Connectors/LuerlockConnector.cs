@@ -132,8 +132,6 @@ public class LuerlockConnector : ItemConnector {
             return;
         }
 
-        Logger.Print("Object enter collider: " + side + ", " + collider.transform.name);
-
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
             // Position Offset here
 

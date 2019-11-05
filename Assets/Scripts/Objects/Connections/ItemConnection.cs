@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,8 +24,13 @@ public abstract class ItemConnection : MonoBehaviour {
         return RotationConnection.Configuration(connector, target, addTo);
     }
     public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, GameObject addTo) {
-        Logger.PrintVariables("Target", target, "AddTo", addTo);
         return ChildConnection.Configuration(connector, target, addTo);
+    }
+    public static LuerlockItemConnection AddLuerlockItemConnection(HandConnector connector, Transform target, GameObject addTo) {
+        return LuerlockItemConnection.Configuration(connector, target, addTo);
+    }
+    public static JointConnection AddJointConnection(HandConnector connector, Transform target, GameObject addTo) {
+        return JointConnection.Configuration(connector, target, addTo);
     }
 
     /// <summary>
@@ -36,11 +42,18 @@ public abstract class ItemConnection : MonoBehaviour {
         ItemConnection conn = g.GetComponent<ItemConnection>();
 
         if (conn != null) {
-
-            Logger.PrintVariables("Removing connection", g);
-
             MonoBehaviour.Destroy(conn);
         }
     }
+    public static void RemoveConnection<T>(GameObject g) where T : ItemConnection {
+
+        ItemConnection conn = g.GetComponent<T>();
+
+        if (conn != null) {
+            MonoBehaviour.Destroy(conn);
+        }
+    }
+
+    
     #endregion
 }

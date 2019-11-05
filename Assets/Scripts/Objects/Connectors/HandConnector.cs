@@ -8,7 +8,6 @@ public class HandConnector : ItemConnector {
     public bool IsGrabbed { get => GrabbedInteractable != null; }
 
     public Interactable GrabbedInteractable { get; private set; }
-    private Rigidbody grabbedRigidbody;
 
     private Vector3 grabPosOffset;
     private Vector3 grabRotOffset;
@@ -36,18 +35,22 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable = interactable;
         GrabbedInteractable.State.On(InteractState.Grabbed);
         GrabbedInteractable.Interactors.SetHand(Hand);
-        grabbedRigidbody = GrabbedInteractable.Rigidbody;
 
-        InitializeOffset(grabbedRigidbody.transform);
-        AttachGrabbedObject(GrabbedInteractable);
+        InitializeOffset(GrabbedInteractable.transform);
 
-        Events.FireEvent(EventType.PickupObject, CallbackData.Object(grabbedRigidbody.gameObject));
+
+
+        Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedInteractable.gameObject));
+        AttachGrabbedItem(GrabbedInteractable);
     }
+
+
 
     private void InitializeOffset(Transform current) {
         grabPosOffset = current.position - Hand.ColliderPosition;
         grabRotOffset = current.eulerAngles - Hand.transform.eulerAngles;
     }
+
 
     private bool AllowSmoothAttach(Interactable interactable) {
         if (interactable.Type != InteractableType.SmallObject) {
@@ -61,11 +64,19 @@ public class HandConnector : ItemConnector {
         return luerlock == null || !luerlock.HasAttachedObjects;
     }
 
-    private void AttachGrabbedObject(Interactable interactable) {
-        if (AllowSmoothAttach(interactable)) {
-            connection = SmoothConnection.AddSmoothConnection(this, Hand.Offset, grabbedRigidbody.gameObject);
+    private void AttachGrabbedItem(Interactable interactable) {
+
+        if (interactable.State == InteractState.LuerlockAttached) {
+            // testing with joint connection instead of luerlock connectio -> cant detach
+           // connection = ItemConnection.AddLuerlockItemConnection(this, Hand.Offset, interactable.gameObject);
+            connection = ItemConnection.AddJointConnection(this, Hand.transform, interactable.gameObject);
         } else {
-            connection = ItemConnection.AddRigidConnection(this, Hand.Offset, grabbedRigidbody.gameObject);
+            if (AllowSmoothAttach(interactable)) {
+                connection = ItemConnection.AddSmoothConnection(this, Hand.Offset, interactable.gameObject);
+            } else {
+                // Replace with spring JointConnection for better control
+                connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
+            }
         }
     }
     #endregion
@@ -82,9 +93,8 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        grabbedRigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
-        grabbedRigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
-        grabbedRigidbody = null;
+        GrabbedInteractable.Rigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
+        GrabbedInteractable.Rigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
 
         GrabbedInteractable.State.Off(InteractState.Grabbed);
         GrabbedInteractable = null;
