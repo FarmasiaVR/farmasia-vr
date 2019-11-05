@@ -7,7 +7,12 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected abstract ItemConnector Connector { get; set; }
 
-    protected abstract void OnDestroy();
+    public void Remove() {
+        RemoveConnection();
+        Destroy(this);
+    }
+
+    protected abstract void RemoveConnection();
 
     protected virtual void Update() {
 
@@ -32,28 +37,5 @@ public abstract class ItemConnection : MonoBehaviour {
     public static JointConnection AddJointConnection(HandConnector connector, Transform target, GameObject addTo) {
         return JointConnection.Configuration(connector, target, addTo);
     }
-
-    /// <summary>
-    /// Removes the connection from the attached object g.
-    /// </summary>
-    /// <param name="g"></param>
-    public static void RemoveConnection(GameObject g) {
-
-        ItemConnection conn = g.GetComponent<ItemConnection>();
-
-        if (conn != null) {
-            MonoBehaviour.Destroy(conn);
-        }
-    }
-    public static void RemoveConnection<T>(GameObject g) where T : ItemConnection {
-
-        ItemConnection conn = g.GetComponent<T>();
-
-        if (conn != null) {
-            MonoBehaviour.Destroy(conn);
-        }
-    }
-
-    
     #endregion
 }

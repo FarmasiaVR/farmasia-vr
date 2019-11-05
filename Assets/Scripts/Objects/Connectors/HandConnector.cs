@@ -29,7 +29,7 @@ public class HandConnector : ItemConnector {
         // release item from other hand
         bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
-            ItemConnection.RemoveConnection(Hand.GrabbingHand(interactable.Rigidbody).Connector.GrabbedInteractable.gameObject);
+            Hand.GrabbingHand(interactable.Rigidbody).Connector.GrabbedInteractable.GetComponent<ItemConnection>().Remove();
         }
 
         GrabbedInteractable = interactable;

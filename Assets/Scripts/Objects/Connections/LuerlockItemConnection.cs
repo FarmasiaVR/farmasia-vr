@@ -12,7 +12,7 @@ public class LuerlockItemConnection : ItemConnection {
 
     }
 
-    protected override void OnDestroy() {
+    protected override void RemoveConnection() {
         Connector.OnReleaseItem();
     }
 

@@ -52,10 +52,10 @@ public class LuerlockConnector : ItemConnector {
         Logger.Print("Connect item: " + interactable.name);
 
         if (Luerlock.State == InteractState.Grabbed) {
-            ItemConnection.RemoveConnection(Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.gameObject);
+            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.GetComponent<ItemConnection>().Remove();
         }
         if (interactable.State == InteractState.Grabbed) {
-            ItemConnection.RemoveConnection(interactable.gameObject);
+            interactable.GetComponent<ItemConnection>().Remove();
         }
 
         ReplaceObject(interactable?.gameObject);
@@ -184,7 +184,7 @@ public class LuerlockConnector : ItemConnector {
         float distance = Vector3.Distance(luerlockPosition, colliderPosition);
 
         if (distance > breakDistance) {
-            ItemConnection.RemoveConnection(attached.GameObject);
+            attached.GameObject.GetComponent<ItemConnection>().Remove();
             //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }

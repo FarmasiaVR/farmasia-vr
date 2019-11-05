@@ -20,12 +20,12 @@ public class JointConnection : ItemConnection {
     }
 
     private void OnJointBreak(float force) {
-        Destroy(joint);
-        ItemConnection.RemoveConnection<JointConnection>(gameObject);
+        RemoveConnection();
     }
 
-    protected override void OnDestroy() {
+    protected override void RemoveConnection() {
         Connector.OnReleaseItem();
+        Destroy(joint);
     }
 
     public static JointConnection Configuration(HandConnector connector, Transform target, GameObject addTo) {

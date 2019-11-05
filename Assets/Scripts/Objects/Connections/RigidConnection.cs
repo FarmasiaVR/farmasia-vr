@@ -63,7 +63,7 @@ public class RigidConnection : ItemConnection {
         return mass;
     }
 
-    protected override void OnDestroy() {
+    protected override void RemoveConnection() {
         ReleaseRigidbodies();
         Connector.OnReleaseItem();
     }
@@ -93,12 +93,8 @@ public class RigidConnection : ItemConnection {
 
         float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
-            BreakConnection();
+            Remove();
         }
-    }
-
-    private void BreakConnection() {
-        ItemConnection.RemoveConnection(gameObject);
     }
 
     private void Move() {

@@ -102,7 +102,7 @@ public class Hand : MonoBehaviour {
 
     public void Uninteract() {
         if (IsGrabbed) {
-            ItemConnection.RemoveConnection(Connector.GrabbedInteractable.gameObject);
+            Connector.GrabbedInteractable.GetComponent<ItemConnection>().Remove();
             Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
         } else if (interactedInteractable != null) {
             interactedInteractable.Uninteract(this);
