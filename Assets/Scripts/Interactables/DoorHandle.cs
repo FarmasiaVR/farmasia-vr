@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class DoorHandle : Interactable {
 
     #region Fields
@@ -17,7 +18,7 @@ public class DoorHandle : Interactable {
     private Transform handle;
     #endregion
 
-    protected override void Start_Impl() {
+    protected override void Start_Interactable() {
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
         handle = transform.GetChild(1).transform;

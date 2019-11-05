@@ -6,7 +6,7 @@ public class LockedDoorHandle : Interactable {
 
     #endregion
 
-    protected override void Start_Impl() {
+    protected override void Start_Interactable() {
         door = transform.parent.GetComponent<LockedDoor>();
         Type.Set(InteractableType.Interactable);
     }

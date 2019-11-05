@@ -8,7 +8,7 @@ public class RoomDoorHandle : Interactable {
     private DoorGoTo destination;
     #endregion
 
-    protected override void Start_Impl() {
+    protected override void Start_Interactable() {
         Type.Set(InteractableType.Interactable);
     }
 

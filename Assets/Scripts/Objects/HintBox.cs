@@ -44,12 +44,12 @@ public class HintBox : DragAcceptable {
         }
     }
 
-    private void Awake() {
+    protected override void Awake_DragAcceptable() {
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
     }
 
-    protected override void Start_Impl() {
+    protected override void Start_Interactable() {
         Type.On(InteractableType.Interactable, InteractableType.Draggable);
 
         playerCamera = Player.Camera.transform;

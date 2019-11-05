@@ -27,9 +27,17 @@ public abstract class DragAcceptable : Interactable {
     }
     #endregion
 
-    protected override void Start_Impl() {
-        Initialize();
+    protected override void Awake_Interactable() {
+        Awake_DragAcceptable();
     }
+
+    protected override void Start_Interactable() {
+        Initialize();
+        Start_DragAcceptable();
+    }
+
+    protected virtual void Awake_DragAcceptable() {}
+    protected virtual void Start_DragAcceptable() {}
 
     public void Initialize() {
         mass = Rigidbody.mass;
