@@ -25,6 +25,7 @@
     GrabUninteractWithObject,
     GrabInteractWithObject,
     ItemPlacedInCabinet,
+    ItemPlacedInSterileBag,
     VentilationBlocked,
     SyringeToMedicineBottle,
     SyringeFromMedicineBottle,

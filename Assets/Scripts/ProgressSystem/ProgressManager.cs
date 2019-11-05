@@ -7,7 +7,7 @@ public class ProgressManager {
     #region Fields
     private bool testMode;
     private HashSet<ITask> allTasks;
-    private List<Package> packages;
+    public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
     private float waitTime = 5.0f;

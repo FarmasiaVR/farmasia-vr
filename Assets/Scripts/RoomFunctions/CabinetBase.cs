@@ -49,6 +49,7 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void ExitCabinet(Collider other) {
+        //when hands exit laminar cabinet, send event trigger to ItemsToSterileBag task
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
@@ -59,7 +60,28 @@ public class CabinetBase : MonoBehaviour {
         ObjectType type = item.ObjectType;
         String itemType = Enum.GetName(type.GetType(), type);
         CheckItemType(itemType, item);
+        ReAddMissingObjects(itemType);
+    }
 
+    private String CheckItemType(String itemType, GeneralItem item) {
+        if (itemType == "Syringe") {
+            Syringe syringe = item as Syringe;
+            if (syringe.Container.Capacity == 20000) {
+                itemType = "20ml ruisku";
+            } else if (syringe.Container.Capacity == 1000) {
+                itemType = "1ml ruiskut";
+            }
+        } else if (itemType == "Bottle") {
+            itemType = "lääkepullo";
+        } else if (itemType == "Needle") {
+            itemType = "neula";
+        } else if (itemType == "Luerlock") {
+            itemType = "luerlock";
+        }
+        return itemType;
+    }
+
+    private void ReAddMissingObjects(String itemType) {
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
                 case "neula":
@@ -88,25 +110,7 @@ public class CabinetBase : MonoBehaviour {
                     }
                     break;
             }
-        }
-    }
-
-    private String CheckItemType(String itemType, GeneralItem item) {
-        if (itemType == "Syringe") {
-            Syringe syringe = item as Syringe;
-            if (syringe.Container.Capacity == 20000) {
-                itemType = "20ml ruisku";
-            } else if (syringe.Container.Capacity == 1000) {
-                itemType = "1ml ruiskut";
-            }
-        } else if (itemType == "Bottle") {
-            itemType = "lääkepullo";
-        } else if (itemType == "Needle") {
-            itemType = "neula";
-        } else if (itemType == "Luerlock") {
-            itemType = "luerlock";
-        }
-        return itemType;
+        }    
     }
 
     /// <summary>

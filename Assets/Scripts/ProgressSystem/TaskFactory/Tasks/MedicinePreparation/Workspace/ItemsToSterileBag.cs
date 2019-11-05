@@ -6,9 +6,11 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Fields
     public enum Conditions { SyringesPut }
-    private int smallSyringesCount;
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectAmountOfMedicineSelected };
+    private CabinetBase laminarCabinet;
+    private SterileBag sterileBag;
     private string description = "Viimeistele ruiskujen kanssa työskentely.";
-    private string hint = "Laita molemmat käyttämäsi ruiskut steriiliin pussiin.";
+    private string hint = "Laita täyttämäsi ruiskut steriiliin pussiin.";
     #endregion
 
     #region Constructor
@@ -17,7 +19,6 @@ public class ItemsToSterileBag : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, true, false) {
-        smallSyringesCount = 0;
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
@@ -30,58 +31,68 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(PutToBag, EventType.SterileBag);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);
     }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        }        
+    }
+
+    private void SetSterileBagReference(CallbackData data) {
+        sterileBag = (SterileBag)data.DataObject;
+        base.UnsubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);        
+    }
+    
     /// <summary>
     /// Once fired by an event, checks how many syringe objects are put to bag object.
     /// Sets corresponding condition to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void PutToBag(CallbackData data) {
-        GameObject gm = GameObject.FindWithTag("Bag");
-        SterileBag sterileBag = gm.GetComponent<SterileBag>();
-        if (!sterileBag.IsClosed) {
-            UISystem.Instance.CreatePopup("Sulje steriili pussi.", MessageType.Notify);
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+            UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MessageType.Notify);
             return;
         }
-
         List<GameObject> inBag = data.DataObject as List<GameObject>;
-        if (inBag == null) {
-            return;
-        }
-        foreach(GameObject value in inBag) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
-            ObjectType type = item.ObjectType;
-            if (type == ObjectType.Syringe) {
-                Syringe syringe = item as Syringe;
-                //should be 0,15ml
-                if (syringe.Container.Capacity == 1 && syringe.Container.Amount == 15) {
-                    smallSyringesCount++;
-                }
-            }
-        }
-
-        /*GameObject lc = GameObject.FindWithTag("LaminarCabinet");
-        LaminarCabinet laminar = lc.GetComponent<LaminarCabinet>();
-        List<GameObject> inLaminar = laminar.objectsInsideArea;
-        int usedSmallSyringes = 0;
-        foreach(GameObject value in inLaminar) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
-            ObjectType type = item.ObjectType;
-            if (type == ObjectType.Syringe) {
-                Syringe syringe = item as Syringe;
-                //should be 0,15ml
-                if (syringe.Container.Capacity == 1 && syringe.Container.Amount != 0) {
-                    usedSmallSyringes++;
-                }
-            }
-        }*/
-
+        int syringesFilled = 0;
+        int filledSyringesInBag = 0;
+        syringesFilled = CheckFilledSyringes(laminarCabinet.objectsInsideArea, syringesFilled);
+        filledSyringesInBag = CheckFilledSyringes(inBag, filledSyringesInBag);
         
-        if (smallSyringesCount == 6) {
-            EnableCondition(Conditions.SyringesPut);
-        }
+        if (sterileBag.IsClosed) {
+            if (syringesFilled == filledSyringesInBag) {
+                EnableCondition(Conditions.SyringesPut);
+            }
+            bool check = CheckClearConditions(true);
+            if (!check) {
+                UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei pakattu steriiliin pussiin.", MessageType.Mistake);
+                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+                base.FinishTask();
+            }
+        } else {
+            if (syringesFilled == filledSyringesInBag) {
+                UISystem.Instance.CreatePopup("Sulje steriili pussi.", MessageType.Notify);
+            }
+        } 
+    }
 
-        CheckClearConditions(true);
+    private int CheckFilledSyringes(List<GameObject> objects, int count) {
+        foreach(GameObject value in objects) {
+            GeneralItem item = value.GetComponent<GeneralItem>();
+            ObjectType type = item.ObjectType;
+            if (type == ObjectType.Syringe) {
+                Syringe syringe = item as Syringe;
+                if (syringe.Container.Amount > 0 && !syringe.hasBeenInBottle) {
+                    count++;
+                }
+            }
+        }  
+        return count; 
     }
     #endregion
 

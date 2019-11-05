@@ -58,6 +58,17 @@ public class Finish : TaskBase {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, 6 - pointsForMedicineAmount);
         }
     }
+
+    private void IsSterileBagTaskFinished() {
+        foreach (Package p in G.Instance.Progress.packages) {
+            if (p.name == "Workspace") {
+                if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
+                    G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag); 
+                }
+                break;
+            }
+        }
+    }
     #endregion
 
     #region Public Methods
@@ -66,6 +77,7 @@ public class Finish : TaskBase {
     /// </summary>
     public override void FinishTask() {
         PointsForSmallSyringes();
+        IsSterileBagTaskFinished();
         UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MessageType.Done);
         base.FinishTask();
     }
