@@ -48,7 +48,7 @@ public class ProgressManager {
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = { 
-            TaskType.ScenarioOneCleanUp,
+            //TaskType.ScenarioOneCleanUp,
             TaskType.Finish 
         };
 
@@ -139,7 +139,7 @@ public class ProgressManager {
     /// </summary>
     /// <param name="taskType">Type of task to find.</param>
     /// <returns></returns>
-    private ITask FindTaskWithType(TaskType taskType) {
+    public ITask FindTaskWithType(TaskType taskType) {
         ITask foundTask = null;
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == taskType) {
