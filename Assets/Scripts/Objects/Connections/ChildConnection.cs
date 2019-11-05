@@ -9,7 +9,7 @@ public class ChildConnection : ItemConnection {
     private Transform target;
     private Interactable interactable;
 
-    private void Awake() {
+    private void Init() {
         Logger.Print("Child connection awake");
         Logger.PrintVariables("target", target);
         interactable = GetComponent<Interactable>();
@@ -27,6 +27,8 @@ public class ChildConnection : ItemConnection {
 
         conn.Connector = connector;
         conn.target = target;
+
+        conn.Init();
 
         return conn;
     }
