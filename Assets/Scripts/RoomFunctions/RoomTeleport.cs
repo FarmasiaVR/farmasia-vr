@@ -9,8 +9,6 @@ public class RoomTeleport : MonoBehaviour {
     [SerializeField]
     public GameObject passThroughTele;
     [SerializeField]
-    public GameObject playerLocalPoint;
-    [SerializeField]
     public GameObject passThroughTriggerLocal;
     private CabinetBase cabinet;
     private GameObject player;
@@ -35,8 +33,6 @@ public class RoomTeleport : MonoBehaviour {
             cabinetItem.transform.position = newPosition;
             cabinetItem.transform.RotateAround(passThroughTele.transform.position, passThroughTele.transform.up, rotDelta);
         }
-        Vector3 playerLocalPosition = player.transform.InverseTransformPoint(playerLocalPoint.transform.position);
-        player.transform.position = new Vector3(playerTele.transform.position.x + playerLocalPosition.x, playerTele.transform.position.y + playerLocalPosition.y, playerTele.transform.position.z + playerLocalPosition.z);
-        //player.transform.position = new Vector3(playerTele.transform.position.x, playerTele.transform.position.y, playerTele.transform.position.z);
+        player.transform.position = new Vector3(playerTele.transform.position.x, playerTele.transform.position.y, playerTele.transform.position.z);
     }
 }
