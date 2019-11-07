@@ -5,6 +5,8 @@ public class DoorHandle : Interactable {
     #region Fields
     private Hand hand;
     private OpenableDoor door;
+    [SerializeField]
+    private bool animate = true;
     #endregion
 
     #region Animation Fields
@@ -15,13 +17,15 @@ public class DoorHandle : Interactable {
     private float currentAngle = 0;
     private readonly float maxAngle = 45f;
     private float handleSpeed = 200f;
-    private Transform handle;
+    private Transform handle = null;
     #endregion
 
     protected override void Start_Interactable() {
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
-        handle = transform.GetChild(1).transform;
+        if (transform.childCount >= 1) {
+            handle = transform.GetChild(1).transform;
+        }
         if (handle != null) {
             startAngle = handle.eulerAngles.z;
         }
@@ -31,8 +35,9 @@ public class DoorHandle : Interactable {
         if (State == InteractState.Grabbed) {
             door.SetByHandPosition(hand);
         }
-        UpdateHandle();
-
+        if (animate) {
+            UpdateHandle();
+        }
     }
 
     private void UpdateHandle() {
