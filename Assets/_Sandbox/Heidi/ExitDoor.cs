@@ -25,7 +25,7 @@ public class ExitDoor : MonoBehaviour {
             //finish task Finish
             //quit game
         } else {
-            UISystem.Instance.CreatePopup("Peli on vielä käynnissä. Ovi avautuu vasta kaikkien vaiheiden suorituksen jälkeen.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Peli on vielä käynnissä. Ovi avautuu vasta kaikkien vaiheiden suorituksen jälkeen.", MsgType.Notify);
         }
     }
 }

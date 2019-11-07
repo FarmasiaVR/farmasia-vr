@@ -68,7 +68,7 @@ public class MissingItems : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Missing items picked up", MessageType.Done);
+        UISystem.Instance.CreatePopup("Missing items picked up", MsgType.Done);
         base.FinishTask();
     }
 

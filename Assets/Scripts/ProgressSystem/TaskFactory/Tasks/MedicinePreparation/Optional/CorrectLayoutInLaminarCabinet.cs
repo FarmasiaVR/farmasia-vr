@@ -46,13 +46,13 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             return;
         }
         if (!ItemsArranged()) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MsgType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
         }
     }
 
     private void VentilationBlocked(CallbackData data) {
-        UISystem.Instance.CreatePopup(0, "Ilmanvaihto estynyt.", MessageType.Mistake);
+        UISystem.Instance.CreatePopup(0, "Ilmanvaihto estynyt.", MsgType.Mistake);
         G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
     }
 

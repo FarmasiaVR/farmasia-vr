@@ -56,7 +56,7 @@ public class SelectTools : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Työväline valittu.", MessageType.Done);
+        UISystem.Instance.CreatePopup("Työväline valittu.", MsgType.Done);
         base.FinishTask();
     }
 

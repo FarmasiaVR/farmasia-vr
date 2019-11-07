@@ -36,9 +36,9 @@ public class DisinfectBottles : TaskBase {
     private void DisinfectBottleCap(CallbackData data) {
         if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
             base.EnableCondition(Conditions.BottleCapDisinfected);
-            UISystem.Instance.CreatePopup(1, "Pullon korkki putsattiin onnistuneesti.", MessageType.Done);
+            UISystem.Instance.CreatePopup(1, "Pullon korkki putsattiin onnistuneesti.", MsgType.Done);
         } else {
-            UISystem.Instance.CreatePopup(-1, "Korkkia ei putsattu.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Korkkia ei putsattu.", MsgType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
         }
         base.UnsubscribeAllEvents();

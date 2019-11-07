@@ -57,7 +57,7 @@ public class SyringeAttach : TaskBase {
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
             attachedSyringes.Remove(s.GetInstanceID());
         } else {
             base.package.MoveTaskToManager(this);
@@ -73,7 +73,7 @@ public class SyringeAttach : TaskBase {
             if (CheckPreviousTaskCompletion(requiredTasks)) {
                 if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-                    UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                    UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
                     attachedSyringes.Remove(s.GetInstanceID());
                 } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                     AttachSyringe(s);
@@ -128,9 +128,9 @@ public class SyringeAttach : TaskBase {
             }   
         }
         if (rightSize == 6) {
-            UISystem.Instance.CreatePopup("Valitut ruiskut olivat oikean kokoisia.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
         } else {
-            UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Notify);
         }
         //UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
         base.FinishTask();

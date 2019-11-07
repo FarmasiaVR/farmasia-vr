@@ -93,7 +93,7 @@ public class Finish : TaskBase {
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
-        UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MessageType.Done);
+        UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MsgType.Done);
         base.FinishTask();
     }
 

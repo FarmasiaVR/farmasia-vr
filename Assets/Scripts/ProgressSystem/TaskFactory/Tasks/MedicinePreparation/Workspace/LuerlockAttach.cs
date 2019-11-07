@@ -55,11 +55,11 @@ public class LuerlockAttach : TaskBase {
 
         if (laminarCabinet == null) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake);
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
             return;
         }
         
@@ -68,13 +68,13 @@ public class LuerlockAttach : TaskBase {
                 if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
                     task.UnsubscribeAllEvents();
                     task.RemoveFromPackage();
-                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MessageType.Mistake);
+                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                     break;
                 }
             }
                          
-            UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MsgType.Notify);
             return;
         }
 
@@ -87,10 +87,10 @@ public class LuerlockAttach : TaskBase {
         bool check = CheckClearConditions(true);
         if (!check) {
             if (checkTimes == 1) {
-                UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake);
                 G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             } else {
-                UISystem.Instance.CreatePopup("Kiinnitä ensin lääkkeellinen ruisku", MessageType.Mistake);
+                UISystem.Instance.CreatePopup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
             }  
         }
     }
@@ -109,7 +109,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MessageType.Notify);    
+            UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MsgType.Notify);    
         }
         base.FinishTask();
     }

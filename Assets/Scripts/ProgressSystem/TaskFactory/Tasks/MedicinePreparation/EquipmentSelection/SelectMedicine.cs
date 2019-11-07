@@ -49,7 +49,7 @@ public class SelectMedicine : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Lääkepullo valittu.", MessageType.Done);
+        UISystem.Instance.CreatePopup("Lääkepullo valittu.", MsgType.Done);
         base.FinishTask();
     }
 

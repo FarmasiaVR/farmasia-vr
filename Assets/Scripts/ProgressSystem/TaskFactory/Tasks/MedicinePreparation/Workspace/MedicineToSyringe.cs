@@ -47,7 +47,7 @@ public class MedicineToSyringe : TaskBase {
         Syringe s = data.DataObject as Syringe;
         syringes.Add(s.GetInstanceID(), s.Container.Amount);
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
         }
     }
 
@@ -56,10 +56,10 @@ public class MedicineToSyringe : TaskBase {
         if (syringes.ContainsKey(s.GetInstanceID())) {
             if (laminarCabinet == null) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
             } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
             } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
                 if (!CheckPreviousTaskCompletion(requiredTasks)) {
                     foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
@@ -70,7 +70,7 @@ public class MedicineToSyringe : TaskBase {
                         }
                     }
                     
-                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MessageType.Mistake);
+                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                 }
                 ToSyringe(s);
@@ -101,10 +101,10 @@ public class MedicineToSyringe : TaskBase {
 
     private void ReceivedPoints() {
         if (base.GetNonClearedConditions().Count == 2) {
-            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2); 
         } else {
-            UISystem.Instance.CreatePopup(1, "Väärä ruiskun koko tai määrä lääkettä.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(1, "Väärä ruiskun koko tai määrä lääkettä.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 1);
         }
     }
@@ -115,7 +115,7 @@ public class MedicineToSyringe : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(2, "Lääkkeen ottaminen onnistui.", MessageType.Notify);
+        UISystem.Instance.CreatePopup(2, "Lääkkeen ottaminen onnistui.", MsgType.Notify);
         base.FinishTask();
     }
 

@@ -50,12 +50,12 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     private void CorrectItems(CallbackData data) {
         if (laminarCabinet == null) {
-            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
         List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
-            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
         checkTimes++;
@@ -106,10 +106,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
         } else {
-            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
         }
         SetItemsToZero();
         DisableConditions();
@@ -123,9 +123,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     public override void FinishTask() {
         if (checkTimes == 1) {
             if (objectCount == 10) {
-                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
         }

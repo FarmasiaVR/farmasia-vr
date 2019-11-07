@@ -48,7 +48,7 @@ public class ScenarioOneCleanUp : TaskBase {
 
         bool check = CheckClearConditions(true);
         if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Välineitä ei viety roskakoriin.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Välineitä ei viety roskakoriin.", MsgType.Mistake);
             G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
             base.FinishTask();
         }
@@ -57,7 +57,7 @@ public class ScenarioOneCleanUp : TaskBase {
     private void ItemDroppedInTrash(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            UISystem.Instance.CreatePopup("Esineet laitettiin roskakoriin liian aikaisin.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Esineet laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
             base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
         }
     }
@@ -65,7 +65,7 @@ public class ScenarioOneCleanUp : TaskBase {
     private void ItemLiftedOffFloor(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            UISystem.Instance.CreatePopup("Siivosit liian aikaisin.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Siivosit liian aikaisin.", MsgType.Mistake);
             base.UnsubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         }
     }

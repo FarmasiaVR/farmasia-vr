@@ -61,12 +61,12 @@ public class CorrectItemsInThroughput : TaskBase {
             return;
         }
         if (cabinet == null) {
-            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
-            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
         checkTimes++;
@@ -80,7 +80,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 MissingItems(checkTimes);
             }
         } else {
-            UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
         }
     }
     #endregion
@@ -127,10 +127,10 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems(int checkTimes) {
         if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
-            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MessageType.Mistake);
+            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
 
         }
         SetItemsToZero();
@@ -142,12 +142,12 @@ public class CorrectItemsInThroughput : TaskBase {
     public override void FinishTask() {
         if (checkTimes == 1) {
             if (!correctMedicineBottle) {
-                UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             } else if (objectCount == 10) {
-                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MessageType.Notify);
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
         }

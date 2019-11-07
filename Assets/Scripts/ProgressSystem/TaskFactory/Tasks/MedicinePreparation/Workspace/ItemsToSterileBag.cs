@@ -55,7 +55,7 @@ public class ItemsToSterileBag : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void PutToBag(CallbackData data) {
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MessageType.Notify);
+            UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
             return;
         }
         List<GameObject> inBag = data.DataObject as List<GameObject>;
@@ -70,13 +70,13 @@ public class ItemsToSterileBag : TaskBase {
             }
             bool check = CheckClearConditions(true);
             if (!check) {
-                UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei pakattu steriiliin pussiin.", MessageType.Mistake);
+                UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei pakattu steriiliin pussiin.", MsgType.Mistake);
                 G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
                 base.FinishTask();
             }
         } else {
             if (syringesFilled == filledSyringesInBag) {
-                UISystem.Instance.CreatePopup("Sulje steriili pussi.", MessageType.Notify);
+                UISystem.Instance.CreatePopup("Sulje steriili pussi.", MsgType.Notify);
             }
         } 
     }
@@ -101,7 +101,7 @@ public class ItemsToSterileBag : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MessageType.Done);
+        UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
         base.FinishTask();
     }
     
