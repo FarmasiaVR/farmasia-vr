@@ -19,7 +19,6 @@ public class ChildConnection : ItemConnection {
 
     protected override void RemoveConnection() {
         interactable.RigidbodyContainer.EnableAndDeparent();
-        Connector.OnReleaseItem();
     }
 
     public static void SafeSetParent(Transform parent, Transform child) {

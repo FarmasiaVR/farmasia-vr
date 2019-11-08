@@ -73,7 +73,6 @@ public class SmoothConnection : ItemConnection {
 
     protected override void RemoveConnection() {
         ReleaseRigidbodies();
-        Connector.OnReleaseItem();
     }
 
     public void ReleaseRigidbodies() {

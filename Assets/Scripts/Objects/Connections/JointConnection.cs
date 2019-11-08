@@ -24,7 +24,6 @@ public class JointConnection : ItemConnection {
     }
 
     protected override void RemoveConnection() {
-        Connector.OnReleaseItem();
         Destroy(joint);
     }
 

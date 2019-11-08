@@ -12,10 +12,6 @@ public class LuerlockItemConnection : ItemConnection {
 
     }
 
-    protected override void RemoveConnection() {
-        Connector.OnReleaseItem();
-    }
-
     public static LuerlockItemConnection Configuration(HandConnector connector, Transform target, GameObject addTo) {
 
         LuerlockItemConnection conn = addTo.AddComponent<LuerlockItemConnection>();

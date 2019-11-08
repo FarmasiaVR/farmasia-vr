@@ -37,10 +37,6 @@ public class RotationConnection: ItemConnection {
         }
     }
 
-    protected override void RemoveConnection() {
-        Connector.OnReleaseItem();
-    }
-
     private void Rotate() {
         rb.MoveRotation(target.rotation);
         //rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
