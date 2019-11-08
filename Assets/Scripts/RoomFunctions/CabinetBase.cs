@@ -49,8 +49,10 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void ExitCabinet(Collider other) {
-        //when hands exit laminar cabinet, send event trigger to ItemsToSterileBag task
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
+        if (foundObject?.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
+            Events.FireEvent(EventType.HandsExitLaminarCabinet, CallbackData.NoData());
+        }
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
             return;
