@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour {
 
-    private void OnTriggerEnter(Collider other) {
-        GeneralItem item = GeneralItem.Find(other.transform);
+    private void OnCollisionEnter(Collision col) {
+        GeneralItem item = GeneralItem.Find(col.gameObject.transform);
         if (item != null) {
             foreach (Package p in G.Instance.Progress.packages) {
                 if (p.name == "Clean Up" && p.activeTasks.Count == 1) {
@@ -16,8 +16,8 @@ public class Floor : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        GeneralItem item = GeneralItem.Find(other.transform);
+    private void OnCollisionExit(Collision col) {
+        GeneralItem item = GeneralItem.Find(col.gameObject.transform);
         if (item != null) {
             Events.FireEvent(EventType.ItemLiftedOffFloor, CallbackData.Object(item));
         }
