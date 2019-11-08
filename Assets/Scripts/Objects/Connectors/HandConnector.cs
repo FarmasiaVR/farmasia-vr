@@ -12,7 +12,7 @@ public class HandConnector : ItemConnector {
     private Vector3 grabPosOffset;
     private Vector3 grabRotOffset;
 
-    private ItemConnection connection;
+    public override ItemConnection Connection { get; protected set; }
     #endregion
 
     public HandConnector(Hand hand) : base(hand.transform) {
@@ -29,7 +29,7 @@ public class HandConnector : ItemConnector {
         // release item from other hand
         bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
-            Hand.GrabbingHand(interactable.Rigidbody).Connector.GrabbedInteractable.GetComponent<ItemConnection>().Remove();
+            Hand.GrabbingHand(interactable.Rigidbody).Connector.Connection.Remove();
         }
 
         GrabbedInteractable = interactable;
@@ -69,13 +69,13 @@ public class HandConnector : ItemConnector {
         if (interactable.State == InteractState.LuerlockAttached) {
             // testing with joint connection instead of luerlock connectio -> cant detach
            // connection = ItemConnection.AddLuerlockItemConnection(this, Hand.Offset, interactable.gameObject);
-            connection = ItemConnection.AddJointConnection(this, Hand.transform, interactable.gameObject);
+            Connection = ItemConnection.AddJointConnection(this, Hand.transform, interactable.gameObject);
         } else {
             if (AllowSmoothAttach(interactable)) {
-                connection = ItemConnection.AddSmoothConnection(this, Hand.Offset, interactable.gameObject);
+                Connection = ItemConnection.AddSmoothConnection(this, Hand.Offset, interactable.gameObject);
             } else {
                 // Replace with spring JointConnection for better control
-                connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
+                Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
             }
         }
     }

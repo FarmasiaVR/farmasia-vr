@@ -31,7 +31,7 @@ public class LuerlockConnector : ItemConnector {
     public Interactable AttachedInteractable { get => attached.Interactable; }
 
     private AttachedObject attached;
-    private ItemConnection connection;
+    public override ItemConnection Connection { get; protected set; }
     private LuerlockAdapter.Side side;
     #endregion
 
@@ -52,8 +52,10 @@ public class LuerlockConnector : ItemConnector {
         Logger.Print("Connect item: " + interactable.name);
 
         if (Luerlock.State == InteractState.Grabbed) {
-            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.GrabbedInteractable.GetComponent<ItemConnection>().Remove();
+            Hand.GrabbingHand(Luerlock.Rigidbody).Connector.Connection.Remove();
         }
+
+        // Connection will have to be removed and replaced with luerlockItemConnection, Eetu will do this :):)
         if (interactable.State == InteractState.Grabbed) {
             interactable.GetComponent<ItemConnection>().Remove();
         }
@@ -98,7 +100,7 @@ public class LuerlockConnector : ItemConnector {
         if (attached.GameObject == null) {
             Logger.Error("Attached gameobject null");
         }
-        connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
+        Connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
     }
 
     private void SetLuerlockPosition(GameObject collObject) {
@@ -184,7 +186,7 @@ public class LuerlockConnector : ItemConnector {
         float distance = Vector3.Distance(luerlockPosition, colliderPosition);
 
         if (distance > breakDistance) {
-            attached.GameObject.GetComponent<ItemConnection>().Remove();
+            Connection.Remove();
             //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
         }
     }
