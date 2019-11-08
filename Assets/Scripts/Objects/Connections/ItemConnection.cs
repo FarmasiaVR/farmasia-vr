@@ -32,10 +32,16 @@ public abstract class ItemConnection : MonoBehaviour {
     public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, GameObject addTo) {
         return ChildConnection.Configuration(connector, target, addTo);
     }
-    public static LuerlockItemConnection AddLuerlockItemConnection(HandConnector connector, Transform target, GameObject addTo) {
+    public static LuerlockItemConnection AddLuerlockItemConnection(ItemConnector connector, Transform target, GameObject addTo) {
         return LuerlockItemConnection.Configuration(connector, target, addTo);
     }
-    public static JointConnection AddJointConnection(HandConnector connector, Transform target, GameObject addTo) {
+    public static LuerlockLooseItemConnection AddLuerlockLooseItemConnection(ItemConnector connector, Transform target, GameObject addTo) {
+        return LuerlockLooseItemConnection.Configuration(connector, target, addTo);
+    }
+    public static LuerlockLooseTwoWayItemConnection AddLuerlockLooseTwoWayItemConnection(ItemConnector connector, Transform target, GameObject addTo) {
+        return LuerlockLooseTwoWayItemConnection.Configuration(connector, target, addTo);
+    }
+    public static JointConnection AddJointConnection(ItemConnector connector, Transform target, GameObject addTo) {
         return JointConnection.Configuration(connector, target, addTo);
     }
     #endregion

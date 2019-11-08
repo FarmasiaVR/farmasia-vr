@@ -4,7 +4,7 @@ public abstract class ItemConnector {
 
     public Transform Object { get; private set; }
 
-    public abstract ItemConnection Connection { get; protected set; }
+    public abstract ItemConnection Connection { get; set; }
 
     public ItemConnector(Transform obj) {
         this.Object = obj;

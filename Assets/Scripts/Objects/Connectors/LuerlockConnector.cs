@@ -31,7 +31,7 @@ public class LuerlockConnector : ItemConnector {
     public Interactable AttachedInteractable { get => attached.Interactable; }
 
     private AttachedObject attached;
-    public override ItemConnection Connection { get; protected set; }
+    public override ItemConnection Connection { get; set; }
     private LuerlockAdapter.Side side;
     #endregion
 
@@ -51,9 +51,12 @@ public class LuerlockConnector : ItemConnector {
     public override void ConnectItem(Interactable interactable) {
         Logger.Print("Connect item: " + interactable.name);
 
-        if (Luerlock.State == InteractState.Grabbed) {
+
+        if (Luerlock.State == InteractState.Grabbed && interactable.State == InteractState.Grabbed) {
             Hand.GrabbingHand(Luerlock.Rigidbody).Connector.Connection.Remove();
         }
+
+        bool replaceConnection = interactable.State == InteractState.Grabbed;
 
         // Connection will have to be removed and replaced with luerlockItemConnection, Eetu will do this :):)
         if (interactable.State == InteractState.Grabbed) {
@@ -61,6 +64,12 @@ public class LuerlockConnector : ItemConnector {
         }
 
         ReplaceObject(interactable?.gameObject);
+
+        if (replaceConnection) {
+            Hand hand = interactable.Interactors.Hand;
+            hand.Connector.Connection.Remove();
+            hand.Connector.
+        }
     }
 
     private void ReplaceObject(GameObject newObject) {

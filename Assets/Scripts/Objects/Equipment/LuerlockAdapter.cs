@@ -25,8 +25,19 @@ public class LuerlockAdapter : GeneralItem {
             return bodies;
         }
     }
+    public List<Interactable> AttachedInteractables {
+        get {
+            List<Interactable> ints = new List<Interactable>();
+            foreach (var pair in connectors) {
+                if (pair.Value.AttachedInteractable != null) {
+                    ints.Add(pair.Value.AttachedInteractable);
+                }
+            }
+            return ints;
+        }
+    }
 
-    private int ObjectCount {
+    public int ObjectCount {
         get {
             int count = 0;
             foreach (var pair in connectors) {
@@ -97,5 +108,22 @@ public class LuerlockAdapter : GeneralItem {
         }
 
         return null;
+    }
+    public Interactable GetOtherInteractable(Interactable interactable) {
+
+        bool exists = LeftConnector.AttachedInteractable == interactable || RightConnector.AttachedInteractable == interactable;
+        if (!exists) {
+            throw new Exception("Interactable is not attached to luerlock");
+        }
+
+        return LeftConnector.AttachedInteractable == interactable ? RightConnector.AttachedInteractable : LeftConnector.AttachedInteractable;
+    }
+    public LuerlockConnector GetConnector(Interactable interactable) {
+        if (LeftConnector.AttachedInteractable == interactable) {
+            return LeftConnector;
+        } else if (RightConnector.AttachedInteractable == interactable) {
+            return RightConnector;
+        }
+        throw new Exception("Connector not found");
     }
 }

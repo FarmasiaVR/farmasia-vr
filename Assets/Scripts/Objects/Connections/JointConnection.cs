@@ -27,7 +27,7 @@ public class JointConnection : ItemConnection {
         Destroy(joint);
     }
 
-    public static JointConnection Configuration(HandConnector connector, Transform target, GameObject addTo) {
+    public static JointConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
         Rigidbody targetRB = target.GetComponent<Rigidbody>();
 
         if (targetRB == null) {

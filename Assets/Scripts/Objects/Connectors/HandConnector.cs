@@ -12,7 +12,7 @@ public class HandConnector : ItemConnector {
     private Vector3 grabPosOffset;
     private Vector3 grabRotOffset;
 
-    public override ItemConnection Connection { get; protected set; }
+    public override ItemConnection Connection { get; set; }
     #endregion
 
     public HandConnector(Hand hand) : base(hand.transform) {
@@ -42,8 +42,6 @@ public class HandConnector : ItemConnector {
         AttachGrabbedItem(GrabbedInteractable);
     }
 
-
-
     private void InitializeOffset(Transform current) {
         grabPosOffset = current.position - Hand.ColliderPosition;
         grabRotOffset = current.eulerAngles - Hand.transform.eulerAngles;
@@ -69,16 +67,30 @@ public class HandConnector : ItemConnector {
     #else
 
         if (interactable.State == InteractState.LuerlockAttached) {
-            // testing with joint connection instead of luerlock connectio -> cant detach
-           // connection = ItemConnection.AddLuerlockItemConnection(this, Hand.Offset, interactable.gameObject);
-            Connection = ItemConnection.AddJointConnection(this, Hand.transform, interactable.gameObject);
-        } else {
-            if (AllowSmoothAttach(interactable)) {
-                Connection = ItemConnection.AddSmoothConnection(this, Hand.Offset, interactable.gameObject);
+
+            LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+
+            if (luerlock.ObjectCount > 1) {
+
+                Interactable other = interactable == luerlock.LeftConnector.AttachedInteractable 
+                    ? luerlock.RightConnector.AttachedInteractable 
+                    : luerlock.LeftConnector.AttachedInteractable;
+
+                if (other.State == InteractState.Grabbed) {
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable.gameObject);
+                } else {
+                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable.gameObject);
+                }
+                
             } else {
-                // Replace with spring JointConnection for better control
-                Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
+                if (luerlock.State == InteractState.Grabbed) {
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable.gameObject);
+                } else {
+                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable.gameObject);
+                }
             }
+        } else {
+            ConnectionHandler.GrabItem(this, Hand.Offset, interactable.gameObject);
         }
     #endif
     }

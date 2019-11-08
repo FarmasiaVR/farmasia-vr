@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,5 +26,9 @@ public static class JointConfiguration {
 
     public static Joint AddJoint(GameObject obj) {
          return AddFixedJoint(obj);
+    }
+
+    internal static Joint AddSpringJoint(GameObject gameObject) {
+        throw new NotImplementedException();
     }
 }
