@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
     #region Fields
-
     private Dictionary<int, int> syringes = new Dictionary<int, int>();
     public enum Conditions { RightSize, RightAmountInSyringe }
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.CorrectItemsInLaminarCabinet};
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectItemsInLaminarCabinet };
     private CabinetBase laminarCabinet;
     private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
     private string hint = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+    #endregion
+
+    #region States
+    private bool takenBeforeTime = false;
     #endregion
 
     #region Constructor
@@ -40,7 +43,7 @@ public class MedicineToSyringe : TaskBase {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        
+
     }
 
     private void AddSyringe(CallbackData data) {
@@ -54,9 +57,14 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (laminarCabinet == null) {
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+            if (laminarCabinet == null && checkSyringeLiquidChange(s)) {
+                if (!takenBeforeTime) {
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+                    UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+                    takenBeforeTime = true;
+                } else {
+                    UISystem.Instance.CreatePopup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+                }
             } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                 UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
@@ -69,12 +77,12 @@ public class MedicineToSyringe : TaskBase {
                             break;
                         }
                     }
-                    
+
                     UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                 }
                 ToSyringe(s);
-            } 
+            }
             syringes.Remove(s.GetInstanceID());
         }
     }
@@ -86,7 +94,7 @@ public class MedicineToSyringe : TaskBase {
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(Syringe syringe) {
         if (syringe.Container.Amount == 900) {
-            EnableCondition(Conditions.RightAmountInSyringe); 
+            EnableCondition(Conditions.RightAmountInSyringe);
         }
         if (syringe.Container.Capacity == 20000) {
             EnableCondition(Conditions.RightSize);
@@ -99,10 +107,17 @@ public class MedicineToSyringe : TaskBase {
         }
     }
 
+    private bool checkSyringeLiquidChange(Syringe syringe) {
+        if (syringes[syringe.GetInstanceID()] != syringe.Container.Amount) {
+            return true;
+        }
+        return false;
+    }
+
     private void ReceivedPoints() {
         if (base.GetNonClearedConditions().Count == 2) {
             UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2); 
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2);
         } else {
             UISystem.Instance.CreatePopup(1, "Väärä ruiskun koko tai määrä lääkettä.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 1);
