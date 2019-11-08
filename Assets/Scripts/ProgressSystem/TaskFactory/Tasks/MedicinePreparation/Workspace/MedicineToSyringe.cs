@@ -49,7 +49,7 @@ public class MedicineToSyringe : TaskBase {
     private void AddSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         syringes.Add(s.GetInstanceID(), s.Container.Amount);
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+        if (!CheckPreviousTaskCompletion(requiredTasks) && G.Instance.Progress.CurrentPackage.name == "Workspace") {
             UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
         }
     }
@@ -57,7 +57,8 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (laminarCabinet == null && checkSyringeLiquidChange(s)) {
+            //vai saako alussa miinusta jo ruiskun laittamisesta lääkepulloon otti lääkettä sillä tai ei?
+            if (laminarCabinet == null && CheckSyringeLiquidChange(s)) {
                 if (!takenBeforeTime) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                     UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
@@ -68,7 +69,7 @@ public class MedicineToSyringe : TaskBase {
             } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                 UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
-            } else if (syringes[s.GetInstanceID()] != s.Container.Amount) {
+            } else if (CheckSyringeLiquidChange(s)) {
                 if (!CheckPreviousTaskCompletion(requiredTasks)) {
                     foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
                         if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
@@ -107,7 +108,7 @@ public class MedicineToSyringe : TaskBase {
         }
     }
 
-    private bool checkSyringeLiquidChange(Syringe syringe) {
+    private bool CheckSyringeLiquidChange(Syringe syringe) {
         if (syringes[syringe.GetInstanceID()] != syringe.Container.Amount) {
             return true;
         }
