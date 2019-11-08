@@ -15,7 +15,11 @@ public class HandMeshToggler : MonoBehaviour {
         StartCoroutine(FindRenderersLate());
 
         IEnumerator FindRenderersLate() {
-            yield return null;
+
+            while (transform.Find("Model").childCount == 0) {
+                yield return null;
+            }
+
             renderers = GetComponentsInChildren<Renderer>();
         }
     }
