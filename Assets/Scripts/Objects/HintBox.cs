@@ -17,6 +17,9 @@ public class HintBox : DragAcceptable {
 
     private static float viewLimitX = 0.8f;
     private static float viewLimitY = 0.6f;
+
+    private static HintBox currentHint;
+    private static HintText currentHintText;
     #endregion
 
     private static GameObject hintPrefab;
@@ -92,6 +95,8 @@ public class HintBox : DragAcceptable {
 
         GameObject newHintText = Instantiate(hintTextPrefab);
 
+        currentHintText = newHintText.GetComponent<HintText>();
+
         newHintText.transform.position = startPos;
         newHintText.transform.LookAt(Player.Camera.transform);
 
@@ -104,6 +109,15 @@ public class HintBox : DragAcceptable {
     #region Creating
     public static void CreateHint(string message) {
 
+        if (currentHintText != null) {
+            currentHintText.DestroyHint();
+        }
+
+        if (currentHint != null) {
+            currentHint.message = message;
+            return;
+        }
+
         Init();
 
         Vector3 hintPos = GetHintPosition();
@@ -112,6 +126,8 @@ public class HintBox : DragAcceptable {
         newHint.transform.position = hintPos;
 
         HintBox hint = newHint.GetComponent<HintBox>();
+        currentHint = hint;
+
         hint.message = message;
     }
 
