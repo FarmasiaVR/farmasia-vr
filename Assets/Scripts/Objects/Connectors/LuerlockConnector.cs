@@ -65,11 +65,11 @@ public class LuerlockConnector : ItemConnector {
 
         ReplaceObject(interactable?.gameObject);
 
-        if (replaceConnection) {
-            Hand hand = interactable.Interactors.Hand;
-            hand.Connector.Connection.Remove();
-            hand.Connector.
-        }
+        //if (replaceConnection) {
+        //    Hand hand = interactable.Interactors.Hand;
+        //    hand.Connector.Connection.Remove();
+        //    hand.Connector.
+        //}
     }
 
     private void ReplaceObject(GameObject newObject) {
