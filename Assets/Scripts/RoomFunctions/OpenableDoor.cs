@@ -5,6 +5,9 @@ public class OpenableDoor : MonoBehaviour {
 
     #region fields
     [SerializeField]
+    private bool flipMomentum = false;
+
+    [SerializeField]
     private float maxAngle = 90;
 
     [SerializeField]
@@ -104,6 +107,9 @@ public class OpenableDoor : MonoBehaviour {
         }
 
         Vector3 rotateVector = Vector3.up * Velocity * Time.deltaTime;
+        if (flipMomentum) {
+            rotateVector *= -1;
+        }
         transform.Rotate(rotateVector);
 
         float fixedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle);
