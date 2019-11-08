@@ -16,7 +16,7 @@ public class Floor : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collision col) {
+    private void OnTriggerExit(Collider col) {
         GeneralItem item = GeneralItem.Find(col.gameObject.transform);
         if (item != null) {
             Events.FireEvent(EventType.ItemLiftedOffFloor, CallbackData.Object(item));
