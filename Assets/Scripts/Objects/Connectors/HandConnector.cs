@@ -38,8 +38,6 @@ public class HandConnector : ItemConnector {
 
         InitializeOffset(GrabbedInteractable.transform);
 
-
-
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedInteractable.gameObject));
         AttachGrabbedItem(GrabbedInteractable);
     }
@@ -66,6 +64,10 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
 
+    #if UNITY_NONVRCOMPUTER
+        Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
+    #else
+
         if (interactable.State == InteractState.LuerlockAttached) {
             // testing with joint connection instead of luerlock connectio -> cant detach
            // connection = ItemConnection.AddLuerlockItemConnection(this, Hand.Offset, interactable.gameObject);
@@ -78,6 +80,7 @@ public class HandConnector : ItemConnector {
                 Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
             }
         }
+    #endif
     }
     #endregion
 
@@ -99,5 +102,5 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable.State.Off(InteractState.Grabbed);
         GrabbedInteractable = null;
     }
-    #endregion
+#endregion
 }
