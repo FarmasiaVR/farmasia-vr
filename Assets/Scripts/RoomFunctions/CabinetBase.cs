@@ -39,7 +39,6 @@ public class CabinetBase : MonoBehaviour {
             itemPlaced = true;
         }
 
-
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;

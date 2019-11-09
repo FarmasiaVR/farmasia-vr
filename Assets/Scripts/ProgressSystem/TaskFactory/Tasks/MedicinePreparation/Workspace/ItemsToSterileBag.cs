@@ -31,6 +31,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(PutToBag, EventType.SterileBag);
+        base.SubscribeEvent(HandsExit, EventType.HandsExitLaminarCabinet)
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);
     }
@@ -93,6 +94,12 @@ public class ItemsToSterileBag : TaskBase {
             }
         }  
         return count; 
+    }
+
+    private void HandsExit(CallbackData data) {
+        if (CheckPreviousTaskCompletion(requiredTasks)) {
+            G.Instance.Progress.ChangePackage();
+        }
     }
     #endregion
 
