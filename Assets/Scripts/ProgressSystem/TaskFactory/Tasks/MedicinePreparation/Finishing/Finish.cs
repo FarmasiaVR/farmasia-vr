@@ -5,6 +5,8 @@ using UnityEngine;
 public class Finish : TaskBase {
     #region Fields
     private CabinetBase laminarCabinet;
+    private String description = "Siirry pois työtilasta.";
+    private String hint = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
     #endregion
 
     #region Constructor
@@ -70,6 +72,26 @@ public class Finish : TaskBase {
         }
     }
 
+    private void DroppedItemsCleaned() {
+        foreach (Package p in G.Instance.Progress.packages) {
+            if (p.name == "Clean Up") {
+                if (!p.doneTypes.Contains(TaskType.ScenarioOneCleanUp)) {
+                    if (G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp) != null) {
+                        G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp).FinishTask();
+                    } else {
+                        foreach (ITask task in p.activeTasks) {
+                            if (task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
+                                task.FinishTask();
+                                break;
+                            }
+                        }
+                    } 
+                }
+                break;
+            }
+        }
+    }
+
     private void LayoutInThroughPut() {
 
     }
@@ -90,19 +112,20 @@ public class Finish : TaskBase {
     public override void FinishTask() {
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
+        DroppedItemsCleaned();
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
-        UISystem.Instance.CreatePopup("Onnittelut!\nKaikki tehtävät suoritettiin.", MsgType.Done);
+        UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
         base.FinishTask();
     }
 
     public override string GetDescription() {
-        return "Siirry pois työtilasta.";
+        return description;
     }
 
     public override string GetHint() {
-        return base.GetHint();
+        return hint;
     }
     #endregion
 }

@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// In case syringes were dropped, this task is created to check if the player puts the dropped syringes to trash before finishing the game.
 /// </summary>
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
-    public enum Conditions { DroppedItemsPutToTrash, PreviousTasksCompleted }
     private string description = "Siivoa lopuksi työtila.";
     private string hint = "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";
+    private List<GeneralItem> itemsToBeCleaned;
     #endregion
 
     #region Constructor
@@ -17,8 +18,8 @@ public class ScenarioOneCleanUp : TaskBase {
     ///  </summary>
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
+        itemsToBeCleaned = new List<GeneralItem>();
     }
     #endregion
 
@@ -27,56 +28,62 @@ public class ScenarioOneCleanUp : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(CleanUp, EventType.CleanUp);
         base.SubscribeEvent(ItemDroppedOnFloor, EventType.ItemDroppedOnFloor);
         base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
     }
-    /// <summary>
-    /// Once fired by an event, checks if dropped syringes are put to trash and if required previous tasks are completed.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void CleanUp(CallbackData data) {
-        bool allDroppedItemsInTrash = data.DataBoolean;
-        if (G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            EnableCondition(Conditions.PreviousTasksCompleted);
-        }
 
-        if (allDroppedItemsInTrash) {
-            EnableCondition(Conditions.DroppedItemsPutToTrash);
+    private void ItemDroppedOnFloor(CallbackData data) {
+        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+            return;
         }
+        foreach (Package p in G.Instance.Progress.packages) {
+            if (p.name == "Clean Up" && p.activeTasks.Count == 1) {
+                p.AddNewTaskBeforeTask(this, p.activeTasks[0]);
+                break;
+            }
+        }
+        GeneralItem item = data.DataObject as GeneralItem;
+        if (!itemsToBeCleaned.Contains(item)) {
+            itemsToBeCleaned.Add(item);
+        }
+    }
 
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            UISystem.Instance.CreatePopup(-1, "Välineitä ei viety roskakoriin.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
-            base.FinishTask();
+    private void ItemLiftedOffFloor(CallbackData data) {
+        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+            return;
+        }
+        GeneralItem item = data.DataObject as GeneralItem;
+        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+            UISystem.Instance.CreatePopup("Siivoa pudonneet työvälineet vasta lopuksi.", MsgType.Mistake);
         }
     }
 
     private void ItemDroppedInTrash(CallbackData data) {
-        GeneralItem item = data.DataObject as GeneralItem;
-        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            UISystem.Instance.CreatePopup("Esineet laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
-            base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
+        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+            return;
         }
-    }
-
-    private void ItemDroppedOnFloor(CallbackData data) {
-
-    }
-
-    private void ItemLiftedOffFloor(CallbackData data) {
         GeneralItem item = data.DataObject as GeneralItem;
-        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean up")) {
-            UISystem.Instance.CreatePopup("Siivosit liian aikaisin.", MsgType.Mistake);
-            base.UnsubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
+        if (!item.IsClean) {
+            if (!G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+                UISystem.Instance.CreatePopup(-1, "Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
+                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
+            }
+            itemsToBeCleaned.Remove(item);
+        }
+        if (itemsToBeCleaned.Count == 0) {
+            base.package.MoveTaskToManager(this);
         }
     }
     #endregion
 
     #region Public Methods
+    public override void FinishTask() {
+        if (itemsToBeCleaned.Count != 0) {
+            G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
+        }
+        base.FinishTask();
+    }
     /// <summary>
     /// Used for getting the task's description.
     /// </summary>

@@ -12,7 +12,6 @@
     Disinfect,
     AttachLuerlock,
     AmountOfMedicine,
-    CleanUp,
     SterileBag,
     RoomDoor,
     ItemDroppedInTrash,

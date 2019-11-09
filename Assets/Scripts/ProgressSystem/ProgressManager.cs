@@ -47,8 +47,7 @@ public class ProgressManager {
             TaskType.CorrectAmountOfMedicineSelected,
             TaskType.ItemsToSterileBag
         };
-        TaskType[] cleanUpTasks = { 
-            //TaskType.ScenarioOneCleanUp,
+        TaskType[] cleanUpTasks = {
             TaskType.Finish 
         };
 
@@ -172,16 +171,17 @@ public class ProgressManager {
         } else {
             FinishProgress();
         }
-
     }
-
 
     /// <summary>
     /// Calls every task inside allTasks Set and finishes them.
     /// </summary>
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
-            task.FinishTask();
+            if (task.GetTaskType() == TaskType.Finish) {
+               task.FinishTask(); 
+               break;
+            }
         }
     }
 
