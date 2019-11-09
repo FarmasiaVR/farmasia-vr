@@ -28,8 +28,9 @@ public class ScenarioOneCleanUp : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(CleanUp, EventType.CleanUp);
-        base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
+        base.SubscribeEvent(ItemDroppedOnFloor, EventType.ItemDroppedOnFloor);
         base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
+        base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
     }
     /// <summary>
     /// Once fired by an event, checks if dropped syringes are put to trash and if required previous tasks are completed.
@@ -60,6 +61,10 @@ public class ScenarioOneCleanUp : TaskBase {
             UISystem.Instance.CreatePopup("Esineet laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
             base.UnsubscribeEvent(ItemDroppedInTrash, EventType.ItemLiftedOffFloor);
         }
+    }
+
+    private void ItemDroppedOnFloor(CallbackData data) {
+
     }
 
     private void ItemLiftedOffFloor(CallbackData data) {

@@ -31,7 +31,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(PutToBag, EventType.SterileBag);
-        base.SubscribeEvent(HandsExit, EventType.HandsExitLaminarCabinet)
+        base.SubscribeEvent(HandsExit, EventType.HandsExitLaminarCabinet);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);
     }
