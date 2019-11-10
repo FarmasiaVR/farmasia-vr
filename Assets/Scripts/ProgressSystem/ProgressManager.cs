@@ -207,6 +207,6 @@ public class ProgressManager {
     #endregion
 
     public bool IsCurrentPackage(string name) {
-        return String.Equals(CurrentPackage, name);
+        return String.Equals(CurrentPackage.name, name);
     }
 }
