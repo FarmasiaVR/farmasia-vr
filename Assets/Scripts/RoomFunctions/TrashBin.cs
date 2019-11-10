@@ -14,7 +14,7 @@ public class TrashBin : MonoBehaviour {
     private void EnterTrashbin(Collider other) {
         GeneralItem item = GeneralItem.Find(other.transform);
         if (item != null) {
-            Events.FireEvent(EventType.ItemDroppedInTrash);
+            Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             item.DestroyInteractable();
         }
     }
