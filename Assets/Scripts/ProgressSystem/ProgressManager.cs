@@ -48,7 +48,7 @@ public class ProgressManager {
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = {
-            TaskType.ScenarioOneCleanUp,
+            //TaskType.ScenarioOneCleanUp,
             TaskType.Finish 
         };
 

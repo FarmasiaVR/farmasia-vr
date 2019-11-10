@@ -101,7 +101,8 @@ public class Finish : TaskBase {
     }
 
     private void BottlesDisinfected() {
-
+        ITask disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
+        disinfect.FinishTask();
     }
     #endregion
 

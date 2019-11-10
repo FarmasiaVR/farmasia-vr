@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DisinfectBottles : TaskBase {
     #region Fields
-    public enum Conditions { BottleCapDisinfected }
+    bool allUsedBottlesWereDisinfected;
     #endregion
 
     #region Constructor
@@ -16,8 +16,8 @@ public class DisinfectBottles : TaskBase {
     ///  </summary>
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
+        allUsedBottlesWereDisinfected = true;
     }
     #endregion
 
@@ -28,20 +28,21 @@ public class DisinfectBottles : TaskBase {
     public override void Subscribe() {
         base.SubscribeEvent(DisinfectBottleCap, EventType.Disinfect);
     }
+
     /// <summary>
     /// Once fired by an event, checks if bottle cap was disinfected and previous tasks completed.
     /// Sets corresponding conditions to be true.
     /// </summary>
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CorrectItemsInLaminarCabinet)) {
-            base.EnableCondition(Conditions.BottleCapDisinfected);
-            UISystem.Instance.CreatePopup(1, "Pullon korkki putsattiin onnistuneesti.", MsgType.Done);
-        } else {
-            UISystem.Instance.CreatePopup(-1, "Korkkia ei putsattu.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
-        }
-        base.UnsubscribeAllEvents();
+        GeneralItem item = data.DataObject as GeneralItem;
+        ObjectType type = item.ObjectType;
+        if (type == ObjectType.Bottle) {
+            MedicineBottle bottle = item as MedicineBottle;
+            if (!bottle.IsClean) {
+                allUsedBottlesWereDisinfected = false;
+            }
+        }  
     }
     #endregion
 
@@ -50,11 +51,11 @@ public class DisinfectBottles : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
-        bool clear = base.CheckClearConditions(true);
-        if (!clear) {
+        if (!allUsedBottlesWereDisinfected) {
             G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
         }
         base.FinishTask();
+        
     }
 
     /// <summary>

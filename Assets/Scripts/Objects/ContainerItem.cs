@@ -37,6 +37,7 @@ public class ContainerItem {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
             Events.FireEvent(EventType.SyringeToMedicineBottle, CallbackData.Object(syringe));
+            Events.FireEvent(EventType.Disinfect, CallbackData.Object(item));
         }
 
         syringe.BottleContainer = container;
