@@ -37,11 +37,13 @@ A dedicated test machine is used to run the project with VR.
 
 ### Test controls
 
-First space has to be pressed to activate test camera and hand controls.
+Test controls can be used on non-vr computers. Add a file `mcs.rsp` to Assets folder and paste `-define:UNITY_NONVRCOMPUTER` inside it.
+
+In Unity play mode press space to activate the test camera and hand controls.
 
 Press K to move the camera, L to control the right hand and J to control the left hand.
 
-Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing with hand. Right click is used for interacting.
+Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting.
 
 ### VR controls
 
