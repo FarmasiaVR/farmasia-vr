@@ -57,28 +57,21 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     private void InitializeLists() {
-        List<Material> m = new List<Material>();
-        //List<Color> c = new List<Color>();
+        materials = new List<Material>();
+        AddAllChildren(transform, materials);
 
-        AddAllChildren(transform);
-
-        materials = m;
-        //startColors = c;
-
-        void AddAllChildren(Transform c) {
-            AddObjectMaterial(c);
+        void AddAllChildren(Transform c, List<Material> materials) {
+            AddObjectMaterial(c.GetComponent<Renderer>()?.material, materials);
 
             foreach (Transform t in c) {
-                AddAllChildren(t);
+                AddAllChildren(t, materials);
             }
         }
 
-        void AddObjectMaterial(Transform tt) {
-            Renderer r = tt.GetComponent<Renderer>();
-            if (r != null) {
-                r.material.EnableKeyword("_EMISSION");
-                m.Add(r.material);
-                //c.Add(r.material.color);
+        void AddObjectMaterial(Material mat, List<Material> materials) {
+            if (mat != null) {
+                mat.EnableKeyword("_EMISSION");
+                materials.Add(mat);
             }
         }
     }
