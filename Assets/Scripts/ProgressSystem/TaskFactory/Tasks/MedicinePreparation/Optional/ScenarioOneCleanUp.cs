@@ -71,7 +71,7 @@ public class ScenarioOneCleanUp : TaskBase {
             }
             itemsToBeCleaned.Remove(item);
         }
-        if (itemsToBeCleaned.Count == 0) {
+        if (itemsToBeCleaned.Count == 0 && base.package != null) {
             base.package.MoveTaskToManager(this);
         }
     }
