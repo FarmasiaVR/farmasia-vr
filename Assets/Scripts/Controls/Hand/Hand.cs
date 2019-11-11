@@ -103,6 +103,10 @@ public class Hand : MonoBehaviour {
                 }
                 prevPointedObj = pointedObj;
             }
+        } else {
+            prevPointedObj = null;
+            remoteGrabPipe?.Abort();
+            remoteGrabPipe = null;
         }
     }
 
