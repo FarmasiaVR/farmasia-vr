@@ -9,14 +9,20 @@ public class Hand : MonoBehaviour {
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
+    private bool IsRemoteGrabbing { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
 
     private static float extendedGrabTime = 1.5f;
     private static float extendedGrabAngle = 30f;
+
+    [SerializeField]
+    private bool useHighlighting;
 
     public SteamVR_Input_Sources HandType { get; private set; }
 
     private HandCollider handCollider;
     private HandCollider extendedHandCollider;
+    private Pipeline remoteGrabPipe;
+    private GameObject prevPointedObj;
 
     public HandConnector Connector { get; private set; }
     private Interactable interactedInteractable;
@@ -43,13 +49,14 @@ public class Hand : MonoBehaviour {
 
     private void Update() {
         UpdateControls();
+        UpdateHighlight();
+        UpdateRemoteGrab();
 
         Interactable interactable = IsGrabbed ? Connector.GrabbedInteractable : interactedInteractable;
         interactable?.UpdateInteract(this);
     }
 
     private void UpdateControls() {
-
         if (VRInput.GetControlDown(HandType, ControlType.Grip)) {
             HintBox.CreateHint("TEst hin");
         }
@@ -71,6 +78,33 @@ public class Hand : MonoBehaviour {
         }
     }
 
+    private void UpdateHighlight() {
+        if (!useHighlighting) {
+            return;
+        }
+
+        if (IsRemoteGrabbing) {
+            extendedHandCollider.HighlightPointedObject(extendedGrabAngle);
+        } else {
+            handCollider.HighlightClosestObject();
+        }
+    }
+
+    private void UpdateRemoteGrab() {
+        if (IsRemoteGrabbing) {
+            GameObject pointedObj = extendedHandCollider.GetPointedObject(extendedGrabAngle);
+            if (pointedObj != prevPointedObj) {
+                remoteGrabPipe?.Abort();
+                if (pointedObj != null) {
+                    remoteGrabPipe = G.Instance.Pipeline
+                                    .New()
+                                    .Delay(extendedGrabTime)
+                                    .TFunc(RemoteGrab, () => pointedObj);
+                }
+                prevPointedObj = pointedObj;
+            }
+        }
+    }
 
     #region Interaction
     public void Interact() {
@@ -79,13 +113,9 @@ public class Hand : MonoBehaviour {
         }
 
         Interactable interactable = handCollider.GetClosestInteractable();
-        if (interactable == null) {
-            Logger.Warning("No interactable to grab");
-            RemoteGrab();
-            return;
+        if (interactable != null) {
+            InteractWith(interactable);
         }
-
-        InteractWith(interactable);
     }
     private void InteractWith(Interactable interactable) {
         if (interactable.Type == InteractableType.Grabbable) {
@@ -138,52 +168,13 @@ public class Hand : MonoBehaviour {
     }
     #endregion
 
-    #region Extended grab
-    private void RemoteGrab() {
-        StartCoroutine(RemoteGrabCoroutine());
-    }
-
-    private IEnumerator RemoteGrabCoroutine() {
-        while (true) {
-
-            if (extendedHandCollider.CountWithinAngle(extendedGrabAngle) > 0) {
-
-                GameObject original = extendedHandCollider.GetPointedObject(extendedGrabAngle);
-                float time = extendedGrabTime;
-
-                while (time > 0) {
-
-                    if (VRInput.GetControlUp(HandType, Controls.Grab)) {
-                        break;
-                    }
-
-                    time -= Time.deltaTime;
-
-                    GameObject current = extendedHandCollider.GetPointedObject(extendedGrabAngle);
-
-                    if (current != original) {
-                        break;
-                    }
-
-                    yield return null;
-                }
-
-                if (time <= 0) {
-                    Interactable i = original;
-                    if (i.Type == InteractableType.Grabbable) {
-                        original.transform.position = transform.position;
-                    }
-                    InteractWith(original);
-                    yield break;
-                }
-            }
-
-            if (VRInput.GetControlUp(HandType, Controls.Grab)) {
-                break;
-            }
-
-            yield return null;
+    #region Remote grab
+    private void RemoteGrab(GameObject obj) {
+        Interactable i = obj;
+        if (i.Type == InteractableType.Grabbable) {
+            obj.transform.position = transform.position;
         }
+        InteractWith(obj);
     }
     #endregion
 

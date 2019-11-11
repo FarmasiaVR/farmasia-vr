@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
 
     #region Fields
     private HashSet<GameObject> grabObjects;
-
-    [SerializeField]
-    private bool useHighlighting;
     #endregion
 
     private void Start() {
@@ -17,30 +13,8 @@ public class HandCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider coll) {
         GameObject interactable = Interactable.GetInteractableObject(coll.transform);
-        if (interactable == null) {
-            return;
-        }
-        grabObjects.Add(interactable);
-
-        if (useHighlighting) {
-            ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
-            if (hObject != null) {
-                StartCoroutine(InsideCheck(coll.gameObject, hObject));
-            }
-        }
-
-        IEnumerator InsideCheck(Interactable obj, ObjectHighlight highlight) {
-            while (grabObjects.Contains(obj.gameObject)) {
-                if (ShouldHighlight(obj)) {
-                    highlight.Highlight();
-                } else {
-                    highlight.Unhighlight();
-                }
-
-                yield return null;
-            }
-
-            highlight.Unhighlight();
+        if (interactable != null) {
+            grabObjects.Add(interactable);
         }
     }
 
@@ -49,14 +23,37 @@ public class HandCollider : MonoBehaviour {
         if (interactable == null) {
             return;
         }
+
+        ObjectHighlight highlight = ObjectHighlight.GetHighlightFromTransform(coll.transform);
+        highlight?.Unhighlight();
         grabObjects.Remove(interactable);
     }
+
+    #region Highlight
+    public void HighlightClosestObject() {
+        HighlightObject(GetClosestObject());
+    }
+
+    public void HighlightPointedObject(float maxAngle) {
+        HighlightObject(GetPointedObject(maxAngle));
+    }
+
+    private void HighlightObject(GameObject obj) {
+        foreach (GameObject child in grabObjects) {
+            ObjectHighlight.GetHighlightFromTransform(child.transform)?.Unhighlight();
+        }
+
+        if (grabObjects.Contains(obj)) {
+            ObjectHighlight.GetHighlightFromTransform(obj.transform)?.Highlight();
+        }
+    }
+    #endregion
 
     public Interactable GetClosestInteractable() {
         return GetClosestObject()?.GetComponent<Interactable>() ?? null;
     }
 
-    private GameObject GetClosestObject() {
+    public GameObject GetClosestObject() {
         float closestDistance = float.MaxValue;
         GameObject closest = null;
 
@@ -71,50 +68,19 @@ public class HandCollider : MonoBehaviour {
         return closest;
     }
 
-    private bool ShouldHighlight(Interactable interactable) {
-        if (interactable.State == InteractState.Grabbed) {
-            return false;
-        }
-        
-        return interactable.gameObject == GetClosestObject();
-    }
-
-    public int CountWithinAngle(float maxAngle) {
-        return GetObjectsWithinAngle(maxAngle).Count;
-    }
-
     public GameObject GetPointedObject(float maxAngle) {
-
-        List<GameObject> objects = GetObjectsWithinAngle(maxAngle);
-
         float smallestAngle = float.MaxValue;
         GameObject closest = null;
 
-        foreach (GameObject g in objects) {
-
+        foreach (GameObject g in grabObjects) {
             float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
 
-            if (angle < smallestAngle) {
+            if (angle < smallestAngle && angle < maxAngle) {
                 smallestAngle = angle;
                 closest = g;
             }
         }
 
         return closest;
-    }
-
-    private List<GameObject> GetObjectsWithinAngle(float maxAngle) {
-
-        List<GameObject> list = new List<GameObject>();
-
-        foreach (GameObject g in grabObjects) {
-            float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
-
-            if (angle <= maxAngle) {
-                list.Add(g);
-            }
-        }
-
-        return list;
     }
 }
