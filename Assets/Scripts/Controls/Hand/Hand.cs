@@ -117,7 +117,7 @@ public class Hand : MonoBehaviour {
             InteractWith(interactable);
         }
     }
-    private void InteractWith(Interactable interactable) {
+    public void InteractWith(Interactable interactable) {
         if (interactable.Type == InteractableType.Grabbable) {
             Offset.position = interactable.transform.position;
             Offset.rotation = interactable.transform.rotation;

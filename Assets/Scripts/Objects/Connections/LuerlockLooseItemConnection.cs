@@ -56,6 +56,7 @@ public class LuerlockLooseItemConnection : ItemConnection {
     private void BreakLuerlockConnection() {
         Remove();
         luerlock.GetConnector(interactable).Connection.Remove();
+        hand.InteractWith(interactable);
         Logger.Print("Breaking luerlock connection");
     }
 
