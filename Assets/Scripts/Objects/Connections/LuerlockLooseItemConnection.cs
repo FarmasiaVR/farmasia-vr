@@ -4,7 +4,7 @@ using UnityEngine;
 public class LuerlockLooseItemConnection : ItemConnection {
 
     #region Fields
-    private static float luerlockBreakDistance = 0.05f;
+    private static float luerlockBreakDistance = 0.045f;
 
     protected override ItemConnector Connector { get; set; }
     private Interactable interactable;
@@ -27,7 +27,7 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
     private void UpdatePosition() {
 
-        Vector3 newPos = PosInBetween(0.05f);
+        Vector3 newPos = PosInBetween(0.15f);
 
         float distance = Vector3.Distance(TargetPos, newPos);
 
