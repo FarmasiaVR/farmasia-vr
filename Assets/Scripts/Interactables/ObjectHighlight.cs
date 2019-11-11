@@ -12,8 +12,8 @@ public class ObjectHighlight : MonoBehaviour {
 
     private void Awake() {
         InitializeLists();
-        highlightColor = new Color32(100,120,100,1);
-        normalColor = new Color32(0,0,0,0);
+        highlightColor = new Color32(100, 120, 100, 1);
+        normalColor = new Color32(0, 0, 0, 0);
     }
 
     private void OnDestroy() {
@@ -38,20 +38,16 @@ public class ObjectHighlight : MonoBehaviour {
 
     private void InitializeLists() {
         materials = new List<Material>();
-        AddAllChildren(transform, materials);
 
-        void AddAllChildren(Transform c, List<Material> materials) {
-            AddObjectMaterial(c.GetComponent<Renderer>()?.material, materials);
+        Renderer r = GetComponent<Renderer>();
 
-            foreach (Transform t in c) {
-                AddAllChildren(t, materials);
-            }
+        if (r != null && r.material != null) {
+            materials.Add(r.material);
         }
 
-        void AddObjectMaterial(Material mat, List<Material> materials) {
-            if (mat != null) {
-                mat.EnableKeyword("_EMISSION");
-                materials.Add(mat);
+        foreach (Renderer rc in transform.GetComponentsInChildren<Renderer>()) {
+            if (rc.material != null) {
+                materials.Add(rc.material);
             }
         }
     }
