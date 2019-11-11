@@ -17,6 +17,7 @@ public class TestHandMover : MonoBehaviour {
     private const KeyCode MOVE_RIGHT = KeyCode.D;
     private const KeyCode MOVE_UP = KeyCode.E;
     private const KeyCode MOVE_DOWN = KeyCode.Q;
+    private const KeyCode FILL_PASSTHROUGH_CABINET = KeyCode.F;
 
     private enum ControlState {
         HAND_LEFT, HAND_RIGHT, CAMERA
@@ -36,6 +37,9 @@ public class TestHandMover : MonoBehaviour {
 
     private bool active;
     private bool grabbing;
+
+    [SerializeField]
+    private GameObject correctPassthroughCabinetItems;
     #endregion
 
     private void Start() {
@@ -66,6 +70,10 @@ public class TestHandMover : MonoBehaviour {
             SetState(ControlState.HAND_RIGHT);
         } else if (JustPressed(USE_CAMERA)) {
             SetState(ControlState.CAMERA);
+        }
+
+        if (JustPressed(FILL_PASSTHROUGH_CABINET)) {
+            correctPassthroughCabinetItems.SetActive(true);
         }
     }
 
