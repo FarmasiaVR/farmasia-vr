@@ -51,25 +51,33 @@ public class LuerlockConnector : ItemConnector {
     public override void ConnectItem(Interactable interactable) {
         Logger.Print("Connect item: " + interactable.name);
 
+        bool luerlockGrabbed = Luerlock.State == InteractState.Grabbed;
+        Hand luerlockHand = luerlockGrabbed ? Hand.GrabbingHand(Luerlock) : null;
 
-        if (Luerlock.State == InteractState.Grabbed && interactable.State == InteractState.Grabbed) {
+        bool itemGrabbed = interactable.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+
+        // Move to ConnectionHandler?
+        // Remove current connections
+        if (luerlockGrabbed) {
+            // Not necessary but more 'clear' for debugging purposes
             Hand.GrabbingHand(Luerlock).Connector.Connection.Remove();
         }
-
-        bool replaceConnection = interactable.State == InteractState.Grabbed;
-
-        // Connection will have to be removed and replaced with luerlockItemConnection, Eetu will do this :):)
-        if (interactable.State == InteractState.Grabbed) {
+        if (itemGrabbed) {
             interactable.GetComponent<ItemConnection>().Remove();
         }
 
+
         ReplaceObject(interactable?.gameObject);
 
-        //if (replaceConnection) {
-        //    Hand hand = interactable.Interactors.Hand;
-        //    hand.Connector.Connection.Remove();
-        //    hand.Connector.
-        //}
+        // Move to ConnectionHandler?
+        // Add new connections
+        if (luerlockGrabbed) {
+            luerlockHand.InteractWith(Luerlock);
+        }
+        if (itemGrabbed) {
+            itemHand.InteractWith(interactable);
+        }
     }
 
     private void ReplaceObject(GameObject newObject) {
@@ -102,7 +110,7 @@ public class LuerlockConnector : ItemConnector {
         CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, true);
 
         // Attaching
-        SetLuerlockPosition(Collider);
+        SnapObjectPosition(Collider);
 
         // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
         // Joint.connectedBody = attached.Rigidbody;
@@ -112,13 +120,15 @@ public class LuerlockConnector : ItemConnector {
         Connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
     }
 
-    private void SetLuerlockPosition(GameObject collObject) {
+    private void SnapObjectPosition(GameObject collObject) {
         Transform t = attached.GameObject.transform;
         Transform target = LuerlockAdapter.LuerlockPosition(t);
 
         if (target == null) {
             throw new System.Exception("Luerlock position not found");
         }
+
+        t.up = -target.up;
 
         Vector3 offset = collObject.transform.position - target.position;
         t.position += offset;

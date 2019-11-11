@@ -9,9 +9,6 @@ public class HandConnector : ItemConnector {
 
     public Interactable GrabbedInteractable { get; private set; }
 
-    private Vector3 grabPosOffset;
-    private Vector3 grabRotOffset;
-
     public override ItemConnection Connection { get; set; }
     #endregion
 
@@ -35,17 +32,9 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable.State.On(InteractState.Grabbed);
         GrabbedInteractable.Interactors.SetHand(Hand);
 
-        InitializeOffset(GrabbedInteractable.transform);
-
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedInteractable.gameObject));
         AttachGrabbedItem(GrabbedInteractable);
     }
-
-    private void InitializeOffset(Transform current) {
-        grabPosOffset = current.position - Hand.ColliderPosition;
-        grabRotOffset = current.eulerAngles - Hand.transform.eulerAngles;
-    }
-
 
     private bool AllowSmoothAttach(Interactable interactable) {
         if (interactable.Type != InteractableType.SmallObject) {
@@ -61,9 +50,9 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
 
-    #if UNITY_NONVRCOMPUTER
+#if UNITY_NONVRCOMPUTER
         Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
-    #else
+#else
 
         if (interactable.State == InteractState.LuerlockAttached) {
 
@@ -78,7 +67,7 @@ public class HandConnector : ItemConnector {
                 } else {
                     ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
-                
+
             } else {
                 if (luerlock.State == InteractState.Grabbed) {
                     ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
@@ -86,10 +75,16 @@ public class HandConnector : ItemConnector {
                     ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
             }
+        } else if (interactable as LuerlockAdapter is var luerlock && luerlock != null) {
+            if (luerlock.ObjectCount == 0) {
+                ConnectionHandler.GrabItem(this, Hand.Offset, luerlock);
+            } else {
+                ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
+            }
         } else {
             ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
         }
-    #endif
+#endif
     }
     #endregion
 
@@ -113,5 +108,5 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable.State.Off(InteractState.Grabbed);
         GrabbedInteractable = null;
     }
-#endregion
+    #endregion
 }

@@ -8,7 +8,13 @@ public class TeleportArc {
     private const float acceleration = 0.2f;
     private const float angle = 1f;
     private const float maxLineDistance = 100;
+
+    private int layer;
     #endregion
+
+    public TeleportArc() {
+        layer = LayerMask.NameToLayer("Default");
+    }
 
     public void ShootArc(Vector3 startPos, Vector3 startDir, out Vector3[] outArc, out GameObject hitObject, out Vector3 hitPos) {
         List<Vector3> arc = new List<Vector3>();
@@ -57,7 +63,7 @@ public class TeleportArc {
     private bool CastRay(Vector3 pos, Vector3 endPos, out RaycastHit hit) {
         Vector3 dir = endPos - pos;
 
-        if (Physics.Raycast(pos, dir, out hit, distance)) {
+        if (Physics.Raycast(pos, dir, out hit, distance, layer, QueryTriggerInteraction.Ignore)) {
             return true;
         }
 

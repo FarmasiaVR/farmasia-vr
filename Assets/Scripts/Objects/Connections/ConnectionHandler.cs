@@ -38,7 +38,26 @@ public static class ConnectionHandler {
     }
 
     public static void GrabLuerlockWhenAttachedItemsAreGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
-        throw new System.NotImplementedException();
+
+        LuerlockAdapter luerlock = addTo as LuerlockAdapter;
+
+        if (luerlock == null) {
+            throw new System.Exception("Luerlock is null");
+        }
+
+        Interactable otherItem = luerlock
+            .LeftConnector.HasAttachedObject
+            && luerlock.LeftConnector.AttachedInteractable.State == InteractState.Grabbed
+            ? luerlock.LeftConnector.AttachedInteractable
+            : luerlock.RightConnector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherItem);
+
+        otherHand.Connector.Connection.Remove();
+
+        connector.Connection = ItemConnection.AddSmoothConnection(connector, target, addTo);
+
+        otherHand.InteractWith(otherItem);
     }
     #endregion
 

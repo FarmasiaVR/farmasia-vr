@@ -11,7 +11,6 @@ public class LuerlockLooseItemConnection : ItemConnection {
     private LuerlockAdapter luerlock;
     private Hand hand;
 
-    private Vector3 handStart;
     private Vector3 startLocal;
 
     private Vector3 TargetPos {
@@ -54,10 +53,15 @@ public class LuerlockLooseItemConnection : ItemConnection {
     }
 
     private void BreakLuerlockConnection() {
+
+        // Move into ConnectionHandler?
+
         Remove();
         luerlock.GetConnector(interactable).Connection.Remove();
+
+        interactable.transform.position = hand.transform.position;
+
         hand.InteractWith(interactable);
-        Logger.Print("Breaking luerlock connection");
     }
 
     public static LuerlockLooseItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
@@ -68,7 +72,6 @@ public class LuerlockLooseItemConnection : ItemConnection {
         conn.interactable = interactable;
         conn.hand = hand.GetComponent<Hand>();
         conn.luerlock = interactable.Interactors.LuerlockPair.Value;
-        conn.handStart = hand.position;
         conn.startLocal = interactable.transform.localPosition;
 
         return conn;
