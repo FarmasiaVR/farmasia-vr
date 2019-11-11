@@ -42,12 +42,14 @@ public class ObjectHighlight : MonoBehaviour {
         Renderer r = GetComponent<Renderer>();
 
         if (r != null && r.material != null) {
+            r.material.EnableKeyword("_EMISSION");
             materials.Add(r.material);
         }
 
-        foreach (Renderer rc in transform.GetComponentsInChildren<Renderer>()) {
-            if (rc.material != null) {
-                materials.Add(rc.material);
+        foreach (Renderer child in transform.GetComponentsInChildren<Renderer>()) {
+            if (child.material != null) {
+                child.material.EnableKeyword("_EMISSION");
+                materials.Add(child.material);
             }
         }
     }
