@@ -105,11 +105,13 @@ public class Finish : TaskBase {
     }
 
     private void LayoutInThroughPut() {
-
+        ITask layoutThroughPut = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInThroughput);
+        layoutThroughPut.FinishTask();
     }
 
     private void LayoutInLaminarCabinet() {
-
+        ITask layoutLaminarCabinet = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInLaminarCabinet);
+        layoutLaminarCabinet.FinishTask();
     }
 
     private void BottlesDisinfected() {
