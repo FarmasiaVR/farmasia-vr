@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HandCollider : MonoBehaviour {
@@ -23,7 +24,23 @@ public class HandCollider : MonoBehaviour {
 
         if (useHighlighting) {
             ObjectHighlight hObject = ObjectHighlight.GetHighlightFromTransform(coll.transform);
-            hObject?.StartCoroutine(hObject?.InsideCheck(this));
+            if (hObject != null) {
+                StartCoroutine(InsideCheck(coll.gameObject, hObject));
+            }
+        }
+
+        IEnumerator InsideCheck(Interactable obj, ObjectHighlight highlight) {
+            while (grabObjects.Contains(obj.gameObject)) {
+                if (ShouldHighlight(obj)) {
+                    highlight.Highlight();
+                } else {
+                    highlight.Unhighlight();
+                }
+
+                yield return null;
+            }
+
+            highlight.Unhighlight();
         }
     }
 
@@ -35,22 +52,16 @@ public class HandCollider : MonoBehaviour {
         grabObjects.Remove(interactable);
     }
 
-    public bool Contains(GameObject obj) {
-        return grabObjects.Contains(obj);
+    public Interactable GetClosestInteractable() {
+        return GetClosestObject()?.GetComponent<Interactable>() ?? null;
     }
 
-    public Interactable GetGrabbedInteractable() {
-        return GetGrabbedObject()?.GetComponent<Interactable>() ?? null;
-    }
-
-    public GameObject GetGrabbedObject() {
+    private GameObject GetClosestObject() {
         float closestDistance = float.MaxValue;
         GameObject closest = null;
 
         foreach (GameObject rb in grabObjects) {
-
             float distance = Vector3.Distance(transform.position, rb.transform.position);
-
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closest = rb;
@@ -60,9 +71,18 @@ public class HandCollider : MonoBehaviour {
         return closest;
     }
 
+    private bool ShouldHighlight(Interactable interactable) {
+        if (interactable.State == InteractState.Grabbed) {
+            return false;
+        }
+        
+        return interactable.gameObject == GetClosestObject();
+    }
+
     public int CountWithinAngle(float maxAngle) {
         return GetObjectsWithinAngle(maxAngle).Count;
     }
+
     public GameObject GetPointedObject(float maxAngle) {
 
         List<GameObject> objects = GetObjectsWithinAngle(maxAngle);

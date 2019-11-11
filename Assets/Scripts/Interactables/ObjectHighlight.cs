@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectHighlight : MonoBehaviour {
 
     #region fields
     private List<Material> materials;
-    //private List<Color> startColors;
     private Color highlightColor;
     private Color normalColor;
 
@@ -32,24 +30,6 @@ public class ObjectHighlight : MonoBehaviour {
         for (int i = 0; i < materials.Count; i++) {
             materials[i].SetColor("_EmissionColor", normalColor);
         }
-    }
-
-    public IEnumerator InsideCheck(HandCollider coll) {
-        while (coll.Contains(gameObject)) {
-            bool isClosest = gameObject == coll.GetGrabbedObject();
-
-            if (gameObject.GetComponent<Interactable>().State == InteractState.Grabbed) {
-                Unhighlight();
-            } else if (isClosest) {
-                Highlight();
-            } else if (!isClosest) {
-                Unhighlight();
-            }
-
-            yield return null;
-        }
-
-        Unhighlight();
     }
 
     public static ObjectHighlight GetHighlightFromTransform(Transform t) {

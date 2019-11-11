@@ -78,7 +78,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Interactable interactable = handCollider.GetGrabbedInteractable();
+        Interactable interactable = handCollider.GetClosestInteractable();
         if (interactable == null) {
             Logger.Warning("No interactable to grab");
             RemoteGrab();
