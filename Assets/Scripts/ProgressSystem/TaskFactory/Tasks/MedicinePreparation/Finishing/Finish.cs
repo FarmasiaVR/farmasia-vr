@@ -36,7 +36,7 @@ public class Finish : TaskBase {
     }
 
     private void DoorHandleGrabbed(CallbackData data) {
-        if ((DoorGoTo)data.DataObject != DoorGoTo.EnterPreparation) {
+        if ((DoorGoTo)data.DataObject != DoorGoTo.Exit) {
             return;
         }
         if (!G.Instance.Progress.IsCurrentPackage("Clean Up")) {

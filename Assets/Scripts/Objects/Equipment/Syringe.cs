@@ -71,7 +71,6 @@ public class Syringe : GeneralItem {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {
             BottleEject(amount);
-            //test event trigger Events.FireEvent(EventType.MedicineToSyringe, CallbackData.Object(this));
         } else {
             Eject(amount);
         }

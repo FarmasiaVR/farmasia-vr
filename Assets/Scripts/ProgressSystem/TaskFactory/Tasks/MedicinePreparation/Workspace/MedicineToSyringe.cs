@@ -48,7 +48,9 @@ public class MedicineToSyringe : TaskBase {
 
     private void AddSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
-        syringes.Add(s.GetInstanceID(), s.Container.Amount);
+        if (!syringes.ContainsKey(s.GetInstanceID())) {
+            syringes.Add(s.GetInstanceID(), s.Container.Amount);
+        }
         if (!CheckPreviousTaskCompletion(requiredTasks) && G.Instance.Progress.CurrentPackage.name == "Workspace") {
             UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
         }
@@ -57,7 +59,6 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            //vai saako alussa miinusta jo ruiskun laittamisesta lääkepulloon otti lääkettä sillä tai ei?
             if (laminarCabinet == null && CheckSyringeLiquidChange(s)) {
                 if (!takenBeforeTime) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
@@ -94,7 +95,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void ToSyringe(Syringe syringe) {
-        if (syringe.Container.Amount == 900) {
+        if (syringe.Container.Amount >= 900) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }
         if (syringe.Container.Capacity == 20000) {
