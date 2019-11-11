@@ -24,6 +24,7 @@ public class Finish : TaskBase {
     /// </summary>
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(DoorHandleGrabbed, EventType.RoomDoor);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -32,6 +33,17 @@ public class Finish : TaskBase {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }        
+    }
+
+    private void DoorHandleGrabbed(CallbackData data) {
+        if ((DoorGoTo)data.DataObject != DoorGoTo.EnterPreparation) {
+            return;
+        }
+        if (!G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+            UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
+        } else {
+            FinishTask();
+        }
     }
     #endregion
 
@@ -111,13 +123,15 @@ public class Finish : TaskBase {
     /// Once all tasks are completed, this method is called.
     /// </summary>
     public override void FinishTask() {
+        UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
+        
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
-        UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
+        
         base.FinishTask();
     }
 
