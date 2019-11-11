@@ -38,10 +38,14 @@ public class HandCollider : MonoBehaviour {
         HighlightObject(GetPointedObject(maxAngle));
     }
 
-    private void HighlightObject(GameObject obj) {
+    public void UnhighlightAll() {
         foreach (GameObject child in grabObjects) {
             ObjectHighlight.GetHighlightFromTransform(child.transform)?.Unhighlight();
         }
+    }
+
+    private void HighlightObject(GameObject obj) {
+        UnhighlightAll();
 
         if (grabObjects.Contains(obj)) {
             ObjectHighlight.GetHighlightFromTransform(obj.transform)?.Highlight();
