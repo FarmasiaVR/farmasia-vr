@@ -29,6 +29,7 @@ public static class JointConfiguration {
     }
 
     internal static Joint AddSpringJoint(GameObject gameObject) {
+        return AddFixedJoint(gameObject);
         throw new NotImplementedException();
     }
 }

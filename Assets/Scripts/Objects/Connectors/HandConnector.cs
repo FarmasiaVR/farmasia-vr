@@ -22,14 +22,13 @@ public class HandConnector : ItemConnector {
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
         if (interactable.Rigidbody == null) {
-            Logger.Error("Interactable has no rigidbody");
-            return;
+            Logger.Warning("Interactable has no rigidbody");
         }
 
         // release item from other hand
         bool isGrabbingSameObject = interactable == Hand.Other.Connector.GrabbedInteractable;
         if (isGrabbingSameObject) {
-            Hand.GrabbingHand(interactable.Rigidbody).Connector.Connection.Remove();
+            Hand.GrabbingHand(interactable).Connector.Connection.Remove();
         }
 
         GrabbedInteractable = interactable;
@@ -108,8 +107,10 @@ public class HandConnector : ItemConnector {
             return;
         }
 
-        GrabbedInteractable.Rigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
-        GrabbedInteractable.Rigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
+        if (GrabbedInteractable.Rigidbody) {
+            GrabbedInteractable.Rigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
+            GrabbedInteractable.Rigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
+        }
 
         GrabbedInteractable.State.Off(InteractState.Grabbed);
         GrabbedInteractable = null;

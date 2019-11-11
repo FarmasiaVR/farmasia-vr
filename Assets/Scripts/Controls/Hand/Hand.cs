@@ -187,9 +187,9 @@ public class Hand : MonoBehaviour {
     }
     #endregion
 
-    public static Hand GrabbingHand(Rigidbody rb) {
+    public static Hand GrabbingHand(Interactable interactable) {
         foreach (VRHandControls controls in VRInput.Hands) {
-            if (rb == controls.Hand.Connector.GrabbedInteractable?.Rigidbody) {
+            if (interactable == controls.Hand.Connector.GrabbedInteractable) {
                 return controls.Hand;
             }
         }

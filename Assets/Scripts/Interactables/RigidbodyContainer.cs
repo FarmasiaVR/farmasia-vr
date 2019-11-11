@@ -26,6 +26,7 @@ public class RigidbodyContainer {
     public void EnableAndDeparent() {
 
         if (Enabled) {
+            Logger.Warning("Trying to add rigidbody again");
             return;
         }
 
@@ -40,13 +41,27 @@ public class RigidbodyContainer {
 
     public void Enable() {
 
+        if (Enabled) {
+            Logger.Warning("Trying to add rigidbody again");
+            return;
+        }
+
         if (Rigidbody != null) {
             throw new System.Exception("Rigidbody was not null");
+        }
+
+        if (interactable.GetComponent<Rigidbody>() != null) {
+            throw new System.Exception("Rigidbody via GetComponent was not null");
         }
 
         Enabled = true;
 
         Rigidbody = interactable.gameObject.AddComponent<Rigidbody>();
+
+        if (Rigidbody == null) {
+            Logger.Error("Added rigidbody was niull");
+        }
+
         state.SetRigidbody(Rigidbody);
     }
     public void Disable() {

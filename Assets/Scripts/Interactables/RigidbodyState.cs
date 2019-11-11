@@ -68,6 +68,10 @@ public struct RigidbodyState {
     }
     public void SetValues(Rigidbody rb, EnableSettings settings) {
 
+        if (rb == null) {
+            throw new System.Exception("Rigidbody was null");
+        }
+
         rb.angularDrag = angularDrag;
         rb.centerOfMass = centerOfMass;
         rb.collisionDetectionMode = collisionDetectionMode;

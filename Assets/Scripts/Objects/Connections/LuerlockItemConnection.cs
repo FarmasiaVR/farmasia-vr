@@ -9,7 +9,8 @@ public class LuerlockItemConnection : ItemConnection {
     private Joint joint;
     #endregion
 
-    private void OnJointBreak(float force) {
+    private void JointBreak(float force) {
+        Logger.PrintVariables("Joint broken", force);
         Remove();
     }
 
@@ -20,9 +21,9 @@ public class LuerlockItemConnection : ItemConnection {
     public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, GameObject interactable) {
 
         Rigidbody targetRB = hand.GetComponent<Rigidbody>();
-        Rigidbody intRB = interactable.GetComponent<Rigidbody>();
+        Rigidbody luerlockRB = interactable.GetComponent<Interactable>().Interactors.LuerlockPair.Value.Rigidbody;
 
-        if (targetRB == null || intRB == null) {
+        if (targetRB == null || luerlockRB == null) {
             throw new System.Exception("Both parties did not have rigidbody");
         }
 
@@ -31,10 +32,12 @@ public class LuerlockItemConnection : ItemConnection {
         conn.Connector = connector;
         conn.target = hand;
 
-        Joint joint = JointConfiguration.AddSpringJoint(conn.gameObject);
-        joint.connectedBody = targetRB;
+        Joint joint = JointConfiguration.AddSpringJoint(targetRB.gameObject);
+        joint.connectedBody = luerlockRB;
 
         conn.joint = joint;
+
+        JointBreakSubscription.Subscribe(hand.gameObject, conn.JointBreak);
 
         return conn;
     }

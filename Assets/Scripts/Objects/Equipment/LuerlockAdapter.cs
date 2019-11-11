@@ -85,6 +85,7 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     private void CheckBreakDistance() {
+        return;
         LeftConnector.CheckObjectDistance();
         RightConnector.CheckObjectDistance();
     }
