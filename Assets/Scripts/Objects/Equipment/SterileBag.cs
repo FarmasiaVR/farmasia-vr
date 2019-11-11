@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public class SterileBag : MonoBehaviour {
+public class SterileBag : GeneralItem {
 
-    #region Fields
+    #region fields
     public List<GameObject> objectsInBag;
     public bool IsClosed { get; private set; }
     public bool IsSterile { get; private set; }
@@ -13,12 +14,14 @@ public class SterileBag : MonoBehaviour {
     #endregion
     
     // Start is called before the first frame update
-    void Start() {
+    protected override void Start_GeneralItem() {
+        ObjectType = ObjectType.SterileBag;
+        IsClean = true;
+
         objectsInBag = new List<GameObject>();
         IsClosed = false;
         IsSterile = true;
-        IsClean = true;
-
+        
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterSterileBag(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitSterileBag(collider)));
     }
