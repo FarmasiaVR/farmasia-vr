@@ -17,6 +17,7 @@ public class SterileBag : MonoBehaviour {
         objectsInBag = new List<GameObject>();
         IsClosed = false;
         IsSterile = true;
+        IsClean = true;
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterSterileBag(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitSterileBag(collider)));
