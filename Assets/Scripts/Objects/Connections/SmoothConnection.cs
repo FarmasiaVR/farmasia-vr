@@ -158,11 +158,11 @@ public class SmoothConnection : ItemConnection {
         rb.angularVelocity = Vector3.zero;
     }
 
-    public static SmoothConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
+    public static SmoothConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
         SmoothConnection conn = addTo.gameObject.AddComponent<SmoothConnection>();
 
         conn.Connector = connector;
-        conn.target = target;
+        conn.target = target.transform;
 
         return conn;
     }

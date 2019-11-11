@@ -42,7 +42,7 @@ public class RotationConnection: ItemConnection {
         //rb.MoveRotation(Quaternion.Lerp(transform.rotation, target.rotation, 0.2f));
     }
 
-    public static RotationConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
+    public static RotationConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
         RotationConnection conn = addTo.gameObject.AddComponent<RotationConnection>();
 
         conn.Connector = connector;

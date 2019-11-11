@@ -18,16 +18,16 @@ public class LuerlockItemConnection : ItemConnection {
         Destroy(joint);
     }
 
-    public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, GameObject interactable) {
+    public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
 
         Rigidbody targetRB = hand.GetComponent<Rigidbody>();
-        Rigidbody luerlockRB = interactable.GetComponent<Interactable>().Interactors.LuerlockPair.Value.Rigidbody;
+        Rigidbody luerlockRB = interactable.Rigidbody;
 
         if (targetRB == null || luerlockRB == null) {
             throw new System.Exception("Both parties did not have rigidbody");
         }
 
-        LuerlockItemConnection conn = interactable.AddComponent<LuerlockItemConnection>();
+        LuerlockItemConnection conn = interactable.gameObject.AddComponent<LuerlockItemConnection>();
 
         conn.Connector = connector;
         conn.target = hand;

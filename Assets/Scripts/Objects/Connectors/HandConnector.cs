@@ -71,25 +71,23 @@ public class HandConnector : ItemConnector {
 
             if (luerlock.ObjectCount > 1) {
 
-                Interactable other = interactable == luerlock.LeftConnector.AttachedInteractable 
-                    ? luerlock.RightConnector.AttachedInteractable 
-                    : luerlock.LeftConnector.AttachedInteractable;
+                Interactable other = luerlock.GetOtherInteractable(interactable);
 
                 if (other.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable.gameObject);
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
                 } else {
-                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable.gameObject);
+                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
                 
             } else {
                 if (luerlock.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable.gameObject);
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
                 } else {
-                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable.gameObject);
+                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
             }
         } else {
-            ConnectionHandler.GrabItem(this, Hand.Offset, interactable.gameObject);
+            ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
         }
     #endif
     }

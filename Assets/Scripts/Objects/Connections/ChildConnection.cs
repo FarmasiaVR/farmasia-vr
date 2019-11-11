@@ -15,8 +15,7 @@ public class ChildConnection : ItemConnection {
         SafeSetParent(target, transform);
     }
 
-    
-
+   
     protected override void RemoveConnection() {
         interactable.RigidbodyContainer.EnableAndDeparent();
     }
@@ -26,12 +25,12 @@ public class ChildConnection : ItemConnection {
         child.SetParent(parent);
     }
 
-    public static ChildConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
+    public static ChildConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
 
-        ChildConnection conn = addTo.AddComponent<ChildConnection>();
+        ChildConnection conn = addTo.gameObject.AddComponent<ChildConnection>();
 
         conn.Connector = connector;
-        conn.target = target;
+        conn.target = target.transform;
 
         conn.Init();
 

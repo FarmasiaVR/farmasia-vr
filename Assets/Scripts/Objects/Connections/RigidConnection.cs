@@ -106,7 +106,7 @@ public class RigidConnection : ItemConnection {
         rb.MoveRotation(target.rotation);
     }
 
-    public static RigidConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
+    public static RigidConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
         RigidConnection conn = addTo.gameObject.AddComponent<RigidConnection>();
 
         conn.Connector = connector;

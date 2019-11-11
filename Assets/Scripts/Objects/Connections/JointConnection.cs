@@ -27,14 +27,14 @@ public class JointConnection : ItemConnection {
         Destroy(joint);
     }
 
-    public static JointConnection Configuration(ItemConnector connector, Transform target, GameObject addTo) {
+    public static JointConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
         Rigidbody targetRB = target.GetComponent<Rigidbody>();
 
         if (targetRB == null) {
             throw new System.Exception("Trying to attach joint connection without rigidbody");
         }
 
-        JointConnection conn = addTo.AddComponent<JointConnection>();
+        JointConnection conn = addTo.gameObject.AddComponent<JointConnection>();
 
         conn.Connector = connector;
         conn.target = targetRB;
