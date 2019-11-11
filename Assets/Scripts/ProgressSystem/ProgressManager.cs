@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ProgressManager {
 
@@ -26,6 +27,7 @@ public class ProgressManager {
         GenerateScenarioOne();
         CurrentPackage = packages.First();
         UpdateDescription();
+        UpdateHint();
     }
     #endregion
 
@@ -202,6 +204,16 @@ public class ProgressManager {
         if (!testMode) {
             if (CurrentPackage != null) {
                 UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
+            }
+        }
+    }
+    #endregion
+
+    #region Hint Methods
+    public void UpdateHint() {
+        if (!testMode) {
+            if (CurrentPackage != null) {
+                HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
             }
         }
     }

@@ -58,6 +58,7 @@ public class TaskBase : ITask {
             UnsubscribeAllEvents();
         }
         RemoveFromPackage();
+        G.Instance.Progress.UpdateHint();
     }
 
     public virtual string GetDescription() {
