@@ -3,7 +3,6 @@
 public class GeneralItem : Grabbable {
 
     #region fields
-    [SerializeField]
     protected ObjectType objectType = ObjectType.None;
     public ObjectType ObjectType { get => objectType; set { objectType = value; } }
 
