@@ -7,6 +7,10 @@ public class Finish : TaskBase {
     private CabinetBase laminarCabinet;
     private String description = "Siirry pois työtilasta.";
     private String hint = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
+
+    private const int RightSmallSyringeCapacity = 1000;
+    private const int MinimumCorrectAmountInSmallSyringe = 140;
+    private const int MaximumCorrectAmountInSmallSyringe = 160;
     #endregion
 
     #region Constructor
@@ -56,9 +60,9 @@ public class Finish : TaskBase {
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();
-                if (s.Container.Capacity == 1000 && !s.hasBeenInBottle && s.Container.Amount > 0) {
+                if (s.Container.Capacity == RightSmallSyringeCapacity && !s.hasBeenInBottle && s.Container.Amount > 0) {
                     pointsForSyringeSize = Math.Min(6, pointsForSyringeSize++);
-                    if (s.Container.Amount == 150) {
+                    if (s.Container.Amount >= MinimumCorrectAmountInSmallSyringe && s.Container.Amount <= MaximumCorrectAmountInSmallSyringe) {
                         pointsForMedicineAmount = Math.Min(6, pointsForMedicineAmount++);
                     }
                 }

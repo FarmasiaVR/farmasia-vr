@@ -9,6 +9,9 @@ public class MedicineToSyringe : TaskBase {
     private CabinetBase laminarCabinet;
     private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
     private string hint = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+
+    private const int RightSyringeCapacity = 20000;
+    private const int MinimumAmountOfMedicineInBigSyringe = 900;
     #endregion
 
     #region States
@@ -59,7 +62,7 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (laminarCabinet == null && CheckSyringeLiquidChange(s)) {
+            if (laminarCabinet == null && LiquidAmountHasChanged(s)) {
                 if (!takenBeforeTime) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                     UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
@@ -70,7 +73,7 @@ public class MedicineToSyringe : TaskBase {
             } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                 UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
-            } else if (CheckSyringeLiquidChange(s)) {
+            } else if (LiquidAmountHasChanged(s)) {
                 if (!CheckPreviousTaskCompletion(requiredTasks)) {
                     foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
                         if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
@@ -83,33 +86,27 @@ public class MedicineToSyringe : TaskBase {
                     UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                 }
-                ToSyringe(s);
+                CheckConditions(s);
             }
             syringes.Remove(s.GetInstanceID());
         }
     }
 
-    /// <summary>
-    /// Once fired by an event, checks which step of the MedicineToSyringe process has been taken and if required previous tasks are completed.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void ToSyringe(Syringe syringe) {
-        if (syringe.Container.Amount >= 900) {
+    private void CheckConditions(Syringe syringe) {
+        if (syringe.Container.Amount >= MinimumAmountOfMedicineInBigSyringe) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }
-        if (syringe.Container.Capacity == 20000) {
+        if (syringe.Container.Capacity == RightSyringeCapacity) {
             EnableCondition(Conditions.RightSize);
         }
 
-        bool check = CheckClearConditions(true);
-        if (!check) {
+        if (!CheckClearConditions(true)) {
             ReceivedPoints();
             base.FinishTask();
         }
     }
 
-    private bool CheckSyringeLiquidChange(Syringe syringe) {
+    private bool LiquidAmountHasChanged(Syringe syringe) {
         if (syringes[syringe.GetInstanceID()] != syringe.Container.Amount) {
             return true;
         }

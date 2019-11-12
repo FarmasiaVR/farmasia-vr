@@ -60,13 +60,13 @@ public class ItemsToSterileBag : TaskBase {
             return;
         }
         List<GameObject> inBag = data.DataObject as List<GameObject>;
-        int syringesFilled = 0;
+        int filledSyringesInCabinet = 0;
         int filledSyringesInBag = 0;
-        syringesFilled = CheckFilledSyringes(laminarCabinet.objectsInsideArea, syringesFilled);
+        filledSyringesInCabinet = CheckFilledSyringes(laminarCabinet.objectsInsideArea, filledSyringesInCabinet);
         filledSyringesInBag = CheckFilledSyringes(inBag, filledSyringesInBag);
         
         if (sterileBag.IsClosed) {
-            if (syringesFilled == filledSyringesInBag) {
+            if (filledSyringesInCabinet == filledSyringesInBag) {
                 EnableCondition(Conditions.SyringesPut);
             }
             bool check = CheckClearConditions(true);
@@ -76,7 +76,7 @@ public class ItemsToSterileBag : TaskBase {
                 base.FinishTask();
             }
         } else {
-            if (syringesFilled == filledSyringesInBag) {
+            if (filledSyringesInCabinet == filledSyringesInBag) {
                 UISystem.Instance.CreatePopup("Sulje steriili pussi.", MsgType.Notify);
             }
         } 

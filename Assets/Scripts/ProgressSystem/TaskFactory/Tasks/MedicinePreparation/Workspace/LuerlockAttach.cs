@@ -84,8 +84,7 @@ public class LuerlockAttach : TaskBase {
         }
 
         checkTimes++;
-        bool check = CheckClearConditions(true);
-        if (!check) {
+        if (!CheckClearConditions(true)) {
             if (checkTimes == 1) {
                 UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake);
                 G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);

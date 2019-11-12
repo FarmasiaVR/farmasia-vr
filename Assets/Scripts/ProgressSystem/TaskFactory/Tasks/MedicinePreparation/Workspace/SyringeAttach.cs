@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
     #region Fields
-    //public enum Conditions { SmallSyringesAttached }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    //private int syringes;
-    //private int smallSyringes;
     private CabinetBase laminarCabinet;
     private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
     private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
+
+    private const int RightSmallSyringeCapacity = 1000;
     #endregion
 
     #region Constructor
@@ -20,9 +19,6 @@ public class SyringeAttach : TaskBase {
     ///  </summary>
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
-        //AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        //syringes = 0;
-        //smallSyringes = 0;
         points = 6;
     }
     #endregion
@@ -75,39 +71,13 @@ public class SyringeAttach : TaskBase {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
                     UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
                     attachedSyringes.Remove(s.GetInstanceID());
-                } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
-                    AttachSyringe(s);
+                } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
+                    FinishTask();
                 }
             } else {
                 attachedSyringes.Remove(s.GetInstanceID());
             }  
         }
-    }
-
-    /// <summary>
-    /// Once fired by an event, checks if syringe was attached to Luerlock, which syringe size was chosen
-    /// as well as previous required task completion.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void AttachSyringe(Syringe syringe) {
-        if (attachedSyringes.Count == 6) {
-            FinishTask();
-        }
-        /*if (syringe.Container.Capacity == 1000) {
-            smallSyringes++;
-        }
-        if (smallSyringes == 6) {
-            EnableCondition(Conditions.SmallSyringesAttached);
-        }
-        if (syringes == 6) {
-            bool check = CheckClearConditions(true);
-            if (!check) {
-                UISystem.Instance.CreatePopup(smallSyringes, "Yhden tai useamman ruiskun koko oli väärä.", MessageType.Mistake);
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, syringes - smallSyringes);
-                base.FinishTask();
-            }
-        }*/
     }
     #endregion
 
@@ -122,7 +92,7 @@ public class SyringeAttach : TaskBase {
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();
-                if (s.Container.Capacity == 1000 && attachedSyringes.ContainsKey(s.GetInstanceID())) {
+                if (s.Container.Capacity == RightSmallSyringeCapacity && attachedSyringes.ContainsKey(s.GetInstanceID())) {
                     rightSize++;
                 }
             }   
@@ -132,7 +102,6 @@ public class SyringeAttach : TaskBase {
         } else {
             UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Notify);
         }
-        //UISystem.Instance.CreatePopup(6, "Valitut ruiskut olivat oikean kokoisia", MessageType.Notify);
         base.FinishTask();
     }
     
