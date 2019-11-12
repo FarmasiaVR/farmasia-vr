@@ -152,6 +152,7 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         }
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
+        
         base.FinishTask();
     }
 

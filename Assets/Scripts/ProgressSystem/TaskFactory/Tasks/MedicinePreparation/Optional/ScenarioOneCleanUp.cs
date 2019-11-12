@@ -34,11 +34,11 @@ public class ScenarioOneCleanUp : TaskBase {
     }
 
     private void ItemDroppedOnFloor(CallbackData data) {
-        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+        if (G.Instance.Progress.IsCurrentPackage(PackageName.EquipmentSelection)) {
             return;
         }
         foreach (Package p in G.Instance.Progress.packages) {
-            if (p.name == "Clean Up" && p.activeTasks.Count == 1) {
+            if (p.name == PackageName.CleanUp && p.activeTasks.Count == 1) {
                 p.AddNewTaskBeforeTask(this, p.activeTasks[0]);
                 break;
             }
@@ -50,22 +50,22 @@ public class ScenarioOneCleanUp : TaskBase {
     }
 
     private void ItemLiftedOffFloor(CallbackData data) {
-        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+        if (G.Instance.Progress.IsCurrentPackage(PackageName.EquipmentSelection)) {
             return;
         }
         GeneralItem item = data.DataObject as GeneralItem;
-        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+        if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Siivoa pudonneet työvälineet vasta lopuksi.", MsgType.Mistake);
         }
     }
 
     private void ItemDroppedInTrash(CallbackData data) {
-        if (G.Instance.Progress.IsCurrentPackage("Equipment Selection")) {
+        if (G.Instance.Progress.IsCurrentPackage(PackageName.EquipmentSelection)) {
             return;
         }
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean) {
-            if (!G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+            if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
                 UISystem.Instance.CreatePopup(-1, "Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
             }

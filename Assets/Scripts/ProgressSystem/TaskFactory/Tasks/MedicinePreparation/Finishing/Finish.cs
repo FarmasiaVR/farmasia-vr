@@ -39,7 +39,7 @@ public class Finish : TaskBase {
         if ((DoorGoTo)data.DataObject != DoorGoTo.Exit) {
             return;
         }
-        if (!G.Instance.Progress.IsCurrentPackage("Clean Up")) {
+        if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
         } else {
             FinishTask();
@@ -75,7 +75,7 @@ public class Finish : TaskBase {
 
     private void IsSterileBagTaskFinished() {
         foreach (Package p in G.Instance.Progress.packages) {
-            if (p.name == "Workspace") {
+            if (p.name == PackageName.Workspace) {
                 if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
                     G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag); 
                 }
@@ -86,7 +86,7 @@ public class Finish : TaskBase {
 
     private void DroppedItemsCleaned() {
         foreach (Package p in G.Instance.Progress.packages) {
-            if (p.name == "Clean Up") {
+            if (p.name == PackageName.CleanUp) {
                 if (!p.doneTypes.Contains(TaskType.ScenarioOneCleanUp)) {
                     if (G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp) != null) {
                         G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp).FinishTask();

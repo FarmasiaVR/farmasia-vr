@@ -6,7 +6,7 @@ public class Package {
 
     #region Fields
     private ProgressManager manager;
-    public string name { get; private set; }
+    public PackageName name { get; private set; }
     public bool packageCompleted { get; private set; }
     public List<ITask> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
@@ -18,7 +18,7 @@ public class Package {
     /// </summary>
     /// <param name="name">Name of the package.</param>
     /// <param name="manager">Reference to manager that created this package.</param>
-    public Package(string name, ProgressManager manager) {
+    public Package(PackageName name, ProgressManager manager) {
         this.name = name;
         this.manager = manager;
         packageCompleted = false;

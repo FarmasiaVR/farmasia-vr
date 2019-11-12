@@ -51,7 +51,7 @@ public class MedicineToSyringe : TaskBase {
         if (!syringes.ContainsKey(s.GetInstanceID())) {
             syringes.Add(s.GetInstanceID(), s.Container.Amount);
         }
-        if (!CheckPreviousTaskCompletion(requiredTasks) && G.Instance.Progress.CurrentPackage.name == "Workspace") {
+        if (!CheckPreviousTaskCompletion(requiredTasks) && G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
         }
     }

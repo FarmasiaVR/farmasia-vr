@@ -19,7 +19,7 @@ public class ExitDoor : MonoBehaviour {
     }
 
     public void CheckExitPermission() {
-        if (G.Instance.Progress.IsCurrentPackage("Clean up")) {
+        if (G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             bool allItemsFromFloorToTrash = itemsOnFloorCount == itemsInTrashCount;
             //Events.FireEvent(EventType.CleanUp, CallbackData.Boolean(allItemsFromFloorToTrash));
             //finish task Finish

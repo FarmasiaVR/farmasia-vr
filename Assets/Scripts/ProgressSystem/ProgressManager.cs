@@ -54,9 +54,9 @@ public class ProgressManager {
             TaskType.Finish 
         };
 
-        Package equipmentSelection = CreatePackageWithList("Equipment Selection", new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList("Workspace", new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackageWithList("Clean Up", new List<TaskType>(cleanUpTasks));
+        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
+        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
         packages.Add(equipmentSelection);
         packages.Add(workSpace);
         packages.Add(cleanUp);
@@ -69,7 +69,7 @@ public class ProgressManager {
     /// <param name="name">Name of the new package.</param>
     /// <param name="tasks">List of predefined tasks.</param>
     /// <returns></returns>
-    private Package CreatePackageWithList(string name, List<TaskType> tasks) {
+    private Package CreatePackageWithList(PackageName name, List<TaskType> tasks) {
         Package package = new Package(name, this);
         TakeTasksToPackage(package, tasks);
         return package;
@@ -219,7 +219,7 @@ public class ProgressManager {
     }
     #endregion
 
-    public bool IsCurrentPackage(string name) {
-        return String.Equals(CurrentPackage.name, name);
+    public bool IsCurrentPackage(PackageName name) {
+        return CurrentPackage.name == name;
     }
 }
