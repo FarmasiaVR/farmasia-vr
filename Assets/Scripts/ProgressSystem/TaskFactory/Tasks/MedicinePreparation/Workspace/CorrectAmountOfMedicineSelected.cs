@@ -9,11 +9,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     public enum Conditions { RightAmountOfMedicine }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    private int smallSyringes;
-    private int rightAmountInSyringes;
     private CabinetBase laminarCabinet;
     private string description = "Vedä ruiskuun lääkettä.";
     private string hint = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+    private const int MinimumCorrectAmountInSmallSyringe = 140;
+    private const int MaximumCorrectAmountInSmallSyringe = 160;
     #endregion
 
     #region Constructor
@@ -24,8 +24,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        smallSyringes = 0;
-        rightAmountInSyringes = 0;
         points = 6;
     }
     #endregion
@@ -68,7 +66,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
                         UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
                     } else {
-                        Medicine(s);
+                        FinishTask();
                     }
                 }
             } else {
@@ -83,38 +81,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             }
         }
     }
-    /// <summary>
-    /// Once fired by an event, checks if right amount has been chosen and if required previous tasks are completed.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void Medicine(Syringe syringe) {
-        if (attachedSyringes.Count == 6) {
-            FinishTask();
-        }
-        /*CheckSyringe(syringe);
-        if (rightAmountInSyringes == 6) {
-            EnableCondition(Conditions.RightAmountOfMedicine);
-        }
-
-        if (smallSyringes == 6) {
-            bool check = CheckClearConditions(true);
-            if (!check) {
-                UISystem.Instance.CreatePopup(rightAmountInSyringes, "Lääkettä otettiin väärä määrä.", MessageType.Mistake);
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, smallSyringes - rightAmountInSyringes);
-                base.FinishTask();
-            }
-        }*/
-    }
-
-    private void CheckSyringe(Syringe syringe) {
-        if (syringe.Container.Capacity == 1000) {
-            smallSyringes++;
-        }
-        if (syringe.Container.Amount == 150) {
-            rightAmountInSyringes++;
-        }  
-    }
     #endregion
 
     #region Public Methods
@@ -122,9 +88,13 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// Once all conditions are true, this method is called.
     /// </summary>
     public override void FinishTask() {
+        if (attachedSyringes.Count != 6) {
+            return;
+        }
+
         int rightAmount = 0;
-        foreach (var i in attachedSyringes.Values) {
-            if (i == 150) {
+        foreach (var amount in attachedSyringes.Values) {
+            if (amount >= MinimumCorrectAmountInSmallSyringe && amount <= MaximumCorrectAmountInSmallSyringe) {
                 rightAmount++;
             }
         }
@@ -133,7 +103,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         } else {
             UISystem.Instance.CreatePopup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
         }
-        //UISystem.Instance.CreatePopup(6, "Lääkettä otettiin tarvittava määrä.", MessageType.Notify);
         base.FinishTask();
     }
 
