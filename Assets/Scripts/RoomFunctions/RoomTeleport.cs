@@ -33,7 +33,15 @@ public class RoomTeleport : MonoBehaviour {
             float rotDelta = Quaternion.Angle(passthroughSrc.rotation, passthroughDst.rotation);
             item.position = passthroughDst.position + (item.position - passthroughSrc.position);
             item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
+            CreateSpawner(item);
         }
         player.position = playerDst.position;// new Vector3(playerDst.position.x, playerDst.position.y, playerDst.position.z);
+    }
+
+    private void CreateSpawner(Transform item) {
+        GameObject obj = new GameObject();
+        obj.transform.SetPositionAndRotation(item.position, item.rotation);
+        obj.AddComponent<FloorDropSpawner>();
+        obj.GetComponent<FloorDropSpawner>().SetCopyObject(item.gameObject);
     }
 }

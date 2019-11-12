@@ -7,7 +7,6 @@ public class Floor : MonoBehaviour {
         if (item != null) {
             Events.FireEvent(EventType.ItemDroppedOnFloor, CallbackData.Object(item));
             item.IsClean = false;
-            UISystem.Instance.CreatePopup("Hae korvaava työväline läpiantokaapista.", MsgType.Notify);
         }
     }
 
