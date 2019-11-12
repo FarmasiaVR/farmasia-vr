@@ -18,6 +18,7 @@ public class TestHandMover : MonoBehaviour {
     private const KeyCode MOVE_UP = KeyCode.E;
     private const KeyCode MOVE_DOWN = KeyCode.Q;
     private const KeyCode FILL_PASSTHROUGH_CABINET = KeyCode.F;
+    private const KeyCode ENABLE_MOUSECONTROL = KeyCode.Minus;
 
     private enum ControlState {
         HAND_LEFT, HAND_RIGHT, CAMERA
@@ -40,6 +41,7 @@ public class TestHandMover : MonoBehaviour {
 
     [SerializeField]
     private GameObject correctPassthroughCabinetItems;
+    private bool mouseControl = false;
     #endregion
 
     private void Start() {
@@ -98,7 +100,7 @@ public class TestHandMover : MonoBehaviour {
                 PassGrabInput();
             }
         }
-        
+
         if (JustPressed(HAND_INTERACT)) {
             PassInteractInput();
         }
@@ -114,26 +116,44 @@ public class TestHandMover : MonoBehaviour {
     private void UpdateMovement() {
         Vector3 movement = Vector3.zero;
 
-        if (IsPressed(MOVE_FORWARD)) {
-            movement.z++;
-        }
-        if (IsPressed(MOVE_BACKWARDS)) {
-            movement.z--;
+
+        if (JustPressed(ENABLE_MOUSECONTROL)) {
+            mouseControl = !mouseControl;
+            if (mouseControl) {
+                Cursor.lockState = CursorLockMode.Locked;
+            } else {
+                Cursor.lockState = CursorLockMode.None;
+            }
+
         }
 
-        if (IsPressed(MOVE_RIGHT)) {
-            movement.x++;
-        }
-        if (IsPressed(MOVE_LEFT)) {
-            movement.x--;
-        }
+        if (mouseControl) {
+            movement.x += Input.GetAxis("Mouse X");
+            movement.z += Input.GetAxis("Mouse Y");
+        } else {
+            if (IsPressed(MOVE_FORWARD)) {
+                movement.z++;
+            }
+            if (IsPressed(MOVE_BACKWARDS)) {
+                movement.z--;
+            }
 
+            if (IsPressed(MOVE_RIGHT)) {
+                movement.x++;
+            }
+            if (IsPressed(MOVE_LEFT)) {
+                movement.x--;
+            }
+
+
+        }
         if (IsPressed(MOVE_UP)) {
             movement.y++;
         }
         if (IsPressed(MOVE_DOWN)) {
             movement.y--;
         }
+
 
         GetCurrentTransform().Translate(movement * speedMovement * Time.deltaTime);
     }
@@ -171,7 +191,7 @@ public class TestHandMover : MonoBehaviour {
         } else if (currentState == ControlState.HAND_RIGHT) {
             return right;
         } else {
-            throw new NotImplementedException("ControlState not implemented: " + currentState); 
+            throw new NotImplementedException("ControlState not implemented: " + currentState);
         }
     }
 
