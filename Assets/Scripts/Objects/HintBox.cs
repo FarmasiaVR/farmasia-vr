@@ -47,12 +47,16 @@ public class HintBox : DragAcceptable {
         }
     }
 
-    protected override void Awake_DragAcceptable() {
+    protected override void Awake() {
+        base.Awake();
+
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
     }
 
-    protected override void Start_Interactable() {
+    protected override void Start() {
+        base.Start();
+
         Type.On(InteractableType.Interactable, InteractableType.Draggable);
 
         playerCamera = Player.Camera.transform;
@@ -91,11 +95,15 @@ public class HintBox : DragAcceptable {
             return;
         }
 
+        Logger.Print("Activated");
+
         Activated = true;
 
         GameObject newHintText = Instantiate(hintTextPrefab);
 
         currentHintText = newHintText.GetComponent<HintText>();
+
+        Logger.PrintVariables("Current pos", transform.position, "startpos", startPos);
 
         newHintText.transform.position = startPos;
         newHintText.transform.LookAt(Player.Camera.transform);
@@ -109,11 +117,15 @@ public class HintBox : DragAcceptable {
     #region Creating
     public static void CreateHint(string message) {
 
+        Logger.Print("Creating hint");
+
         if (currentHintText != null) {
+            Logger.Print("Destroying old hin text");
             currentHintText.DestroyHint();
         }
 
         if (currentHint != null) {
+            Logger.Print("Overriding hint text");
             currentHint.message = message;
             return;
         }

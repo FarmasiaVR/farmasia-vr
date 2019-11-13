@@ -15,17 +15,6 @@ public class GeneralItem : Grabbable {
         return Interactable.GetInteractableObject(t)?.GetComponent<GeneralItem>();
     }
 
-    protected override void Awake_Grabbable() {
-        Awake_GeneralItem();
-    }
-
-    protected override void Start_Grabbable() {
-        Start_GeneralItem();
-    }
-
-    protected virtual void Awake_GeneralItem() {}
-    protected virtual void Start_GeneralItem() {}
-
     protected virtual void OnCollisionEnter(Collision coll) {
         if (coll.gameObject.tag == "Floor") IsClean = false;
     }

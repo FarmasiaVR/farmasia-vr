@@ -14,7 +14,9 @@ public class SterileBag : GeneralItem {
     #endregion
     
     // Start is called before the first frame update
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         ObjectType = ObjectType.SterileBag;
         IsClean = true;
 

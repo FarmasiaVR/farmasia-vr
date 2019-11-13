@@ -7,7 +7,9 @@ public class MedicineBottle : GeneralItem {
     public LiquidContainer Container { get; private set; } 
     #endregion
 
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Bottle;

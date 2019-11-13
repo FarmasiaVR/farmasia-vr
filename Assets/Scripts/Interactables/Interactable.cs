@@ -28,18 +28,13 @@ public class Interactable : MonoBehaviour {
 
     protected virtual void Awake() {
         RigidbodyContainer = new RigidbodyContainer(this);
-        Awake_Interactable();
     }
 
-    private void Start() {
+    protected virtual void Start() {
         gameObject.AddComponent<ObjectHighlight>();
         gameObject.tag = iTag;
-        Start_Interactable();
     }
 
-    protected virtual void Awake_Interactable() {}
-    protected virtual void Start_Interactable() {}
-    
 
     public virtual void Interact(Hand hand) {}
     public virtual void Interacting(Hand hand) {}

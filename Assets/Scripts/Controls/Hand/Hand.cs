@@ -120,6 +120,8 @@ public class Hand : MonoBehaviour {
         Interactable interactable = handCollider.GetClosestInteractable();
         if (interactable != null) {
             InteractWith(interactable);
+        } else {
+            Logger.Print("No interactable to interact with");
         }
     }
     public void InteractWith(Interactable interactable) {

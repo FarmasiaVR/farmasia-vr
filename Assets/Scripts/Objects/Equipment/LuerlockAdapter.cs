@@ -53,7 +53,9 @@ public class LuerlockAdapter : GeneralItem {
     public bool HasAttachedObjects { get => ObjectCount > 0; }
     #endregion
 
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         ObjectType = ObjectType.Luerlock;
         Type.On(InteractableType.SmallObject);
 

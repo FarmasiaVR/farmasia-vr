@@ -10,7 +10,9 @@ public class TestEquipment : GeneralItem {
     [SerializeField]
     private LiquidContainer dest;
 
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         Assert.IsNotNull(src);
     }
 

@@ -27,17 +27,10 @@ public abstract class DragAcceptable : Interactable {
     }
     #endregion
 
-    protected override void Awake_Interactable() {
-        Awake_DragAcceptable();
-    }
-
-    protected override void Start_Interactable() {
+    protected override void Start() {
+        base.Awake();
         Initialize();
-        Start_DragAcceptable();
     }
-
-    protected virtual void Awake_DragAcceptable() {}
-    protected virtual void Start_DragAcceptable() {}
 
     public void Initialize() {
         mass = Rigidbody.mass;
@@ -127,11 +120,15 @@ public abstract class DragAcceptable : Interactable {
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
+        Logger.Print("Drag acceptable interact");
+
         grabbed = true;
         this.hand = hand.transform;
     }
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
+
+        Logger.Print("Drag acceptable uninteract");
 
         grabbed = false;
     }

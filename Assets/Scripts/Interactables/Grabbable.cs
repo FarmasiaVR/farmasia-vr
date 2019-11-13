@@ -4,15 +4,8 @@
         throw new System.NotImplementedException();
     }
 
-    protected override void Awake_Interactable() {
-        Awake_Grabbable();
-    }
-
-    protected override void Start_Interactable() {
+    protected override void Start() {
+        base.Start();
         Type.On(InteractableType.Grabbable);
-        Start_Grabbable();
     }
-
-    protected virtual void Awake_Grabbable() {}
-    protected virtual void Start_Grabbable() {}
 }

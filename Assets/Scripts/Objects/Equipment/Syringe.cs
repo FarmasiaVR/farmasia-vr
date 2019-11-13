@@ -24,7 +24,9 @@ public class Syringe : GeneralItem {
     // private Pipeline pipeline = new Pipeline();
 
     #endregion
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;

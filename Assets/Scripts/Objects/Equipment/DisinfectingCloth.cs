@@ -7,7 +7,9 @@ public class DisinfectingCloth : GeneralItem {
     private GameObject childCollider;
     #endregion
 
-    protected override void Start_GeneralItem() {
+    protected override void Start() {
+        base.Start();
+
         ObjectType = ObjectType.DisinfectingCloth;
         IsClean = true;
 

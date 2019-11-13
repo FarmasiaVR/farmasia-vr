@@ -20,7 +20,9 @@ public class DoorHandle : Interactable {
     private Transform handle = null;
     #endregion
 
-    protected override void Start_Interactable() {
+    protected override void Start() {
+        base.Start();
+
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
         if (transform.childCount >= 1) {

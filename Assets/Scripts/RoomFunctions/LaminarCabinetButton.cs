@@ -1,6 +1,8 @@
 public class LaminarCabinetButton : Interactable {
 
-    protected override void Start_Interactable() {
+    protected override void Start() {
+        base.Start();
+
         Type.Set(InteractableType.Interactable);
     }
 
