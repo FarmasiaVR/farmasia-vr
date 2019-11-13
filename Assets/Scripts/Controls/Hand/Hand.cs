@@ -53,7 +53,7 @@ public class Hand : MonoBehaviour {
         UpdateRemoteGrab();
 
         Interactable interactable = IsGrabbed ? Connector.GrabbedInteractable : interactedInteractable;
-        interactable?.UpdateInteract(this);
+        interactable?.Interacting(this);
     }
 
     private void UpdateControls() {
@@ -125,9 +125,11 @@ public class Hand : MonoBehaviour {
         }
     }
     public void InteractWith(Interactable interactable) {
+
+        Offset.position = interactable.transform.position;
+        Offset.rotation = interactable.transform.rotation;
+
         if (interactable.Type == InteractableType.Grabbable) {
-            Offset.position = interactable.transform.position;
-            Offset.rotation = interactable.transform.rotation;
             Connector.ConnectItem(interactable);
             Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
         } else if (interactable.Type == InteractableType.Interactable) {

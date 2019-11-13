@@ -39,7 +39,6 @@ public class Interactable : MonoBehaviour {
     public virtual void Interact(Hand hand) {}
     public virtual void Interacting(Hand hand) {}
     public virtual void Uninteract(Hand hand) {}
-    public virtual void UpdateInteract(Hand hand) {}
 
     public static Interactable GetInteractable(Transform t) {
         return GetInteractableObject(t)?.GetComponent<Interactable>();

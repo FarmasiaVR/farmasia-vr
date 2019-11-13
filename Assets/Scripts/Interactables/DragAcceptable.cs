@@ -27,6 +27,11 @@ public abstract class DragAcceptable : Interactable {
     }
     #endregion
 
+    protected override void Awake() {
+        base.Awake();
+
+        Type.On(InteractableType.Interactable);
+    }
     protected override void Start() {
         base.Awake();
         Initialize();

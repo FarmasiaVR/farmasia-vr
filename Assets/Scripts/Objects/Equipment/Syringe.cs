@@ -46,7 +46,7 @@ public class Syringe : GeneralItem {
         swipeTime = SWIPE_DEFAULT_TIME;
     }
 
-    public override void UpdateInteract(Hand hand) {
+    public override void Interacting(Hand hand) {
 
         bool padTouchUp = VRInput.GetControlUp(hand.HandType, ControlType.PadTouch);
         bool touch = VRInput.GetControl(hand.HandType, ControlType.PadTouch);

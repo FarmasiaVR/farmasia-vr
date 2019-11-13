@@ -4,40 +4,92 @@ using UnityEngine;
 
 public static class Logger {
 
+    public static bool LogInGame { get; set; } = true;
+
     public static void Print(object message) {
-        Debug.Log(ObjectToString(message));
+        string msg = ObjectToString(message);
+        
+        Debug.Log(msg);
+
+        if (LogInGame) {
+            GUIConsole.Log(msg);
+        }
     }
 
     public static void PrintObjects(string delimeter, params object[] objects) {
-        Debug.Log(ObjectsToString(delimeter, objects));
+        string msg = ObjectsToString(delimeter, objects);
+
+        Debug.Log(msg);
+
+        if (LogInGame) {
+            GUIConsole.Log(msg);
+        }
     }
 
     public static void PrintFormat(string format, params object[] args) {
+
         Debug.LogFormat(format, args);
+
+        if (LogInGame) {
+            // no format support yet
+            GUIConsole.Log(format);
+        }
     }
 
     public static void Warning(object message) {
-        Debug.LogWarning(ObjectToString(message));
+        string msg = ObjectToString(message);
+
+        Debug.LogWarning(msg);
+
+        if (LogInGame) {
+            GUIConsole.LogWarning(msg);
+        }
     }
 
     public static void WarningObjects(string delimeter, params object[] objects) {
-        Debug.LogWarning(ObjectsToString(delimeter, objects));
+        string msg = ObjectsToString(delimeter, objects);
+
+        Debug.LogWarning(msg);
+
+        if (LogInGame) {
+            GUIConsole.LogWarning(msg);
+        }
     }
 
     public static void WarningFormat(string format, params object[] args) {
         Debug.LogWarningFormat(format, args);
+
+        if (LogInGame) {
+            GUIConsole.LogWarning(format);
+        }
     }
 
     public static void Error(object message) {
-        Debug.LogError(ObjectToString(message));
+        string msg = ObjectToString(message);
+
+        Debug.LogError(msg);
+
+        if (LogInGame) {
+            GUIConsole.LogError(msg);
+        }
     }
 
     public static void ErrorObjects(string delimeter, params object[] objects) {
-        Debug.LogError(ObjectsToString(delimeter, objects));
+        string msg = ObjectsToString(delimeter, objects);
+
+        Debug.LogError(msg);
+
+        if (LogInGame) {
+            GUIConsole.LogError(msg);
+        }
     }
 
     public static void ErrorFormat(string format, params object[] args) {
         Debug.LogErrorFormat(format, args);
+
+        if (LogInGame) {
+            GUIConsole.LogError(format);
+        }
     }
 
     /// <summary>
@@ -50,7 +102,11 @@ public static class Logger {
         }
 
         for (int i = 0; i < vars.Length; i += 2) {
-            Debug.Log(VarString(vars[i], vars[i + 1]));
+            string msg = VarString(vars[i], vars[i + 1]);
+            Debug.Log(msg);
+            if (LogInGame) {
+                GUIConsole.Log(msg);
+            }
         }
     }
 
