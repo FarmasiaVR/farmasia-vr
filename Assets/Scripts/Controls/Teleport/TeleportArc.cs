@@ -9,6 +9,7 @@ public class TeleportArc {
     private const float angle = 1f;
     private const float maxLineDistance = 100;
 
+    private float hitHeight;
     private int layer;
     #endregion
 
@@ -36,9 +37,15 @@ public class TeleportArc {
             prevPos = endPos;
             arc.Add(endPos);
 
-            if (didHit) {
-                hitObject = rayHit.collider.gameObject;
-                hitPos = rayHit.point;
+            //if (didHit) {
+            //    hitObject = rayHit.collider.gameObject;
+            //    hitPos = rayHit.point;
+            //    break;
+            //}
+
+            if (endPos.y < hitHeight) {
+                endPos.y = hitHeight;
+                hitPos = endPos;
                 break;
             }
 
