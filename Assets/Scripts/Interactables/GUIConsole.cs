@@ -10,7 +10,11 @@ public class GUIConsole : Interactable {
 
     #region Fields
     public static List<string> log;
+    private static float scrollTreshold = 0.01f;
 
+    private bool touch;
+
+    private int prevIndex;
     private int currentIndex;
     [SerializeField]
     private int linesToShow;
@@ -27,7 +31,7 @@ public class GUIConsole : Interactable {
     protected override void Awake() {
         base.Awake();
 
-        Type.On(InteractableType.Interactable);
+        Type.On(InteractableType.Interactable, InteractableType.Grabbable);
     }
 
     protected override void Start() {
@@ -35,7 +39,7 @@ public class GUIConsole : Interactable {
 
         text = transform.Find("Text").GetComponent<TextMeshPro>();
 
-        ShowRecent();
+        recent = true;
     }
 
     private void Update() {
@@ -46,6 +50,22 @@ public class GUIConsole : Interactable {
         }
     }
 
+    public override void Interact(Hand hand) {
+        base.Interact(hand);
+
+        recent = true;
+
+        StartCoroutine(DisableAccidentalScroll());
+    }
+    private IEnumerator DisableAccidentalScroll() {
+        float time = 0.5f;
+
+        while (time > 0) {
+            touch = false;
+            time -= Time.deltaTime;
+            yield return null;
+        }
+    }
 
     public override void Interacting(Hand hand) {
         base.Interacting(hand);
@@ -53,26 +73,56 @@ public class GUIConsole : Interactable {
         transform.position = hand.Offset.position;
         transform.rotation = hand.Offset.rotation;
 
-        UpdateIndex();
+        UpdateIndex(hand);
     }
 
-    private void UpdateIndex() {
+    private void UpdateIndex(Hand hand) {
 
+        if (VRInput.GetControlDown(hand.HandType, ControlType.PadTouch)) {
+            touch = true;
+        }
+
+        if (!touch) {
+            return;
+        }
+
+        if (VRInput.GetControl(hand.HandType, ControlType.PadTouch)) {
+            int swipe = SwipeDirection(VRInput.PadTouchValue(hand.HandType), VRInput.PadTouchDelta(hand.HandType));
+            if (swipe != 0) {
+                currentIndex += swipe;
+                recent = false;
+            }
+        }
+    }
+
+    private int SwipeDirection(Vector2 current, Vector2 delta) {
+
+        if (delta.y > scrollTreshold) {
+            return 1;
+        } else if (delta.y < -scrollTreshold) {
+            return -1;
+        }
+        return 0;
     }
 
     private void ShowRecent() {
-        recent = true;
-
         if (log.Count == 0 || currentIndex == log.Count - 1) {
             return;
         }
 
         currentIndex = log.Count - 1;
+        prevIndex = currentIndex;
         text.text = GetMessages(currentIndex, linesToShow);
     }
 
     private void ShowFromIndex() {
+        if (log.Count == 0 || prevIndex == currentIndex) {
+            return;
+        }
 
+        prevIndex = currentIndex;
+
+        text.text = GetMessages(currentIndex, linesToShow);
     }
 
     private string GetMessages(int from, int amount) {
