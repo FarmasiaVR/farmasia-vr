@@ -117,15 +117,11 @@ public class HintBox : DragAcceptable {
     #region Creating
     public static void CreateHint(string message) {
 
-        Logger.Print("Creating hint");
-
         if (currentHintText != null) {
-            Logger.Print("Destroying old hin text");
             currentHintText.DestroyHint();
         }
 
         if (currentHint != null) {
-            Logger.Print("Overriding hint text");
             currentHint.message = message;
             return;
         }
@@ -171,8 +167,6 @@ public class HintBox : DragAcceptable {
 
         foreach (Vector3 p in positions) {
             float angle = Vector3.Angle(p - camPos, forward);
-
-            Logger.PrintVariables("angle", angle, "pos", p, "smallest", smallestAngle, "smalles pos", pos);
 
             if (angle < smallestAngle) {
                 smallestAngle = angle;

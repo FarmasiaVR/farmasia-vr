@@ -90,12 +90,10 @@ public class TestHandMover : MonoBehaviour {
     private void UpdateHands() {
         if (Input.GetMouseButtonDown(0)) {
             if (grabbing) {
-                Logger.Print("Released hand grab");
                 grabbing = false;
                 PassGrabInput();
                 PassUngrabInput();
             } else {
-                Logger.Print("Started hand grab");
                 grabbing = true;
                 PassGrabInput();
             }

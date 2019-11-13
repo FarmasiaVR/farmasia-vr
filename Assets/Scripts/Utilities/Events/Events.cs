@@ -133,7 +133,6 @@ public static class Events {
     }
 
     private static void CallDefaultCallbacks(EventType type, CallbackData? data = null) {
-        Logger.Print("Callback");
         if (!eventsData.ContainsKey(type)) {
             Logger.Print("No such event type");
             return;
