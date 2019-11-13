@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CabinetBase : MonoBehaviour {
+
+    public enum Types {
+        Null,
+        Neula,
+        IsoRuisku,
+        PienetRuiskut,
+        Luerlock,
+        Lääkepullo
+    }
+
     #region fields
     public enum CabinetType { PassThrough, Laminar }
     [SerializeField]
     public CabinetType type;
     public List<GameObject> objectsInsideArea;
-    public Dictionary<String, int> missingObjects;
+    private Dictionary<Types, int> missingObjects;
     private bool itemPlaced = false;
     [SerializeField]
     private GameObject childCollider;
@@ -17,12 +27,12 @@ public class CabinetBase : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         objectsInsideArea = new List<GameObject>();
-        missingObjects = new Dictionary<String, int>();
-        missingObjects.Add("neula", 1);
-        missingObjects.Add("20ml ruisku", 1);
-        missingObjects.Add("1ml ruiskut", 6);
-        missingObjects.Add("luerlock", 1);
-        missingObjects.Add("lääkepullo", 1);
+        missingObjects = new Dictionary<Types, int>();
+        missingObjects.Add(Types.Neula, 1);
+        missingObjects.Add(Types.IsoRuisku, 1);
+        missingObjects.Add(Types.PienetRuiskut, 6);
+        missingObjects.Add(Types.Luerlock, 1);
+        missingObjects.Add(Types.Lääkepullo, 1);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
@@ -32,18 +42,18 @@ public class CabinetBase : MonoBehaviour {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
+            Logger.Print(other.gameObject.name);
             return;
         }
         if (!itemPlaced) {
             Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
             itemPlaced = true;
         }
-
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
-            String itemType = Enum.GetName(type.GetType(), type);
-            CheckItemType(itemType, item);
+            Types underlyingType = CheckItemType(type, item);
+            missingObjects[underlyingType]--;
         }
     }
 
@@ -56,62 +66,61 @@ public class CabinetBase : MonoBehaviour {
         if (item == null) {
             return;
         }
-
         objectsInsideArea.Remove(foundObject);
         ObjectType type = item.ObjectType;
-        String itemType = Enum.GetName(type.GetType(), type);
-        CheckItemType(itemType, item);
-        ReAddMissingObjects(itemType);
+        Types underlyingType = CheckItemType(type, item);
+        ReAddMissingObjects(underlyingType);
     }
 
-    private String CheckItemType(String itemType, GeneralItem item) {
-        if (itemType == "Syringe") {
+    private Types CheckItemType(ObjectType itemType, GeneralItem item) {
+        Types type = Types.Null;
+        if (itemType == ObjectType.Syringe) {
             Syringe syringe = item as Syringe;
             if (syringe.Container.Capacity == 20000) {
-                itemType = "20ml ruisku";
+                type = Types.IsoRuisku;
             } else if (syringe.Container.Capacity == 1000) {
-                itemType = "1ml ruiskut";
+                type = Types.PienetRuiskut;
             }
-        } else if (itemType == "Bottle") {
-            itemType = "lääkepullo";
-        } else if (itemType == "Needle") {
-            itemType = "neula";
-        } else if (itemType == "Luerlock") {
-            itemType = "luerlock";
+        } else if (itemType == ObjectType.Bottle) {
+            type = Types.Lääkepullo;
+        } else if (itemType == ObjectType.Needle) {
+            type = Types.Neula;
+        } else if (itemType == ObjectType.Luerlock) {
+            type = Types.Luerlock;
         }
-        return itemType;
+        return type;
     }
 
-    private void ReAddMissingObjects(String itemType) {
+    private void ReAddMissingObjects(Types itemType) {
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
-                case "neula":
+                case Types.Neula:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "20ml ruisku":
+                case Types.IsoRuisku:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "1ml ruiskut":
+                case Types.PienetRuiskut:
                     if (missingObjects[itemType] < 6) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "luerlock":
+                case Types.Luerlock:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "lääkepullo":
+                case Types.Lääkepullo:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
             }
-        }    
+        }
     }
 
     /// <summary>
@@ -123,9 +132,9 @@ public class CabinetBase : MonoBehaviour {
 
     public String GetMissingItems() {
         String missing = "Puuttuvat välineet:";
-        foreach (KeyValuePair<String, int> value in missingObjects) {
+        foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
-                missing = missing + " " + value.Key + " " + value.Value + " kpl,";
+                missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";
             }
         }
         return missing;

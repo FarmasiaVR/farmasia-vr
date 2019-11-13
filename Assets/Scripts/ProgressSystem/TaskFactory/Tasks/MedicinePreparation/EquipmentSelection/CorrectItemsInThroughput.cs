@@ -40,7 +40,6 @@ public class CorrectItemsInThroughput : TaskBase {
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
 
-
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
@@ -49,8 +48,6 @@ public class CorrectItemsInThroughput : TaskBase {
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
     }
-
-
 
     /// <summary>
     /// Once fired by an event, checks which items are in the throughput cabinet and sets the corresponding conditions to be true.
@@ -107,7 +104,7 @@ public class CorrectItemsInThroughput : TaskBase {
                     }
                     break;
                 case ObjectType.Needle:
-                    EnableCondition(Conditions.Needle); 
+                    EnableCondition(Conditions.Needle);
                     break;
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
@@ -131,8 +128,8 @@ public class CorrectItemsInThroughput : TaskBase {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
             UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
-
         }
+        Logger.Print(cabinet.GetMissingItems());
         SetItemsToZero();
         DisableConditions();
     }
