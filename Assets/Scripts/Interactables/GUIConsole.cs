@@ -6,7 +6,7 @@ using UnityEngine;
 
 // NOTE: THIS CLASS CANNOT CALL Logger METHODS, RECURSIVE INFINITE LOOP
 
-public class GUIConsole : Interactable {
+public class GUIConsole : Movable {
 
     #region Fields
     public static List<string> log;
@@ -26,12 +26,6 @@ public class GUIConsole : Interactable {
 
     static GUIConsole() {
         log = new List<string>();
-    }
-
-    protected override void Awake() {
-        base.Awake();
-
-        Type.On(InteractableType.Interactable, InteractableType.Grabbable);
     }
 
     protected override void Start() {
@@ -69,10 +63,6 @@ public class GUIConsole : Interactable {
 
     public override void Interacting(Hand hand) {
         base.Interacting(hand);
-
-        transform.position = hand.Offset.position;
-        transform.rotation = hand.Offset.rotation;
-
         UpdateIndex(hand);
     }
 

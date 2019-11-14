@@ -16,6 +16,7 @@ public abstract class DragAcceptable : Interactable {
 
     [SerializeField]
     private bool lookAtPlayer;
+    public bool LookAtPlayer { get => lookAtPlayer; set => lookAtPlayer = value; }
 
     protected bool grabbed;
     private Transform hand;
@@ -29,11 +30,9 @@ public abstract class DragAcceptable : Interactable {
 
     protected override void Awake() {
         base.Awake();
-
-        Type.On(InteractableType.Interactable);
     }
     protected override void Start() {
-        base.Awake();
+        base.Start();
         Initialize();
     }
 
@@ -44,6 +43,8 @@ public abstract class DragAcceptable : Interactable {
         pCamera = Player.Camera.transform;
 
         startPos = transform.position;
+
+        Logger.PrintVariables("Drag acceptable awake", startPos);
     }
 
     #region Updating

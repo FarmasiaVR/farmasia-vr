@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HintCloseButton : DragAcceptable {
+
+    public HintText Hint { get; set; }
+
     protected override void Activate() {
 
         if (Activated) {
@@ -13,10 +16,7 @@ public class HintCloseButton : DragAcceptable {
 
         grabbed = false;
 
-        HintText hint = transform.parent.GetComponent<HintText>();
-        transform.parent = null;
-
-        hint.DestroyHint();
+        Hint.DestroyHint();
         SafeDestroy();
     }
 }

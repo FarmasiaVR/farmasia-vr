@@ -70,11 +70,14 @@ public class Hand : MonoBehaviour {
         }
 
         // Interacting
-        if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
-            GrabInteract();
-        }
-        if (VRInput.GetControlUp(HandType, Controls.GrabInteract)) {
-            GrabUninteract();
+        // This breaks toggle grab but that might not be a problem if we dont use it
+        if (VRInput.GetControl(HandType, Controls.Grab)) {
+            if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
+                GrabInteract();
+            }
+            if (VRInput.GetControlUp(HandType, Controls.GrabInteract)) {
+                GrabUninteract();
+            }
         }
     }
 
@@ -154,20 +157,22 @@ public class Hand : MonoBehaviour {
         if (CanGrabInteract()) {
             Connector.GrabbedInteractable.Interact(this);
             Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
-        } else {
-            Logger.Error("GrabInteract(): Invalid state");
-            Uninteract();
         }
+        //else {
+        //    Logger.Error("GrabInteract(): Invalid state");
+        //    Uninteract();
+        //}
     }
 
     public void GrabUninteract() {
         if (CanGrabInteract()) {
             Connector.GrabbedInteractable.Uninteract(this);
             Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
-        } else {
-            Logger.Error("GrabUninteract(): Invalid state");
-            Uninteract();
-        }
+        } 
+        //else {
+        //    Logger.Error("GrabUninteract(): Invalid state");
+        //    Uninteract();
+        //}
     }
 
     private bool CanGrabInteract() {

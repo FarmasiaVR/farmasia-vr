@@ -8,7 +8,7 @@ public class HintText : MonoBehaviour {
     private float spawnTime = 0.5f;
 
     private Vector3 targetSize;
-    private HintCloseButton button;
+    private Transform bt;
     #endregion
 
     private void Awake() {
@@ -17,8 +17,7 @@ public class HintText : MonoBehaviour {
     }
 
     private void Start() {
-        button = transform.GetComponentInChildren<HintCloseButton>();
-        button.Disabled = true;
+        bt = transform.Find("CloseButton");
         StartCoroutine(InitSpawn());
     }
 
@@ -26,7 +25,7 @@ public class HintText : MonoBehaviour {
 
         float time = spawnTime;
 
-        Vector3 buttonPos = button.transform.localPosition;
+        Vector3 buttonPos = bt.localPosition;
 
         while (time > 0) {
             time -= Time.deltaTime;
@@ -35,10 +34,14 @@ public class HintText : MonoBehaviour {
             yield return null;
         }
         transform.localScale = targetSize;
-        button.transform.localPosition = buttonPos;
+        bt.localPosition = buttonPos;
+        bt.transform.parent = null;
 
+        Logger.Print("Adding close button to button");
+        HintCloseButton button = bt.gameObject.AddComponent<HintCloseButton>();
+        button.LookAtPlayer = true;
+        button.Hint = this;
         button.Disabled = false;
-        button.Initialize();
     }
     private IEnumerator DestroyCoroutine() {
 
@@ -51,7 +54,7 @@ public class HintText : MonoBehaviour {
             yield return null;
         }
 
-        Destroy(gameObject);
+        GetComponent<Interactable>().DestroyInteractable();
     }
 
     public void DestroyHint() {
