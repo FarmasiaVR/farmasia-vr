@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public static class ConnectionHandler {
 
@@ -65,7 +66,32 @@ public static class ConnectionHandler {
     #endregion
 
     #region Releasing
+    public static void ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(LuerlockAdapter luerlock) {
 
+        Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
 
+        Interactable otherInteractable = null;
+
+        foreach (Interactable other in luerlock.AttachedInteractables) {
+            if (other.State == InteractState.Grabbed) {
+                otherInteractable = other;
+            }
+        }
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable);
+    }
+
+    public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {
+
+        Logger.Print("ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed");
+
+        Interactable otherInteractable = luerlock.GetOtherInteractable(grabbedInteractable);
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable);
+    }
     #endregion
 }

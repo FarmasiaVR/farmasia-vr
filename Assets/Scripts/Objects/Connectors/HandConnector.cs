@@ -99,6 +99,7 @@ public class HandConnector : ItemConnector {
             return;
         }
 
+
         if (GrabbedInteractable.Rigidbody) {
             GrabbedInteractable.Rigidbody.velocity = VRInput.Skeleton(Hand.HandType).velocity;
             GrabbedInteractable.Rigidbody.angularVelocity = VRInput.Skeleton(Hand.HandType).angularVelocity;
@@ -106,8 +107,36 @@ public class HandConnector : ItemConnector {
 
         Logger.PrintVariables("unset " + Hand.HandType + " interactable", GrabbedInteractable.name);
         GrabbedInteractable.State.Off(InteractState.Grabbed);
-        GrabbedInteractable = null;
         Logger.Print("AKA. IsGrabbed = false");
+
+        SafeRelease();
+
+        GrabbedInteractable = null;
+    }
+    private void SafeRelease() {
+
+        if (GrabbedInteractable.State == InteractState.LuerlockAttached) {
+
+            Logger.Print("Releasing luerlock attached item");
+
+            LuerlockAdapter l = GrabbedInteractable.Interactors.LuerlockPair.Value;
+
+            Logger.PrintVariables("Grabbed count", l.GrabbedObjectCount);
+
+            if (l.GrabbedObjectCount > 0) {
+                ConnectionHandler.ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(GrabbedInteractable, l);
+                return;
+            }
+        }
+
+        if (GrabbedInteractable as LuerlockAdapter is var luerlock && luerlock != null) {
+            Logger.Print("Releasing luerlock");
+            Logger.PrintVariables("grabbed Object count", luerlock.GrabbedObjectCount);
+            if (luerlock.GrabbedObjectCount > 0) {
+                Logger.Print("object count was 1");
+                ConnectionHandler.ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(luerlock);
+            }
+        }
     }
     #endregion
 }
