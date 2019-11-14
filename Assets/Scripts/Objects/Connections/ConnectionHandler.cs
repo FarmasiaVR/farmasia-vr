@@ -23,6 +23,9 @@ public static class ConnectionHandler {
 
     public static void GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
 
+        connector.Connection = ItemConnection.AddLuerlockLooseItemConnection(connector, target, addTo);
+
+        return;
         Interactable interactable = addTo.GetComponent<Interactable>();
         Interactable other = ((LuerlockConnector)connector).Luerlock.GetOtherInteractable(interactable);
 

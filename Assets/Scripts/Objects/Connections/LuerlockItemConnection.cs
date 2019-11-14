@@ -21,7 +21,7 @@ public class LuerlockItemConnection : ItemConnection {
     public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
 
         Rigidbody targetRB = hand.GetComponent<Rigidbody>();
-        Rigidbody luerlockRB = interactable.Rigidbody;
+        Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
 
         if (targetRB == null || luerlockRB == null) {
             throw new System.Exception("Both parties did not have rigidbody");

@@ -60,9 +60,11 @@ public class LuerlockAdapter : GeneralItem {
             int count = 0;
 
             if (LeftConnector.HasAttachedObject && LeftConnector.AttachedInteractable.State == InteractState.Grabbed) {
+                Logger.PrintVariables("LeftConnector is grabbed", LeftConnector.AttachedInteractable.name);
                 count++;
             }
             if (RightConnector.HasAttachedObject && RightConnector.AttachedInteractable.State == InteractState.Grabbed) {
+                Logger.PrintVariables("RightConnector is grabbed", RightConnector.AttachedInteractable.name);
                 count++;
             }
 

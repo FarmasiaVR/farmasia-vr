@@ -64,8 +64,9 @@ public class HandConnector : ItemConnector {
                 // LUERLOCK IS GRABBED
                 ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
             } else {
-                if (luerlock.GrabbedObjectCount > 0) {
+                if (luerlock.GrabbedObjectCount == 2) {
                     // GRABBING BOTH LUERLOCK ITEMS
+                    Logger.PrintVariables("Grabbing both items, grabbedCount", luerlock.GrabbedObjectCount);
                     ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
                 } else {
                     // Only grabbing the luerlockitem
