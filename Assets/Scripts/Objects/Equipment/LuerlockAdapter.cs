@@ -51,20 +51,22 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     public bool HasAttachedObjects { get => ObjectCount > 0; }
-    public bool ObjectsAreBeingGrabbed {
+    public int GrabbedObjectCount {
         get {
             if (ObjectCount == 0) {
-                return false;
+                return 0;
             }
+
+            int count = 0;
 
             if (LeftConnector.HasAttachedObject && LeftConnector.AttachedInteractable.State == InteractState.Grabbed) {
-                return true;
+                count++;
             }
             if (RightConnector.HasAttachedObject && RightConnector.AttachedInteractable.State == InteractState.Grabbed) {
-                return true;
+                count++;
             }
 
-            return false;
+            return count;
         }
     }
     #endregion

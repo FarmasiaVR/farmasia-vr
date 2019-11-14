@@ -111,7 +111,7 @@ public class LuerlockConnector : ItemConnector {
         CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, true);
 
         // Attaching
-        SnapObjectPosition(Collider);
+        SnapObjectPosition();
 
         // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
         // Joint.connectedBody = attached.Rigidbody;
@@ -121,18 +121,15 @@ public class LuerlockConnector : ItemConnector {
         Connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
     }
 
-    private void SnapObjectPosition(GameObject collObject) {
-        Transform t = attached.GameObject.transform;
-        Transform target = LuerlockAdapter.LuerlockPosition(t);
+    private void SnapObjectPosition() {
+        Transform obj = attached.GameObject.transform;
+        Transform coll = Collider.transform;
+        Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
 
-        if (target == null) {
-            throw new System.Exception("Luerlock position not found");
-        }
+        obj.up = coll.up;
 
-        t.up = target.up;
-
-        Vector3 offset = collObject.transform.position - target.position;
-        t.position += offset;
+        Vector3 offset = coll.position - luerlockPos.position;
+        obj.position += offset;
     }
     #endregion
 
