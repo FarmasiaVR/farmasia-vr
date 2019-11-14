@@ -1,4 +1,10 @@
-﻿public class Movable : Interactable {
+﻿using UnityEngine;
+
+public class Movable : Interactable {
+
+    [SerializeField]
+    private bool smooth;
+    public bool Smooth { get => smooth; set => smooth = value; }
 
     protected override void Awake() {
         base.Awake();
@@ -9,7 +15,12 @@
     public override void Interacting(Hand hand) {
         base.Interacting(hand);
 
-        transform.position = hand.Offset.position;
-        transform.rotation = hand.Offset.rotation;
+        if (smooth) {
+            transform.position = Vector3.Lerp(transform.position, hand.Offset.position, 0.5f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, hand.Offset.rotation, 0.5f);
+        } else {
+            transform.position = hand.Offset.position;
+            transform.rotation = hand.Offset.rotation;
+        }
     }
 }
