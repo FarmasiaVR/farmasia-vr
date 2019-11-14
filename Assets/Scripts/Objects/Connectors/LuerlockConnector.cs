@@ -18,9 +18,8 @@ public class LuerlockConnector : ItemConnector {
         }
     }
 
-    private static float angleLimit = 10;
-    private static float maxDistance = 0.1f;
-    private static float breakDistance = 0.2f;
+    private static float angleLimit = 20;
+    private static float maxAttachDistance = 0.2f;
 
     #region Fields
     public LuerlockAdapter Luerlock { get; private set; }
@@ -190,21 +189,6 @@ public class LuerlockConnector : ItemConnector {
     }
 
     private bool IsWithinDistance(GameObject collObject, Transform t) {
-        return Vector3.Distance(collObject.transform.position, LuerlockAdapter.LuerlockPosition(t).position) < maxDistance;
-    }
-
-    public void CheckObjectDistance() {
-        if (attached.GameObject == null) {
-            return;
-        }
-
-        Vector3 luerlockPosition = LuerlockAdapter.LuerlockPosition(attached.GameObject.transform).position;
-        Vector3 colliderPosition = Collider.transform.position;
-        float distance = Vector3.Distance(luerlockPosition, colliderPosition);
-
-        if (distance > breakDistance) {
-            Connection.Remove();
-            //Events.FireEvent(EventType.AttachSyringe, CallbackData.Object(intObject));
-        }
+        return Vector3.Distance(collObject.transform.position, LuerlockAdapter.LuerlockPosition(t).position) < maxAttachDistance;
     }
 }

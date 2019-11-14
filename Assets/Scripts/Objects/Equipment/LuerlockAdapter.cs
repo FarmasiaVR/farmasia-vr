@@ -92,26 +92,6 @@ public class LuerlockAdapter : GeneralItem {
         RightConnector.Subscribe();
     }
 
-    private void OnJointBreak(float breakForce) {
-        //foreach (var pair in connectors) {
-        //    Joint joint = pair.Value.Joint;
-        //    if (joint?.currentForce.magnitude == breakForce) {
-        //        GetConnector(pair.Key).ReleaseItem();
-        //        break;
-        //    }
-        //}
-    }
-
-    private void Update() {
-        CheckBreakDistance();
-    }
-
-    private void CheckBreakDistance() {
-        return;
-        LeftConnector.CheckObjectDistance();
-        RightConnector.CheckObjectDistance();
-    }
-
     public LuerlockConnector GetConnector(Side side) {
         LuerlockConnector value;
         return connectors.TryGetValue(side, out value) ? value : null;
