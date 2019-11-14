@@ -16,7 +16,7 @@ public class ChildConnection : ItemConnection {
     }
 
    
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         interactable.RigidbodyContainer.EnableAndDeparent();
     }
 

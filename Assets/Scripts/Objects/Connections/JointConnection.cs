@@ -20,10 +20,10 @@ public class JointConnection : ItemConnection {
     }
 
     private void OnJointBreak(float force) {
-        RemoveConnection();
+        OnRemoveConnection();
     }
 
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         Destroy(joint);
     }
 

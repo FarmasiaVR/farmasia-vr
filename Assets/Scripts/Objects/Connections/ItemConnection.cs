@@ -8,12 +8,12 @@ public abstract class ItemConnection : MonoBehaviour {
     protected abstract ItemConnector Connector { get; set; }
 
     public void Remove() {
-        RemoveConnection();
+        OnRemoveConnection();
         Destroy(this);
         Connector.OnReleaseItem();
     }
 
-    protected virtual void RemoveConnection() { }
+    protected virtual void OnRemoveConnection() { }
 
     protected virtual void Update() {
 

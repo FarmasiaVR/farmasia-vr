@@ -71,7 +71,7 @@ public class SmoothConnection : ItemConnection {
         return mass;
     }
 
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         ReleaseRigidbodies();
     }
 
@@ -95,7 +95,7 @@ public class SmoothConnection : ItemConnection {
 
         float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
-            RemoveConnection();
+            OnRemoveConnection();
         }
     }
 

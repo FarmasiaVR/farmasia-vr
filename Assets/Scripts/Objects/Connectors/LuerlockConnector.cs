@@ -61,6 +61,7 @@ public class LuerlockConnector : ItemConnector {
         // Remove current connections
         if (luerlockGrabbed) {
             // Not necessary but more 'clear' for debugging purposes
+            Logger.Print("Luerlock is grabbed, removing grab from luerlock");
             Hand.GrabbingHand(Luerlock).Connector.Connection.Remove();
         }
         if (itemGrabbed) {
@@ -128,7 +129,7 @@ public class LuerlockConnector : ItemConnector {
             throw new System.Exception("Luerlock position not found");
         }
 
-        t.up = -target.up;
+        t.up = target.up;
 
         Vector3 offset = collObject.transform.position - target.position;
         t.position += offset;

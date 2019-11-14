@@ -14,7 +14,7 @@ public class LuerlockItemConnection : ItemConnection {
         Remove();
     }
 
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         Destroy(joint);
     }
 

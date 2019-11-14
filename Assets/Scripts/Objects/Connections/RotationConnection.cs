@@ -33,7 +33,7 @@ public class RotationConnection: ItemConnection {
 
         float distance = Vector3.Distance(rb.transform.position, target.position);
         if (distance > maxDistance) {
-            RemoveConnection();
+            OnRemoveConnection();
         }
     }
 

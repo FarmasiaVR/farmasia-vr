@@ -30,8 +30,6 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
         float distance = Vector3.Distance(TargetPos, newPos);
 
-        Logger.PrintVariables("TargetPos", TargetPos, "newPos", newPos, "distance", distance);
-
         if (distance > luerlockBreakDistance) {
             BreakLuerlockConnection();
             return;
@@ -48,7 +46,7 @@ public class LuerlockLooseItemConnection : ItemConnection {
         return TargetPos + direction * distance * factor;
     }
 
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         transform.localPosition = startLocal;
     }
 

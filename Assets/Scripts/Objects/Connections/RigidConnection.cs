@@ -63,7 +63,7 @@ public class RigidConnection : ItemConnection {
         return mass;
     }
 
-    protected override void RemoveConnection() {
+    protected override void OnRemoveConnection() {
         ReleaseRigidbodies();
     }
 
