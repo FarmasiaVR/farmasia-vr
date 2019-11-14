@@ -9,6 +9,7 @@ public class HintText : MonoBehaviour {
 
     private Vector3 targetSize;
     private Transform bt;
+    private HintCloseButton button;
     #endregion
 
     private void Awake() {
@@ -38,7 +39,7 @@ public class HintText : MonoBehaviour {
         bt.transform.parent = null;
 
         Logger.Print("Adding close button to button");
-        HintCloseButton button = bt.gameObject.AddComponent<HintCloseButton>();
+        button = bt.gameObject.AddComponent<HintCloseButton>();
         button.LookAtPlayer = true;
         button.Hint = this;
         button.Disabled = false;
@@ -58,6 +59,12 @@ public class HintText : MonoBehaviour {
     }
 
     public void DestroyHint() {
+
+        StopAllCoroutines();
+
+        if (button != null) {
+            button.SafeDestroy();
+        }
         StartCoroutine(DestroyCoroutine());
     }
 }

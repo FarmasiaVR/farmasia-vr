@@ -98,7 +98,7 @@ public abstract class DragAcceptable : Interactable {
     #region Activating
     protected abstract void Activate();
 
-    protected void SafeDestroy() {
+    public void SafeDestroy() {
 
         StartCoroutine(DestroyCoroutine());
 
