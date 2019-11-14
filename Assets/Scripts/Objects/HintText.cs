@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HintText : MonoBehaviour {
@@ -8,7 +7,7 @@ public class HintText : MonoBehaviour {
     private float spawnTime = 0.5f;
 
     private Vector3 targetSize;
-    private Transform bt;
+    private Transform btn;
     private HintCloseButton button;
     #endregion
 
@@ -18,7 +17,7 @@ public class HintText : MonoBehaviour {
     }
 
     private void Start() {
-        bt = transform.Find("CloseButton");
+        btn = transform.Find("CloseButton");
         StartCoroutine(InitSpawn());
     }
 
@@ -26,7 +25,7 @@ public class HintText : MonoBehaviour {
 
         float time = spawnTime;
 
-        Vector3 buttonPos = bt.localPosition;
+        Vector3 buttonPos = btn.localPosition;
 
         while (time > 0) {
             time -= Time.deltaTime;
@@ -34,12 +33,13 @@ public class HintText : MonoBehaviour {
             transform.localScale = targetSize * factor;
             yield return null;
         }
+
         transform.localScale = targetSize;
-        bt.localPosition = buttonPos;
-        bt.transform.parent = null;
+        btn.localPosition = buttonPos;
+        btn.transform.parent = null;
 
         Logger.Print("Adding close button to button");
-        button = bt.gameObject.AddComponent<HintCloseButton>();
+        button = btn.gameObject.AddComponent<HintCloseButton>();
         button.LookAtPlayer = true;
         button.Hint = this;
         button.Disabled = false;
