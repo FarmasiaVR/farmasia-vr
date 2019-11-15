@@ -168,7 +168,7 @@ public class Hand : MonoBehaviour {
         if (CanGrabInteract()) {
             Connector.GrabbedInteractable.Uninteract(this);
             Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
-        } 
+        }
         //else {
         //    Logger.Error("GrabUninteract(): Invalid state");
         //    Uninteract();
@@ -185,10 +185,39 @@ public class Hand : MonoBehaviour {
     #region Remote grab
     private void RemoteGrab(GameObject obj) {
         Interactable i = obj;
+
+        if (ItemIsPartOfGrabbedLuerlockSystem(i)) {
+            return;
+        }
+
         if (i.Type == InteractableType.Grabbable) {
-            obj.transform.position = transform.position;
+            MoveObject(i, transform.position);
         }
         InteractWith(obj);
+    }
+    private bool ItemIsPartOfGrabbedLuerlockSystem(Interactable interactable) {
+        if (interactable.State == InteractState.LuerlockAttached) {
+            LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+            if (luerlock.State == InteractState.Grabbed) {
+                return true;
+            } else if (luerlock.GrabbedObjectCount > 0) {
+                return true;
+            }
+        } else if (interactable as LuerlockAdapter is var l && l != null) {
+            if (l.GrabbedObjectCount > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void MoveObject(Interactable interactable, Vector3 position) {
+
+        if (interactable.State == InteractState.LuerlockAttached) {
+            Vector3 offset = interactable.transform.position - position;
+            interactable.Interactors.LuerlockPair.Value.transform.position += offset;
+        } else {
+            interactable.transform.position = position;
+        }
     }
     #endregion
 
