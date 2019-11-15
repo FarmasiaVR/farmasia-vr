@@ -9,10 +9,6 @@ public static class ConnectionHandler {
         connector.Connection = ItemConnection.AddSmoothConnection(connector, target, addTo);
     }
 
-    public static void AttachItemToLuerlock(ItemConnector connector, Transform target, Interactable addTo) {
-        throw new System.NotImplementedException();
-    }
-
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
         Logger.Print("Grab luerlock item");
         connector.Connection = ItemConnection.AddLuerlockItemConnection(connector, target, addTo);
@@ -23,22 +19,7 @@ public static class ConnectionHandler {
     }
 
     public static void GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
-
         connector.Connection = ItemConnection.AddLuerlockLooseItemConnection(connector, target, addTo);
-
-        return;
-        Interactable interactable = addTo.GetComponent<Interactable>();
-        Interactable other = ((LuerlockConnector)connector).Luerlock.GetOtherInteractable(interactable);
-
-        // Replace other interactables connection with LuerlockTwoWay connection
-        Hand otherHand = Hand.GrabbingHand(other);
-        LuerlockAdapter luerlock = other.Interactors.LuerlockPair.Value;
-
-        otherHand.Connector.Connection.Remove();
-        otherHand.Connector.Connection = ItemConnection.AddLuerlockLooseTwoWayItemConnection(otherHand.Connector, otherHand.transform, other.gameObject);
-
-        // Add connection to just grabbed item
-        connector.Connection = ItemConnection.AddLuerlockLooseTwoWayItemConnection(connector, target, addTo);
     }
 
     public static void GrabLuerlockWhenAttachedItemsAreGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
@@ -49,11 +30,15 @@ public static class ConnectionHandler {
             throw new System.Exception("Luerlock is null");
         }
 
-        Interactable otherItem = luerlock
-            .LeftConnector.HasAttachedObject
-            && luerlock.LeftConnector.AttachedInteractable.State == InteractState.Grabbed
-            ? luerlock.LeftConnector.AttachedInteractable
-            : luerlock.RightConnector.AttachedInteractable;
+        Interactable otherItem;
+        if (luerlock.LeftConnector.HasAttachedObject && luerlock.LeftConnector.AttachedInteractable.State == InteractState.Grabbed) {
+            otherItem = luerlock.LeftConnector.AttachedInteractable;
+        } else if (luerlock.RightConnector.HasAttachedObject && luerlock.RightConnector.AttachedInteractable.State == InteractState.Grabbed) {
+            otherItem = luerlock.RightConnector.AttachedInteractable;
+        } else {
+            Logger.Error("Could not find the other grabbed item");
+            return;
+        }
 
         Hand otherHand = Hand.GrabbingHand(otherItem);
 
