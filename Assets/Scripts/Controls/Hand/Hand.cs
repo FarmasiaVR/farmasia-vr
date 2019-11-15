@@ -213,7 +213,7 @@ public class Hand : MonoBehaviour {
     private void MoveObject(Interactable interactable, Vector3 position) {
 
         if (interactable.State == InteractState.LuerlockAttached) {
-            Vector3 offset = interactable.transform.position - position;
+            Vector3 offset = position - interactable.transform.position;
             interactable.Interactors.LuerlockPair.Value.transform.position += offset;
         } else {
             interactable.transform.position = position;
