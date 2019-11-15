@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Finish : TaskBase {
+
+    #region Constants
+    private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
+    private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
+    private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
+
+    private const string DESCRIPTION = "Siirry pois työtilasta.";
+    private const string HINT = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
+    #endregion
+
     #region Fields
     private CabinetBase laminarCabinet;
-    private String description = "Siirry pois työtilasta.";
-    private String hint = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
-
-    private const int RightSmallSyringeCapacity = 1000;
-    private const int MinimumCorrectAmountInSmallSyringe = 140;
-    private const int MaximumCorrectAmountInSmallSyringe = 160;
     #endregion
 
     #region Constructor
@@ -60,9 +64,9 @@ public class Finish : TaskBase {
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();
-                if (s.Container.Capacity == RightSmallSyringeCapacity && !s.hasBeenInBottle && s.Container.Amount > 0) {
+                if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY && !s.hasBeenInBottle && s.Container.Amount > 0) {
                     pointsForSyringeSize = Math.Min(6, pointsForSyringeSize++);
-                    if (s.Container.Amount >= MinimumCorrectAmountInSmallSyringe && s.Container.Amount <= MaximumCorrectAmountInSmallSyringe) {
+                    if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
                         pointsForMedicineAmount = Math.Min(6, pointsForMedicineAmount++);
                     }
                 }
@@ -142,11 +146,11 @@ public class Finish : TaskBase {
     }
 
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

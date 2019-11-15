@@ -5,13 +5,18 @@ using System.Collections.Generic;
 /// Correct amount of items inserted into Throughput.
 /// </summary>
 public class CorrectItemsInThroughput : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    #endregion
+
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightBottle }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
     private bool correctMedicineBottle;
-    private string description = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
@@ -154,7 +159,7 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     public override string GetHint() {

@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System;
 public class SelectMedicine : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Valitse sopiva lääkepullo.";
+    private const string HINT = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
+    #endregion
+
     #region Fields
     public enum Conditions { BottlePickup }
-    private string description = "Valitse sopiva lääkepullo.";
-    private string hint = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
+    
     #endregion
 
     #region Constructor
@@ -58,7 +63,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
     
     /// <summary>
@@ -66,7 +71,7 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

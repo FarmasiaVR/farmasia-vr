@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System;
 public class SelectTools : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Valitse sopivat työvälineet.";
+    private const string HINT = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
+    #endregion
+
     #region Fields
     public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp } 
-    private string description = "Valitse sopivat työvälineet.";
-    private string hint = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
+    
     #endregion
 
     #region Constructor
@@ -65,7 +70,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -73,7 +78,7 @@ public class SelectTools : TaskBase {
     /// </summary>
     /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

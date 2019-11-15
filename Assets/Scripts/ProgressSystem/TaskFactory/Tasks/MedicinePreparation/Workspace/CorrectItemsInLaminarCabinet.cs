@@ -5,12 +5,17 @@ using UnityEngine;
 /// Correct amount of items inserted into Fume Cupboard.
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    #endregion
+
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
-    private string description = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -137,7 +142,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>

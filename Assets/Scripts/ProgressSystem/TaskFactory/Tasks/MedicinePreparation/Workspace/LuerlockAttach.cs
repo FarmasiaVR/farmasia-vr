@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class LuerlockAttach : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
+    private const string HINT = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
+    #endregion
+
     #region Fields
     public enum Conditions { SyringeWithMedicineAttached }
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
     private CabinetBase laminarCabinet;
-    private string description = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
-    private string hint = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
+    
     private int checkTimes;
     #endregion
 
@@ -118,7 +123,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -126,7 +131,7 @@ public class LuerlockAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

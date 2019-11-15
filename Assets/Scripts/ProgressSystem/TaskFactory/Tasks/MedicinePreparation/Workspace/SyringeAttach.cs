@@ -2,14 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
+
+    #region Constants
+    private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
+
+    private const string DESCRIPTION = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
+    private const string HINT = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
+    #endregion
+
     #region Fields
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private CabinetBase laminarCabinet;
-    private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
-    private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
-
-    private const int RightSmallSyringeCapacity = 1000;
     #endregion
 
     #region Constructor
@@ -92,7 +96,7 @@ public class SyringeAttach : TaskBase {
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();
-                if (s.Container.Capacity == RightSmallSyringeCapacity && attachedSyringes.ContainsKey(s.GetInstanceID())) {
+                if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY && attachedSyringes.ContainsKey(s.GetInstanceID())) {
                     rightSize++;
                 }
             }   
@@ -110,7 +114,7 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -118,7 +122,7 @@ public class SyringeAttach : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

@@ -7,7 +7,10 @@ public class LuerlockAdapter : GeneralItem {
     public enum Side {
         Left, Right
     }
-    private const string luerlockTag = "Luerlock Position";
+
+    #region Constants
+    private const string LUERLOCK_TAG = "Luerlock Position";
+    #endregion
 
     #region Fields
     public LuerlockConnector LeftConnector { get => GetConnector(Side.Left); }
@@ -98,7 +101,7 @@ public class LuerlockAdapter : GeneralItem {
     }
 
     public static Transform LuerlockPosition(Transform t) {
-        if (t.tag == luerlockTag) {
+        if (t.tag == LUERLOCK_TAG) {
             return t;
         }
 

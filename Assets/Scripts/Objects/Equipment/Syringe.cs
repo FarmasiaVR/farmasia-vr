@@ -3,6 +3,11 @@ using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
 
+    #region Constants
+    private const float SWIPE_DEFAULT_TIME = 0.75f;
+    private const float LIQUID_TRANSFER_SPEED = 15;
+    #endregion
+
     #region fields
     public LiquidContainer Container { get; private set; }
 
@@ -12,9 +17,8 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    private float liquidTransferSpeed = 15;
+    
 
-    private const float SWIPE_DEFAULT_TIME = 0.75f;
     private float swipeTime;
 
     public LiquidContainer BottleContainer { get; set; }
@@ -63,7 +67,7 @@ public class Syringe : GeneralItem {
         }
 
         float changeFactor = -VRInput.PadTouchDelta(hand.HandType).y;
-        int amount = (int)(changeFactor * liquidTransferSpeed * Container.Capacity * Time.deltaTime);
+        int amount = (int)(changeFactor * LIQUID_TRANSFER_SPEED * Container.Capacity * Time.deltaTime);
 
         if (amount == 0) {
             return;

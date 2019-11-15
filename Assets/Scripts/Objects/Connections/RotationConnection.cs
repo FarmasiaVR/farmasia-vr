@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RotationConnection: ItemConnection {
 
+    #region Fields
     protected override ItemConnector Connector { get; set; }
 
     private Transform target;
@@ -11,6 +12,7 @@ public class RotationConnection: ItemConnection {
     private Rigidbody rb;
 
     private float maxDistance = 0.3f;
+    #endregion
 
     private void Start() {
         rb = GetComponent<Rigidbody>();

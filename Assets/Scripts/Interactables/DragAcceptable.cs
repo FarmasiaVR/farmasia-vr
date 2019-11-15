@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class DragAcceptable : Interactable {
+
     #region Fields
     private float defaultForce = 2500;
     private float mass;
