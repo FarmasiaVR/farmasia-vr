@@ -190,6 +190,10 @@ public class Hand : MonoBehaviour {
             return;
         }
 
+        if (!CanGrabObject(transform.position, obj.transform.position, i)) {
+            return; 
+        }
+
         if (i.Type == InteractableType.Grabbable) {
             MoveObject(i, transform.position);
         }
@@ -218,6 +222,17 @@ public class Hand : MonoBehaviour {
         } else {
             interactable.transform.position = position;
         }
+    }
+    private bool CanGrabObject(Vector3 pos, Vector3 targetPos, Interactable target) {
+
+        RaycastHit hit;
+        if (Physics.Raycast(pos, targetPos - pos, out hit, Vector3.Distance(pos, targetPos), int.MaxValue, QueryTriggerInteraction.Ignore)) {
+            Logger.PrintVariables("Raycast hit", hit.collider.name);
+            return Interactable.GetInteractable(hit.collider.transform) == target;
+        }
+
+        Logger.Print("Raycast did not hit");
+        return false;
     }
     #endregion
 
