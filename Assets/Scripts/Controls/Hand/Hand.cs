@@ -82,7 +82,7 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateHighlight() {
-        if (!useHighlighting) {
+        if (!useHighlighting || IsGrabbed) {
             return;
         }
 
