@@ -1,82 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 public class DoorHandle : Interactable {
 
     #region Fields
     private Hand hand;
     private OpenableDoor door;
-    [SerializeField]
-    private bool animate = true;
+    private Animator animator;
     #endregion
 
-    #region Animation Fields
-
-    public enum HandleState { Up, Down, Opening, Closing };
-    private HandleState state;
-    private float startAngle;
-    private float currentAngle = 0;
-    private readonly float maxAngle = 45f;
-    private float handleSpeed = 200f;
-    private Transform handle = null;
-    #endregion
 
     protected override void Start() {
         base.Start();
 
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
-        if (transform.childCount >= 1) {
-            handle = transform.GetChild(1).transform;
-        }
-        if (handle != null) {
-            startAngle = handle.eulerAngles.z;
-        }
+        animator = transform.GetChild(1).GetComponent<Animator>();
+        Assert.IsNotNull(animator);
     }
 
     private void Update() {
         if (State == InteractState.Grabbed) {
             door.SetByHandPosition(hand);
-        }
-        if (animate) {
-            UpdateHandle();
-        }
-    }
-
-    private void UpdateHandle() {
-        UpdateHandleAnimation();
-        CheckHandleState();
-        if (handle != null) {
-            handle.eulerAngles = new Vector3(handle.eulerAngles.x, handle.eulerAngles.y, startAngle - currentAngle);
-        }
-    }
-
-    private void CheckHandleState() {
-        if (hand == null) {
-            if (currentAngle <= 0) {
-                state = HandleState.Up;
-                currentAngle = 0;
-            } else {
-                state = HandleState.Closing;
-            }
-        } else {
-            if (currentAngle >= maxAngle) {
-                state = HandleState.Down;
-                currentAngle = maxAngle;
-            } else {
-                state = HandleState.Opening;
-            }
-        }
-    }
-    private void UpdateHandleAnimation() {
-        switch (state) {
-            case HandleState.Closing:
-                currentAngle -= handleSpeed * Time.deltaTime;
-                break;
-            case HandleState.Opening:
-                currentAngle += handleSpeed * Time.deltaTime;
-                break;
-            default:
-                break;
         }
     }
 
@@ -88,6 +33,7 @@ public class DoorHandle : Interactable {
 
         this.hand = hand;
         State.On(InteractState.Grabbed);
+        animator.SetTrigger("next");
     }
 
     public override void Uninteract(Hand hand) {
@@ -96,5 +42,6 @@ public class DoorHandle : Interactable {
         this.hand = null;
         State.Off(InteractState.Grabbed);
         door.ReleaseDoor();
+        animator.SetTrigger("next");
     }
 }
