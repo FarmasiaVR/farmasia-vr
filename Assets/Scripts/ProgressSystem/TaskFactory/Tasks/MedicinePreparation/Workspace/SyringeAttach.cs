@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
+    #region Constants
+    private const int RightSmallSyringeCapacity = 1000;
+    #endregion
+
     #region Fields
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private CabinetBase laminarCabinet;
     private string description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
     private string hint = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
-
-    private const int RightSmallSyringeCapacity = 1000;
     #endregion
 
     #region Constructor

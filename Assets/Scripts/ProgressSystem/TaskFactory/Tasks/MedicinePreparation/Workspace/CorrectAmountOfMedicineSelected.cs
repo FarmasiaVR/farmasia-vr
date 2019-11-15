@@ -5,6 +5,11 @@ using UnityEngine;
 /// Correct amount of medicine pulled into smaller syringes through LuerLock.
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
+    #region Constants
+    private const int MinimumCorrectAmountInSmallSyringe = 140;
+    private const int MaximumCorrectAmountInSmallSyringe = 160;
+    #endregion
+
     #region Fields
     public enum Conditions { RightAmountOfMedicine }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
@@ -12,8 +17,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     private CabinetBase laminarCabinet;
     private string description = "Vedä ruiskuun lääkettä.";
     private string hint = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
-    private const int MinimumCorrectAmountInSmallSyringe = 140;
-    private const int MaximumCorrectAmountInSmallSyringe = 160;
     #endregion
 
     #region Constructor
@@ -99,7 +102,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             }
         }
         if (rightAmount == 6) {
-            UISystem.Instance.CreatePopup("Valittiin oikean määrä lääkettä.", MsgType.Notify);
+            UISystem.Instance.CreatePopup("Valittiin oikea määrä lääkettä.", MsgType.Notify);
         } else {
             UISystem.Instance.CreatePopup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
         }

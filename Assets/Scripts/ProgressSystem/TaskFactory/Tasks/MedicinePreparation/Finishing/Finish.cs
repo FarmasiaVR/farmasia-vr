@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Finish : TaskBase {
+    #region Constants
+    private const int RightSmallSyringeCapacity = 1000;
+    private const int MinimumCorrectAmountInSmallSyringe = 140;
+    private const int MaximumCorrectAmountInSmallSyringe = 160;
+    #endregion
+    
     #region Fields
     private CabinetBase laminarCabinet;
     private String description = "Siirry pois työtilasta.";
     private String hint = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
-
-    private const int RightSmallSyringeCapacity = 1000;
-    private const int MinimumCorrectAmountInSmallSyringe = 140;
-    private const int MaximumCorrectAmountInSmallSyringe = 160;
     #endregion
 
     #region Constructor

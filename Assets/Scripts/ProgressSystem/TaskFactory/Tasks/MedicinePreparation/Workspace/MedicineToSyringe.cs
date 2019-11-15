@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
+    #region Constants
+    private const int RightSyringeCapacity = 20000;
+    private const int MinimumAmountOfMedicineInBigSyringe = 900;
+    #endregion
+
     #region Fields
     private Dictionary<int, int> syringes = new Dictionary<int, int>();
     public enum Conditions { RightSize, RightAmountInSyringe }
@@ -9,9 +14,6 @@ public class MedicineToSyringe : TaskBase {
     private CabinetBase laminarCabinet;
     private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
     private string hint = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
-
-    private const int RightSyringeCapacity = 20000;
-    private const int MinimumAmountOfMedicineInBigSyringe = 900;
     #endregion
 
     #region States
