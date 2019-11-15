@@ -2,7 +2,7 @@
 
 public static class Controls {
 
-    #region fields
+    #region Fields
     private static ControlType grab;
     private static ControlType grabInteract;
 

@@ -14,7 +14,7 @@
 
     private void Update() {
         if (State == InteractState.Grabbed) {
-            door.SetByHandPosition(hand);
+            door?.SetByHandPosition(hand);
         }
     }
 
@@ -22,7 +22,7 @@
         base.Interact(hand);
         Logger.Print("Door interact");
 
-        door.SetAngleOffset(hand.ColliderPosition);
+        door?.SetAngleOffset(hand.ColliderPosition);
 
         this.hand = hand;
         State.On(InteractState.Grabbed);
@@ -33,6 +33,6 @@
 
         this.hand = null;
         State.Off(InteractState.Grabbed);
-        door.ReleaseDoor();
+        door?.ReleaseDoor();
     }
 }

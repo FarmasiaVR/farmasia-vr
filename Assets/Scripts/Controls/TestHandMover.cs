@@ -4,7 +4,7 @@ using Valve.VR;
 
 public class TestHandMover : MonoBehaviour {
 
-    #region fields
+    #region Constants
     private const KeyCode ACTIVATE = KeyCode.Space;
     private const KeyCode USE_CAMERA = KeyCode.K;
     private const KeyCode USE_RIGHT = KeyCode.L;
@@ -19,7 +19,9 @@ public class TestHandMover : MonoBehaviour {
     private const KeyCode MOVE_DOWN = KeyCode.Q;
     private const KeyCode FILL_PASSTHROUGH_CABINET = KeyCode.F;
     private const KeyCode ENABLE_MOUSECONTROL = KeyCode.Minus;
+    #endregion
 
+    #region Fields
     private enum ControlState {
         HAND_LEFT, HAND_RIGHT, CAMERA
     }

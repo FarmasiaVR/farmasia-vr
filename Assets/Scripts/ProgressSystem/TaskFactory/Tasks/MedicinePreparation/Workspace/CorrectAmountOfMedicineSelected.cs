@@ -5,9 +5,13 @@ using UnityEngine;
 /// Correct amount of medicine pulled into smaller syringes through LuerLock.
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
+
     #region Constants
-    private const int MinimumCorrectAmountInSmallSyringe = 140;
-    private const int MaximumCorrectAmountInSmallSyringe = 160;
+    private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
+    private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
+
+    private const string DESCRIPTION = "Vedä ruiskuun lääkettä.";
+    private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
     #endregion
 
     #region Fields
@@ -15,8 +19,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private CabinetBase laminarCabinet;
-    private string description = "Vedä ruiskuun lääkettä.";
-    private string hint = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+    
     #endregion
 
     #region Constructor
@@ -97,7 +100,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
         int rightAmount = 0;
         foreach (var amount in attachedSyringes.Values) {
-            if (amount >= MinimumCorrectAmountInSmallSyringe && amount <= MaximumCorrectAmountInSmallSyringe) {
+            if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
                 rightAmount++;
             }
         }
@@ -114,7 +117,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -122,7 +125,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

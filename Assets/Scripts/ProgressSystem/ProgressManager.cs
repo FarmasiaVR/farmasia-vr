@@ -10,7 +10,6 @@ public class ProgressManager {
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
-    private float waitTime = 5.0f;
     #endregion
 
     #region Constructor

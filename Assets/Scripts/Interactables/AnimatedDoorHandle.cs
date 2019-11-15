@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class AnimatedDoorHandle : Interactable {
+public class AnimatedDoorHandle : DoorHandle {
 
     #region Fields
     private Animator animator;
+    public bool IsUp { get => animator.GetBool("isUp"); private set => animator.SetBool("isUp", value); }
     #endregion
 
     protected override void Start() {
@@ -15,11 +16,12 @@ public class AnimatedDoorHandle : Interactable {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-        animator.SetTrigger("next");
+        IsUp = false;
+
     }
 
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
-        animator.SetTrigger("next");
+        IsUp = true;
     }
 }

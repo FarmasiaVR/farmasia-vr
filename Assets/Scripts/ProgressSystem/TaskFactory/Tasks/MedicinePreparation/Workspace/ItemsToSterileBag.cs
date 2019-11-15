@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class ItemsToSterileBag : TaskBase {
 
+    #region Constants
+    private const string DESCRIPTION = "Viimeistele ruiskujen kanssa työskentely.";
+    private const string HINT = "Laita täyttämäsi ruiskut steriiliin pussiin.";
+    #endregion
+
     #region Fields
     public enum Conditions { SyringesPut }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectAmountOfMedicineSelected };
     private CabinetBase laminarCabinet;
     private SterileBag sterileBag;
-    private string description = "Viimeistele ruiskujen kanssa työskentely.";
-    private string hint = "Laita täyttämäsi ruiskut steriiliin pussiin.";
+    
     #endregion
 
     #region Constructor
@@ -117,7 +121,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -125,7 +129,7 @@ public class ItemsToSterileBag : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
+    
     #region Constants
-    private const int RightSyringeCapacity = 20000;
-    private const int MinimumAmountOfMedicineInBigSyringe = 900;
+    private const int RIGHT_SYRINGE_CAPACITY = 20000;
+    private const int MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE = 900;
+
+    private const string DESCRIPTION = "Ota ruiskulla lääkettä lääkeainepullosta.";
+    private const string HINT = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
     #endregion
 
     #region Fields
@@ -12,8 +16,6 @@ public class MedicineToSyringe : TaskBase {
     public enum Conditions { RightSize, RightAmountInSyringe }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectItemsInLaminarCabinet };
     private CabinetBase laminarCabinet;
-    private string description = "Ota ruiskulla lääkettä lääkeainepullosta.";
-    private string hint = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
     #endregion
 
     #region States
@@ -95,10 +97,10 @@ public class MedicineToSyringe : TaskBase {
     }
 
     private void CheckConditions(Syringe syringe) {
-        if (syringe.Container.Amount >= MinimumAmountOfMedicineInBigSyringe) {
+        if (syringe.Container.Amount >= MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE) {
             EnableCondition(Conditions.RightAmountInSyringe);
         }
-        if (syringe.Container.Capacity == RightSyringeCapacity) {
+        if (syringe.Container.Capacity == RIGHT_SYRINGE_CAPACITY) {
             EnableCondition(Conditions.RightSize);
         }
 
@@ -140,7 +142,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /// <summary>
@@ -148,7 +150,7 @@ public class MedicineToSyringe : TaskBase {
     /// </summary>
     /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return hint;
+        return HINT;
     }
     #endregion
 }

@@ -57,7 +57,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
         Remove();
         luerlock.GetConnector(interactable).Connection.Remove();
 
-        interactable.transform.position = hand.transform.position;
+        interactable.transform.position = hand.Offset.position;
+        interactable.transform.rotation = hand.Offset.rotation;
 
         hand.InteractWith(interactable);
     }

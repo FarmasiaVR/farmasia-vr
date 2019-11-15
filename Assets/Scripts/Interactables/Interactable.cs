@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Interactable : MonoBehaviour {
 
     #region fields

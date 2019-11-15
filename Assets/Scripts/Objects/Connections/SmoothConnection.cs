@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SmoothConnection : ItemConnection {
 
+    #region Fields
     protected override ItemConnector Connector { get; set; }
 
     private Transform target;
@@ -23,6 +24,7 @@ public class SmoothConnection : ItemConnection {
     private float brakeFactor = 0.75f;
 
     private List<Rigidbody> rigidbodies;
+    #endregion
 
     private void Start() {
         rb = GetComponent<Rigidbody>();

@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public struct Interactors {
+
     public Hand Hand;
     public KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter> LuerlockPair;
     public GameObject Bottle;

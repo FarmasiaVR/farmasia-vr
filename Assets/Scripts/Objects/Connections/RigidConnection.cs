@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RigidConnection : ItemConnection {
 
+    #region Fields
     protected override ItemConnector Connector { get; set; }
 
     private Transform target;
@@ -15,6 +16,7 @@ public class RigidConnection : ItemConnection {
     private float rotationLerpFactor = 0.5f;
 
     private List<Rigidbody> rigidbodies;
+    #endregion
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
