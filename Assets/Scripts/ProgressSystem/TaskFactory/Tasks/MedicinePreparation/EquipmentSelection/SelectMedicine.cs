@@ -9,7 +9,6 @@ public class SelectMedicine : TaskBase {
 
     #region Fields
     public enum Conditions { BottlePickup }
-    
     #endregion
 
     #region Constructor
@@ -19,14 +18,11 @@ public class SelectMedicine : TaskBase {
     /// </summary>
     public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(PickupObject, EventType.PickupObject);
     }
@@ -50,26 +46,15 @@ public class SelectMedicine : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup("Lääkepullo valittu.", MsgType.Done);
         base.FinishTask();
     }
 
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
         return DESCRIPTION;
     }
-    
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>Returns a String presentation of the hint.</returns>
+
     public override string GetHint() {
         return HINT;
     }

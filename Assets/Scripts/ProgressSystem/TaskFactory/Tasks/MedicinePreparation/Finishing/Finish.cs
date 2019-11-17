@@ -27,9 +27,6 @@ public class Finish : TaskBase {
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         SubscribeEvent(DoorHandleGrabbed, EventType.RoomDoor);
@@ -129,9 +126,6 @@ public class Finish : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all tasks are completed, this method is called.
-    /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
         

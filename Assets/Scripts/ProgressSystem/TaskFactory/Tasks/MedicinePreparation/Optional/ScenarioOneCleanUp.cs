@@ -84,18 +84,11 @@ public class ScenarioOneCleanUp : TaskBase {
         }
         base.FinishTask();
     }
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
+
     public override string GetDescription() {
         return description;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         return hint;
     }

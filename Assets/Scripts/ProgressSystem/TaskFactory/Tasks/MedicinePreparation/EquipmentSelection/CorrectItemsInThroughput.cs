@@ -16,7 +16,6 @@ public class CorrectItemsInThroughput : TaskBase {
     private int objectCount;
     private int checkTimes;
     private bool correctMedicineBottle;
-    
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
@@ -37,9 +36,6 @@ public class CorrectItemsInThroughput : TaskBase {
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
@@ -70,16 +66,13 @@ public class CorrectItemsInThroughput : TaskBase {
         if (containedObjects.Count == 0) {
             UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
-        }
-        checkTimes++;
+        }        
         objectCount = containedObjects.Count;
-
         CheckConditions(containedObjects);
-
         if (door.IsClosed) {
             bool check = CheckClearConditions(true);
             if (!check) {
-                MissingItems(checkTimes);
+                MissingItems();
             }
         } else {
             UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
@@ -92,6 +85,10 @@ public class CorrectItemsInThroughput : TaskBase {
         smallSyringes = 0;
     }
 
+    /// <summary>
+    /// Sets conditions based on given objects inside list.
+    /// </summary>
+    /// <param name="containedObjects">List of gameobjects inside Pass-Through Cabinet.</param>
     private void CheckConditions(List<GameObject> containedObjects) {
         foreach (GameObject value in containedObjects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
@@ -127,8 +124,8 @@ public class CorrectItemsInThroughput : TaskBase {
         }
     }
 
-    private void MissingItems(int checkTimes) {
-        if (checkTimes == 1) {
+    private void MissingItems() {
+        if (checkTimes == 0) {
             UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
@@ -137,12 +134,13 @@ public class CorrectItemsInThroughput : TaskBase {
         Logger.Print(cabinet.GetMissingItems());
         SetItemsToZero();
         DisableConditions();
+        checkTimes++;
     }
     #endregion
 
     #region Public Methods
     public override void FinishTask() {
-        if (checkTimes == 1) {
+        if (checkTimes == 0) {
             if (!correctMedicineBottle) {
                 UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
@@ -154,7 +152,6 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         }
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
-        
         base.FinishTask();
     }
 

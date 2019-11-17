@@ -70,7 +70,7 @@ public class TaskBase : ITask {
     }
 
     /// <summary>
-    /// Used for defining custom Subscribtions per task. (Override)
+    /// Used for defining custom Subscriptions per task. (Override)
     /// </summary>
     public virtual void Subscribe() {
     }
@@ -89,9 +89,9 @@ public class TaskBase : ITask {
     }
 
     /// <summary>
-    /// Enables condition with given string.
+    /// Enables condition with given Enum.
     /// </summary>
-    /// <param name="condition">String representation of condition.</param>
+    /// <param name="condition">Enum representation of condition.</param>
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
             clearConditions[condition.GetHashCode()] = true;

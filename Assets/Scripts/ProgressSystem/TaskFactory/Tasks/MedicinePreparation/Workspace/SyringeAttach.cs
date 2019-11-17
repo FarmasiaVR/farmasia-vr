@@ -28,9 +28,6 @@ public class SyringeAttach : TaskBase {
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
@@ -86,9 +83,6 @@ public class SyringeAttach : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         int rightSize = 0;
         foreach (GameObject value in laminarCabinet.objectsInsideArea) {
@@ -108,19 +102,11 @@ public class SyringeAttach : TaskBase {
         }
         base.FinishTask();
     }
-    
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
+
     public override string GetDescription() {
         return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         return HINT;
     }

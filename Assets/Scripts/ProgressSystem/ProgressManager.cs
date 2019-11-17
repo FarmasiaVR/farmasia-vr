@@ -39,7 +39,7 @@ public class ProgressManager {
             TaskType.SelectMedicine,
             TaskType.CorrectItemsInThroughput
         };
-        TaskType[] workSpaceTasks = { 
+        TaskType[] workSpaceTasks = {
             TaskType.CorrectItemsInLaminarCabinet,
             TaskType.MedicineToSyringe,
             TaskType.LuerlockAttach,
@@ -49,7 +49,7 @@ public class ProgressManager {
         };
         TaskType[] cleanUpTasks = {
             //TaskType.ScenarioOneCleanUp,
-            TaskType.Finish 
+            TaskType.Finish
         };
 
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
@@ -180,8 +180,8 @@ public class ProgressManager {
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
-               task.FinishTask(); 
-               break;
+                task.FinishTask();
+                break;
             }
         }
     }

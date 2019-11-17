@@ -20,9 +20,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         SubscribeEvent(VentilationBlocked, EventType.VentilationBlocked);
@@ -67,25 +64,14 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         base.FinishTask();
     }
 
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
         return "";
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         return "";
     }

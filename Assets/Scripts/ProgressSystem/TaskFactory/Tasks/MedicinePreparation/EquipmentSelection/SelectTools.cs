@@ -8,8 +8,7 @@ public class SelectTools : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp } 
-    
+    public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp }
     #endregion
 
     #region Constructor
@@ -19,17 +18,15 @@ public class SelectTools : TaskBase {
     /// </summary>
     public SelectTools() : base(TaskType.SelectTools, true, false) {
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(PickupObject, EventType.PickupObject);
     }
+
     /// <summary>
     /// Once fired by an event, checks if the item is correct and sets corresponding condition to be true.
     /// </summary>
@@ -57,26 +54,15 @@ public class SelectTools : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         UISystem.Instance.CreatePopup("Työväline valittu.", MsgType.Done);
         base.FinishTask();
     }
 
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>Returns a String presentation of the description.</returns>
     public override string GetDescription() {
         return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>Returns a String presentation of the hint.</returns>
     public override string GetHint() {
         return HINT;
     }

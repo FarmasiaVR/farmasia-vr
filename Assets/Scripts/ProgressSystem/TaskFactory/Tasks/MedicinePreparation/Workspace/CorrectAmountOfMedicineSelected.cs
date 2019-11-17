@@ -35,9 +35,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
@@ -90,9 +87,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         if (attachedSyringes.Count != 6) {
             return;
@@ -112,18 +106,10 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         base.FinishTask();
     }
 
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
     public override string GetDescription() {
         return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
         return HINT;
     }
