@@ -161,7 +161,11 @@ public class PointPopup : MonoBehaviour {
     /// <param name="type">Message Type changes message's colour.</param>
     public void SetPopup(int point, string text, MsgType type) {
         SetColour(type);
-        textField.text = text + "\n" + point;
+        if (point > 0) {
+            textField.text = text + "\n+" + point;
+        } else {
+            textField.text = text + "\n" + point;
+        }
     }
     #endregion
 }
