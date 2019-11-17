@@ -134,7 +134,7 @@ public static class Events {
 
     private static void CallDefaultCallbacks(EventType type, CallbackData? data = null) {
         if (!eventsData.ContainsKey(type)) {
-            Logger.Warning("No such event type");
+            Logger.Warning("No data subscriped to " + type);
             return;
         }
 
