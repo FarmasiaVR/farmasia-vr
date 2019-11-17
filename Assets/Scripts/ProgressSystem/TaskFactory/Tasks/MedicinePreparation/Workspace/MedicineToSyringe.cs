@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class MedicineToSyringe : TaskBase {
-    
+
     #region Constants
     private const int RIGHT_SYRINGE_CAPACITY = 20000;
     private const int MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE = 900;
@@ -63,31 +63,33 @@ public class MedicineToSyringe : TaskBase {
     private void RemoveSyringe(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (syringes.ContainsKey(s.GetInstanceID())) {
-            if (laminarCabinet == null && LiquidAmountHasChanged(s)) {
-                if (!takenBeforeTime) {
-                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                    UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
-                    takenBeforeTime = true;
-                } else {
-                    UISystem.Instance.CreatePopup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
-                }
-            } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
-            } else if (LiquidAmountHasChanged(s)) {
-                if (!CheckPreviousTaskCompletion(requiredTasks)) {
-                    foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
-                        if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
-                            task.UnsubscribeAllEvents();
-                            task.RemoveFromPackage();
-                            break;
-                        }
+            if (LiquidAmountHasChanged(s)) {
+                if (laminarCabinet == null) {
+                    if (!takenBeforeTime) {
+                        G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+                        UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+                        takenBeforeTime = true;
+                    } else {
+                        UISystem.Instance.CreatePopup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
                     }
+                } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
+                    UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                } else {
+                    if (!CheckPreviousTaskCompletion(requiredTasks)) {
+                        foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
+                            if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
+                                task.UnsubscribeAllEvents();
+                                task.RemoveFromPackage();
+                                break;
+                            }
+                        }
 
-                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
-                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
+                        UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
+                        G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
+                    }
+                    CheckConditions(s);
                 }
-                CheckConditions(s);
             }
             syringes.Remove(s.GetInstanceID());
         }
