@@ -142,13 +142,13 @@ public class GUIConsole : Movable {
     public static void LogWarning(string message) {
         string[] lines = message.Split('\n');
         foreach (string line in lines) {
-            log.Add("Warning: " + line);
+            log.Add("<color=#ffff00> Warning: </color>" + line);
         }
     }
     public static void LogError(string message) {
         string[] lines = message.Split('\n');
         foreach (string line in lines) {
-            log.Add("Error: " + line);
+            log.Add("<color=#FF0000>Error: </color>" + line);
         }
     }
     #endregion
