@@ -61,10 +61,12 @@ public class OpenableDoor : MonoBehaviour {
 
         Vector3 direction = transform.position - handPos;
         direction.y = 0;
-
         Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, angleOffset);
+        float newAngle = rawRotation.eulerAngles.y + angleOffset;
+        float deltaAngle = newAngle - Angle;
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, deltaAngle, (360 - maxAngle) / 2f);
+
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }
 
@@ -89,7 +91,6 @@ public class OpenableDoor : MonoBehaviour {
     private void UpdateVelocity() {
         AngleSpeed *= friction;
         float speed = Mathf.Abs(AngleSpeed);
-        int dir = (int) Mathf.Sign(AngleSpeed);
 
         if (speed < minAngleSpeed) {
             AngleSpeed = 0;

@@ -1,4 +1,6 @@
-﻿public static class AngleLock {
+﻿using System;
+
+public static class AngleLock {
 
     public static float TrimAngleDeg(float current) {
         float angle = current;
@@ -9,28 +11,30 @@
         return angle;
     }
 
-    public static float ClampAngleDeg(float current, float left, float right, float angleDelta) {
-        current = TrimAngleDeg(current);
-        left = TrimAngleDeg(left);
-        right = TrimAngleDeg(right);
+    public static float TrimAngleDeltaDeg(float delta) {
+        float angle = delta;
+        while (angle < -180)
+            angle += 360;
+        while (angle >= 180)
+            angle -= 360;
+        return angle;
+    }
 
-        float fakeLeft = TrimAngleDeg(left - current);
-        float fakeRight = TrimAngleDeg(right - current);
+    public static float ClampAngleDeg(float current, float left, float right, float angleDelta = 0, float maxDeltaAngle = 10) {
+        angleDelta = TrimAngleDeltaDeg(angleDelta);
+        maxDeltaAngle = Math.Abs(maxDeltaAngle);
 
-        if (fakeLeft < fakeRight) {
-            if (fakeLeft > 360 - fakeRight) return left;
-            else return right;
-        }
+        float deltaRemaining = angleDelta;
+        float curAngle = current;
+        bool positiveDelta = angleDelta > 0;
 
-        fakeLeft -= 360;
-
-        if (angleDelta > fakeRight) {
-            return right;
-        } else if (angleDelta < fakeLeft) {
-            return left;
-        } else {
-            return TrimAngleDeg(angleDelta + current);
-        }
+        do {
+            float step = positiveDelta ? Math.Min(deltaRemaining, maxDeltaAngle) : Math.Max(deltaRemaining, -maxDeltaAngle);
+            curAngle = ClampAngleDeg(curAngle + step, left, right);
+            deltaRemaining -= step;
+        } while ((positiveDelta && deltaRemaining > 0) || (!positiveDelta && deltaRemaining < 0));
+        
+        return curAngle;
     }
 
     public static float ClampAngleDeg(float current, float left, float right) {
