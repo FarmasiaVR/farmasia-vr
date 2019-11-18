@@ -21,7 +21,16 @@ public class CorrectLayoutInThroughput : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInThroughput);
+    }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
+            this.cabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        }
     }
 
     /// <summary>
