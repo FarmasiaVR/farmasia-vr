@@ -197,6 +197,9 @@ public class Hand : MonoBehaviour {
         if (i.Type == InteractableType.Grabbable) {
             MoveObject(i, transform.position);
         }
+
+        GrabUninteract();
+        Uninteract();
         InteractWith(obj);
     }
     private bool ItemIsPartOfGrabbedLuerlockSystem(Interactable interactable) {
