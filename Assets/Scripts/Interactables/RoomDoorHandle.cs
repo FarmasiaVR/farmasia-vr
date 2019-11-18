@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class RoomDoorHandle : Interactable {
+public class RoomDoorHandle : AnimatedDoorHandle {
 
-    #region field
+    #region Fields
     [SerializeField]
     private DoorGoTo destination;
     #endregion

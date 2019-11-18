@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7212090221173309695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7392423309304459163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c3934cd827ed142864fd5753f9d9f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: 0
 --- !u!1 &7425624366270787790
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +26,7 @@ GameObject:
   - component: {fileID: 7425624366270787784}
   - component: {fileID: 7425624366270787785}
   m_Layer: 0
-  m_Name: Door
+  m_Name: RoomDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,8 +163,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 16.666664
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8511186515367140734, guid: 1bcfc35429381674eba450075b5f53c0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bcfc35429381674eba450075b5f53c0, type: 3}
+--- !u!1 &7392423309304459163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7562339043614010695, guid: 1bcfc35429381674eba450075b5f53c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1037510846928306908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5822151622305652104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6821135478389530452, guid: 1bcfc35429381674eba450075b5f53c0,
