@@ -32,7 +32,10 @@ public class Interactable : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        gameObject.AddComponent<ObjectHighlight>();
+        if (gameObject.GetComponent<ObjectHighlight>() == null) {
+            gameObject.AddComponent<ObjectHighlight>();
+        }
+        
         gameObject.tag = iTag;
     }
 
