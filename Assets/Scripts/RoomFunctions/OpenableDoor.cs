@@ -17,7 +17,6 @@ public class OpenableDoor : MonoBehaviour {
 
     private float AngleSpeed { get; set; }
     private float minAngleSpeed = 0.1f; // Degrees
-    private float MaxAngleSpeed { get => (360 - maxAngle) / 4f; } // Degrees
 
     [SerializeField]
     private float friction = 0.9f;
@@ -64,10 +63,9 @@ public class OpenableDoor : MonoBehaviour {
         direction.y = 0;
 
         Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
-        float angle = rawRotation.eulerAngles.y + angleOffset;
 
-        angle = AngleLock.ClampAngleDeg(angle, startAngle, startAngle + maxAngle);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, angleOffset);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }
 
     public void SetAngleOffset(Vector3 handPos) {
@@ -95,8 +93,6 @@ public class OpenableDoor : MonoBehaviour {
 
         if (speed < minAngleSpeed) {
             AngleSpeed = 0;
-        } else if (speed > MaxAngleSpeed) {
-            AngleSpeed = dir * MaxAngleSpeed;
         }
     }
 
@@ -104,7 +100,7 @@ public class OpenableDoor : MonoBehaviour {
         float rotateAngle = AngleSpeed * Time.deltaTime;
         rotateAngle *= flipMomentum ? -1 : 1;
 
-        float clampedAngle = AngleLock.ClampAngleDeg(Angle + rotateAngle, startAngle, startAngle + maxAngle);
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, rotateAngle);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }
 }

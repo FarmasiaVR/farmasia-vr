@@ -9,6 +9,30 @@
         return angle;
     }
 
+    public static float ClampAngleDeg(float current, float left, float right, float angleDelta) {
+        current = TrimAngleDeg(current);
+        left = TrimAngleDeg(left);
+        right = TrimAngleDeg(right);
+
+        float fakeLeft = TrimAngleDeg(left - current);
+        float fakeRight = TrimAngleDeg(right - current);
+
+        if (fakeLeft < fakeRight) {
+            if (fakeLeft > 360 - fakeRight) return left;
+            else return right;
+        }
+
+        fakeLeft -= 360;
+
+        if (angleDelta > fakeRight) {
+            return right;
+        } else if (angleDelta < fakeLeft) {
+            return left;
+        } else {
+            return TrimAngleDeg(angleDelta + current);
+        }
+    }
+
     public static float ClampAngleDeg(float current, float left, float right) {
         float offset = (left + right) / 2 + 180;
         float fakeLeft = TrimAngleDeg(left - offset);
