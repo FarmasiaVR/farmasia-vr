@@ -11,7 +11,7 @@ public class ObjectHighlight : MonoBehaviour {
     #endregion
 
     private void Awake() {
-        InitializeLists();
+        InitializeMaterials();
         highlightColor = new Color32(100, 120, 100, 1);
         normalColor = new Color32(0, 0, 0, 0);
     }
@@ -36,20 +36,23 @@ public class ObjectHighlight : MonoBehaviour {
         return Interactable.GetInteractableObject(t).GetComponent<ObjectHighlight>();
     }
 
-    private void InitializeLists() {
+    private void InitializeMaterials() {
         materials = new List<Material>();
 
         Renderer r = GetComponent<Renderer>();
 
-        if (r != null && r.material != null) {
-            r.material.EnableKeyword("_EMISSION");
-            materials.Add(r.material);
-        }
+        AddMaterialsFromRenderer(r);
 
         foreach (Renderer child in transform.GetComponentsInChildren<Renderer>()) {
-            if (child.material != null) {
-                child.material.EnableKeyword("_EMISSION");
-                materials.Add(child.material);
+            AddMaterialsFromRenderer(child);
+        }
+    }
+
+    private void AddMaterialsFromRenderer(Renderer r) {
+        if (r != null) {
+            for (int i = 0; i < r.materials.Length; i++) {
+                r.materials[i].EnableKeyword("_EMISSION");
+                materials.Add(r.materials[i]);
             }
         }
     }
