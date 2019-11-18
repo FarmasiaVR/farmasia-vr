@@ -13,6 +13,7 @@ public class ItemsToSterileBag : TaskBase {
     public enum Conditions { SyringesPut }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectAmountOfMedicineSelected };
     private CabinetBase laminarCabinet;
+    bool TaskMovedToSide;
     private SterileBag sterileBag;
     
     #endregion
@@ -26,6 +27,7 @@ public class ItemsToSterileBag : TaskBase {
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
+        TaskMovedToSide = false;
     }
     #endregion
 
@@ -98,9 +100,15 @@ public class ItemsToSterileBag : TaskBase {
     }
 
     private void HandsExit(CallbackData data) {
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            G.Instance.Progress.ChangePackage();
+        if (CheckPreviousTaskCompletion(requiredTasks) && !TaskMovedToSide) {
+            MoveTaskToSide();
         }
+    }
+
+    private void MoveTaskToSide() {
+        G.Instance.Progress.ChangePackage();
+        G.Instance.Progress.UpdateDescription();
+        TaskMovedToSide = true;
     }
     #endregion
 
