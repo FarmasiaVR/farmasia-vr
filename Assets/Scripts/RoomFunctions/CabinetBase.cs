@@ -58,10 +58,10 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void ExitCabinet(Collider other) {
-        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        if (foundObject?.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
+        if (other?.transform.parent.gameObject.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
             Events.FireEvent(EventType.HandsExitLaminarCabinet, CallbackData.NoData());
         }
+        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
             return;
