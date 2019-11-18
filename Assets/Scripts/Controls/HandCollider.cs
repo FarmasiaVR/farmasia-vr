@@ -5,6 +5,7 @@ public class HandCollider : MonoBehaviour {
 
     #region Fields
     private HashSet<GameObject> grabObjects;
+    public ObjectHighlight PreviousHighlight { get; private set; }
     #endregion
 
     private void Start() {
@@ -25,7 +26,7 @@ public class HandCollider : MonoBehaviour {
         }
 
         ObjectHighlight highlight = ObjectHighlight.GetHighlightFromTransform(coll.transform);
-        highlight?.Unhighlight();
+        if (highlight == PreviousHighlight) UnhighlightPrevious();
         grabObjects.Remove(interactable);
     }
 
@@ -45,13 +46,19 @@ public class HandCollider : MonoBehaviour {
     }
 
     private void HighlightObject(GameObject obj) {
-        UnhighlightAll();
+        UnhighlightPrevious();
 
         if (grabObjects.Contains(obj)) {
-            ObjectHighlight.GetHighlightFromTransform(obj.transform)?.Highlight();
+            PreviousHighlight = ObjectHighlight.GetHighlightFromTransform(obj.transform);
+            PreviousHighlight?.Highlight();
         }
     }
     #endregion
+
+    public void UnhighlightPrevious() {
+        PreviousHighlight?.Unhighlight();
+        PreviousHighlight = null;
+    }
 
     public Interactable GetClosestInteractable() {
         return GetClosestObject()?.GetComponent<Interactable>() ?? null;

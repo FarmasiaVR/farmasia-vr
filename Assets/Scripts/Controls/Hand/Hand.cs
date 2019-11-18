@@ -89,7 +89,7 @@ public class Hand : MonoBehaviour {
         if (IsRemoteGrabbing) {
             extendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
-            extendedHandCollider.UnhighlightAll();
+            extendedHandCollider.UnhighlightPrevious();
             handCollider.HighlightClosestObject();
         }
     }
