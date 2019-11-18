@@ -57,12 +57,6 @@ public class LuerlockLooseItemConnection : ItemConnection {
         Remove();
         luerlock.GetConnector(interactable).Connection.Remove();
 
-        // Currently while grabbing, the grabbed item is 'sagging' due to gravity?
-        // Everytime the item is connected to the luerlock, hand.Offset is reset to that 'sagging' position of the item.
-        // This causes repeatedly attaching and deattaching to shift the position of the offset towards the direction of gravity.
-
-        //interactable.transform.position = hand.transform.position;
-        //interactable.transform.rotation = hand.transform.rotation;
         interactable.transform.position = hand.Offset.position;
         interactable.transform.rotation = hand.Offset.rotation;
         
