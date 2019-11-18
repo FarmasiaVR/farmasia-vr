@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 using Valve.VR;
 
@@ -158,10 +157,6 @@ public class Hand : MonoBehaviour {
             Connector.GrabbedInteractable.Interact(this);
             Events.FireEvent(EventType.GrabInteractWithObject, CallbackData.Object(this));
         }
-        //else {
-        //    Logger.Error("GrabInteract(): Invalid state");
-        //    Uninteract();
-        //}
     }
 
     public void GrabUninteract() {
@@ -169,10 +164,6 @@ public class Hand : MonoBehaviour {
             Connector.GrabbedInteractable.Uninteract(this);
             Events.FireEvent(EventType.GrabUninteractWithObject, CallbackData.Object(this));
         }
-        //else {
-        //    Logger.Error("GrabUninteract(): Invalid state");
-        //    Uninteract();
-        //}
     }
 
     private bool CanGrabInteract() {
