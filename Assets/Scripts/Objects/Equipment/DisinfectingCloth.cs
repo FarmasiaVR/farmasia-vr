@@ -4,7 +4,8 @@ using UnityEngine.Assertions;
 public class DisinfectingCloth : GeneralItem {
 
     #region fields
-    private GameObject childCollider;
+    [SerializeField]
+    private GameObject collider;
     #endregion
 
     protected override void Start() {
@@ -12,8 +13,8 @@ public class DisinfectingCloth : GeneralItem {
 
         ObjectType = ObjectType.DisinfectingCloth;
         IsClean = true;
-
-        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => TouchCloth(collider)));
+        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        CollisionSubscription.SubscribeToTrigger(collider, new TriggerListener().OnEnter(collider => TouchCloth(collider)));
     }
 
     private void TouchCloth(Collider other) {
@@ -25,6 +26,7 @@ public class DisinfectingCloth : GeneralItem {
         if (item.ObjectType == ObjectType.Bottle && this.IsClean) {
             MedicineBottle bottle = item as MedicineBottle;
             bottle.IsClean = true;
+            UISystem.Instance.CreatePopup("Lääkepullon korkki puhdistettu.", MsgType.Notify);
         }
     }
 }
