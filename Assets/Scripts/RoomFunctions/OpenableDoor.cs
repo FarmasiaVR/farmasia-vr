@@ -65,7 +65,7 @@ public class OpenableDoor : MonoBehaviour {
 
         float newAngle = rawRotation.eulerAngles.y + angleOffset;
         float deltaAngle = newAngle - Angle;
-        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, deltaAngle, (360 - maxAngle) / 2f);
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, deltaAngle);
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }

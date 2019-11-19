@@ -20,7 +20,48 @@ public static class AngleLock {
         return angle;
     }
 
-    public static float ClampAngleDeg(float current, float left, float right, float angleDelta = 0, float maxDeltaAngle = 10) {
+    /// <summary>
+    /// Attempts to change currentAngle by angleDelta and clamps the resulting angle
+    /// between the left and right angles.
+    /// 
+    /// Note: Unity angles increase clockwise, therefore the clamped area is defined clockwise from left to right.
+    /// </summary>
+    /// <param name="currentAngle">The angle to clamp</param>
+    /// <param name="leftClampAngle">The left clamp limit</param>
+    /// <param name="rightClampAngle">The right clamp limit</param>
+    /// <param name="angleDelta">Current angle speed</param>
+    /// <returns>The clamped angle</returns>
+    public static float ClampAngleDeg(float currentAngle, float leftClampAngle, float rightClampAngle, float angleDelta = 0) {
+        currentAngle = TrimAngleDeg(currentAngle);
+        leftClampAngle = TrimAngleDeg(leftClampAngle);
+        rightClampAngle = TrimAngleDeg(rightClampAngle);
+        angleDelta = TrimAngleDeltaDeg(angleDelta);
+
+        float leftRelativeToCurrent = TrimAngleDeg(leftClampAngle - currentAngle);
+        if (leftRelativeToCurrent == 0) leftRelativeToCurrent = 360;
+        float rightRelativeToCurrent = TrimAngleDeg(rightClampAngle - currentAngle);
+
+        // If currentAngle is not inside clamped region, (currentAngle is out of bounds)
+        // clamp to nearest clamp limit.
+        if (leftRelativeToCurrent < rightRelativeToCurrent) {
+            if (leftRelativeToCurrent < 360 - rightRelativeToCurrent) return leftClampAngle;
+            else return rightClampAngle;
+        }
+
+        // Needed for angle comparison below.
+        // Invariant: leftRelativeToCurrent < current < rightRelativeToCurrent
+        leftRelativeToCurrent -= 360;
+
+        if (angleDelta > rightRelativeToCurrent) {
+            return rightClampAngle;
+        } else if (angleDelta < leftRelativeToCurrent) {
+            return leftClampAngle;
+        } else {
+            return TrimAngleDeg(angleDelta + currentAngle);
+        }
+    }
+
+    public static float ClampAngleDegSteps(float current, float left, float right, float angleDelta, float maxDeltaAngle) {
         angleDelta = TrimAngleDeltaDeg(angleDelta);
         maxDeltaAngle = Math.Abs(maxDeltaAngle);
 
