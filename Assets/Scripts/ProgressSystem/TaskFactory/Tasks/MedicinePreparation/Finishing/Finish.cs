@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Finish : TaskBase {
@@ -23,6 +22,7 @@ public class Finish : TaskBase {
     ///  Is not removed when finished and requires previous task completion.
     ///  </summary>
     public Finish() : base(TaskType.Finish, false, true) {
+        Subscribe();
     }
     #endregion
 
