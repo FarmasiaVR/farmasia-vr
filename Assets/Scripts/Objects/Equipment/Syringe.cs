@@ -3,6 +3,11 @@ using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
 
+    #region Constants
+    private const float SWIPE_DEFAULT_TIME = 0.75f;
+    private const float LIQUID_TRANSFER_SPEED = 15;
+    #endregion
+
     #region fields
     public LiquidContainer Container { get; private set; }
 
@@ -12,21 +17,24 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    private float liquidTransferSpeed = 15;
+    
 
-    private const float SWIPE_DEFAULT_TIME = 0.75f;
     private float swipeTime;
 
     public LiquidContainer BottleContainer { get; set; }
+
+    public bool hasBeenInBottle;
 
     // private Pipeline pipeline = new Pipeline();
 
     #endregion
     protected override void Start() {
         base.Start();
+
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
+        IsClean = true;
 
         //Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable);
          Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
@@ -34,13 +42,15 @@ public class Syringe : GeneralItem {
 
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
+
+        hasBeenInBottle = false;
     }
 
     public override void Interact(Hand hand) {
         swipeTime = SWIPE_DEFAULT_TIME;
     }
 
-    public override void UpdateInteract(Hand hand) {
+    public override void Interacting(Hand hand) {
 
         bool padTouchUp = VRInput.GetControlUp(hand.HandType, ControlType.PadTouch);
         bool touch = VRInput.GetControl(hand.HandType, ControlType.PadTouch);
@@ -57,13 +67,13 @@ public class Syringe : GeneralItem {
         }
 
         float changeFactor = -VRInput.PadTouchDelta(hand.HandType).y;
-        int amount = (int)(changeFactor * liquidTransferSpeed * Container.Capacity * Time.deltaTime);
+        int amount = (int)(changeFactor * LIQUID_TRANSFER_SPEED * Container.Capacity * Time.deltaTime);
 
         if (amount == 0) {
             return;
         }
 
-        if (State == InteractState.LuerlockAttatch) {
+        if (State == InteractState.LuerlockAttached) {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {
             BottleEject(amount);
@@ -81,24 +91,17 @@ public class Syringe : GeneralItem {
 
         var pair = Interactors.LuerlockPair;
 
-        if (pair.Key < 0) {
+        if (pair.Key < 0 || pair.Value == null) {
             return;
         }
 
-        int other = pair.Key == 0 ? 1 : 0;
+        Syringe leftSyringe = (Syringe)pair.Value.LeftConnector.AttachedInteractable;
+        Syringe rightSyringe = (Syringe)pair.Value.RightConnector.AttachedInteractable;
+        bool invert = (pair.Key == 0) == (amount < 0);
 
-        if (pair.Value == null) {
-            return;
-        }
-
-        LiquidContainer from = ((Syringe)(pair.Value.Objects[other].Interactable)).Container;
-        LiquidContainer to = ((Syringe)(pair.Value.Objects[pair.Key].Interactable)).Container;
-
-        if (amount > 0) {
-            from.TransferTo(to, amount);
-        } else {
-            to.TransferTo(from, -amount);
-        }
+        Syringe srcSyringe = invert ? rightSyringe : leftSyringe;
+        Syringe dstSyringe = invert ? leftSyringe : rightSyringe;
+        srcSyringe.Container.TransferTo(dstSyringe.Container, Mathf.Abs(amount));
     }
     private void BottleEject(int amount) {
 

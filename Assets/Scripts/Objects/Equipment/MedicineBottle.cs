@@ -9,6 +9,7 @@ public class MedicineBottle : GeneralItem {
 
     protected override void Start() {
         base.Start();
+
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Bottle;

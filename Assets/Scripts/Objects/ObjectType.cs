@@ -6,5 +6,7 @@
     Needle,
     Bottle,
     Dropper,
-    BottleCap
+    BottleCap,
+    SterileBag,
+    DisinfectingCloth
 }

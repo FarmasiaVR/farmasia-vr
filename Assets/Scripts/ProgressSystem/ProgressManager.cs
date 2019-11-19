@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ProgressManager {
 
     #region Fields
     private bool testMode;
-    public HashSet<ITask> allTasks { get; private set; }
-    public List<Package> packages { get; private set; }
-    public Package currentPackage { get; private set; }
-    public ScoreCalculator calculator { get; private set; }
-    private float waitTime = 5.0f;
+    private HashSet<ITask> allTasks;
+    public List<Package> packages;
+    public Package CurrentPackage { get; private set; }
+    public ScoreCalculator Calculator { get; private set; }
     #endregion
 
     #region Constructor
@@ -23,10 +21,11 @@ public class ProgressManager {
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
         AddTasks();
-        calculator = new ScoreCalculator(allTasks);
+        Calculator = new ScoreCalculator(allTasks);
         GenerateScenarioOne();
-        currentPackage = packages.First();
+        CurrentPackage = packages.First();
         UpdateDescription();
+        UpdateHint();
     }
     #endregion
 
@@ -40,7 +39,7 @@ public class ProgressManager {
             TaskType.SelectMedicine,
             TaskType.CorrectItemsInThroughput
         };
-        TaskType[] workSpaceTasks = { 
+        TaskType[] workSpaceTasks = {
             TaskType.CorrectItemsInLaminarCabinet,
             TaskType.MedicineToSyringe,
             TaskType.LuerlockAttach,
@@ -48,11 +47,13 @@ public class ProgressManager {
             TaskType.CorrectAmountOfMedicineSelected,
             TaskType.ItemsToSterileBag
         };
-        TaskType[] cleanUpTasks = { TaskType.ScenarioOneCleanUp };
+        TaskType[] cleanUpTasks = {
+            TaskType.Finish
+        };
 
-        Package equipmentSelection = CreatePackageWithList("Equipment Selection", new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList("Workspace", new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackageWithList("Clean Up", new List<TaskType>(cleanUpTasks));
+        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
+        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
         packages.Add(equipmentSelection);
         packages.Add(workSpace);
         packages.Add(cleanUp);
@@ -65,7 +66,7 @@ public class ProgressManager {
     /// <param name="name">Name of the new package.</param>
     /// <param name="tasks">List of predefined tasks.</param>
     /// <returns></returns>
-    private Package CreatePackageWithList(string name, List<TaskType> tasks) {
+    private Package CreatePackageWithList(PackageName name, List<TaskType> tasks) {
         Package package = new Package(name, this);
         TakeTasksToPackage(package, tasks);
         return package;
@@ -137,7 +138,7 @@ public class ProgressManager {
     /// </summary>
     /// <param name="taskType">Type of task to find.</param>
     /// <returns></returns>
-    private ITask FindTaskWithType(TaskType taskType) {
+    public ITask FindTaskWithType(TaskType taskType) {
         ITask foundTask = null;
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == taskType) {
@@ -150,6 +151,10 @@ public class ProgressManager {
     #endregion
 
     #region Task Methods
+
+    public HashSet<ITask> GetAllTasks() {
+        return allTasks;
+    }
     public void ListAllTasksInManager() {
         foreach (ITask task in allTasks) {
             Logger.Print(task.GetType());
@@ -160,22 +165,24 @@ public class ProgressManager {
     #region Finishing Packages and Manager
 
     public void ChangePackage() {
-        int index = packages.IndexOf(currentPackage);
+        int index = packages.IndexOf(CurrentPackage);
         if (packages[index + 1] != null) {
-            currentPackage = packages[index + 1];
+            CurrentPackage = packages[index + 1];
         } else {
             FinishProgress();
         }
-
     }
-
 
     /// <summary>
     /// Calls every task inside allTasks Set and finishes them.
     /// </summary>
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
-            task.FinishTask();
+            if (task.GetTaskType() == TaskType.Finish) {
+                task.FinishTask();
+                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Notify);
+                break;
+            }
         }
     }
 
@@ -193,10 +200,22 @@ public class ProgressManager {
     #region Description Methods
     public void UpdateDescription() {
         if (!testMode) {
-            if (currentPackage != null) {
-                UISystem.Instance.UpdateDescription(currentPackage.activeTasks);
+            if (CurrentPackage != null) {
+                UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
             }
         }
     }
     #endregion
+
+    #region Hint Methods
+    public void UpdateHint() {
+        if (!testMode && CurrentPackage != null) {
+            HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
+        }
+    }
+    #endregion
+
+    public bool IsCurrentPackage(PackageName name) {
+        return CurrentPackage.name == name;
+    }
 }

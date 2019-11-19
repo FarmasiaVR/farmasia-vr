@@ -12,9 +12,6 @@ public class ColliderHitCount : MonoBehaviour {
 
     private Interactable interactable;
 
-    public int DebugCOunt() {
-        return currentCount;
-    }
     private void Awake() {
         subscriptions = new List<CollisionSubscription>();
     }

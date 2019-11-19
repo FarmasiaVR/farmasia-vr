@@ -1,14 +1,25 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Correct amount of medicine pulled into smaller syringes through LuerLock.
 /// </summary>
 public class CorrectAmountOfMedicineSelected : TaskBase {
+
+    #region Constants
+    private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
+    private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
+
+    private const string DESCRIPTION = "Vedä ruiskuun lääkettä.";
+    private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+    #endregion
+
     #region Fields
-    private string[] conditions = { "SixSyringes", "RightAmountOfMedicine", "PreviousTasksCompleted" };
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach, TaskType.SyringeAttach};
-    private int syringes;
-    private int rightAmountInSyringes;
+    public enum Conditions { RightAmountOfMedicine }
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
+    private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
+    private CabinetBase laminarCabinet;
+    
     #endregion
 
     #region Constructor
@@ -18,92 +29,89 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     ///  </summary>
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
-        AddConditions(conditions);
-        syringes = 0;
-        rightAmountInSyringes = 0;
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 6;
     }
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(Medicine, EventType.AmountOfMedicine);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
+        base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
     }
-    /// <summary>
-    /// Once fired by an event, checks if right amount has been chosen and if required previous tasks are completed.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void Medicine(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
-            return;
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
-        } else {
-            return;
-        }
-        //check that happens in laminar cabinet
+    }
+
+    private void AddSyringe(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
+        Syringe s = item.GetComponent<Syringe>();
+        if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
+            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
         }
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Syringe) {
-            Syringe syringe = item.GetComponent<Syringe>();
-            //should be 0,15ml
-            if (syringe.Container.Capacity == 1) {
-                syringes++;
-                if (syringe.Container.Amount == 15) {
-                    rightAmountInSyringes++;
-                } 
-            } 
-        }  
-        if (syringes == 6) {
-            EnableCondition("SixSyringes");
-        }
-        if (rightAmountInSyringes == 6) {
-            EnableCondition("RightAmountOfMedicine");
-        }
+    }
 
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["SixSyringes"]) {
-            UISystem.Instance.CreatePopup(-1, "Wrong amount of medicine was taken", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
-            base.FinishTask();
+    private void RemoveSyringe(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        Syringe s = item.GetComponent<Syringe>();
+ 
+        if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
+            if (CheckPreviousTaskCompletion(requiredTasks)) {
+                if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                    if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                        G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
+                        UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                    } else {
+                        FinishTask();
+                    }
+                }
+            } else {
+                attachedSyringes.Remove(s.GetInstanceID());
+            }
+
+            foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
+                if (task.GetTaskType() == TaskType.SyringeAttach) {
+                    base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
+                    break;
+                }
+            }
         }
-    }  
+    }
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Right amount of medicine", MessageType.Notify);
+        if (attachedSyringes.Count != 6) {
+            return;
+        }
+
+        int rightAmount = 0;
+        foreach (var amount in attachedSyringes.Values) {
+            if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
+                rightAmount++;
+            }
+        }
+        if (rightAmount == 6) {
+            UISystem.Instance.CreatePopup("Valittiin oikea määrä lääkettä.", MsgType.Notify);
+        } else {
+            UISystem.Instance.CreatePopup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
+        }
         base.FinishTask();
     }
-    
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
+
     public override string GetDescription() {
-        return "Vedä ruiskuun lääkettä.";
+        return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+        return HINT;
     }
     #endregion
 }

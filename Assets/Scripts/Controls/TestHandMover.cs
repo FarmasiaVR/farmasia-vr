@@ -4,7 +4,7 @@ using Valve.VR;
 
 public class TestHandMover : MonoBehaviour {
 
-    #region fields
+    #region Constants
     private const KeyCode ACTIVATE = KeyCode.Space;
     private const KeyCode USE_CAMERA = KeyCode.K;
     private const KeyCode USE_RIGHT = KeyCode.L;
@@ -17,7 +17,11 @@ public class TestHandMover : MonoBehaviour {
     private const KeyCode MOVE_RIGHT = KeyCode.D;
     private const KeyCode MOVE_UP = KeyCode.E;
     private const KeyCode MOVE_DOWN = KeyCode.Q;
+    private const KeyCode FILL_PASSTHROUGH_CABINET = KeyCode.F;
+    private const KeyCode ENABLE_MOUSECONTROL = KeyCode.Minus;
+    #endregion
 
+    #region Fields
     private enum ControlState {
         HAND_LEFT, HAND_RIGHT, CAMERA
     }
@@ -35,6 +39,11 @@ public class TestHandMover : MonoBehaviour {
     private Transform right, left, cam;
 
     private bool active;
+    private bool grabbing;
+
+    [SerializeField]
+    private GameObject correctPassthroughCabinetItems;
+    private bool mouseControl = false;
     #endregion
 
     private void Start() {
@@ -49,6 +58,7 @@ public class TestHandMover : MonoBehaviour {
             UpdateState();
             UpdateMovement();
         } else if (Input.GetKeyDown(ACTIVATE)) {
+            Logger.Print("Activating test hand mover");
             active = true;
             Cursor.lockState = currentState == ControlState.CAMERA ? CursorLockMode.Locked : CursorLockMode.None;
             Destroy(transform.GetComponent<SteamVR_PlayArea>());
@@ -65,6 +75,10 @@ public class TestHandMover : MonoBehaviour {
         } else if (JustPressed(USE_CAMERA)) {
             SetState(ControlState.CAMERA);
         }
+
+        if (JustPressed(FILL_PASSTHROUGH_CABINET)) {
+            correctPassthroughCabinetItems.SetActive(true);
+        }
     }
 
     private void UpdateState() {
@@ -76,10 +90,17 @@ public class TestHandMover : MonoBehaviour {
     }
 
     private void UpdateHands() {
-        if (JustPressed(HAND_GRAB)) {
-            PassGrabInput();
+        if (Input.GetMouseButtonDown(0)) {
+            if (grabbing) {
+                grabbing = false;
+                PassGrabInput();
+                PassUngrabInput();
+            } else {
+                grabbing = true;
+                PassGrabInput();
+            }
         }
-        
+
         if (JustPressed(HAND_INTERACT)) {
             PassInteractInput();
         }
@@ -95,26 +116,44 @@ public class TestHandMover : MonoBehaviour {
     private void UpdateMovement() {
         Vector3 movement = Vector3.zero;
 
-        if (IsPressed(MOVE_FORWARD)) {
-            movement.z++;
-        }
-        if (IsPressed(MOVE_BACKWARDS)) {
-            movement.z--;
+
+        if (JustPressed(ENABLE_MOUSECONTROL)) {
+            mouseControl = !mouseControl;
+            if (mouseControl) {
+                Cursor.lockState = CursorLockMode.Locked;
+            } else {
+                Cursor.lockState = CursorLockMode.None;
+            }
+
         }
 
-        if (IsPressed(MOVE_RIGHT)) {
-            movement.x++;
-        }
-        if (IsPressed(MOVE_LEFT)) {
-            movement.x--;
-        }
+        if (mouseControl) {
+            movement.x += Input.GetAxis("Mouse X");
+            movement.z += Input.GetAxis("Mouse Y");
+        } else {
+            if (IsPressed(MOVE_FORWARD)) {
+                movement.z++;
+            }
+            if (IsPressed(MOVE_BACKWARDS)) {
+                movement.z--;
+            }
 
+            if (IsPressed(MOVE_RIGHT)) {
+                movement.x++;
+            }
+            if (IsPressed(MOVE_LEFT)) {
+                movement.x--;
+            }
+
+
+        }
         if (IsPressed(MOVE_UP)) {
             movement.y++;
         }
         if (IsPressed(MOVE_DOWN)) {
             movement.y--;
         }
+
 
         GetCurrentTransform().Translate(movement * speedMovement * Time.deltaTime);
     }
@@ -136,6 +175,10 @@ public class TestHandMover : MonoBehaviour {
         VRInput.ControlDown(Controls.Grab, GetHandType());
     }
 
+    private void PassUngrabInput() {
+        VRInput.ControlUp(Controls.Grab, GetHandType());
+    }
+
     private void PassInteractInput() {
         VRInput.ControlDown(Controls.GrabInteract, GetHandType());
     }
@@ -148,7 +191,7 @@ public class TestHandMover : MonoBehaviour {
         } else if (currentState == ControlState.HAND_RIGHT) {
             return right;
         } else {
-            throw new NotImplementedException("ControlState not implemented: " + currentState); 
+            throw new NotImplementedException("ControlState not implemented: " + currentState);
         }
     }
 

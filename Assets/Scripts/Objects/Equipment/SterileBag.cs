@@ -1,52 +1,63 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public class SterileBag : MonoBehaviour {
+public class SterileBag : GeneralItem {
 
     #region fields
     public List<GameObject> objectsInBag;
-    public bool isClosed;
-    public bool isSterile;
+    public bool IsClosed { get; private set; }
+    public bool IsSterile { get; private set; }
+    private bool itemPlaced = false;
+    [SerializeField]
+    private GameObject childCollider;
     #endregion
     
     // Start is called before the first frame update
-    void Start() {
+    protected override void Start() {
+        base.Start();
+
+        ObjectType = ObjectType.SterileBag;
+        IsClean = true;
+
         objectsInBag = new List<GameObject>();
-        isClosed = false;
-        isSterile = true;
+        IsClosed = false;
+        IsSterile = true;
+        
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterSterileBag(collider)));
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitSterileBag(collider)));
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (isClosed) {
+    private void EnterSterileBag(Collider other) {
+        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (item == null || IsClosed) {
             return;
         }
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
-            return;
+        if (!itemPlaced) {
+            Events.FireEvent(EventType.ItemPlacedInSterileBag, CallbackData.Object(this));
+            itemPlaced = true;
         }
         
         if (!objectsInBag.Contains(foundObject)) {
             objectsInBag.Add(foundObject);
-            if (!foundObject.GetComponent<GeneralItem>().IsClean) {
-                isSterile = false;
+            Events.FireEvent(EventType.SterileBag, CallbackData.Object(objectsInBag));
+            if (!item.IsClean) {
+                IsSterile = false;
             }
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if (isClosed) {
-            return;
+    private void ExitSterileBag(Collider other) {
+        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (!IsClosed && item != null) {
+            objectsInBag.Remove(foundObject);
         }
-        GameObject foundObject = other.transform.gameObject;
-        if (foundObject.GetComponent<GeneralItem>() == null) {
-            return;
-        }
-        objectsInBag.Remove(foundObject);
     }
 
-    // Update is called once per frame
-    void Update() { 
+    private void CloseSterileBag() {
+        IsClosed = true;
+        Events.FireEvent(EventType.SterileBag, CallbackData.Object(objectsInBag));
     }
 }

@@ -1,0 +1,200 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public class LuerlockConnector : ItemConnector {
+
+    public struct AttachedObject {
+        public Interactable Interactable;
+        public Vector3 Scale;
+        public GameObject GameObject {
+            get {
+                return Interactable?.gameObject;
+            }
+        }
+        public Rigidbody Rigidbody {
+            get {
+                return Interactable?.Rigidbody;
+            }
+        }
+    }
+
+    private static float angleLimit = 20;
+    private static float maxAttachDistance = 0.2f;
+
+    #region Fields
+    public LuerlockAdapter Luerlock { get; private set; }
+    public GameObject Collider { get; private set; }
+    // public Joint Joint { get; private set; }
+    public bool HasAttachedObject { get => attached.GameObject != null; }
+    public Rigidbody AttachedRigidbody { get => attached.Rigidbody; }
+    public Interactable AttachedInteractable { get => attached.Interactable; }
+
+    private AttachedObject attached;
+    public override ItemConnection Connection { get; set; }
+    private LuerlockAdapter.Side side;
+    #endregion
+
+    public LuerlockConnector(LuerlockAdapter.Side side, LuerlockAdapter luerlock, GameObject collider) : base(luerlock.transform) {
+        Luerlock = luerlock;
+        attached = new AttachedObject();
+        this.side = side;
+        this.Collider = collider;
+    }
+
+    public void Subscribe() {
+        CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
+    }
+
+    
+    #region Attaching
+    public override void ConnectItem(Interactable interactable) {
+        Logger.Print("Connect item: " + interactable.name);
+
+        bool luerlockGrabbed = Luerlock.State == InteractState.Grabbed;
+        Hand luerlockHand = luerlockGrabbed ? Hand.GrabbingHand(Luerlock) : null;
+
+        bool itemGrabbed = interactable.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+
+        // Move to ConnectionHandler?
+        // Remove current connections
+        if (luerlockGrabbed) {
+            // Not necessary but more 'clear' for debugging purposes
+            Logger.Print("Luerlock is grabbed, removing grab from luerlock");
+            Hand.GrabbingHand(Luerlock).Connector.Connection.Remove();
+        }
+        if (itemGrabbed) {
+            interactable.GetComponent<ItemConnection>().Remove();
+        }
+
+
+        ReplaceObject(interactable?.gameObject);
+
+        // Move to ConnectionHandler?
+        // Add new connections
+        if (luerlockGrabbed) {
+            luerlockHand.InteractWith(Luerlock);
+        }
+        if (itemGrabbed) {
+            Vector3 pos = itemHand.Offset.position;
+            Quaternion rot = itemHand.Offset.rotation;
+
+            itemHand.InteractWith(interactable);
+
+            itemHand.Offset.position = pos;
+            itemHand.Offset.rotation = rot;
+        }
+    }
+
+    private void ReplaceObject(GameObject newObject) {
+        if (attached.GameObject == newObject) {
+            Logger.Print("Attaching same object!");
+            return;
+        }
+
+        // Disconnect existing joint
+        if (attached.GameObject != null) {
+            CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, false);
+            // MonoBehaviour.Destroy(Joint);
+        }
+
+        // Replace with nothing
+        if (newObject == null) {
+            attached.Interactable = null;
+            Logger.Print("New object null!");
+            return;
+        }
+
+        attached.Scale = newObject.transform.localScale;
+        attached.Interactable = newObject.GetComponent<Interactable>();
+        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, Luerlock));
+        attached.Interactable.State.On(InteractState.LuerlockAttached);
+
+        Logger.PrintVariables("luerlock", Luerlock.name);
+        Logger.PrintVariables("obj luer: ", attached.Interactable.Interactors.LuerlockPair.Value.gameObject.name);
+
+        CollisionIgnore.IgnoreCollisions(Luerlock.transform, attached.GameObject.transform, true);
+
+        // Attaching
+        SnapObjectPosition();
+
+        // Joint = JointConfiguration.AddJoint(Luerlock.gameObject);
+        // Joint.connectedBody = attached.Rigidbody;
+        if (attached.GameObject == null) {
+            Logger.Error("Attached gameobject null");
+        }
+        Connection = ItemConnection.AddChildConnection(this, Luerlock.transform, attached.GameObject);
+    }
+
+    private void SnapObjectPosition() {
+        Transform obj = attached.GameObject.transform;
+        Transform coll = Collider.transform;
+        Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
+
+        obj.up = coll.up;
+
+        Vector3 offset = coll.position - luerlockPos.position;
+        obj.position += offset;
+    }
+    #endregion
+
+    #region Releasing
+    public override void OnReleaseItem() {
+        Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
+        // MonoBehaviour.Destroy(Joint);
+        // MonoBehaviour.Destroy(connection);
+        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
+        attached.Interactable.State.Off(InteractState.LuerlockAttached);
+        ReplaceObject(null);
+    }
+    #endregion
+
+    private void ObjectEnter(Collider collider) {
+
+        GameObject intObject = Interactable.GetInteractableObject(collider.transform);
+        if (intObject == null) {
+            return;
+        }
+
+        if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
+            // Position Offset here
+
+            Logger.Print("Connecting item");
+            ConnectItem(intObject.GetComponent<Interactable>());
+            Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
+            Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
+        } else {
+            Logger.Print("Not connected");
+            Logger.PrintVariables("old obj", attached.GameObject);
+        }
+    }
+
+    private bool ConnectingIsAllowed(GameObject adapterCollider, Collider connectingCollider) {
+        Interactable connectingInteractable = Interactable.GetInteractable(connectingCollider.transform);
+        if (connectingInteractable == null) {
+            return false;
+        }
+
+        float collisionAngle = Vector3.Angle(adapterCollider.transform.up, connectingInteractable.transform.up);
+        if (collisionAngle > angleLimit) {
+            Logger.Print("Bad angle: " + collisionAngle.ToString());
+            return false;
+        }
+
+        if (!IsWithinDistance(adapterCollider, connectingInteractable.transform)) {
+            return false;
+        }
+
+        if (connectingInteractable.Type.IsOff(InteractableType.LuerlockAttachable)) {
+            Logger.Print("Interactable is not of type LuerlockAttachable");
+            return false;
+        }
+
+        Logger.Print("Angle: " + collisionAngle.ToString());
+        return true;
+    }
+
+    private bool IsWithinDistance(GameObject collObject, Transform t) {
+        return Vector3.Distance(collObject.transform.position, LuerlockAdapter.LuerlockPosition(t).position) < maxAttachDistance;
+    }
+}

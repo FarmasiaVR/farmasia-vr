@@ -1,10 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 public class SyringeAttach : TaskBase {
+
+    #region Constants
+    private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
+
+    private const string DESCRIPTION = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
+    private const string HINT = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
+    #endregion
+
     #region Fields
-    private string[] conditions = { "RightSyringeSize", "PreviousTaskCompletion" };
     private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe, TaskType.LuerlockAttach};
-    private int smallSyringes;
+    private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
+    private CabinetBase laminarCabinet;
     #endregion
 
     #region Constructor
@@ -14,86 +23,92 @@ public class SyringeAttach : TaskBase {
     ///  </summary>
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
-        AddConditions(conditions);
-        smallSyringes = 0;
-        points = 1;
+        points = 6;
     }
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
     public override void Subscribe() {
-        base.SubscribeEvent(AttachSyringe, EventType.AttachSyringe);
+        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
+        SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
     }
-    /// <summary>
-    /// Once fired by an event, checks if syringe was attached to Luerlock, which syringe size was chosen
-    /// as well as previous required task completion.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void AttachSyringe(CallbackData data) {
-        if (G.Instance.Progress.currentPackage.name != "Workspace") {
-            G.Instance.Progress.calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-            UISystem.Instance.CreatePopup(-1, "Task tried before time", MessageType.Mistake);
-            return;
-        }
-        if (CheckPreviousTaskCompletion(requiredTasks)) {
-            EnableCondition("PreviousTasksCompleted");
-        } else {
-            return;
-        }
-        //check that done in laminar cabinet
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        }        
+    }
+
+    private void AddSyringe(CallbackData data) {
+        //virhetilanteet: pieni ruisku yhdistetty ennen lääkkeellisen ruiskun laittamista
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
+        Syringe s = item.GetComponent<Syringe>();
+        if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
+            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
+        }
+        if (!CheckPreviousTaskCompletion(requiredTasks)) {
             return;
+        } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+            attachedSyringes.Remove(s.GetInstanceID());
+        } else {
+            base.package.MoveTaskToManager(this);
         }
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Syringe) {
-            Syringe syringe = item.GetComponent<Syringe>();
-            if (syringe.Container.Capacity == 1) {
-                smallSyringes++;
-            }
-        }
+    }
 
-        if (smallSyringes == 6) {
-            EnableCondition("RightSyringeSize");
-        }
+    private void RemoveSyringe(CallbackData data) {
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        Syringe s = item.GetComponent<Syringe>();
 
-        bool check = CheckClearConditions(true);
-        if (!check && base.clearConditions["PreviousTaskCompletion"]) {
-            UISystem.Instance.CreatePopup(-1, "Wrong syringe size was chosen for one of the syringes", MessageType.Mistake);
-            G.Instance.Progress.calculator.Subtract(TaskType.SyringeAttach);
-            base.FinishTask();
+        if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
+            if (CheckPreviousTaskCompletion(requiredTasks)) {
+                if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
+                    UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                    attachedSyringes.Remove(s.GetInstanceID());
+                } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
+                    FinishTask();
+                }
+            } else {
+                attachedSyringes.Remove(s.GetInstanceID());
+            }  
         }
     }
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup(1, "Right syringe sizes were chosen", MessageType.Notify);
+        int rightSize = 0;
+        foreach (GameObject value in laminarCabinet.objectsInsideArea) {
+            GeneralItem item = value.GetComponent<GeneralItem>();
+            ObjectType type = item.ObjectType;
+            if (type == ObjectType.Syringe) {
+                Syringe s = item.GetComponent<Syringe>();
+                if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY && attachedSyringes.ContainsKey(s.GetInstanceID())) {
+                    rightSize++;
+                }
+            }   
+        }
+        if (rightSize == 6) {
+            UISystem.Instance.CreatePopup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
+        } else {
+            UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Notify);
+        }
         base.FinishTask();
     }
-    
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
+
     public override string GetDescription() {
-        return "Yhdistä Luerlock-to-luerlock-välikappaleeseen toinen ruisku.";
+        return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Kiinnitä Luerlock-to-luerlock-välikappaleeseen myös 1.0ml ruisku.";
+        return HINT;
     }
     #endregion
 }

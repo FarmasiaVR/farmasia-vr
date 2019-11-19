@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// Enum for different Message Types.
 /// </summary>
-public enum MessageType {
+public enum MsgType {
     Mistake,
     Notify,
     Warning,

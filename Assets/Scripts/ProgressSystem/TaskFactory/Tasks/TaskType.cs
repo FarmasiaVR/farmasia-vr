@@ -7,7 +7,6 @@ public enum TaskType {
     CorrectItemsInThroughput,
     CorrectLayoutInThroughput,
     CorrectItemsInLaminarCabinet,
-    MissingItems,
     CorrectLayoutInLaminarCabinet,
     DisinfectBottles,
     MedicineToSyringe,

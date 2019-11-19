@@ -6,7 +6,7 @@ public class Package {
 
     #region Fields
     private ProgressManager manager;
-    public string name { get; private set; }
+    public PackageName name { get; private set; }
     public bool packageCompleted { get; private set; }
     public List<ITask> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
@@ -18,7 +18,7 @@ public class Package {
     /// </summary>
     /// <param name="name">Name of the package.</param>
     /// <param name="manager">Reference to manager that created this package.</param>
-    public Package(string name, ProgressManager manager) {
+    public Package(PackageName name, ProgressManager manager) {
         this.name = name;
         this.manager = manager;
         packageCompleted = false;
@@ -92,6 +92,15 @@ public class Package {
     /// <param name="type">Given type of task to move.</param>
     public void MoveTaskFromManager(TaskType type) {
         manager.MoveToPackage(this, type);
+    }
+
+    /// <summary>
+    /// Moves task from ProgressManager before given task
+    /// </summary>
+    /// <param name="type">Given type of task to move.</param>
+    /// <param name="previousTask">Task point where given task will be moved</param>
+    public void MoveTaskFromManagerBeforeTask(TaskType type, ITask previousTask) {
+        manager.MoveToPackageBeforeTask(this, type, previousTask);
     }
     #endregion
 

@@ -1,5 +1,5 @@
 ﻿public enum InteractState {
     Grabbed,
-    LuerlockAttatch,
+    LuerlockAttached,
     InBottle
 }

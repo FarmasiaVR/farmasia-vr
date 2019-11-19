@@ -12,6 +12,7 @@ public class TestEquipment : GeneralItem {
 
     protected override void Start() {
         base.Start();
+
         Assert.IsNotNull(src);
     }
 

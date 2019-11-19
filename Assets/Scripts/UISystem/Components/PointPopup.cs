@@ -35,10 +35,9 @@ public class PointPopup : MonoBehaviour {
         timer = 0.0f;
         transparency = 0.0f;
         distanceTravelled = 0.0f;
-
         endPoint = transform.localPosition.z;
         startingPoint = transform.localPosition.z + distanceToTravel;
-
+        FlipScale(-1);
     }
     #endregion
 
@@ -111,29 +110,29 @@ public class PointPopup : MonoBehaviour {
         }
     }
 
-    private void SetColour(MessageType type) {
+    private void SetColour(MsgType type) {
         switch (type) {
-            case MessageType.Error:
+            case MsgType.Error:
                 red = 0;
                 green = 0;
                 blue = 0;
                 break;
-            case MessageType.Mistake:
+            case MsgType.Mistake:
                 red = 255;
                 green = 0;
                 blue = 0;
                 break;
-            case MessageType.Notify:
+            case MsgType.Notify:
                 red = 255;
                 green = 255;
                 blue = 0;
                 break;
-            case MessageType.Warning:
+            case MsgType.Warning:
                 red = 255;
                 green = 147;
                 blue = 0;
                 break;
-            case MessageType.Done:
+            case MsgType.Done:
                 red = 0;
                 green = 255;
                 blue = 0;
@@ -149,7 +148,7 @@ public class PointPopup : MonoBehaviour {
     /// </summary>
     /// <param name="text">Message showed to player.</param>
     /// <param name="type">Message Type changes message's colour.</param>
-    public void SetPopup(string text, MessageType type) {
+    public void SetPopup(string text, MsgType type) {
         SetColour(type);
         textField.text = text;
     }
@@ -160,9 +159,13 @@ public class PointPopup : MonoBehaviour {
     /// <param name="point">Amount of points gained from task completion. (or failure).</param>
     /// <param name="text">Message showed to player.</param>
     /// <param name="type">Message Type changes message's colour.</param>
-    public void SetPopup(int point, string text, MessageType type) {
+    public void SetPopup(int point, string text, MsgType type) {
         SetColour(type);
-        textField.text = text + "\n" + point;
+        if (point > 0) {
+            textField.text = text + "\n+" + point;
+        } else {
+            textField.text = text + "\n" + point;
+        }
     }
     #endregion
 }

@@ -1,20 +1,20 @@
 ﻿public class DoorHandle : Interactable {
 
-    #region fields
+    #region Fields
     private Hand hand;
     private OpenableDoor door;
-
     #endregion
 
     protected override void Start() {
         base.Start();
+
         door = transform.parent.GetComponent<OpenableDoor>();
         Type.Set(InteractableType.Interactable);
     }
 
     private void Update() {
         if (State == InteractState.Grabbed) {
-            door.SetByHandPosition(hand);
+            door?.SetByHandPosition(hand);
         }
     }
 
@@ -22,7 +22,7 @@
         base.Interact(hand);
         Logger.Print("Door interact");
 
-        door.SetAngleOffset(hand.coll.transform.position);
+        door?.SetAngleOffset(hand.ColliderPosition);
 
         this.hand = hand;
         State.On(InteractState.Grabbed);
@@ -33,6 +33,6 @@
 
         this.hand = null;
         State.Off(InteractState.Grabbed);
-        door.ReleaseDoor();
+        door?.ReleaseDoor();
     }
 }

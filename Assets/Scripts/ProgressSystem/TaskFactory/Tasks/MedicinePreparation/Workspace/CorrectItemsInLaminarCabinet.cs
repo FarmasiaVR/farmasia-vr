@@ -1,14 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Correct amount of items inserted into Fume Cupboard.
 /// </summary>
 public class CorrectItemsInLaminarCabinet : TaskBase {
+
+    #region Constants
+    private const string DESCRIPTION = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    #endregion
+
     #region Fields
-    private string[] conditions = {"BigSyringe", "SmallSyringes", "Needles", "Luerlock", "RightSizeBottle"};
-    private int smallSyringes, needles;
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle }
+    private int smallSyringes;
     private int objectCount;
     private int checkTimes;
+    
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -19,109 +26,119 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
         Subscribe();
-        AddConditions(conditions);
-        smallSyringes = 0;
-        needles = 0;
-        objectCount = 0;
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        SetItemsToZero();
         checkTimes = 0;
         points = 2;
     }
     #endregion
 
     #region Event Subscriptions
-    /// <summary>
-    /// Subscribes to required Events.
-    /// </summary>
-    public override void Subscribe() { 
+    public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        }
+    }
+
     /// <summary>
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
-        List<GameObject> objects = data.DataObject as List<GameObject>;
+        if (laminarCabinet == null) {
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
+            return;
+        }
+        List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
+            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
         checkTimes++;
         objectCount = objects.Count;
 
+        CheckConditions(objects);
+        
+        bool check = CheckClearConditions(true);
+        if (!check) {
+            MissingItems(checkTimes);
+        }
+    } 
+    #endregion
+
+    #region Private Methods
+    private void SetItemsToZero() {
+        smallSyringes = 0;
+    }
+
+    private void CheckConditions(List<GameObject> objects) {
         foreach(GameObject value in objects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:
                     Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 20) {
-                        EnableCondition("Syringe"); 
-                    } else if (syringe.Container.Capacity == 1) {
+                    if (syringe.Container.Capacity == 20000) {
+                        EnableCondition(Conditions.BigSyringe); 
+                    } else if (syringe.Container.Capacity == 1000) {
                         smallSyringes++;
                         if (smallSyringes == 6) {
-                            EnableCondition("SmallSyringes");
+                            EnableCondition(Conditions.SmallSyringes);
                         }
                     }
                     break;
                 case ObjectType.Needle:
-                    needles++;
-                    if (needles == 7) {
-                        EnableCondition("Needles"); 
-                    }
+                    EnableCondition(Conditions.Needle); 
                     break;
                 case ObjectType.Luerlock:
-                    EnableCondition("Luerlock");
+                    EnableCondition(Conditions.Luerlock);
                     break;
                 case ObjectType.Bottle:
-                    MedicineBottle bottle = item as MedicineBottle;
-                    if (bottle.Container.Capacity == 100) {
-                        EnableCondition("RightSizeBottle");
-                    }
+                    EnableCondition(Conditions.MedicineBottle);
                     break;
             }
+        }   
+    }
+
+    private void MissingItems(int checkTimes) {
+        if (checkTimes == 1) {
+            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
+        } else {
+            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
         }
-        
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            if (checkTimes == 1) {
-                UISystem.Instance.CreatePopup(-1, "Wrong amount of items", MessageType.Mistake);
-                G.Instance.Progress.calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
-            }
-            smallSyringes = 0;
-            needles = 0;
-            DisableConditions();
-        }
-    } 
-    #endregion
+        SetItemsToZero();
+        DisableConditions();
+    }
+    #endregion 
 
     #region Public Methods
-    /// <summary>
-    /// Once all conditions are true, this method is called.
-    /// </summary>
     public override void FinishTask() {
         if (checkTimes == 1) {
-            if (objectCount == 16) {
-                UISystem.Instance.CreatePopup(1, "Right amount of items", MessageType.Notify);
+            // 1 disinfect cloth + 6 small syringes + 1 big syringe + 1 luerlock + 1 needle + 1 bottle = 11 items
+            if (objectCount == 11) {
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(0, "Too many items", MessageType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
+                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
         }
         base.FinishTask();
     }
-    
-    /// <summary>
-    /// Used for getting the task's description.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the description."</returns>
+
     public override string GetDescription() {
-        return "Tarkista valitsemiesi välineiden määrä.";
+        return DESCRIPTION;
     }
 
-    /// <summary>
-    /// Used for getting the hint for this task.
-    /// </summary>
-    /// <returns>"Returns a String presentation of the hint."</returns>
     public override string GetHint() {
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla."; 
+        string missingItemsHint = laminarCabinet.GetMissingItems();
+        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint; 
     }
     #endregion
 }

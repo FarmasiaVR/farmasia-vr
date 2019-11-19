@@ -119,7 +119,20 @@ public static class VRInput {
     }
     public static bool GetControlUp(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
+
+     #if UNITY_NONVRCOMPUTER
+
+        // Fix for TestHandMover
+
+        int frameDifference = controls[key].GetUp - Time.frameCount;
+        if (frameDifference == -1) {
+            return controls[key].GetUp > 10;
+        }
+
         return controls[key].GetUp == Time.frameCount;
+    #else
+        return controls[key].GetUp == Time.frameCount;
+    #endif
     }
     #endregion
 

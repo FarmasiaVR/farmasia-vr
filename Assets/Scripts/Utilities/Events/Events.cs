@@ -8,7 +8,6 @@ using UnityEngine;
 public static class Events {
 
     #region fields
-    public delegate void EventEmptyCallback();
     public delegate void EventDataCallback(CallbackData data);
 
     private static Dictionary<EventType, Delegate> eventsData;
@@ -34,10 +33,6 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventEmptyCallback callback, EventType type) {
-        AddToDelegateDictionary<EventType>(eventsData, type, callback);
-    }
-
     public static void SubscribeToEvent(EventDataCallback callback, EventType type) {
         AddToDelegateDictionary<EventType>(eventsData, type, callback);
     }
@@ -56,18 +51,6 @@ public static class Events {
     /// <param name="callback"></param>
     /// <param name="component"></param>
     /// <param name="type"></param>
-    public static void SubscribeToEvent(EventEmptyCallback callback, Component component, EventType type) {
-        CallbackComponentPair pair = new CallbackComponentPair(callback, component);
-
-        if (!componentEventsData.ContainsKey(type)) {
-            ComponentEventsContainer cont = new ComponentEventsContainer();
-            cont.AddPair(pair);
-            componentEventsData.Add(type, cont);
-        } else {
-            componentEventsData[type].AddPair(pair);
-        }
-    }
-
     public static void SubscribeToEvent(EventDataCallback callback, Component component, EventType type) {
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -87,10 +70,6 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventEmptyCallback callback, EventType type) {
-        SetValueDelegateDictionary(eventsData, type, callback);
-    }
-
     public static void OverrideSubscription(EventDataCallback callback, EventType type) {
         SetValueDelegateDictionary(eventsData, type, callback);
     }
@@ -108,14 +87,6 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void OverrideSubscription(EventEmptyCallback callback, Component component, EventType type) {
-        CallbackComponentPair pair = new CallbackComponentPair(callback, component);
-
-        ComponentEventsContainer cont = new ComponentEventsContainer();
-        cont.AddPair(pair);
-        componentEventsData.Add(type, cont);
-    }
-
     public static void OverrideSubscription(EventDataCallback callback, Component component, EventType type) {
         CallbackComponentPair pair = new CallbackComponentPair(callback, component);
 
@@ -131,23 +102,9 @@ public static class Events {
     /// </summary>
     /// <param name="callback"></param>
     /// <param name="type"></param>
-    public static void UnsubscribeFromEvent(EventEmptyCallback callback, EventType type) {
-        if (eventsData.ContainsKey(type)) {
-            eventsData[type] = Delegate.RemoveAll(eventsData[type], callback);
-        }
-    }
-
     public static void UnsubscribeFromEvent(EventDataCallback callback, EventType type) {
         if (eventsData.ContainsKey(type)) {
             eventsData[type] = Delegate.RemoveAll(eventsData[type], callback);
-        }
-    }
-
-    public static void UnsubscribeFromEvent(EventEmptyCallback callback, Component component, EventType type) {
-        CallbackComponentPair pair = new CallbackComponentPair(callback, component);
-
-        if (componentEventsData.ContainsKey(type)) {
-            componentEventsData[type].Unsubscribe(pair);
         }
     }
 
@@ -177,14 +134,11 @@ public static class Events {
 
     private static void CallDefaultCallbacks(EventType type, CallbackData? data = null) {
         if (!eventsData.ContainsKey(type)) {
+            Logger.Warning("No data subscribed to " + type);
             return;
         }
 
-        if (data == null) {
-            (eventsData[type] as EventEmptyCallback)?.Invoke();
-        } else {
-            (eventsData[type] as EventDataCallback)?.Invoke((CallbackData) data);
-        }
+        (eventsData[type] as EventDataCallback)?.Invoke(data ?? CallbackData.NoData());
     }
 
     private static void CallComponentCallbacks(EventType type, CallbackData data) {

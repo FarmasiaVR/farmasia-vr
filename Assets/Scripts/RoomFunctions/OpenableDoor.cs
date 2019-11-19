@@ -5,6 +5,9 @@ public class OpenableDoor : MonoBehaviour {
 
     #region fields
     [SerializeField]
+    private bool flipMomentum = false;
+
+    [SerializeField]
     private float maxAngle = 90;
 
     [SerializeField]
@@ -12,19 +15,16 @@ public class OpenableDoor : MonoBehaviour {
 
     private float startAngle;
 
-    public float Velocity { get; set; }
-    private float minVelocity = 0.1f;
+    private float AngleSpeed { get; set; }
+    private float minAngleSpeed = 0.1f; // Degrees
 
     [SerializeField]
     private float friction = 0.9f;
-
-    public bool IsNotMoving { get; set; } = true;
 
     private Vector3 lastEulerAngles;
 
     [SerializeField]
     private Transform handle;
-    private float grabLength;
     private float angleOffset;
 
     public float Angle {
@@ -42,16 +42,15 @@ public class OpenableDoor : MonoBehaviour {
 
     private void Start() {
         startAngle = transform.eulerAngles.y + offsetAngle;
-        grabLength = float.MaxValue;
         Assert.IsNotNull(handle);
     }
 
     public void SetByHandPosition(Hand hand) {
-        Vector3 handPos = hand.coll.transform.position;
+        Vector3 handPos = hand.ColliderPosition;
 
         float handDistance = (handPos - handle.position).magnitude;
         if (handDistance > 0.25) {
-            hand.UninteractWithObject();
+            hand.Uninteract();
             ReleaseDoor();
             return;
         }
@@ -62,12 +61,13 @@ public class OpenableDoor : MonoBehaviour {
 
         Vector3 direction = transform.position - handPos;
         direction.y = 0;
-
         Quaternion rawRotation = Quaternion.LookRotation(direction, Vector3.up);
-        float angle = rawRotation.eulerAngles.y + angleOffset;
 
-        angle = AngleLock.ClampAngleDeg(angle, startAngle, startAngle + maxAngle);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+        float newAngle = rawRotation.eulerAngles.y + angleOffset;
+        float deltaAngle = newAngle - Angle;
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, deltaAngle);
+
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }
 
     public void SetAngleOffset(Vector3 handPos) {
@@ -80,9 +80,7 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     public void ReleaseDoor() {
-        Velocity = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
-        Logger.PrintVariables("Velocity", Velocity);
-        IsNotMoving = false;
+        AngleSpeed = (transform.eulerAngles.y - lastEulerAngles.y) / Time.deltaTime;
     }
 
     private void Update() {
@@ -91,23 +89,19 @@ public class OpenableDoor : MonoBehaviour {
     }
 
     private void UpdateVelocity() {
-        Velocity *= friction;
+        AngleSpeed *= friction;
+        float speed = Mathf.Abs(AngleSpeed);
 
-        if (Mathf.Abs(Velocity) < minVelocity) {
-            Velocity = 0;
+        if (speed < minAngleSpeed) {
+            AngleSpeed = 0;
         }
     }
 
     private void RotateDoor() {
-        if (IsNotMoving) {
-            return;
-        }
+        float rotateAngle = AngleSpeed * Time.deltaTime;
+        rotateAngle *= flipMomentum ? -1 : 1;
 
-        Vector3 rotateVector = Vector3.up * Velocity * Time.deltaTime;
-        transform.Rotate(rotateVector);
-
-        float fixedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, fixedAngle, transform.eulerAngles.z);
+        float clampedAngle = AngleLock.ClampAngleDeg(Angle, startAngle, startAngle + maxAngle, rotateAngle);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, clampedAngle, transform.eulerAngles.z);
     }
-
 }

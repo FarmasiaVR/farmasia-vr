@@ -56,7 +56,8 @@ public class TeleportControls : MonoBehaviour {
 
         arc.ShootArc(transform.position, transform.forward, out positions, out hit, out hitPos);
 
-        isInvalidTeleport = hit == null || hit.gameObject.tag != "Floor";
+        // isInvalidTeleport = hit == null || hit.gameObject.tag != "Floor";
+        isInvalidTeleport = false;
 
         line.positionCount = positions.Length;
         line.SetPositions(positions);

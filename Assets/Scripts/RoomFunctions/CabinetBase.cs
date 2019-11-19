@@ -3,110 +3,118 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CabinetBase : MonoBehaviour {
+
+    public enum Types {
+        Null,
+        Neula,
+        IsoRuisku,
+        PienetRuiskut,
+        Luerlock,
+        Lääkepullo
+    }
+
     #region fields
+    public enum CabinetType { PassThrough, Laminar }
+    [SerializeField]
+    public CabinetType type;
     public List<GameObject> objectsInsideArea;
-    public Dictionary<String, int> missingObjects;
+    private Dictionary<Types, int> missingObjects;
+    private bool itemPlaced = false;
+    [SerializeField]
+    private GameObject childCollider;
     #endregion
 
     // Start is called before the first frame update
     void Start() {
         objectsInsideArea = new List<GameObject>();
-        missingObjects = new Dictionary<String, int>();
-        /* DEMO missingObjects.Add("Needles", 7);*/
-        missingObjects.Add("Big syringe", 1);
-        missingObjects.Add("Small syringes", 6);
-        missingObjects.Add("Luerlock", 1);
-        missingObjects.Add("Bottle", 1);
+        missingObjects = new Dictionary<Types, int>();
+        missingObjects.Add(Types.Neula, 1);
+        missingObjects.Add(Types.IsoRuisku, 1);
+        missingObjects.Add(Types.PienetRuiskut, 6);
+        missingObjects.Add(Types.Luerlock, 1);
+        missingObjects.Add(Types.Lääkepullo, 1);
+
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void EnterCabinet(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        if (foundObject?.GetComponent<GeneralItem>() == null) {
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (item == null) {
+            Logger.Print(other.gameObject.name);
             return;
         }
-
+        if (!itemPlaced) {
+            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
+            itemPlaced = true;
+        }
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
-            ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-            String itemType = Enum.GetName(type.GetType(), type);
-
-            if (itemType == "Syringe") {
-                Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
-                if (syringe.Container.Capacity == 5000) {
-                    itemType = "Big syringe";
-                } else if (syringe.Container.Capacity == 1000) {
-                    itemType = "Small syringes";
-                }
-            }
-            /* DEMO if (itemType == "Needle") {
-                itemType = "Needles";
-            }*/
-
-            if (itemType == "Bottle") {
-                MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
-                if (bottle.Container.Capacity != 80000) {
-                    return;
-                }
-            }
-
-            if (missingObjects.ContainsKey(itemType) && (missingObjects[itemType] > 0)) {
-                missingObjects[itemType]--;
-            }
+            ObjectType type = item.ObjectType;
+            Types underlyingType = CheckItemType(type, item);
+            missingObjects[underlyingType]--;
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void ExitCabinet(Collider other) {
+        if (other?.transform.parent.gameObject.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
+            Events.FireEvent(EventType.HandsExitLaminarCabinet, CallbackData.NoData());
+        }
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        if (foundObject?.GetComponent<GeneralItem>() == null) {
+        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        if (item == null) {
             return;
         }
         objectsInsideArea.Remove(foundObject);
-        ObjectType type = foundObject.GetComponent<GeneralItem>().ObjectType;
-        String itemType = Enum.GetName(type.GetType(), type);
+        ObjectType type = item.ObjectType;
+        Types underlyingType = CheckItemType(type, item);
+        ReAddMissingObjects(underlyingType);
+    }
 
-        if (itemType == "Syringe") {
-            Syringe syringe = foundObject.GetComponent<GeneralItem>() as Syringe;
-            if (syringe.Container.Capacity == 5000) {
-                itemType = "Big syringe";
+    private Types CheckItemType(ObjectType itemType, GeneralItem item) {
+        Types type = Types.Null;
+        if (itemType == ObjectType.Syringe) {
+            Syringe syringe = item as Syringe;
+            if (syringe.Container.Capacity == 20000) {
+                type = Types.IsoRuisku;
             } else if (syringe.Container.Capacity == 1000) {
-                itemType = "Small syringes";
+                type = Types.PienetRuiskut;
             }
+        } else if (itemType == ObjectType.Bottle) {
+            type = Types.Lääkepullo;
+        } else if (itemType == ObjectType.Needle) {
+            type = Types.Neula;
+        } else if (itemType == ObjectType.Luerlock) {
+            type = Types.Luerlock;
         }
+        return type;
+    }
 
-        if (itemType == "Bottle") {
-            MedicineBottle bottle = foundObject.GetComponent<GeneralItem>() as MedicineBottle;
-            if (bottle.Container.Capacity != 80000) {
-                return;
-            }
-        }
-
-        /* DEMO if (itemType == "Needle") {
-            itemType = "Needles";
-        }*/
-
+    private void ReAddMissingObjects(Types itemType) {
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
-                /* DEMO case "Needles":
-                    if (missingObjects[itemType] < 7) {
-                        missingObjects[itemType]++;
-                    }
-                    break;*/
-                case "Big syringe":
+                case Types.Neula:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Small syringes":
+                case Types.IsoRuisku:
+                    if (missingObjects[itemType] == 0) {
+                        missingObjects[itemType]++;
+                    }
+                    break;
+                case Types.PienetRuiskut:
                     if (missingObjects[itemType] < 6) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Luerlock":
+                case Types.Luerlock:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case "Bottle":
+                case Types.Lääkepullo:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
@@ -123,10 +131,10 @@ public class CabinetBase : MonoBehaviour {
     }
 
     public String GetMissingItems() {
-        String missing = "Missing items:";
-        foreach (KeyValuePair<String, int> value in missingObjects) {
+        String missing = "Puuttuvat välineet:";
+        foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
-                missing = missing + " " + value.Key + " " + value.Value + ",";
+                missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";
             }
         }
         return missing;

@@ -62,7 +62,7 @@ public class UISystem : MonoBehaviour {
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
         GameObject uiComponent = Instantiate(gobj, handuiInScene.transform);
-        uiComponent.transform.SetParent(handuiInScene.transform, true);
+        uiComponent.transform.SetParent(handuiInScene.transform, false);
         return uiComponent;
     }
     #endregion
@@ -106,13 +106,13 @@ public class UISystem : MonoBehaviour {
     /// <param name="point">Amount of points for the task. Some tasks do not use this.</param>
     /// <param name="message">Message to be displayed for the player.</param>
     /// <param name="type">Type of message. Different types have different colours.</param>
-    public void CreatePopup(int point, string message, MessageType type) {
+    public void CreatePopup(int point, string message, MsgType type) {
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
         SetCurrentPopup(popupMessage);
     }
 
-    public void CreatePopup(string message, MessageType type) {
+    public void CreatePopup(string message, MsgType type) {
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
         SetCurrentPopup(popupMessage);
@@ -192,7 +192,7 @@ public class UISystem : MonoBehaviour {
     #region Test Functions
     private void KeyListener() {
         if (Input.GetKeyDown(KeyCode.C)) {
-            CreatePopup("THIS IS A TEST", MessageType.Mistake);
+            CreatePopup("THIS IS A TEST", MsgType.Mistake);
         }
         if (Input.GetKeyDown(KeyCode.B)) {
             NextDescription(true);
