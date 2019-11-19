@@ -86,7 +86,7 @@ public class HintBox : DragAcceptable {
     
     private void RotateBox() {
         transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-        questionMark.LookAt(playerCamera);
+        questionMark.LookAt(2*questionMark.position - playerCamera.position);
     }
 
     protected override void Activate() {
