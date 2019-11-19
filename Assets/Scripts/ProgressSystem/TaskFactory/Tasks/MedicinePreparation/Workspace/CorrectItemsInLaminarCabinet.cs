@@ -123,9 +123,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (checkTimes == 1) {
             // 1 disinfect cloth + 6 small syringes + 1 big syringe + 1 luerlock + 1 needle + 1 bottle = 11 items
             if (objectCount == 11) {
-                UISystem.Instance.CreatePopup(1, "Oikea määrä työvälineitä.", MsgType.Notify);
+                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
-                UISystem.Instance.CreatePopup("Liikaa työvälineitä.", MsgType.Notify);
+                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
         }
