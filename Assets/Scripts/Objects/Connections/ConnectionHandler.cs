@@ -44,6 +44,9 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
+        Transform handOffset = target.GetComponent<Hand>().Offset;
+        target = handOffset ?? target;
+
         connector.Connection = ItemConnection.AddSmoothConnection(connector, target, addTo);
 
         otherHand.InteractWith(otherItem);
