@@ -65,9 +65,18 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
             if (CheckPreviousTaskCompletion(requiredTasks)) {
                 if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
+                    attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
+
                     if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
                         UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                        attachedSyringes.Remove(s.GetInstanceID());
+                    } else if (attachedSyringes.Count != 6) {
+                        if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
+                            UISystem.Instance.CreatePopup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
+                        } else {
+                            UISystem.Instance.CreatePopup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Notify);
+                        }
                     } else {
                         FinishTask();
                     }
@@ -88,10 +97,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        if (attachedSyringes.Count != 6) {
-            return;
-        }
-
         int rightAmount = 0;
         foreach (var amount in attachedSyringes.Values) {
             if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {

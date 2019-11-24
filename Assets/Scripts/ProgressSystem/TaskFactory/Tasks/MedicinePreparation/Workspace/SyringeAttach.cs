@@ -73,6 +73,7 @@ public class SyringeAttach : TaskBase {
                     UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
                     attachedSyringes.Remove(s.GetInstanceID());
                 } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
+                    attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
                     FinishTask();
                 }
             } else {
