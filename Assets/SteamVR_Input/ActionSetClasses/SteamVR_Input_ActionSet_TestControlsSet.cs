@@ -80,5 +80,37 @@ namespace Valve.VR
                 return SteamVR_Actions.testControlsSet_TriggerValue;
             }
         }
+        
+        public virtual SteamVR_Action_Single VibrationStrength
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_VibrationStrength;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single VibrationFrequency
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_VibrationFrequency;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single VibrationAmplitude
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_VibrationAmplitude;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vibration ControllerVibration
+        {
+            get
+            {
+                return SteamVR_Actions.testControlsSet_ControllerVibration;
+            }
+        }
     }
 }

@@ -67,6 +67,14 @@ namespace Valve.VR
         
         private static SteamVR_Action_Single p_testControlsSet_TriggerValue;
         
+        private static SteamVR_Action_Single p_testControlsSet_VibrationStrength;
+        
+        private static SteamVR_Action_Single p_testControlsSet_VibrationFrequency;
+        
+        private static SteamVR_Action_Single p_testControlsSet_VibrationAmplitude;
+        
+        private static SteamVR_Action_Vibration p_testControlsSet_ControllerVibration;
+        
         public static SteamVR_Action_Boolean default_InteractUI
         {
             get
@@ -267,6 +275,38 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Single testControlsSet_VibrationStrength
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_VibrationStrength.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Single testControlsSet_VibrationFrequency
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_VibrationFrequency.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Single testControlsSet_VibrationAmplitude
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_VibrationAmplitude.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Vibration testControlsSet_ControllerVibration
+        {
+            get
+            {
+                return SteamVR_Actions.p_testControlsSet_ControllerVibration.GetCopy<SteamVR_Action_Vibration>();
+            }
+        }
+        
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[] {
@@ -294,7 +334,11 @@ namespace Valve.VR
                     SteamVR_Actions.testControlsSet_PadTouch,
                     SteamVR_Actions.testControlsSet_TriggerTouch,
                     SteamVR_Actions.testControlsSet_PadTouchValue,
-                    SteamVR_Actions.testControlsSet_TriggerValue};
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_VibrationStrength,
+                    SteamVR_Actions.testControlsSet_VibrationFrequency,
+                    SteamVR_Actions.testControlsSet_VibrationAmplitude,
+                    SteamVR_Actions.testControlsSet_ControllerVibration};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -319,11 +363,16 @@ namespace Valve.VR
                     SteamVR_Actions.testControlsSet_PadTouch,
                     SteamVR_Actions.testControlsSet_TriggerTouch,
                     SteamVR_Actions.testControlsSet_PadTouchValue,
-                    SteamVR_Actions.testControlsSet_TriggerValue};
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_VibrationStrength,
+                    SteamVR_Actions.testControlsSet_VibrationFrequency,
+                    SteamVR_Actions.testControlsSet_VibrationAmplitude};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.default_Haptic,
+                    SteamVR_Actions.testControlsSet_ControllerVibration};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.default_Haptic,
+                    SteamVR_Actions.testControlsSet_ControllerVibration};
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[] {
                     SteamVR_Actions.default_Pose,
                     SteamVR_Actions.mixedreality_ExternalCamera};
@@ -345,7 +394,10 @@ namespace Valve.VR
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.buggy_Throttle,
-                    SteamVR_Actions.testControlsSet_TriggerValue};
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_VibrationStrength,
+                    SteamVR_Actions.testControlsSet_VibrationFrequency,
+                    SteamVR_Actions.testControlsSet_VibrationAmplitude};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.buggy_Steering,
@@ -374,7 +426,10 @@ namespace Valve.VR
                     SteamVR_Actions.testControlsSet_PadTouch,
                     SteamVR_Actions.testControlsSet_TriggerTouch,
                     SteamVR_Actions.testControlsSet_PadTouchValue,
-                    SteamVR_Actions.testControlsSet_TriggerValue};
+                    SteamVR_Actions.testControlsSet_TriggerValue,
+                    SteamVR_Actions.testControlsSet_VibrationStrength,
+                    SteamVR_Actions.testControlsSet_VibrationFrequency,
+                    SteamVR_Actions.testControlsSet_VibrationAmplitude};
         }
         
         private static void PreInitActions()
@@ -404,6 +459,10 @@ namespace Valve.VR
             SteamVR_Actions.p_testControlsSet_TriggerTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/TestControlsSet/in/TriggerTouch")));
             SteamVR_Actions.p_testControlsSet_PadTouchValue = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/TestControlsSet/in/PadTouchValue")));
             SteamVR_Actions.p_testControlsSet_TriggerValue = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/TriggerValue")));
+            SteamVR_Actions.p_testControlsSet_VibrationStrength = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/VibrationStrength")));
+            SteamVR_Actions.p_testControlsSet_VibrationFrequency = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/VibrationFrequency")));
+            SteamVR_Actions.p_testControlsSet_VibrationAmplitude = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/TestControlsSet/in/VibrationAmplitude")));
+            SteamVR_Actions.p_testControlsSet_ControllerVibration = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/TestControlsSet/out/ControllerVibration")));
         }
     }
 }
