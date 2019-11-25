@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorDropSpawner : MonoBehaviour {
+    [SerializeField]
     GameObject copy;
     GameObject currentObject;
 
