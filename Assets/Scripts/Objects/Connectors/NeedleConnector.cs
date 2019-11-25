@@ -6,6 +6,8 @@ public class NeedleConnector : AttachmentConnector {
 
     #region Fields
     public override ItemConnection Connection { get; set; }
+
+    protected override InteractState AttachState => InteractState.NeedleAttached;
     #endregion
 
     public NeedleConnector(Needle needle, GameObject collider) : base(needle.transform) {
@@ -47,6 +49,9 @@ public class NeedleConnector : AttachmentConnector {
     }
 
     protected override void SnapObjectPosition() {
+
+        return;
+
         Transform obj = attached.GameObject.transform;
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
@@ -60,7 +65,7 @@ public class NeedleConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
-        attached.Interactable.Interactors.SetNeedle(null);
+        attached.Interactable.Interactors.ResetNeedle();
 
         // Attach state might need to change
         attached.Interactable.State.Off(InteractState.LuerlockAttached);

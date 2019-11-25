@@ -51,28 +51,40 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
 
-// #if UNITY_NONVRCOMPUTER
-        Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
-// #else
+        // #if UNITY_NONVRCOMPUTER
+        // Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
+        // #else
 
-        if (interactable.State == InteractState.LuerlockAttached) {
+        if (interactable.State == InteractState.ItemAttached) {
 
-            LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+            if (interactable.State == InteractState.LuerlockAttached) {
+                LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
 
 
-            if (luerlock.State == InteractState.Grabbed) {
-                // LUERLOCK IS GRABBED
-                ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
-            } else {
-                if (luerlock.GrabbedObjectCount == 2) {
-                    // GRABBING BOTH LUERLOCK ITEMS
-                    Logger.PrintVariables("Grabbing both items, grabbedCount", luerlock.GrabbedObjectCount);
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
+                if (luerlock.State == InteractState.Grabbed) {
+                    // LUERLOCK IS GRABBED
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
                 } else {
-                    // Only grabbing the luerlockitem
+                    if (luerlock.GrabbedObjectCount == 2) {
+                        // GRABBING BOTH LUERLOCK ITEMS
+                        Logger.PrintVariables("Grabbing both items, grabbedCount", luerlock.GrabbedObjectCount);
+                        ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
+                    } else {
+                        // Only grabbing the luerlockitem
+                        ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+                    }
+                }
+            } else if (interactable.State == InteractState.NeedleAttached) {
+
+                Needle needle = interactable.Interactors.Needle;
+
+                if (needle.State == InteractState.Grabbed) {
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+                } else {
                     ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
             }
+
 
         } else if (interactable as LuerlockAdapter is var luerlock && luerlock != null) {
             if (luerlock.GrabbedObjectCount > 0) {
@@ -83,7 +95,7 @@ public class HandConnector : ItemConnector {
         } else {
             ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
         }
-// #endif
+        // #endif
     }
     #endregion
 

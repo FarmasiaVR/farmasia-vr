@@ -33,6 +33,8 @@ public abstract class AttachmentConnector : ItemConnector {
     public Interactable AttachedInteractable { get => attached.Interactable; }
 
     protected AttachedObject attached;
+
+    protected abstract InteractState AttachState { get; }
     #endregion
 
     public void Subscribe() {
@@ -62,10 +64,7 @@ public abstract class AttachmentConnector : ItemConnector {
         SetInteractors();
 
         // Either override property InteractState AttachState and use State.On(AttachState) or rename LuerlockAttached to Attached
-        attached.Interactable.State.On(InteractState.LuerlockAttached);
-
-        Logger.PrintVariables("luerlock", GeneralItem.name);
-        Logger.PrintVariables("obj luer: ", attached.Interactable.Interactors.LuerlockPair.Value.gameObject.name);
+        attached.Interactable.State.On(InteractState.ItemAttached, AttachState);
 
         CollisionIgnore.IgnoreCollisions(GeneralItem.transform, attached.GameObject.transform, true);
 

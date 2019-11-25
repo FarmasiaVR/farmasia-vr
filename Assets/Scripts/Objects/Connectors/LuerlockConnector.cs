@@ -6,6 +6,8 @@ public class LuerlockConnector : AttachmentConnector {
     #region Fields
     public override ItemConnection Connection { get; set; }
     private LuerlockAdapter.Side side;
+
+    protected override InteractState AttachState => InteractState.LuerlockAttached;
     #endregion
 
     public LuerlockConnector(LuerlockAdapter.Side side, LuerlockAdapter luerlock, GameObject collider) : base(luerlock.transform) {
@@ -33,7 +35,9 @@ public class LuerlockConnector : AttachmentConnector {
             Hand.GrabbingHand(GeneralItem).Connector.Connection.Remove();
         }
         if (itemGrabbed) {
-            interactable.GetComponent<ItemConnection>().Remove();
+            itemHand.Connector.Connection.Remove();
+            // interactable.GetComponent<ItemConnection>().Remove();
+            Logger.Print("Removeing connection from " + interactable.name);
         }
 
 
@@ -56,7 +60,7 @@ public class LuerlockConnector : AttachmentConnector {
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, GeneralItem as LuerlockAdapter));
+        attached.Interactable.Interactors.SetLuerlockPair(side, GeneralItem as LuerlockAdapter);
     }
 
     protected override void AttachEvents(GameObject intObject) {
@@ -81,7 +85,7 @@ public class LuerlockConnector : AttachmentConnector {
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);
-        attached.Interactable.Interactors.SetLuerlockPair(new KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter>(side, null));
+        attached.Interactable.Interactors.ResetLuerlockPair();
         attached.Interactable.State.Off(InteractState.LuerlockAttached);
         ReplaceObject(null);
     }
