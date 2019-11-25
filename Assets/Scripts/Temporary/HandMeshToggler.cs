@@ -29,7 +29,6 @@ public class HandMeshToggler : MonoBehaviour {
     }
 
     private void UpdateMesh() {
-
         if (hand.IsGrabbed) {
             Show(false);
         } else {
@@ -38,7 +37,6 @@ public class HandMeshToggler : MonoBehaviour {
     }
 
     private void Show(bool hide) {
-
         if (status == hide) {
             return;
         }
@@ -48,8 +46,11 @@ public class HandMeshToggler : MonoBehaviour {
     }
 
     private void SetRenderers() {
+#if UNITY_VRCOMPUTER
         foreach (Renderer r in renderers) {
             r.enabled = status;
         }
+#endif
     }
+
 }

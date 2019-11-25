@@ -6,8 +6,9 @@ public static class ConnectionHandler {
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
         Logger.Print("Grab item");
-        connector.Connection = ItemConnection.AddSmoothConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
     }
+
 
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
         Logger.Print("Grab luerlock item");
@@ -22,6 +23,7 @@ public static class ConnectionHandler {
         connector.Connection = ItemConnection.AddLuerlockLooseItemConnection(connector, target, addTo);
     }
 
+    // Verify for Luerlock/Needle
     public static void GrabLuerlockWhenAttachedItemsAreGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
 
         LuerlockAdapter luerlock = addTo as LuerlockAdapter;
@@ -47,13 +49,14 @@ public static class ConnectionHandler {
         Transform handOffset = target.GetComponent<Hand>()?.Offset;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddSmoothConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
 
         otherHand.InteractWith(otherItem);
     }
     #endregion
 
     #region Releasing
+    // Verify for Luerlock/Needle
     public static void ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(LuerlockAdapter luerlock) {
 
         Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
