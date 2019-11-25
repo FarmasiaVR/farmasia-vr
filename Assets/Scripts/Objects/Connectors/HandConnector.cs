@@ -51,9 +51,9 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
 
-#if UNITY_NONVRCOMPUTER
+// #if UNITY_NONVRCOMPUTER
         Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
-#else
+// #else
 
         if (interactable.State == InteractState.LuerlockAttached) {
 
@@ -83,7 +83,7 @@ public class HandConnector : ItemConnector {
         } else {
             ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
         }
-#endif
+// #endif
     }
     #endregion
 
