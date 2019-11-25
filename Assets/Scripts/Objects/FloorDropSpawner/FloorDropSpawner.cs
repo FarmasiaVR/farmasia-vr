@@ -9,6 +9,9 @@ public class FloorDropSpawner : MonoBehaviour {
 
     private void Start() {
         Events.SubscribeToEvent(Copy, EventType.ItemDroppedOnFloor);
+        if (copy != null) {
+            currentObject = copy;
+        }
     }
 
     public void SetCopyObject(GameObject gob) {
@@ -20,8 +23,6 @@ public class FloorDropSpawner : MonoBehaviour {
         GeneralItem item = (GeneralItem) data.DataObject;
         if (item.gameObject == currentObject || currentObject == null) {
             currentObject = Instantiate(copy, transform.position, transform.rotation);
-        } else {
         }
-
     }
 }
