@@ -17,38 +17,6 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_default : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Boolean InteractUI
-        {
-            get
-            {
-                return SteamVR_Actions.default_InteractUI;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean Teleport
-        {
-            get
-            {
-                return SteamVR_Actions.default_Teleport;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean GrabPinch
-        {
-            get
-            {
-                return SteamVR_Actions.default_GrabPinch;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean GrabGrip
-        {
-            get
-            {
-                return SteamVR_Actions.default_GrabGrip;
-            }
-        }
-        
         public virtual SteamVR_Action_Pose Pose
         {
             get
@@ -73,19 +41,115 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Single Squeeze
-        {
-            get
-            {
-                return SteamVR_Actions.default_Squeeze;
-            }
-        }
-        
         public virtual SteamVR_Action_Boolean HeadsetOnHead
         {
             get
             {
                 return SteamVR_Actions.default_HeadsetOnHead;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean TriggerClick
+        {
+            get
+            {
+                return SteamVR_Actions.default_TriggerClick;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean PadClick
+        {
+            get
+            {
+                return SteamVR_Actions.default_PadClick;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Menu
+        {
+            get
+            {
+                return SteamVR_Actions.default_Menu;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Grip
+        {
+            get
+            {
+                return SteamVR_Actions.default_Grip;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean PadTouch
+        {
+            get
+            {
+                return SteamVR_Actions.default_PadTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean TriggerTouch
+        {
+            get
+            {
+                return SteamVR_Actions.default_TriggerTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 PadTouchValue
+        {
+            get
+            {
+                return SteamVR_Actions.default_PadTouchValue;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single TriggerValue
+        {
+            get
+            {
+                return SteamVR_Actions.default_TriggerValue;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean DPadNorth
+        {
+            get
+            {
+                return SteamVR_Actions.default_DPadNorth;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean DPadSouth
+        {
+            get
+            {
+                return SteamVR_Actions.default_DPadSouth;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean DPadWest
+        {
+            get
+            {
+                return SteamVR_Actions.default_DPadWest;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean DPadEast
+        {
+            get
+            {
+                return SteamVR_Actions.default_DPadEast;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean DPadCenter
+        {
+            get
+            {
+                return SteamVR_Actions.default_DPadCenter;
             }
         }
         
