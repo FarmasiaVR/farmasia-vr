@@ -20,11 +20,11 @@ public class VRPadTest : MonoBehaviour {
         swipe.OnSwipeUp = (dy) => Logger.Print("Swipe up, delta: " + dy);
 
         click = new VRPadClick(false, 0.4f);
-        click.OnClickMiddle = () => Logger.Print("Click middle");
-        click.OnClickLeft = () => Logger.Print("Click left");
-        click.OnClickRight = () => Logger.Print("Click right");
-        click.OnClickDown = () => Logger.Print("Click down");
-        click.OnClickUp = () => Logger.Print("Click up");
+        click.OnClickMiddle = (x, y) => Logger.Print("Click middle: (" + x + "," + y + ")");
+        click.OnClickLeft = (x, y) => Logger.Print("Click left: (" + x + ", " + y + ")");
+        click.OnClickRight = (x, y) => Logger.Print("Click right: (" + x + "," + y + ")");
+        click.OnClickDown = (x, y) => Logger.Print("Click down: (" + x + "," + y + ")");
+        click.OnClickUp = (x, y) => Logger.Print("Click up: (" + x + "," + y + ")");
     }
 
     private void Update() {

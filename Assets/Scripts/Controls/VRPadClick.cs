@@ -7,7 +7,7 @@ using Valve.VR;
 public class VRPadClick {
 
     #region Delegates
-    public delegate void ClickCallback();
+    public delegate void ClickCallback(float x, float y);
     #endregion
 
     #region Fields
@@ -30,45 +30,47 @@ public class VRPadClick {
     }
 
     public void Update(float deltaTime) {
-        if (VRInput.GetControlDown(handType, ControlType.PadTouch)) {
+        if (VRInput.GetControlDown(handType, ControlType.PadClick)) {
             Vector2 touch = VRInput.PadTouchValue(handType);
+            float x = touch.x;
+            float y = touch.y;
 
-            float distSqrd = touch.x * touch.x + touch.y * touch.y;
+            float distSqrd = x * x + y * y;
             if (distSqrd < middleRadiusSqrd) {
-                TouchMiddle();
+                TouchMiddle(x, y);
                 return;
             }
 
-            if (touch.x < 0)        TouchLeft();
-            else if (touch.x > 0)   TouchRight();
-            if (touch.y < 0)        TouchDown();
-            else if (touch.y > 0)   TouchUp();
+            if (touch.x < 0)        TouchLeft(x, y);
+            else if (touch.x > 0)   TouchRight(x, y);
+            if (touch.y < 0)        TouchDown(x, y);
+            else if (touch.y > 0)   TouchUp(x, y);
 
             IsDown = true;
         }
 
-        if (VRInput.GetControlUp(handType, ControlType.PadTouch)) {
+        if (VRInput.GetControlUp(handType, ControlType.PadClick)) {
             IsDown = false;
         }
     }
 
-    private void TouchMiddle() {
-        OnClickMiddle?.Invoke();
+    private void TouchMiddle(float x, float y) {
+        OnClickMiddle?.Invoke(x, y);
     }
 
-    private void TouchLeft() {
-        OnClickLeft?.Invoke();
+    private void TouchLeft(float x, float y) {
+        OnClickLeft?.Invoke(x, y);
     }
 
-    private void TouchRight() {
-        OnClickRight?.Invoke();
+    private void TouchRight(float x, float y) {
+        OnClickRight?.Invoke(x, y);
     }
     
-    private void TouchUp() {
-        OnClickUp?.Invoke();
+    private void TouchUp(float x, float y) {
+        OnClickUp?.Invoke(x, y);
     }
 
-    private void TouchDown() {
-        OnClickDown?.Invoke();
+    private void TouchDown(float x, float y) {
+        OnClickDown?.Invoke(x, y);
     }
 }
