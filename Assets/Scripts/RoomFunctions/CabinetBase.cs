@@ -119,11 +119,20 @@ public class CabinetBase : MonoBehaviour {
             
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
-            if (!capBag.IsClean) {
-                Logger.Print("Setting cap factory not clean");
-                syringeCapFactory.GetComponent<GeneralItem>().IsClean = false;
+            Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
+            syringeCapFactory.GetComponent<GeneralItem>().IsClean = capBag.IsClean;
+            bool capFactoryAlreadyEnabled = false;
+            foreach (GameObject obj in objectsInsideArea) {
+                GeneralItem item = obj.GetComponent<GeneralItem>();
+                if (item.ObjectType == ObjectType.SyringeCap) {
+                    item.IsClean = capBag.IsClean;
+                    capFactoryAlreadyEnabled = true;
+                }
             }
-            syringeCapFactory.SetActive(true);
+            
+            if (!capFactoryAlreadyEnabled) {
+                syringeCapFactory.SetActive(true);
+            }
   
             capBag.DestroyInteractable();
         } else {
