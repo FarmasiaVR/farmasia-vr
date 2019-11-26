@@ -17,7 +17,9 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    
+    [SerializeField]
+    private GameObject syringeCap;
+    public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
     private float swipeTime;
 
@@ -36,14 +38,14 @@ public class Syringe : GeneralItem {
         ObjectType = ObjectType.Syringe;
         IsClean = true;
 
-        //Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable);
-         Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
         
-
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
 
         hasBeenInBottle = false;
+
+        syringeCap.SetActive(false);
     }
 
     public override void Interact(Hand hand) {
@@ -124,6 +126,10 @@ public class Syringe : GeneralItem {
         Vector3 pos = handle.localPosition;
         pos.y = SyringePos();
         handle.localPosition = pos;
+    }
+
+    public void ShowSyringeCap(bool show) {
+        syringeCap.SetActive(show);
     }
 
     private float SyringePos() {

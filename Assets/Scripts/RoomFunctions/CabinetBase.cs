@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,11 @@ public class CabinetBase : MonoBehaviour {
         IsoRuisku,
         PienetRuiskut,
         Luerlock,
-        Lääkepullo
+        Lääkepullo,
+        KorkkiPussi
     }
 
-    #region fields
+    #region Fields
     public enum CabinetType { PassThrough, Laminar }
     [SerializeField]
     public CabinetType type;
@@ -22,6 +24,13 @@ public class CabinetBase : MonoBehaviour {
     private bool itemPlaced = false;
     [SerializeField]
     private GameObject childCollider;
+
+    
+    [SerializeField]
+    [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
+    private GameObject syringeCapFactory;
+
+    private Pipeline capBagEnterPipeline;
     #endregion
 
     // Start is called before the first frame update
@@ -33,9 +42,11 @@ public class CabinetBase : MonoBehaviour {
         missingObjects.Add(Types.PienetRuiskut, 6);
         missingObjects.Add(Types.Luerlock, 1);
         missingObjects.Add(Types.Lääkepullo, 1);
+        missingObjects.Add(Types.KorkkiPussi, 1);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
+        syringeCapFactory.SetActive(false);
     }
 
     private void EnterCabinet(Collider other) {
@@ -52,13 +63,13 @@ public class CabinetBase : MonoBehaviour {
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
-            Types underlyingType = CheckItemType(type, item);
+            Types underlyingType = CheckItemType(type, item, enteringCabinet: true);
             missingObjects[underlyingType]--;
         }
     }
 
     private void ExitCabinet(Collider other) {
-        if (other?.transform.parent.gameObject.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
+        if (other?.transform.parent?.gameObject.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
             Events.FireEvent(EventType.HandsExitLaminarCabinet, CallbackData.NoData());
         }
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
@@ -68,11 +79,11 @@ public class CabinetBase : MonoBehaviour {
         }
         objectsInsideArea.Remove(foundObject);
         ObjectType type = item.ObjectType;
-        Types underlyingType = CheckItemType(type, item);
+        Types underlyingType = CheckItemType(type, item, enteringCabinet: false);
         ReAddMissingObjects(underlyingType);
     }
 
-    private Types CheckItemType(ObjectType itemType, GeneralItem item) {
+    private Types CheckItemType(ObjectType itemType, GeneralItem item, bool enteringCabinet) {
         Types type = Types.Null;
         if (itemType == ObjectType.Syringe) {
             Syringe syringe = item as Syringe;
@@ -87,8 +98,34 @@ public class CabinetBase : MonoBehaviour {
             type = Types.Neula;
         } else if (itemType == ObjectType.Luerlock) {
             type = Types.Luerlock;
+        } else if (itemType == ObjectType.SyringeCapBag) {
+            type = Types.KorkkiPussi;
+            if (this.type == CabinetType.Laminar && enteringCabinet) {
+                SyringeCapBagEnteredLaminarCabinet(item);
+            }
         }
         return type;
+    }
+
+    private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
+        capBagEnterPipeline = G.Instance.Pipeline
+                                    .New()
+                                    .Delay(1.5f)
+                                    .TFunc(DestroyCapBagAndSetFactoryActive, () => capBag);
+    }
+
+    private void DestroyCapBagAndSetFactoryActive(GeneralItem capBag) {
+        if (capBag != null && objectsInsideArea.Contains(capBag.gameObject)) {
+            if (!capBag.IsClean) {
+                // ???
+            }
+
+            Logger.Print("Syringe Cap still inside cabinet, destroying...");
+            capBag.DestroyInteractable();
+            syringeCapFactory.gameObject.SetActive(true);
+        } else {
+            Logger.Print("Don't delete");
+        }
     }
 
     private void ReAddMissingObjects(Types itemType) {
