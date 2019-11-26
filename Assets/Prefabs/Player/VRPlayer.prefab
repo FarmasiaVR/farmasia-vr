@@ -340,7 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHighlighting: 1
 --- !u!114 &1491183136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1578,6 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac9488fcbaacbc4db635ca813408f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useHighlighting: 0
   other: {fileID: 5741388092164080240}
 --- !u!114 &7825122742935436867
 MonoBehaviour:
@@ -1850,6 +1850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac9488fcbaacbc4db635ca813408f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useHighlighting: 0
   other: {fileID: 3627287239068377857}
 --- !u!114 &7825122742348451931
 MonoBehaviour:
@@ -2102,6 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3970ab98464334caa2f28924efc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correctPassthroughCabinetItems: {fileID: 0}
 --- !u!1 &7825122742822414214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,7 +2259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHighlighting: 1
 --- !u!114 &1473489560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2335,7 +2336,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 1591
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2413,7 +2414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHighlighting: 0
 --- !u!114 &1016502204222632981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2486,7 +2486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useHighlighting: 0
 --- !u!114 &3320247191860390889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2543,6 +2542,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8678460593055532196}
     m_Modifications:
+    - target: {fileID: 2859883891276803384, guid: 640f5ae7bed42754887670faf2ad92db,
+        type: 3}
+      propertyPath: m_Name
+      value: HandUI
+      objectReference: {fileID: 0}
     - target: {fileID: 2859883891276803385, guid: 640f5ae7bed42754887670faf2ad92db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2597,11 +2601,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2859883891276803384, guid: 640f5ae7bed42754887670faf2ad92db,
-        type: 3}
-      propertyPath: m_Name
-      value: HandUI
       objectReference: {fileID: 0}
     - target: {fileID: 2623434816271689674, guid: 640f5ae7bed42754887670faf2ad92db,
         type: 3}
