@@ -5,5 +5,10 @@
     Menu,
     PadTouch,
     PadClick,
-    Grip
+    Grip,
+    DPadNorth,
+    DPadSouth,
+    DPadWest,
+    DPadEast,
+    DPadCenter,
 }

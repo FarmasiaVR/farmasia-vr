@@ -6,6 +6,7 @@ public class Syringe : GeneralItem {
     #region Constants
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private const float LIQUID_TRANSFER_SPEED = 15;
+    private const int LIQUID_TRANSFER_STEP = 100; // 0.1ml
     #endregion
 
     #region fields
@@ -52,7 +53,22 @@ public class Syringe : GeneralItem {
     }
 
     public override void Interacting(Hand hand) {
+        bool padClickLeft = VRInput.GetControlDown(hand.HandType, ControlType.DPadWest);
+        bool padClickRight = VRInput.GetControlDown(hand.HandType, ControlType.DPadEast);
+        
+        int amount = 0;
+        if (padClickLeft) amount = -LIQUID_TRANSFER_STEP;
+        if (padClickRight) amount = LIQUID_TRANSFER_STEP;
 
+        if (State == InteractState.LuerlockAttached) {
+            LuerlockEject(amount);
+        } else if (State == InteractState.InBottle) {
+            BottleEject(amount);
+        } else {
+            Eject(amount);
+        }
+
+        /*
         bool padTouchUp = VRInput.GetControlUp(hand.HandType, ControlType.PadTouch);
         bool touch = VRInput.GetControl(hand.HandType, ControlType.PadTouch);
         bool padTouchDown = VRInput.GetControlDown(hand.HandType, ControlType.PadTouch);
@@ -81,6 +97,7 @@ public class Syringe : GeneralItem {
         } else {
             Eject(amount);
         }
+        */
     }
 
     private void Eject(int amount) {

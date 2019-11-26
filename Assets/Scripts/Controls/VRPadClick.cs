@@ -30,6 +30,10 @@ public class VRPadClick {
     }
 
     public void Update(float deltaTime) {
+        UpdateNew(deltaTime);
+    }
+
+    private void UpdateOld(float deltaTime) {
         if (VRInput.GetControlDown(handType, ControlType.PadClick)) {
             Vector2 touch = VRInput.PadTouchValue(handType);
             float x = touch.x;
@@ -51,6 +55,28 @@ public class VRPadClick {
 
         if (VRInput.GetControlUp(handType, ControlType.PadClick)) {
             IsDown = false;
+        }
+    }
+
+    private void UpdateNew(float deltaTime) {
+        Vector2 touch = VRInput.PadTouchValue(handType);
+        float x = touch.x;
+        float y = touch.y;
+
+        if (VRInput.GetControlDown(handType, ControlType.DPadCenter)) {
+            OnClickMiddle?.Invoke(x, y);
+            return;
+        }
+
+        if (VRInput.GetControlDown(handType, ControlType.DPadNorth)) {
+            OnClickUp?.Invoke(x, y);
+        } else if (VRInput.GetControlDown(handType, ControlType.DPadSouth)) {
+            OnClickDown?.Invoke(x, y);
+        }
+        if (VRInput.GetControlDown(handType, ControlType.DPadWest)) {
+            OnClickLeft?.Invoke(x, y);
+        } else if (VRInput.GetControlDown(handType, ControlType.DPadEast)) {
+            OnClickRight?.Invoke(x, y);
         }
     }
 

@@ -12,7 +12,12 @@ public class VRHandControls : MonoBehaviour {
         menu,
         padTouch,
         padClick,
-        grip;
+        grip,
+        dPadNorth,
+        dPadSouth,
+        dPadWest,
+        dPadEast,
+        dPadCenter;
 
     [SerializeField]
     private SteamVR_Action_Single triggerValue;
@@ -67,9 +72,24 @@ public class VRHandControls : MonoBehaviour {
 
         grip.AddOnStateDownListener(GripDown, handType);
         grip.AddOnStateUpListener(GripUp, handType);
+
+        dPadNorth.AddOnStateDownListener(DPadNorthDown, handType);
+        dPadNorth.AddOnStateUpListener(DPadNorthUp, handType);
+
+        dPadSouth.AddOnStateDownListener(DPadSouthDown, handType);
+        dPadSouth.AddOnStateUpListener(DPadSouthUp, handType);
+
+        dPadWest.AddOnStateDownListener(DPadWestDown, handType);
+        dPadWest.AddOnStateUpListener(DPadWestUp, handType);
+
+        dPadEast.AddOnStateDownListener(DPadEastDown, handType);
+        dPadEast.AddOnStateUpListener(DPadEastUp, handType);
+
+        dPadCenter.AddOnStateDownListener(DPadCenterDown, handType);
+        dPadCenter.AddOnStateUpListener(DPadCenterUp, handType);
     }
 
-    
+
 
     private bool NullChecks(params SteamVR_Action[] actions) {
         foreach (var action in actions) {
@@ -123,7 +143,7 @@ public class VRHandControls : MonoBehaviour {
     }
 
     private void PadDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
-        VRInput.ControlDown(ControlType.PadClick , handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
 
     private void PadUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
@@ -142,6 +162,39 @@ public class VRHandControls : MonoBehaviour {
 
     private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.Grip, handType);
+    }
+    #endregion
+
+    #region DPad
+    private void DPadNorthDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlDown(ControlType.DPadNorth, handType);
+    }
+    private void DPadNorthUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlUp(ControlType.DPadNorth, handType);
+    }
+    private void DPadSouthDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlDown(ControlType.DPadSouth, handType);
+    }
+    private void DPadSouthUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlUp(ControlType.DPadSouth, handType);
+    }
+    private void DPadWestDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlDown(ControlType.DPadWest, handType);
+    }
+    private void DPadWestUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlUp(ControlType.DPadWest, handType);
+    }
+    private void DPadEastDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlDown(ControlType.DPadEast, handType);
+    }
+    private void DPadEastUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlUp(ControlType.DPadEast, handType);
+    }
+    private void DPadCenterDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlDown(ControlType.DPadCenter, handType);
+    }
+    private void DPadCenterUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
+        VRInput.ControlUp(ControlType.DPadCenter, handType);
     }
     #endregion
 }
