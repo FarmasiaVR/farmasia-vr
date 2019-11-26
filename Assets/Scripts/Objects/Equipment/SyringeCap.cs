@@ -11,14 +11,13 @@ public class SyringeCap : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.SyringeCap;
-        IsClean = true;
 
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
         CollisionSubscription.SubscribeToTrigger(capHeadTrigger, new TriggerListener().OnEnter(collider => CapHeadCollision(collider)));
     }
 
     private void CapHeadCollision(Collider other) {
-        if (other.name == "SyringeTip") {
+        if (other.name == "SyringeTip" && this.State == InteractState.Grabbed) {
             GameObject foundObject = GetInteractableObject(other.transform);
             GeneralItem item = foundObject?.GetComponent<GeneralItem>();
             Logger.Print(other.gameObject.name + " colliding with syringe cap");

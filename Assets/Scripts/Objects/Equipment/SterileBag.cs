@@ -18,7 +18,6 @@ public class SterileBag : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.SterileBag;
-        IsClean = true;
 
         objectsInBag = new List<GameObject>();
         IsClosed = false;

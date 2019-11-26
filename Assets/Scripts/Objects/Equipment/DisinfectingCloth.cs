@@ -7,7 +7,6 @@ public class DisinfectingCloth : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.DisinfectingCloth;
-        IsClean = true;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
     }
 
