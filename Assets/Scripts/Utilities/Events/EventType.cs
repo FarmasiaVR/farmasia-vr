@@ -28,7 +28,8 @@
     VentilationBlocked,
     SyringeToMedicineBottle,
     SyringeFromMedicineBottle,
+    SyringeToLuerlock,
     SyringeFromLuerlock,
     HandsExitLaminarCabinet,
-    SyringeToLuerlock
+    HandleGrabbed
 }

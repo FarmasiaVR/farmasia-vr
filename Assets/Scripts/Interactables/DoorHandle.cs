@@ -15,6 +15,7 @@
     private void Update() {
         if (State == InteractState.Grabbed) {
             door?.SetByHandPosition(hand);
+            Events.FireEvent(EventType.HandleGrabbed, CallbackData.NoData());
         }
     }
 
