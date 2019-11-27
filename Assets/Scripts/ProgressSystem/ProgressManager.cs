@@ -180,7 +180,7 @@ public class ProgressManager {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
                 task.FinishTask();
-                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Notify);
+                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
                 break;
             }
         }

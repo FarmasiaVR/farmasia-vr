@@ -128,8 +128,6 @@ public class Finish : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
-        
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();
