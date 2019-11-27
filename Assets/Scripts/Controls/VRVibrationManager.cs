@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class VRVibrationManager : MonoBehaviour
-{
+public class VRVibrationManager : MonoBehaviour {
+
+    #region Fields
     public static VRVibrationManager Instance { get; private set; }
     public SteamVR_Action_Vibration hapticAction;
     /*public SteamVR_Action_Single Amplitude;
     public SteamVR_Action_Single Frequency;
     public SteamVR_Action_Single Strength;*/
+    #endregion
 
     [Range(0, 1)]
     public float TestingAmplitude;

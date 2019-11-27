@@ -61,6 +61,7 @@ public class Package {
         if (activeTasks.Contains(task)) {
             doneTypes.Add(task.GetTaskType());
             activeTasks.Remove(task);
+            AudioManager.Instance.Play("doneMessage");
             if (activeTasks.Count == 0) {
                 packageCompleted = true;
                 manager.ChangePackage();

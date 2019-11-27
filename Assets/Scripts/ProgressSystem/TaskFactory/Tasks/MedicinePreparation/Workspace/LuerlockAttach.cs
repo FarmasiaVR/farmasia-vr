@@ -58,10 +58,12 @@ public class LuerlockAttach : TaskBase {
         if (laminarCabinet == null) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake);
+            AudioManager.Instance.Play("mistakeMessage");
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(g)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+            AudioManager.Instance.Play("mistakeMessage");
             return;
         }
         
@@ -71,6 +73,7 @@ public class LuerlockAttach : TaskBase {
                     task.UnsubscribeAllEvents();
                     task.RemoveFromPackage();
                     UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
+                    AudioManager.Instance.Play("mistakeMessage");
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                     break;
                 }
@@ -89,9 +92,11 @@ public class LuerlockAttach : TaskBase {
         if (!CheckClearConditions(true)) {
             if (checkTimes == 1) {
                 UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake);
+                AudioManager.Instance.Play("mistakeMessage");
                 G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
             } else {
                 UISystem.Instance.CreatePopup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
+                AudioManager.Instance.Play("mistakeMessage");
             }  
         }
     }

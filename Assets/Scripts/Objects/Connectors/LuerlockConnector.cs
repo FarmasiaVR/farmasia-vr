@@ -64,6 +64,7 @@ public class LuerlockConnector : AttachmentConnector {
     }
 
     protected override void AttachEvents(GameObject intObject) {
+        AudioManager.Instance.Play("lockedItem");
         Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
         Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
     }

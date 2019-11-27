@@ -57,6 +57,7 @@ public class MedicineToSyringe : TaskBase {
         }
         if (!CheckPreviousTaskCompletion(requiredTasks) && G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             UISystem.Instance.CreatePopup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
+            AudioManager.Instance.Play("mistakeMessage");
         }
     }
 
@@ -68,13 +69,16 @@ public class MedicineToSyringe : TaskBase {
                     if (!takenBeforeTime) {
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                         UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+                        AudioManager.Instance.Play("mistakeMessage");
                         takenBeforeTime = true;
                     } else {
                         UISystem.Instance.CreatePopup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
+                        AudioManager.Instance.Play("mistakeMessage");
                     }
                 } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
                     UISystem.Instance.CreatePopup(-1, "Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                    AudioManager.Instance.Play("mistakeMessage");
                 } else {
                     if (!CheckPreviousTaskCompletion(requiredTasks)) {
                         foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
@@ -86,6 +90,7 @@ public class MedicineToSyringe : TaskBase {
                         }
 
                         UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
+                        AudioManager.Instance.Play("mistakeMessage");
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
                     }
                     CheckConditions(s);
