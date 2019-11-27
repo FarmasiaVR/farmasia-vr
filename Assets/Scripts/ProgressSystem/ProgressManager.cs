@@ -202,7 +202,7 @@ public class ProgressManager {
         if (!testMode) {
             if (CurrentPackage != null) {
                 UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
-                //VRVibrationManager.Instance.TriggerVibration();
+                VRVibrationManager.Instance.TriggerVibration();
             }
         }
     }
