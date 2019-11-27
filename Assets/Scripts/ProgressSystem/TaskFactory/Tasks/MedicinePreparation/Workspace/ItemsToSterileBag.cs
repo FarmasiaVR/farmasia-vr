@@ -114,7 +114,7 @@ public class ItemsToSterileBag : TaskBase {
 
     private bool CapsOnSyringes() {
         int count = 0;
-        foreach(GameObject value in sterileBag.objectsInBag()) {
+        foreach(GameObject value in sterileBag.objectsInBag) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
