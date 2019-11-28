@@ -3,6 +3,22 @@
 (Software engineering project, University of Helsinki 2019)
 [Video](https://youtu.be/pIKCZFZo2UA)
 
+## Instructions
+
+### Cloning
+
+First step for you is to setup the platform definition files. Create file  projectRoot/Assets/csc.rsp
+If your system supports VR, set the file contents to this:
+```
+-define:UNITY_VRCOMPUTER
+```
+If your system does not support VR, set the file contents to this:
+```
+-define:UNITY_NONVRCOMPUTER
+```
+
+The definitions are system specific so the file csc.rsp file is ignored in gitignore.
+
 ## Description
 
 Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of two parts – preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
