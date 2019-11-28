@@ -51,8 +51,6 @@ public class NeedleConnector : AttachmentConnector {
 
     protected override void SnapObjectPosition() {
 
-        return;
-
         Transform obj = attached.GameObject.transform;
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
@@ -60,7 +58,7 @@ public class NeedleConnector : AttachmentConnector {
         obj.up = coll.up;
 
         Vector3 offset = coll.position - luerlockPos.position;
-        obj.position += offset;
+        GeneralItem.transform.position -= offset;
     }
     #endregion
 
