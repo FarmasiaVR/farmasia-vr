@@ -60,7 +60,12 @@ public class Syringe : GeneralItem {
         if (padClickLeft) amount = -LIQUID_TRANSFER_STEP;
         if (padClickRight) amount = LIQUID_TRANSFER_STEP;
 
-        if (State == InteractState.LuerlockAttached) {
+        // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
+        if (amount == 0) {
+            return;
+        }
+
+        if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {
             BottleEject(amount);

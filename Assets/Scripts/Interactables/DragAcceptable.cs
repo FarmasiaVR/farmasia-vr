@@ -44,8 +44,6 @@ public abstract class DragAcceptable : Interactable {
         pCamera = Player.Camera.transform;
 
         startPos = transform.position;
-
-        Logger.PrintVariables("Drag acceptable awake", startPos);
     }
 
     #region Updating
