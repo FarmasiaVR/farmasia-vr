@@ -64,7 +64,7 @@ public abstract class AttachmentConnector : ItemConnector {
         SetInteractors();
 
         // Either override property InteractState AttachState and use State.On(AttachState) or rename LuerlockAttached to Attached
-        attached.Interactable.State.On(InteractState.ItemAttached, AttachState);
+        attached.Interactable.State.On(AttachState);
 
         CollisionIgnore.IgnoreCollisions(GeneralItem.transform, attached.GameObject.transform, true);
 

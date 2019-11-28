@@ -66,7 +66,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
         interactable.transform.position = hand.Offset.position;
         interactable.transform.rotation = hand.Offset.rotation;
-        
+
+        Logger.Print("Hand reinteract -> Changing from LuerlockLooseItemConnection to regular: " + interactable.name);
         hand.InteractWith(interactable);
     }
 

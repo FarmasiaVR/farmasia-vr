@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class HandConnector : ItemConnector {
 
@@ -18,6 +19,9 @@ public class HandConnector : ItemConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
+
+        Logger.Print("Hand Connector connect item: " + interactable.name);
+
         if (interactable.Rigidbody == null) {
             Logger.Warning("Interactable has no rigidbody");
         }
@@ -35,6 +39,8 @@ public class HandConnector : ItemConnector {
 
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedInteractable.gameObject));
         AttachGrabbedItem(GrabbedInteractable);
+
+        Logger.Print("After attach: " + Connection + ", type: " + Connection.GetType());
     }
 
     private bool AllowSmoothAttach(Interactable interactable) {
@@ -55,46 +61,64 @@ public class HandConnector : ItemConnector {
         // Connection = ItemConnection.AddRigidConnection(this, Hand.Offset, interactable.gameObject);
         // #else
 
-        if (interactable.State == InteractState.ItemAttached) {
+        Logger.Print("StartIf---------------------------------------------");
+
+        if (interactable.IsAttached) {
+            Logger.Print("Interactable is attached");
 
             if (interactable.State == InteractState.LuerlockAttached) {
+                Logger.Print("Interactable is Luerlock attached");
+
                 LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
 
 
                 if (luerlock.State == InteractState.Grabbed) {
-                    // LUERLOCK IS GRABBED
+                    Logger.Print("Luerlock is grabbed");
+
                     ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
                 } else {
+                    Logger.Print("Luerlock not grabbed");
+
                     if (luerlock.GrabbedObjectCount == 2) {
-                        // GRABBING BOTH LUERLOCK ITEMS
                         Logger.PrintVariables("Grabbing both items, grabbedCount", luerlock.GrabbedObjectCount);
                         ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
                     } else {
-                        // Only grabbing the luerlockitem
+                        Logger.Print("Only grabbing Luerlock item");
                         ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                     }
                 }
             } else if (interactable.State == InteractState.NeedleAttached) {
+                Logger.Print("Interactable is Needle attached");
 
                 Needle needle = interactable.Interactors.Needle;
 
                 if (needle.State == InteractState.Grabbed) {
+                    Logger.Print("Needle is grabbed");
                     ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
                 } else {
+                    Logger.Print("Needle not grabbed");
                     ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
+            } else {
+                throw new Exception("Interactrable State is attached but not attached");
             }
 
 
         } else if (interactable as LuerlockAdapter is var luerlock && luerlock != null) {
+            Logger.Print("Interactable is Luerlock");
             if (luerlock.GrabbedObjectCount > 0) {
+                Logger.Print("Luerlock has items");
                 ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
             } else {
+                Logger.Print("Luerlock does not have items");
                 ConnectionHandler.GrabItem(this, Hand.Offset, luerlock);
             }
         } else {
+            Logger.Print("Regular grab item");
             ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
         }
+
+        Logger.Print("EndIf---------------------------------------------");
         // #endif
     }
     #endregion
