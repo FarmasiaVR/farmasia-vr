@@ -69,7 +69,7 @@ public class NeedleConnector : AttachmentConnector {
         attached.Interactable.Interactors.ResetNeedle();
 
         // Attach state might need to change
-        attached.Interactable.State.Off(InteractState.LuerlockAttached);
+        attached.Interactable.State.Off(InteractState.NeedleAttached);
         ReplaceObject(null);
     }
     #endregion

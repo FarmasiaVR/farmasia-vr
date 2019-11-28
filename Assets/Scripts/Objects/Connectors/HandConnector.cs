@@ -92,6 +92,10 @@ public class HandConnector : ItemConnector {
 
                 Needle needle = interactable.Interactors.Needle;
 
+                if (needle == null) {
+                    throw new Exception("Item is needle attached but needle was null");
+                }
+
                 if (needle.State == InteractState.Grabbed) {
                     Logger.Print("Needle is grabbed");
                     ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
