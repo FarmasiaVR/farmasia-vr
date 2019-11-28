@@ -25,10 +25,10 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     private GameObject childCollider;
 
-    
+
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
-    private GameObject syringeCapFactory;
+    private GameObject syringeCapFactory = null;
 
     private Pipeline capBagEnterPipeline;
     #endregion
@@ -46,7 +46,10 @@ public class CabinetBase : MonoBehaviour {
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
-        syringeCapFactory.SetActive(false);
+
+        if (syringeCapFactory != null) {
+            syringeCapFactory.SetActive(false);
+        }
     }
 
     private void EnterCabinet(Collider other) {
