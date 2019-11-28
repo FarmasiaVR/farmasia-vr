@@ -10,7 +10,9 @@ public class DisinfectingCloth : GeneralItem {
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
     }
 
-    private void OnCollisionEnter(Collider other) {
+    protected override void OnCollisionEnter(Collision other) {
+        base.OnCollisionEnter(other);
+
         GameObject foundObject = GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
