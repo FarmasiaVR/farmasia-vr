@@ -42,7 +42,7 @@ public class CabinetBase : MonoBehaviour {
         missingObjects.Add(Types.SmallSyringe, 6);
         missingObjects.Add(Types.Luerlock, 1);
         missingObjects.Add(Types.MedicineBottle, 1);
-        missingObjects.Add(Types.SyringeCapBAg, 1);
+        missingObjects.Add(Types.SyringeCapBag, 1);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
@@ -50,6 +50,7 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void EnterCabinet(Collider other) {
+
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
@@ -64,7 +65,9 @@ public class CabinetBase : MonoBehaviour {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
             Types underlyingType = CheckItemType(type, item, enteringCabinet: true);
-            missingObjects[underlyingType]--;
+            if (underlyingType != Types.Null) {
+                missingObjects[underlyingType]--;
+            }
         }
     }
 
@@ -99,7 +102,7 @@ public class CabinetBase : MonoBehaviour {
         } else if (itemType == ObjectType.Luerlock) {
             type = Types.Luerlock;
         } else if (itemType == ObjectType.SyringeCapBag) {
-            type = Types.SyringeCapBAg;
+            type = Types.SyringeCapBag;
             if (this.type == CabinetType.Laminar && enteringCabinet) {
                 SyringeCapBagEnteredLaminarCabinet(item);
             }
