@@ -7,12 +7,12 @@ public class CabinetBase : MonoBehaviour {
 
     public enum Types {
         Null,
-        Neula,
-        IsoRuisku,
-        PienetRuiskut,
+        Needle,
+        BigSyringe,
+        SmallSyringe,
         Luerlock,
-        Lääkepullo,
-        KorkkiPussi
+        MedicineBottle,
+        SyringeCapBag
     }
 
     #region Fields
@@ -37,12 +37,12 @@ public class CabinetBase : MonoBehaviour {
     void Start() {
         objectsInsideArea = new List<GameObject>();
         missingObjects = new Dictionary<Types, int>();
-        missingObjects.Add(Types.Neula, 1);
-        missingObjects.Add(Types.IsoRuisku, 1);
-        missingObjects.Add(Types.PienetRuiskut, 6);
+        missingObjects.Add(Types.Needle, 1);
+        missingObjects.Add(Types.BigSyringe, 1);
+        missingObjects.Add(Types.SmallSyringe, 6);
         missingObjects.Add(Types.Luerlock, 1);
-        missingObjects.Add(Types.Lääkepullo, 1);
-        missingObjects.Add(Types.KorkkiPussi, 1);
+        missingObjects.Add(Types.MedicineBottle, 1);
+        missingObjects.Add(Types.SyringeCapBAg, 1);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
@@ -88,18 +88,18 @@ public class CabinetBase : MonoBehaviour {
         if (itemType == ObjectType.Syringe) {
             Syringe syringe = item as Syringe;
             if (syringe.Container.Capacity == 20000) {
-                type = Types.IsoRuisku;
+                type = Types.BigSyringe;
             } else if (syringe.Container.Capacity == 1000) {
-                type = Types.PienetRuiskut;
+                type = Types.SmallSyringe;
             }
         } else if (itemType == ObjectType.Bottle) {
-            type = Types.Lääkepullo;
+            type = Types.MedicineBottle;
         } else if (itemType == ObjectType.Needle) {
-            type = Types.Neula;
+            type = Types.Needle;
         } else if (itemType == ObjectType.Luerlock) {
             type = Types.Luerlock;
         } else if (itemType == ObjectType.SyringeCapBag) {
-            type = Types.KorkkiPussi;
+            type = Types.SyringeCapBAg;
             if (this.type == CabinetType.Laminar && enteringCabinet) {
                 SyringeCapBagEnteredLaminarCabinet(item);
             }
@@ -143,17 +143,17 @@ public class CabinetBase : MonoBehaviour {
     private void ReAddMissingObjects(Types itemType) {
         if (missingObjects.ContainsKey(itemType)) {
             switch (itemType) {
-                case Types.Neula:
+                case Types.Needle:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case Types.IsoRuisku:
+                case Types.BigSyringe:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
                     break;
-                case Types.PienetRuiskut:
+                case Types.SmallSyringe:
                     if (missingObjects[itemType] < 6) {
                         missingObjects[itemType]++;
                     }
@@ -163,7 +163,7 @@ public class CabinetBase : MonoBehaviour {
                         missingObjects[itemType]++;
                     }
                     break;
-                case Types.Lääkepullo:
+                case Types.MedicineBottle:
                     if (missingObjects[itemType] == 0) {
                         missingObjects[itemType]++;
                     }
