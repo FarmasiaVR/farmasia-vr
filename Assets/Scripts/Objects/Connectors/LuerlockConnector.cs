@@ -87,7 +87,7 @@ public class LuerlockConnector : AttachmentConnector {
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);
         attached.Interactable.Interactors.ResetLuerlockPair();
-        attached.Interactable.State.Off(InteractState.LuerlockAttached);
+        attached.Interactable.State.Off(AttachState);
         ReplaceObject(null);
     }
     #endregion
