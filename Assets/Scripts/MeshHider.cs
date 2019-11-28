@@ -11,7 +11,10 @@ public class MeshHider : MonoBehaviour {
     private void Awake() {
 #if UNITY_NONVRCOMPUTER
         if (testHandMaterial != null) {
-            GetComponent<Renderer>().material = testHandMaterial;
+            Renderer r = GetComponent<Renderer>();
+            if (r != null) {
+               r.material = testHandMaterial;
+            }
         }
 #else
         if (onlyHide) {
