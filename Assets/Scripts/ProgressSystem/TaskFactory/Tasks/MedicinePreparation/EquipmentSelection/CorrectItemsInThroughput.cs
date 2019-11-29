@@ -60,13 +60,13 @@ public class CorrectItemsInThroughput : TaskBase {
         }
         if (cabinet == null) {
             UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
             UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }        
         objectCount = containedObjects.Count;
@@ -78,7 +78,7 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         } else {
             UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
         }
     }
     #endregion
@@ -130,11 +130,11 @@ public class CorrectItemsInThroughput : TaskBase {
     private void MissingItems() {
         if (checkTimes == 0) {
             UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
             UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
         }
         Logger.Print(cabinet.GetMissingItems());
         SetItemsToZero();

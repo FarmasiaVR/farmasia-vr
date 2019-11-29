@@ -2,7 +2,6 @@
 using TMPro;
 public class PointPopup : MonoBehaviour {
     #region Fields
-    private AudioSource sound;
     private GameObject textObject;
     private TextMeshPro textField;
     private Color color;
@@ -30,8 +29,6 @@ public class PointPopup : MonoBehaviour {
         textObject = transform.gameObject;
         textField = textObject.GetComponent<TextMeshPro>();
         textField.color = new Color(red, green, blue, 0);
-        sound = GetComponent<AudioSource>();
-        sound.enabled = false;
         timer = 0.0f;
         transparency = 0.0f;
         distanceTravelled = 0.0f;
@@ -87,7 +84,7 @@ public class PointPopup : MonoBehaviour {
                 textField.alpha = transparency;
                 timer -= fadeInAndOut;
                 fadeInCompleted = true;
-                sound.enabled = true;
+                AudioManager.Play(AudioClipType.Diu);
                 timer = 0.0f;
             }
         } else {

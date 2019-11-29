@@ -46,7 +46,7 @@ public class NeedleConnector : AttachmentConnector {
     }
 
     protected override void AttachEvents(GameObject intObject) {
-        AudioManager.Instance?.Play("lockedItem");
+        AudioManager.Play(AudioClipType.LockedItem);
     }
 
     protected override void SnapObjectPosition() {

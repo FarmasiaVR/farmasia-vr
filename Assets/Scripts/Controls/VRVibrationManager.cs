@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class VRVibrationManager : MonoBehaviour {
+public class 
+    VRVibrationManager : MonoBehaviour {
 
     #region Fields
     public static VRVibrationManager Instance { get; private set; }

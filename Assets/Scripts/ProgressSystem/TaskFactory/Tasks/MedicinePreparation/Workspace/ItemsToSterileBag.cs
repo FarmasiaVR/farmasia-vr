@@ -60,7 +60,7 @@ public class ItemsToSterileBag : TaskBase {
     private void PutToBag(CallbackData data) {
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
-            AudioManager.Instance?.Play("mistakeMessage");
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }
         List<GameObject> inBag = data.DataObject as List<GameObject>;
