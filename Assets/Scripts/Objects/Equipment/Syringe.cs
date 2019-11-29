@@ -28,8 +28,6 @@ public class Syringe : GeneralItem {
 
     public bool hasBeenInBottle;
 
-    // private Pipeline pipeline = new Pipeline();
-
     #endregion
     protected override void Start() {
         base.Start();
@@ -72,37 +70,6 @@ public class Syringe : GeneralItem {
         } else {
             Eject(amount);
         }
-
-        /*
-        bool padTouchUp = VRInput.GetControlUp(hand.HandType, ControlType.PadTouch);
-        bool touch = VRInput.GetControl(hand.HandType, ControlType.PadTouch);
-        bool padTouchDown = VRInput.GetControlDown(hand.HandType, ControlType.PadTouch);
-
-        if (touch && swipeTime > 0) {
-            swipeTime = SWIPE_DEFAULT_TIME;
-        } else {
-            swipeTime -= Time.deltaTime;
-        }
-
-        if (padTouchDown || padTouchUp || !touch || swipeTime <= 0) {
-            return;
-        }
-
-        float changeFactor = -VRInput.PadTouchDelta(hand.HandType).y;
-        int amount = (int)(changeFactor * LIQUID_TRANSFER_SPEED * Container.Capacity * Time.deltaTime);
-
-        if (amount == 0) {
-            return;
-        }
-
-        if (State == InteractState.LuerlockAttached) {
-            LuerlockEject(amount);
-        } else if (State == InteractState.InBottle) {
-            BottleEject(amount);
-        } else {
-            Eject(amount);
-        }
-        */
     }
 
     private void Eject(int amount) {
