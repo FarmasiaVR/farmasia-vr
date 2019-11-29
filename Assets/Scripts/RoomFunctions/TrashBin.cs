@@ -18,11 +18,12 @@ public class TrashBin : MonoBehaviour {
     private void EnterTrashbin(Collider other, bool checkForSharp) {
         GeneralItem item = GeneralItem.Find(other.transform);
         if (item != null) {
-            if (item.ObjectType == ObjectType.Needle && !checkForSharp) {
+            if (!checkForSharp || item.ObjectType == ObjectType.Needle) {
                 Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 item.DestroyInteractable();
             } else {
                 Logger.Print("Non sharp item placed in trash");
+                Logger.Print(item.ObjectType);
             }
         }
     }
