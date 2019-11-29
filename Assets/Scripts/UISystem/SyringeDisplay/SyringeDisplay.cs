@@ -42,7 +42,9 @@ public class SyringeDisplay : MonoBehaviour {
         }
         textParentTransform.LookAt(cam.transform, Vector3.up);
         if (liquidPresent) {
-            textField.text = container.Amount + "/" + container.Capacity + VOLUME;
+            double contAmount = (double)container.Amount / 1000;
+
+            textField.text = contAmount.ToString("F3") + "/" + ((double)container.Capacity / 1000) + VOLUME;
         }
     }
 }
