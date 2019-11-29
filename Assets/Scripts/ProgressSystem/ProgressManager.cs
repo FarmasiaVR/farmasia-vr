@@ -204,7 +204,9 @@ public class ProgressManager {
                 UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
 #if UNITY_NONVRCOMPUTER
 #else
-                VRVibrationManager.Instance.TriggerVibration();
+                // TODO: Fix NullReferenceException
+                //   Caused by it being a MonoBehaviour and a Singleton (I think)
+                // VRVibrationManager.Instance.TriggerVibration();
 #endif
             }
         }
