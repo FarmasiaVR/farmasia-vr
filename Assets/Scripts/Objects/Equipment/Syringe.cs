@@ -63,6 +63,11 @@ public class Syringe : GeneralItem {
             return;
         }
 
+        if (this.HasSyringeCap) {
+            Logger.Print("Cannot change liquid amount of syringe with a cap");
+            return;
+        }
+
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {

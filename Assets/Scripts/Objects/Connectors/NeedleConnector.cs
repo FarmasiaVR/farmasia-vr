@@ -18,6 +18,11 @@ public class NeedleConnector : AttachmentConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
+
+        if ((interactable as Syringe) is var syringe && syringe != null && syringe.HasSyringeCap) {
+            Logger.Warning("Trying to attach needle to syringe with a cap");
+            return;
+        }
         Logger.Print("Connect item to needle: " + interactable.name);
 
         bool itemGrabbed = interactable.State == InteractState.Grabbed;

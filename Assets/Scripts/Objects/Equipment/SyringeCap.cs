@@ -23,14 +23,16 @@ public class SyringeCap : GeneralItem {
             Logger.Print(other.gameObject.name + " colliding with syringe cap");
             if (item?.ObjectType == ObjectType.Syringe) {
                 Syringe syringe = item as Syringe;
-                if (!syringe.HasSyringeCap) {
-                    syringe.ShowSyringeCap(true);
-                    DestroyInteractable();
-                }
+                if (!syringe.HasSyringeCap) AddSyringeCap(syringe);
             } else {
                 Logger.Error("Item with syringe tip collided with syringe cap but was not of type Syringe");
             }
-        }
-        
+        }   
+    }
+
+    private void AddSyringeCap(Syringe syringe) {
+        syringe.ShowSyringeCap(true);
+        syringe.Type.Off(InteractableType.LuerlockAttachable);
+        DestroyInteractable();
     }
 }
