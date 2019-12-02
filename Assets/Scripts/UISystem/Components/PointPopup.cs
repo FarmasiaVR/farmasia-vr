@@ -84,7 +84,6 @@ public class PointPopup : MonoBehaviour {
                 textField.alpha = transparency;
                 timer -= fadeInAndOut;
                 fadeInCompleted = true;
-                AudioManager.Play(AudioClipType.Diu);
                 timer = 0.0f;
             }
         } else {
