@@ -27,6 +27,7 @@ public class VRVibrationManager : MonoBehaviour {
     }
 
     public static void Vibrate() {
+        vibrationManager = GameObject.FindWithTag("VibrationManager");
         if (vibrationManager == null) {
             Logger.Error("Missing gameobject tagged with VibrationManager");
             return;
