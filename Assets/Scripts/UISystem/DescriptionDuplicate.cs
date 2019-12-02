@@ -16,7 +16,7 @@ public class DescriptionDuplicate : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (textObject = null) {
+        if (textObject == null || textField == null) {
             FindDescObject();
             return;
         }

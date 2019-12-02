@@ -20,13 +20,34 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
-        AddTasks();
-        Calculator = new ScoreCalculator(allTasks);
-        GenerateScenarioOne();
-        CurrentPackage = packages.First();
-        UpdateDescription();
-        UpdateHint();
     }
+
+    public void SetSceneType(SceneTypes scene) {
+        
+        
+        switch (scene) {
+            case SceneTypes.MainMenu:
+                break;
+            case SceneTypes.MedicinePreparation:
+                /*Need Support for multiple Scenarios.*/
+                AddTasks();
+                GenerateScenarioOne();
+                break;
+            case SceneTypes.MembraneFilteration:
+                //todo
+                //GenerateScenarioTwo();
+                break;
+        }
+        if (scene != SceneTypes.MainMenu) {
+
+
+            Calculator = new ScoreCalculator(allTasks);
+            CurrentPackage = packages.First();
+            UpdateDescription();
+            UpdateHint();
+        }
+    }
+
     #endregion
 
     #region Initialization
@@ -50,7 +71,6 @@ public class ProgressManager {
         TaskType[] cleanUpTasks = {
             TaskType.Finish
         };
-
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
         Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
