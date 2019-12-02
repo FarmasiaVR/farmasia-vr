@@ -30,6 +30,7 @@ public class SterileBag : GeneralItem {
     private void EnterSterileBag(Collider other) {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+        //what if needle connected to syringe
         if (item == null || IsClosed) {
             return;
         }
