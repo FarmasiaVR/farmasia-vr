@@ -48,9 +48,6 @@ public class SelectTools : TaskBase {
             case ObjectType.Luerlock:
                 EnableCondition(Conditions.LuerlockPickedUp);
                 break;
-            case ObjectType.Needle:
-                EnableCondition(Conditions.LuerlockPickedUp);
-                break;
             case ObjectType.SyringeCapBag:
                 EnableCondition(Conditions.SyringeCapBagPickedUp);
                 break;
