@@ -198,8 +198,10 @@ public class ProgressManager {
     /// </summary>
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
+            Logger.Print(task.GetTaskType());
             if (task.GetTaskType() == TaskType.Finish) {
                 task.FinishTask();
+                RemoveTask(task);
                 UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
                 break;
             }
