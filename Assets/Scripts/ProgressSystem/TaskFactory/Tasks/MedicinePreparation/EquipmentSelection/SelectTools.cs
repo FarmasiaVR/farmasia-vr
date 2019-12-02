@@ -8,7 +8,7 @@ public class SelectTools : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp }
+    public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp, SyringeCapBagPickedUp }
     #endregion
 
     #region Constructor
@@ -47,6 +47,12 @@ public class SelectTools : TaskBase {
                 break;
             case ObjectType.Luerlock:
                 EnableCondition(Conditions.LuerlockPickedUp);
+                break;
+            case ObjectType.Needle:
+                EnableCondition(Conditions.LuerlockPickedUp);
+                break;
+            case ObjectType.SyringeCapBag:
+                EnableCondition(Conditions.SyringeCapBagPickedUp);
                 break;
         }
         CheckClearConditions(false);

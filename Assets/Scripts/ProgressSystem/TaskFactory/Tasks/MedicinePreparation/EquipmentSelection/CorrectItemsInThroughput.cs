@@ -11,7 +11,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightBottle }
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
@@ -114,6 +114,9 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
                     break;
+                case ObjectType.SyringeCapBag:
+                    EnableCondition(Conditions.SyringeCapBag);
+                    break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
@@ -149,7 +152,7 @@ public class CorrectItemsInThroughput : TaskBase {
             if (!correctMedicineBottle) {
                 UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
-            } else if (objectCount == 10) {
+            } else if (objectCount == 11) {
                 UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
