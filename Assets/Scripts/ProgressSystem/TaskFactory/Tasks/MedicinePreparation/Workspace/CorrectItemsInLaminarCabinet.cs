@@ -11,7 +11,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle, SyringeCapBag }
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle, SyringeCap }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
@@ -104,8 +104,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 case ObjectType.Bottle:
                     EnableCondition(Conditions.MedicineBottle);
                     break;
-                case ObjectType.SyringeCapBag:
-                    EnableCondition(Conditions.SyringeCapBag);
+                case ObjectType.SyringeCap:
+                    EnableCondition(Conditions.SyringeCap);
                     break;
             }
         }   

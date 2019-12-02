@@ -6,7 +6,7 @@ public class Syringe : GeneralItem {
     #region Constants
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private const float LIQUID_TRANSFER_SPEED = 15;
-    private const int LIQUID_TRANSFER_STEP = 100; // 0.1ml
+    private const int LIQUID_TRANSFER_STEP = 50; // 0.1ml
     #endregion
 
     #region fields

@@ -17,7 +17,7 @@ public class ScoreCalculator {
     /// </summary>
     public ScoreCalculator(HashSet<ITask> allTasks) {
         points = new Dictionary<TaskType, int>();
-        tasks = allTasks;
+        tasks = new HashSet<ITask>(allTasks);
         beforeTime = new HashSet<String>();
         AddTasks();
     }
@@ -91,6 +91,7 @@ public class ScoreCalculator {
             addedBeforeTimeList += before + ", ";
         }
         summary += "Kokonaispistemäärä: " + score + "/" + maxScore + "!";
+        Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
         return summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }
     #endregion

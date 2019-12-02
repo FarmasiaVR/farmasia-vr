@@ -23,14 +23,15 @@ public class ProgressManager {
     }
 
     public void SetSceneType(SceneTypes scene) {
-        
-        
+
+
         switch (scene) {
             case SceneTypes.MainMenu:
                 break;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
                 AddTasks();
+                Calculator = new ScoreCalculator(allTasks);
                 GenerateScenarioOne();
                 break;
             case SceneTypes.MembraneFilteration:
@@ -40,8 +41,6 @@ public class ProgressManager {
         }
         if (scene != SceneTypes.MainMenu) {
 
-
-            Calculator = new ScoreCalculator(allTasks);
             CurrentPackage = packages.First();
             UpdateDescription();
             UpdateHint();
@@ -186,10 +185,10 @@ public class ProgressManager {
 
     public void ChangePackage() {
         int index = packages.IndexOf(CurrentPackage);
-        if (packages[index + 1] != null) {
-            CurrentPackage = packages[index + 1];
-        } else {
+        if ((index + 1) >= packages.Count) {
             FinishProgress();
+        } else {
+            CurrentPackage = packages[index + 1];
         }
     }
 
@@ -198,9 +197,7 @@ public class ProgressManager {
     /// </summary>
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
-            Logger.Print(task.GetTaskType());
             if (task.GetTaskType() == TaskType.Finish) {
-                task.FinishTask();
                 RemoveTask(task);
                 UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
                 break;
@@ -226,8 +223,8 @@ public class ProgressManager {
                 UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
 #if UNITY_NONVRCOMPUTER
 #else
-                
-            VRVibrationManager.Vibrate();
+
+                VRVibrationManager.Vibrate();
 #endif
             }
         }
