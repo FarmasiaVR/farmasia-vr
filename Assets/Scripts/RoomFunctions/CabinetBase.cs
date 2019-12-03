@@ -186,7 +186,7 @@ public class CabinetBase : MonoBehaviour {
     }
 
     public String GetMissingItems() {
-        String missing = "Puuttuvat välineet:";
+        String missing = "";
         foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
                 missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";

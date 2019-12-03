@@ -168,8 +168,8 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     public override string GetHint() {
-        string missingItemsHint = cabinet.GetMissingItems();
-        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. " + missingItemsHint;
+        string missingItemsHint = cabinet?.GetMissingItems() ?? "Kaikki";
+        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: " + missingItemsHint;
     }
     #endregion
 }
