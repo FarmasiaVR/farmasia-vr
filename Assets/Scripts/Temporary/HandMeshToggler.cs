@@ -48,7 +48,9 @@ public class HandMeshToggler : MonoBehaviour {
     private void SetRenderers() {
 #if UNITY_VRCOMPUTER
         foreach (Renderer r in renderers) {
-            r.enabled = status;
+            if (r != null) {
+                r.enabled = status;
+            }
         }
 #endif
     }
