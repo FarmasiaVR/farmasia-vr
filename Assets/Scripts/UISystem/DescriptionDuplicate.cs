@@ -31,6 +31,6 @@ public class DescriptionDuplicate : MonoBehaviour {
 
     private void FindDescObject() {
         textObject = GameObject.FindGameObjectWithTag("Description");
-        textField = textObject.GetComponent<TextMeshPro>();
+        textField = textObject?.GetComponent<TextMeshPro>();
     }
 }
