@@ -46,6 +46,7 @@ public class Finish : TaskBase {
         }
         if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
+            AudioManager.Play(AudioClipType.MistakeMessage);
         } else {
             FinishTask();
         }
@@ -62,12 +63,14 @@ public class Finish : TaskBase {
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();
                 if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY && !s.hasBeenInBottle && s.Container.Amount > 0) {
-                    pointsForSyringeSize = Math.Min(6, pointsForSyringeSize++);
+                    int points = pointsForSyringeSize + 1;
+                    pointsForSyringeSize = Math.Min(6, points);
                     if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-                        pointsForMedicineAmount = Math.Min(6, pointsForMedicineAmount++);
+                        points = pointsForMedicineAmount + 1;
+                        pointsForMedicineAmount = Math.Min(6, points);
                     }
                 }
-            }   
+            }
         }
         
         if (pointsForSyringeSize < 6) {
@@ -127,8 +130,6 @@ public class Finish : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Onnittelut!\nPeli päättyi.", MsgType.Done);
-        
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();

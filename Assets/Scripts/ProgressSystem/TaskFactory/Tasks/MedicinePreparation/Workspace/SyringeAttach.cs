@@ -55,6 +55,7 @@ public class SyringeAttach : TaskBase {
         } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+            AudioManager.Play(AudioClipType.MistakeMessage);
             attachedSyringes.Remove(s.GetInstanceID());
         } else {
             base.package.MoveTaskToManager(this);
@@ -71,8 +72,10 @@ public class SyringeAttach : TaskBase {
                 if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
                     UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
+                    AudioManager.Play(AudioClipType.MistakeMessage);
                     attachedSyringes.Remove(s.GetInstanceID());
                 } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
+                    attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
                     FinishTask();
                 }
             } else {

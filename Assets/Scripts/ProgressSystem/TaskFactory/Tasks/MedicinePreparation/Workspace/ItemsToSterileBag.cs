@@ -26,7 +26,7 @@ public class ItemsToSterileBag : TaskBase {
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, true, false) {
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        points = 1;
+        points = 2;
         TaskMovedToSide = false;
     }
     #endregion
@@ -60,6 +60,7 @@ public class ItemsToSterileBag : TaskBase {
     private void PutToBag(CallbackData data) {
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }
         List<GameObject> inBag = data.DataObject as List<GameObject>;
@@ -75,7 +76,7 @@ public class ItemsToSterileBag : TaskBase {
             bool check = CheckClearConditions(true);
             if (!check) {
                 UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei pakattu steriiliin pussiin.", MsgType.Mistake);
-                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
                 base.FinishTask();
             }
         } else {
@@ -110,11 +111,35 @@ public class ItemsToSterileBag : TaskBase {
         G.Instance.Progress.UpdateDescription();
         TaskMovedToSide = true;
     }
+
+    private bool CapsOnSyringes() {
+        int count = 0;
+        foreach(GameObject value in sterileBag.objectsInBag) {
+            GeneralItem item = value.GetComponent<GeneralItem>();
+            ObjectType type = item.ObjectType;
+            if (type == ObjectType.Syringe) {
+                Syringe syringe = item as Syringe;
+                if (syringe.HasSyringeCap) {
+                    count++;
+                }
+            }
+        }
+        if (count == 6) {
+            return true; 
+        }
+        return false;
+    }
     #endregion
 
     #region Public Methods
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+        if (CapsOnSyringes()) {
+            UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+        } else {
+            UISystem.Instance.CreatePopup(1, "Kaikissa ruiskuissa ei ollut korkkia.", MsgType.Mistake);
+            G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+        }
+        
         base.FinishTask();
     }
 

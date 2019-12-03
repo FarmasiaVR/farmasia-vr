@@ -8,14 +8,16 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
     protected override ItemConnector Connector { get; set; }
     private Interactable interactable;
-    private LuerlockAdapter luerlock;
+    private GeneralItem parentItem;
     private Hand hand;
 
     private Vector3 startLocal;
 
+    private InteractState state;
+
     private Vector3 TargetPos {
         get {
-            return luerlock.transform.TransformPoint(startLocal);
+            return parentItem.transform.TransformPoint(startLocal);
         }
     }
     #endregion
@@ -55,23 +57,54 @@ public class LuerlockLooseItemConnection : ItemConnection {
         // Move into ConnectionHandler?
 
         Remove();
-        luerlock.GetConnector(interactable).Connection.Remove();
+
+        if (state == InteractState.LuerlockAttached) {
+            (parentItem as LuerlockAdapter).GetConnector(interactable).Connection.Remove();
+        } else if (state == InteractState.NeedleAttached) {
+            (parentItem as Needle).Connector.Connection.Remove();
+        }
 
         interactable.transform.position = hand.Offset.position;
         interactable.transform.rotation = hand.Offset.rotation;
-        
+
+        Logger.Print("Hand reinteract -> Changing from LuerlockLooseItemConnection to regular: " + interactable.name);
         hand.InteractWith(interactable);
     }
 
     public static LuerlockLooseItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
+
+        if (interactable.State == InteractState.LuerlockAttached) {
+            return LuerlockConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.NeedleAttached) {
+            return NeedleConfiguration(connector, hand, interactable);
+        }
+
+        throw new Exception("No such configuration type for InteractState");
+    }
+
+    public static LuerlockLooseItemConnection LuerlockConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
 
         LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
 
         conn.Connector = connector;
         conn.interactable = interactable;
         conn.hand = hand.GetComponent<Hand>();
-        conn.luerlock = interactable.Interactors.LuerlockPair.Value;
+        conn.parentItem = interactable.Interactors.LuerlockPair.Value;
         conn.startLocal = interactable.transform.localPosition;
+        conn.state = InteractState.LuerlockAttached;
+
+        return conn;
+    }
+    public static LuerlockLooseItemConnection NeedleConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
+
+        LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
+
+        conn.Connector = connector;
+        conn.interactable = interactable;
+        conn.hand = hand.GetComponent<Hand>();
+        conn.parentItem = interactable.Interactors.Needle;
+        conn.startLocal = interactable.transform.localPosition;
+        conn.state = InteractState.NeedleAttached;
 
         return conn;
     }

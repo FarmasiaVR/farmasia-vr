@@ -8,8 +8,10 @@ using System.Linq;
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
+    
     protected int points;
     protected Package package;
+    private bool InPackage => (package != null);
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;

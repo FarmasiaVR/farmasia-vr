@@ -6,7 +6,8 @@ public class GeneralItem : Grabbable {
     protected ObjectType objectType = ObjectType.None;
     public ObjectType ObjectType { get => objectType; set { objectType = value; } }
 
-    private bool isClean;
+    [SerializeField]
+    private bool isClean = true;
     public bool IsClean { get => isClean; set => isClean = value; }
     #endregion
 

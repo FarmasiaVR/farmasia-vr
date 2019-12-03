@@ -30,5 +30,6 @@
     SyringeFromMedicineBottle,
     SyringeToLuerlock,
     SyringeFromLuerlock,
-    HandsExitLaminarCabinet
+    HandsExitLaminarCabinet,
+    HandleGrabbed
 }

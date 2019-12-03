@@ -92,4 +92,10 @@ public class Interactable : MonoBehaviour {
 
         return i;
     }
+
+    public bool IsAttached {
+        get {
+            return State == InteractState.LuerlockAttached || State == InteractState.NeedleAttached;
+        }
+    }
 }

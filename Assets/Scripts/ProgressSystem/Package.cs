@@ -61,16 +61,21 @@ public class Package {
         if (activeTasks.Contains(task)) {
             doneTypes.Add(task.GetTaskType());
             activeTasks.Remove(task);
-            if (activeTasks.Count == 0) {
-                packageCompleted = true;
-                manager.ChangePackage();
-            } else {
-                Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
-            }
+            AudioManager.Play(AudioClipType.TaskCompletedBeep);
+            CheckChangePackage();
             manager.UpdateDescription();
         }
     }
     #endregion
+
+    private void CheckChangePackage() {
+        if (activeTasks.Count == 0) {
+            packageCompleted = true;
+            manager.ChangePackage();
+        } else {
+            Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
+        }
+    }
 
     #region Task Movement
     /// <summary>
@@ -82,6 +87,7 @@ public class Package {
             Logger.Print("Moving task back to manager.");
             manager.AddTask(task);
             activeTasks.Remove(task);
+            CheckChangePackage();
             manager.UpdateDescription();
         }
     }

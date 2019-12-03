@@ -81,6 +81,7 @@ public class LuerlockAdapter : GeneralItem {
 
         ObjectType = ObjectType.Luerlock;
         Type.On(InteractableType.SmallObject);
+        IsClean = true;
 
         connectors = new Dictionary<Side, LuerlockConnector> {
             { Side.Left, new LuerlockConnector(Side.Left, this, transform.Find("Left collider").gameObject) },

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb902bc3cc2d3d2c86e38feaabbea3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
   isClean: 1
   defaultPosition: -0.001
   maxPosition: -0.0445
   handle: {fileID: 860448355296778993}
+  syringeCap: {fileID: 4604349011429808459}
   hasBeenInBottle: 0
 --- !u!1001 &6863689778603738112
 PrefabInstance:
@@ -108,7 +108,7 @@ PrefabInstance:
     - target: {fileID: 6964067485315636555, guid: af53087c8c626ed45b7463832b997531,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af53087c8c626ed45b7463832b997531, type: 3}
@@ -121,6 +121,12 @@ GameObject:
 --- !u!4 &860448355296778993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6102470148725104369, guid: af53087c8c626ed45b7463832b997531,
+    type: 3}
+  m_PrefabInstance: {fileID: 6863689778603738112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4604349011429808459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6964067485315636555, guid: af53087c8c626ed45b7463832b997531,
     type: 3}
   m_PrefabInstance: {fileID: 6863689778603738112}
   m_PrefabAsset: {fileID: 0}

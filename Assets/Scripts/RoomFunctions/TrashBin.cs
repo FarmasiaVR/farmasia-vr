@@ -4,18 +4,27 @@ public class TrashBin : MonoBehaviour {
 
     #region fields
     [SerializeField]
-    private GameObject childCollider;
+    protected GameObject childCollider;
     #endregion
 
     private void Start() {
-        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterTrashbin(collider)));
+        Setup(false);
     }
 
-    private void EnterTrashbin(Collider other) {
+    protected void Setup(bool checkForSharp) {
+        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterTrashbin(collider, checkForSharp)));
+    }
+
+    private void EnterTrashbin(Collider other, bool checkForSharp) {
         GeneralItem item = GeneralItem.Find(other.transform);
         if (item != null) {
-            Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-            item.DestroyInteractable();
+            if (!checkForSharp || item.ObjectType == ObjectType.Needle) {
+                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                item.DestroyInteractable();
+            } else {
+                Logger.Print("Non sharp item placed in trash");
+                Logger.Print(item.ObjectType);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ public class ScoreCalculator {
     /// </summary>
     public ScoreCalculator(HashSet<ITask> allTasks) {
         points = new Dictionary<TaskType, int>();
-        tasks = allTasks;
+        tasks = new HashSet<ITask>(allTasks);
         beforeTime = new HashSet<String>();
         AddTasks();
     }
@@ -73,14 +73,14 @@ public class ScoreCalculator {
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public string GetScoreString() {
-        String summary = "";
+        String summary = "Peli päättyi - onnittelut!\n";
         String scoreCountPerTask = "";
-        String beforeTimeSummary = "Tasks that were attempted in advance:\n";
+        String beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         String addedBeforeTimeList = "";
         int score = 0;
 
         foreach (TaskType type in points.Keys) {
-            scoreCountPerTask += "\n Task:" + type.ToString() + ": " + points[type] + "point(s).";
+            scoreCountPerTask += "\n Tehtävä:" + type.ToString() + ": " + points[type] + "pistettä.";
             score += points[type];
         }
         foreach (String before in beforeTime) {
@@ -90,7 +90,8 @@ public class ScoreCalculator {
             }
             addedBeforeTimeList += before + ", ";
         }
-        summary += "Overall Score: " + score + "/" + maxScore + "!";
+        summary += "Kokonaispistemäärä: " + score + "/" + maxScore + "!";
+        Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
         return summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }
     #endregion

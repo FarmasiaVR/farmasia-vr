@@ -11,7 +11,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, RightBottle }
+    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
     private int smallSyringes;
     private int objectCount;
     private int checkTimes;
@@ -60,11 +60,13 @@ public class CorrectItemsInThroughput : TaskBase {
         }
         if (cabinet == null) {
             UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
             UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
+            AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }        
         objectCount = containedObjects.Count;
@@ -76,6 +78,7 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         } else {
             UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
+            AudioManager.Play(AudioClipType.MistakeMessage);
         }
     }
     #endregion
@@ -111,6 +114,9 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.Luerlock:
                     EnableCondition(Conditions.Luerlock);
                     break;
+                case ObjectType.SyringeCapBag:
+                    EnableCondition(Conditions.SyringeCapBag);
+                    break;
                 case ObjectType.Bottle:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
@@ -127,9 +133,11 @@ public class CorrectItemsInThroughput : TaskBase {
     private void MissingItems() {
         if (checkTimes == 0) {
             UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
+            AudioManager.Play(AudioClipType.MistakeMessage);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
             UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
+            AudioManager.Play(AudioClipType.MistakeMessage);
         }
         Logger.Print(cabinet.GetMissingItems());
         SetItemsToZero();
@@ -144,7 +152,7 @@ public class CorrectItemsInThroughput : TaskBase {
             if (!correctMedicineBottle) {
                 UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MsgType.Notify);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
-            } else if (objectCount == 10) {
+            } else if (objectCount == 11) {
                 UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
                 UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);

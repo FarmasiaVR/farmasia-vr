@@ -6,6 +6,7 @@ public class Syringe : GeneralItem {
     #region Constants
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private const float LIQUID_TRANSFER_SPEED = 15;
+    private const int LIQUID_TRANSFER_STEP = 50; // 0.1ml
     #endregion
 
     #region fields
@@ -17,15 +18,15 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    
+    [SerializeField]
+    private GameObject syringeCap;
+    public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
     private float swipeTime;
 
     public LiquidContainer BottleContainer { get; set; }
 
     public bool hasBeenInBottle;
-
-    // private Pipeline pipeline = new Pipeline();
 
     #endregion
     protected override void Start() {
@@ -34,16 +35,15 @@ public class Syringe : GeneralItem {
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
-        IsClean = true;
 
-        //Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable);
-         Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
         
-
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
 
         hasBeenInBottle = false;
+
+        syringeCap.SetActive(false);
     }
 
     public override void Interact(Hand hand) {
@@ -51,29 +51,24 @@ public class Syringe : GeneralItem {
     }
 
     public override void Interacting(Hand hand) {
+        bool padClickLeft = VRInput.GetControlDown(hand.HandType, ControlType.DPadWest);
+        bool padClickRight = VRInput.GetControlDown(hand.HandType, ControlType.DPadEast);
+        
+        int amount = 0;
+        if (padClickLeft) amount = -LIQUID_TRANSFER_STEP;
+        if (padClickRight) amount = LIQUID_TRANSFER_STEP;
 
-        bool padTouchUp = VRInput.GetControlUp(hand.HandType, ControlType.PadTouch);
-        bool touch = VRInput.GetControl(hand.HandType, ControlType.PadTouch);
-        bool padTouchDown = VRInput.GetControlDown(hand.HandType, ControlType.PadTouch);
-
-        if (touch && swipeTime > 0) {
-            swipeTime = SWIPE_DEFAULT_TIME;
-        } else {
-            swipeTime -= Time.deltaTime;
-        }
-
-        if (padTouchDown || padTouchUp || !touch || swipeTime <= 0) {
-            return;
-        }
-
-        float changeFactor = -VRInput.PadTouchDelta(hand.HandType).y;
-        int amount = (int)(changeFactor * LIQUID_TRANSFER_SPEED * Container.Capacity * Time.deltaTime);
-
+        // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
         if (amount == 0) {
             return;
         }
 
-        if (State == InteractState.LuerlockAttached) {
+        if (this.HasSyringeCap) {
+            Logger.Print("Cannot change liquid amount of syringe with a cap");
+            return;
+        }
+
+        if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
             LuerlockEject(amount);
         } else if (State == InteractState.InBottle) {
             BottleEject(amount);
@@ -124,6 +119,10 @@ public class Syringe : GeneralItem {
         Vector3 pos = handle.localPosition;
         pos.y = SyringePos();
         handle.localPosition = pos;
+    }
+
+    public void ShowSyringeCap(bool show) {
+        syringeCap.SetActive(show);
     }
 
     private float SyringePos() {

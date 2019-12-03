@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb902bc3cc2d3d2c86e38feaabbea3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectType: 0
-  isClean: 0
+  isClean: 1
   defaultPosition: 0
   maxPosition: -0.0603
   handle: {fileID: 431468163581051458}
+  syringeCap: {fileID: 544654177282947504}
   hasBeenInBottle: 0
 --- !u!1001 &7789489807392870916
 PrefabInstance:
@@ -29,6 +29,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: syringe_10m
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126008173956081619, guid: 7ad522d669defe64d91f108fa43f9339,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2106160736216044992, guid: 7ad522d669defe64d91f108fa43f9339,
         type: 3}
@@ -108,7 +113,7 @@ PrefabInstance:
     - target: {fileID: 7752616506626436020, guid: 7ad522d669defe64d91f108fa43f9339,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ad522d669defe64d91f108fa43f9339, type: 3}
@@ -121,6 +126,12 @@ GameObject:
 --- !u!4 &431468163581051458 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7630559808534220870, guid: 7ad522d669defe64d91f108fa43f9339,
+    type: 3}
+  m_PrefabInstance: {fileID: 7789489807392870916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &544654177282947504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7752616506626436020, guid: 7ad522d669defe64d91f108fa43f9339,
     type: 3}
   m_PrefabInstance: {fileID: 7789489807392870916}
   m_PrefabAsset: {fileID: 0}

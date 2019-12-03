@@ -20,13 +20,33 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
-        AddTasks();
-        Calculator = new ScoreCalculator(allTasks);
-        GenerateScenarioOne();
-        CurrentPackage = packages.First();
-        UpdateDescription();
-        UpdateHint();
     }
+
+    public void SetSceneType(SceneTypes scene) {
+
+
+        switch (scene) {
+            case SceneTypes.MainMenu:
+                break;
+            case SceneTypes.MedicinePreparation:
+                /*Need Support for multiple Scenarios.*/
+                AddTasks();
+                Calculator = new ScoreCalculator(allTasks);
+                GenerateScenarioOne();
+                break;
+            case SceneTypes.MembraneFilteration:
+                //todo
+                //GenerateScenarioTwo();
+                break;
+        }
+        if (scene != SceneTypes.MainMenu) {
+
+            CurrentPackage = packages.First();
+            UpdateDescription();
+            UpdateHint();
+        }
+    }
+
     #endregion
 
     #region Initialization
@@ -50,7 +70,6 @@ public class ProgressManager {
         TaskType[] cleanUpTasks = {
             TaskType.Finish
         };
-
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
         Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
@@ -166,10 +185,10 @@ public class ProgressManager {
 
     public void ChangePackage() {
         int index = packages.IndexOf(CurrentPackage);
-        if (packages[index + 1] != null) {
-            CurrentPackage = packages[index + 1];
-        } else {
+        if ((index + 1) >= packages.Count) {
             FinishProgress();
+        } else {
+            CurrentPackage = packages[index + 1];
         }
     }
 
@@ -179,8 +198,8 @@ public class ProgressManager {
     public void FinishProgress() {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
-                task.FinishTask();
-                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Notify);
+                RemoveTask(task);
+                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
                 break;
             }
         }
@@ -202,6 +221,11 @@ public class ProgressManager {
         if (!testMode) {
             if (CurrentPackage != null) {
                 UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
+#if UNITY_NONVRCOMPUTER
+#else
+
+                VRVibrationManager.Vibrate();
+#endif
             }
         }
     }
