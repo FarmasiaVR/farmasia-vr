@@ -26,7 +26,7 @@ public class SyringeDisplayer : MonoBehaviour {
     private void CheckHandGrab(ref Hand hand, ref bool check, ref GameObject display) {
         if (hand.IsGrabbed) {
             if (!check) {
-                if (hand.Connector.Connection.gameObject == null) {
+                if (hand.Connector.Connection == null) {
                     return;
                 }
                 GameObject obj = hand.Connector.Connection.gameObject;

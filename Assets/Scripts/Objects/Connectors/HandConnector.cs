@@ -106,16 +106,32 @@ public class HandConnector : ItemConnector {
             } else {
                 throw new Exception("Interactrable State is attached but not attached");
             }
+        } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
 
 
-        } else if (interactable as LuerlockAdapter is var luerlock && luerlock != null) {
-            Logger.Print("Interactable is Luerlock");
-            if (luerlock.GrabbedObjectCount > 0) {
-                Logger.Print("Luerlock has items");
-                ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
+            if (generalItem.ObjectType == ObjectType.Luerlock) {
+                LuerlockAdapter luerlock = generalItem as LuerlockAdapter;
+                Logger.Print("Interactable is Luerlock");
+                if (luerlock.GrabbedObjectCount > 0) {
+                    Logger.Print("Luerlock has items");
+                    ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
+                } else {
+                    Logger.Print("Luerlock does not have items");
+                    ConnectionHandler.GrabItem(this, Hand.Offset, luerlock);
+                }
+            } else if (generalItem.ObjectType == ObjectType.Needle) {
+                Needle needle = generalItem as Needle;
+                Logger.Print("Interactable is Needle");
+                if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                    Logger.Print("Needle has item");
+                    ConnectionHandler.GrabNeedleWhenAttachedItemIsGrabbed(this, Hand.transform, needle);
+                } else {
+                    Logger.Print("Needle does not have item");
+                    ConnectionHandler.GrabItem(this, Hand.Offset, needle);
+                }
             } else {
-                Logger.Print("Luerlock does not have items");
-                ConnectionHandler.GrabItem(this, Hand.Offset, luerlock);
+                Logger.Print("Regular grab item");
+                ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
             }
         } else {
             Logger.Print("Regular grab item");

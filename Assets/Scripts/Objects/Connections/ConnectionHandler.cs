@@ -53,6 +53,28 @@ public static class ConnectionHandler {
 
         otherHand.InteractWith(otherItem);
     }
+
+    public static void GrabNeedleWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+
+        Needle needle = addTo as Needle;
+
+        if (needle == null) {
+            throw new System.Exception("Needle is null");
+        }
+
+        Interactable otherItem = needle.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherItem);
+
+        otherHand.Connector.Connection.Remove();
+
+        Transform handOffset = target.GetComponent<Hand>()?.Offset;
+        target = handOffset ?? target;
+
+        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+
+        otherHand.InteractWith(otherItem);
+    }
     #endregion
 
     #region Releasing
