@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class JointConfiguration {
 
-    private static float breakForce = 20000;
-    private static float breakTorque = 20000;
+    private static float breakForce = 2000;
+    private static float breakTorque = 2000;
     private static float damper = 100;
     private static float spring = 10000;
 
