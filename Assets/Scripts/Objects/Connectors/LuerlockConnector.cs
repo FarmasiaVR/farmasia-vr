@@ -27,6 +27,11 @@ public class LuerlockConnector : AttachmentConnector {
         bool itemGrabbed = interactable.State == InteractState.Grabbed;
         Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
 
+        if (interactable.State == InteractState.NeedleAttached) {
+            Logger.Warning("Cannot connect syringe attached to a needle to luerlock");
+            return;
+        }
+
         // Move to ConnectionHandler?
         // Remove current connections
         if (luerlockGrabbed) {
@@ -37,7 +42,7 @@ public class LuerlockConnector : AttachmentConnector {
         if (itemGrabbed) {
             itemHand.Connector.Connection.Remove();
             // interactable.GetComponent<ItemConnection>().Remove();
-            Logger.Print("Removeing connection from " + interactable.name);
+            Logger.Print("Removing connection from " + interactable.name);
         }
 
 
