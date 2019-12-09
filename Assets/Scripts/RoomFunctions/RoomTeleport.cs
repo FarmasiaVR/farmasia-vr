@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class RoomTeleport : MonoBehaviour {
+
     #region Fields
     [Tooltip("VRPlayer instance")]
     [SerializeField]
@@ -35,13 +36,13 @@ public class RoomTeleport : MonoBehaviour {
             item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
             CreateSpawner(item);
         }
-        player.position = playerDst.position;// new Vector3(playerDst.position.x, playerDst.position.y, playerDst.position.z);
+        player.position = playerDst.position;
     }
 
     private void CreateSpawner(Transform item) {
         GameObject obj = new GameObject();
         obj.transform.SetPositionAndRotation(item.position, item.rotation);
-        obj.AddComponent<FloorDropSpawner>();
-        obj.GetComponent<FloorDropSpawner>().SetCopyObject(item.gameObject);
+        obj.AddComponent<ItemSpawner>();
+        obj.GetComponent<ItemSpawner>().SetCopyObject(item.gameObject);
     }
 }
