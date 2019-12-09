@@ -33,7 +33,6 @@ public class SyringeDisplay : MonoBehaviour {
     }
 
     void Update() {
-        //transform.LookAt(cam.transform, Vector3.up);
         if (followedObject != null) {
             transform.position = followedObject.transform.position;
         } else {
