@@ -11,6 +11,7 @@ public class SpringJointConnection : ItemConnection {
     private Joint joint;
 
     private float speedMultiplier = 0.85f;
+    private float speedMultiplierDistanceLimit = 0.3f;
 
     private Vector3 lastPos;
     private Vector3 lastAngles;
@@ -33,7 +34,15 @@ public class SpringJointConnection : ItemConnection {
     }
 
     protected void FixedUpdate() {
-        rb.velocity = rb.velocity * speedMultiplier;
+
+        float distance = Vector3.Distance(joint.anchor, transform.position);
+        distance = distance > speedMultiplierDistanceLimit ? speedMultiplierDistanceLimit : distance;
+
+        float factor = distance / speedMultiplierDistanceLimit;
+
+        float multiplier = 1 - (1 - speedMultiplier) * factor;
+
+        rb.velocity = rb.velocity * multiplier;
         rb.angularVelocity = Vector3.zero;
     }
 
