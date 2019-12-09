@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,18 +9,42 @@ public class InfoBox : MonoBehaviour {
     #endregion
 
     #region Fields
-    private string message;
-    private bool preparationMessageShown = false;
-    private bool workspaceMessageShown = false;
-    TextMeshPro textField;
-    GameObject cam;
+    [Header("Children")]
+    [SerializeField]
+    private GameObject text;
+    [SerializeField]
+    private RectTransform planeContainer;
+
+    [Header("Configuration")]
+    [SerializeField]
+    private Transform cam;
+    [SerializeField]
+    private Vector3 offset;
+    [SerializeField]
+    private float centerOffset = 0.2f;
+    [SerializeField]
+    private float defaultLerpAmount;
+    [SerializeField]
+    private float padding;
+
+    private float activeLerpAmount;
+    private TextMeshPro textField;
+    // CameraCenter is where the center of your head is, not the headset (eyes) is.
+    private Vector3 CameraCenter { get => cam.position - cam.forward * centerOffset; }
+
     #endregion
 
     private void Awake() {
-        message = PREPARATION_ROOM_MESSAGE;
         Subscribe();
-        cam = GameObject.FindGameObjectWithTag("MainCamera");
-        textField = this.GetComponent<TextMeshPro>();
+        textField = text.GetComponent<TextMeshPro>();
+        text.SetActive(false);
+    }
+
+    private void Update() {
+        if (textField.enabled) {
+            textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
+            textField.transform.LookAt(CameraCenter);
+        }
     }
 
     #region Event Subscriptions
@@ -31,46 +52,49 @@ public class InfoBox : MonoBehaviour {
         Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
         Events.SubscribeToEvent(HandleGrabbed, EventType.HandleGrabbed);
     }
+    #endregion
 
     private void ObjectPickedUp(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
-        } else if ((G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection)  && !preparationMessageShown) {
-            //ShowInfoBox();
+        }
+        
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
+            ShowInfoBox(PREPARATION_ROOM_MESSAGE);
             Events.UnsubscribeFromEvent(ObjectPickedUp, EventType.PickupObject);
-            preparationMessageShown = true;
-            message = WORKSPACE_ROOM_MESSAGE;
         }
     }
 
     private void HandleGrabbed(CallbackData data) {
-        if ((G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) && !workspaceMessageShown) {
-            ShowInfoBox();
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
+            ShowInfoBox(WORKSPACE_ROOM_MESSAGE);
             Events.UnsubscribeFromEvent(HandleGrabbed, EventType.HandleGrabbed);
-            workspaceMessageShown = true;  
         }
     }
 
-    private void ShowInfoBox() {
-        transform.position = cam.transform.position;
+    private void ShowInfoBox(string message) {
         textField.text = message;
+        text.SetActive(true);
+        RecalculateSize();
+        textField.transform.position = cam.position + cam.forward * offset.z;
 
-        //Pipeline pipe = G.Instance.Pipeline.New().Delay(100);
-        var date1 = DateTime.Now;
-        var date2 = DateTime.Now;
-        Logger.Print("aluksi: " + date1);
-
-        while(Convert.ToSingle((date2-date1).TotalSeconds) < 15) {
-            date2 = DateTime.Now;
-            //float seconds = Convert.ToSingle((date2 - date1).TotalSeconds);
-            //date1 = date2;
-            Logger.Print(date2);
-            //G.Instance.Pipeline.Update(seconds);
-        }
-
-        textField.text = "";
+        activeLerpAmount = 5;
+        G.Instance.Pipeline.New().Delay(1).Func(() => activeLerpAmount = defaultLerpAmount);
+        G.Instance.Pipeline.New().Delay(10).Func(() => text.SetActive(false));
     }
-    #endregion
+
+    private Vector3 GetTargetPosition() {
+        Vector3 forward = new Vector3(cam.forward.x, 0, cam.forward.z).normalized;
+        Vector3 right = new Vector3(cam.right.x, 0, cam.right.z).normalized;
+
+        Vector3 targetPosition = CameraCenter + forward * offset.z + right * offset.x;
+        targetPosition = new Vector3(targetPosition.x, CameraCenter.y + offset.y, targetPosition.z);
+        return targetPosition;
+    }
+
+    private void RecalculateSize() {
+        planeContainer.localScale = new Vector3(1 + padding, textField.preferredHeight / textField.rectTransform.rect.height + padding, 1);
+    }
 }
