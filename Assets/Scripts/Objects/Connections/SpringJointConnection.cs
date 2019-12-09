@@ -6,12 +6,13 @@ public class SpringJointConnection : ItemConnection {
     protected override ItemConnector Connector { get; set; }
     private Rigidbody rb;
     private Rigidbody target;
-    private Transform rotationTarget;
+    private Transform transformTarget;
     private Interactable interactable;
     private Joint joint;
 
     private float speedMultiplier = 0.85f;
-    private float speedMultiplierDistanceLimit = 0.3f;
+    private float speedMultiplierDistanceLimit = 0.05f;
+    private float closeForce = 50;
 
     private Vector3 lastPos;
     private Vector3 lastAngles;
@@ -25,7 +26,7 @@ public class SpringJointConnection : ItemConnection {
 
     private void SetJoint() {
 
-        joint = JointConfiguration.AddSpringJoint(gameObject);
+        joint = JointConfiguration.AddSpringJoint(gameObject, rb.mass);
         joint.connectedBody = target;
     }
 
@@ -34,22 +35,29 @@ public class SpringJointConnection : ItemConnection {
     }
 
     protected void FixedUpdate() {
+        AddAdditionalForces();
+        rb.velocity = rb.velocity * speedMultiplier;
+        rb.angularVelocity = Vector3.zero;
+    }
 
-        float distance = Vector3.Distance(joint.anchor, transform.position);
-        distance = distance > speedMultiplierDistanceLimit ? speedMultiplierDistanceLimit : distance;
+    private void AddAdditionalForces() {
+        float distance = Vector3.Distance(transformTarget.position, transform.position);
+
+        if (distance > speedMultiplierDistanceLimit) {
+            return;
+        }
 
         float factor = distance / speedMultiplierDistanceLimit;
 
-        float multiplier = 1 - (1 - speedMultiplier) * factor;
+        Vector3 direction = (transformTarget.position - transform.position).normalized;
 
-        rb.velocity = rb.velocity * multiplier;
-        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(direction * closeForce * factor);
     }
 
     protected override void Update() {
         base.Update();
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotationTarget.rotation, 0.5f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, transformTarget.rotation, 0.5f);
     }
 
     private void LateUpdate() {
@@ -82,7 +90,7 @@ public class SpringJointConnection : ItemConnection {
 
         conn.Connector = connector;
         conn.target = targetRB;
-        conn.rotationTarget = target;
+        conn.transformTarget = target;
 
         conn.SetJoint();
 

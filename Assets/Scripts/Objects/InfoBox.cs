@@ -38,7 +38,7 @@ public class InfoBox : MonoBehaviour {
         if (item == null) {
             return;
         } else if ((G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection)  && !preparationMessageShown) {
-            ShowInfoBox();
+            //ShowInfoBox();
             Events.UnsubscribeFromEvent(ObjectPickedUp, EventType.PickupObject);
             preparationMessageShown = true;
             message = WORKSPACE_ROOM_MESSAGE;

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class JointConfiguration {
 
-    private static float breakForce = 2000;
-    private static float breakTorque = 2000;
+    private static float breakForce = 6666;
+    private static float breakTorque = 6666;
     private static float damper = 100;
     private static float spring = 10000;
 
@@ -30,12 +30,12 @@ public static class JointConfiguration {
          return AddFixedJoint(obj);
     }
 
-    public static Joint AddSpringJoint(GameObject gameObject) {
+    public static Joint AddSpringJoint(GameObject gameObject, float mass) {
 
         SpringJoint joint = gameObject.AddComponent<SpringJoint>();
 
-        joint.breakForce = breakForce;
-        joint.breakTorque = breakTorque;
+        joint.breakForce = breakForce * mass;
+        joint.breakTorque = breakTorque * mass;
 
         joint.damper = damper;
         joint.spring = spring;

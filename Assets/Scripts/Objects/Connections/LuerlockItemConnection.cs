@@ -41,7 +41,7 @@ public class LuerlockItemConnection : ItemConnection {
         conn.Connector = connector;
         conn.target = hand;
 
-        Joint joint = JointConfiguration.AddSpringJoint(targetRB.gameObject);
+        Joint joint = JointConfiguration.AddSpringJoint(targetRB.gameObject, luerlockRB.mass);
         joint.connectedBody = luerlockRB;
 
         conn.joint = joint;
@@ -64,7 +64,7 @@ public class LuerlockItemConnection : ItemConnection {
         conn.Connector = connector;
         conn.target = hand;
 
-        Joint joint = JointConfiguration.AddSpringJoint(targetRB.gameObject);
+        Joint joint = JointConfiguration.AddSpringJoint(targetRB.gameObject, needleRB.mass);
         joint.connectedBody = needleRB;
 
         conn.joint = joint;
