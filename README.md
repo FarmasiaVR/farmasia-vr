@@ -53,8 +53,6 @@ A dedicated test machine is used to run the project with VR.
 
 ### Test controls
 
-Test controls can be used on non-vr computers. Add a file `mcs.rsp` to Assets folder and paste `-define:UNITY_NONVRCOMPUTER` inside it.
-
 In Unity play mode press space to activate the test camera and hand controls.
 
 Press K to move the camera, L to control the right hand and J to control the left hand.
