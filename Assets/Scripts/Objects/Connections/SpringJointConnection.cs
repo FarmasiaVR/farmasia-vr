@@ -11,6 +11,9 @@ public class SpringJointConnection : ItemConnection {
     private Joint joint;
 
     private float speedMultiplier = 0.85f;
+
+    private Vector3 lastPos;
+    private Vector3 lastAngles;
     #endregion
 
     private void Awake() {
@@ -40,13 +43,27 @@ public class SpringJointConnection : ItemConnection {
         transform.rotation = Quaternion.Lerp(transform.rotation, rotationTarget.rotation, 0.5f);
     }
 
+    private void LateUpdate() {
+        lastPos = transform.position;
+        lastAngles = transform.eulerAngles;
+    }
+
     protected override void OnRemoveConnection() {
 
         Logger.Print("Removing SpringJointConnection from " + transform.name);
 
         rb.useGravity = true;
 
+        SetVelocity();
+
         Destroy(joint);
+    }
+
+    private void SetVelocity() {
+       if (Connector as HandConnector is var handConnector && handConnector != null) {
+            rb.velocity = VRInput.Skeleton(handConnector.Hand.HandType).velocity;
+            rb.angularVelocity = VRInput.Skeleton(handConnector.Hand.HandType).angularVelocity;
+        }
     }
 
     public static SpringJointConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
