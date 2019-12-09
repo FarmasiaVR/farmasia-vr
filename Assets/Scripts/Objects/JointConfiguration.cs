@@ -7,6 +7,8 @@ public static class JointConfiguration {
 
     private static float breakForce = 20000;
     private static float breakTorque = 20000;
+    private static float damper = 100;
+    private static float spring = 10000;
 
     public static Joint AddFixedJoint(GameObject obj) {
         FixedJoint joint = obj.AddComponent<FixedJoint>();
@@ -28,8 +30,16 @@ public static class JointConfiguration {
          return AddFixedJoint(obj);
     }
 
-    internal static Joint AddSpringJoint(GameObject gameObject) {
-        return AddFixedJoint(gameObject);
-        throw new NotImplementedException();
+    public static Joint AddSpringJoint(GameObject gameObject) {
+
+        SpringJoint joint = gameObject.AddComponent<SpringJoint>();
+
+        joint.breakForce = breakForce;
+        joint.breakTorque = breakTorque;
+
+        joint.damper = damper;
+        joint.spring = spring;
+
+        return joint;
     }
 }

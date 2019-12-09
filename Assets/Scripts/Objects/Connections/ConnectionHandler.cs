@@ -6,7 +6,7 @@ public static class ConnectionHandler {
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
         Logger.Print("Grab item");
-        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
     }
 
 
@@ -49,7 +49,7 @@ public static class ConnectionHandler {
         Transform handOffset = target.GetComponent<Hand>()?.Offset;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
 
         otherHand.InteractWith(otherItem);
     }
@@ -71,7 +71,7 @@ public static class ConnectionHandler {
         Transform handOffset = target.GetComponent<Hand>()?.Offset;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
 
         otherHand.InteractWith(otherItem);
     }
