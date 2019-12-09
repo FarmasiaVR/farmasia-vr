@@ -31,6 +31,11 @@ public class SyringeCap : GeneralItem {
     }
 
     private void AddSyringeCap(Syringe syringe) {
+        if (syringe.State == InteractState.LuerlockAttached || syringe.State == InteractState.NeedleAttached) {
+            Logger.Warning("Cannot add cap to syringe if it is attached to something");
+            return;
+        }
+
         syringe.ShowSyringeCap(true);
         syringe.Type.Off(InteractableType.LuerlockAttachable);
         DestroyInteractable();
