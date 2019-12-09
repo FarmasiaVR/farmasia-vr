@@ -115,7 +115,7 @@ public class HintBox : DragAcceptable {
         SafeDestroy();
     }
     #region Creating
-    public static void CreateHint(string message) {
+    public static void CreateHint(string message = null) {
 
         if (currentHintText != null) {
             currentHintText.DestroyHint();
