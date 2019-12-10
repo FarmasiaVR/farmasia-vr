@@ -10,7 +10,7 @@ public static class JointConfiguration {
     private static float damper = 100;
     private static float spring = 10000;
 
-    public static Joint AddFixedJoint(GameObject obj) {
+    private static Joint AddFixedJoint(GameObject obj) {
         FixedJoint joint = obj.AddComponent<FixedJoint>();
 
         joint.breakForce = breakForce;
@@ -19,18 +19,18 @@ public static class JointConfiguration {
         return joint;
     }
 
-    public static Joint AddConfigurableJoint(GameObject obj) {
+    private static Joint AddConfigurableJoint(GameObject obj) {
 
         ConfigurableJoint joint = obj.AddComponent<ConfigurableJoint>();
 
         return joint;
     }
 
-    public static Joint AddJoint(GameObject obj) {
+    public static Joint AddJoint(GameObject obj, float mass) {
          return AddFixedJoint(obj);
     }
 
-    public static Joint AddSpringJoint(GameObject gameObject, float mass) {
+    private static Joint AddSpringJoints(GameObject gameObject, float mass) {
 
         SpringJoint joint = gameObject.AddComponent<SpringJoint>();
 

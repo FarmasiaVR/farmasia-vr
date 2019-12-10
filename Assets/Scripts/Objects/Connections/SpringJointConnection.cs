@@ -25,8 +25,7 @@ public class SpringJointConnection : ItemConnection {
     }
 
     private void SetJoint() {
-
-        joint = JointConfiguration.AddSpringJoint(gameObject, rb.mass);
+        joint = JointConfiguration.AddJoint(gameObject, rb.mass);
         joint.connectedBody = target;
     }
 
