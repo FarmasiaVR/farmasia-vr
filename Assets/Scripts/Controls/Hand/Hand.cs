@@ -8,6 +8,9 @@ public class Hand : MonoBehaviour {
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
+
+    public HandSmoother Smooth { get; private set; }
+
     private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
 
     private static float remoteGrabDelay = 0.25f;
@@ -44,6 +47,10 @@ public class Hand : MonoBehaviour {
         Assert.IsNotNull(handCollider, "Missing HandCollider component");
         Assert.IsNotNull(other, "Other hand was null");
         Offset = transform.Find("Offset");
+
+        GameObject handSmooth = Resources.Load<GameObject>("HandSmoother");
+        Smooth = handSmooth.GetComponent<HandSmoother>();
+        Smooth.Hand = this;
     }
 
     private void Update() {
