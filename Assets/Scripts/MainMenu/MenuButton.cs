@@ -21,8 +21,10 @@ public class MenuButton : Interactable {
         base.Interact(hand);
         if (isCloseButton) {
             menu.Close();
+        } else {
+            changer.SwapScene(scene);
         }
-        changer.SwapScene(scene);
+
     }
 
     public override void Uninteract(Hand hand) {
