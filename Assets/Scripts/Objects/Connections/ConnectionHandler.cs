@@ -70,10 +70,12 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
-        Transform handOffset = target.GetComponent<Hand>()?.Smooth.transform;
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth?.transform;
         target = handOffset ?? target;
 
         connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
 
         otherHand.InteractWith(otherItem, false);
     }
