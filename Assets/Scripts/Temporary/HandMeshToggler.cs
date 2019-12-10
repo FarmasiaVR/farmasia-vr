@@ -25,7 +25,6 @@ public class HandMeshToggler : MonoBehaviour {
     }
 
     private void Update() {
-        return;
         UpdateMesh();
     }
 

@@ -3,12 +3,18 @@
 public class MeshHider : MonoBehaviour {
 
     [SerializeField]
+    private bool disable;
+
+    [SerializeField]
     private bool onlyHide;
 
     [SerializeField]
     private Material testHandMaterial;
 
     private void Awake() {
+        if (disable) {
+            return;
+        }
 #if UNITY_NONVRCOMPUTER
         if (testHandMaterial != null) {
             Renderer r = GetComponent<Renderer>();

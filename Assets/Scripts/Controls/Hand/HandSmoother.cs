@@ -18,7 +18,7 @@ public class HandSmoother : MonoBehaviour {
 
     private bool initMode;
     private Vector3 startPos;
-    private float initDistance = 0.1f;
+    private float initDistance = 0.02f;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
