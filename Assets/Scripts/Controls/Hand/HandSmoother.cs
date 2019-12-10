@@ -16,18 +16,37 @@ public class HandSmoother : MonoBehaviour {
     [SerializeField]
     private float slowDownFactor = 0.7f;
 
+    private bool initMode;
+    private Vector3 startPos;
+    private float initDistance = 0.1f;
+
     private void Start() {
         rb = GetComponent<Rigidbody>();
         target = Hand.GetOffset();
     }
 
+    private float Distance {
+        get {
+            return Vector3.Distance(transform.position, target.position);
+        }
+    }
     private bool IsClose {
         get {
-            return Vector3.Distance(transform.position, target.position) < distanceLimit;
+            return Distance < distanceLimit;
         }
     }
 
+    public void StartGrab() {
+        initMode = true;
+        startPos = target.position;
+    }
+
     private void FixedUpdate() {
+
+        if (initMode) {
+            return;
+        }
+
         if (IsClose) {
             KinematicAccurateMove();
             SlowDown();
@@ -35,6 +54,16 @@ public class HandSmoother : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (initMode) {
+            transform.position = startPos;
+
+            if (Distance > initDistance) {
+                initMode = false;
+            }
+
+            return;
+        }
 
         if (!IsClose) {
             transform.position = Vector3.Lerp(transform.position, target.position, 0.5f);
@@ -44,6 +73,7 @@ public class HandSmoother : MonoBehaviour {
     }
 
     private void LateUpdate() {
+
         if (!IsClose) {
             Stop();
         }

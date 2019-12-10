@@ -128,10 +128,10 @@ public class Hand : MonoBehaviour {
     }
     public void InteractWith(Interactable interactable) {
 
-        offset.position = interactable.transform.position;
-        offset.rotation = interactable.transform.rotation;
+        SetOffset(interactable.transform.position, interactable.transform.rotation);
 
         if (interactable.Type == InteractableType.Grabbable) {
+            Smooth.StartGrab();
             Connector.ConnectItem(interactable);
             Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
         } else if (interactable.Type == InteractableType.Interactable) {
@@ -243,6 +243,8 @@ public class Hand : MonoBehaviour {
     public void SetOffset(Vector3 pos, Quaternion rot) {
         offset.position = pos;
         offset.rotation = rot;
+        Smooth.transform.position = pos;
+        Smooth.transform.rotation = rot;
     }
     public Transform GetOffset() {
         return offset;
