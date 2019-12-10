@@ -7,6 +7,9 @@ public static class Controls {
     private static ControlType grabInteract;
     private static ControlType remoteGrab;
 
+    private static ControlType takeMedicine;
+    private static ControlType ejectMedicine;
+
     private static ControlType teleport;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
@@ -47,6 +50,28 @@ public static class Controls {
         }
     }
 
+    public static ControlType TakeMedicine {
+        get {
+
+            if (takeMedicine == ControlType.NotAssigned) {
+                Logger.Warning("Control takeMedicine has not been assigned");
+            }
+
+            return takeMedicine;
+        }
+    }
+
+    public static ControlType EjectMedicine {
+        get {
+
+            if (ejectMedicine == ControlType.NotAssigned) {
+                Logger.Warning("Control ejectMedicine has not been assigned");
+            }
+
+            return ejectMedicine;
+        }
+    }
+
     public static ControlType Teleport {
         get {
 
@@ -70,6 +95,10 @@ public static class Controls {
         grab = ControlType.TriggerClick;
         grabInteract = ControlType.PadClick;
         remoteGrab = ControlType.PadClick;
+
+        takeMedicine = ControlType.DPadEast;
+        ejectMedicine = ControlType.DPadWest;
+
         teleport = ControlType.Menu;
     }
 }

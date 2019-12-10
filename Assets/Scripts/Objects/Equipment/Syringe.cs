@@ -45,18 +45,15 @@ public class Syringe : GeneralItem {
     }
 
     public override void Interacting(Hand hand) {
-        // Take medicine
-        bool padClickLeft = VRInput.GetControlDown(hand.HandType, ControlType.DPadWest);
-
-        // Eject medicine
-        bool padClickRight = VRInput.GetControlDown(hand.HandType, ControlType.DPadEast);
+        bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
+        bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
         
-        int amount = 0;
-        if (padClickLeft) amount = -LIQUID_TRANSFER_STEP;
-        if (padClickRight) amount = LIQUID_TRANSFER_STEP;
+        int ejectAmount = 0;
+        if (takeMedicine) ejectAmount = -LIQUID_TRANSFER_STEP;
+        if (ejectMedicine) ejectAmount = LIQUID_TRANSFER_STEP;
 
         // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
-        if (amount == 0) {
+        if (ejectAmount == 0) {
             return;
         }
 
@@ -66,11 +63,11 @@ public class Syringe : GeneralItem {
         }
 
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
-            LuerlockEject(amount);
+            LuerlockEject(ejectAmount);
         } else if (State == InteractState.InBottle) {
-            BottleEject(amount);
+            BottleEject(ejectAmount);
         } else {
-            Eject(amount);
+            Eject(ejectAmount);
         }
     }
 
