@@ -6,7 +6,6 @@ public class HandSmoother : MonoBehaviour {
 
     public Hand Hand { get; set; }
     private Transform target;
-    private Rigidbody rb;
 
     [SerializeField]
     private float force = 10;
@@ -16,12 +15,13 @@ public class HandSmoother : MonoBehaviour {
     [SerializeField]
     private float slowDownFactor = 0.7f;
 
+    private float factorMultiplier = 50;
+
     private bool initMode;
     private Vector3 startPos;
     private float initDistance = 0.02f;
 
     private void Start() {
-        rb = GetComponent<Rigidbody>();
         target = Hand.GetOffset();
     }
 
@@ -42,14 +42,13 @@ public class HandSmoother : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-
+        return;
         if (initMode) {
             return;
         }
 
         if (IsClose) {
             KinematicAccurateMove();
-            SlowDown();
         }
     }
 
@@ -65,18 +64,13 @@ public class HandSmoother : MonoBehaviour {
             return;
         }
 
-        if (!IsClose) {
+        if (IsClose) {
+            KinematicAccurateMove();
+        } else {
             transform.position = Vector3.Lerp(transform.position, target.position, 0.5f);
         }
 
         LerpRotation();
-    }
-
-    private void LateUpdate() {
-
-        if (!IsClose) {
-            Stop();
-        }
     }
 
     private void LerpRotation() {
@@ -84,25 +78,8 @@ public class HandSmoother : MonoBehaviour {
         transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, 0.5f);
     }
 
-    private void AccurateMove() {
-
-        float factor = Vector3.Distance(transform.position, target.position) / distanceLimit;
-
-        Vector3 direction = (target.position - transform.position).normalized;
-
-        rb.AddForce(direction * factor * force);
-    }
     private void KinematicAccurateMove() {
         float factor = Vector3.Distance(transform.position, target.position) / distanceLimit;
-        transform.position = Vector3.Lerp(transform.position, target.position, factor);
-    }
-    private void SlowDown() {
-        rb.velocity = rb.velocity * slowDownFactor;
-        rb.angularVelocity = Vector3.zero;
-    }
-
-    private void Stop() {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        transform.position = Vector3.Lerp(transform.position, target.position, factor * Time.deltaTime * factorMultiplier);
     }
 }
