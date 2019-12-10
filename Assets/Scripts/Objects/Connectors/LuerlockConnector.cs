@@ -76,8 +76,6 @@ public class LuerlockConnector : AttachmentConnector {
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
 
-        obj.up = coll.up;
-
         Vector3 offset = coll.position - luerlockPos.position;
         obj.position += offset;
     }
