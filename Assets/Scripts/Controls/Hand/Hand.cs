@@ -8,9 +8,9 @@ public class Hand : MonoBehaviour {
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
-    private bool IsRemoteGrabbing { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
+    private bool IsRemoteGrabbing { get => !IsGrabbed && VRInput.GetControlDown(HandType, Controls.RemoteGrab); }
 
-    private static float extendedGrabTime = 1.5f;
+    private static float remoteGrabDelay = 0.25f;
     private static float extendedGrabAngle = 30f;
 
     [SerializeField]
@@ -101,7 +101,7 @@ public class Hand : MonoBehaviour {
                 if (pointedObj != null) {
                     remoteGrabPipe = G.Instance.Pipeline
                                     .New()
-                                    .Delay(extendedGrabTime)
+                                    .Delay(remoteGrabDelay)
                                     .TFunc(RemoteGrab, () => pointedObj);
                 }
                 prevPointedObj = pointedObj;

@@ -5,6 +5,7 @@ public static class Controls {
     #region Fields
     private static ControlType grab;
     private static ControlType grabInteract;
+    private static ControlType remoteGrab;
 
     private static ControlType teleport;
 
@@ -35,6 +36,17 @@ public static class Controls {
         }
     }
 
+    public static ControlType RemoteGrab {
+        get {
+
+            if (remoteGrab == ControlType.NotAssigned) {
+                Logger.Warning("Control " + remoteGrab + " has not been assigned");
+            }
+
+            return remoteGrab;
+        }
+    }
+
     public static ControlType Teleport {
         get {
 
@@ -57,6 +69,7 @@ public static class Controls {
     public static void SetDefaultControls() {
         grab = ControlType.TriggerClick;
         grabInteract = ControlType.PadClick;
+        remoteGrab = ControlType.DPadCenter;
         teleport = ControlType.Menu;
     }
 }
