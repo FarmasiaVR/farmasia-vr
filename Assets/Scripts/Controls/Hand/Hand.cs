@@ -126,9 +126,10 @@ public class Hand : MonoBehaviour {
             Logger.Print("No interactable to interact with");
         }
     }
-    public void InteractWith(Interactable interactable) {
 
-        SetOffset(interactable.transform.position, interactable.transform.rotation);
+    public void InteractWith(Interactable interactable, bool setOffset = true) {
+
+        if (setOffset) SetOffset(interactable.transform.position, interactable.transform.rotation);
 
         if (interactable.Type == InteractableType.Grabbable) {
             Smooth.StartGrab();

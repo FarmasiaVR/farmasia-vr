@@ -46,12 +46,14 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
-        Transform handOffset = target.GetComponent<Hand>()?.Smooth.transform;
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth.transform;
         target = handOffset ?? target;
 
         connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
 
-        otherHand.InteractWith(otherItem);
+        otherHand.InteractWith(otherItem, false);
     }
 
     public static void GrabNeedleWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
@@ -73,7 +75,7 @@ public static class ConnectionHandler {
 
         connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
 
-        otherHand.InteractWith(otherItem);
+        otherHand.InteractWith(otherItem, false);
     }
     #endregion
 
@@ -81,7 +83,7 @@ public static class ConnectionHandler {
     // Verify for Luerlock/Needle
     public static void ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(LuerlockAdapter luerlock) {
 
-        Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
+        Logger.Print("Release luerlock when luerlock attached item is grabbed");
 
         Interactable otherInteractable = null;
 
@@ -93,7 +95,7 @@ public static class ConnectionHandler {
 
         Hand otherHand = Hand.GrabbingHand(otherInteractable);
         otherHand.Connector.Connection.Remove();
-        otherHand.InteractWith(otherInteractable);
+        otherHand.InteractWith(otherInteractable, false);
     }
     public static void ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(Needle needle) {
 
@@ -103,7 +105,7 @@ public static class ConnectionHandler {
 
         Hand otherHand = Hand.GrabbingHand(otherInteractable);
         otherHand.Connector.Connection.Remove();
-        otherHand.InteractWith(otherInteractable);
+        otherHand.InteractWith(otherInteractable, false);
     }
 
     public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {

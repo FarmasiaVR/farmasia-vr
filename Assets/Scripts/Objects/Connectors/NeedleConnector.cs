@@ -34,14 +34,8 @@ public class NeedleConnector : AttachmentConnector {
 
         ReplaceObject(interactable?.gameObject);
 
-        // RETHINK
         if (itemGrabbed) {
-            Vector3 pos = itemHand.GetOffset().position;
-            Quaternion rot = itemHand.GetOffset().rotation;
-
-            itemHand.InteractWith(interactable);
-
-            itemHand.SetOffset(pos, rot);
+            itemHand.InteractWith(interactable, false);
         }
     }
 
