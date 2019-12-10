@@ -56,9 +56,6 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateControls() {
-        if (VRInput.GetControlDown(HandType, ControlType.Grip)) {
-            HintBox.CreateHint("TEst hin");
-        }
 
         // Grabbing
         if (VRInput.GetControlDown(HandType, Controls.Grab)) {

@@ -22,8 +22,6 @@ public class Syringe : GeneralItem {
     private GameObject syringeCap;
     public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
-    private float swipeTime;
-
     public LiquidContainer BottleContainer { get; set; }
 
     public bool hasBeenInBottle;
@@ -46,12 +44,11 @@ public class Syringe : GeneralItem {
         syringeCap.SetActive(false);
     }
 
-    public override void Interact(Hand hand) {
-        swipeTime = SWIPE_DEFAULT_TIME;
-    }
-
     public override void Interacting(Hand hand) {
+        // Take medicine
         bool padClickLeft = VRInput.GetControlDown(hand.HandType, ControlType.DPadWest);
+
+        // Eject medicine
         bool padClickRight = VRInput.GetControlDown(hand.HandType, ControlType.DPadEast);
         
         int amount = 0;
@@ -92,7 +89,7 @@ public class Syringe : GeneralItem {
 
         Syringe leftSyringe = (Syringe)pair.Value.LeftConnector.AttachedInteractable;
         Syringe rightSyringe = (Syringe)pair.Value.RightConnector.AttachedInteractable;
-        bool invert = (pair.Key == 0) == (amount < 0);
+        bool invert = (pair.Key == 0) != (amount < 0);
 
         Syringe srcSyringe = invert ? rightSyringe : leftSyringe;
         Syringe dstSyringe = invert ? leftSyringe : rightSyringe;
