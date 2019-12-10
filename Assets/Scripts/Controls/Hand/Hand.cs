@@ -8,7 +8,7 @@ public class Hand : MonoBehaviour {
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
-    private bool IsRemoteGrabbing { get => !IsGrabbed && VRInput.GetControlDown(HandType, Controls.RemoteGrab); }
+    private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
 
     private static float remoteGrabDelay = 0.25f;
     private static float extendedGrabAngle = 30f;
@@ -85,7 +85,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (IsRemoteGrabbing) {
+        if (IsTryingToGrab) {
             extendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
             extendedHandCollider.UnhighlightPrevious();
@@ -94,24 +94,15 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateRemoteGrab() {
-        if (IsRemoteGrabbing) {
+        if (IsTryingToGrab) {
             GameObject pointedObj = extendedHandCollider.GetPointedObject(extendedGrabAngle);
-            if (pointedObj != prevPointedObj) {
-                remoteGrabPipe?.Abort();
-                if (pointedObj != null) {
-                    remoteGrabPipe = G.Instance.Pipeline
-                                    .New()
-                                    .Delay(remoteGrabDelay)
-                                    .TFunc(RemoteGrab, () => pointedObj);
-                }
-                prevPointedObj = pointedObj;
+            
+            if (pointedObj != null && VRInput.GetControl(HandType, Controls.RemoteGrab)) {
+                RemoteGrab(pointedObj);
             }
-        } else {
-            prevPointedObj = null;
-            remoteGrabPipe?.Abort();
-            remoteGrabPipe = null;
         }
     }
+    
 
     #region Interaction
     public void Interact() {
