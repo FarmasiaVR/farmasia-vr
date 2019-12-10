@@ -51,15 +51,11 @@ public class LuerlockConnector : AttachmentConnector {
         // Move to ConnectionHandler?
         // Add new connections
         if (luerlockGrabbed) {
-            luerlockHand.InteractWith(GeneralItem);
+            luerlockHand.InteractWith(GeneralItem, false);
+            luerlockHand.Smooth.DisableInitMode();
         }
         if (itemGrabbed) {
-            Vector3 pos = itemHand.GetOffset().position;
-            Quaternion rot = itemHand.GetOffset().rotation;
-
-            itemHand.InteractWith(interactable);
-
-            itemHand.SetOffset(pos, rot);
+            itemHand.InteractWith(interactable, false);
         }
 
         ((Syringe)AttachedInteractable).EnableDisplay();

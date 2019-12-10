@@ -5,15 +5,13 @@ using UnityEngine;
 public class HandSmoother : MonoBehaviour {
 
     public Hand Hand { get; set; }
-    private Transform target;
+    private Transform handOffset;
 
     [SerializeField]
     private float force = 10;
 
     [SerializeField]
     private float distanceLimit = 0.02f;
-    [SerializeField]
-    private float slowDownFactor = 0.7f;
 
     private float factorMultiplier = 50;
 
@@ -22,12 +20,12 @@ public class HandSmoother : MonoBehaviour {
     private float initDistance = 0.02f;
 
     private void Start() {
-        target = Hand.GetOffset();
+        handOffset = Hand.GetOffset();
     }
 
     private float Distance {
         get {
-            return Vector3.Distance(transform.position, target.position);
+            return Vector3.Distance(transform.position, handOffset.position);
         }
     }
     private bool IsClose {
@@ -38,18 +36,11 @@ public class HandSmoother : MonoBehaviour {
 
     public void StartGrab() {
         initMode = true;
-        startPos = target.position;
+        startPos = handOffset.position;
     }
 
-    private void FixedUpdate() {
-        return;
-        if (initMode) {
-            return;
-        }
-
-        if (IsClose) {
-            KinematicAccurateMove();
-        }
+    public void DisableInitMode() {
+        initMode = false;
     }
 
     private void Update() {
@@ -64,22 +55,16 @@ public class HandSmoother : MonoBehaviour {
             return;
         }
 
-        if (IsClose) {
-            KinematicAccurateMove();
-        } else {
-            transform.position = Vector3.Lerp(transform.position, target.position, 0.5f);
-        }
-
-        LerpRotation();
+        LerpMove();
+        LerpRotate();
     }
 
-    private void LerpRotation() {
-        // FRAMERATE DEPENDENT
-        transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, 0.5f);
+    private void LerpRotate() {
+        transform.rotation = Quaternion.Lerp(transform.rotation, handOffset.rotation, 0.5f * Time.deltaTime * factorMultiplier);
     }
 
-    private void KinematicAccurateMove() {
-        float factor = Vector3.Distance(transform.position, target.position) / distanceLimit;
-        transform.position = Vector3.Lerp(transform.position, target.position, factor * Time.deltaTime * factorMultiplier);
+    private void LerpMove() {
+        float factor = Vector3.Distance(transform.position, handOffset.position) / distanceLimit;
+        transform.position = Vector3.Lerp(transform.position, handOffset.position, factor * Time.deltaTime * factorMultiplier);
     }
 }
