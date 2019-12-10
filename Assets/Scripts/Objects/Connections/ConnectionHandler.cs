@@ -95,6 +95,16 @@ public static class ConnectionHandler {
         otherHand.Connector.Connection.Remove();
         otherHand.InteractWith(otherInteractable);
     }
+    public static void ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(Needle needle) {
+
+        Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
+
+        Interactable otherInteractable = needle.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable);
+    }
 
     public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {
 
