@@ -192,6 +192,11 @@ public class HandConnector : ItemConnector {
                 Logger.Print("object count was 1");
                 ConnectionHandler.ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(luerlock);
             }
+        } else if (GrabbedInteractable as Needle is var needle && needle != null) {
+            Logger.Print("Releasing needle");
+            if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                ConnectionHandler.ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(needle);
+            }
         }
     }
     #endregion
