@@ -23,6 +23,7 @@ public class MenuButton : Interactable {
             menu.Close();
         } else {
             changer.SwapScene(scene);
+            changer.FadeOutScene();
         }
 
     }

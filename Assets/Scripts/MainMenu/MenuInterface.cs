@@ -5,11 +5,7 @@ public class MenuInterface : MonoBehaviour {
 
     [SerializeField]
     private GameObject menuContainer;
-
-
-
     private Hand hand;
-    private VRPadClick click;
 
     public bool Visible => menuContainer.activeSelf;
 
