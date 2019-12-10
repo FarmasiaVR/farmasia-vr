@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SpringJointConnection : ItemConnection {
+public class JointConnection : ItemConnection {
 
     #region Fields
     protected override ItemConnector Connector { get; set; }
@@ -10,18 +10,11 @@ public class SpringJointConnection : ItemConnection {
     private Interactable interactable;
     private Joint joint;
 
-    private float speedMultiplier = 0.85f;
-    private float speedMultiplierDistanceLimit = 0.05f;
-    private float closeForce = 50;
-
-    private Vector3 lastPos;
-    private Vector3 lastAngles;
     #endregion
 
     private void Awake() {
         interactable = GetComponent<Interactable>();
         rb = interactable.Rigidbody;
-        rb.useGravity = false;
     }
 
     private void SetJoint() {
@@ -33,25 +26,6 @@ public class SpringJointConnection : ItemConnection {
         OnRemoveConnection();
     }
 
-    protected void FixedUpdate() {
-        AddAdditionalForces();
-        rb.velocity = rb.velocity * speedMultiplier;
-        rb.angularVelocity = Vector3.zero;
-    }
-
-    private void AddAdditionalForces() {
-        float distance = Vector3.Distance(transformTarget.position, transform.position);
-
-        if (distance > speedMultiplierDistanceLimit) {
-            return;
-        }
-
-        float factor = distance / speedMultiplierDistanceLimit;
-
-        Vector3 direction = (transformTarget.position - transform.position).normalized;
-
-        rb.AddForce(direction * closeForce * factor);
-    }
 
     protected override void Update() {
         base.Update();
@@ -59,16 +33,9 @@ public class SpringJointConnection : ItemConnection {
         transform.rotation = Quaternion.Lerp(transform.rotation, transformTarget.rotation, 0.5f);
     }
 
-    private void LateUpdate() {
-        lastPos = transform.position;
-        lastAngles = transform.eulerAngles;
-    }
-
     protected override void OnRemoveConnection() {
 
         Logger.Print("Removing SpringJointConnection from " + transform.name);
-
-        rb.useGravity = true;
 
         SetVelocity();
 
@@ -82,10 +49,10 @@ public class SpringJointConnection : ItemConnection {
         }
     }
 
-    public static SpringJointConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
+    public static JointConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
         Rigidbody targetRB = GetTargetRigidbody(target);
 
-        SpringJointConnection conn = addTo.gameObject.AddComponent<SpringJointConnection>();
+        JointConnection conn = addTo.gameObject.AddComponent<JointConnection>();
 
         conn.Connector = connector;
         conn.target = targetRB;
@@ -106,6 +73,10 @@ public class SpringJointConnection : ItemConnection {
 
         if (target.parent != null && target.parent.GetComponent<Hand>() != null) {
             return target.parent.GetComponent<Rigidbody>();
+        }
+
+        if (target.GetComponent<HandSmoother>() != null) {
+            return target.GetComponent<Rigidbody>();
         }
 
         throw new System.Exception("No target rigidbody found: " + target.name);

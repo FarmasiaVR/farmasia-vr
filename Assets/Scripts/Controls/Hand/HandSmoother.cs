@@ -8,9 +8,13 @@ public class HandSmoother : MonoBehaviour {
     private Transform target;
     private Rigidbody rb;
 
-    private float force;
-    private float distanceLimit = 0.1f;
-    private float slowDownFactor = 0.85f;
+    [SerializeField]
+    private float force = 10;
+
+    [SerializeField]
+    private float distanceLimit = 0.02f;
+    [SerializeField]
+    private float slowDownFactor = 0.7f;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
@@ -28,11 +32,16 @@ public class HandSmoother : MonoBehaviour {
             AccurateMove();
             SlowDown();
         } else {
-            Stop();
+            SlowDown();
         }
     }
 
     private void Update() {
+
+        if (!IsClose) {
+            transform.position = Vector3.Lerp(transform.position, target.position, 0.5f);
+        }
+
         LerpRotation();
     }
     private void LerpRotation() {

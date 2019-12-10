@@ -33,8 +33,8 @@ public abstract class ItemConnection : MonoBehaviour {
     public static LuerlockLooseItemConnection AddLuerlockLooseItemConnection(ItemConnector connector, Transform target, Interactable addTo) {
         return LuerlockLooseItemConnection.Configuration(connector, target, addTo);
     }
-    public static SpringJointConnection AddSpringJointConnection(ItemConnector connector, Transform target, Interactable addTo) {
-        return SpringJointConnection.Configuration(connector, target, addTo);
+    public static JointConnection AddSpringJointConnection(ItemConnector connector, Transform target, Interactable addTo) {
+        return JointConnection.Configuration(connector, target, addTo);
     }
     #endregion
 }

@@ -117,7 +117,7 @@ public class HandConnector : ItemConnector {
                     ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
                 } else {
                     Logger.Print("Luerlock does not have items");
-                    ConnectionHandler.GrabItem(this, Hand.Offset, luerlock);
+                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, luerlock);
                 }
             } else if (generalItem.ObjectType == ObjectType.Needle) {
                 Needle needle = generalItem as Needle;
@@ -127,15 +127,15 @@ public class HandConnector : ItemConnector {
                     ConnectionHandler.GrabNeedleWhenAttachedItemIsGrabbed(this, Hand.transform, needle);
                 } else {
                     Logger.Print("Needle does not have item");
-                    ConnectionHandler.GrabItem(this, Hand.Offset, needle);
+                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, needle);
                 }
             } else {
                 Logger.Print("Regular grab item");
-                ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
+                ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
             }
         } else {
             Logger.Print("Regular grab item");
-            ConnectionHandler.GrabItem(this, Hand.Offset, interactable);
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
         }
 
         Logger.Print("EndIf---------------------------------------------");

@@ -48,9 +48,11 @@ public class Hand : MonoBehaviour {
         Assert.IsNotNull(other, "Other hand was null");
         Offset = transform.Find("Offset");
 
-        GameObject handSmooth = Resources.Load<GameObject>("HandSmoother");
+        GameObject handSmooth = Instantiate(Resources.Load<GameObject>("Prefabs/HandSmoother"));
         Smooth = handSmooth.GetComponent<HandSmoother>();
         Smooth.Hand = this;
+
+        Logger.Print("smooth: " + handSmooth.name);
     }
 
     private void Update() {
