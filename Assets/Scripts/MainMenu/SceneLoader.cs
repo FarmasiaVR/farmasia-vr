@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour {
     public void SwapScene(SceneTypes type) {
         switch (type) {
             case SceneTypes.MainMenu:
+                ChangeScene("MainMenu");
                 break;
             case SceneTypes.MedicinePreparation:
                 ChangeScene("MedicinePreparation");

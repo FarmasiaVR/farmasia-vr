@@ -14,12 +14,14 @@ public class MenuInterface : MonoBehaviour {
     }
 
     private void Start() {
-        hand = GameObject.FindGameObjectWithTag("ControllerLeft")?.GetComponent<Hand>();
+        hand = GameObject.FindGameObjectWithTag("Controller (Left)")?.GetComponent<Hand>();
     }
 
     private void Update() {
         if (hand != null && VRInput.GetControlDown(hand.HandType, ControlType.Menu)) {
             Close();
+        } else if (hand == null) {
+            Logger.Warning("Hand is Null!");
         }
     }
 }
