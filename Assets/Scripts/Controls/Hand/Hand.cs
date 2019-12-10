@@ -128,12 +128,13 @@ public class Hand : MonoBehaviour {
     }
 
     public void InteractWith(Interactable interactable, bool setOffset = true) {
-
         if (setOffset) SetOffset(interactable.transform.position, interactable.transform.rotation);
 
         if (interactable.Type == InteractableType.Grabbable) {
             Smooth.StartGrab();
             Connector.ConnectItem(interactable);
+            interactedInteractable = interactable;
+            interactedInteractable.InteractOnce(this);
             Events.FireEvent(EventType.GrabObject, CallbackData.Object(this));
         } else if (interactable.Type == InteractableType.Interactable) {
             interactedInteractable = interactable;
@@ -145,6 +146,8 @@ public class Hand : MonoBehaviour {
     public void Uninteract() {
         if (IsGrabbed) {
             Connector.Connection.Remove();
+            interactedInteractable.UninteractOnce(this);
+            interactedInteractable = null;
             Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
         } else if (interactedInteractable != null) {
             interactedInteractable.Uninteract(this);

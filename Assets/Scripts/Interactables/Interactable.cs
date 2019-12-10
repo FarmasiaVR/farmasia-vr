@@ -23,6 +23,8 @@ public class Interactable : MonoBehaviour {
         }
     }
 
+    public bool IsInteracting;
+
     // CAN'T BE A PROPERTY
     public Interactors Interactors;
     #endregion
@@ -42,7 +44,13 @@ public class Interactable : MonoBehaviour {
 
     public virtual void Interact(Hand hand) {}
     public virtual void Interacting(Hand hand) {}
+    public virtual void InteractOnce(Hand hand) {
+        IsInteracting = true;
+    }
     public virtual void Uninteract(Hand hand) {}
+    public virtual void UninteractOnce(Hand hand) {
+        IsInteracting = false;
+    }
 
     public static Interactable GetInteractable(Transform t) {
         return GetInteractableObject(t)?.GetComponent<Interactable>();

@@ -49,8 +49,9 @@ public class Syringe : GeneralItem {
         syringeCap.SetActive(false);
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
+        displayState = false;
     }
-
+    /*
     private void Update() {
         if (DisplayIsHanging()) {
             DestroyDisplay();
@@ -58,6 +59,8 @@ public class Syringe : GeneralItem {
     }
 
     private bool DisplayIsHanging() {
+        if (!displayState) return false;
+
         if (State != InteractState.Grabbed && State != InteractState.LuerlockAttached) {
             Logger.Print("Removing display: State != Grabbed && State != LuerlockAttached");
             return true;
@@ -68,7 +71,7 @@ public class Syringe : GeneralItem {
 
         return false;
     }
-
+    */
     public void EnableDisplay() {
         if (displayState) {
             Logger.Print("Current display not null, returning: " + currentDisplay);
@@ -83,21 +86,18 @@ public class Syringe : GeneralItem {
         EnableForOtherSyringeDisplay();
     }
 
-    public void DestroyDisplay() {
-
-        if (State == InteractState.LuerlockAttached) {
-            if (Interactors.LuerlockPair.Value.ObjectCount == 1) {
-                if (currentDisplay != null) {
-                    Destroy(currentDisplay);
-                    displayState = false;
-                }
-            }
-        } else {
-            if (currentDisplay != null) {
-                Destroy(currentDisplay);
-                displayState = false;
-            }
+    public void DisableDisplay() {
+        if (State != InteractState.LuerlockAttached && State != InteractState.Grabbed) {
+            DestroyDisplay();
         }
+    }
+
+    public void DestroyDisplay() {
+        if (currentDisplay != null) {
+            Destroy(currentDisplay);
+        }
+
+        displayState = false;
     }
 
     private void EnableForOtherSyringeDisplay() {
@@ -107,12 +107,20 @@ public class Syringe : GeneralItem {
         }
     }
 
-
-
-
-    public override void Interacting(Hand hand) {
+    public override void InteractOnce(Hand hand) {
+        base.InteractOnce(hand);
 
         EnableDisplay();
+    }
+
+    public override void UninteractOnce(Hand hand) {
+        base.UninteractOnce(hand);
+
+        DisableDisplay();
+    }
+
+    public override void Interacting(Hand hand) {
+        base.Interacting(hand);
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
