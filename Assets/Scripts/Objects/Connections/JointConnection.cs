@@ -23,7 +23,7 @@ public class JointConnection : ItemConnection {
     }
 
     private void OnJointBreak(float force) {
-        OnRemoveConnection();
+        Remove();
     }
 
 
