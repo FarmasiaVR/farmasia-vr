@@ -194,7 +194,7 @@ public class HandConnector : ItemConnector {
             }
         } else if (GrabbedInteractable as Needle is var needle && needle != null) {
             Logger.Print("Releasing needle");
-            if (needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+            if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
                 ConnectionHandler.ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(needle);
             }
         }
