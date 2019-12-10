@@ -6,7 +6,7 @@ public static class ConnectionHandler {
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
         Logger.Print("Grab item");
-        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
     }
 
 
@@ -50,7 +50,7 @@ public static class ConnectionHandler {
         Transform handOffset = smooth.transform;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
         smooth?.DisableInitMode();
 
         otherHand.InteractWith(otherItem, false);
@@ -74,7 +74,7 @@ public static class ConnectionHandler {
         Transform handOffset = smooth?.transform;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
         smooth?.DisableInitMode();
 
         otherHand.InteractWith(otherItem, false);

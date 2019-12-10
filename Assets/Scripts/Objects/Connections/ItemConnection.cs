@@ -33,7 +33,7 @@ public abstract class ItemConnection : MonoBehaviour {
     public static LuerlockLooseItemConnection AddLuerlockLooseItemConnection(ItemConnector connector, Transform target, Interactable addTo) {
         return LuerlockLooseItemConnection.Configuration(connector, target, addTo);
     }
-    public static JointConnection AddSpringJointConnection(ItemConnector connector, Transform target, Interactable addTo) {
+    public static JointConnection AddJointConnection(ItemConnector connector, Transform target, Interactable addTo) {
         return JointConnection.Configuration(connector, target, addTo);
     }
     #endregion
