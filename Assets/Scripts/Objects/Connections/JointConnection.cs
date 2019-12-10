@@ -60,6 +60,8 @@ public class JointConnection : ItemConnection {
 
         conn.SetJoint();
 
+        Logger.Print("Creating JointConnection to " + conn.transform.name + ", attached to " + targetRB.name);
+
         return conn;
     }
 

@@ -46,7 +46,7 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
-        Transform handOffset = target.GetComponent<Hand>()?.Offset;
+        Transform handOffset = target.GetComponent<Hand>()?.Smooth.transform;
         target = handOffset ?? target;
 
         connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);
@@ -68,7 +68,7 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
-        Transform handOffset = target.GetComponent<Hand>()?.Offset;
+        Transform handOffset = target.GetComponent<Hand>()?.Smooth.transform;
         target = handOffset ?? target;
 
         connector.Connection = ItemConnection.AddSpringJointConnection(connector, target, addTo);

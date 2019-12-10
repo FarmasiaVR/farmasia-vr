@@ -54,13 +54,12 @@ public class LuerlockConnector : AttachmentConnector {
             luerlockHand.InteractWith(GeneralItem);
         }
         if (itemGrabbed) {
-            Vector3 pos = itemHand.Offset.position;
-            Quaternion rot = itemHand.Offset.rotation;
+            Vector3 pos = itemHand.GetOffset().position;
+            Quaternion rot = itemHand.GetOffset().rotation;
 
             itemHand.InteractWith(interactable);
 
-            itemHand.Offset.position = pos;
-            itemHand.Offset.rotation = rot;
+            itemHand.SetOffset(pos, rot);
         }
     }
 

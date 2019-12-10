@@ -18,7 +18,7 @@ public class HandSmoother : MonoBehaviour {
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        target = Hand.Offset;
+        target = Hand.GetOffset();
     }
 
     private bool IsClose {
@@ -29,9 +29,7 @@ public class HandSmoother : MonoBehaviour {
 
     private void FixedUpdate() {
         if (IsClose) {
-            AccurateMove();
-            SlowDown();
-        } else {
+            KinematicAccurateMove();
             SlowDown();
         }
     }
@@ -44,6 +42,13 @@ public class HandSmoother : MonoBehaviour {
 
         LerpRotation();
     }
+
+    private void LateUpdate() {
+        if (!IsClose) {
+            Stop();
+        }
+    }
+
     private void LerpRotation() {
         // FRAMERATE DEPENDENT
         transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, 0.5f);
@@ -56,6 +61,10 @@ public class HandSmoother : MonoBehaviour {
         Vector3 direction = (target.position - transform.position).normalized;
 
         rb.AddForce(direction * factor * force);
+    }
+    private void KinematicAccurateMove() {
+        float factor = Vector3.Distance(transform.position, target.position) / distanceLimit;
+        transform.position = Vector3.Lerp(transform.position, target.position, factor);
     }
     private void SlowDown() {
         rb.velocity = rb.velocity * slowDownFactor;

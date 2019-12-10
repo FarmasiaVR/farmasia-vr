@@ -64,8 +64,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
             (parentItem as Needle).Connector.Connection.Remove();
         }
 
-        interactable.transform.position = hand.Offset.position;
-        interactable.transform.rotation = hand.Offset.rotation;
+        interactable.transform.position = hand.Smooth.transform.position;
+        interactable.transform.rotation = hand.Smooth.transform.rotation;
 
         Logger.Print("Hand reinteract -> Changing from LuerlockLooseItemConnection to regular: " + interactable.name);
         hand.InteractWith(interactable);

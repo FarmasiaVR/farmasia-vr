@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Valve.VR;
 
@@ -33,7 +34,7 @@ public class Hand : MonoBehaviour {
     private Hand other;
     public Hand Other { get => other; }
 
-    public Transform Offset { get; private set; }
+    private Transform offset;
     public Vector3 ColliderPosition { get => handCollider.transform.position; }
     #endregion
 
@@ -46,7 +47,7 @@ public class Hand : MonoBehaviour {
         Assert.IsFalse(HandType == SteamVR_Input_Sources.Any, "Invalid hand type");
         Assert.IsNotNull(handCollider, "Missing HandCollider component");
         Assert.IsNotNull(other, "Other hand was null");
-        Offset = transform.Find("Offset");
+        offset = transform.Find("Offset");
 
         GameObject handSmooth = Instantiate(Resources.Load<GameObject>("Prefabs/HandSmoother"));
         Smooth = handSmooth.GetComponent<HandSmoother>();
@@ -85,6 +86,8 @@ public class Hand : MonoBehaviour {
             }
         }
     }
+
+    
 
     private void UpdateHighlight() {
         if (!useHighlighting || IsGrabbed) {
@@ -125,8 +128,8 @@ public class Hand : MonoBehaviour {
     }
     public void InteractWith(Interactable interactable) {
 
-        Offset.position = interactable.transform.position;
-        Offset.rotation = interactable.transform.rotation;
+        offset.position = interactable.transform.position;
+        offset.rotation = interactable.transform.rotation;
 
         if (interactable.Type == InteractableType.Grabbable) {
             Connector.ConnectItem(interactable);
@@ -235,5 +238,13 @@ public class Hand : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public void SetOffset(Vector3 pos, Quaternion rot) {
+        offset.position = pos;
+        offset.rotation = rot;
+    }
+    public Transform GetOffset() {
+        return offset;
     }
 }
