@@ -70,6 +70,7 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
         Logger.Print("Hand reinteract -> Changing from LuerlockLooseItemConnection to regular: " + interactable.name);
         hand.InteractWith(interactable, false);
+        hand.Smooth.DisableInitMode();
     }
 
     public static LuerlockLooseItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
