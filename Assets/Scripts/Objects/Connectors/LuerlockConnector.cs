@@ -61,6 +61,8 @@ public class LuerlockConnector : AttachmentConnector {
 
             itemHand.SetOffset(pos, rot);
         }
+
+        ((Syringe)AttachedInteractable).EnableDisplay();
     }
 
     protected override void SetInteractors() {

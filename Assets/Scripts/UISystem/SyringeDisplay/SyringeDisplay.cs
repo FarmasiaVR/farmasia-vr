@@ -19,7 +19,7 @@ public class SyringeDisplay : MonoBehaviour {
     private const string VOLUME = "ml";
     #endregion
 
-    public void setFollowedObject(GameObject follow) {
+    public void SetFollowedObject(GameObject follow) {
         followedObject = follow;
         syringe = followedObject.GetComponent<Syringe>();
         container = syringe.Container;
