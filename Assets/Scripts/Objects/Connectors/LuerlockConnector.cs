@@ -80,6 +80,7 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
+        AudioManager.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);
