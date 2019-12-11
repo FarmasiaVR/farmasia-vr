@@ -44,11 +44,11 @@ public class Interactable : MonoBehaviour {
 
     public virtual void Interact(Hand hand) {}
     public virtual void Interacting(Hand hand) {}
-    public virtual void InteractOnce(Hand hand) {
+    public virtual void OnGrabStart(Hand hand) {
         IsInteracting = true;
     }
     public virtual void Uninteract(Hand hand) {}
-    public virtual void UninteractOnce(Hand hand) {
+    public virtual void OnGrabEnd(Hand hand) {
         IsInteracting = false;
     }
 

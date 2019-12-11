@@ -107,14 +107,14 @@ public class Syringe : GeneralItem {
         }
     }
 
-    public override void InteractOnce(Hand hand) {
-        base.InteractOnce(hand);
+    public override void OnGrabStart(Hand hand) {
+        base.OnGrabStart(hand);
 
         EnableDisplay();
     }
 
-    public override void UninteractOnce(Hand hand) {
-        base.UninteractOnce(hand);
+    public override void OnGrabEnd(Hand hand) {
+        base.OnGrabEnd(hand);
 
         DisableDisplay();
     }
