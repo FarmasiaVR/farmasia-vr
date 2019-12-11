@@ -10,7 +10,7 @@ public static class Controls {
     private static ControlType takeMedicine;
     private static ControlType ejectMedicine;
 
-    private static ControlType teleport;
+    private static ControlType menu;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
 
@@ -72,14 +72,14 @@ public static class Controls {
         }
     }
 
-    public static ControlType Teleport {
+    public static ControlType Menu {
         get {
 
-            if (teleport == ControlType.NotAssigned) {
+            if (menu == ControlType.NotAssigned) {
                 Logger.Warning("Control teleport has not been assigned");
             }
 
-            return teleport;
+            return menu;
         }
     }
 
@@ -99,6 +99,6 @@ public static class Controls {
         takeMedicine = ControlType.DPadEast;
         ejectMedicine = ControlType.DPadWest;
 
-        teleport = ControlType.Menu;
+        menu = ControlType.Menu;
     }
 }

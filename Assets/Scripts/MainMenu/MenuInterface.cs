@@ -18,7 +18,7 @@ public class MenuInterface : MonoBehaviour {
     }
 
     private void Update() {
-        if (hand != null && VRInput.GetControlDown(hand.HandType, ControlType.Menu)) {
+        if (hand != null && VRInput.GetControlDown(hand.HandType, Controls.Menu)) {
             Close();
         } else if (hand == null) {
             Logger.Warning("Hand is Null!");
