@@ -16,13 +16,13 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
+        if (interactable.State == InteractState.Grabbed) {
+            var handType = Hand.GrabbingHand(interactable).HandType;
+            Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
 
-        var handType = Hand.GrabbingHand(interactable).HandType;
-        Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
-
-        luerlockRB.velocity = VRInput.Skeleton(handType).velocity;
-        luerlockRB.angularVelocity = VRInput.Skeleton(handType).angularVelocity;
-
+            luerlockRB.velocity = VRInput.Skeleton(handType).velocity;
+            luerlockRB.angularVelocity = VRInput.Skeleton(handType).angularVelocity;
+        }
         Destroy(joint);
     }
 
