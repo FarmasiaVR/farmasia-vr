@@ -75,9 +75,7 @@ public class ItemsToSterileBag : TaskBase {
             }
             bool check = CheckClearConditions(true);
             if (!check) {
-                UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei pakattu steriiliin pussiin.", MsgType.Mistake);
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
-                base.FinishTask();
+                FinishTask();
             }
         } else {
             if (filledSyringesInCabinet == filledSyringesInBag) {
@@ -124,7 +122,7 @@ public class ItemsToSterileBag : TaskBase {
                 }
             }
         }
-        if (count == 6) {
+        if (count == sterileBag.objectsInBag.Count) {
             return true; 
         }
         return false;
@@ -133,13 +131,30 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        if (CapsOnSyringes()) {
-            UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+        if (sterileBag.objectsInBag.Count >= 6) {
+            if (CapsOnSyringes()) {
+                if (!TaskMovedToSide) {
+                    UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+                }
+            } else {
+                if (!TaskMovedToSide) {
+                    UISystem.Instance.CreatePopup(1, "Pakattiin oikea määrä ruiskuja mutta kaikissa ei ollut korkkia.", MsgType.Mistake); 
+                }
+                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+            } 
         } else {
-            UISystem.Instance.CreatePopup(1, "Kaikissa ruiskuissa ei ollut korkkia.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+            if (sterileBag.objectsInBag.Count > 0 && CapsOnSyringes()) {
+                if (!TaskMovedToSide) {
+                    UISystem.Instance.CreatePopup(1, "Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin.", MsgType.Mistake);
+                }
+                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+            } else {
+                if (!TaskMovedToSide) {
+                    UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin ja kaikissa pakatuissa ruiskuissa ei ollut korkkia.", MsgType.Mistake);
+                }
+                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
+            }
         }
-        
         base.FinishTask();
     }
 

@@ -42,7 +42,7 @@ public class SterileBag : GeneralItem {
         if (!objectsInBag.Contains(foundObject)) {
             objectsInBag.Add(foundObject);
             Events.FireEvent(EventType.SterileBag, CallbackData.Object(objectsInBag));
-            item.DestroyInteractable();
+            //item.DestroyInteractable();
             
             if (!item.IsClean) {
                 IsSterile = false;
