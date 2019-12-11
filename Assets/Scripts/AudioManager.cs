@@ -5,8 +5,7 @@ using UnityEngine;
 public enum AudioClipType {
     LockedItem,
     MistakeMessage,
-    TaskCompletedBeep,
-    Diu
+    TaskCompletedBeep
 }
 
 public class AudioManager {
@@ -52,9 +51,6 @@ public class AudioManager {
                 break;
             case AudioClipType.TaskCompletedBeep:
                 clip = Resources.Load<AudioClip>(audioFileLocation + "Task_completed_beep1");
-                break;
-            case AudioClipType.Diu:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Minus_point");
                 break;
         }
 
