@@ -52,6 +52,9 @@ public class NeedleConnector : AttachmentConnector {
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
 
+        Vector3 pivot = Vector3.Cross(coll.up, obj.up);
+        obj.Rotate(pivot, -Vector3.SignedAngle(coll.up, obj.up, pivot), Space.World);
+
         Vector3 offset = coll.position - luerlockPos.position;
         GeneralItem.transform.position -= offset;
     }
