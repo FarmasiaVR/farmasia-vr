@@ -23,6 +23,7 @@ public class ItemSpawner : MonoBehaviour {
         GeneralItem item = (GeneralItem) data.DataObject;
         if (item.gameObject == currentObject || currentObject == null) {
             currentObject = Instantiate(copy, transform.position, transform.rotation);
+            currentObject.GetComponent<GeneralItem>().IsClean = true;
         }
     }
 }
