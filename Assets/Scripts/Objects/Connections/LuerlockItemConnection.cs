@@ -7,6 +7,7 @@ public class LuerlockItemConnection : ItemConnection {
     protected override ItemConnector Connector { get; set; }
     private Transform target;
     private Joint joint;
+    private Interactable interactable;
     #endregion
 
     private void JointBreak(float force) {
@@ -15,6 +16,13 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
+
+        var handType = Hand.GrabbingHand(interactable).HandType;
+        Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
+
+        luerlockRB.velocity = VRInput.Skeleton(handType).velocity;
+        luerlockRB.angularVelocity = VRInput.Skeleton(handType).angularVelocity;
+
         Destroy(joint);
     }
 
@@ -40,6 +48,7 @@ public class LuerlockItemConnection : ItemConnection {
 
         conn.Connector = connector;
         conn.target = hand;
+        conn.interactable = interactable;
 
         Joint joint = JointConfiguration.AddJoint(handRB.gameObject, luerlockRB.mass);
         joint.connectedBody = luerlockRB;
