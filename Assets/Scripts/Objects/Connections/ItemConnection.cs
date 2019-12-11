@@ -20,10 +20,6 @@ public abstract class ItemConnection : MonoBehaviour {
     }
 
     #region Static methods
-    // Rename RigidConnection and replace with future SpringJointConnection, rigid connection is the basic connection type to use
-    public static ItemConnection AddDeprecatedRigidConnection(ItemConnector connector, Transform target, Interactable addTo) {
-        return RigidConnection.Configuration(connector, target, addTo);
-    }
     public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, Interactable addTo) {
         return ChildConnection.Configuration(connector, target, addTo);
     }

@@ -5,13 +5,11 @@ public static class ConnectionHandler {
 
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
-        Logger.Print("Grab item");
         connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
     }
 
 
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
-        Logger.Print("Grab luerlock item");
         connector.Connection = ItemConnection.AddLuerlockItemConnection(connector, target, addTo);
     }
 
@@ -85,8 +83,6 @@ public static class ConnectionHandler {
     // Verify for Luerlock/Needle
     public static void ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(LuerlockAdapter luerlock) {
 
-        Logger.Print("Release luerlock when luerlock attached item is grabbed");
-
         Interactable otherInteractable = null;
 
         foreach (Interactable other in luerlock.AttachedInteractables) {
@@ -101,8 +97,6 @@ public static class ConnectionHandler {
     }
     public static void ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(Needle needle) {
 
-        Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
-
         Interactable otherInteractable = needle.Connector.AttachedInteractable;
 
         Hand otherHand = Hand.GrabbingHand(otherInteractable);
@@ -111,8 +105,6 @@ public static class ConnectionHandler {
     }
 
     public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {
-
-        Logger.Print("ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed");
 
         Interactable otherInteractable = luerlock.GetOtherInteractable(grabbedInteractable);
 
