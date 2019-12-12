@@ -42,7 +42,7 @@ public class Interactable : MonoBehaviour {
 
 
     public virtual void Interact(Hand hand) {}
-    public virtual void Interacting(Hand hand) {}
+    public virtual void OnGrab(Hand hand) {}
     public virtual void OnGrabStart(Hand hand) {
         IsInteracting = true;
     }

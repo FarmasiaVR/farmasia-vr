@@ -36,7 +36,6 @@ public class ItemsToSterileBag : TaskBase {
         base.SubscribeEvent(PutToBag, EventType.SterileBag);
         base.SubscribeEvent(HandsExit, EventType.HandsExitLaminarCabinet);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
-        base.SubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -46,28 +45,26 @@ public class ItemsToSterileBag : TaskBase {
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }        
     }
-
-    private void SetSterileBagReference(CallbackData data) {
-        sterileBag = (SterileBag)data.DataObject;
-        base.UnsubscribeEvent(SetSterileBagReference, EventType.ItemPlacedInSterileBag);        
-    }
     
     /// <summary>
     /// Once fired by an event, checks how many syringe objects are put to bag object.
     /// Sets corresponding condition to be true.
     /// </summary>
     /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void PutToBag(CallbackData data) {
+    private void PutToBag(CallbackData data2) {
+
+        SterileBag bag = (SterileBag)data2.DataObject;
+
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
             AudioManager.Play(AudioClipType.MistakeMessage);
             return;
         }
-        List<GameObject> inBag = data.DataObject as List<GameObject>;
+
         int filledSyringesInCabinet = 0;
         int filledSyringesInBag = 0;
-        filledSyringesInCabinet = CheckFilledSyringes(laminarCabinet.objectsInsideArea, filledSyringesInCabinet);
-        filledSyringesInBag = CheckFilledSyringes(inBag, filledSyringesInBag);
+        filledSyringesInCabinet = GetSyringesLiquidCount(GameObjectsToSyringes(laminarCabinet.objectsInsideArea), filledSyringesInCabinet);
+        filledSyringesInBag = GetSyringesLiquidCount(bag.Syringes, filledSyringesInBag);
         
         if (sterileBag.IsClosed) {
             if (filledSyringesInCabinet == filledSyringesInBag) {
@@ -84,16 +81,24 @@ public class ItemsToSterileBag : TaskBase {
         } 
     }
 
-    private int CheckFilledSyringes(List<GameObject> objects, int count) {
-        foreach(GameObject value in objects) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
-            ObjectType type = item.ObjectType;
-            if (type == ObjectType.Syringe) {
-                Syringe syringe = item as Syringe;
+    private List<Syringe> GameObjectsToSyringes(List<GameObject> objects) {
+        List<Syringe> syringes = new List<Syringe>();
+
+        foreach (GameObject g in objects) {
+            Syringe s = g.GetComponent<Syringe>();
+            if (g != null) {
+                syringes.Add(s);
+            }
+        }
+
+        return syringes;
+    }
+
+    private int GetSyringesLiquidCount(List<Syringe> syringes, int count) {
+        foreach(Syringe syringe in syringes) {
                 if (syringe.Container.Amount > 0 && !syringe.hasBeenInBottle) {
                     count++;
                 }
-            }
         }  
         return count; 
     }

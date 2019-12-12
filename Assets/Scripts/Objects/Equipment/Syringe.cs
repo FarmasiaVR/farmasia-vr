@@ -98,8 +98,8 @@ public class Syringe : GeneralItem {
         DisableDisplay();
     }
 
-    public override void Interacting(Hand hand) {
-        base.Interacting(hand);
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);

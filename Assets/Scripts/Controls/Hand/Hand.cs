@@ -60,7 +60,7 @@ public class Hand : MonoBehaviour {
         UpdateRemoteGrab();
 
         Interactable interactable = IsGrabbed ? Connector.GrabbedInteractable : interactedInteractable;
-        interactable?.Interacting(this);
+        interactable?.OnGrab(this);
     }
 
     private void UpdateControls() {

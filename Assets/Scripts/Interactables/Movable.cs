@@ -8,8 +8,8 @@ public class Movable : Interactable {
         Type.On(InteractableType.Interactable, InteractableType.Grabbable);
     }
 
-    public override void Interacting(Hand hand) {
-        base.Interacting(hand);
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
         transform.position = hand.Smooth.transform.position;
         transform.rotation = hand.Smooth.transform.rotation;
     }
