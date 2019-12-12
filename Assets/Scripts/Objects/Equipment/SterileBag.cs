@@ -8,8 +8,6 @@ public class SterileBag : GeneralItem {
     #region fields
 
     public List<Syringe> Syringes { get; private set; }
-
-    public List<GameObject> objectsInBag;
     public bool IsClosed { get; private set; }
     public bool IsSterile { get; private set; }
     [SerializeField]
@@ -30,7 +28,6 @@ public class SterileBag : GeneralItem {
 
         ObjectType = ObjectType.SterileBag;
 
-        objectsInBag = new List<GameObject>();
         IsClosed = false;
         IsSterile = true;
 
