@@ -56,7 +56,7 @@ public class ScenarioOneCleanUp : TaskBase {
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Siivoa pudonneet työvälineet vasta lopuksi.", MsgType.Mistake);
-            AudioManager.Play(AudioClipType.MistakeMessage);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
         }
     }
 
@@ -68,7 +68,7 @@ public class ScenarioOneCleanUp : TaskBase {
         if (!item.IsClean) {
             if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
                 UISystem.Instance.CreatePopup(-1, "Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
-                AudioManager.Play(AudioClipType.MistakeMessage);
+                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
             }
             itemsToBeCleaned.Remove(item);

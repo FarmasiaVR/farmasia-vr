@@ -57,7 +57,7 @@ public class ItemsToSterileBag : TaskBase {
 
         if (!CheckPreviousTaskCompletion(requiredTasks)) {
             UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
-            AudioManager.Play(AudioClipType.MistakeMessage);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
             return;
         }
 

@@ -60,7 +60,7 @@ public class LuerlockConnector : AttachmentConnector {
     }
 
     protected override void AttachEvents(GameObject intObject) {
-        AudioManager.Play(AudioClipType.LockedItem);
+        G.Instance.Audio.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
         Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
     }
@@ -80,7 +80,7 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
-        AudioManager.Play(AudioClipType.LockedItem);
+        G.Instance.Audio.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);

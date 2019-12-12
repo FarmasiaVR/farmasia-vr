@@ -61,7 +61,7 @@ public class Package {
         if (activeTasks.Contains(task)) {
             doneTypes.Add(task.GetTaskType());
             activeTasks.Remove(task);
-            AudioManager.Play(AudioClipType.TaskCompletedBeep);
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();
             manager.UpdateDescription();
         }

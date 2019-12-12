@@ -46,7 +46,7 @@ public class Finish : TaskBase {
         }
         if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
-            AudioManager.Play(AudioClipType.MistakeMessage);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
         } else {
             FinishTask();
         }
