@@ -51,30 +51,9 @@ public class Syringe : GeneralItem {
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
         displayState = false;
     }
-    /*
-    private void Update() {
-        if (DisplayIsHanging()) {
-            DestroyDisplay();
-        }
-    }
 
-    private bool DisplayIsHanging() {
-        if (!displayState) return false;
-
-        if (State != InteractState.Grabbed && State != InteractState.LuerlockAttached) {
-            Logger.Print("Removing display: State != Grabbed && State != LuerlockAttached");
-            return true;
-        } else if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.GrabbedObjectCount == 0) {
-            Logger.Print("Removing display: State == LuerlockAttached && Luerlock grabcount == 0");
-            return true;
-        }
-
-        return false;
-    }
-    */
     public void EnableDisplay() {
         if (displayState) {
-            Logger.Print("Current display not null, returning: " + currentDisplay);
             return;
         }
 

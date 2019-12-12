@@ -45,7 +45,6 @@ public abstract class AttachmentConnector : ItemConnector {
     #region Attaching
     protected void ReplaceObject(GameObject newObject) {
         if (attached.GameObject == newObject) {
-            Logger.Print("Attaching same object!");
             return;
         }
 
@@ -55,7 +54,6 @@ public abstract class AttachmentConnector : ItemConnector {
 
         if (newObject == null) {
             attached.Interactable = null;
-            Logger.Print("New object null!");
             return;
         }
 
@@ -98,12 +96,8 @@ public abstract class AttachmentConnector : ItemConnector {
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
             // Position Offset here
 
-            Logger.Print("Connecting item");
             ConnectItem(intObject.GetComponent<Interactable>());
             AttachEvents(intObject);
-        } else {
-            Logger.Print("Not connected");
-            Logger.PrintVariables("old obj", attached.GameObject);
         }
     }
 
@@ -115,7 +109,6 @@ public abstract class AttachmentConnector : ItemConnector {
 
         float collisionAngle = Vector3.Angle(adapterCollider.transform.up, connectingInteractable.transform.up);
         if (collisionAngle > angleLimit) {
-            Logger.Print("Bad angle: " + collisionAngle.ToString());
             return false;
         }
 
@@ -124,11 +117,9 @@ public abstract class AttachmentConnector : ItemConnector {
         }
 
         if (connectingInteractable.Type.IsOff(InteractableType.LuerlockAttachable)) {
-            Logger.Print("Interactable is not of type LuerlockAttachable");
             return false;
         }
 
-        Logger.Print("Angle: " + collisionAngle.ToString());
         return true;
     }
 

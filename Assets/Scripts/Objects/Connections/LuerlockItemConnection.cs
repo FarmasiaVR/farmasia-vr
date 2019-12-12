@@ -11,12 +11,11 @@ public class LuerlockItemConnection : ItemConnection {
     #endregion
 
     private void JointBreak(float force) {
-        Logger.PrintVariables("Joint broken", force);
         Remove();
     }
 
     protected override void OnRemoveConnection() {
-        if (interactable.State == InteractState.Grabbed) {
+        if (interactable != null && interactable.State == InteractState.Grabbed) {
             var handType = Hand.GrabbingHand(interactable).HandType;
             Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
 

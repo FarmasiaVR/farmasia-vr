@@ -23,7 +23,10 @@ public class NeedleConnector : AttachmentConnector {
             Logger.Warning("Trying to attach needle to syringe with a cap");
             return;
         }
-        Logger.Print("Connect item to needle: " + interactable.name);
+
+        if (interactable.IsAttached) {
+            return;
+        }
 
         bool itemGrabbed = interactable.State == InteractState.Grabbed;
         Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;

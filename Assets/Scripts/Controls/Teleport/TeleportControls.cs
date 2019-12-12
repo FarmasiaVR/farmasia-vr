@@ -29,7 +29,6 @@ public class TeleportControls : MonoBehaviour {
 
     private void Update() {
         if (VRInput.GetControlDown(handType, Controls.Menu)) {
-            Logger.Print("TELEPORT TRUE: " + handType);
             StartTeleport();
         }
         if (VRInput.GetControlUp(handType, Controls.Menu)) {

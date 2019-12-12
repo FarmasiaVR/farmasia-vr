@@ -5,8 +5,7 @@ using UnityEngine;
 public enum AudioClipType {
     LockedItem,
     MistakeMessage,
-    TaskCompletedBeep,
-    Diu
+    TaskCompletedBeep
 }
 
 public class AudioManager {
@@ -31,7 +30,6 @@ public class AudioManager {
                 Logger.Error("Missing gameObject tagged with DefaultAudioSource");
                 return;
             }
-            Logger.Print("Playing sound from default source");
         }
 
         AudioClip clip = null;
@@ -54,13 +52,9 @@ public class AudioManager {
             case AudioClipType.TaskCompletedBeep:
                 clip = Resources.Load<AudioClip>(audioFileLocation + "Task_completed_beep1");
                 break;
-            case AudioClipType.Diu:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Minus_point");
-                break;
         }
 
         if (clip != null) {
-            Logger.Print("Playing sound clip");
             audio.PlayOneShot(clip, 1.0f);
         } else {
             Logger.Error("Did not find sound clip");

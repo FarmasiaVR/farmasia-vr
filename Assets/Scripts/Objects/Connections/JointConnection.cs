@@ -35,8 +35,6 @@ public class JointConnection : ItemConnection {
 
     protected override void OnRemoveConnection() {
 
-        Logger.Print("Removing SpringJointConnection from " + transform.name);
-
         SetVelocity();
 
         Destroy(joint);
@@ -59,8 +57,6 @@ public class JointConnection : ItemConnection {
         conn.transformTarget = target;
 
         conn.SetJoint();
-
-        Logger.Print("Creating JointConnection to " + conn.transform.name + ", attached to " + targetRB.name);
 
         return conn;
     }

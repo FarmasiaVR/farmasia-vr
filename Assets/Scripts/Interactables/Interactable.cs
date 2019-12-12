@@ -17,7 +17,6 @@ public class Interactable : MonoBehaviour {
             if (RigidbodyContainer.Enabled) {
                 return RigidbodyContainer.Rigidbody;
             } else {
-                Logger.Warning("Accessing rigidbody while disabled");
                 return null;
             }
         }

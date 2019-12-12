@@ -19,16 +19,13 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
-        Logger.Print("Connect item: " + interactable.name);
-
         bool luerlockGrabbed = GeneralItem.State == InteractState.Grabbed;
         Hand luerlockHand = luerlockGrabbed ? Hand.GrabbingHand(GeneralItem) : null;
 
         bool itemGrabbed = interactable.State == InteractState.Grabbed;
         Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
 
-        if (interactable.State == InteractState.NeedleAttached) {
-            Logger.Warning("Cannot connect syringe attached to a needle to luerlock");
+        if (interactable.IsAttached) {
             return;
         }
 
@@ -36,13 +33,10 @@ public class LuerlockConnector : AttachmentConnector {
         // Remove current connections
         if (luerlockGrabbed) {
             // Not necessary but more 'clear' for debugging purposes
-            Logger.Print("Luerlock is grabbed, removing grab from luerlock");
             Hand.GrabbingHand(GeneralItem).Connector.Connection.Remove();
         }
         if (itemGrabbed) {
             itemHand.Connector.Connection.Remove();
-            // interactable.GetComponent<ItemConnection>().Remove();
-            Logger.Print("Removing connection from " + interactable.name);
         }
 
 
@@ -86,6 +80,7 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
+        AudioManager.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);

@@ -52,8 +52,6 @@ public class Hand : MonoBehaviour {
         GameObject handSmooth = Instantiate(Resources.Load<GameObject>("Prefabs/HandSmoother"));
         Smooth = handSmooth.GetComponent<HandSmoother>();
         Smooth.Hand = this;
-
-        Logger.Print("smooth: " + handSmooth.name);
     }
 
     private void Update() {
@@ -122,8 +120,6 @@ public class Hand : MonoBehaviour {
         Interactable interactable = handCollider.GetClosestInteractable();
         if (interactable != null) {
             InteractWith(interactable);
-        } else {
-            Logger.Print("No interactable to interact with");
         }
     }
 
@@ -225,11 +221,9 @@ public class Hand : MonoBehaviour {
 
         RaycastHit hit;
         if (Physics.Raycast(pos, targetPos - pos, out hit, Vector3.Distance(pos, targetPos), int.MaxValue, QueryTriggerInteraction.Ignore)) {
-            Logger.PrintVariables("Raycast hit", hit.collider.name);
             return Interactable.GetInteractable(hit.collider.transform) == target;
         }
 
-        Logger.Print("Raycast did not hit");
         return false;
     }
     #endregion
