@@ -16,16 +16,26 @@ public class AudioManager {
 
     public AudioManager() {
         audioClips = new Dictionary<AudioClipType, AudioClipData>();
-        audioClips.Add(AudioClipType.LockedItem, new AudioClipData("LockedItemAudioSource", "Item_locked"));
-        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Mistake_message"));
-        audioClips.Add(AudioClipType.TaskCompletedBeep, new AudioClipData("TaskCompletedAudioSource", "Task_completed_beep1"));
-        audioClips.Add(AudioClipType.MinusPoint, new AudioClipData("MinusPointAudioSource", "Minus_point"));
+        audioClips.Add(AudioClipType.LockedItem, new AudioClipData("LockedItemAudioSource", "Item_locked", 1));
+        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Mistake_message", 1));
+        audioClips.Add(AudioClipType.TaskCompletedBeep, new AudioClipData("TaskCompletedAudioSource", "Task_completed_beep1", 1));
+        audioClips.Add(AudioClipType.MinusPoint, new AudioClipData("MinusPointAudioSource", "Minus_point", 1));
     }
 
     public void Play(AudioClipType type, GameObject audioSourceObject = null, float spatialBlend = 0) {
         AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
+        if (audioSrc == null) {
+            Logger.Warning("No AudioSource component was attached, cannot play audio.");
+            return;
+        }
+
+        if (audioSrc.isPlaying) {
+            return;
+        }
+
         AudioClip audioClip = GetAudioClip(type);
-        if (audioSrc == null || audioClip == null || audioSrc.isPlaying) {
+        if (audioClip == null) {
+            Logger.Error("No AudioClip found for type: " + type + " and filename '" + audioClips[type].filename + "'. Wrong filename?");
             return;
         }
 
@@ -35,8 +45,12 @@ public class AudioManager {
 
     private AudioSource GetAudioSource(GameObject sourceObject, AudioClipType type) {
         GameObject src = sourceObject ?? GetDefaultAudioSource(type);
-        AudioSource audioSrc = GameObjectUtility.EnsureComponent<AudioSource>(src);
-        return audioSrc;
+        foreach (AudioSource audioSrc in GameObjectUtility.EnsureComponents<AudioSource>(src, audioClips[type].maxCount)) {
+            if (!audioSrc.isPlaying) {
+                return audioSrc;
+            }
+        }
+        return null;
     }
 
     private GameObject GetDefaultAudioSource(AudioClipType type) {
@@ -58,11 +72,13 @@ public class AudioManager {
 
         public string sourceTag;
         public string filename;
+        public int maxCount;
         public AudioClip clip;
 
-        public AudioClipData(string sourceTag, string filename) {
+        public AudioClipData(string sourceTag, string filename, int maxCount) {
             this.sourceTag = sourceTag;
             this.filename = filename;
+            this.maxCount = maxCount;
             clip = null;
         }
     }
