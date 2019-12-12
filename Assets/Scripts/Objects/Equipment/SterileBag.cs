@@ -42,7 +42,10 @@ public class SterileBag : GeneralItem {
         if (!objectsInBag.Contains(foundObject)) {
             objectsInBag.Add(foundObject);
             Events.FireEvent(EventType.SterileBag, CallbackData.Object(objectsInBag));
-            //item.DestroyInteractable();
+            
+            item.transform.parent = this.transform;
+            item.RigidbodyContainer.Disable();
+            item.GetComponent<Collider>().enabled = false;
             
             if (!item.IsClean) {
                 IsSterile = false;
