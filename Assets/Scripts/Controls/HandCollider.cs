@@ -4,23 +4,23 @@ using UnityEngine;
 public class HandCollider : MonoBehaviour {
 
     #region Fields
-    private HashSet<GameObject> grabObjects;
+    private HashSet<Interactable> grabObjects;
     public ObjectHighlight PreviousHighlight { get; private set; }
     #endregion
 
     private void Start() {
-        grabObjects = new HashSet<GameObject>();
+        grabObjects = new HashSet<Interactable>();
     }
 
     private void OnTriggerEnter(Collider coll) {
-        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+        Interactable interactable = Interactable.GetInteractable(coll.transform);
         if (interactable != null) {
             grabObjects.Add(interactable);
         }
     }
 
     private void OnTriggerExit(Collider coll) {
-        GameObject interactable = Interactable.GetInteractableObject(coll.transform);
+        Interactable interactable = Interactable.GetInteractable(coll.transform);
         if (interactable == null) {
             return;
         }
@@ -28,6 +28,12 @@ public class HandCollider : MonoBehaviour {
         ObjectHighlight highlight = ObjectHighlight.GetHighlightFromTransform(coll.transform);
         if (highlight == PreviousHighlight) UnhighlightPrevious();
         grabObjects.Remove(interactable);
+    }
+
+    public void RemoveInteractable(Interactable interactable) {
+        if (grabObjects.Contains(interactable)) {
+            grabObjects.Remove(interactable);
+        }
     }
 
     #region Highlight
@@ -40,12 +46,12 @@ public class HandCollider : MonoBehaviour {
     }
 
     public void UnhighlightAll() {
-        foreach (GameObject child in grabObjects) {
+        foreach (Interactable child in grabObjects) {
             ObjectHighlight.GetHighlightFromTransform(child.transform)?.Unhighlight();
         }
     }
 
-    private void HighlightObject(GameObject obj) {
+    private void HighlightObject(Interactable obj) {
         UnhighlightPrevious();
 
         if (grabObjects.Contains(obj)) {
@@ -64,11 +70,11 @@ public class HandCollider : MonoBehaviour {
         return GetClosestObject()?.GetComponent<Interactable>() ?? null;
     }
 
-    public GameObject GetClosestObject() {
+    public Interactable GetClosestObject() {
         float closestDistance = float.MaxValue;
-        GameObject closest = null;
+        Interactable closest = null;
 
-        foreach (GameObject rb in grabObjects) {
+        foreach (Interactable rb in grabObjects) {
             float distance = Vector3.Distance(transform.position, rb.transform.position);
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -79,11 +85,11 @@ public class HandCollider : MonoBehaviour {
         return closest;
     }
 
-    public GameObject GetPointedObject(float maxAngle) {
+    public Interactable GetPointedObject(float maxAngle) {
         float smallestAngle = float.MaxValue;
-        GameObject closest = null;
+        Interactable closest = null;
 
-        foreach (GameObject g in grabObjects) {
+        foreach (Interactable g in grabObjects) {
             float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
 
             if (angle < smallestAngle && angle < maxAngle) {

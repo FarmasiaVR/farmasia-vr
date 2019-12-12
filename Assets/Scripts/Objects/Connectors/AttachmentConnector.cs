@@ -74,7 +74,7 @@ public abstract class AttachmentConnector : ItemConnector {
         if (attached.GameObject == null) {
             Logger.Error("Attached gameobject null");
         }
-        Connection = ItemConnection.AddChildConnection(this, GeneralItem.transform, attached.GameObject);
+        Connection = ItemConnection.AddChildConnection(this, GeneralItem.transform, attached.Interactable);
     }
 
     #region Type overrides

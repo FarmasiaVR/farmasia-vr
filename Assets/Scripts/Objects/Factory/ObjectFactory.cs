@@ -110,7 +110,7 @@ public class ObjectFactory : MonoBehaviour {
         latestCopy = Instantiate(CopyObject);
         latestCopy.transform.position = transform.position;
 
-        interactable = latestCopy;
+        interactable = latestCopy.GetComponent<Interactable>();
         latestCopy.SetActive(true);
 
         if (handObject != null) {

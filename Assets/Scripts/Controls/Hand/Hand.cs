@@ -22,8 +22,8 @@ public class Hand : MonoBehaviour {
 
     public SteamVR_Input_Sources HandType { get; private set; }
 
-    private HandCollider handCollider;
-    private HandCollider extendedHandCollider;
+    public HandCollider HandCollider { get; private set; }
+    public HandCollider ExtendedHandCollider { get; private set; }
     private Pipeline remoteGrabPipe;
     private GameObject prevPointedObj;
 
@@ -35,17 +35,17 @@ public class Hand : MonoBehaviour {
     public Hand Other { get => other; }
 
     private Transform offset;
-    public Vector3 ColliderPosition { get => handCollider.transform.position; }
+    public Vector3 ColliderPosition { get => HandCollider.transform.position; }
     #endregion
 
     private void Start() {
-        handCollider = transform.Find("HandColl").GetComponent<HandCollider>();
-        extendedHandCollider = transform.Find("ExtendedHandColl").GetComponent<HandCollider>();
+        HandCollider = transform.Find("HandColl").GetComponent<HandCollider>();
+        ExtendedHandCollider = transform.Find("ExtendedHandColl").GetComponent<HandCollider>();
         HandType = GetComponent<VRHandControls>()?.handType ?? SteamVR_Input_Sources.Any;
         Connector = new HandConnector(this);
 
         Assert.IsFalse(HandType == SteamVR_Input_Sources.Any, "Invalid hand type");
-        Assert.IsNotNull(handCollider, "Missing HandCollider component");
+        Assert.IsNotNull(HandCollider, "Missing HandCollider component");
         Assert.IsNotNull(other, "Other hand was null");
         offset = transform.Find("Offset");
 
@@ -93,16 +93,16 @@ public class Hand : MonoBehaviour {
         }
 
         if (IsTryingToGrab) {
-            extendedHandCollider.HighlightPointedObject(extendedGrabAngle);
+            ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
-            extendedHandCollider.UnhighlightPrevious();
-            handCollider.HighlightClosestObject();
+            ExtendedHandCollider.UnhighlightPrevious();
+            HandCollider.HighlightClosestObject();
         }
     }
 
     private void UpdateRemoteGrab() {
         if (IsTryingToGrab) {
-            GameObject pointedObj = extendedHandCollider.GetPointedObject(extendedGrabAngle);
+            Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
             
             if (pointedObj != null && VRInput.GetControl(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
@@ -117,7 +117,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Interactable interactable = handCollider.GetClosestInteractable();
+        Interactable interactable = HandCollider.GetClosestInteractable();
         if (interactable != null) {
             InteractWith(interactable);
         }
@@ -174,14 +174,12 @@ public class Hand : MonoBehaviour {
     #endregion
 
     #region Remote grab
-    private void RemoteGrab(GameObject obj) {
-        Interactable i = obj;
-
+    private void RemoteGrab(Interactable i) {
         if (ItemIsPartOfGrabbedLuerlockSystem(i)) {
             return;
         }
 
-        if (!CanGrabObject(transform.position, obj.transform.position, i)) {
+        if (!CanGrabObject(transform.position, i.transform.position, i)) {
             return; 
         }
 
@@ -191,7 +189,7 @@ public class Hand : MonoBehaviour {
 
         GrabUninteract();
         Uninteract();
-        InteractWith(obj);
+        InteractWith(i);
     }
     private bool ItemIsPartOfGrabbedLuerlockSystem(Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {

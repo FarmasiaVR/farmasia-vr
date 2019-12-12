@@ -85,21 +85,6 @@ public class Interactable : MonoBehaviour {
         StartCoroutine(DestroySequence());
     }
 
-    public static implicit operator Interactable(GameObject g) {
-
-        if (g == null) {
-            throw new System.Exception("Gameobject was null");
-        }
-
-        Interactable i = g.GetComponent<Interactable>();
-
-        if (i == null) {
-            throw new System.Exception("Interactable not found, use method Interactable.GetInteractable() instead");
-        }
-
-        return i;
-    }
-
     public bool IsAttached {
         get {
             return State == InteractState.LuerlockAttached || State == InteractState.NeedleAttached;
