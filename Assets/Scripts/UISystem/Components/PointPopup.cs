@@ -36,6 +36,11 @@ public class PointPopup : MonoBehaviour {
         startingPoint = transform.localPosition.z + distanceToTravel;
         FlipScale(-1);
     }
+
+    private void Start() {
+        G.Instance.Audio.Play(AudioClipType.MinusPoint);
+        CalculateStartingPosition();
+    }
     #endregion
 
     #region Private Methods
@@ -62,10 +67,6 @@ public class PointPopup : MonoBehaviour {
     private void Remove() {
         UISystem.Instance.DeleteCurrent();
         Destroy(transform.gameObject);
-    }
-
-    private void Start() {
-        CalculateStartingPosition();
     }
 
     /// <summary>

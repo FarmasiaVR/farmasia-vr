@@ -1,33 +1,46 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum AudioClipType {
     LockedItem,
     MistakeMessage,
-    TaskCompletedBeep
+    TaskCompletedBeep,
+    MinusPoint,
 }
 
 public class AudioManager {
 
     private const string AUDIO_FILE_LOCATION = "Audio/Clips/";
-    
-    #region Public methods
-    public void Play(AudioClipType type, GameObject audioSourceObject = null, float spatialBlend = 0) {
-        AudioSource audioSrc = GetAudioSource(audioSourceObject);
-        if (audioSrc != null) {
-            audioSrc.spatialBlend = spatialBlend;
-            PlayAudioClip(audioSrc, GetAudioClip(type));
-        }
-    }
-    #endregion
 
-    private AudioSource GetAudioSource(GameObject sourceObject) {
-        GameObject src = sourceObject ?? GetDefaultAudioSource();
-        AudioSource audioSrc = src?.GetComponent<AudioSource>() ?? src?.AddComponent<AudioSource>();
+    private Dictionary<AudioClipType, AudioClipData> audioClips;
+
+    public AudioManager() {
+        audioClips = new Dictionary<AudioClipType, AudioClipData>();
+        audioClips.Add(AudioClipType.LockedItem, new AudioClipData("LockedItemAudioSource", "Item_locked"));
+        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Mistake_message"));
+        audioClips.Add(AudioClipType.TaskCompletedBeep, new AudioClipData("TaskCompletedAudioSource", "Task_completed_beep1"));
+        audioClips.Add(AudioClipType.MinusPoint, new AudioClipData("MinusPointAudioSource", "Minus_point"));
+    }
+
+    public void Play(AudioClipType type, GameObject audioSourceObject = null, float spatialBlend = 0) {
+        AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
+        AudioClip audioClip = GetAudioClip(type);
+        if (audioSrc == null || audioClip == null || audioSrc.isPlaying) {
+            return;
+        }
+
+        audioSrc.spatialBlend = spatialBlend;
+        audioSrc.PlayOneShot(audioClip, 1.0f);
+    }
+
+    private AudioSource GetAudioSource(GameObject sourceObject, AudioClipType type) {
+        GameObject src = sourceObject ?? GetDefaultAudioSource(type);
+        AudioSource audioSrc = GameObjectUtility.EnsureComponent<AudioSource>(src);
         return audioSrc;
     }
 
-    private GameObject GetDefaultAudioSource() {
-        GameObject source = GameObject.FindWithTag("DefaultAudioSource");
+    private GameObject GetDefaultAudioSource(AudioClipType type) {
+        GameObject source = GameObject.FindWithTag(audioClips[type].sourceTag);
         if (source == null) {
             Logger.Error("Did not find a GameObject tagged with DefaultAudioSource cannot play audio!");
         }
@@ -35,23 +48,22 @@ public class AudioManager {
     }
 
     private AudioClip GetAudioClip(AudioClipType type) {
-        switch (type) {
-            case AudioClipType.LockedItem:
-                return Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + "Item_locked");
-            case AudioClipType.MistakeMessage:
-                return Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + "Mistake_message");
-            case AudioClipType.TaskCompletedBeep:
-                return Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + "Task_completed_beep1");
-            default:
-                return null;
+        if (audioClips[type].clip == null) {
+            audioClips[type].clip = Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + audioClips[type].filename);
         }
+        return audioClips[type].clip;
     }
 
-    private void PlayAudioClip(AudioSource source, AudioClip clip) {
-        if (clip != null) {
-            source.PlayOneShot(clip, 1.0f);
-        } else {
-            Logger.Error("Did not find sound clip");
+    private class AudioClipData {
+
+        public string sourceTag;
+        public string filename;
+        public AudioClip clip;
+
+        public AudioClipData(string sourceTag, string filename) {
+            this.sourceTag = sourceTag;
+            this.filename = filename;
+            clip = null;
         }
     }
 }
