@@ -19,7 +19,6 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        Logger.Print("Highlight()");
         normalColor = new Color32[materials.Count];
         for (int i = 0; i < materials.Count; i++) {
             if (materials[i].HasProperty("_Color")) {
@@ -30,7 +29,6 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Unhighlight() {
-        Logger.Print("Unhighlight()");
         if (normalColor == null) {
             return;
         }

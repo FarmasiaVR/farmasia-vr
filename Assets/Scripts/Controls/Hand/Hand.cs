@@ -93,6 +93,7 @@ public class Hand : MonoBehaviour {
         }
 
         if (IsTryingToGrab) {
+            //HandCollider.UnhighlightPrevious();
             ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
             ExtendedHandCollider.UnhighlightPrevious();

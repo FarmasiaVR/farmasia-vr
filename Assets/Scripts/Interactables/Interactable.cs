@@ -79,7 +79,7 @@ public class Interactable : MonoBehaviour {
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         StartCoroutine(DestroySequence());
