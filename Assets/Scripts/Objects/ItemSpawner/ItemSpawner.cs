@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FloorDropSpawner : MonoBehaviour {
+public class ItemSpawner : MonoBehaviour {
+
     [SerializeField]
     GameObject copy;
     GameObject currentObject;
 
     private void Start() {
         Events.SubscribeToEvent(Copy, EventType.ItemDroppedOnFloor);
+        Events.SubscribeToEvent(Copy, EventType.ItemDroppedInTrash);
         if (copy != null) {
             currentObject = copy;
         }
@@ -23,6 +23,7 @@ public class FloorDropSpawner : MonoBehaviour {
         GeneralItem item = (GeneralItem) data.DataObject;
         if (item.gameObject == currentObject || currentObject == null) {
             currentObject = Instantiate(copy, transform.position, transform.rotation);
+            currentObject.GetComponent<GeneralItem>().IsClean = true;
         }
     }
 }

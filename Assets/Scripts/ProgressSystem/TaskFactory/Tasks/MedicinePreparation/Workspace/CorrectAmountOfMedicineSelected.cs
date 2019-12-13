@@ -70,14 +70,14 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                     if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
                         UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
-                        AudioManager.Play(AudioClipType.MistakeMessage);
+                        G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                         attachedSyringes.Remove(s.GetInstanceID());
                     } else if (attachedSyringes.Count != 6) {
                         if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
                             UISystem.Instance.CreatePopup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
                         } else {
                             UISystem.Instance.CreatePopup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Notify);
-                            AudioManager.Play(AudioClipType.MistakeMessage);
+                            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                         }
                     } else {
                         FinishTask();

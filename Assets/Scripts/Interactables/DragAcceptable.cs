@@ -125,15 +125,11 @@ public abstract class DragAcceptable : Interactable {
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
-        Logger.Print("Drag acceptable interact");
-
         grabbed = true;
         this.hand = hand.transform;
     }
     public override void Uninteract(Hand hand) {
         base.Uninteract(hand);
-
-        Logger.Print("Drag acceptable uninteract");
 
         grabbed = false;
     }

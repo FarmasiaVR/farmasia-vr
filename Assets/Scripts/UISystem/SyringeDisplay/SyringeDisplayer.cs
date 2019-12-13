@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SyringeDisplayer : MonoBehaviour {
     #region Fields
@@ -19,14 +17,14 @@ public class SyringeDisplayer : MonoBehaviour {
     }
 
     private void Update() {
-        CheckHandGrab(ref left, ref leftChecked, ref displayLeft);
-        CheckHandGrab(ref right, ref rightChecked, ref displayRight);
+        CheckHandGrab(left, ref leftChecked, ref displayLeft);
+        CheckHandGrab(right, ref rightChecked, ref displayRight);
     }
 
-    private void CheckHandGrab(ref Hand hand, ref bool check, ref GameObject display) {
+    private void CheckHandGrab(Hand hand, ref bool check, ref GameObject display) {
         if (hand.IsGrabbed) {
             if (!check) {
-                if (hand.Connector.Connection.gameObject == null) {
+                if (hand.Connector.Connection == null) {
                     return;
                 }
                 GameObject obj = hand.Connector.Connection.gameObject;
@@ -48,7 +46,7 @@ public class SyringeDisplayer : MonoBehaviour {
     private void InstantiateSyringeDisplay(ref GameObject reference, GameObject followedObject) {
         reference = Instantiate(liquidDisplay);
         SyringeDisplay display = reference.GetComponent<SyringeDisplay>();
-        display.setFollowedObject(followedObject);
+        display.SetFollowedObject(followedObject);
     }
 
 }

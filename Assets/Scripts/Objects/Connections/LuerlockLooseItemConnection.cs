@@ -4,7 +4,8 @@ using UnityEngine;
 public class LuerlockLooseItemConnection : ItemConnection {
 
     #region Fields
-    private static float luerlockBreakDistance = 0.045f;
+    private static float luerlockBreakDistance = 0.05f;
+    private static float luerlockItemDistance = 0.15f;
 
     protected override ItemConnector Connector { get; set; }
     private Interactable interactable;
@@ -28,11 +29,11 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
     private void UpdatePosition() {
 
-        Vector3 newPos = PosInBetween(0.15f);
+        Vector3 newPos = PosInBetween(luerlockItemDistance);
 
         float distance = Vector3.Distance(TargetPos, newPos);
 
-        if (distance > luerlockBreakDistance) {
+        if (distance > luerlockBreakDistance * luerlockItemDistance) {
             BreakLuerlockConnection();
             return;
         }
@@ -42,8 +43,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
     private Vector3 PosInBetween(float factor) {
 
-        float distance = Vector3.Distance(TargetPos, hand.transform.position);
-        Vector3 direction = (hand.transform.position - TargetPos).normalized;
+        float distance = Vector3.Distance(TargetPos, hand.Smooth.transform.position);
+        Vector3 direction = (hand.Smooth.transform.position - TargetPos).normalized;
 
         return TargetPos + direction * distance * factor;
     }
@@ -64,11 +65,11 @@ public class LuerlockLooseItemConnection : ItemConnection {
             (parentItem as Needle).Connector.Connection.Remove();
         }
 
-        interactable.transform.position = hand.Offset.position;
-        interactable.transform.rotation = hand.Offset.rotation;
+        interactable.transform.position = hand.Smooth.transform.position;
+        interactable.transform.rotation = hand.Smooth.transform.rotation;
 
-        Logger.Print("Hand reinteract -> Changing from LuerlockLooseItemConnection to regular: " + interactable.name);
-        hand.InteractWith(interactable);
+        hand.InteractWith(interactable, false);
+        hand.Smooth.DisableInitMode();
     }
 
     public static LuerlockLooseItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {

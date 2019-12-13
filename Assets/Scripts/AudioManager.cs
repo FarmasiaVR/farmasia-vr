@@ -1,70 +1,85 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public enum AudioClipType {
     LockedItem,
     MistakeMessage,
     TaskCompletedBeep,
-    Diu
+    MinusPoint,
 }
 
 public class AudioManager {
-    #region Fields
-    private static GameObject defaultSource;
-    private static string audioFileLocation = "Audio/Clips/";
-    #endregion
-    
-    static AudioManager() {
-        defaultSource = GameObject.FindWithTag("DefaultAudioSource");
-        if (defaultSource == null) {
-            Logger.Error("Did not find a gameObject tagged with DefaultAudioSource, playing sounds will not work if source is not given as a parameter");
-        }
-    }
-    
-    #region Public methods
-    public static void Play(AudioClipType type, GameObject source = null, bool enableSpatialSound = false) {
 
-        if (source == null) {
-            source = defaultSource;
-            if (source == null) {
-                Logger.Error("Missing gameObject tagged with DefaultAudioSource");
-                return;
+    private const string AUDIO_FILE_LOCATION = "Audio/Clips/";
+
+    private Dictionary<AudioClipType, AudioClipData> audioClips;
+
+    public AudioManager() {
+        audioClips = new Dictionary<AudioClipType, AudioClipData>();
+        audioClips.Add(AudioClipType.LockedItem, new AudioClipData("LockedItemAudioSource", "Item_locked", 1));
+        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Mistake_message", 1));
+        audioClips.Add(AudioClipType.TaskCompletedBeep, new AudioClipData("TaskCompletedAudioSource", "Task_completed_beep1", 1));
+        audioClips.Add(AudioClipType.MinusPoint, new AudioClipData("MinusPointAudioSource", "Minus_point", 1));
+    }
+
+    public void Play(AudioClipType type, GameObject audioSourceObject = null, float spatialBlend = 0) {
+        AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
+        if (audioSrc == null) {
+            Logger.Warning("No AudioSource component was attached, cannot play audio.");
+            return;
+        }
+
+        if (audioSrc.isPlaying) {
+            return;
+        }
+
+        AudioClip audioClip = GetAudioClip(type);
+        if (audioClip == null) {
+            Logger.Error("No AudioClip found for type: " + type + " and filename '" + audioClips[type].filename + "'. Wrong filename?");
+            return;
+        }
+
+        audioSrc.spatialBlend = spatialBlend;
+        audioSrc.PlayOneShot(audioClip, 1.0f);
+    }
+
+    private AudioSource GetAudioSource(GameObject sourceObject, AudioClipType type) {
+        GameObject src = sourceObject ?? GetDefaultAudioSource(type);
+        foreach (AudioSource audioSrc in GameObjectUtility.EnsureComponents<AudioSource>(src, audioClips[type].maxCount)) {
+            if (!audioSrc.isPlaying) {
+                return audioSrc;
             }
-            Logger.Print("Playing sound from default source");
         }
+        return null;
+    }
 
-        AudioClip clip = null;
-        AudioSource audio = source.GetComponent<AudioSource>();
-        if (audio == null) audio = source.AddComponent<AudioSource>();
-
-        if (enableSpatialSound) {
-            audio.spatialBlend = 1;
-        } else {
-            audio.spatialBlend = 0;
+    private GameObject GetDefaultAudioSource(AudioClipType type) {
+        GameObject source = GameObject.FindWithTag(audioClips[type].sourceTag);
+        if (source == null) {
+            Logger.Error("Did not find a GameObject tagged with DefaultAudioSource cannot play audio!");
         }
+        return source;
+    }
 
-        switch (type) {
-            case AudioClipType.LockedItem:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Item_locked");
-                break;
-            case AudioClipType.MistakeMessage:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Mistake_message");
-                break;
-            case AudioClipType.TaskCompletedBeep:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Task_completed_beep1");
-                break;
-            case AudioClipType.Diu:
-                clip = Resources.Load<AudioClip>(audioFileLocation + "Minus_point");
-                break;
+    private AudioClip GetAudioClip(AudioClipType type) {
+        if (audioClips[type].clip == null) {
+            audioClips[type].clip = Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + audioClips[type].filename);
         }
+        return audioClips[type].clip;
+    }
 
-        if (clip != null) {
-            Logger.Print("Playing sound clip");
-            audio.PlayOneShot(clip, 1.0f);
-        } else {
-            Logger.Error("Did not find sound clip");
+    private class AudioClipData {
+
+        public string sourceTag;
+        public string filename;
+        public int maxCount;
+        public AudioClip clip;
+
+        public AudioClipData(string sourceTag, string filename, int maxCount) {
+            this.sourceTag = sourceTag;
+            this.filename = filename;
+            this.maxCount = maxCount;
+            clip = null;
         }
     }
-    #endregion
 }

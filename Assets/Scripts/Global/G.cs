@@ -8,6 +8,7 @@ public sealed class G {
     private static readonly G instance = new G();
     public static G Instance { get => instance; }
 
+    public AudioManager Audio { get; }
     public ProgressManager Progress { get; }
     public PipelineManager Pipeline { get; }
     #endregion
@@ -15,6 +16,7 @@ public sealed class G {
     static G() {}
 
     private G() {
+        Audio = new AudioManager();
         Pipeline = new PipelineManager();
         Progress = new ProgressManager(false);
     }

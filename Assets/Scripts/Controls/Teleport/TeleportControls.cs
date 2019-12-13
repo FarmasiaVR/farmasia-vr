@@ -28,11 +28,10 @@ public class TeleportControls : MonoBehaviour {
     }
 
     private void Update() {
-        if (VRInput.GetControlDown(handType, Controls.Teleport)) {
-            Logger.Print("TELEPORT TRUE: " + handType);
+        if (VRInput.GetControlDown(handType, Controls.Menu)) {
             StartTeleport();
         }
-        if (VRInput.GetControlUp(handType, Controls.Teleport)) {
+        if (VRInput.GetControlUp(handType, Controls.Menu)) {
             EndTeleport();
         }
 

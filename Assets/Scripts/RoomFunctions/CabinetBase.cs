@@ -57,7 +57,6 @@ public class CabinetBase : MonoBehaviour {
         GameObject foundObject = Interactable.GetInteractableObject(other.transform);
         GeneralItem item = foundObject?.GetComponent<GeneralItem>();
         if (item == null) {
-            Logger.Print(other.gameObject.name);
             return;
         }
         if (!itemPlaced) {

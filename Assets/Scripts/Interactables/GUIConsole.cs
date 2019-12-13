@@ -61,8 +61,8 @@ public class GUIConsole : Movable {
         }
     }
 
-    public override void Interacting(Hand hand) {
-        base.Interacting(hand);
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
         UpdateIndex(hand);
     }
 

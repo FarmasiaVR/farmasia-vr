@@ -5,13 +5,11 @@ public static class ConnectionHandler {
 
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
-        Logger.Print("Grab item");
-        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
     }
 
 
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
-        Logger.Print("Grab luerlock item");
         connector.Connection = ItemConnection.AddLuerlockItemConnection(connector, target, addTo);
     }
 
@@ -46,20 +44,44 @@ public static class ConnectionHandler {
 
         otherHand.Connector.Connection.Remove();
 
-        Transform handOffset = target.GetComponent<Hand>()?.Offset;
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth.transform;
         target = handOffset ?? target;
 
-        connector.Connection = ItemConnection.AddRigidConnection(connector, target, addTo);
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
 
-        otherHand.InteractWith(otherItem);
+        otherHand.InteractWith(otherItem, false);
+    }
+
+    public static void GrabNeedleWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+
+        Needle needle = addTo as Needle;
+
+        if (needle == null) {
+            throw new System.Exception("Needle is null");
+        }
+
+        Interactable otherItem = needle.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherItem);
+
+        otherHand.Connector.Connection.Remove();
+
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth?.transform;
+        target = handOffset ?? target;
+
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
+
+        otherHand.InteractWith(otherItem, false);
     }
     #endregion
 
     #region Releasing
     // Verify for Luerlock/Needle
     public static void ReleaseLuerlockWhenLuerlockAttachedItemIsGrabbed(LuerlockAdapter luerlock) {
-
-        Logger.Print("Rlease luerlock when luerlock attache item is grabbed");
 
         Interactable otherInteractable = null;
 
@@ -71,12 +93,18 @@ public static class ConnectionHandler {
 
         Hand otherHand = Hand.GrabbingHand(otherInteractable);
         otherHand.Connector.Connection.Remove();
-        otherHand.InteractWith(otherInteractable);
+        otherHand.InteractWith(otherInteractable, false);
+    }
+    public static void ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(Needle needle) {
+
+        Interactable otherInteractable = needle.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable, false);
     }
 
     public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {
-
-        Logger.Print("ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed");
 
         Interactable otherInteractable = luerlock.GetOtherInteractable(grabbedInteractable);
 

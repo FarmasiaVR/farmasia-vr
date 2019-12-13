@@ -17,11 +17,12 @@ public class Interactable : MonoBehaviour {
             if (RigidbodyContainer.Enabled) {
                 return RigidbodyContainer.Rigidbody;
             } else {
-                Logger.Warning("Accessing rigidbody while disabled");
                 return null;
             }
         }
     }
+
+    public bool IsInteracting;
 
     // CAN'T BE A PROPERTY
     public Interactors Interactors;
@@ -41,8 +42,14 @@ public class Interactable : MonoBehaviour {
 
 
     public virtual void Interact(Hand hand) {}
-    public virtual void Interacting(Hand hand) {}
+    public virtual void OnGrab(Hand hand) {}
+    public virtual void OnGrabStart(Hand hand) {
+        IsInteracting = true;
+    }
     public virtual void Uninteract(Hand hand) {}
+    public virtual void OnGrabEnd(Hand hand) {
+        IsInteracting = false;
+    }
 
     public static Interactable GetInteractable(Transform t) {
         return GetInteractableObject(t)?.GetComponent<Interactable>();
@@ -72,25 +79,10 @@ public class Interactable : MonoBehaviour {
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         StartCoroutine(DestroySequence());
-    }
-
-    public static implicit operator Interactable(GameObject g) {
-
-        if (g == null) {
-            throw new System.Exception("Gameobject was null");
-        }
-
-        Interactable i = g.GetComponent<Interactable>();
-
-        if (i == null) {
-            throw new System.Exception("Interactable not found, use method Interactable.GetInteractable() instead");
-        }
-
-        return i;
     }
 
     public bool IsAttached {

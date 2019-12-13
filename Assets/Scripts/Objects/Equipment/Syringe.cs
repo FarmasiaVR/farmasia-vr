@@ -22,11 +22,14 @@ public class Syringe : GeneralItem {
     private GameObject syringeCap;
     public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
-    private float swipeTime;
-
     public LiquidContainer BottleContainer { get; set; }
 
     public bool hasBeenInBottle;
+
+
+    private GameObject liquidDisplay;
+    private GameObject currentDisplay;
+    private bool displayState;
 
     #endregion
     protected override void Start() {
@@ -37,29 +40,76 @@ public class Syringe : GeneralItem {
         ObjectType = ObjectType.Syringe;
 
         Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
-        
+
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
 
         hasBeenInBottle = false;
 
         syringeCap.SetActive(false);
+
+        liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
+        displayState = false;
     }
 
-    public override void Interact(Hand hand) {
-        swipeTime = SWIPE_DEFAULT_TIME;
+    public void EnableDisplay() {
+        if (displayState) {
+            return;
+        }
+
+        displayState = true;
+        currentDisplay = Instantiate(liquidDisplay);
+        SyringeDisplay display = currentDisplay.GetComponent<SyringeDisplay>();
+        display.SetFollowedObject(gameObject);
+
+        EnableForOtherSyringeDisplay();
     }
 
-    public override void Interacting(Hand hand) {
-        bool padClickLeft = VRInput.GetControlDown(hand.HandType, ControlType.DPadWest);
-        bool padClickRight = VRInput.GetControlDown(hand.HandType, ControlType.DPadEast);
-        
-        int amount = 0;
-        if (padClickLeft) amount = -LIQUID_TRANSFER_STEP;
-        if (padClickRight) amount = LIQUID_TRANSFER_STEP;
+    public void DisableDisplay() {
+        if (State != InteractState.LuerlockAttached && State != InteractState.Grabbed) {
+            DestroyDisplay();
+        }
+    }
+
+    public void DestroyDisplay() {
+        if (currentDisplay != null) {
+            Destroy(currentDisplay);
+        }
+
+        displayState = false;
+    }
+
+    private void EnableForOtherSyringeDisplay() {
+        if (State == InteractState.LuerlockAttached && (Interactors.LuerlockPair.Value.ObjectCount == 2)) {
+            Syringe other = (Syringe)Interactors.LuerlockPair.Value.GetOtherInteractable(this);
+            other.EnableDisplay();
+        }
+    }
+
+    public override void OnGrabStart(Hand hand) {
+        base.OnGrabStart(hand);
+
+        EnableDisplay();
+    }
+
+    public override void OnGrabEnd(Hand hand) {
+        base.OnGrabEnd(hand);
+
+        DisableDisplay();
+    }
+
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
+
+        bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
+        bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
+
+        int ejectAmount = 0;
+        if (takeMedicine) ejectAmount = -LIQUID_TRANSFER_STEP;
+        if (ejectMedicine) ejectAmount = LIQUID_TRANSFER_STEP;
 
         // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
-        if (amount == 0) {
+        if (ejectAmount == 0) {
             return;
         }
 
@@ -69,11 +119,11 @@ public class Syringe : GeneralItem {
         }
 
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
-            LuerlockEject(amount);
+            LuerlockEject(ejectAmount);
         } else if (State == InteractState.InBottle) {
-            BottleEject(amount);
+            BottleEject(ejectAmount);
         } else {
-            Eject(amount);
+            Eject(ejectAmount);
         }
     }
 
@@ -92,7 +142,7 @@ public class Syringe : GeneralItem {
 
         Syringe leftSyringe = (Syringe)pair.Value.LeftConnector.AttachedInteractable;
         Syringe rightSyringe = (Syringe)pair.Value.RightConnector.AttachedInteractable;
-        bool invert = (pair.Key == 0) == (amount < 0);
+        bool invert = (pair.Key == 0) != (amount < 0);
 
         Syringe srcSyringe = invert ? rightSyringe : leftSyringe;
         Syringe dstSyringe = invert ? leftSyringe : rightSyringe;

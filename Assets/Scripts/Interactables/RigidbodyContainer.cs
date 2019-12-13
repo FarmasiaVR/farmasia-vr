@@ -71,7 +71,7 @@ public class RigidbodyContainer {
         }
 
         Enabled = false;
-
+    
         SaveState();
         MonoBehaviour.Destroy(Rigidbody);
     }

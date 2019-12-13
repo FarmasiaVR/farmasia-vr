@@ -5,8 +5,12 @@ public static class Controls {
     #region Fields
     private static ControlType grab;
     private static ControlType grabInteract;
+    private static ControlType remoteGrab;
 
-    private static ControlType teleport;
+    private static ControlType takeMedicine;
+    private static ControlType ejectMedicine;
+
+    private static ControlType menu;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
 
@@ -17,7 +21,7 @@ public static class Controls {
         get {
 
             if (grab == ControlType.NotAssigned) {
-                Logger.Warning("Control " + grab + " has not been assigned");
+                Logger.Warning("Control grab has not been assigned");
             }
 
             return grab;
@@ -28,21 +32,54 @@ public static class Controls {
         get {
 
             if (grabInteract == ControlType.NotAssigned) {
-                Logger.Warning("Control " + grabInteract + " has not been assigned");
+                Logger.Warning("Control grabInteract has not been assigned");
             }
 
             return grabInteract;
         }
     }
 
-    public static ControlType Teleport {
+    public static ControlType RemoteGrab {
         get {
 
-            if (teleport == ControlType.NotAssigned) {
-                Logger.Warning("Control " + teleport + " has not been assigned");
+            if (remoteGrab == ControlType.NotAssigned) {
+                Logger.Warning("Control remoteGrab has not been assigned");
             }
 
-            return teleport;
+            return remoteGrab;
+        }
+    }
+
+    public static ControlType TakeMedicine {
+        get {
+
+            if (takeMedicine == ControlType.NotAssigned) {
+                Logger.Warning("Control takeMedicine has not been assigned");
+            }
+
+            return takeMedicine;
+        }
+    }
+
+    public static ControlType EjectMedicine {
+        get {
+
+            if (ejectMedicine == ControlType.NotAssigned) {
+                Logger.Warning("Control ejectMedicine has not been assigned");
+            }
+
+            return ejectMedicine;
+        }
+    }
+
+    public static ControlType Menu {
+        get {
+
+            if (menu == ControlType.NotAssigned) {
+                Logger.Warning("Control teleport has not been assigned");
+            }
+
+            return menu;
         }
     }
 
@@ -57,6 +94,11 @@ public static class Controls {
     public static void SetDefaultControls() {
         grab = ControlType.TriggerClick;
         grabInteract = ControlType.PadClick;
-        teleport = ControlType.Menu;
+        remoteGrab = ControlType.PadClick;
+
+        takeMedicine = ControlType.DPadEast;
+        ejectMedicine = ControlType.DPadWest;
+
+        menu = ControlType.Menu;
     }
 }

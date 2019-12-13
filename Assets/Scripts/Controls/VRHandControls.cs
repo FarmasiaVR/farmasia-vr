@@ -168,33 +168,43 @@ public class VRHandControls : MonoBehaviour {
     #region DPad
     private void DPadNorthDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.DPadNorth, handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
     private void DPadNorthUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.DPadNorth, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
     private void DPadSouthDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.DPadSouth, handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
     private void DPadSouthUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.DPadSouth, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
     private void DPadWestDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.DPadWest, handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
     private void DPadWestUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.DPadWest, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
     private void DPadEastDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.DPadEast, handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
     private void DPadEastUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.DPadEast, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
     private void DPadCenterDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.DPadCenter, handType);
+        VRInput.ControlDown(ControlType.PadClick, handType);
     }
     private void DPadCenterUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlUp(ControlType.DPadCenter, handType);
+        VRInput.ControlUp(ControlType.PadClick, handType);
     }
     #endregion
 }

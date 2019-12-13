@@ -46,7 +46,7 @@ public class Finish : TaskBase {
         }
         if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
             UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
-            AudioManager.Play(AudioClipType.MistakeMessage);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
         } else {
             FinishTask();
         }
@@ -85,7 +85,7 @@ public class Finish : TaskBase {
         foreach (Package p in G.Instance.Progress.packages) {
             if (p.name == PackageName.Workspace) {
                 if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
-                    G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag); 
+                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag).FinishTask(); 
                 }
                 break;
             }

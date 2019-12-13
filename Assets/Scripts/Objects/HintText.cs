@@ -66,5 +66,13 @@ public class HintText : MonoBehaviour {
             button.SafeDestroy();
         }
         StartCoroutine(DestroyCoroutine());
+        G.Instance.Pipeline
+            .New()
+            .Delay(1f)
+            .Func(ReCreateHintBox);
+    }
+
+    private void ReCreateHintBox() {
+        G.Instance.Progress.UpdateHint();
     }
 }

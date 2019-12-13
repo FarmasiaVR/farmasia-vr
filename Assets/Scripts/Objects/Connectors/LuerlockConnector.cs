@@ -19,25 +19,24 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Attaching
     public override void ConnectItem(Interactable interactable) {
-        Logger.Print("Connect item: " + interactable.name);
-
         bool luerlockGrabbed = GeneralItem.State == InteractState.Grabbed;
         Hand luerlockHand = luerlockGrabbed ? Hand.GrabbingHand(GeneralItem) : null;
 
         bool itemGrabbed = interactable.State == InteractState.Grabbed;
         Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
 
+        if (interactable.IsAttached) {
+            return;
+        }
+
         // Move to ConnectionHandler?
         // Remove current connections
         if (luerlockGrabbed) {
             // Not necessary but more 'clear' for debugging purposes
-            Logger.Print("Luerlock is grabbed, removing grab from luerlock");
             Hand.GrabbingHand(GeneralItem).Connector.Connection.Remove();
         }
         if (itemGrabbed) {
             itemHand.Connector.Connection.Remove();
-            // interactable.GetComponent<ItemConnection>().Remove();
-            Logger.Print("Removeing connection from " + interactable.name);
         }
 
 
@@ -46,17 +45,14 @@ public class LuerlockConnector : AttachmentConnector {
         // Move to ConnectionHandler?
         // Add new connections
         if (luerlockGrabbed) {
-            luerlockHand.InteractWith(GeneralItem);
+            luerlockHand.InteractWith(GeneralItem, false);
+            luerlockHand.Smooth.DisableInitMode();
         }
         if (itemGrabbed) {
-            Vector3 pos = itemHand.Offset.position;
-            Quaternion rot = itemHand.Offset.rotation;
-
-            itemHand.InteractWith(interactable);
-
-            itemHand.Offset.position = pos;
-            itemHand.Offset.rotation = rot;
+            itemHand.InteractWith(interactable, false);
         }
+
+        ((Syringe)AttachedInteractable).EnableDisplay();
     }
 
     protected override void SetInteractors() {
@@ -64,7 +60,7 @@ public class LuerlockConnector : AttachmentConnector {
     }
 
     protected override void AttachEvents(GameObject intObject) {
-        AudioManager.Play(AudioClipType.LockedItem);
+        G.Instance.Audio.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(intObject));
         Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(intObject));
     }
@@ -74,7 +70,8 @@ public class LuerlockConnector : AttachmentConnector {
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
 
-        obj.up = coll.up;
+        Vector3 pivot = Vector3.Cross(coll.up, obj.up);
+        obj.Rotate(pivot, -Vector3.SignedAngle(coll.up, obj.up, pivot), Space.World);
 
         Vector3 offset = coll.position - luerlockPos.position;
         obj.position += offset;
@@ -83,6 +80,7 @@ public class LuerlockConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
+        G.Instance.Audio.Play(AudioClipType.LockedItem);
         Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attached.GameObject));
         // MonoBehaviour.Destroy(Joint);
         // MonoBehaviour.Destroy(connection);
