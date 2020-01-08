@@ -73,7 +73,9 @@ public class NeedleConnector : AttachmentConnector {
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
         ReplaceObject(null);
-        Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
+        if (GeneralItem as Needle != null) {
+            Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
+        }
     }
     #endregion
 }
