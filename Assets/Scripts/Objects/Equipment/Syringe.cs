@@ -178,7 +178,7 @@ public class Syringe : GeneralItem {
         await Task.Delay(TimeSpan.FromSeconds(BOTTLE_EJECT_TIMEOUT));
 
         if (bottleEjectIndex == index) {
-            Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(this));
+            //Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(this));
         }
     }
 
