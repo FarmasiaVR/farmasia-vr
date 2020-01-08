@@ -199,7 +199,7 @@ public class ProgressManager {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
                 RemoveTask(task);
-                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
+                EndSummary.EnableEndSummary(Calculator.GetScoreString());
                 break;
             }
         }
