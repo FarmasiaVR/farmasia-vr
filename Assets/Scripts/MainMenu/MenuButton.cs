@@ -18,14 +18,15 @@ public class MenuButton : Interactable {
         changer = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
     public override void Interact(Hand hand) {
-        base.Interact(hand);
-        if (isCloseButton) {
-            menu.Close();
-        } else {
-            changer.SwapScene(scene);
-            changer.FadeOutScene();
+        if (gameObject.activeInHierarchy) {
+            base.Interact(hand);
+            if (isCloseButton) {
+                menu.Close();
+            } else {
+                changer.SwapScene(scene);
+                changer.FadeOutScene();
+            }
         }
-
     }
 
     public override void Uninteract(Hand hand) {
