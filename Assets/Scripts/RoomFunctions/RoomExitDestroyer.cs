@@ -6,10 +6,9 @@ public class RoomExitDestroyer : MonoBehaviour {
 
     private void OnTriggerExit(Collider other) {
         GameObject gm = Interactable.GetInteractableObject(other.transform);
-        GeneralItem item = gm.GetComponent<GeneralItem>();
+        if (gm == null) return;
 
-        if (item != null) {
-            item.DestroyInteractable();
-        }
+        GeneralItem item = gm.GetComponent<GeneralItem>();
+        if (item != null) item.DestroyInteractable();
     }
 }
