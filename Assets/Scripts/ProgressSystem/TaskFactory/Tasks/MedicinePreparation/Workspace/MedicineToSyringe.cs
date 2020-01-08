@@ -109,13 +109,6 @@ public class MedicineToSyringe : TaskBase {
         }
     }
 
-    private bool LiquidAmountHasChanged(Syringe syringe) {
-        if (syringes[syringe.GetInstanceID()] != syringe.Container.Amount) {
-            return true;
-        }
-        return false;
-    }
-
     private void ReceivedPoints() {
         if (base.GetNonClearedConditions().Count == 2) {
             UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake);
