@@ -38,28 +38,14 @@ public class ContainerItem {
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
-            Events.FireEvent(EventType.SyringeToMedicineBottle, CallbackData.Object(syringe));
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
             Events.FireEvent(EventType.Disinfect, CallbackData.Object(item));
         }
 
         syringe.BottleContainer = container;
-
-        // DO NOT REMOVE PLEASE, I NEED TO TEST NEW CODE BEFORE DELETING OLD! T. Eetu
-        //Syringe syringe = interactable as Syringe;
-
-        //if (syringe == null) {
-        //    return;
-        //}
-
-        //if (item.ObjectType == ObjectType.Bottle) {
-        //    syringe.State.On(InteractState.InBottle);
-        //    syringe.hasBeenInBottle = true;
-        //    Events.FireEvent(EventType.SyringeToMedicineBottle, CallbackData.Object(syringe));
-        //    Events.FireEvent(EventType.Disinfect, CallbackData.Object(item));
-        //}
-
-        //syringe.BottleContainer = container;
     }
+
+    // Deprecated? 
     public void TriggerExit(Collider c) {
         Interactable interactable = Interactable.GetInteractable(c.transform);
 
@@ -78,7 +64,7 @@ public class ContainerItem {
         if (item.ObjectType == ObjectType.Bottle && exited) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
-            Events.FireEvent(EventType.SyringeFromMedicineBottle, CallbackData.Object(syringe));
+            // Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
         }
     }
 

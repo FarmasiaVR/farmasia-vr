@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
@@ -31,6 +34,8 @@ public class Syringe : GeneralItem {
     private GameObject currentDisplay;
     private bool displayState;
 
+    private int bottleEjectIndex = 0;
+    private const float BOTTLE_EJECT_TIMEOUT = 3f;
     #endregion
     protected override void Start() {
         base.Start();
@@ -162,6 +167,18 @@ public class Syringe : GeneralItem {
             BottleContainer.TransferTo(Container, amount);
         } else {
             Container.TransferTo(BottleContainer, -amount);
+        }
+
+        bottleEjectIndex++;
+        CheckFinalEject(bottleEjectIndex);
+    }
+
+    private async void CheckFinalEject(int index) {
+
+        await Task.Delay(TimeSpan.FromSeconds(BOTTLE_EJECT_TIMEOUT));
+
+        if (bottleEjectIndex == index) {
+            Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(this));
         }
     }
 
