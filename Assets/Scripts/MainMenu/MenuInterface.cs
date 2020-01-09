@@ -11,6 +11,9 @@ public class MenuInterface : MonoBehaviour {
     private Vector3 offset;
 
     [SerializeField]
+    private Vector3 localPosOffset;
+
+    [SerializeField]
     private float lerpAmount;
     [SerializeField]
     private float centerOffset = 0.2f;
@@ -23,6 +26,7 @@ public class MenuInterface : MonoBehaviour {
     }
 
     private void Start() {
+        localPosOffset = transform.localPosition;
         if (cam == null) {
             cam = GameObject.FindGameObjectWithTag("MainCamera")?.transform;
         }
@@ -31,8 +35,10 @@ public class MenuInterface : MonoBehaviour {
 
     private void Update() {
         if (Visible) {
-            transform.LookAt(cam, Vector3.up);
-            transform.position = Vector3.Lerp(transform.position, GetTransformPosition(), Time.deltaTime / lerpAmount);
+            Transform trans = cam.transform;
+            trans.position += localPosOffset;
+            transform.LookAt(trans, Vector3.up);
+            transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
         }
         if (hand != null && VRInput.GetControlDown(hand.HandType, Controls.Menu)) {
             Close();
