@@ -30,5 +30,6 @@
     SyringeToLuerlock,
     SyringeFromLuerlock,
     HandsExitLaminarCabinet,
-    HandleGrabbed
+    HandleGrabbed,
+    PushingToSmallerSyringe
 }

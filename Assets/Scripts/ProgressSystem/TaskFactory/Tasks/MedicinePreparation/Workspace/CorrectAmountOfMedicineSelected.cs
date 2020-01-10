@@ -39,6 +39,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
         base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
+        base.SubscribeEvent(InvalidSyringePush, EventType.PushingToSmallerSyringe);
     }
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
@@ -94,6 +95,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                 }
             }
         }
+    }
+
+    private void InvalidSyringePush(CallbackData data) {
+        G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
+        UISystem.Instance.CreatePopup(-1, "Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", MsgType.Mistake);
     }
     #endregion
 
