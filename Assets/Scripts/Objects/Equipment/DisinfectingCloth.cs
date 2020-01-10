@@ -23,8 +23,6 @@ public class DisinfectingCloth : GeneralItem {
             if (!bottle.IsClean) {
                 bottle.IsClean = true;
                 UISystem.Instance.CreatePopup("Lääkepullon korkki puhdistettu.", MsgType.Notify);
-            } else {
-                UISystem.Instance.CreatePopup("Lääkepullon korkki oli jo puhdas.", MsgType.Notify);
             }
         }
     }
