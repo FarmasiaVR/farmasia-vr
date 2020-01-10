@@ -83,10 +83,6 @@ public class Player : MonoBehaviour {
 
         string json = JsonUtility.ToJson(new DataWrapper(toSave), true);
 
-        Logger.Print("Info´to json: " + JsonUtility.ToJson(Info));
-        Logger.Print("Saving data: " + path);
-        Logger.Print("Player count: " + toSave.Length);
-        Logger.Print("DATA: " + json.Length + ", " + json);
         File.WriteAllText(path, json);
     }
 
