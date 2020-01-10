@@ -11,7 +11,7 @@ public class RoomExitDestroyer : MonoBehaviour {
         GeneralItem item = gm.GetComponent<GeneralItem>();
         if (item != null) {
 
-            if (Interactable.GetInteractableObject(item.transform.parent) != null) {
+            if (item.ObjectType == ObjectType.Syringe && item.IsAttached) {
                 return;
             }
 
