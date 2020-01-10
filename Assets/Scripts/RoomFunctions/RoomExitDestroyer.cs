@@ -10,6 +10,11 @@ public class RoomExitDestroyer : MonoBehaviour {
 
         GeneralItem item = gm.GetComponent<GeneralItem>();
         if (item != null) {
+
+            if (Interactable.GetInteractableObject(item.transform.parent) != null) {
+                return;
+            }
+
             Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             item.DestroyInteractable();
         }
