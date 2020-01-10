@@ -107,8 +107,8 @@ public class Syringe : GeneralItem {
         bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
         int ejectAmount = 0;
-        if (takeMedicine) ejectAmount = -LIQUID_TRANSFER_STEP;
-        if (ejectMedicine) ejectAmount = LIQUID_TRANSFER_STEP;
+        if (takeMedicine) ejectAmount +=LIQUID_TRANSFER_STEP;
+        if (ejectMedicine) ejectAmount -= LIQUID_TRANSFER_STEP;
 
         // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
         if (ejectAmount == 0) {
@@ -154,7 +154,7 @@ public class Syringe : GeneralItem {
             }
         }
 
-        Container.TransferTo(other.Container, Mathf.Abs(amount));
+        Container.TransferTo(other.Container, amount);
     }
     private void BottleEject(int amount) {
 
