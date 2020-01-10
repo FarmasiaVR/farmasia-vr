@@ -59,6 +59,14 @@ public class TutorialScene : MonoBehaviour {
                 return "Ruisku";
             case ObjectType.Needle:
                 return "Neula";
+            case ObjectType.Medicine:
+                return "Lääkepullo";
+            case ObjectType.DisinfectingCloth:
+                return "Steriili puhdistusliina";
+            case ObjectType.SterileBag:
+                return "Steriili pussi";
+            case ObjectType.SyringeCap:
+                return "Ruiskun korkki";
             default:
                 return type.ToString();
         }
