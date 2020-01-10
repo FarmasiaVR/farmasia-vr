@@ -89,7 +89,6 @@ public class ObjectFactory : MonoBehaviour {
         Interactable handInteractable = Interactable.GetInteractable(handObject.transform);
 
         while (MultiColliderTool.CheckCollision(handInteractable.FullBounds, currentInteractable.FullBounds)) {
-            Logger.Print("colliding");
             if (currentInteractable != interactable) {
                 handInteractable.DestroyInteractable();
                 yield break;
