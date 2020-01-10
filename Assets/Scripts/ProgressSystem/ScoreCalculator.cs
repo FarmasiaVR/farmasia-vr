@@ -72,12 +72,12 @@ public class ScoreCalculator {
     /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
-    public string GetScoreString() {
+    public void GetScoreString(out int score, out string scoreString) {
         String summary = "Peli päättyi - onnittelut!\n";
         String scoreCountPerTask = "";
         String beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         String addedBeforeTimeList = "";
-        int score = 0;
+        score = 0;
 
         foreach (TaskType type in points.Keys) {
             scoreCountPerTask += "\n Tehtävä:" + type.ToString() + ": " + points[type] + "pistettä.";
@@ -92,16 +92,7 @@ public class ScoreCalculator {
         }
         summary += "Kokonaispistemäärä: " + score + "/" + maxScore + "!";
         Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
-        return summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
-    }
-    public int GetScore() {
-        int score = 0;
-
-        foreach (TaskType type in points.Keys) {
-            score += points[type];
-        }
-
-        return score;
+        scoreString = summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }
     #endregion
 }
