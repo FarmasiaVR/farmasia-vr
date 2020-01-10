@@ -5,7 +5,8 @@ using UnityEngine;
 public static class MultiColliderTool {
     
     public static Bounds GetCombinedColliderBounds(GameObject g) {
-        Bounds combinedBounds = g.GetComponent<Collider>()?.bounds ?? new Bounds(Vector3.zero, Vector3.zero);
+        Collider c = g.GetComponent<Collider>();
+        Bounds combinedBounds = c != null ? c.bounds : new Bounds();
         Component[] colliders = g.GetComponentsInChildren<Collider>();
 
         foreach (Collider collider in colliders) {
