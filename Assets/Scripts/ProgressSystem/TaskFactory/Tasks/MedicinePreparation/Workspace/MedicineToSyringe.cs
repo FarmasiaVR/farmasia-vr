@@ -111,10 +111,10 @@ public class MedicineToSyringe : TaskBase {
 
     private void ReceivedPoints() {
         if (base.GetNonClearedConditions().Count == 2) {
-            UISystem.Instance.CreatePopup(0, "Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake);
+            UISystem.Instance.CreatePopup(-2, "Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2);
         } else {
-            UISystem.Instance.CreatePopup(1, "Väärä ruiskun koko tai määrä lääkettä.", MsgType.Mistake);
+            UISystem.Instance.CreatePopup(-1, "Väärä ruiskun koko tai määrä lääkettä.", MsgType.Mistake);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 1);
         }
     }
