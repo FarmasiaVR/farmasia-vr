@@ -78,6 +78,7 @@ public class Player : MonoBehaviour {
         }
 
         Info.Timestamp = DateTime.Now.ToString();
+        Info.Score = score;
         toSave[prev.Length] = Info;
 
         string json = JsonUtility.ToJson(new DataWrapper(toSave), true);
