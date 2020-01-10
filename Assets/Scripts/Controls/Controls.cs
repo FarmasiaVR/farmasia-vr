@@ -96,8 +96,8 @@ public static class Controls {
         grabInteract = ControlType.PadClick;
         remoteGrab = ControlType.PadClick;
 
-        takeMedicine = ControlType.DPadEast;
-        ejectMedicine = ControlType.DPadWest;
+        takeMedicine = ControlType.DPadWest;
+        ejectMedicine = ControlType.DPadEast;
 
         menu = ControlType.Menu;
     }

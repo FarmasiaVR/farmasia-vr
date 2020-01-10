@@ -18,22 +18,16 @@ public class ContainerItem {
     }
 
     public void TriggerEnter(Collider c) {
-
         Interactable interactable = Interactable.GetInteractable(c.transform);
-
-        if (interactable == null) {
-            return;
-        }
+        if (interactable == null) return;
 
         AddToDictionary(interactable);
 
-        Needle needle = interactable as Needle;
+        Needle needle = (Needle) interactable;
+        if (needle == null || !needle.Connector.HasAttachedObject) return;
 
-        if (needle == null || !needle.Connector.HasAttachedObject) {
-            return;
-        }
-
-        Syringe syringe = (Syringe)(needle.Connector.AttachedInteractable);
+        Syringe syringe = (Syringe) needle.Connector.AttachedInteractable;
+        if (syringe == null) return;
 
         if (item.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
@@ -45,31 +39,25 @@ public class ContainerItem {
         syringe.BottleContainer = container;
     }
 
-    // Deprecated? 
     public void TriggerExit(Collider c) {
         Interactable interactable = Interactable.GetInteractable(c.transform);
-
-        if (interactable == null) {
-            return;
-        }
+        if (interactable == null) return;
 
         bool exited = RemoveFromDictionary(interactable);
 
-        Syringe syringe = interactable as Syringe;
+        Needle needle = (Needle) interactable;
+        if (needle == null) return;
 
-        if (syringe == null) {
-            return;
-        }
+        Syringe syringe = (Syringe) needle.Connector.AttachedInteractable;
+        if (syringe == null) return;
 
         if (item.ObjectType == ObjectType.Bottle && exited) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
-            // Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
         }
     }
 
     private void AddToDictionary(Interactable interactable) {
-
         int id = interactable.GetInstanceID();
 
         if (enteredObjects.ContainsKey(id)) {
