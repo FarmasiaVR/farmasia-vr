@@ -24,8 +24,6 @@ public class Interactable : MonoBehaviour {
 
     public bool IsInteracting;
 
-    public Bounds FullBounds;
-
     // CAN'T BE A PROPERTY
     public Interactors Interactors;
     #endregion
@@ -40,8 +38,6 @@ public class Interactable : MonoBehaviour {
         }
         
         gameObject.tag = iTag;
-
-        FullBounds = MultiColliderTool.GetCombinedColliderBounds(gameObject);
     }
 
 
