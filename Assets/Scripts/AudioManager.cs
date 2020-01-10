@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum AudioClipType {
@@ -23,24 +24,28 @@ public class AudioManager {
     }
 
     public void Play(AudioClipType type, GameObject audioSourceObject = null, float spatialBlend = 0) {
-        AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
-        if (audioSrc == null) {
-            Logger.Warning("No AudioSource component was attached, cannot play audio.");
-            return;
-        }
+        try {
+            AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
+            if (audioSrc == null) {
+                Logger.Warning("No AudioSource component was attached, cannot play audio.");
+                return;
+            }
 
-        if (audioSrc.isPlaying) {
-            return;
-        }
+            if (audioSrc.isPlaying) {
+                return;
+            }
 
-        AudioClip audioClip = GetAudioClip(type);
-        if (audioClip == null) {
-            Logger.Error("No AudioClip found for type: " + type + " and filename '" + audioClips[type].filename + "'. Wrong filename?");
-            return;
-        }
+            AudioClip audioClip = GetAudioClip(type);
+            if (audioClip == null) {
+                Logger.Error("No AudioClip found for type: " + type + " and filename '" + audioClips[type].filename + "'. Wrong filename?");
+                return;
+            }
 
-        audioSrc.spatialBlend = spatialBlend;
-        audioSrc.PlayOneShot(audioClip, 1.0f);
+            audioSrc.spatialBlend = spatialBlend;
+            audioSrc.PlayOneShot(audioClip, 1.0f);
+        } catch (Exception e) {
+            Logger.Error("Error with playing audio file of type: " + type + " from source " + audioSourceObject + "\nError message: " + e.Message);
+        }
     }
 
     private AudioSource GetAudioSource(GameObject sourceObject, AudioClipType type) {
