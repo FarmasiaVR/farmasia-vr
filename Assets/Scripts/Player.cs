@@ -41,11 +41,6 @@ public class Player : MonoBehaviour {
         Transform = transform;
         Camera = Transform.Find("Camera").GetComponent<Camera>();
 
-        Info.Name = "NAME: " + UnityEngine.Random.value;
-        Info.Number = "" + UnityEngine.Random.value;
-
-        SavePlayerData(0);
-
         if (Transform == null || Camera == null) {
             throw new System.Exception("Player init failed");
         }
@@ -53,10 +48,10 @@ public class Player : MonoBehaviour {
 
     public static void Initialize(string name, string number) {
 
-        if (name == null || name.Length == 0) {
+        if (name == null || name.Trim().Length == 0) {
             name = "tester";
         }
-        if (number == null || number.Length == 0) {
+        if (number == null || number.Trim().Length == 0) {
             number = DefaultNumber;
         }
 

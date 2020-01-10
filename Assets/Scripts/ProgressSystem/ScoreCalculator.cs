@@ -94,5 +94,14 @@ public class ScoreCalculator {
         Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
         return summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }
+    public int GetScore() {
+        int score = 0;
+
+        foreach (TaskType type in points.Keys) {
+            score += points[type];
+        }
+
+        return score;
+    }
     #endregion
 }

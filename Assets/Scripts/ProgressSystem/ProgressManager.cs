@@ -199,6 +199,7 @@ public class ProgressManager {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
                 RemoveTask(task);
+                Player.SavePlayerData(Calculator.GetScore());
                 EndSummary.EnableEndSummary(Calculator.GetScoreString());
                 break;
             }
