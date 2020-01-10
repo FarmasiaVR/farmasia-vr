@@ -90,4 +90,10 @@ public class Interactable : MonoBehaviour {
             return State == InteractState.LuerlockAttached || State == InteractState.NeedleAttached;
         }
     }
+
+    public bool IsGrabbed {
+        get {
+            return State == InteractState.Grabbed;
+        }
+    }
 }
