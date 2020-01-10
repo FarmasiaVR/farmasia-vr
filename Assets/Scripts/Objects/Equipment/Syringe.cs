@@ -144,7 +144,7 @@ public class Syringe : GeneralItem {
             return;
         }
 
-        Syringe other = (Syringe)pair.Value.LeftConnector.AttachedInteractable == this ?
+        Syringe other = (Syringe)pair.Value.LeftConnector.AttachedInteractable != this ?
             (Syringe)pair.Value.LeftConnector.AttachedInteractable :
             (Syringe)pair.Value.RightConnector.AttachedInteractable;
 
