@@ -86,10 +86,15 @@ public class ObjectFactory : MonoBehaviour {
     private IEnumerator CheckCollisionRelease(GameObject handObject, GameObject factoryObject, Interactable currentInteractable) {
         yield return null;
 
-        while (triggerColliderCount.Inside) {
-            if (currentInteractable != interactable) yield break;
+        Interactable handInteractable = Interactable.GetInteractable(handObject.transform);
 
-            Interactable handInteractable = Interactable.GetInteractable(handObject.transform);
+        while (MultiColliderTool.CheckCollision(handInteractable.FullBounds, currentInteractable.FullBounds)) {
+            Logger.Print("colliding");
+            if (currentInteractable != interactable) {
+                handInteractable.DestroyInteractable();
+                yield break;
+            }
+
             if (!handInteractable.IsGrabbed) {
                 handInteractable.DestroyInteractable();
                 yield break;
@@ -122,9 +127,7 @@ public class ObjectFactory : MonoBehaviour {
             CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
             StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));
         }
-        if (lastPicked != null) {
-            CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
-        }
+
         lastPicked = handObject;
     }
 }
