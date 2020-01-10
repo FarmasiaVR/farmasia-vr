@@ -23,10 +23,10 @@ public class ContainerItem {
 
         AddToDictionary(interactable);
 
-        Needle needle = (Needle) interactable;
+        Needle needle = interactable as Needle;
         if (needle == null || !needle.Connector.HasAttachedObject) return;
 
-        Syringe syringe = (Syringe) needle.Connector.AttachedInteractable;
+        Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) return;
 
         if (item.ObjectType == ObjectType.Bottle) {
@@ -45,10 +45,10 @@ public class ContainerItem {
 
         bool exited = RemoveFromDictionary(interactable);
 
-        Needle needle = (Needle) interactable;
+        Needle needle = interactable as Needle;
         if (needle == null) return;
 
-        Syringe syringe = (Syringe) needle.Connector.AttachedInteractable;
+        Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) return;
 
         if (item.ObjectType == ObjectType.Bottle && exited) {

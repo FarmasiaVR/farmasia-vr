@@ -96,4 +96,10 @@ public class Interactable : MonoBehaviour {
             return State == InteractState.Grabbed;
         }
     }
+
+    public bool IsOnFloor {
+        get {
+            return State == InteractState.OnFloor;
+        }
+    }
 }

@@ -2,5 +2,6 @@
     Grabbed,
     LuerlockAttached,
     NeedleAttached,
-    InBottle
+    InBottle,
+    OnFloor
 }
