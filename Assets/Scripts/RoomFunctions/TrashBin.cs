@@ -10,7 +10,7 @@ public class TrashBin : MonoBehaviour {
     private void Start() {
         Setup(false);
     }
-
+    
     protected void Setup(bool checkForSharp) {
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterTrashbin(collider, checkForSharp)));
     }

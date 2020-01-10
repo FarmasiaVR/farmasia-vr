@@ -7,12 +7,18 @@ public class TutorialScene : MonoBehaviour {
 
     #region fields
     [SerializeField]
+    private GameObject walls;
+
+    [SerializeField]
     private TypeMessagePair[] tutorialHints;
 
     private Dictionary<ObjectType, string> hints;
     #endregion
 
     private void Start() {
+
+        walls.SetActive(true);
+
         Events.SubscribeToEvent(OnGrab, EventType.GrabObject);
 
         hints = new Dictionary<ObjectType, string>();
