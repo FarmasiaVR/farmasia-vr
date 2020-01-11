@@ -35,7 +35,11 @@ public class MenuInterface : MonoBehaviour {
 
     private void Update() {
         if (Visible) {
-            Transform trans = cam.transform;
+            GameObject custom = new GameObject();
+            
+            Transform trans = custom.transform;
+            trans.position = cam.position;
+
             trans.position += localPosOffset;
             transform.LookAt(trans, Vector3.up);
             transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
