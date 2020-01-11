@@ -27,6 +27,8 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void OnFadeComplete() {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        Resources.UnloadUnusedAssets();
         SceneManager.LoadScene(scene);
     }
 

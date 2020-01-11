@@ -9,7 +9,7 @@ public sealed class G {
     public static G Instance { get => instance; }
 
     public AudioManager Audio { get; }
-    public ProgressManager Progress { get; }
+    public ProgressManager Progress { get; private set; }
     public PipelineManager Pipeline { get; }
     #endregion
 
@@ -18,6 +18,11 @@ public sealed class G {
     private G() {
         Audio = new AudioManager();
         Pipeline = new PipelineManager();
+        Progress = new ProgressManager(false);
+    }
+
+    public void ResetProgressManager() {
+        Logger.Warning("Resetting ProgressManager");
         Progress = new ProgressManager(false);
     }
 
