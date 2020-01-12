@@ -1,24 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class SceneSelectBox : Interactable {
     [SerializeField]
     GameObject liquid;
     ProgressBar bar;
-    [SerializeField]
-    private SceneTypes scene;
-    private SceneLoader changer;
+    private bool activated;
 
+    public delegate void OnAcceptCallback();
+
+    [SerializeField]
+    private OnAcceptCallback OnAccept;
+
+    [SerializeField]
+    private UnityEvent onActivate;
 
     protected override void Start() {
         base.Start();
         Type.Set(InteractableType.Interactable);
         bar = liquid.GetComponent<ProgressBar>();
-        changer = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
     private void Update() {
-        if (bar.Done) {
-            changer.SwapScene(scene);
+        if (bar.Done && !activated) {
+            activated = true;
+            onActivate?.Invoke();
         }
     }
 

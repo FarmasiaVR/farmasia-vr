@@ -27,7 +27,7 @@ public class ProgressManager {
 
         switch (scene) {
             case SceneTypes.MainMenu:
-                break;
+                return;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
                 AddTasks();
@@ -38,6 +38,8 @@ public class ProgressManager {
                 //todo
                 //GenerateScenarioTwo();
                 break;
+            case SceneTypes.Tutorial:
+                return;
         }
         if (scene != SceneTypes.MainMenu) {
 
