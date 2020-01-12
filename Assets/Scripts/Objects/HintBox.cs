@@ -43,6 +43,8 @@ public class HintBox : DragAcceptable {
 
             positions = GameObject.FindGameObjectsWithTag("Hint").Select(o => o.transform.position).ToArray();
 
+            Logger.PrintVariables("hint positions", positions.Length);
+
             initialized = true;
         }
     }

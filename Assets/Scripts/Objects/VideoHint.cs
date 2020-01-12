@@ -162,9 +162,9 @@ public class VideoHint : MonoBehaviour {
         GameObject newHint = Instantiate(videoHintPrefab);
         newHint.transform.position = position;
 
-        VideoHint hint = newHint.GetComponent<VideoHint>();
+        CurrentVideo = newHint.GetComponent<VideoHint>();
 
-        hint.clip = clip;
-        hint.videoTitle = videoTitle;
+        CurrentVideo.clip = clip;
+        CurrentVideo.videoTitle = videoTitle;
     }
 }

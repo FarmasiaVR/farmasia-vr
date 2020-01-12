@@ -120,6 +120,40 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &91806497
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &164297259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1747,12 +1781,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1333431537}
+      objectReference: {fileID: 91806497}
     - target: {fileID: 7825122742825631936, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1334626851}
+      objectReference: {fileID: 1417800086}
     - target: {fileID: 8856194895935235701, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Mesh
@@ -1920,6 +1954,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walls: {fileID: 2138229440}
   videoHintSpawn: {fileID: 1434224363}
+  startingVideo:
+    Clip: {fileID: 32900000, guid: 23f67f80aeba58747992ddc03c4788af, type: 3}
+    Title: Starting video
   tutorialHints:
   - Type: 4
     Message: "Luerlockin avulla voit siirt\xE4\xE4 nestett\xE4 toisesta ruiskusta
@@ -1951,6 +1988,15 @@ MonoBehaviour:
       neula ruiskuun ottamalla kiinni neulasta ja ruiskusta ja asettamalla neula ruiskun
       etuosaan. Kun haluat irrottaa neulan, oti kiinni neulasta ja ruiskusta ja ved\xE4
       neula irti ruiskusta."
+  tutorialVideoHints:
+  - Type: 1
+    Video:
+      Clip: {fileID: 32900000, guid: 23f67f80aeba58747992ddc03c4788af, type: 3}
+      Title: Syringe video
+  - Type: 4
+    Video:
+      Clip: {fileID: 32900000, guid: 23f67f80aeba58747992ddc03c4788af, type: 3}
+      Title: Luerlock video
 --- !u!1 &1210014412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,41 +2200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb8f50a28114194aa83ca853e262ff0, type: 3}
---- !u!21 &1333431537
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!43 &1334626851
+--- !u!43 &1417800086
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2362,7 +2374,7 @@ GameObject:
   - component: {fileID: 1434224363}
   m_Layer: 0
   m_Name: Video pos
-  m_TagString: Hint
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

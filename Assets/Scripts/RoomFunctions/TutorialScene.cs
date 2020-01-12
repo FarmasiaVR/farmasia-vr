@@ -6,6 +6,24 @@ using UnityEngine.Video;
 
 public class TutorialScene : MonoBehaviour {
 
+    [Serializable]
+    public struct TypeMessagePair {
+        public ObjectType Type;
+        public string Message;
+    }
+
+    [Serializable]
+    public struct TypeVideoPair {
+        public ObjectType Type;
+        public Video Video;
+    }
+
+    [Serializable]
+    public struct Video {
+        public VideoClip Clip;
+        public string Title;
+    }
+
     #region fields
     [SerializeField]
     private GameObject walls;
@@ -14,9 +32,16 @@ public class TutorialScene : MonoBehaviour {
     private Transform videoHintSpawn;
 
     [SerializeField]
+    private Video startingVideo;
+
+    [SerializeField]
     private TypeMessagePair[] tutorialHints;
 
+    [SerializeField]
+    private TypeVideoPair[] tutorialVideoHints;
+
     private Dictionary<ObjectType, string> hints;
+    private Dictionary<ObjectType, Video> videos;
     #endregion
 
     private void Start() {
@@ -34,7 +59,16 @@ public class TutorialScene : MonoBehaviour {
             }
         }
 
-        CreateVideoHint("Video title");
+        videos = new Dictionary<ObjectType, Video>();
+        foreach (var pair in tutorialVideoHints) {
+            if (!hints.ContainsKey(pair.Type)) {
+                videos.Add(pair.Type, pair.Video);
+            } else {
+                videos[pair.Type] = pair.Video;
+            }
+        }
+
+        CreateVideoHint(startingVideo);
     }
 
     private void OnGrab(CallbackData data) {
@@ -53,6 +87,9 @@ public class TutorialScene : MonoBehaviour {
 
         if (hints.ContainsKey(item.ObjectType)) {
             CreateHint(GetHintString(item.ObjectType, hints[item.ObjectType]));
+        }
+        if (videos.ContainsKey(item.ObjectType)) {
+            CreateVideoHint(videos[item.ObjectType]);
         }
     }
 
@@ -81,15 +118,8 @@ public class TutorialScene : MonoBehaviour {
     private void CreateHint(string hint) {
         HintBox.CreateHint(hint);
     }
-    private void CreateVideoHint(string title) {
-        VideoClip clip = Resources.Load<VideoClip>("Testing/video");
-
-        VideoHint.CreateVideoHint(clip, title, videoHintSpawn.position);
+    private void CreateVideoHint(Video video) {
+        VideoHint.CreateVideoHint(video.Clip, video.Title, videoHintSpawn.position);
     }
 }
 
-[Serializable]
-public struct TypeMessagePair {
-    public ObjectType Type;
-    public string Message;
-}
