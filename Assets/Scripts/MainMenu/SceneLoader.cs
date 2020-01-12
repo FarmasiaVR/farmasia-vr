@@ -6,6 +6,9 @@ public class SceneLoader : MonoBehaviour {
     private string scene;
     public void SwapScene(SceneTypes type) {
         switch (type) {
+            case SceneTypes.Restart:
+                ChangeScene("Restart");
+                return;
             case SceneTypes.MainMenu:
                 ChangeScene("MainMenu");
                 return;
@@ -35,6 +38,15 @@ public class SceneLoader : MonoBehaviour {
         }
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
+        LoadScene();
+    }
+
+    private void LoadScene() {
+        if (scene.Equals("Restart")) {
+            Logger.PrintVariables("Restarting current scene", scene);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
         Logger.PrintVariables("Loading scene", scene);
         SceneManager.LoadScene(scene);
     }
