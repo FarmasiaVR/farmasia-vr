@@ -2,12 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class TutorialScene : MonoBehaviour {
 
     #region fields
     [SerializeField]
     private GameObject walls;
+
+    [SerializeField]
+    private Transform videoHintSpawn;
 
     [SerializeField]
     private TypeMessagePair[] tutorialHints;
@@ -29,6 +33,8 @@ public class TutorialScene : MonoBehaviour {
                 hints[pair.Type] = pair.Message;
             }
         }
+
+        CreateVideoHint("Video title");
     }
 
     private void OnGrab(CallbackData data) {
@@ -74,6 +80,11 @@ public class TutorialScene : MonoBehaviour {
     
     private void CreateHint(string hint) {
         HintBox.CreateHint(hint);
+    }
+    private void CreateVideoHint(string title) {
+        VideoClip clip = Resources.Load<VideoClip>("Testing/video");
+
+        VideoHint.CreateVideoHint(clip, title, videoHintSpawn.position);
     }
 }
 
