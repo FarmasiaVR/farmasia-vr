@@ -143,6 +143,10 @@ public class VideoHint : MonoBehaviour {
 
     public static void CreateVideoHint(VideoClip clip, string videoTitle, Vector3 position) {
 
+        if (clip == null) {
+            return;
+        }
+
         if (CurrentVideo != null) {
             CurrentVideo.DestroyHint();
         }

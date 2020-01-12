@@ -26,6 +26,9 @@ public class Interactable : MonoBehaviour {
 
     // CAN'T BE A PROPERTY
     public Interactors Interactors;
+
+    [SerializeField]
+    private bool disableHighlighting;
     #endregion
 
     protected virtual void Awake() {
@@ -33,7 +36,7 @@ public class Interactable : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        if (gameObject.GetComponent<ObjectHighlight>() == null) {
+        if (gameObject.GetComponent<ObjectHighlight>() == null && !disableHighlighting) {
             gameObject.AddComponent<ObjectHighlight>();
         }
         
