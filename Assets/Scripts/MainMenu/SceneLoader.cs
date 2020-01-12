@@ -8,12 +8,15 @@ public class SceneLoader : MonoBehaviour {
         switch (type) {
             case SceneTypes.MainMenu:
                 ChangeScene("MainMenu");
-                break;
+                return;
             case SceneTypes.MedicinePreparation:
                 ChangeScene("MedicinePreparation");
-                break;
+                return;
+            case SceneTypes.Tutorial:
+                ChangeScene("Tutorial");
+                return;
             case SceneTypes.MembraneFilteration:
-                break;
+                return;
         }
     }
     private void ChangeScene(string name) {

@@ -1,5 +1,6 @@
 ﻿public enum SceneTypes {
     MedicinePreparation,
     MembraneFilteration,
-    MainMenu
+    MainMenu,
+    Tutorial
 }
