@@ -119,24 +119,14 @@ public class VideoHint : MonoBehaviour {
 
         StopAllCoroutines();
 
+        Destroy(player);
+        Destroy(audioSource);
+
         if (closeButton != null) {
             closeButton.SafeDestroy();
         }
         if (playButton != null) {
             playButton.SafeDestroy();
-        }
-
-        StartCoroutine(DestroyCoroutine());
-    }
-    private IEnumerator DestroyCoroutine() {
-
-        float time = spawnTime;
-
-        while (time > 0) {
-            time -= Time.deltaTime;
-            float factor = time / spawnTime;
-            transform.localScale = targetSize * factor;
-            yield return null;
         }
 
         GetComponent<Interactable>().DestroyInteractable();
