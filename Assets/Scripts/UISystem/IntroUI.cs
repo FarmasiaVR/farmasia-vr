@@ -19,6 +19,10 @@ public class IntroUI : MonoBehaviour {
     #endregion
 
     private void Start() {
+        if (Player.Initialized) {
+            Destroy(gameObject);
+        }
+
         button.onClick.AddListener(StartGame);
     }
 

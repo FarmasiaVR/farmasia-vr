@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
     }
 
     #region fields
+    public static bool Initialized { get; private set; }
     public static PlayerData Info;
 
     public static Transform Transform { get; private set; }
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour {
 
         Info.Name = name.Trim();
         Info.Number = number.Trim();
+        Initialized = true;
     }
 
     public static void SavePlayerData(int score) {

@@ -30,8 +30,12 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void OnFadeComplete() {
+        if (scene == null) {
+            return;
+        }
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
+        Logger.PrintVariables("Loading scene", scene);
         SceneManager.LoadScene(scene);
     }
 
