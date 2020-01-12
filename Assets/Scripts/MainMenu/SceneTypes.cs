@@ -2,5 +2,6 @@
     MainMenu,
     Tutorial,
     MedicinePreparation,
-    MembraneFilteration
+    MembraneFilteration,
+    Restart
 }
