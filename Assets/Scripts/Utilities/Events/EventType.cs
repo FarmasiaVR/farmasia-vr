@@ -25,10 +25,11 @@
     GrabInteractWithObject,
     ItemPlacedInCabinet,
     VentilationBlocked,
-    SyringeToMedicineBottle,
-    SyringeFromMedicineBottle,
+    SyringeWithNeedleEntersBottle,
+    FinishedTakingMedicineToSyringe,
     SyringeToLuerlock,
     SyringeFromLuerlock,
     HandsExitLaminarCabinet,
-    HandleGrabbed
+    HandleGrabbed,
+    PushingToSmallerSyringe
 }

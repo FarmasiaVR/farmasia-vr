@@ -231,6 +231,8 @@ public class Hand : MonoBehaviour {
         foreach (VRHandControls controls in VRInput.Hands) {
             if (interactable == controls.Hand.Connector.GrabbedInteractable) {
                 return controls.Hand;
+            } else if (interactable == controls.Hand.interactedInteractable) {
+                return controls.Hand;
             }
         }
 

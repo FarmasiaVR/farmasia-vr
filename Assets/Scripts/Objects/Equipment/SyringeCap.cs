@@ -37,7 +37,7 @@ public class SyringeCap : GeneralItem {
         }
 
         syringe.ShowSyringeCap(true);
-        syringe.Type.Off(InteractableType.LuerlockAttachable);
+        syringe.Type.Off(InteractableType.Attachable);
         DestroyInteractable();
     }
 }

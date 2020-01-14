@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
@@ -6,7 +9,7 @@ public class Syringe : GeneralItem {
     #region Constants
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private const float LIQUID_TRANSFER_SPEED = 15;
-    private const int LIQUID_TRANSFER_STEP = 50; // 0.1ml
+    private const int LIQUID_TRANSFER_STEP = 50;
     #endregion
 
     #region fields
@@ -30,8 +33,8 @@ public class Syringe : GeneralItem {
     private GameObject liquidDisplay;
     private GameObject currentDisplay;
     private bool displayState;
-
     #endregion
+
     protected override void Start() {
         base.Start();
 
@@ -39,7 +42,7 @@ public class Syringe : GeneralItem {
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
 
-        Type.On(InteractableType.LuerlockAttachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Attachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
 
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
@@ -102,37 +105,33 @@ public class Syringe : GeneralItem {
         base.OnGrab(hand);
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
-        bool ejectMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
+        bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
-        int ejectAmount = 0;
-        if (takeMedicine) ejectAmount = -LIQUID_TRANSFER_STEP;
-        if (ejectMedicine) ejectAmount = LIQUID_TRANSFER_STEP;
-
-        // If nothing is being transfered, why waste time every frame? Will this if statement cause problems?
-        if (ejectAmount == 0) {
-            return;
-        }
+        int liquidAmount = 0;
+        if (takeMedicine) liquidAmount -= LIQUID_TRANSFER_STEP;
+        if (sendMedicine) liquidAmount += LIQUID_TRANSFER_STEP;
+        if (liquidAmount == 0) return;
 
         if (this.HasSyringeCap) {
-            Logger.Print("Cannot change liquid amount of syringe with a cap");
+            Logger.Warning("Cannot change liquid amount of syringe with a cap");
             return;
         }
 
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
-            LuerlockEject(ejectAmount);
+            TransferToLuerlock(liquidAmount);
         } else if (State == InteractState.InBottle) {
-            BottleEject(ejectAmount);
+            TransferToBottle(liquidAmount);
         } else {
-            Eject(ejectAmount);
+            Eject(liquidAmount);
         }
     }
 
     private void Eject(int amount) {
-        if (amount < 0) {
-            Container.SetAmount(amount + Container.Amount);
-        }
+        if (amount > 0) Container.SetAmount(Container.Amount - amount);
     }
-    private void LuerlockEject(int amount) {
+
+    private void TransferToLuerlock(int amount) {
+        bool pushing = amount > 0;
 
         var pair = Interactors.LuerlockPair;
 
@@ -140,29 +139,24 @@ public class Syringe : GeneralItem {
             return;
         }
 
-        Syringe leftSyringe = (Syringe)pair.Value.LeftConnector.AttachedInteractable;
-        Syringe rightSyringe = (Syringe)pair.Value.RightConnector.AttachedInteractable;
-        bool invert = (pair.Key == 0) != (amount < 0);
+        Syringe other = (Syringe)pair.Value.LeftConnector.AttachedInteractable != this ?
+            (Syringe)pair.Value.LeftConnector.AttachedInteractable :
+            (Syringe)pair.Value.RightConnector.AttachedInteractable;
 
-        Syringe srcSyringe = invert ? rightSyringe : leftSyringe;
-        Syringe dstSyringe = invert ? leftSyringe : rightSyringe;
-        srcSyringe.Container.TransferTo(dstSyringe.Container, Mathf.Abs(amount));
+        if (pushing) {
+            if (other.Container.Capacity < Container.Capacity) {
+                Events.FireEvent(EventType.PushingToSmallerSyringe);
+            }
+        }
+
+        Container.TransferTo(other.Container, amount);
     }
-    private void BottleEject(int amount) {
 
-        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) {
-            return;
-        }
+    private void TransferToBottle(int amount) {
+        if (BottleContainer == null) return;
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
 
-        if (BottleContainer == null) {
-            return;
-        }
-
-        if (amount > 0) {
-            BottleContainer.TransferTo(Container, amount);
-        } else {
-            Container.TransferTo(BottleContainer, -amount);
-        }
+        Container.TransferTo(BottleContainer, amount);
     }
 
     public void SetSyringeHandlePosition() {

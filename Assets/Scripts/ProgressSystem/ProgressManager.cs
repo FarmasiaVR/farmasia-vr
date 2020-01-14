@@ -27,7 +27,7 @@ public class ProgressManager {
 
         switch (scene) {
             case SceneTypes.MainMenu:
-                break;
+                return;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
                 AddTasks();
@@ -38,6 +38,8 @@ public class ProgressManager {
                 //todo
                 //GenerateScenarioTwo();
                 break;
+            case SceneTypes.Tutorial:
+                return;
         }
         if (scene != SceneTypes.MainMenu) {
 
@@ -199,7 +201,11 @@ public class ProgressManager {
         foreach (ITask task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
                 RemoveTask(task);
-                UISystem.Instance.CreatePopup(Calculator.GetScoreString(), MsgType.Done);
+                string scoreString;
+                int score;
+                Calculator.GetScoreString(out score, out scoreString);
+                EndSummary.EnableEndSummary(scoreString);
+                Player.SavePlayerData(score);
                 break;
             }
         }

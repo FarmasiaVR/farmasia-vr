@@ -39,6 +39,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
         base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
+        base.SubscribeEvent(InvalidSyringePush, EventType.PushingToSmallerSyringe);
     }
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
@@ -76,7 +77,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                         if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
                             UISystem.Instance.CreatePopup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
                         } else {
-                            UISystem.Instance.CreatePopup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Notify);
+                            UISystem.Instance.CreatePopup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
                             G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                         }
                     } else {
@@ -94,6 +95,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                 }
             }
         }
+    }
+
+    private void InvalidSyringePush(CallbackData data) {
+        G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
+        UISystem.Instance.CreatePopup(-1, "Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", MsgType.Mistake);
     }
     #endregion
 

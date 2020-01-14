@@ -88,16 +88,20 @@ public abstract class AttachmentConnector : ItemConnector {
 
     protected void ObjectEnter(Collider collider) {
 
-        GameObject intObject = Interactable.GetInteractableObject(collider.transform);
-        if (intObject == null) {
+        Interactable interactable = Interactable.GetInteractable(collider.transform);
+        if (interactable == null) {
+            return;
+        }
+
+        if (interactable.Type != InteractableType.Attachable) {
             return;
         }
 
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
             // Position Offset here
 
-            ConnectItem(intObject.GetComponent<Interactable>());
-            AttachEvents(intObject);
+            ConnectItem(interactable.GetComponent<Interactable>());
+            AttachEvents(interactable.gameObject);
         }
     }
 
@@ -116,7 +120,7 @@ public abstract class AttachmentConnector : ItemConnector {
             return false;
         }
 
-        if (connectingInteractable.Type.IsOff(InteractableType.LuerlockAttachable)) {
+        if (connectingInteractable.Type.IsOff(InteractableType.Attachable)) {
             return false;
         }
 
@@ -124,6 +128,18 @@ public abstract class AttachmentConnector : ItemConnector {
     }
 
     protected bool IsWithinDistance(GameObject collObject, Transform t) {
+        if (t == null) {
+            Logger.Print("Transfor is null");
+        }
+        if (collObject == null) {
+            Logger.Print("Coll object is null");
+        }
+        if (Collider == null) {
+            Logger.Print("Base collider is null");
+        }
+        if (LuerlockAdapter.LuerlockPosition(t) == null) {
+            Logger.Print("Luerlock position is null");
+        }
         return Vector3.Distance(collObject.transform.position, LuerlockAdapter.LuerlockPosition(t).position) < maxAttachDistance;
     }
 }

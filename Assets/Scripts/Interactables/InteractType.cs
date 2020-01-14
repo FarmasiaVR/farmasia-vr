@@ -2,7 +2,7 @@
     Grabbable,
     Interactable,
     Draggable,
-    LuerlockAttachable,
+    Attachable,
     HasLiquid,
     SmallObject
 }

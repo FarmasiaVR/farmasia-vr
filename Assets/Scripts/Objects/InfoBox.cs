@@ -4,7 +4,7 @@ using UnityEngine;
 public class InfoBox : MonoBehaviour {
 
     #region Constants
-    private const string PREPARATION_ROOM_MESSAGE = "Työtilaan vietävät työvälineet ruiskutetaan etanoliliuoksella ennen, kuin ne voidaan siirtää huoneesta toiseen. Voit olettaa sen jo tehdyksi.";
+    private const string PREPARATION_ROOM_MESSAGE = "Puhdastilaan vietävät ruiskut, neulat ja muut tarvikkeet ovat steriilejä ja pakattu suojapusseihin. VR-pelissä suojapussi puuttuu.";
     private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella. Voit olettaa sen jo tehdyksi.";
     #endregion
 

@@ -6,14 +6,20 @@ public class SceneLoader : MonoBehaviour {
     private string scene;
     public void SwapScene(SceneTypes type) {
         switch (type) {
+            case SceneTypes.Restart:
+                ChangeScene("Restart");
+                return;
             case SceneTypes.MainMenu:
                 ChangeScene("MainMenu");
-                break;
+                return;
             case SceneTypes.MedicinePreparation:
                 ChangeScene("MedicinePreparation");
-                break;
+                return;
+            case SceneTypes.Tutorial:
+                ChangeScene("Tutorial");
+                return;
             case SceneTypes.MembraneFilteration:
-                break;
+                return;
         }
     }
     private void ChangeScene(string name) {
@@ -27,6 +33,21 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void OnFadeComplete() {
+        if (scene == null) {
+            return;
+        }
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        Resources.UnloadUnusedAssets();
+        LoadScene();
+    }
+
+    private void LoadScene() {
+        if (scene.Equals("Restart")) {
+            Logger.PrintVariables("Restarting current scene", scene);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
+        Logger.PrintVariables("Loading scene", scene);
         SceneManager.LoadScene(scene);
     }
 

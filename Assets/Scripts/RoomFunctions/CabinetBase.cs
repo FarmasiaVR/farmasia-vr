@@ -193,4 +193,16 @@ public class CabinetBase : MonoBehaviour {
         }
         return missing;
     }
+
+    private void OnCollisionEnter(Collision collision) {
+
+        Interactable interactable = Interactable.GetInteractable(collision.gameObject.transform);
+
+        if (interactable != null) {
+            if (interactable as GeneralItem is var item && item != null) {
+                item.IsClean = false;
+                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
+            }
+        }
+    }
 }

@@ -9,6 +9,9 @@ public class MeshHider : MonoBehaviour {
     private bool onlyHide;
 
     [SerializeField]
+    private bool invertFunctionality;
+
+    [SerializeField]
     private Material testHandMaterial;
 
     private void Awake() {
@@ -23,7 +26,9 @@ public class MeshHider : MonoBehaviour {
             }
         }
 #else
-        if (onlyHide) {
+        if (invertFunctionality) {
+            GetComponent<Renderer>().enabled = true;
+        } else if (onlyHide) {
             GetComponent<Renderer>().enabled = false;
         } else {
             Destroy(GetComponent<Renderer>());

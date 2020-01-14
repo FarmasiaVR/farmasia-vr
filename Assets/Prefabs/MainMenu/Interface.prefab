@@ -263,13 +263,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 161529491701926670}
-    characterCount: 2
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -469,13 +469,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 161529491723820452}
-    characterCount: 5
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 161529491802011751}
   - component: {fileID: 400196865191441786}
   m_Layer: 0
-  m_Name: Button1
+  m_Name: ReturnToGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -683,6 +683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d896a342d8b572b4290723aaa7250b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
   menu: {fileID: 5054380375056359183}
   scene: 0
   isCloseButton: 1
@@ -1182,13 +1184,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 161529492157070680}
-    characterCount: 13
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -2468,7 +2470,7 @@ GameObject:
   - component: {fileID: 161529493137196945}
   - component: {fileID: 8899500745548087036}
   m_Layer: 0
-  m_Name: Button2
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2565,8 +2567,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d896a342d8b572b4290723aaa7250b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
   menu: {fileID: 5054380375056359183}
-  scene: 0
+  scene: 4
   isCloseButton: 0
 --- !u!1 &161529493156864920
 GameObject:
@@ -2761,7 +2765,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Poistu pelist\xE4"
+  m_text: "Taka\xEDsin p\xE4\xE4valikkoon"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
   m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
@@ -2807,7 +2811,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 9
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -2831,12 +2835,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 161529493449992022}
-    characterCount: 14
+    characterCount: 21
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -2868,7 +2872,7 @@ GameObject:
   - component: {fileID: 161529493508407661}
   - component: {fileID: 5426878693949116545}
   m_Layer: 0
-  m_Name: Button3
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2965,8 +2969,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d896a342d8b572b4290723aaa7250b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
   menu: {fileID: 5054380375056359183}
-  scene: 2
+  scene: 0
   isCloseButton: 0
 --- !u!1 &161529493552848090
 GameObject:
@@ -2983,7 +2989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &161529493552848091
 Transform:
   m_ObjectHideFlags: 0
@@ -3026,14 +3032,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161529493732615933}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2742207, y: -0.7582754, z: 15.89}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: -0, w: -0.0000001872535}
+  m_LocalPosition: {x: 0, y: -0.043, z: 0}
+  m_LocalScale: {x: -0.017752582, y: 0.017752582, z: -0.017752582}
   m_Children:
   - {fileID: 1127492132489942925}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
 --- !u!114 &5054380375056359183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3047,6 +3053,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuContainer: {fileID: 2987631659733874126}
+  cam: {fileID: 0}
+  offset: {x: 0, y: -0.03, z: 0.18}
+  localPosOffset: {x: 0, y: 0, z: 0}
+  lerpAmount: 0.15
+  centerOffset: 0.2
 --- !u!1 &2987631659733874126
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,7 +3073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1127492132489942925
 Transform:
   m_ObjectHideFlags: 0

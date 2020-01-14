@@ -83,17 +83,26 @@ public class ObjectFactory : MonoBehaviour {
         }
     }
 
-    private IEnumerator CheckCollisionRelease(GameObject g1, GameObject g2, Interactable currentInteractable) {
+    private IEnumerator CheckCollisionRelease(GameObject handObject, GameObject factoryObject, Interactable currentInteractable) {
         yield return null;
 
-        while (triggerColliderCount.Inside) {
+        Interactable handInteractable = Interactable.GetInteractable(handObject.transform);
+
+        while (MultiColliderTool.CheckCollision(handObject, factoryObject)) {
             if (currentInteractable != interactable) {
+                handInteractable.DestroyInteractable();
                 yield break;
             }
+
+            if (!handInteractable.IsGrabbed) {
+                handInteractable.DestroyInteractable();
+                yield break;
+            }
+
             yield return null;
         }
 
-        CollisionIgnore.IgnoreCollisions(g1.transform, g2.transform, false);
+        CollisionIgnore.IgnoreCollisions(handObject.transform, factoryObject.transform, false);
     }
 
     private void CreateNewCopy() {
@@ -117,9 +126,7 @@ public class ObjectFactory : MonoBehaviour {
             CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
             StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));
         }
-        if (lastPicked != null) {
-            CollisionIgnore.IgnoreCollisions(lastPicked.transform, handObject.transform, false);
-        }
+
         lastPicked = handObject;
     }
 }

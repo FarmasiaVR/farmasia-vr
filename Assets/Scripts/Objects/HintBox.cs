@@ -18,8 +18,8 @@ public class HintBox : DragAcceptable {
     private static float viewLimitX = 0.8f;
     private static float viewLimitY = 0.6f;
 
-    private static HintBox currentHint;
-    private static HintText currentHintText;
+    private static HintBox boxInstance;
+    private static HintText hintInstance;
     #endregion
 
     private static GameObject hintPrefab;
@@ -42,6 +42,8 @@ public class HintBox : DragAcceptable {
             hintTextPrefab = Resources.Load<GameObject>("Prefabs/FloatingHint");
 
             positions = GameObject.FindGameObjectsWithTag("Hint").Select(o => o.transform.position).ToArray();
+
+            Logger.PrintVariables("hint positions", positions.Length);
 
             initialized = true;
         }
@@ -101,7 +103,7 @@ public class HintBox : DragAcceptable {
 
         GameObject newHintText = Instantiate(hintTextPrefab);
 
-        currentHintText = newHintText.GetComponent<HintText>();
+        hintInstance = newHintText.GetComponent<HintText>();
 
         Logger.PrintVariables("Current pos", transform.position, "startpos", startPos);
 
@@ -113,16 +115,18 @@ public class HintBox : DragAcceptable {
         text.text = message;
         grabbed = false;
         SafeDestroy();
+        boxInstance = null;
     }
     #region Creating
     public static void CreateHint(string message = null) {
 
-        if (currentHintText != null) {
-            currentHintText.DestroyHint();
+        if (hintInstance != null) {
+            hintInstance.DestroyHint();
         }
 
-        if (currentHint != null) {
-            currentHint.message = message;
+        if (boxInstance != null) {
+            boxInstance.message = message;
+            Logger.Print("Box exists, returning");
             return;
         }
 
@@ -134,9 +138,11 @@ public class HintBox : DragAcceptable {
         newHint.transform.position = hintPos;
 
         HintBox hint = newHint.GetComponent<HintBox>();
-        currentHint = hint;
+        boxInstance = hint;
 
         hint.message = message;
+
+        Logger.Print("Created hint with message: " + message);
     }
 
     private static Vector3 GetHintPosition() {

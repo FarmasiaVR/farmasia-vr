@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DragAcceptable : Interactable {
+public class DragAcceptable : Interactable {
 
     #region Fields
     private float defaultForce = 2500;
@@ -13,11 +13,22 @@ public abstract class DragAcceptable : Interactable {
     private float destroyTime = 0.5f;
     private Transform pCamera;
     public bool Activated { get; protected set; } = false;
-    public bool Disabled { get; set; } = false;
+    private bool disabled;
+    public bool Disabled {
+        get {
+            return disabled | Hidden;
+        }
+        set {
+            disabled = value;
+        }
+    }
+    public bool Hidden { get; set; } = false;
 
     [SerializeField]
     private bool lookAtPlayer;
     public bool LookAtPlayer { get => lookAtPlayer; set => lookAtPlayer = value; }
+
+    public bool ReleaseAfterActivate { get; set; }
 
     protected bool grabbed;
     private Transform hand;
@@ -27,6 +38,9 @@ public abstract class DragAcceptable : Interactable {
             return Vector3.Distance(hand.position, startPos);
         }
     }
+
+    public delegate void OnAcceptCallback();
+    public OnAcceptCallback OnAccept { get; set; }
     #endregion
 
     protected override void Awake() {
@@ -44,6 +58,14 @@ public abstract class DragAcceptable : Interactable {
         pCamera = Player.Camera.transform;
 
         startPos = transform.position;
+    }
+
+    public void Hide(bool hide) {
+        Release();
+
+        Hidden = hide;
+        GetComponent<Collider>().enabled = !hide;
+        GetComponent<Renderer>().enabled = !hide;
     }
 
     #region Updating
@@ -95,7 +117,15 @@ public abstract class DragAcceptable : Interactable {
     #endregion
 
     #region Activating
-    protected abstract void Activate();
+    protected virtual void Activate() {
+        if (ReleaseAfterActivate) {
+            Release();
+        }
+        OnAccept?.Invoke();
+    }
+    private void Release() {
+        Hand.GrabbingHand(this)?.Uninteract();
+    }
 
     public void SafeDestroy() {
 

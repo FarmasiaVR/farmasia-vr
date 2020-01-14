@@ -1,5 +1,7 @@
 ﻿public enum SceneTypes {
+    MainMenu,
+    Tutorial,
     MedicinePreparation,
     MembraneFilteration,
-    MainMenu
+    Restart
 }

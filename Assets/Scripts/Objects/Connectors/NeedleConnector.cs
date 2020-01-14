@@ -65,11 +65,17 @@ public class NeedleConnector : AttachmentConnector {
 
     #region Releasing
     public override void OnReleaseItem() {
+
+        Syringe syringe = (Syringe)attached.Interactable;
+
         attached.Interactable.Interactors.ResetNeedle();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
         ReplaceObject(null);
+        if (syringe.Container.Amount > 0) {
+            Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
+        }
     }
     #endregion
 }
