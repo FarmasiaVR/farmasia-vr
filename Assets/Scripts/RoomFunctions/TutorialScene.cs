@@ -116,7 +116,7 @@ public class TutorialScene : MonoBehaviour {
     }
     
     private void CreateHint(string hint) {
-        HintBox.CreateHint(hint);
+        HintBox.CreateHint(hint, true);
     }
     private void CreateVideoHint(Video video) {
         VideoHint.CreateVideoHint(video.Clip, video.Title, videoHintSpawn.position);
