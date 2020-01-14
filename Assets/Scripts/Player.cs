@@ -9,9 +9,11 @@ public class Player : MonoBehaviour {
     [Serializable]
     public struct PlayerData {
         public string Name;
-        public string Number;
-        public string Timestamp;
+        public string StartTime;
+        public string EndTime;
+        public string PlayTime;
         public int Score;
+        public string ScoreString;
     }
 
     [Serializable]
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour {
         public DataWrapper(PlayerData[] stats) {
             MaxScore = MAX_POINTS;
             Stats = stats;
-            LatestPlaythrough = stats[stats.Length - 1].Timestamp;
+            LatestPlaythrough = stats[stats.Length - 1].EndTime;
         }
     }
 
@@ -47,28 +49,20 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public static void Initialize(string name, string number) {
+    public static void Initialize(string name) {
 
         if (name == null || name.Trim().Length == 0) {
             name = "tester";
-        }
-        if (number == null || number.Trim().Length == 0) {
-            number = DefaultNumber;
         }
 
         Info = new PlayerData();
 
         Info.Name = name.Trim();
-        Info.Number = number.Trim();
+        Info.StartTime = DateTime.Now.ToString();
         Initialized = true;
     }
 
-    public static void SavePlayerData(int score) {
-
-        if (DefaultNumber.Equals(Info.Number)) {
-            return;
-        }
-
+    public static void SavePlayerData(int score, string scoreString) {
         string path = Application.dataPath + "/stats.txt";
 
         PlayerData[] prev = LoadPlayerData(path);
@@ -79,8 +73,10 @@ public class Player : MonoBehaviour {
             toSave[i] = prev[i];
         }
 
-        Info.Timestamp = DateTime.Now.ToString();
+        Info.EndTime = DateTime.Now.ToString();
+        Info.PlayTime = (DateTime.Now - DateTime.Parse(Info.StartTime)).ToString();
         Info.Score = score;
+        Info.ScoreString = scoreString;
         toSave[prev.Length] = Info;
 
         string json = JsonUtility.ToJson(new DataWrapper(toSave), true);

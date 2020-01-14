@@ -205,7 +205,7 @@ public class ProgressManager {
                 int score;
                 Calculator.GetScoreString(out score, out scoreString);
                 EndSummary.EnableEndSummary(scoreString);
-                Player.SavePlayerData(score);
+                Player.SavePlayerData(score, scoreString);
                 break;
             }
         }

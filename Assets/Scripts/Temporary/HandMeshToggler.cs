@@ -42,6 +42,7 @@ public class HandMeshToggler : MonoBehaviour {
         }
 
         status = hide;
+
         SetRenderers();
     }
 

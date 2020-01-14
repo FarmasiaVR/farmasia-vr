@@ -31,7 +31,7 @@ public class IntroUI : MonoBehaviour {
         name.interactable = false;
         number.interactable = false;
 
-        Player.Initialize(name.text, number.text);
+        Player.Initialize(name.text);
 
         infoLabel.gameObject.SetActive(false);
         notification.gameObject.SetActive(true);
