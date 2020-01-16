@@ -37,9 +37,6 @@ public class IntroUI : MonoBehaviour {
 
         await Task.Delay(5000);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         Destroy(gameObject);
     }
 }
