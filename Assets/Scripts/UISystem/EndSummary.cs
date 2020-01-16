@@ -47,7 +47,10 @@ public class EndSummary : MonoBehaviour {
 
         await Task.Delay(2000);
 
-        SnapScreenshot();
+        try {
+            SnapScreenshot();
+        } catch (System.Exception) {
+        }
 
         Application.Quit();
     }
@@ -90,7 +93,7 @@ public class EndSummary : MonoBehaviour {
         if (Application.isEditor) {
             return Application.dataPath + "/score_screenshot.jpg";
         } else {
-            return Application.dataPath + "/../score_screenshot.jpg";
+            return Application.dataPath + "/../../score_screenshot.jpg";
         }
     }
 
