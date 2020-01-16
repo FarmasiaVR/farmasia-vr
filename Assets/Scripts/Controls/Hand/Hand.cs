@@ -36,6 +36,8 @@ public class Hand : MonoBehaviour {
 
     private Transform offset;
     public Vector3 ColliderPosition { get => HandCollider.transform.position; }
+
+    private RemoteGrabLine line;
     #endregion
 
     private void Start() {
@@ -52,6 +54,8 @@ public class Hand : MonoBehaviour {
         GameObject handSmooth = Instantiate(Resources.Load<GameObject>("Prefabs/HandSmoother"));
         Smooth = handSmooth.GetComponent<HandSmoother>();
         Smooth.Hand = this;
+
+        line = transform.GetComponentInChildren<RemoteGrabLine>();
     }
 
     private void Update() {
@@ -102,6 +106,7 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateRemoteGrab() {
+        line.Enable(IsTryingToGrab);
         if (IsTryingToGrab) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
             
