@@ -217,6 +217,9 @@ public class Hand : MonoBehaviour {
         if (interactable.State == InteractState.LuerlockAttached) {
             Vector3 offset = position - interactable.transform.position;
             interactable.Interactors.LuerlockPair.Value.transform.position += offset;
+        } else if (interactable.State == InteractState.NeedleAttached) {
+            Vector3 offset = position - interactable.transform.position;
+            interactable.Interactors.Needle.transform.position += offset;
         } else {
             interactable.transform.position = position;
         }
