@@ -39,17 +39,17 @@ public class Interactable : MonoBehaviour {
         if (gameObject.GetComponent<ObjectHighlight>() == null && !disableHighlighting) {
             gameObject.AddComponent<ObjectHighlight>();
         }
-        
+
         gameObject.tag = iTag;
     }
 
 
-    public virtual void Interact(Hand hand) {}
-    public virtual void OnGrab(Hand hand) {}
+    public virtual void Interact(Hand hand) { }
+    public virtual void OnGrab(Hand hand) { }
     public virtual void OnGrabStart(Hand hand) {
         IsInteracting = true;
     }
-    public virtual void Uninteract(Hand hand) {}
+    public virtual void Uninteract(Hand hand) { }
     public virtual void OnGrabEnd(Hand hand) {
         IsInteracting = false;
     }
@@ -69,20 +69,18 @@ public class Interactable : MonoBehaviour {
     }
 
     public void DestroyInteractable() {
-
-        if (Interactors.Hand != null) {
-            Interactors.Hand.Uninteract();
-        }
-        // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
-        if (Interactors.LuerlockPair.Value != null) {
-            Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).Connection.Remove();
-        }
-        
         IEnumerator DestroySequence() {
+            if (Interactors.Hand != null) {
+                Interactors.Hand.Uninteract();
+            }
+            // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
+            if (Interactors.LuerlockPair.Value != null) {
+                Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).Connection.Remove();
+            }
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         StartCoroutine(DestroySequence());
