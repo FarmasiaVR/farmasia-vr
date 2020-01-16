@@ -9,11 +9,13 @@ public class Syringe : GeneralItem {
     #region Constants
     private const float SWIPE_DEFAULT_TIME = 0.75f;
     private const float LIQUID_TRANSFER_SPEED = 15;
-    private const int LIQUID_TRANSFER_STEP = 50;
     #endregion
 
     #region fields
     public LiquidContainer Container { get; private set; }
+
+    [SerializeField]
+    private int LiquidTransferStep = 50;
 
     [SerializeField]
     private float defaultPosition, maxPosition;
@@ -108,8 +110,8 @@ public class Syringe : GeneralItem {
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
         int liquidAmount = 0;
-        if (takeMedicine) liquidAmount -= LIQUID_TRANSFER_STEP;
-        if (sendMedicine) liquidAmount += LIQUID_TRANSFER_STEP;
+        if (takeMedicine) liquidAmount -= LiquidTransferStep;
+        if (sendMedicine) liquidAmount += LiquidTransferStep;
         if (liquidAmount == 0) return;
 
         if (this.HasSyringeCap) {
