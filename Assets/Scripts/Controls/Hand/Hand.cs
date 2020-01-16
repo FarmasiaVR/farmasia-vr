@@ -126,7 +126,7 @@ public class Hand : MonoBehaviour {
         if (IsTryingToGrab) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
             
-            if (pointedObj != null && VRInput.GetControl(HandType, Controls.RemoteGrab)) {
+            if (pointedObj != null && VRInput.GetControlDown(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
             }
         } else {
