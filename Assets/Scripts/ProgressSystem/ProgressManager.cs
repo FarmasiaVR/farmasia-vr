@@ -191,6 +191,10 @@ public class ProgressManager {
             FinishProgress();
         } else {
             CurrentPackage = packages[index + 1];
+            ITask task = CurrentPackage.CurrentTask;
+            if (task.GetTaskType() == TaskType.Finish) {
+                task.FinishTask();
+            }
         }
     }
 

@@ -10,6 +10,9 @@ public class Package {
     public bool packageCompleted { get; private set; }
     public List<ITask> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
+
+    public ITask CurrentTask { get => activeTasks[0]; }
+
     #endregion
 
     #region Constructor
