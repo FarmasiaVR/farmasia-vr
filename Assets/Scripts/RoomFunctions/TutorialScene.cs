@@ -48,7 +48,7 @@ public class TutorialScene : MonoBehaviour {
 
         walls.SetActive(true);
 
-        Events.SubscribeToEvent(OnGrab, EventType.GrabObject);
+        Events.SubscribeToEvent(OnGrab, this, EventType.GrabObject);
 
         hints = new Dictionary<ObjectType, string>();
         foreach (var pair in tutorialHints) {

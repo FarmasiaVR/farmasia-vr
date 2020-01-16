@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -81,8 +82,15 @@ public class InfoBox : MonoBehaviour {
         textField.transform.position = cam.position + cam.forward * offset.z;
 
         activeLerpAmount = 5;
-        G.Instance.Pipeline.New().Delay(1).Func(() => activeLerpAmount = defaultLerpAmount);
-        G.Instance.Pipeline.New().Delay(10).Func(() => text.SetActive(false));
+
+        IEnumerator ReEnable() {
+            yield return new WaitForSeconds(1);
+            activeLerpAmount = defaultLerpAmount;
+            yield return new WaitForSeconds(9);
+            text.SetActive(false);
+        }
+
+        StartCoroutine(ReEnable());
     }
 
     private Vector3 GetTargetPosition() {
