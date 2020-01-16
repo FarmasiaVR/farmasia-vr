@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2036038957697440441}
   - component: {fileID: 1800747316623619781}
   m_Layer: 0
-  m_Name: Cube.005
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   type: 1
   objectsInsideArea: []
   childCollider: {fileID: 7295613893367241710}
+  syringeCapFactory: {fileID: 0}
 --- !u!1 &4393908636683855406
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7deec90d20ce2c44a84043ea12baef12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disable: 0
   onlyHide: 0
+  invertFunctionality: 0
   testHandMaterial: {fileID: 0}
 --- !u!1 &8965820671316696556
 GameObject:

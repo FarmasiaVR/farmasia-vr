@@ -50,6 +50,8 @@ public class CabinetBase : MonoBehaviour {
         if (syringeCapFactory != null) {
             syringeCapFactory.SetActive(false);
         }
+
+        CollisionSubscription.SubscribeToCollision(transform.Find("Collider").gameObject, new CollisionListener().OnEnter(collision => CollisionEnter(collision)));
     }
 
     private void EnterCabinet(Collider other) {
@@ -194,7 +196,7 @@ public class CabinetBase : MonoBehaviour {
         return missing;
     }
 
-    private void OnCollisionEnter(Collision collision) {
+    private void CollisionEnter(Collision collision) {
 
         Interactable interactable = Interactable.GetInteractable(collision.gameObject.transform);
 
