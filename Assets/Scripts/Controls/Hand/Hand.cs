@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Valve.VR;
@@ -38,6 +39,7 @@ public class Hand : MonoBehaviour {
     public Vector3 ColliderPosition { get => HandCollider.transform.position; }
 
     private RemoteGrabLine line;
+    private bool remoteGrabbing;
     #endregion
 
     private void Start() {
@@ -61,7 +63,6 @@ public class Hand : MonoBehaviour {
     private void Update() {
         UpdateControls();
         UpdateHighlight();
-        UpdateRemoteGrab();
 
         Interactable interactable = IsGrabbed ? Connector.GrabbedInteractable : interactedInteractable;
         interactable?.OnGrab(this);
@@ -71,6 +72,7 @@ public class Hand : MonoBehaviour {
 
         // Grabbing
         if (VRInput.GetControlDown(HandType, Controls.Grab)) {
+            StartRemoteGrab();
             Interact();
         }
         if (VRInput.GetControlUp(HandType, Controls.Grab)) {
@@ -105,6 +107,22 @@ public class Hand : MonoBehaviour {
         }
     }
 
+    private void StartRemoteGrab() {
+        if (remoteGrabbing) {
+            return;
+        }
+        remoteGrabbing = true;
+
+        StartCoroutine(RemoteGrabCoroutine());
+    }
+    private IEnumerator RemoteGrabCoroutine() {
+        while (remoteGrabbing) {
+            UpdateRemoteGrab();
+            yield return null;
+        }
+        line.Enable(false);
+    }
+
     private void UpdateRemoteGrab() {
         line.Enable(IsTryingToGrab);
         if (IsTryingToGrab) {
@@ -113,6 +131,8 @@ public class Hand : MonoBehaviour {
             if (pointedObj != null && VRInput.GetControl(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
             }
+        } else {
+            remoteGrabbing = false;
         }
     }
     
@@ -196,6 +216,8 @@ public class Hand : MonoBehaviour {
         GrabUninteract();
         Uninteract();
         InteractWith(i);
+
+        remoteGrabbing = false;
     }
     private bool ItemIsPartOfGrabbedLuerlockSystem(Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {

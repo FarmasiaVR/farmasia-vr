@@ -19,6 +19,11 @@ public class RemoteGrabLine : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (meshRenderer.enabled != isEnabled) {
+            meshRenderer.enabled = isEnabled;
+        }
+
         if (!isEnabled) {
             return;
         }
