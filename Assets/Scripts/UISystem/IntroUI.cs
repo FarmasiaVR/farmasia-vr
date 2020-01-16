@@ -9,7 +9,7 @@ public class IntroUI : MonoBehaviour {
 
     #region fields
     [SerializeField]
-    private InputField name, number;
+    private InputField nameText;
 
     [SerializeField]
     private Button button;
@@ -28,10 +28,9 @@ public class IntroUI : MonoBehaviour {
 
     private async void StartGame() {
         button.interactable = false;
-        name.interactable = false;
-        number.interactable = false;
+        nameText.interactable = false;
 
-        Player.Initialize(name.text);
+        Player.Initialize(nameText.text);
 
         infoLabel.gameObject.SetActive(false);
         notification.gameObject.SetActive(true);
