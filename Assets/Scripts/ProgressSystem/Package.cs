@@ -67,6 +67,7 @@ public class Package {
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();
             manager.UpdateDescription();
+            StartTask();
         }
     }
     #endregion
@@ -92,6 +93,7 @@ public class Package {
             activeTasks.Remove(task);
             CheckChangePackage();
             manager.UpdateDescription();
+            StartTask();
         }
     }
 
@@ -120,5 +122,12 @@ public class Package {
             Logger.Print(task.GetType());
         }
     }
+
+    public void StartTask() {
+        if (CurrentTask != null) {
+            CurrentTask.StartTask();
+        }
+    }
+
     #endregion
 }

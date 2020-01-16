@@ -115,6 +115,15 @@ public class Finish : TaskBase {
     }
     #endregion
 
+    #region Overridden Methods
+    public override void StartTask() {
+        if (IsNotStarted()) {
+            FinishTask();
+        }
+        base.StartTask();
+    }
+    #endregion
+
     #region Public Methods
     public override void FinishTask() {
         PointsForSmallSyringes();
