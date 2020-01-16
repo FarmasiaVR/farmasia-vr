@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 100636178564098523}
   - component: {fileID: 2280886078136317857}
   - component: {fileID: 1528136727962355771}
+  - component: {fileID: 703996219}
   m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
@@ -151,8 +152,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4280431899767870500}
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 0.25021186, y: 0.25021186, z: 0.25021186}
+  m_LocalPosition: {x: 0, y: -0.0118, z: -0}
+  m_LocalScale: {x: 0.25021186, y: 0.5107825, z: 0.25021186}
   m_Children: []
   m_Father: {fileID: 2290378445638087117}
   m_RootOrder: 1
@@ -217,6 +218,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 93e823f7a40ea6f4695c2e17bac65a32, type: 2}
+--- !u!114 &703996219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4280431899767870500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ec011168bee2e4a8ebe08726a67c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4315963661679902720
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2290378445638087117}
-  - component: {fileID: 6335405662321645388}
+  - component: {fileID: 597173817}
   m_Layer: 0
   m_Name: SharpTrashCan
   m_TagString: Untagged
@@ -251,7 +264,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6335405662321645388
+--- !u!114 &597173817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,10 +273,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4315963661679902720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2935adc73f2c20a49ac9e485d28c9048, type: 3}
+  m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childCollider: {fileID: 4280431899767870500}
+  sharpTrash: 1
 --- !u!1 &8321948447599608942
 GameObject:
   m_ObjectHideFlags: 0

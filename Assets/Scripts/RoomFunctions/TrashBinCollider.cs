@@ -12,7 +12,7 @@ public class TrashBinCollider : MonoBehaviour {
         mainScript = transform.GetComponentInParent<TrashBin>();
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
         mainScript.EnterTrashbin(other);
     }
 }

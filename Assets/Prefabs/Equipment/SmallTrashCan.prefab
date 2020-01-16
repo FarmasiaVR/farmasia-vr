@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childCollider: {fileID: 624107563247563646}
+  sharpTrash: 0
 --- !u!1 &624107563247563646
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 3651267790309346945}
   - component: {fileID: 3200147741008826619}
   - component: {fileID: 2808954129807306593}
+  - component: {fileID: 1036242077}
   m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
@@ -280,8 +281,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624107563247563646}
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 0.25021186, y: 0.25021186, z: 0.25021186}
+  m_LocalPosition: {x: 0, y: -0.0119, z: -0}
+  m_LocalScale: {x: 0.25021186, y: 0.51298434, z: 0.25021186}
   m_Children: []
   m_Father: {fileID: 3172627231102162583}
   m_RootOrder: 1
@@ -346,6 +347,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 93e823f7a40ea6f4695c2e17bac65a32, type: 2}
+--- !u!114 &1036242077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624107563247563646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ec011168bee2e4a8ebe08726a67c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2131737744268539683
 GameObject:
   m_ObjectHideFlags: 0
