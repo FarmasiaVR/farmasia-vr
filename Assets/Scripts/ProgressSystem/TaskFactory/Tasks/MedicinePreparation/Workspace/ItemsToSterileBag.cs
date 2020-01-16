@@ -76,7 +76,7 @@ public class ItemsToSterileBag : TaskBase {
             }
         } else {
             if (filledSyringesInCabinet == filledSyringesInBag) {
-                UISystem.Instance.CreatePopup("Sulje steriili pussi.", MsgType.Notify);
+                UISystem.Instance.CreatePopup("Steriili pussi täynnä ja suljettu.", MsgType.Notify);
             }
         }
     }
