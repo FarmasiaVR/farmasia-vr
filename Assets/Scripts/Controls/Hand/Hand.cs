@@ -79,7 +79,6 @@ public class Hand : MonoBehaviour {
         }
 
         // Interacting
-        // This breaks toggle grab but that might not be a problem if we dont use it
         if (VRInput.GetControl(HandType, Controls.Grab)) {
             if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
                 GrabInteract();

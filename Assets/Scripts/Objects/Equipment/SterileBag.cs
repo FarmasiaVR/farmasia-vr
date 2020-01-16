@@ -42,8 +42,6 @@ public class SterileBag : GeneralItem {
             return;
         }
 
-        Logger.Print("OnBagEnter: " + other.name);
-
         Syringe syringe = Interactable.GetInteractable(other.transform) as Syringe;
 
         if (syringe == null) {
