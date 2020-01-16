@@ -113,6 +113,14 @@ public class ItemsToSterileBag : TaskBase {
         G.Instance.Progress.ChangePackage();
         G.Instance.Progress.UpdateDescription();
         TaskMovedToSide = true;
+        RemoveCapFactories();
+    }
+
+    private void RemoveCapFactories() {
+        GameObject[] gobjs = GameObject.FindGameObjectsWithTag("CapFactory");
+        foreach (GameObject obj in gobjs) {
+            GameObject.Destroy(obj);
+        }
     }
 
     private bool CapsOnSyringes() {
@@ -155,6 +163,7 @@ public class ItemsToSterileBag : TaskBase {
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
             }
         }
+        
         base.FinishTask();
     }
 
