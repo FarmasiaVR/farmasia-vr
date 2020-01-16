@@ -9,14 +9,11 @@ public class RoomExitDestroyer : MonoBehaviour {
         if (gm == null) return;
 
         GeneralItem item = gm.GetComponent<GeneralItem>();
-        if (item != null) {
+        if (item == null) return;
 
-            if (item.ObjectType == ObjectType.Syringe && item.IsAttached) {
-                return;
-            }
+        if (MultiColliderTool.CheckCollision(gameObject, item.gameObject)) return;
 
-            Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-            item.DestroyInteractable();
-        }
+        Events.FireEvent(EventType.ItemDroppedOnFloor, CallbackData.Object(item));
+        item.DestroyInteractable();
     }
 }
