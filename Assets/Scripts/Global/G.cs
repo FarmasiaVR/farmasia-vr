@@ -13,7 +13,9 @@ public sealed class G {
     public PipelineManager Pipeline { get; }
     #endregion
 
-    static G() {}
+    static G() {
+        CheckConfiguration();
+    }
 
     private G() {
         Audio = new AudioManager();
@@ -28,5 +30,14 @@ public sealed class G {
 
     public void Update(float deltaTime) {
         Pipeline.Update(deltaTime);
+    }
+
+    private static void CheckConfiguration() {
+#if UNITY_VRCOMPUTER
+#elif UNITY_NONVRCOMPUTER
+        Logger.Warning("Using a NON VR system. Building on this machine will not work. If you want to build, change the VR configuration variable from UNITY_NONVRCOMPUTER to UNITY_VRCOMPUTER in the csc.rsp file.");
+#else
+        throw new System.Exception("No VR configuration variable set. Check README for instructions.");
+#endif
     }
 }
