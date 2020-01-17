@@ -133,22 +133,34 @@ public static class Events {
     }
 
     private static void CallDefaultCallbacks(EventType type, CallbackData? data = null) {
-        if (!eventsData.ContainsKey(type)) {
-            return;
-        }
 
-        (eventsData[type] as EventDataCallback)?.Invoke(data ?? CallbackData.NoData());
+        try {
+            if (!eventsData.ContainsKey(type)) {
+                return;
+            }
+
+            (eventsData[type] as EventDataCallback)?.Invoke(data ?? CallbackData.NoData());
+
+        } catch (Exception e) {
+            Logger.Error(e.Message);
+        }
     }
 
     private static void CallComponentCallbacks(EventType type, CallbackData data) {
-        ComponentEventsContainer cont = null;
 
-        if (componentEventsNoData.TryGetValue(type, out cont)) {
-            cont.FireIfNotNull(data);
-        }
+        try {
+            ComponentEventsContainer cont = null;
 
-        if (componentEventsData.TryGetValue(type, out cont)) {
-            cont.FireIfNotNull(data);
+            if (componentEventsNoData.TryGetValue(type, out cont)) {
+                cont.FireIfNotNull(data);
+            }
+
+            if (componentEventsData.TryGetValue(type, out cont)) {
+                cont.FireIfNotNull(data);
+            }
+
+        } catch (Exception e) {
+            Logger.Error(e.Message);
         }
     }
     #endregion
