@@ -50,8 +50,6 @@ public class CabinetBase : MonoBehaviour {
         if (syringeCapFactory != null) {
             syringeCapFactory.SetActive(false);
         }
-
-        CollisionSubscription.SubscribeToCollision(transform.Find("Collider").gameObject, new CollisionListener().OnEnter(collision => CollisionEnter(collision)));
     }
 
     private void EnterCabinet(Collider other) {
@@ -194,17 +192,5 @@ public class CabinetBase : MonoBehaviour {
             }
         }
         return missing;
-    }
-
-    private void CollisionEnter(Collision collision) {
-
-        Interactable interactable = Interactable.GetInteractable(collision.gameObject.transform);
-
-        if (interactable != null) {
-            if (interactable as GeneralItem is var item && item != null) {
-                item.IsClean = false;
-                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
-            }
-        }
     }
 }
