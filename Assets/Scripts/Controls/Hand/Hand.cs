@@ -39,7 +39,7 @@ public class Hand : MonoBehaviour {
     public Vector3 ColliderPosition { get => HandCollider.transform.position; }
 
     private RemoteGrabLine line;
-    private bool remoteGrabbing;
+    public bool RemoteGrabbing { get; private set; }
     #endregion
 
     private void Start() {
@@ -89,7 +89,7 @@ public class Hand : MonoBehaviour {
         }
     }
 
-    
+
 
     private void UpdateHighlight() {
         if (!useHighlighting || IsGrabbed) {
@@ -106,15 +106,15 @@ public class Hand : MonoBehaviour {
     }
 
     private void StartRemoteGrab() {
-        if (remoteGrabbing) {
+        if (RemoteGrabbing) {
             return;
         }
-        remoteGrabbing = true;
+        RemoteGrabbing = true;
 
         StartCoroutine(RemoteGrabCoroutine());
     }
     private IEnumerator RemoteGrabCoroutine() {
-        while (remoteGrabbing) {
+        while (RemoteGrabbing) {
             UpdateRemoteGrab();
             yield return null;
         }
@@ -125,15 +125,15 @@ public class Hand : MonoBehaviour {
         line.Enable(IsTryingToGrab);
         if (IsTryingToGrab) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
-            
+
             if (pointedObj != null && VRInput.GetControlDown(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
             }
         } else {
-            remoteGrabbing = false;
+            RemoteGrabbing = false;
         }
     }
-    
+
 
     #region Interaction
     public void Interact() {
@@ -205,8 +205,12 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (!CanGrabObject(transform.position, i.transform.position, i)) {
-            return; 
+        Interactable hitInt;
+        if (!CanGrabObject(transform.position, i.transform.position, i, out hitInt)) {
+            if (hitInt != null) {
+                RemoteGrab(hitInt);
+            }
+            return;
         }
 
         if (i.Type == InteractableType.Grabbable) {
@@ -217,7 +221,7 @@ public class Hand : MonoBehaviour {
         Uninteract();
         InteractWith(i);
 
-        remoteGrabbing = false;
+        RemoteGrabbing = false;
     }
     private bool ItemIsPartOfGrabbedLuerlockSystem(Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {
@@ -246,13 +250,15 @@ public class Hand : MonoBehaviour {
             interactable.transform.position = position;
         }
     }
-    private bool CanGrabObject(Vector3 pos, Vector3 targetPos, Interactable target) {
+    private bool CanGrabObject(Vector3 pos, Vector3 targetPos, Interactable target, out Interactable hitInt) {
 
         RaycastHit hit;
         if (Physics.Raycast(pos, targetPos - pos, out hit, Vector3.Distance(pos, targetPos), int.MaxValue, QueryTriggerInteraction.Ignore)) {
-            return Interactable.GetInteractable(hit.collider.transform) == target;
+            hitInt = Interactable.GetInteractable(hit.collider.transform);
+            return hitInt == target;
         }
 
+        hitInt = null;
         return false;
     }
     #endregion
