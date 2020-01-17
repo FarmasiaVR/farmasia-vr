@@ -11,8 +11,14 @@ public class Package {
     public List<ITask> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
 
-    public ITask CurrentTask { get => activeTasks[0]; }
-
+    public ITask CurrentTask {
+        get {
+            if (activeTasks.Count == 0) {
+                return null;
+            }
+            return activeTasks[0];
+        }
+    }
     #endregion
 
     #region Constructor
