@@ -119,7 +119,7 @@ public class ItemsToSterileBag : TaskBase {
     private void RemoveCapFactories() {
         GameObject[] gobjs = GameObject.FindGameObjectsWithTag("CapFactory");
         foreach (GameObject obj in gobjs) {
-            GameObject.Destroy(obj);
+            obj.GetComponent<ObjectFactory>().IsEnabled = false;
         }
     }
 

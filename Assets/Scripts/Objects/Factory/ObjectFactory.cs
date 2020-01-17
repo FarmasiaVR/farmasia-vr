@@ -11,6 +11,8 @@ public class ObjectFactory : MonoBehaviour {
 
     private GameObject lastPicked;
 
+    public bool IsEnabled { get; set; } = true;
+
     public ColliderHitCount triggerColliderCount;
     #endregion
 
@@ -77,7 +79,7 @@ public class ObjectFactory : MonoBehaviour {
     #endregion
 
     private void Update() {
-        if (interactable.State == InteractState.Grabbed) {
+        if (interactable.State == InteractState.Grabbed && IsEnabled) {
             latestCopy.GetComponent<Rigidbody>().isKinematic = false;
             CreateNewCopy();
         }
@@ -87,7 +89,7 @@ public class ObjectFactory : MonoBehaviour {
         yield return null;
 
         Interactable handInteractable = Interactable.GetInteractable(handObject.transform);
-
+        
         while (MultiColliderTool.CheckCollision(handObject, factoryObject)) {
             if (currentInteractable != interactable) {
                 handInteractable.DestroyInteractable();
