@@ -5,9 +5,9 @@ public class LuerlockItemConnection : ItemConnection {
 
     #region Fields
     protected override ItemConnector Connector { get; set; }
-    private Transform target;
     private Joint joint;
     private Interactable interactable;
+    private Rigidbody connectedRB;
     #endregion
 
     private void JointBreak(float force) {
@@ -15,12 +15,13 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
+        Logger.Print("Throwing LuerlockItemConnection, interactable: " + interactable);
         if (interactable != null && interactable.State == InteractState.Grabbed) {
+            Logger.Print("Throwing luerlock");
             var handType = Hand.GrabbingHand(interactable).HandType;
-            Rigidbody luerlockRB = interactable.Interactors.LuerlockPair.Value.Rigidbody;
 
-            luerlockRB.velocity = VRInput.Skeleton(handType).velocity;
-            luerlockRB.angularVelocity = VRInput.Skeleton(handType).angularVelocity;
+            connectedRB.velocity = VRInput.Skeleton(handType).velocity;
+            connectedRB.angularVelocity = VRInput.Skeleton(handType).angularVelocity;
         }
         Destroy(joint);
     }
@@ -46,7 +47,7 @@ public class LuerlockItemConnection : ItemConnection {
         LuerlockItemConnection conn = interactable.gameObject.AddComponent<LuerlockItemConnection>();
 
         conn.Connector = connector;
-        conn.target = hand;
+        conn.connectedRB = luerlockRB;
         conn.interactable = interactable;
 
         Joint joint = JointConfiguration.AddJoint(handRB.gameObject, luerlockRB.mass);
@@ -70,7 +71,8 @@ public class LuerlockItemConnection : ItemConnection {
         LuerlockItemConnection conn = interactable.gameObject.AddComponent<LuerlockItemConnection>();
 
         conn.Connector = connector;
-        conn.target = hand;
+        conn.connectedRB = needleRB;
+        conn.interactable = interactable;
 
         Joint joint = JointConfiguration.AddJoint(targetRB.gameObject, needleRB.mass);
         joint.connectedBody = needleRB;
