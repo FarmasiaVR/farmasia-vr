@@ -36,8 +36,8 @@ public class HintBox : DragAcceptable {
     #endregion
 
     #region Initialization
-    static void Init() {
-        if (!initialized) {
+    public static void Init(bool force = false) {
+        if (!initialized || force) {
             hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
             hintTextPrefab = Resources.Load<GameObject>("Prefabs/FloatingHint");
 

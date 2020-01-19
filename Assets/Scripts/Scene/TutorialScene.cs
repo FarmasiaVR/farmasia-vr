@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class TutorialScene : MonoBehaviour {
+public class TutorialScene : SceneScript {
 
     [Serializable]
     public struct TypeMessagePair {
@@ -44,7 +44,9 @@ public class TutorialScene : MonoBehaviour {
     private Dictionary<ObjectType, Video> videos;
     #endregion
 
-    private void Start() {
+    protected override void Start() {
+
+        base.Start();
 
         walls.SetActive(true);
 
