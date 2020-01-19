@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422626909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04421, z: 0}
-  m_LocalScale: {x: 0.0023186, y: 0.0023186, z: 0.0023186}
+  m_LocalPosition: {x: 0, y: 0.03641, z: 0}
+  m_LocalScale: {x: 0.0023186, y: 0.017766273, z: 0.0023186}
   m_Children: []
   m_Father: {fileID: 1901484372079290682}
   m_RootOrder: 5
@@ -91,7 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7deec90d20ce2c44a84043ea12baef12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disable: 0
   onlyHide: 0
+  invertFunctionality: 0
   testHandMaterial: {fileID: 0}
 --- !u!1 &397866919455321934
 GameObject:
@@ -806,6 +808,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1901484372079290682}
     m_Modifications:
+    - target: {fileID: 8067146742206830371, guid: 32dbe3815180f394eba2d1767aa895c2,
+        type: 3}
+      propertyPath: m_Name
+      value: Liquid
+      objectReference: {fileID: 0}
     - target: {fileID: 8067146742206830370, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -886,16 +893,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8067146742206830371, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: m_Name
-      value: Liquid
-      objectReference: {fileID: 0}
-    - target: {fileID: 8067146742206830368, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8067146742206830369, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
       propertyPath: amount
@@ -905,6 +902,11 @@ PrefabInstance:
         type: 3}
       propertyPath: capacity
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067146742206830368, guid: 32dbe3815180f394eba2d1767aa895c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8067146740602620392, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}

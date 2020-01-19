@@ -42,6 +42,7 @@ public class RoomTeleport : MonoBehaviour {
     private void CreateSpawner(Transform item) {
         GameObject obj = new GameObject();
         obj.transform.SetPositionAndRotation(item.position, item.rotation);
+        Logger.Print("Adding spawner");
         obj.AddComponent<ItemSpawner>();
         obj.GetComponent<ItemSpawner>().SetCopyObject(item.gameObject);
     }

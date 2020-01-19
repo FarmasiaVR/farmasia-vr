@@ -36,8 +36,8 @@ public class HintBox : DragAcceptable {
     #endregion
 
     #region Initialization
-    static void Init() {
-        if (!initialized) {
+    public static void Init(bool force = false) {
+        if (!initialized || force) {
             hintPrefab = Resources.Load<GameObject>("Prefabs/HintBox");
             hintTextPrefab = Resources.Load<GameObject>("Prefabs/FloatingHint");
 
@@ -100,25 +100,25 @@ public class HintBox : DragAcceptable {
         Logger.Print("Activated");
 
         Activated = true;
-
+        CreateHintText(message, startPos);
+        grabbed = false;
+        SafeDestroy();
+        boxInstance = null;
+    }
+    private static void CreateHintText(string message, Vector3 position) {
         GameObject newHintText = Instantiate(hintTextPrefab);
 
         hintInstance = newHintText.GetComponent<HintText>();
 
-        Logger.PrintVariables("Current pos", transform.position, "startpos", startPos);
-
-        newHintText.transform.position = startPos;
+        newHintText.transform.position = position;
         newHintText.transform.LookAt(Player.Camera.transform);
 
         TextMeshPro text = newHintText.transform.Find("Text").GetComponent<TextMeshPro>();
 
         text.text = message;
-        grabbed = false;
-        SafeDestroy();
-        boxInstance = null;
     }
     #region Creating
-    public static void CreateHint(string message = null) {
+    public static void CreateHint(string message, bool open = false) {
 
         if (hintInstance != null) {
             hintInstance.DestroyHint();
@@ -133,6 +133,11 @@ public class HintBox : DragAcceptable {
         Init();
 
         Vector3 hintPos = GetHintPosition();
+
+        if (open) {
+            CreateHintText(message, hintPos);
+            return;
+        }
 
         GameObject newHint = Instantiate(hintPrefab);
         newHint.transform.position = hintPos;

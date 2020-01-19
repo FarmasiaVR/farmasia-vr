@@ -191,6 +191,7 @@ public class ProgressManager {
             FinishProgress();
         } else {
             CurrentPackage = packages[index + 1];
+            CurrentPackage.StartTask();
         }
     }
 
@@ -205,7 +206,7 @@ public class ProgressManager {
                 int score;
                 Calculator.GetScoreString(out score, out scoreString);
                 EndSummary.EnableEndSummary(scoreString);
-                Player.SavePlayerData(score);
+                Player.SavePlayerData(score, scoreString);
                 break;
             }
         }

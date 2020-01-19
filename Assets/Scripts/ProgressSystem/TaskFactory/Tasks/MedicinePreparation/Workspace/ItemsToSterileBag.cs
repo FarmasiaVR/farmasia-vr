@@ -76,7 +76,7 @@ public class ItemsToSterileBag : TaskBase {
             }
         } else {
             if (filledSyringesInCabinet == filledSyringesInBag) {
-                UISystem.Instance.CreatePopup("Sulje steriili pussi.", MsgType.Notify);
+                UISystem.Instance.CreatePopup("Steriili pussi täynnä ja suljettu.", MsgType.Notify);
             }
         }
     }
@@ -113,6 +113,15 @@ public class ItemsToSterileBag : TaskBase {
         G.Instance.Progress.ChangePackage();
         G.Instance.Progress.UpdateDescription();
         TaskMovedToSide = true;
+        RemoveCapFactories();
+    }
+
+    private void RemoveCapFactories() {
+        Logger.Print("Removing Cap Factory");
+        GameObject[] gobjs = GameObject.FindGameObjectsWithTag("CapFactory");
+        foreach (GameObject obj in gobjs) {
+            obj.GetComponent<ObjectFactory>().IsEnabled = false;
+        }
     }
 
     private bool CapsOnSyringes() {
@@ -155,6 +164,7 @@ public class ItemsToSterileBag : TaskBase {
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
             }
         }
+        
         base.FinishTask();
     }
 

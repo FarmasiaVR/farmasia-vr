@@ -29,7 +29,6 @@ public class Finish : TaskBase {
     #region Event Subscriptions
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
-        SubscribeEvent(DoorHandleGrabbed, EventType.RoomDoor);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -38,18 +37,6 @@ public class Finish : TaskBase {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
         }        
-    }
-
-    private void DoorHandleGrabbed(CallbackData data) {
-        if ((DoorGoTo)data.DataObject != DoorGoTo.Exit) {
-            return;
-        }
-        if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
-            UISystem.Instance.CreatePopup("Suorita laminaarikaapin tehtävät ennen pelin päättämistä.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-        } else {
-            FinishTask();
-        }
     }
     #endregion
 
@@ -125,6 +112,15 @@ public class Finish : TaskBase {
     private void BottlesDisinfected() {
         ITask disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
         disinfect.FinishTask();
+    }
+    #endregion
+
+    #region Overridden Methods
+    public override void StartTask() {
+        if (IsNotStarted()) {
+            FinishTask();
+        }
+        base.StartTask();
     }
     #endregion
 

@@ -27,6 +27,8 @@ public class OpenableDoor : MonoBehaviour {
     private Transform handle;
     private float angleOffset;
 
+    private float doorGrabDistance = 0.25f;
+    public bool BreakAtLongDistance { get; set; }
     public float Angle {
         get {
             return transform.eulerAngles.y;
@@ -49,7 +51,7 @@ public class OpenableDoor : MonoBehaviour {
         Vector3 handPos = hand.ColliderPosition;
 
         float handDistance = (handPos - handle.position).magnitude;
-        if (handDistance > 0.25) {
+        if (handDistance > doorGrabDistance && BreakAtLongDistance) {
             hand.Uninteract();
             ReleaseDoor();
             return;

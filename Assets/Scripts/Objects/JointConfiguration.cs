@@ -13,8 +13,10 @@ public static class JointConfiguration {
     private static Joint AddFixedJoint(GameObject obj) {
         FixedJoint joint = obj.AddComponent<FixedJoint>();
 
-        joint.breakForce = breakForce;
-        joint.breakTorque = breakTorque;
+        float mass = obj.GetComponent<Rigidbody>()?.mass ?? 1;
+
+        joint.breakForce = breakForce * mass;
+        joint.breakTorque = breakTorque * mass;
 
         return joint;
     }

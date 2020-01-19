@@ -6,11 +6,11 @@ public class HandMeshToggler : MonoBehaviour {
 
     private Renderer[] renderers;
     private Hand hand;
-    private bool status;
+    public bool Status { get; private set; }
 
     void Start() {
         hand = GetComponent<Hand>();
-        status = enabled;
+        Status = enabled;
 
         StartCoroutine(FindRenderersLate());
 
@@ -36,12 +36,13 @@ public class HandMeshToggler : MonoBehaviour {
         }
     }
 
-    private void Show(bool hide) {
-        if (status == hide) {
+    public void Show(bool hide) {
+        if (Status == hide) {
             return;
         }
 
-        status = hide;
+        Status = hide;
+
         SetRenderers();
     }
 
@@ -49,7 +50,7 @@ public class HandMeshToggler : MonoBehaviour {
 #if UNITY_VRCOMPUTER
         foreach (Renderer r in renderers) {
             if (r != null) {
-                r.enabled = status;
+                r.enabled = Status;
             }
         }
 #endif

@@ -10,6 +10,15 @@ public class Package {
     public bool packageCompleted { get; private set; }
     public List<ITask> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
+
+    public ITask CurrentTask {
+        get {
+            if (activeTasks.Count == 0) {
+                return null;
+            }
+            return activeTasks[0];
+        }
+    }
     #endregion
 
     #region Constructor
@@ -64,6 +73,7 @@ public class Package {
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();
             manager.UpdateDescription();
+            StartTask();
         }
     }
     #endregion
@@ -89,6 +99,7 @@ public class Package {
             activeTasks.Remove(task);
             CheckChangePackage();
             manager.UpdateDescription();
+            StartTask();
         }
     }
 
@@ -117,5 +128,12 @@ public class Package {
             Logger.Print(task.GetType());
         }
     }
+
+    public void StartTask() {
+        if (CurrentTask != null) {
+            CurrentTask.StartTask();
+        }
+    }
+
     #endregion
 }

@@ -143,6 +143,7 @@ public class HandCollider : MonoBehaviour {
 
             if (g == null) {
                 Logger.Print("G was null");
+                continue;
             } else if (g.transform == null) {
                 Logger.Print("G.Transform was null");
             }

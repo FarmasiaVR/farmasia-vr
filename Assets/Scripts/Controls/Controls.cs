@@ -94,7 +94,7 @@ public static class Controls {
     public static void SetDefaultControls() {
         grab = ControlType.TriggerClick;
         grabInteract = ControlType.PadClick;
-        remoteGrab = ControlType.PadClick;
+        remoteGrab = ControlType.TriggerClick;
 
         takeMedicine = ControlType.DPadWest;
         ejectMedicine = ControlType.DPadEast;

@@ -6,6 +6,7 @@ public class ScoreCalculator {
 
     #region Fields
     Dictionary<TaskType, int> points;
+    Dictionary<TaskType, int> maxPoints;
     HashSet<ITask> tasks;
     HashSet<String> beforeTime;
     private int maxScore = 0;
@@ -28,9 +29,11 @@ public class ScoreCalculator {
     /// Adds all tasks into the list of zero points.
     /// </summary>
     private void AddTasks() {
+        maxPoints = new Dictionary<TaskType, int>();
         foreach (ITask task in tasks) {
             points.Add(task.GetTaskType(), task.GetPoints());
             maxScore += task.GetPoints();
+            maxPoints.Add(task.GetTaskType(), task.GetPoints());
         }
     }
     #endregion
@@ -73,24 +76,24 @@ public class ScoreCalculator {
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public void GetScoreString(out int score, out string scoreString) {
-        String summary = "Peli päättyi - onnittelut!\n";
-        String scoreCountPerTask = "";
-        String beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
-        String addedBeforeTimeList = "";
+        string summary = "Peli päättyi - onnittelut!\n";
+        string scoreCountPerTask = "";
+        string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
+        string addedBeforeTimeList = "";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
-            scoreCountPerTask += "\n Tehtävä:" + type.ToString() + ": " + points[type] + "pistettä.";
+            scoreCountPerTask += "\n " + points[type] + " / " + maxPoints[type] + " : " + type.ToString();
             score += points[type];
         }
-        foreach (String before in beforeTime) {
-            if (beforeTime.Last<String>().Equals(before)) {
+        foreach (string before in beforeTime) {
+            if (beforeTime.Last<string>().Equals(before)) {
                 addedBeforeTimeList += before;
                 break;
             }
             addedBeforeTimeList += before + ", ";
         }
-        summary += "Kokonaispistemäärä: " + score + "/" + maxScore + "!";
+        summary += "Kokonaispistemäärä: " + score + " / " + maxScore + "!";
         Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
         scoreString = summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
     }

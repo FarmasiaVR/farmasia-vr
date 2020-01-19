@@ -5,13 +5,15 @@ public class ObjectHighlight : MonoBehaviour {
 
     #region fields
     private List<Material> materials;
-    private Color32 highlightColor;
-    private Color32[] normalColor;
+    private Color highlightColor;
+    private Color normalColor;
+
     #endregion
 
     private void Awake() {
         InitializeMaterials();
-        highlightColor = new Color32(150, 150, 150, 0);
+        highlightColor = new Color32(100, 120, 100, 1);
+        normalColor = new Color32(0, 0, 0, 0);
     }
 
     private void OnDestroy() {
@@ -19,26 +21,15 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
-        normalColor = new Color32[materials.Count];
         for (int i = 0; i < materials.Count; i++) {
-            if (materials[i].HasProperty("_Color")) {
-                normalColor[i] = materials[i].color;
-                materials[i].color += highlightColor;
-            }
+            materials[i].SetColor("_EmissionColor", highlightColor);
         }
     }
 
     public void Unhighlight() {
-        if (normalColor == null) {
-            return;
-        }
-
         for (int i = 0; i < materials.Count; i++) {
-            if (materials[i].HasProperty("_Color")) {
-                materials[i].color = normalColor[i];
-            }
+            materials[i].SetColor("_EmissionColor", normalColor);
         }
-        normalColor = null;
     }
 
     public static ObjectHighlight GetHighlightFromTransform(Transform t) {
@@ -60,6 +51,7 @@ public class ObjectHighlight : MonoBehaviour {
     private void AddMaterialsFromRenderer(Renderer r) {
         if (r != null) {
             for (int i = 0; i < r.materials.Length; i++) {
+                r.materials[i].EnableKeyword("_EMISSION");
                 materials.Add(r.materials[i]);
             }
         }

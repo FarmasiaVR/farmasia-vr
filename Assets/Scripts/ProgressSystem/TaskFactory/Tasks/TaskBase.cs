@@ -8,10 +8,12 @@ using System.Linq;
 /// </summary>
 public class TaskBase : ITask {
     #region Fields
-    
+
     protected int points;
     protected Package package;
     private bool InPackage => (package != null);
+    private bool started = false;
+    public bool Started { get => started; }
     protected TaskType taskType;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
@@ -36,7 +38,7 @@ public class TaskBase : ITask {
     }
     #endregion
 
-    #region Private Methods
+    #region Virtual Methods
     /// <summary>
     /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
     /// </summary>
@@ -49,9 +51,7 @@ public class TaskBase : ITask {
             }
         }
     }
-    #endregion
 
-    #region Virtual Methods
     /// <summary>
     /// Executed when task conditions are done.
     /// </summary>
@@ -60,9 +60,13 @@ public class TaskBase : ITask {
             UnsubscribeAllEvents();
         }
         RemoveFromPackage();
-        if(taskType != TaskType.Finish) {
-           G.Instance.Progress.UpdateHint(); 
+        if (taskType != TaskType.Finish) {
+            G.Instance.Progress.UpdateHint();
         }
+    }
+
+    public virtual void StartTask() {
+        started = true;
     }
 
     public virtual string GetDescription() {
@@ -147,6 +151,10 @@ public class TaskBase : ITask {
     #endregion
 
     #region Protected Methods
+    protected bool IsNotStarted() {
+        return !started;
+    }
+
     /// <summary>
     /// Checks if task is currently executed in package. Aka first in it.
     /// </summary>

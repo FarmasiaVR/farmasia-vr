@@ -4,6 +4,8 @@
 public interface ITask {
     TaskType GetTaskType();
     void SetPackage(Package package);
+
+    void StartTask();
     void FinishTask();
     string GetDescription();
     int GetPoints();

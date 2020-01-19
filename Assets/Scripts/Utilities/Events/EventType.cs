@@ -31,5 +31,6 @@
     SyringeFromLuerlock,
     HandsExitLaminarCabinet,
     HandleGrabbed,
-    PushingToSmallerSyringe
+    PushingToSmallerSyringe,
+    ItemDroppedInWrongTrash
 }

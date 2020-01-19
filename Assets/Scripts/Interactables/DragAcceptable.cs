@@ -64,7 +64,7 @@ public class DragAcceptable : Interactable {
         Release();
 
         Hidden = hide;
-        GetComponent<Collider>().enabled = !hide;
+        GetComponent<Collider>().isTrigger = hide;
         GetComponent<Renderer>().enabled = !hide;
     }
 
