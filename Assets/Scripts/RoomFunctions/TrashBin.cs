@@ -13,7 +13,7 @@ public class TrashBin : MonoBehaviour {
         if (item != null) {
             bool isNeedle = item.ObjectType == ObjectType.Needle;
             if (sharpTrash == isNeedle) {
-                //Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             } else {
                 Logger.Warning("Item placed in the wrong trash: " + item.ObjectType);
             }
