@@ -86,6 +86,10 @@ public class Hand : MonoBehaviour {
             if (VRInput.GetControlUp(HandType, Controls.GrabInteract)) {
                 GrabUninteract();
             }
+        } else {
+            if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
+                StartRemoteGrab();
+            }
         }
     }
 
@@ -143,7 +147,7 @@ public class Hand : MonoBehaviour {
 
         Interactable interactable = HandCollider.GetClosestInteractable();
         if (interactable == null) {
-            StartRemoteGrab();
+            // StartRemoteGrab();
         } else {
             InteractWith(interactable);
         }
