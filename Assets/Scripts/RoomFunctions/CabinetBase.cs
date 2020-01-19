@@ -25,16 +25,19 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     private GameObject childCollider;
 
+    [SerializeField]
+    private GameObject sterileDrape;
 
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
 
     private Pipeline capBagEnterPipeline;
+    private bool folded;
     #endregion
 
     // Start is called before the first frame update
-    void Start() {
+    private void Start() {
         objectsInsideArea = new List<GameObject>();
         missingObjects = new Dictionary<Types, int>();
         missingObjects.Add(Types.Needle, 1);
@@ -59,6 +62,11 @@ public class CabinetBase : MonoBehaviour {
         if (item == null) {
             return;
         }
+
+        if (Time.time > 5) {
+            UnfoldCloth();
+        }
+
         if (!itemPlaced) {
             Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
             itemPlaced = true;
@@ -71,6 +79,25 @@ public class CabinetBase : MonoBehaviour {
                 missingObjects[underlyingType]--;
             }
         }
+    }
+
+    private void UnfoldCloth() {
+
+        if (folded) {
+            return;
+        }
+        folded = true;
+
+        if (sterileDrape == null) {
+            Logger.Warning("Sterile drape not set in laminar cabinet, not performing animation.");
+            return;
+        }
+
+        GameObject startState = sterileDrape.transform.GetChild(0).gameObject;
+        GameObject endState = sterileDrape.transform.GetChild(1).gameObject;
+
+        Destroy(startState);
+        endState.SetActive(true);
     }
 
     private void ExitCabinet(Collider other) {
@@ -121,7 +148,7 @@ public class CabinetBase : MonoBehaviour {
 
     private void DestroyCapBagAndSetFactoryActive(GeneralItem capBag) {
         if (capBag != null && objectsInsideArea.Contains(capBag.gameObject)) {
-            
+
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
             Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
@@ -134,11 +161,11 @@ public class CabinetBase : MonoBehaviour {
                     capFactoryAlreadyEnabled = true;
                 }
             }
-            
+
             if (!capFactoryAlreadyEnabled) {
                 syringeCapFactory.SetActive(true);
             }
-  
+
             capBag.DestroyInteractable();
         } else {
             Logger.Print("Syringe cap bag not inside cabinet anymore, won't destroy or set factory active");
