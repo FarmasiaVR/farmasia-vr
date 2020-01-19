@@ -42,6 +42,7 @@ public class SceneLoader : MonoBehaviour {
     }
 
     private void LoadScene() {
+        Events.Reset();
         if (scene.Equals("Restart")) {
             Logger.PrintVariables("Restarting current scene", scene);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
