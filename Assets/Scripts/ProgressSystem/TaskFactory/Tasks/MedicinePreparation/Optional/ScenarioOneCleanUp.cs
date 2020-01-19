@@ -31,6 +31,7 @@ public class ScenarioOneCleanUp : TaskBase {
         base.SubscribeEvent(ItemDroppedOnFloor, EventType.ItemDroppedOnFloor);
         base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
+        base.SubscribeEvent(ItemDroppedInWrongTrash, EventType.ItemDroppedInWrongTrash);
     }
 
     private void ItemDroppedOnFloor(CallbackData data) {
@@ -76,6 +77,12 @@ public class ScenarioOneCleanUp : TaskBase {
         if (itemsToBeCleaned.Count == 0 && base.package != null) {
             base.package.MoveTaskToManager(this);
         }
+    }
+
+    private void ItemDroppedInWrongTrash(CallbackData data) {
+        UISystem.Instance.CreatePopup(-1, "Esine laitettiin väärään roskakoriin", MsgType.Mistake);
+        G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
     }
     #endregion
 

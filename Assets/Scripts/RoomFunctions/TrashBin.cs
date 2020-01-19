@@ -16,6 +16,7 @@ public class TrashBin : MonoBehaviour {
                 Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             } else {
                 Logger.Warning("Item placed in the wrong trash: " + item.ObjectType);
+                Events.FireEvent(EventType.ItemDroppedInWrongTrash, CallbackData.Object(item));
             }
 
             item.DestroyInteractable();
