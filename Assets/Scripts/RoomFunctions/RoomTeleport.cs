@@ -36,6 +36,12 @@ public class RoomTeleport : MonoBehaviour {
             item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
             CreateSpawner(item);
         }
+
+        foreach (VRHandControls h in VRInput.Hands) {
+            h.Hand.GrabUninteract();
+            h.Hand.Uninteract();
+        }
+
         player.position = playerDst.position;
     }
 
