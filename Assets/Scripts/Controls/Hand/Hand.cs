@@ -14,6 +14,7 @@ public class Hand : MonoBehaviour {
     public HandSmoother Smooth { get; private set; }
 
     private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
+    private bool IsTryingToRemoteGrab { get => !IsGrabbed && VRInput.PadTouchValue(HandType) != Vector2.zero; }
 
     private static float remoteGrabDelay = 0.25f;
     private static float extendedGrabAngle = 30f;
@@ -88,6 +89,7 @@ public class Hand : MonoBehaviour {
             }
         } else {
             if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
+                Logger.Print("Enable remote grab");
                 StartRemoteGrab();
             }
         }
@@ -100,11 +102,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (IsTryingToGrab) {
-            //HandCollider.UnhighlightPrevious();
-            ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
-        } else {
-            ExtendedHandCollider.UnhighlightPrevious();
+        if (!IsTryingToGrab) {
             HandCollider.HighlightClosestObject();
         }
     }
@@ -113,27 +111,38 @@ public class Hand : MonoBehaviour {
         if (RemoteGrabbing) {
             return;
         }
+
+        Logger.Print("Started remote grab");
         RemoteGrabbing = true;
 
         StartCoroutine(RemoteGrabCoroutine());
     }
     private IEnumerator RemoteGrabCoroutine() {
         while (RemoteGrabbing) {
+
+
+
             UpdateRemoteGrab();
             yield return null;
         }
         line.Enable(false);
+
+        Logger.Print("Ending remote hgrab");
     }
 
     private void UpdateRemoteGrab() {
-        line.Enable(IsTryingToGrab);
-        if (IsTryingToGrab) {
+
+        line.Enable(IsTryingToRemoteGrab);
+        if (IsTryingToRemoteGrab) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
 
             if (pointedObj != null && VRInput.GetControlDown(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
             }
+
+            ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
+            ExtendedHandCollider.UnhighlightPrevious();
             RemoteGrabbing = false;
         }
     }
