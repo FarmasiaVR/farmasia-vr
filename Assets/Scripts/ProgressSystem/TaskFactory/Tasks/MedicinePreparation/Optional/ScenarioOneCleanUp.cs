@@ -35,6 +35,8 @@ public class ScenarioOneCleanUp : TaskBase {
     }
 
     private void ItemDroppedOnFloor(CallbackData data) {
+
+
         if (G.Instance.Progress.IsCurrentPackage(PackageName.EquipmentSelection)) {
             return;
         }
@@ -48,6 +50,12 @@ public class ScenarioOneCleanUp : TaskBase {
         if (!itemsToBeCleaned.Contains(item)) {
             itemsToBeCleaned.Add(item);
         }
+
+        string meh = "";
+        foreach (GeneralItem it in itemsToBeCleaned) {
+            meh += it.name + "; ";
+        }
+        Logger.Warning(meh);
     }
 
     private void ItemLiftedOffFloor(CallbackData data) {
