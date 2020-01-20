@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HandMeshToggler : MonoBehaviour {
 
-    private Renderer[] renderers;
+    // private Renderer[] renderers;
+    private List<Renderer> renderers;
     private Hand hand;
     public bool Status { get; private set; }
 
@@ -12,7 +13,7 @@ public class HandMeshToggler : MonoBehaviour {
         hand = GetComponent<Hand>();
         Status = enabled;
 
-        StartCoroutine(FindRenderersLate());
+        renderers = new List<Renderer>();
 
         IEnumerator FindRenderersLate() {
 
@@ -20,7 +21,21 @@ public class HandMeshToggler : MonoBehaviour {
                 yield return null;
             }
 
-            renderers = GetComponentsInChildren<Renderer>();
+            SearhRenderers(transform);
+        }
+
+        StartCoroutine(FindRenderersLate());
+    }
+
+    private void SearhRenderers(Transform t) {
+        if (t.GetComponent<RemoteGrabLine>() == null) {
+            if (t.GetComponent<Renderer>() is var r && r != null) {
+                renderers.Add(r);
+            }
+        }
+
+        foreach (Transform child in t) {
+            SearhRenderers(child);
         }
     }
 
