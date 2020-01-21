@@ -76,13 +76,16 @@ public class ScoreCalculator {
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public void GetScoreString(out int score, out string scoreString) {
-        string summary = "Peli päättyi - onnittelut!\n";
+        string summary = "Onnittelut " + Player.Info.Name + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
         string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
+            if (maxPoints[type] == 0) {
+                continue;
+            }
             scoreCountPerTask += "\n " + points[type] + " / " + maxPoints[type] + " : " + type.ToString();
             score += points[type];
         }
@@ -94,8 +97,36 @@ public class ScoreCalculator {
             addedBeforeTimeList += before + ", ";
         }
         summary += "Kokonaispistemäärä: " + score + " / " + maxScore + "!";
-        Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
-        scoreString = summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
+        scoreString = summary + scoreCountPerTask;// + beforeTimeSummary + addedBeforeTimeList;
+        Logger.Print(scoreString);
+    }
+    private string TaskToString(TaskType type) {
+        switch (type) {
+            case TaskType.CorrectItemsInThroughput:
+                return "Oikeat välineet läpiantokaapissa";
+            case TaskType.CorrectLayoutInThroughput:
+                return type.ToString();
+            case TaskType.CorrectItemsInLaminarCabinet:
+                return "Oikeat välineet laminaarikaapissa";
+            case TaskType.CorrectLayoutInLaminarCabinet:
+                return type.ToString();
+            case TaskType.DisinfectBottles:
+                return "Pullon korkin desinfiointi";
+            case TaskType.MedicineToSyringe:
+                return "Lääkkeen otto ruiskuun";
+            case TaskType.LuerlockAttach:
+                return "Ison ruiskun kiinnitys luerlockiin";
+            case TaskType.SyringeAttach:
+                return "Pienten ruiskujen kiinnitys luerlockiin";
+            case TaskType.CorrectAmountOfMedicineSelected:
+                return "Oikea määrä lääkettä ruiskuissa";
+            case TaskType.ItemsToSterileBag:
+                return "Ruiskujen laittaminen steriilipussiin";
+            case TaskType.ScenarioOneCleanUp:
+                return "Työskentelytilan siivous";
+            default:
+                return type.ToString();
+        }
     }
     #endregion
 }
