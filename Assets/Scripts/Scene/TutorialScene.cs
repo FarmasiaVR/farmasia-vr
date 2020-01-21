@@ -104,7 +104,7 @@ public class TutorialScene : SceneScript {
                 return "Ruisku";
             case ObjectType.Needle:
                 return "Neula";
-            case ObjectType.Medicine:
+            case ObjectType.Bottle:
                 return "Lääkepullo";
             case ObjectType.DisinfectingCloth:
                 return "Steriili puhdistusliina";
