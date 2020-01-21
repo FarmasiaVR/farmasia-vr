@@ -132,7 +132,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             if (objectCount == 13) {
                 UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
             } else {
-                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
+                UISystem.Instance.CreatePopup(-1, "Liikaa työvälineitä.", MsgType.Error);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
             }
         }
