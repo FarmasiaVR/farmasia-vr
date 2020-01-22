@@ -132,7 +132,7 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems() {
         if (checkTimes == 0) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä", MsgType.Mistake);
+            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
             G.Instance.Audio.Play(AudioClipType.MistakeMessage);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
         } else {
