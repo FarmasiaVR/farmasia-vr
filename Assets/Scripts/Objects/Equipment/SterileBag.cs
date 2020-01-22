@@ -139,27 +139,33 @@ public class SterileBag : GeneralItem {
 
         // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, true);
 
-        G.Instance.Pipeline
-            .New()
-            .Delay(timeoutTime)
-            .Func(() => {
-                SetColliders(syringe.transform, true);
-               // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, false);
-                syringe.RigidbodyContainer.Enable();
-            });
+        //G.Instance.Pipeline
+        //    .New()
+        //    .Delay(timeoutTime)
+        //    .Func(() => {
+        //        SetColliders(syringe.transform, true);
+        //       // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, false);
+        //        syringe.RigidbodyContainer.Enable();
+        //    });
 
         StartCoroutine(MoveSyringe(syringe, transform.up));
     }
 
     private IEnumerator MoveSyringe(Syringe syringe, Vector3 dir) {
 
-        float time = timeoutTime;
+        float time = 0;
 
-        while (time > 0) {
-            time -= Time.deltaTime;
-            syringe.transform.position += dir.normalized * Time.deltaTime * ejectSpeed;
+        float distance = 0;
+
+        while (time < timeoutTime) {
+            time += Time.deltaTime;
+            distance += Time.deltaTime * ejectSpeed;
+            syringe.transform.position = transform.position + transform.up * distance;
             yield return null;
         }
+
+        SetColliders(syringe.transform, true);
+        syringe.RigidbodyContainer.Enable();
     }
 
     private void CloseSterileBag() {
