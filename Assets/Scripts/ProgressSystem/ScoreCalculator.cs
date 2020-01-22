@@ -86,7 +86,7 @@ public class ScoreCalculator {
             if (maxPoints[type] == 0) {
                 continue;
             }
-            scoreCountPerTask += "\n " + points[type] + " / " + maxPoints[type] + " : " + type.ToString();
+            scoreCountPerTask += "\n " + points[type] + " / " + maxPoints[type] + " : " + TaskToString(type);
             score += points[type];
         }
         foreach (string before in beforeTime) {
