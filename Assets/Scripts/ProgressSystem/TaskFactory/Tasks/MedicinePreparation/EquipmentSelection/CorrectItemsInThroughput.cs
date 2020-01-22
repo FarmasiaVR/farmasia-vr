@@ -160,6 +160,7 @@ public class CorrectItemsInThroughput : TaskBase {
             }
         }
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
+        ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         base.FinishTask();
     }
 

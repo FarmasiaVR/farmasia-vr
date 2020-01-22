@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MedicinePreparationScene : SceneScript {
 
@@ -16,9 +17,12 @@ public class MedicinePreparationScene : SceneScript {
     [SerializeField]
     private Interactable teleportDoorKnob;
 
-    private bool playing;
+    private bool played;
+    public bool IsAutoPlaying { get; private set; }
 
     private Vector3 spawnPos = new Vector3(1000, 1000, 1000);
+
+    public bool InSecondRoom { get; set; }
     #endregion
 
     protected override void Start() {
@@ -34,10 +38,11 @@ public class MedicinePreparationScene : SceneScript {
 
     public void PlayFirstRoom(int points) {
 
-        if (playing) {
+        if (IsAutoPlaying || played) {
             return;
         }
-        playing = true;
+        played = true;
+        IsAutoPlaying = true;
 
         StartCoroutine(PlayCoroutine(points));
     }
@@ -46,6 +51,22 @@ public class MedicinePreparationScene : SceneScript {
         get {
             spawnPos += Vector3.one;
             return spawnPos;
+        }
+    }
+
+    public override void Restart() {
+        if (InSecondRoom) {
+            Logger.Warning("Get first room points here");
+            int points = 0;
+
+            GameObject g = new GameObject();
+            MedicinePreparationSceneRestarter r = g.AddComponent<MedicinePreparationSceneRestarter>();
+            DontDestroyOnLoad(g);
+
+            r.Points = points;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -159,8 +180,8 @@ public class MedicinePreparationScene : SceneScript {
         bottle.transform.up = correctPositions.right;
         bottle.Rigidbody.velocity = Vector3.zero;
 
-        for (int i = 0; i < 6; i++) { 
-            smallSyringes[i].transform.position = correctPositions.GetChild(5+i).position;
+        for (int i = 0; i < 6; i++) {
+            smallSyringes[i].transform.position = correctPositions.GetChild(5 + i).position;
             smallSyringes[i].transform.up = correctPositions.right;
             smallSyringes[i].Rigidbody.velocity = Vector3.zero;
             yield return null;
@@ -171,6 +192,10 @@ public class MedicinePreparationScene : SceneScript {
 
         yield return new WaitForSeconds(0.5f);
         hand.InteractWith(teleportDoorKnob);
+
+        yield return null;
+
+        IsAutoPlaying = false;
     }
 
     private Interactable ToIntr(GameObject g) {
