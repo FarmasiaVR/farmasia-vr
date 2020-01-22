@@ -1,3 +1,4 @@
+using UnityEngine;
 /// <summary>
 /// A Singleton for accessing global systems.
 /// Source: https://csharpindepth.com/Articles/Singleton
@@ -11,6 +12,16 @@ public sealed class G {
     public AudioManager Audio { get; }
     public ProgressManager Progress { get; private set; }
     public PipelineManager Pipeline { get; }
+
+    private SceneScript sceneScript;
+    public SceneScript Scene {
+        get {
+            if (sceneScript == null) {
+                sceneScript = GameObject.FindObjectOfType<SceneScript>();
+            }
+            return sceneScript;
+        }
+    }
     #endregion
 
     static G() {
