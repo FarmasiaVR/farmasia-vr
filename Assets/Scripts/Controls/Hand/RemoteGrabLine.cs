@@ -42,20 +42,17 @@ public class RemoteGrabLine : MonoBehaviour {
     }
 
     private void TurnLine() {
-        Transform obj = transform;
-        Transform controller = transform.parent;
+        Transform line = transform;
+        Vector3 forward = transform.parent.forward;
+        Vector3 toHead = cam.position - line.position;
 
-        obj.up = -controller.forward;
-        obj.position = controller.position;
-
-        Vector3 toHead = obj.position - cam.position;
-
-
-        //Vector3 pivot = Vector3.Cross(controller.up, obj.up);
-        //obj.Rotate(pivot, -Vector3.SignedAngle(controller.up, obj.up, pivot), Space.World);
-
-        //Vector3 offset = controller.position - luerlockPos.position;
-        //obj.position += controller.position;
+        // Look at player
+        line.forward = -toHead;
+        // Rotate line to match controller direction on a 2D level
+        line.Rotate(toHead, Vector3.SignedAngle(line.up, Vector3.ProjectOnPlane(forward, toHead), toHead), Space.World);
+        // Tilt line to add depth and match the real direction of the controller
+        Vector3 pivot = Vector3.Cross(forward, line.up);
+        line.Rotate(pivot, Vector3.SignedAngle(line.up, forward, pivot), Space.World);
     }
 
     public void Enable(bool enable) {
