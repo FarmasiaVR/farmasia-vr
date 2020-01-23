@@ -10,12 +10,16 @@ public class RemoteGrabLine : MonoBehaviour {
     private bool isEnabled;
 
     private const float SPEED = -0.3f;
+
+    private Transform cam;
     #endregion
 
     private void Start() {
         meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.enabled = false;
         material = meshRenderer.material;
+
+        cam = Player.Camera.transform;
     }
 
     private void Update() {
@@ -28,11 +32,21 @@ public class RemoteGrabLine : MonoBehaviour {
             return;
         }
 
+        TurnLine();
+
         float newY = material.mainTextureOffset.y + Time.deltaTime * SPEED;
         if (newY > 1) {
             newY -= 1;
         }
         material.mainTextureOffset = new Vector2(0, newY);
+    }
+
+    private void TurnLine() {
+        transform.LookAt(cam, Vector3.down);
+        Vector3 angles = transform.eulerAngles;
+        angles.y = 0;
+        angles.z = 0;
+        transform.eulerAngles = angles;
     }
 
     public void Enable(bool enable) {
