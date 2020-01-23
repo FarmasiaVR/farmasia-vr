@@ -13,7 +13,7 @@ public class SterileBag : GeneralItem {
     [SerializeField]
     private GameObject childCollider;
 
-    private float ejectSpeed = 0.5f;
+    private float ejectSpeed = 0.6f;
 
     private bool timeout;
 
