@@ -24,6 +24,9 @@
 
         if (door != null) {
             door.BreakAtLongDistance = !hand.RemoteGrabbing;
+            Logger.Warning("Break status: " + door.BreakAtLongDistance);
+        } else {
+            Logger.Warning("DOOR NULL");
         }
 
 

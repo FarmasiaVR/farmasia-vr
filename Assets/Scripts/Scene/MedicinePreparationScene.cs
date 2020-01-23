@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MedicinePreparationScene : SceneScript {
 
     #region fields
+    [SerializeField]
+    public bool startInSecondRoom;
+
     [Tooltip("Prefabs")]
     [SerializeField]
     private GameObject p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle;
@@ -28,6 +31,9 @@ public class MedicinePreparationScene : SceneScript {
     protected override void Start() {
         base.Start();
         NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, correctPositions, teleportDoorKnob);
+        if (startInSecondRoom) {
+            PlayFirstRoom(2);
+        }
     }
 
     private void Update() {
@@ -72,7 +78,9 @@ public class MedicinePreparationScene : SceneScript {
 
     private IEnumerator PlayCoroutine(int points) {
 
-        // Create objects
+        yield return null;
+        yield return null;
+        yield return null;
 
         // Create objects
 

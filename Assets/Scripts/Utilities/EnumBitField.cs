@@ -135,4 +135,11 @@ public class EnumBitField<T> where T : Enum {
     private int ToBitIndex(T value) {
         return (int)(object)value;
     }
+
+    public EnumBitField<T> Copy() {
+        EnumBitField<T> c = new EnumBitField<T>();
+        c.Max = Max;
+        c.Value = Value;
+        return c;
+    }
 }

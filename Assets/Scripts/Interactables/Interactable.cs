@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour {
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
-    public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
+    public EnumBitField<InteractState> State { get; set; } = new EnumBitField<InteractState>();
 
     public RigidbodyContainer RigidbodyContainer { get; private set; }
     public Rigidbody Rigidbody {
