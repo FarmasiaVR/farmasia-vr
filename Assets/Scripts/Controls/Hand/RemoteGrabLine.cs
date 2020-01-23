@@ -42,7 +42,7 @@ public class RemoteGrabLine : MonoBehaviour {
     }
 
     private void TurnLine() {
-        transform.LookAt(cam, Vector3.down);
+        transform.rotation = Quaternion.LookRotation(transform.position - cam.position);
         Vector3 angles = transform.eulerAngles;
         angles.y = 0;
         angles.z = 0;
