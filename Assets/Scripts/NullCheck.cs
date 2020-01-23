@@ -9,9 +9,9 @@ public static class NullCheck {
     /// </summary>
     /// <param name="objs"></param>
     public static void Check(params object[] objs) {
-        foreach (object o in objs) {
-            if (o == null) {
-                throw new System.NullReferenceException("Null check object was null");
+        for (int i = 0; i < objs.Length; i++) {
+            if (objs[i] == null) {
+                throw new System.NullReferenceException("Null check object was null. Object index " + i + " was null");
             }
         }
     }

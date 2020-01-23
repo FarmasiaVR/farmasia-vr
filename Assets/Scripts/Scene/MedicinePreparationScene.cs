@@ -97,13 +97,7 @@ public class MedicinePreparationScene : SceneScript {
             all[5 + i] = g_smallSyringes[i].transform;
         }
 
-        //for (int i = 0; i < all.Length; i++) {
-        //    for (int j = 0; j < all.Length; j++) {
-        //        if (i != j) {
-        //            CollisionIgnore.IgnoreCollisions(all[i], all[j], true);
-        //        }
-        //    }
-        //}
+        IgnoreCollisions(all, true);
 
         yield return null;
         yield return null;
@@ -193,11 +187,22 @@ public class MedicinePreparationScene : SceneScript {
         yield return new WaitForSeconds(0.5f);
         hand.InteractWith(teleportDoorKnob);
 
+
+        yield return null;
+        IgnoreCollisions(all, false);
         yield return null;
 
         IsAutoPlaying = false;
     }
-
+    private void IgnoreCollisions(Transform[] items, bool ignore) {
+        for (int i = 0; i < items.Length; i++) {
+            for (int j = 0; j < items.Length; j++) {
+                if (i != j) {
+                    CollisionIgnore.IgnoreCollisions(items[i], items[j], ignore);
+                }
+            }
+        }
+    }
     private Interactable ToIntr(GameObject g) {
         return Interactable.GetInteractable(g.transform);
     }
