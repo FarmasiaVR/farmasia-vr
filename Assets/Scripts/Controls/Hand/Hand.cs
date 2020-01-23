@@ -16,7 +16,6 @@ public class Hand : MonoBehaviour {
     private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
     private bool IsTryingToRemoteGrab { get => !IsGrabbed && VRInput.PadTouchValue(HandType) != Vector2.zero; }
 
-    private static float remoteGrabDelay = 0.25f;
     private static float extendedGrabAngle = 30f;
 
     [SerializeField]
@@ -26,8 +25,6 @@ public class Hand : MonoBehaviour {
 
     public HandCollider HandCollider { get; private set; }
     public HandCollider ExtendedHandCollider { get; private set; }
-    private Pipeline remoteGrabPipe;
-    private GameObject prevPointedObj;
 
     public HandConnector Connector { get; private set; }
     private Interactable interactedInteractable;
