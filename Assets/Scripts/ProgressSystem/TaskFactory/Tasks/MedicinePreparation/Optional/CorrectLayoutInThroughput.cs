@@ -82,5 +82,9 @@ public class CorrectLayoutInThroughput : TaskBase {
     public override string GetHint() {
         return "";
     }
+
+    protected override void OnTaskComplete() {
+        throw new NotImplementedException();
+    }
     #endregion
 }

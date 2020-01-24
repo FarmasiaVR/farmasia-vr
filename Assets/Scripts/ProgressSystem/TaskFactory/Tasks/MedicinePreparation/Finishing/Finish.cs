@@ -36,7 +36,7 @@ public class Finish : TaskBase {
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
-        }        
+        }
     }
     #endregion
 
@@ -59,7 +59,7 @@ public class Finish : TaskBase {
                 }
             }
         }
-        
+
         if (pointsForSyringeSize < 6) {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, 6 - pointsForSyringeSize);
         }
@@ -72,7 +72,7 @@ public class Finish : TaskBase {
         foreach (Package p in G.Instance.Progress.packages) {
             if (p.name == PackageName.Workspace) {
                 if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
-                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag).FinishTask(); 
+                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag).FinishTask();
                 }
                 break;
             }
@@ -92,7 +92,7 @@ public class Finish : TaskBase {
                                 break;
                             }
                         }
-                    } 
+                    }
                 }
                 break;
             }
@@ -132,7 +132,6 @@ public class Finish : TaskBase {
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
-        
         base.FinishTask();
     }
 
@@ -142,6 +141,10 @@ public class Finish : TaskBase {
 
     public override string GetHint() {
         return HINT;
+    }
+
+    protected override void OnTaskComplete() {
+        throw new NotImplementedException();
     }
     #endregion
 }

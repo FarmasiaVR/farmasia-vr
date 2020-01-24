@@ -50,12 +50,11 @@ public class SyringeAttach : TaskBase {
         if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
             attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
         }
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
+        if (!IsPreviousTasksCompleted(requiredTasks)) {
             return;
         } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
             attachedSyringes.Remove(s.GetInstanceID());
         } else {
             base.package.MoveTaskToManager(this);
@@ -68,11 +67,10 @@ public class SyringeAttach : TaskBase {
         Syringe s = item.GetComponent<Syringe>();
 
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-            if (CheckPreviousTaskCompletion(requiredTasks)) {
+            if (IsPreviousTasksCompleted(requiredTasks)) {
                 if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                     G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-                    UISystem.Instance.CreatePopup(-1, "Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
-                    G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                    Popup("Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
                     attachedSyringes.Remove(s.GetInstanceID());
                 } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
                     attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
@@ -86,7 +84,13 @@ public class SyringeAttach : TaskBase {
     #endregion
 
     #region Public Methods
+
+    public override void CompleteTask() {
+        base.CompleteTask();
+    }
+
     public override void FinishTask() {
+        base.FinishTask();
         int rightSize = 0;
         foreach (GameObject value in laminarCabinet.objectsInsideArea) {
             GeneralItem item = value.GetComponent<GeneralItem>();
@@ -96,14 +100,13 @@ public class SyringeAttach : TaskBase {
                 if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY && attachedSyringes.ContainsKey(s.GetInstanceID())) {
                     rightSize++;
                 }
-            }   
+            }
         }
         if (rightSize == 6) {
-            UISystem.Instance.CreatePopup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
+            Popup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
         } else {
-            UISystem.Instance.CreatePopup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Notify);
+            Popup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Notify);
         }
-        base.FinishTask();
     }
 
     public override string GetDescription() {
@@ -112,6 +115,10 @@ public class SyringeAttach : TaskBase {
 
     public override string GetHint() {
         return HINT;
+    }
+
+    protected override void OnTaskComplete() {
+        
     }
     #endregion
 }

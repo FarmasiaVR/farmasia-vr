@@ -24,6 +24,7 @@ public class ItemsToSterileBag : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, true, false) {
+        SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 2;
@@ -55,9 +56,9 @@ public class ItemsToSterileBag : TaskBase {
 
         sterileBag = (SterileBag)data2.DataObject;
 
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            UISystem.Instance.CreatePopup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        if (!IsPreviousTasksCompleted(requiredTasks)) {
+
+            Popup("Valmistele aluksi kaikki steriiliin pussiin tulevat ruiskut.", MsgType.Notify);
             return;
         }
 
@@ -70,13 +71,14 @@ public class ItemsToSterileBag : TaskBase {
             if (filledSyringesInCabinet == filledSyringesInBag) {
                 EnableCondition(Conditions.SyringesPut);
             }
-            bool check = CheckClearConditions(true);
-            if (!check) {
+            CompleteTask();
+
+            if (!IsCompleted()) {
                 FinishTask();
             }
         } else {
             if (filledSyringesInCabinet == filledSyringesInBag) {
-                UISystem.Instance.CreatePopup("Steriili pussi täynnä ja suljettu.", MsgType.Notify);
+                Popup("Steriili pussi täynnä ja suljettu.", MsgType.Notify);
             }
         }
     }
@@ -104,7 +106,7 @@ public class ItemsToSterileBag : TaskBase {
     }
 
     private void HandsExit(CallbackData data) {
-        if (CheckPreviousTaskCompletion(requiredTasks) && !TaskMovedToSide) {
+        if (IsPreviousTasksCompleted(requiredTasks) && !TaskMovedToSide) {
             MoveTaskToSide();
         }
     }
@@ -143,23 +145,23 @@ public class ItemsToSterileBag : TaskBase {
         if (sterileBag.Syringes.Count >= 6) {
             if (CapsOnSyringes()) {
                 if (!TaskMovedToSide) {
-                    UISystem.Instance.CreatePopup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+                    Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
                 }
             } else {
                 if (!TaskMovedToSide) {
-                    UISystem.Instance.CreatePopup(1, "Pakattiin oikea määrä ruiskuja mutta kaikissa ei ollut korkkia.", MsgType.Mistake);
+                    Popup("Pakattiin oikea määrä ruiskuja mutta kaikissa ei ollut korkkia.", MsgType.Mistake, -1);
                 }
                 G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
             }
         } else {
             if (sterileBag.Syringes.Count > 0 && CapsOnSyringes()) {
                 if (!TaskMovedToSide) {
-                    UISystem.Instance.CreatePopup(1, "Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin.", MsgType.Mistake);
+                    Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin.", MsgType.Mistake, -1);
                 }
                 G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
             } else {
                 if (!TaskMovedToSide) {
-                    UISystem.Instance.CreatePopup(0, "Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin ja kaikissa pakatuissa ruiskuissa ei ollut korkkia.", MsgType.Mistake);
+                    Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin ja kaikissa pakatuissa ruiskuissa ei ollut korkkia.", MsgType.Mistake, -points);
                 }
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
             }
@@ -174,6 +176,10 @@ public class ItemsToSterileBag : TaskBase {
 
     public override string GetHint() {
         return HINT;
+    }
+
+    protected override void OnTaskComplete() {
+        throw new NotImplementedException();
     }
     #endregion
 }

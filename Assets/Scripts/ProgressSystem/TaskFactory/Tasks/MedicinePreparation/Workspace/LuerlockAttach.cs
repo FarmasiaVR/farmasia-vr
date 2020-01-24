@@ -10,22 +10,18 @@ public class LuerlockAttach : TaskBase {
 
     #region Fields
     public enum Conditions { SyringeWithMedicineAttached }
-    private List<TaskType> requiredTasks = new List<TaskType> {TaskType.MedicineToSyringe};
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe };
     private CabinetBase laminarCabinet;
-    
-    private int checkTimes;
+
+    private bool firstCheckDone = false;
     #endregion
 
     #region Constructor
-    ///  <summary>
-    ///  Constructor for LuerlockAttach task.
-    ///  Is removed when finished and requires previous task completion.
-    ///  </summary>
     public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
+        SetCheckAll(true);
         Subscribe();
-        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 1;
-        checkTimes = 0;
     }
     #endregion
 
@@ -66,20 +62,9 @@ public class LuerlockAttach : TaskBase {
             G.Instance.Audio.Play(AudioClipType.MistakeMessage);
             return;
         }
-        
-        if (!CheckPreviousTaskCompletion(requiredTasks)) {
-            foreach (ITask task in G.Instance.Progress.CurrentPackage.activeTasks) {
-                if (task.GetTaskType() == TaskType.CorrectItemsInLaminarCabinet) {
-                    task.UnsubscribeAllEvents();
-                    task.RemoveFromPackage();
-                    UISystem.Instance.CreatePopup(-1, "Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake);
-                    G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                    G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
-                    break;
-                }
-            }
-                         
-            UISystem.Instance.CreatePopup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MsgType.Notify);
+
+        if (!IsPreviousTasksCompleted(requiredTasks)) {
+            Popup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MsgType.Notify);
             return;
         }
 
@@ -88,16 +73,16 @@ public class LuerlockAttach : TaskBase {
             MedicineSyringeCheck(item);
         }
 
-        checkTimes++;
-        if (!CheckClearConditions(true)) {
-            if (checkTimes == 1) {
-                UISystem.Instance.CreatePopup(0, "Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake);
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        CompleteTask();
+
+        if (!IsCompleted()) {
+            if (!firstCheckDone) {
+                Popup("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
+                firstCheckDone = true;
             } else {
-                UISystem.Instance.CreatePopup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-            }  
+                Popup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
+            }
         }
     }
 
@@ -110,12 +95,6 @@ public class LuerlockAttach : TaskBase {
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
-        if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(1, "Luerlockin kiinnittäminen onnistui.", MsgType.Notify);    
-        }
-        base.FinishTask();
-    }
 
     public override string GetDescription() {
         return DESCRIPTION;
@@ -123,6 +102,10 @@ public class LuerlockAttach : TaskBase {
 
     public override string GetHint() {
         return HINT;
+    }
+
+    protected override void OnTaskComplete() {
+        Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Notify, 1);
     }
     #endregion
 }

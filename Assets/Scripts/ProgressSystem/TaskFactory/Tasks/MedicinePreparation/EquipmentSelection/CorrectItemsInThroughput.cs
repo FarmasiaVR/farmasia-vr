@@ -1,36 +1,27 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-/// <summary>
-/// Correct amount of items inserted into Throughput.
-/// </summary>
-public class CorrectItemsInThroughput : TaskBase {
 
+public class CorrectItemsInThroughput : TaskBase {
     #region Constants
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     #endregion
 
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
-    private int smallSyringes;
+    private int smallSyringes = 0;
     private int objectCount;
-    private int checkTimes;
-    private bool correctMedicineBottle;
+    private bool firstCheckDone = false;
+    private bool correctMedicineBottle = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
 
     #region Constructor
-    ///  <summary>
-    ///  Constructor for CorrectItemsInThroughput task.
-    ///  Is removed when finished and doesn't require previous task completion.
-    ///  </summary>
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
+        SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        SetItemsToZero();
-        checkTimes = 0;
-        correctMedicineBottle = false;
         points = 2;
     }
     #endregion
@@ -50,48 +41,33 @@ public class CorrectItemsInThroughput : TaskBase {
         }
     }
 
-    /// <summary>
-    /// Once fired by an event, checks which items are in the throughput cabinet and sets the corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void CorrectItems(CallbackData data) {
         if ((DoorGoTo)data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
         if (cabinet == null) {
-            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
         List<GameObject> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
-            UISystem.Instance.CreatePopup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
-        }        
+        }
         objectCount = containedObjects.Count;
         CheckConditions(containedObjects);
         if (door.IsClosed) {
-            bool check = CheckClearConditions(true);
-            if (!check) {
+            CompleteTask();
+            if (!IsCompleted()) {
                 MissingItems();
             }
         } else {
-            UISystem.Instance.CreatePopup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
         }
     }
     #endregion
 
     #region Private Methods
-    private void SetItemsToZero() {
-        smallSyringes = 0;
-    }
-
-    /// <summary>
-    /// Sets conditions based on given objects inside list.
-    /// </summary>
-    /// <param name="containedObjects">List of gameobjects inside Pass-Through Cabinet.</param>
     private void CheckConditions(List<GameObject> containedObjects) {
         foreach (GameObject value in containedObjects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
@@ -131,37 +107,40 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     private void MissingItems() {
-        if (checkTimes == 0) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        if (!firstCheckDone) {
+            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake, -2);
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
+            firstCheckDone = true;
         } else {
-            UISystem.Instance.CreatePopup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
         }
-        Logger.Print(cabinet.GetMissingItems());
-        SetItemsToZero();
+        //Logger.Print(cabinet.GetMissingItems());
+        smallSyringes = 0;
         DisableConditions();
-        checkTimes++;
+    }
+
+    protected override void OnTaskComplete() {
+
     }
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
-        if (checkTimes == 0) {
+    public override void CompleteTask() {
+        base.CompleteTask();
+        if (IsCompleted()) {
             if (!correctMedicineBottle) {
-                UISystem.Instance.CreatePopup(1, "Liian iso lääkepullo.", MsgType.Notify);
-                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
-            } else if (objectCount == 11) {
-                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
-            } else {
-                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
+                Popup("Liian iso lääkepullo.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
+            if (objectCount == 11) {
+                Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
+            } else {
+                Popup("Liikaa työvälineitä.", MsgType.Notify, -1);
+                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
+            }
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
+            ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }
-        GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
-        ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
-        base.FinishTask();
     }
 
     public override string GetDescription() {

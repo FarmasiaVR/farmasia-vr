@@ -75,5 +75,9 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public override string GetHint() {
         return "";
     }
+
+    protected override void OnTaskComplete() {
+        throw new NotImplementedException();
+    }
     #endregion
 }
