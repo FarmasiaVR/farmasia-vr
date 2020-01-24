@@ -68,7 +68,6 @@ public class HandCollider : MonoBehaviour {
 
 
     private void OnInteractableExit(Interactable interactable) {
-        Logger.PrintVariables("True exit", interactable.name);;
         if (interactable.Highlight == PreviousHighlight) UnhighlightPrevious();
     }
 

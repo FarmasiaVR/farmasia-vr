@@ -125,8 +125,13 @@ public class HintBox : DragAcceptable {
 
         if (boxInstance != null) {
             boxInstance.message = message;
-            Logger.Print("Box exists, returning");
-            return;
+            if (Vector3.Distance(boxInstance.transform.position, Player.Camera.transform.position) > maxDistance) {
+                boxInstance.SafeDestroy();
+                boxInstance = null;
+            } else {
+                Logger.Print("Box exists, returning");
+                return;
+            }
         }
 
         Init();

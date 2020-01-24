@@ -46,12 +46,7 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachGrabbedItem(Interactable interactable) {
-
-        Logger.PrintVariables("State on grab", interactable.State.Value);
-
         if (interactable.IsAttached) {
-
-            Logger.Print("Interactable is attached");
 
             if (interactable.State == InteractState.LuerlockAttached) {
                 LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
@@ -85,8 +80,6 @@ public class HandConnector : ItemConnector {
             }
         } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
 
-            Logger.Print("Interactable is not attached and is general item");
-
             if (generalItem.ObjectType == ObjectType.Luerlock) {
                 LuerlockAdapter luerlock = generalItem as LuerlockAdapter;
                 if (luerlock.GrabbedObjectCount > 0) {
@@ -105,7 +98,6 @@ public class HandConnector : ItemConnector {
                 ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
             }
         } else {
-            Logger.Print("Interactable is ont attached");
             ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
         }
     }

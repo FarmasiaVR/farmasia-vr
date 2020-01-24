@@ -165,10 +165,10 @@ public class CabinetBase : MonoBehaviour {
             meshCopy.transform.rotation = capBag.transform.rotation;
 
             Vector3 startPos = capBag.transform.position;
-            Vector3 startRot = capBag.transform.eulerAngles;
+            Quaternion startRot = capBag.transform.rotation;
 
             Vector3 targetPos = syringeCapFactory.transform.position;
-            Vector3 targetRot = syringeCapFactory.transform.eulerAngles;
+            Quaternion targetRot = syringeCapFactory.transform.rotation;
 
             float time = 2.5f;
             float currentTime = 0;
@@ -180,16 +180,14 @@ public class CabinetBase : MonoBehaviour {
 
                 float progress = currentTime / time;
 
-                Logger.PrintVariables("Progress", progress);
-
-                meshCopy.transform.position = Vector3.Lerp(startPos, targetPos, progress);
-                meshCopy.transform.eulerAngles = Vector3.Lerp(startRot, targetRot, progress);
+                meshCopy.transform.position = Vector3.Slerp(startPos, targetPos, progress);
+                meshCopy.transform.rotation = Quaternion.Slerp(startRot, targetRot, progress);
 
                 yield return null;
             }
 
             meshCopy.transform.position = targetPos;
-            meshCopy.transform.eulerAngles = targetRot;
+            meshCopy.transform.rotation = targetRot;
 
             syringeCapFactory.SetActive(true);
         }

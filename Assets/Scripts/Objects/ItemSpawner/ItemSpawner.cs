@@ -14,12 +14,7 @@ public class ItemSpawner : MonoBehaviour {
         }
     }
 
-    private void Awake() {
-        Logger.Print("Created item spawnder");
-    }
-
     public void SetCopyObject(GameObject gob) {
-        Logger.Print("Initialized item spawner");
         copy = gob;
         currentObject = gob;
     }

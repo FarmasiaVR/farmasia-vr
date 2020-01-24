@@ -86,7 +86,6 @@ public class Hand : MonoBehaviour {
             }
         } else {
             if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
-                Logger.Print("Enable remote grab");
                 StartRemoteGrab();
             }
         }
@@ -109,7 +108,6 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        Logger.Print("Started remote grab");
         RemoteGrabbing = true;
 
         StartCoroutine(RemoteGrabCoroutine());
@@ -123,8 +121,6 @@ public class Hand : MonoBehaviour {
             yield return null;
         }
         line.Enable(false);
-
-        Logger.Print("Ending remote hgrab");
     }
 
     private void UpdateRemoteGrab() {
