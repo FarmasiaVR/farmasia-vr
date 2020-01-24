@@ -41,14 +41,17 @@ public abstract class TaskBase : ITask {
 
     //needs fixing
     public virtual void CompleteTask() {
+
         bool completed = CheckClearConditions();
         if (completed) {
             RemoveFromPackage();
             OnTaskComplete();
+            if (unsubscribeAllEvents) {
+                UnsubscribeAllEvents();
+            }
         }
-        if (unsubscribeAllEvents) {
-            UnsubscribeAllEvents();
-        }
+
+        Logger.Print("VERDICT: " + completed);
     }
 
     protected abstract void OnTaskComplete();
