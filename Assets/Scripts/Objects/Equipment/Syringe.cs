@@ -110,6 +110,7 @@ public class Syringe : GeneralItem {
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
         int liquidAmount = 0;
+
         if (takeMedicine) liquidAmount -= LiquidTransferStep;
         if (sendMedicine) liquidAmount += LiquidTransferStep;
         if (liquidAmount == 0) return;
