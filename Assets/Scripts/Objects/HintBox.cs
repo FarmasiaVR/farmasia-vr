@@ -93,13 +93,12 @@ public class HintBox : DragAcceptable {
 
     protected override void Activate() {
 
-        if (Activated) {
+        if (ActivateCount > 0) {
             return;
         }
 
         Logger.Print("Activated");
 
-        Activated = true;
         CreateHintText(message, startPos);
         grabbed = false;
         SafeDestroy();

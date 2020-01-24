@@ -105,6 +105,7 @@ public class VideoHint : MonoBehaviour {
         closeButton = closeBtn.gameObject.AddComponent<DragAcceptable>();
         closeButton.LookAtPlayer = true;
         closeButton.OnAccept = DestroyHint;
+        closeButton.ActivateCountLimit = 1;
         closeButton.Disabled = false;
 
         playBtn.gameObject.AddComponent<Rigidbody>().useGravity = false;

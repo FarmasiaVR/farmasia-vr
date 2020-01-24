@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectHighlight : MonoBehaviour {
@@ -8,6 +9,8 @@ public class ObjectHighlight : MonoBehaviour {
     private Color highlightColor;
     private Color normalColor;
 
+    private bool highlighted;
+    private bool disableHighlighting;
     #endregion
 
     private void Awake() {
@@ -21,19 +24,23 @@ public class ObjectHighlight : MonoBehaviour {
     }
 
     public void Highlight() {
+        if (disableHighlighting || highlighted) {
+            return;
+        }
+        highlighted = true;
         for (int i = 0; i < materials.Count; i++) {
             materials[i].SetColor("_EmissionColor", highlightColor);
         }
     }
 
     public void Unhighlight() {
+        if (disableHighlighting || !highlighted) {
+            return;
+        }
+        highlighted = false;
         for (int i = 0; i < materials.Count; i++) {
             materials[i].SetColor("_EmissionColor", normalColor);
         }
-    }
-
-    public static ObjectHighlight GetHighlightFromTransform(Transform t) {
-        return Interactable.GetInteractableObject(t).GetComponent<ObjectHighlight>();
     }
 
     private void InitializeMaterials() {
@@ -46,6 +53,10 @@ public class ObjectHighlight : MonoBehaviour {
         foreach (Renderer child in transform.GetComponentsInChildren<Renderer>()) {
             AddMaterialsFromRenderer(child);
         }
+    }
+
+    public void DisableHighlighting(bool disableHighlighting) {
+        this.disableHighlighting = disableHighlighting;
     }
 
     private void AddMaterialsFromRenderer(Renderer r) {
