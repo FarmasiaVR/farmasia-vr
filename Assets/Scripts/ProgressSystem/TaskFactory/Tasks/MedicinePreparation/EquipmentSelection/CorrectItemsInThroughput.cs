@@ -67,6 +67,19 @@ public class CorrectItemsInThroughput : TaskBase {
     }
     #endregion
 
+    private void MissingItems() {
+        if (!firstCheckDone) {
+            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake, -2);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
+            firstCheckDone = true;
+        } else {
+            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
+        }
+        //Logger.Print(cabinet.GetMissingItems());
+        smallSyringes = 0;
+        DisableConditions();
+    }
+
     #region Private Methods
     private void CheckConditions(List<GameObject> containedObjects) {
         foreach (GameObject value in containedObjects) {
@@ -106,18 +119,7 @@ public class CorrectItemsInThroughput : TaskBase {
         }
     }
 
-    private void MissingItems() {
-        if (!firstCheckDone) {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake, -2);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
-            firstCheckDone = true;
-        } else {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
-        }
-        //Logger.Print(cabinet.GetMissingItems());
-        smallSyringes = 0;
-        DisableConditions();
-    }
+    
 
     protected override void OnTaskComplete() {
 
@@ -127,6 +129,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #region Public Methods
     public override void CompleteTask() {
         base.CompleteTask();
+        Logger.Print("ONKO HOIDETTU: " + IsCompleted());
         if (IsCompleted()) {
             if (!correctMedicineBottle) {
                 Popup("Liian iso lääkepullo.", MsgType.Mistake, -1);

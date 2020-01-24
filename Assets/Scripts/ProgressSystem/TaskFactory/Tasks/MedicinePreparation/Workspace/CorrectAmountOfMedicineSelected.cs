@@ -61,6 +61,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
  
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
             if (IsPreviousTasksCompleted(requiredTasks)) {
+                Logger.Print("YES");
                 if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                     attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
 
@@ -75,16 +76,19 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                             Popup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
                         }
                     } else {
+                        EnableCondition(Conditions.RightAmountOfMedicine);
                         CompleteTask();
+                        return;
                     }
                 }
             } else {
+                Logger.Print("NO");
                 attachedSyringes.Remove(s.GetInstanceID());
             }
 
             foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
                 if (task.GetTaskType() == TaskType.SyringeAttach) {
-                    base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
+                    package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
                     break;
                 }
             }

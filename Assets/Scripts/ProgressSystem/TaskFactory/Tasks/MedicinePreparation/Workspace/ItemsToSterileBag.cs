@@ -67,13 +67,15 @@ public class ItemsToSterileBag : TaskBase {
         filledSyringesInCabinet = GetSyringesLiquidCount(GameObjectsToSyringes(laminarCabinet.objectsInsideArea), filledSyringesInCabinet);
         filledSyringesInBag = GetSyringesLiquidCount(sterileBag.Syringes, filledSyringesInBag);
 
-        if (sterileBag.IsClosed) {
+        if (!sterileBag.IsClosed) {
             if (filledSyringesInCabinet == filledSyringesInBag) {
+                Logger.Print(filledSyringesInCabinet + " : " + filledSyringesInBag);
+                Logger.Print("ENABLING SYRINGESPUT CONDITION");
                 EnableCondition(Conditions.SyringesPut);
             }
             CompleteTask();
 
-            if (!IsCompleted()) {
+            if (IsCompleted()) {
                 FinishTask();
             }
         } else {
@@ -142,32 +144,33 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
-        if (sterileBag.Syringes.Count >= 6) {
-            if (CapsOnSyringes()) {
-                if (!TaskMovedToSide) {
-                    Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+        if (!isFinished) {
+            if (sterileBag.Syringes.Count >= 6) {
+                if (CapsOnSyringes()) {
+                    if (TaskMovedToSide) {
+                        Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+                    }
+                } else {
+                    if (TaskMovedToSide) {
+                        Popup("Pakattiin oikea määrä ruiskuja mutta kaikissa ei ollut korkkia.", MsgType.Mistake, -1);
+                    }
+                    G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
                 }
             } else {
-                if (!TaskMovedToSide) {
-                    Popup("Pakattiin oikea määrä ruiskuja mutta kaikissa ei ollut korkkia.", MsgType.Mistake, -1);
+                if (sterileBag.Syringes.Count > 0 && CapsOnSyringes()) {
+                    if (TaskMovedToSide) {
+                        Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin.", MsgType.Mistake, -1);
+                    }
+                    G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
+                } else {
+                    if (TaskMovedToSide) {
+                        Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin ja kaikissa pakatuissa ruiskuissa ei ollut korkkia.", MsgType.Mistake, -2);
+                    }
+                    G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, 2);
                 }
-                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
             }
-        } else {
-            if (sterileBag.Syringes.Count > 0 && CapsOnSyringes()) {
-                if (!TaskMovedToSide) {
-                    Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin.", MsgType.Mistake, -1);
-                }
-                G.Instance.Progress.Calculator.Subtract(TaskType.ItemsToSterileBag);
-            } else {
-                if (!TaskMovedToSide) {
-                    Popup("Kaikkia täytettyjä ruiskuja ei laitettu steriiliin pussiin ja kaikissa pakatuissa ruiskuissa ei ollut korkkia.", MsgType.Mistake, -points);
-                }
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, points);
-            }
+            base.FinishTask();
         }
-        
-        base.FinishTask();
     }
 
     public override string GetDescription() {
@@ -179,6 +182,7 @@ public class ItemsToSterileBag : TaskBase {
     }
 
     protected override void OnTaskComplete() {
+        Logger.Print("DISABLING CAP FACTORY");
         laminarCabinet.DisableCapFactory();
     }
     #endregion

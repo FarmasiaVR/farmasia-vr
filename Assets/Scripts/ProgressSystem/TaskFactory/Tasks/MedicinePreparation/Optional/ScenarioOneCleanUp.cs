@@ -110,7 +110,6 @@ public class ScenarioOneCleanUp : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        throw new NotImplementedException();
     }
     #endregion
 }

@@ -132,6 +132,7 @@ public class Finish : TaskBase {
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
+        CompleteTask();
         base.FinishTask();
     }
 
@@ -144,7 +145,6 @@ public class Finish : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        throw new NotImplementedException();
     }
     #endregion
 }
