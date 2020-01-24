@@ -15,10 +15,6 @@ public class SterileBag : GeneralItem {
 
     private float ejectSpeed = 0.6f;
     private float ejectDistance = 0.47f;
-
-    private bool timeout;
-
-    private float timeoutTime = 0.5f;
     #endregion
 
     // Start is called before the first frame update
@@ -38,10 +34,6 @@ public class SterileBag : GeneralItem {
     }
 
     private void OnBagEnter(Collider other) {
-
-        if (timeout) {
-            return;
-        }
 
         Syringe syringe = Interactable.GetInteractable(other.transform) as Syringe;
 
@@ -84,21 +76,11 @@ public class SterileBag : GeneralItem {
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
-        if (timeout) {
-            return;
-        }
-
         float angle = Vector3.Angle(Vector3.down, transform.up);
 
         if (angle < 45) {
             return;
         }
-
-        timeout = true;
-        G.Instance.Pipeline
-            .New()
-            .Delay(timeoutTime)
-            .Func(() => timeout = false);
 
         Logger.Print("Release syringes");
 
