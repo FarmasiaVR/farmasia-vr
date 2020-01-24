@@ -179,7 +179,7 @@ public class ItemsToSterileBag : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        throw new NotImplementedException();
+        laminarCabinet.DisableCapFactory();
     }
     #endregion
 }

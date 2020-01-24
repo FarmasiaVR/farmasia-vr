@@ -139,6 +139,10 @@ public class CabinetBase : MonoBehaviour {
         return type;
     }
 
+    public void DisableCapFactory() {
+        syringeCapFactory.SetActive(false);
+    }
+
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
 
         IEnumerator EnableCapFactory() {
