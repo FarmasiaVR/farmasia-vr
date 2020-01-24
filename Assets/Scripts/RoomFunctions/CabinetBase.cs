@@ -140,13 +140,64 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
-        capBagEnterPipeline = G.Instance.Pipeline
-                                    .New()
-                                    .Delay(1.5f)
-                                    .TFunc(DestroyCapBagAndSetFactoryActive, () => capBag);
+
+        IEnumerator EnableCapFactory() {
+
+            yield return new WaitForSeconds(2);
+
+            if (!objectsInsideArea.Contains(capBag.gameObject)) {
+                yield break;
+            }
+
+            GameObject meshCopy = new GameObject();
+
+            foreach (Transform child in capBag.transform) {
+                Vector3 lpos = child.localPosition;
+                Vector3 lrot = child.localEulerAngles;
+
+                Transform mesh = Instantiate(child.gameObject).transform;
+                mesh.SetParent(meshCopy.transform);
+                mesh.localPosition = lpos;
+                mesh.localEulerAngles = lrot;
+            }
+
+            meshCopy.transform.position = capBag.transform.position;
+            meshCopy.transform.rotation = capBag.transform.rotation;
+
+            Vector3 startPos = capBag.transform.position;
+            Vector3 startRot = capBag.transform.eulerAngles;
+
+            Vector3 targetPos = syringeCapFactory.transform.position;
+            Vector3 targetRot = syringeCapFactory.transform.eulerAngles;
+
+            float time = 2.5f;
+            float currentTime = 0;
+
+            DestroyCapBagAndInitFactory(capBag);
+
+            while (currentTime < time) {
+                currentTime += Time.deltaTime;
+
+                float progress = currentTime / time;
+
+                Logger.PrintVariables("Progress", progress);
+
+                meshCopy.transform.position = Vector3.Lerp(startPos, targetPos, progress);
+                meshCopy.transform.eulerAngles = Vector3.Lerp(startRot, targetRot, progress);
+
+                yield return null;
+            }
+
+            meshCopy.transform.position = targetPos;
+            meshCopy.transform.eulerAngles = targetRot;
+
+            syringeCapFactory.SetActive(true);
+        }
+
+        StartCoroutine(EnableCapFactory());
     }
 
-    private void DestroyCapBagAndSetFactoryActive(GeneralItem capBag) {
+    private void DestroyCapBagAndInitFactory(GeneralItem capBag) {
         if (capBag != null && objectsInsideArea.Contains(capBag.gameObject)) {
 
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
@@ -160,10 +211,6 @@ public class CabinetBase : MonoBehaviour {
                     item.IsClean = capBag.IsClean;
                     capFactoryAlreadyEnabled = true;
                 }
-            }
-
-            if (!capFactoryAlreadyEnabled) {
-                syringeCapFactory.SetActive(true);
             }
 
             capBag.DestroyInteractable();
