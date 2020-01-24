@@ -14,6 +14,7 @@ public class SterileBag : GeneralItem {
     private GameObject childCollider;
 
     private float ejectSpeed = 0.6f;
+    private float ejectDistance = 0.47f;
 
     private bool timeout;
 
@@ -25,7 +26,7 @@ public class SterileBag : GeneralItem {
         base.Start();
 
         Syringes = new List<Syringe>();
-
+        
         ObjectType = ObjectType.SterileBag;
 
         IsClosed = false;
@@ -133,37 +134,20 @@ public class SterileBag : GeneralItem {
     }
 
     private void ReleaseSyringe(Syringe syringe) {
-        
-        // syringe.transform.localPosition = syringe.transform.localPosition + new Vector3(0, 0, 0.05f);
-        syringe.transform.SetParent(null);
-
-        // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, true);
-
-        //G.Instance.Pipeline
-        //    .New()
-        //    .Delay(timeoutTime)
-        //    .Func(() => {
-        //        SetColliders(syringe.transform, true);
-        //       // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, false);
-        //        syringe.RigidbodyContainer.Enable();
-        //    });
-
-        StartCoroutine(MoveSyringe(syringe, transform.up));
+        StartCoroutine(MoveSyringe(syringe));
     }
 
-    private IEnumerator MoveSyringe(Syringe syringe, Vector3 dir) {
+    private IEnumerator MoveSyringe(Syringe syringe) {
+        float totalDistance = 0;
 
-        float time = 0;
-
-        float distance = 0;
-
-        while (time < timeoutTime) {
-            time += Time.deltaTime;
-            distance += Time.deltaTime * ejectSpeed;
-            syringe.transform.position = transform.position + transform.up * distance;
+        while (totalDistance < ejectDistance) {
+            float distance = Time.deltaTime * ejectSpeed;
+            totalDistance += distance;
+            syringe.transform.localPosition += Vector3.up * distance;
             yield return null;
         }
 
+        syringe.transform.SetParent(null);
         SetColliders(syringe.transform, true);
         syringe.RigidbodyContainer.Enable();
     }
