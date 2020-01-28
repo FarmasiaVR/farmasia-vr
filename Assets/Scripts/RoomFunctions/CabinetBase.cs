@@ -70,7 +70,7 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
-        if (Time.time > 5) {
+        if (Time.timeSinceLevelLoad > 5) {
             UnfoldCloth();
         }
 
