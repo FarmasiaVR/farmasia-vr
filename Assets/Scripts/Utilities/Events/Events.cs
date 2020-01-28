@@ -142,7 +142,7 @@ public static class Events {
             (eventsData[type] as EventDataCallback)?.Invoke(data ?? CallbackData.NoData());
 
         } catch (Exception e) {
-            Logger.Error("Failed to execute event callbacks: " + e.Message + "\nError stack trace:" + e.StackTrace);
+            Logger.Error("Failed to execute event callbacks: " + e.Message + "\n\nError stack trace:\n" + e.StackTrace + "\n\n");
         }
     }
 
@@ -160,7 +160,7 @@ public static class Events {
             }
 
         } catch (Exception e) {
-            Logger.Error("Failed to execute event callbacks: " + e.Message + "\nError stack trace:" + e.StackTrace);
+            Logger.Error("Failed to execute event callbacks: " + e.Message + "\n\nError stack trace:\n" + e.StackTrace + "\n\n");
         }
     }
     #endregion

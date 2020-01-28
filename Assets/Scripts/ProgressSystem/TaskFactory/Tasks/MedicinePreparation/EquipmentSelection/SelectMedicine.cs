@@ -17,6 +17,7 @@ public class SelectMedicine : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     /// </summary>
     public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
+        SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
@@ -41,14 +42,13 @@ public class SelectMedicine : TaskBase {
         if (type == ObjectType.Bottle) {
             EnableCondition(Conditions.BottlePickup);
         }
-        CheckClearConditions(true);
+        CompleteTask();
     }
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Lääkepullo valittu.", MsgType.Done);
-        base.FinishTask();
+    protected override void OnTaskComplete() {
+        Popup("Lääkepullo valittu.", MsgType.Done);
     }
 
     public override string GetDescription() {

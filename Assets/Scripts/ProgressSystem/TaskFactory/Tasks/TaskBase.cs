@@ -6,15 +6,18 @@ using System.Linq;
 /// Inherited by every task. 
 /// Handles everything related to the given task and also has useful methods.
 /// </summary>
-public class TaskBase : ITask {
-    #region Fields
+public abstract class TaskBase : ITask {
 
-    protected int points;
+    #region Fields
+    protected bool completed = false;
+    protected int points = 0;
     protected Package package;
     private bool InPackage => (package != null);
     private bool started = false;
     public bool Started { get => started; }
     protected TaskType taskType;
+    protected bool checkAllClearConditions = true;
+    protected bool eventsUnsubscribed = true;
     protected bool isFinished = false;
     protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
@@ -24,51 +27,53 @@ public class TaskBase : ITask {
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
     #endregion
 
-    #region Constructor
-    /// <summary>
-    /// Constructor for Task Base.
-    /// </summary>
-    /// <param name="remove">Task removed when finished from list.</param>
-    /// <param name="previous">Task requires previous tasks completion linearly.</param>
     public TaskBase(TaskType type, bool remove, bool previous) {
-        points = 0;
         taskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
-    }
-    #endregion
 
-    #region Virtual Methods
-    /// <summary>
-    /// Removes current task if the task has been set to be removed. Otherwise moves it back to manager.
-    /// </summary>
+    }
+
+    #region Task Progression
+    public virtual void StartTask() {
+        started = true;
+    }
+
+    public virtual void CompleteTask() {
+
+        completed = CheckClearConditions();
+        if (completed) {
+            RemoveFromPackage();
+            OnTaskComplete();
+            if (unsubscribeAllEvents) {
+                UnsubscribeAllEvents();
+            }
+        }
+    }
+
+    protected abstract void OnTaskComplete();
+
+    public virtual void FinishTask() {
+        UnsubscribeAllEvents();
+        isFinished = true;
+    }
+
     public virtual void RemoveFromPackage() {
         if (package != null) {
             if (removeWhenFinished) {
                 package.RemoveTask((ITask)this);
+                if (unsubscribeAllEvents) {
+                    UnsubscribeAllEvents();
+                }
             } else {
                 package.MoveTaskToManager((ITask)this);
             }
         }
     }
+    #endregion
 
-    /// <summary>
-    /// Executed when task conditions are done.
-    /// </summary>
-    public virtual void FinishTask() {
-        if (unsubscribeAllEvents) {
-            UnsubscribeAllEvents();
-        }
-        RemoveFromPackage();
-        if (taskType != TaskType.Finish) {
-            G.Instance.Progress.UpdateHint();
-        }
-    }
-
-    public virtual void StartTask() {
-        started = true;
-    }
-
+    #region Getters
+    public bool IsCompleted() => completed;
     public virtual string GetDescription() {
         return "No Description";
     }
@@ -77,61 +82,32 @@ public class TaskBase : ITask {
         return "No Hints";
     }
 
-    /// <summary>
-    /// Used for defining custom Subscriptions per task. (Override)
-    /// </summary>
-    public virtual void Subscribe() {
-    }
-    #endregion
-
-    #region Public Methods
-    public int GetPoints() {
-        return points;
-    }
-    public void SetPackage(Package package) {
-        this.package = package;
-    }
-
     public TaskType GetTaskType() {
         return taskType;
     }
 
-    /// <summary>
-    /// Enables condition with given Enum.
-    /// </summary>
-    /// <param name="condition">Enum representation of condition.</param>
-    public void EnableCondition(Enum condition) {
-        if (clearConditions.ContainsKey(condition.GetHashCode())) {
-            clearConditions[condition.GetHashCode()] = true;
-        }
+    public int GetPoints() {
+        return points;
+    }
+    #endregion
+
+    #region Setters
+    public void SetPackage(Package package) {
+        this.package = package;
     }
 
-    /// <summary>
-    /// Disables all conditions.
-    /// </summary>
-    public void DisableConditions() {
-        foreach (int condition in clearConditions.Keys.ToList()) {
-            clearConditions[condition] = false;
-        }
+    protected void SetCheckAll(bool value) {
+        checkAllClearConditions = value;
+    }
+    #endregion
+
+    #region Subscribtion
+    public virtual void Subscribe() {
     }
 
-    /// <summary>
-    /// Adds integer values to conditions.
-    /// </summary>
-    /// <param name="conditions">List of conditions</param>
-    public void AddConditions(int[] conditions) {
-        foreach (int condition in conditions) {
-            clearConditions.Add(condition, false);
-        }
-    }
-
-    /// <summary>
-    /// Subscribes to Events and adds them to a Dictionary.
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="Event"></param>
     public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
         Events.SubscribeToEvent(action, Event);
+        eventsUnsubscribed = false;
         subscribedEvents.Add(action, Event);
     }
 
@@ -140,36 +116,84 @@ public class TaskBase : ITask {
         subscribedEvents.Remove(action);
     }
 
-    /// <summary>
-    /// Unsubscribes from all events inside Dictionary.
-    /// </summary>
     public void UnsubscribeAllEvents() {
         foreach (Events.EventDataCallback action in subscribedEvents.Keys) {
             Events.UnsubscribeFromEvent(action, subscribedEvents[action]);
         }
+        eventsUnsubscribed = true;
     }
     #endregion
 
-    #region Protected Methods
+    #region Condition Methods
+    public void EnableCondition(Enum condition) {
+        if (clearConditions.ContainsKey(condition.GetHashCode())) {
+            clearConditions[condition.GetHashCode()] = true;
+        }
+    }
+
+    public void DisableConditions() {
+        foreach (int condition in clearConditions.Keys.ToList()) {
+            clearConditions[condition] = false;
+        }
+    }
+
+    public void AddConditions(int[] conditions) {
+        foreach (int condition in conditions) {
+            clearConditions.Add(condition, false);
+        }
+    }
+
+    // Check every Condition.
+    private bool CheckClearConditions() {
+        if (clearConditions.Values.Count == 0) {
+            return true;
+        }
+
+        if (checkAllClearConditions) {
+            if (!clearConditions.ContainsValue(false)) {
+                return true;
+            }
+            return false;
+        }
+        if (clearConditions.ContainsValue(true)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    //Check for certain conditions.
+    protected bool CheckClearConditions(List<int> conditions) {
+        foreach (int condition in conditions) {
+            if (clearConditions[condition] == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected List<int> GetNonClearedConditions() {
+        List<int> nonCleared = new List<int>();
+        foreach (KeyValuePair<int, bool> condition in clearConditions) {
+            if (!condition.Value) {
+                nonCleared.Add(condition.Key);
+            }
+        }
+        return nonCleared;
+    }
+
+    #endregion
+
+    #region Task Specific Methods
     protected bool IsNotStarted() {
         return !started;
     }
 
-    /// <summary>
-    /// Checks if task is currently executed in package. Aka first in it.
-    /// </summary>
-    /// <returns>True if is current, false if not.</returns>
     protected bool CheckIsCurrent() {
         return (package?.activeTasks.IndexOf((ITask)this) ?? 0) == 0;
     }
 
-    /// <summary>
-    /// Used for checking if certain previous tasks before current task are completed.
-    /// </summary>
-    /// <returns>
-    /// Returns true if previous tasks are completed, otherwise false.
-    /// </returns>
-    protected bool CheckPreviousTaskCompletion(List<TaskType> tasks) {
+    protected bool IsPreviousTasksCompleted(List<TaskType> tasks) {
         List<TaskType> completed = package.doneTypes;
         foreach (TaskType type in tasks) {
             if (!completed.Contains(type)) {
@@ -180,53 +204,22 @@ public class TaskBase : ITask {
         return true;
     }
 
-    /// <summary>
-    /// Checks if conditions have been cleared.
-    /// </summary>
-    /// <param name="checkAll"></param>
-    /// <returns></returns>
-    protected bool CheckClearConditions(bool checkAll) {
-        if (checkAll) {
-            if (!clearConditions.ContainsValue(false)) {
-                FinishTask();
-                return true;
-            }
-            return false;
+    protected void Popup(string message, MsgType type, int point = int.MaxValue) {
+        if (point != int.MaxValue) {
+            UISystem.Instance.CreatePopup(point, message, type);
+        } else {
+            UISystem.Instance.CreatePopup(message, type);
         }
-        if (clearConditions.ContainsValue(true)) {
-            FinishTask();
-            return true;
+
+        switch (type) {
+            case MsgType.Mistake:
+                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                break;
+            case MsgType.Notify:
+                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                break;
         }
-        return false;
     }
 
-    /// <summary>
-    /// Check conditions with given list.
-    /// </summary>
-    /// <param name="conditions"></param>
-    /// <returns></returns>
-    protected bool CheckClearConditions(List<int> conditions) {
-        foreach (int condition in conditions) {
-            if (clearConditions[condition] == false) {
-                return false;
-            }
-        }
-        return true;
-
-    }
-
-    /// <summary>
-    /// Returns an array of the conditions that have not yet been cleared.
-    /// </summary>
-    /// <returns>An array of the names of the conditions (strings)</returns>
-    protected List<int> GetNonClearedConditions() {
-        List<int> nonCleared = new List<int>();
-        foreach (KeyValuePair<int, bool> condition in clearConditions) {
-            if (!condition.Value) {
-                nonCleared.Add(condition.Key);
-            }
-        }
-        return nonCleared;
-    }
     #endregion
 }

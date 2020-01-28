@@ -6,8 +6,10 @@ using Valve.VR;
 public class HandCollider : MonoBehaviour {
 
     #region Fields
-    private HashSet<Interactable> grabObjects;
     public ObjectHighlight PreviousHighlight { get; private set; }
+
+    private TriggerInteractableContainer container;
+    private Collider collider;
 
     private enum ModelType {
         None = -1,
@@ -20,7 +22,10 @@ public class HandCollider : MonoBehaviour {
     #endregion
 
     private void Start() {
-        grabObjects = new HashSet<Interactable>();
+        container = gameObject.AddComponent<TriggerInteractableContainer>();
+        container.OnExit = OnInteractableExit;
+
+        collider = GetComponent<Collider>();
 
         StartCoroutine(SetCollPos());
     }
@@ -61,28 +66,20 @@ public class HandCollider : MonoBehaviour {
         return m.index;
     }
 
-    private void OnTriggerEnter(Collider coll) {
-        Interactable interactable = Interactable.GetInteractable(coll.transform);
-        if (interactable != null) {
-            grabObjects.Add(interactable);
-        }
+
+    private void OnInteractableExit(Interactable interactable) {
+        if (interactable.Highlight == PreviousHighlight) UnhighlightPrevious();
     }
 
-    private void OnTriggerExit(Collider coll) {
-        Interactable interactable = Interactable.GetInteractable(coll.transform);
-        if (interactable == null) {
-            return;
+    public void Enable(bool enable) {
+        collider.enabled = enable;
+        if (!enable) {
+            container.ResetContainer();
         }
-
-        ObjectHighlight highlight = ObjectHighlight.GetHighlightFromTransform(coll.transform);
-        if (highlight == PreviousHighlight) UnhighlightPrevious();
-        grabObjects.Remove(interactable);
     }
 
     public void RemoveInteractable(Interactable interactable) {
-        if (grabObjects.Contains(interactable)) {
-            grabObjects.Remove(interactable);
-        }
+        container.EnteredObjects.Remove(interactable);
     }
 
     #region Highlight
@@ -95,16 +92,16 @@ public class HandCollider : MonoBehaviour {
     }
 
     public void UnhighlightAll() {
-        foreach (Interactable child in grabObjects) {
-            ObjectHighlight.GetHighlightFromTransform(child.transform)?.Unhighlight();
+        foreach (Interactable child in container.Objects) {
+            child.Highlight.Unhighlight();
         }
     }
 
     private void HighlightObject(Interactable obj) {
         UnhighlightPrevious();
 
-        if (grabObjects.Contains(obj)) {
-            PreviousHighlight = ObjectHighlight.GetHighlightFromTransform(obj.transform);
+        if (container.Contains(obj)) {
+            PreviousHighlight = obj.Highlight;
             PreviousHighlight?.Highlight();
         }
     }
@@ -123,7 +120,7 @@ public class HandCollider : MonoBehaviour {
         float closestDistance = float.MaxValue;
         Interactable closest = null;
 
-        foreach (Interactable rb in grabObjects) {
+        foreach (Interactable rb in container.Objects) {
             float distance = Vector3.Distance(transform.position, rb.transform.position);
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -138,20 +135,18 @@ public class HandCollider : MonoBehaviour {
         float smallestAngle = float.MaxValue;
         Interactable closest = null;
 
-        foreach (Interactable g in grabObjects) {
-        grabObjects.Remove(null);
+        foreach (Interactable interactable in container.Objects) {
 
-            if (g == null) {
-                Logger.Print("G was null");
+            if (interactable == null) {
+                Logger.Print("interactable was null");
                 continue;
-            } else if (g.transform == null) {
-                Logger.Print("G.Transform was null");
             }
-            float angle = Vector3.Angle(transform.forward, g.transform.position - transform.position);
+
+            float angle = Vector3.Angle(transform.forward, interactable.transform.position - transform.position);
 
             if (angle < smallestAngle && angle < maxAngle) {
                 smallestAngle = angle;
-                closest = g;
+                closest = interactable;
             }
         }
 

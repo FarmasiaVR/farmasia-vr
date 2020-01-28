@@ -80,7 +80,6 @@ public class HandConnector : ItemConnector {
             }
         } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
 
-
             if (generalItem.ObjectType == ObjectType.Luerlock) {
                 LuerlockAdapter luerlock = generalItem as LuerlockAdapter;
                 if (luerlock.GrabbedObjectCount > 0) {

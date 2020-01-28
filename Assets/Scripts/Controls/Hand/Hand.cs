@@ -14,8 +14,8 @@ public class Hand : MonoBehaviour {
     public HandSmoother Smooth { get; private set; }
 
     private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
+    private bool IsTryingToRemoteGrab { get => !IsGrabbed && VRInput.PadTouchValue(HandType) != Vector2.zero; }
 
-    private static float remoteGrabDelay = 0.25f;
     private static float extendedGrabAngle = 30f;
 
     [SerializeField]
@@ -25,8 +25,6 @@ public class Hand : MonoBehaviour {
 
     public HandCollider HandCollider { get; private set; }
     public HandCollider ExtendedHandCollider { get; private set; }
-    private Pipeline remoteGrabPipe;
-    private GameObject prevPointedObj;
 
     public HandConnector Connector { get; private set; }
     private Interactable interactedInteractable;
@@ -100,11 +98,7 @@ public class Hand : MonoBehaviour {
             return;
         }
 
-        if (IsTryingToGrab) {
-            //HandCollider.UnhighlightPrevious();
-            ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
-        } else {
-            ExtendedHandCollider.UnhighlightPrevious();
+        if (!IsTryingToGrab) {
             HandCollider.HighlightClosestObject();
         }
     }
@@ -113,12 +107,16 @@ public class Hand : MonoBehaviour {
         if (RemoteGrabbing) {
             return;
         }
+
         RemoteGrabbing = true;
 
         StartCoroutine(RemoteGrabCoroutine());
     }
     private IEnumerator RemoteGrabCoroutine() {
         while (RemoteGrabbing) {
+
+
+
             UpdateRemoteGrab();
             yield return null;
         }
@@ -126,14 +124,18 @@ public class Hand : MonoBehaviour {
     }
 
     private void UpdateRemoteGrab() {
-        line.Enable(IsTryingToGrab);
-        if (IsTryingToGrab) {
+
+        line.Enable(IsTryingToRemoteGrab);
+        if (IsTryingToRemoteGrab) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
 
             if (pointedObj != null && VRInput.GetControlDown(HandType, Controls.RemoteGrab)) {
                 RemoteGrab(pointedObj);
             }
+
+            ExtendedHandCollider.HighlightPointedObject(extendedGrabAngle);
         } else {
+            ExtendedHandCollider.UnhighlightPrevious();
             RemoteGrabbing = false;
         }
     }
@@ -156,6 +158,10 @@ public class Hand : MonoBehaviour {
     public void InteractWith(Interactable interactable, bool setOffset = true) {
         if (setOffset) SetOffset(interactable.transform.position, interactable.transform.rotation);
 
+        HandCollider.Enable(false);
+        ExtendedHandCollider.Enable(false);
+        interactable.Highlight.Unhighlight();
+
         if (interactable.Type == InteractableType.Grabbable) {
             Smooth.StartGrab();
             Connector.ConnectItem(interactable);
@@ -170,6 +176,10 @@ public class Hand : MonoBehaviour {
     }
 
     public void Uninteract() {
+
+        HandCollider.Enable(true);
+        ExtendedHandCollider.Enable(true);
+
         if (IsGrabbed) {
             Connector.Connection.Remove();
             interactedInteractable.OnGrabEnd(this);

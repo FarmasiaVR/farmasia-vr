@@ -42,6 +42,7 @@ public class HintText : MonoBehaviour {
         button = btn.gameObject.AddComponent<DragAcceptable>();
         button.LookAtPlayer = true;
         button.OnAccept = DestroyHint;
+        button.ActivateCountLimit = 1;
         button.Disabled = false;
     }
     private IEnumerator DestroyCoroutine() {

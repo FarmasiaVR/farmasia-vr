@@ -71,19 +71,68 @@ public class ScoreCalculator {
         beforeTime.Add(task.ToString());
     }
 
+    private enum Colour {
+        Yellow,
+        Black,
+        Green,
+        Red,
+        White,
+        Blue
+    }
+
+    private string Text(string message, Colour colour) {
+        string text = "";
+        switch (colour) {
+            case Colour.Black:
+                text += "<color=#000000>";
+                break;
+            case Colour.Yellow:
+                text += "<color=#ebe134>";
+                break;
+            case Colour.Red:
+                text += "<color=#cc3727>";
+                break;
+            case Colour.Green:
+                text += "<color=#2dcc27>";
+                break;
+            case Colour.White:
+                text += "<color=#ffffff>";
+                break;
+            case Colour.Blue:
+                text += "<color=#27c7cc>";
+                break;
+        }
+        text += message + "</color>";
+        return text;
+    }
+
+    private string PrintPoints(int gottenPoints, int maxPoints) {
+        string text = "";
+        if (gottenPoints < maxPoints) {
+            text += Text("" + gottenPoints, Colour.Red);
+        } else {
+            text += Text("" + gottenPoints, Colour.Green);
+        }
+        return text += " / " + Text("" + maxPoints, Colour.Green);
+    }
+
     /// <summary>
     /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public void GetScoreString(out int score, out string scoreString) {
-        string summary = "Peli päättyi - onnittelut!\n";
+
+        string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
         string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
-            scoreCountPerTask += "\n " + points[type] + " / " + maxPoints[type] + " : " + type.ToString();
+            if (maxPoints[type] == 0) {
+                continue;
+            }
+            scoreCountPerTask += "\n " + PrintPoints(points[type], maxPoints[type]) + " : " + TaskToString(type);
             score += points[type];
         }
         foreach (string before in beforeTime) {
@@ -93,9 +142,37 @@ public class ScoreCalculator {
             }
             addedBeforeTimeList += before + ", ";
         }
-        summary += "Kokonaispistemäärä: " + score + " / " + maxScore + "!";
-        Logger.Print(summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList);
-        scoreString = summary + scoreCountPerTask + beforeTimeSummary + addedBeforeTimeList;
+        summary += "Kokonaispistemäärä: " + score + " / " + Text("" + maxScore, Colour.Green) + "!";
+        scoreString = summary + scoreCountPerTask;// + beforeTimeSummary + addedBeforeTimeList;
+        Logger.Print(scoreString);
+    }
+    private string TaskToString(TaskType type) {
+        switch (type) {
+            case TaskType.CorrectItemsInThroughput:
+                return "Oikeat välineet läpiantokaapissa";
+            case TaskType.CorrectLayoutInThroughput:
+                return type.ToString();
+            case TaskType.CorrectItemsInLaminarCabinet:
+                return "Oikeat välineet laminaarikaapissa";
+            case TaskType.CorrectLayoutInLaminarCabinet:
+                return type.ToString();
+            case TaskType.DisinfectBottles:
+                return "Pullon korkin desinfiointi";
+            case TaskType.MedicineToSyringe:
+                return "Lääkkeen otto ruiskuun";
+            case TaskType.LuerlockAttach:
+                return "Ison ruiskun kiinnitys luerlockiin";
+            case TaskType.SyringeAttach:
+                return "Pienten ruiskujen kiinnitys luerlockiin";
+            case TaskType.CorrectAmountOfMedicineSelected:
+                return "Oikea määrä lääkettä ruiskuissa";
+            case TaskType.ItemsToSterileBag:
+                return "Ruiskujen laittaminen steriilipussiin";
+            case TaskType.ScenarioOneCleanUp:
+                return "Työskentelytilan siivous";
+            default:
+                return type.ToString();
+        }
     }
     #endregion
 }

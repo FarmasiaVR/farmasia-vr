@@ -13,11 +13,8 @@ public class SterileBag : GeneralItem {
     [SerializeField]
     private GameObject childCollider;
 
-    private float ejectSpeed = 0.5f;
-
-    private bool timeout;
-
-    private float timeoutTime = 0.5f;
+    private float ejectSpeed = 0.6f;
+    private float ejectDistance = 0.47f;
     #endregion
 
     // Start is called before the first frame update
@@ -25,7 +22,7 @@ public class SterileBag : GeneralItem {
         base.Start();
 
         Syringes = new List<Syringe>();
-
+        
         ObjectType = ObjectType.SterileBag;
 
         IsClosed = false;
@@ -37,10 +34,6 @@ public class SterileBag : GeneralItem {
     }
 
     private void OnBagEnter(Collider other) {
-
-        if (timeout) {
-            return;
-        }
 
         Syringe syringe = Interactable.GetInteractable(other.transform) as Syringe;
 
@@ -83,21 +76,11 @@ public class SterileBag : GeneralItem {
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
-        if (timeout) {
-            return;
-        }
-
         float angle = Vector3.Angle(Vector3.down, transform.up);
 
         if (angle < 45) {
             return;
         }
-
-        timeout = true;
-        G.Instance.Pipeline
-            .New()
-            .Delay(timeoutTime)
-            .Func(() => timeout = false);
 
         Logger.Print("Release syringes");
 
@@ -133,33 +116,22 @@ public class SterileBag : GeneralItem {
     }
 
     private void ReleaseSyringe(Syringe syringe) {
-        
-        // syringe.transform.localPosition = syringe.transform.localPosition + new Vector3(0, 0, 0.05f);
-        syringe.transform.SetParent(null);
-
-        // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, true);
-
-        G.Instance.Pipeline
-            .New()
-            .Delay(timeoutTime)
-            .Func(() => {
-                SetColliders(syringe.transform, true);
-               // CollisionIgnore.IgnoreCollisions(transform, syringe.transform, false);
-                syringe.RigidbodyContainer.Enable();
-            });
-
-        StartCoroutine(MoveSyringe(syringe, transform.up));
+        StartCoroutine(MoveSyringe(syringe));
     }
 
-    private IEnumerator MoveSyringe(Syringe syringe, Vector3 dir) {
+    private IEnumerator MoveSyringe(Syringe syringe) {
+        float totalDistance = 0;
 
-        float time = timeoutTime;
-
-        while (time > 0) {
-            time -= Time.deltaTime;
-            syringe.transform.position += dir.normalized * Time.deltaTime * ejectSpeed;
+        while (totalDistance < ejectDistance) {
+            float distance = Time.deltaTime * ejectSpeed;
+            totalDistance += distance;
+            syringe.transform.localPosition += Vector3.up * distance;
             yield return null;
         }
+
+        syringe.transform.SetParent(null);
+        SetColliders(syringe.transform, true);
+        syringe.RigidbodyContainer.Enable();
     }
 
     private void CloseSterileBag() {

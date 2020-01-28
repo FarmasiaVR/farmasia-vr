@@ -5,110 +5,36 @@ using UnityEngine;
 public class LaminarCabinetTable : MonoBehaviour {
 
     #region fields
-    private Dictionary<GeneralItem, float> itemTimes;
-    private HashSet<GeneralItem> clothItems;
+    private static float ContaminateTime = 1.5f;
 
-    [SerializeField]
-    private GameObject cloth;
-
-    private static float ContaminateTime = 2.5f;
+    private TriggerInteractableContainer safeZone;
+    private TriggerInteractableContainer contaminateZone;
     #endregion
 
     private void Start() {
-        itemTimes = new Dictionary<GeneralItem, float>();
-        clothItems = new HashSet<GeneralItem>();
-
-        if (cloth == null) {
-            Logger.Warning("No cloth assigned, Laminar cabinet won't contaminate objects");
-            Destroy(this);
-            return;
-        }
-
-        CollisionSubscription.SubscribeToCollision(cloth, new CollisionListener().OnEnter(ClothOnCollisionEnter).OnExit(ClothOnCollisionExit));
+        safeZone = transform.GetChild(0).gameObject.AddComponent<TriggerInteractableContainer>();
+        contaminateZone = transform.GetChild(1).gameObject.AddComponent<TriggerInteractableContainer>();
     }
 
     #region Collision events
-    private void OnCollisionEnter(Collision collision) {
-        GeneralItem item = Interactable.GetInteractableObject(collision.gameObject.transform).GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        if (itemTimes.ContainsKey(item)) {
-            itemTimes[item] = 0;
-        } else {
-            itemTimes.Add(item, 0);
+    private void OnCollisionEnter(Collision coll) {
+        if (Interactable.GetInteractable(coll.gameObject.transform) as GeneralItem is var i && i != null) {
+            ContaminateItem(i);
         }
     }
-    private void OnCollisionStay(Collision collision) {
-        GeneralItem item = Interactable.GetInteractableObject(collision.gameObject.transform).GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
+    #endregion
 
-        if (!itemTimes.ContainsKey(item)) {
-            Logger.Error("Item not in dictionary");
-            return;
-        }
+    private void ContaminateItem(GeneralItem item) {
 
-        float time = itemTimes[item];
-
-        if (time < 0) {
-            return;
-        }
-
-        time += Time.deltaTime;
-
-        if (time > ContaminateTime) {
-            if (ContaminateItem(item)) {
-                itemTimes[item] = -1;
-            } else {
-                itemTimes[item] = 0;
+        IEnumerator Wait() {
+            yield return new WaitForSeconds(ContaminateTime);
+            
+            if (!safeZone.Contains(item) && contaminateZone.Contains(item)) {
+                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
+                item.IsClean = false;
             }
-        } else {
-            itemTimes[item] = time;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision) {
-        GeneralItem item = Interactable.GetInteractableObject(collision.gameObject.transform).GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
         }
 
-        if (itemTimes.ContainsKey(item)) {
-            itemTimes.Remove(item);
-        }
-    }
-    #endregion
-
-    #region Cloth events
-    private void ClothOnCollisionEnter(Collision collision) {
-        GeneralItem item = Interactable.GetInteractableObject(collision.gameObject.transform).GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        clothItems.Add(item);
-    }
-
-    private void ClothOnCollisionExit(Collision collision) {
-        GeneralItem item = Interactable.GetInteractableObject(collision.gameObject.transform).GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        clothItems.Remove(item);
-    }
-    #endregion
-    private bool ContaminateItem(GeneralItem item) {
-        if (clothItems.Contains(item)) {
-            return false;
-        }
-
-        item.IsClean = false;
-        UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
-
-        return true;
+        StartCoroutine(Wait());
     }
 }

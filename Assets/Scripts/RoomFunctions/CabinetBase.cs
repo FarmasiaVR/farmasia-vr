@@ -26,11 +26,18 @@ public class CabinetBase : MonoBehaviour {
     private GameObject childCollider;
 
     [SerializeField]
-    private GameObject sterileDrape;
+    private Animator sterileDrape;
+
+
+    //private GameObject sterileDrape;
 
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
+
+    private bool capFactoryEnabled = false;
+    public bool CapFactoryEnabled => capFactoryEnabled;
+    
 
     private Pipeline capBagEnterPipeline;
     private bool folded;
@@ -63,7 +70,7 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
-        if (Time.time > 5) {
+        if (Time.timeSinceLevelLoad > 5) {
             UnfoldCloth();
         }
 
@@ -82,22 +89,15 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void UnfoldCloth() {
-
         if (folded) {
             return;
         }
         folded = true;
-
         if (sterileDrape == null) {
             Logger.Warning("Sterile drape not set in laminar cabinet, not performing animation.");
             return;
         }
-
-        GameObject startState = sterileDrape.transform.GetChild(0).gameObject;
-        GameObject endState = sterileDrape.transform.GetChild(1).gameObject;
-
-        Destroy(startState);
-        endState.SetActive(true);
+        sterileDrape.SetBool("ItemPlaced", true);
     }
 
     private void ExitCabinet(Collider other) {
@@ -139,14 +139,68 @@ public class CabinetBase : MonoBehaviour {
         return type;
     }
 
-    private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
-        capBagEnterPipeline = G.Instance.Pipeline
-                                    .New()
-                                    .Delay(1.5f)
-                                    .TFunc(DestroyCapBagAndSetFactoryActive, () => capBag);
+    public void DisableCapFactory() {
+        syringeCapFactory.SetActive(false);
     }
 
-    private void DestroyCapBagAndSetFactoryActive(GeneralItem capBag) {
+    private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
+
+        IEnumerator EnableCapFactory() {
+
+            yield return new WaitForSeconds(2);
+
+            if (!objectsInsideArea.Contains(capBag.gameObject)) {
+                yield break;
+            }
+
+            GameObject meshCopy = new GameObject();
+
+            foreach (Transform child in capBag.transform) {
+                Vector3 lpos = child.localPosition;
+                Vector3 lrot = child.localEulerAngles;
+
+                Transform mesh = Instantiate(child.gameObject).transform;
+                mesh.SetParent(meshCopy.transform);
+                mesh.localPosition = lpos;
+                mesh.localEulerAngles = lrot;
+            }
+
+            meshCopy.transform.position = capBag.transform.position;
+            meshCopy.transform.rotation = capBag.transform.rotation;
+
+            Vector3 startPos = capBag.transform.position;
+            Quaternion startRot = capBag.transform.rotation;
+
+            Vector3 targetPos = syringeCapFactory.transform.position;
+            Quaternion targetRot = syringeCapFactory.transform.rotation;
+
+            float time = 2.5f;
+            float currentTime = 0;
+
+            DestroyCapBagAndInitFactory(capBag);
+
+            while (currentTime < time) {
+                currentTime += Time.deltaTime;
+
+                float progress = currentTime / time;
+
+                meshCopy.transform.position = Vector3.Slerp(startPos, targetPos, progress);
+                meshCopy.transform.rotation = Quaternion.Slerp(startRot, targetRot, progress);
+
+                yield return null;
+            }
+
+            meshCopy.transform.position = targetPos;
+            meshCopy.transform.rotation = targetRot;
+
+            syringeCapFactory.SetActive(true);
+            capFactoryEnabled = true;
+        }
+
+        StartCoroutine(EnableCapFactory());
+    }
+
+    private void DestroyCapBagAndInitFactory(GeneralItem capBag) {
         if (capBag != null && objectsInsideArea.Contains(capBag.gameObject)) {
 
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
@@ -160,10 +214,6 @@ public class CabinetBase : MonoBehaviour {
                     item.IsClean = capBag.IsClean;
                     capFactoryAlreadyEnabled = true;
                 }
-            }
-
-            if (!capFactoryAlreadyEnabled) {
-                syringeCapFactory.SetActive(true);
             }
 
             capBag.DestroyInteractable();

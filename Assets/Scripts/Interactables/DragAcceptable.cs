@@ -12,7 +12,8 @@ public class DragAcceptable : Interactable {
     protected Vector3 startPos;
     private float destroyTime = 0.5f;
     private Transform pCamera;
-    public bool Activated { get; protected set; } = false;
+    public int ActivateCount { get; private set; }
+    public int ActivateCountLimit { get; set; } = -1;
     private bool disabled;
     public bool Disabled {
         get {
@@ -118,10 +119,16 @@ public class DragAcceptable : Interactable {
 
     #region Activating
     protected virtual void Activate() {
+
+        if (ActivateCount >= ActivateCountLimit && ActivateCountLimit >= 0) {
+            return;
+        }
+
         if (ReleaseAfterActivate) {
             Release();
         }
         OnAccept?.Invoke();
+        ActivateCount++;
     }
     private void Release() {
         Hand.GrabbingHand(this)?.Uninteract();

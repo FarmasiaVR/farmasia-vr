@@ -16,7 +16,9 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
-    private ContainerItem cItem;
+    private GeneralItem generalItem;
+
+    private TriggerInteractableContainer itemContainer;
 
     public int Amount {
         get { return amount; }
@@ -57,23 +59,17 @@ public class LiquidContainer : MonoBehaviour {
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
 
+        itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
+        itemContainer.OnEnter = OnTrueEnter;
+        itemContainer.OnExit = OnTrueExit;
+
         StartCoroutine(SearchInteractable());
 
         IEnumerator SearchInteractable() {
 
             yield return null;
 
-            Interactable interactable = Interactable.GetInteractable(transform);
-
-            //Logger.Print("interactable found: " + interactable.name);
-
-            GeneralItem gItem = (GeneralItem)interactable;
-
-            if (gItem == null) {
-                throw new Exception("Liquid container attached to non GeneralItem object");
-            }
-
-            cItem = new ContainerItem(this, gItem);
+            generalItem = (GeneralItem)Interactable.GetInteractable(transform);
         }
     }
 
@@ -117,11 +113,41 @@ public class LiquidContainer : MonoBehaviour {
         return t.Find("Liquid")?.GetComponent<LiquidContainer>();
     }
 
-    private void OnTriggerEnter(Collider c) {
-        cItem?.TriggerEnter(c);
+    private void OnTrueEnter(Interactable enteringInteractable) {
+        Needle needle = enteringInteractable as Needle;
+        if (needle == null || !needle.Connector.HasAttachedObject) {
+            return;
+        }
+
+        Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
+        if (syringe == null) {
+            return;
+        }
+
+        if (generalItem.ObjectType == ObjectType.Bottle) {
+            syringe.State.On(InteractState.InBottle);
+            syringe.hasBeenInBottle = true;
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
+            Events.FireEvent(EventType.Disinfect, CallbackData.Object(generalItem));
+        }
+
+        syringe.BottleContainer = this;
     }
- 
-    private void OnTriggerExit(Collider c) {
-        cItem?.TriggerExit(c);
+    private void OnTrueExit(Interactable enteringInteractable) {
+
+        Needle needle = enteringInteractable as Needle;
+        if (needle == null) {
+            return;
+        }
+
+        Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
+        if (syringe == null) {
+            return;
+        }
+
+        if (generalItem.ObjectType == ObjectType.Bottle) {
+            syringe.State.Off(InteractState.InBottle);
+            syringe.BottleContainer = null;
+        }
     }
 }

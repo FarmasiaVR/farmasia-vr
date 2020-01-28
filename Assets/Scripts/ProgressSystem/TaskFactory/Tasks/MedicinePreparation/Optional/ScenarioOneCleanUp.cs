@@ -48,6 +48,12 @@ public class ScenarioOneCleanUp : TaskBase {
         if (!itemsToBeCleaned.Contains(item)) {
             itemsToBeCleaned.Add(item);
         }
+
+        string meh = "";
+        foreach (GeneralItem it in itemsToBeCleaned) {
+            meh += it.name + "; ";
+        }
+        Logger.Warning(meh);
     }
 
     private void ItemLiftedOffFloor(CallbackData data) {
@@ -56,8 +62,7 @@ public class ScenarioOneCleanUp : TaskBase {
         }
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean && !G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
-            UISystem.Instance.CreatePopup("Siivoa pudonneet työvälineet vasta lopuksi.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Siivoa pudonneet työvälineet vasta lopuksi.", MsgType.Mistake);
         }
     }
 
@@ -68,25 +73,27 @@ public class ScenarioOneCleanUp : TaskBase {
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean) {
             if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
-                UISystem.Instance.CreatePopup(-1, "Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake);
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                Popup("Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
             }
             itemsToBeCleaned.Remove(item);
         }
         if (itemsToBeCleaned.Count == 0 && base.package != null) {
-            base.package.MoveTaskToManager(this);
+            CompleteTask();
         }
     }
 
     private void ItemDroppedInWrongTrash(CallbackData data) {
-        UISystem.Instance.CreatePopup(-1, "Esine laitettiin väärään roskakoriin", MsgType.Mistake);
-        G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        Popup("Esine laitettiin väärään roskakoriin", MsgType.Mistake, -1);
         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
     }
     #endregion
 
     #region Public Methods
+    public override void CompleteTask() {
+        base.CompleteTask();
+    }
+
     public override void FinishTask() {
         if (itemsToBeCleaned.Count != 0) {
             G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
@@ -100,6 +107,9 @@ public class ScenarioOneCleanUp : TaskBase {
 
     public override string GetHint() {
         return hint;
+    }
+
+    protected override void OnTaskComplete() {
     }
     #endregion
 }

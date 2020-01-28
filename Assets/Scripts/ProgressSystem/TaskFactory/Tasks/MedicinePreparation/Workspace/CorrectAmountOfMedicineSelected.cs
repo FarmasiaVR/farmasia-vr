@@ -23,10 +23,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     #endregion
 
     #region Constructor
-    ///  <summary>
-    ///  Constructor for CorrectAmountOfMedicineSelected task.
-    ///  Is removed when finished and requires previous task completion.
-    ///  </summary>
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
@@ -64,33 +60,35 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         Syringe s = item.GetComponent<Syringe>();
  
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-            if (CheckPreviousTaskCompletion(requiredTasks)) {
+            if (IsPreviousTasksCompleted(requiredTasks)) {
+                Logger.Print("YES");
                 if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                     attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
 
                     if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
                         G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-                        UISystem.Instance.CreatePopup(-1, "Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
-                        G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                        Popup("Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
                         attachedSyringes.Remove(s.GetInstanceID());
                     } else if (attachedSyringes.Count != 6) {
                         if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-                            UISystem.Instance.CreatePopup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
+                            Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
                         } else {
-                            UISystem.Instance.CreatePopup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
-                            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                            Popup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
                         }
                     } else {
-                        FinishTask();
+                        EnableCondition(Conditions.RightAmountOfMedicine);
+                        CompleteTask();
+                        return;
                     }
                 }
             } else {
+                Logger.Print("NO");
                 attachedSyringes.Remove(s.GetInstanceID());
             }
 
             foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
                 if (task.GetTaskType() == TaskType.SyringeAttach) {
-                    base.package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
+                    package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
                     break;
                 }
             }
@@ -99,25 +97,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     private void InvalidSyringePush(CallbackData data) {
         G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
-        UISystem.Instance.CreatePopup(-1, "Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", MsgType.Mistake);
+        Popup("Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", MsgType.Mistake, -1);
     }
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
-        int rightAmount = 0;
-        foreach (var amount in attachedSyringes.Values) {
-            if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-                rightAmount++;
-            }
-        }
-        if (rightAmount == 6) {
-            UISystem.Instance.CreatePopup("Valittiin oikea määrä lääkettä.", MsgType.Notify);
-        } else {
-            UISystem.Instance.CreatePopup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
-        }
-        base.FinishTask();
-    }
 
     public override string GetDescription() {
         return DESCRIPTION;
@@ -125,6 +109,20 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     public override string GetHint() {
         return HINT;
+    }
+
+    protected override void OnTaskComplete() {
+        int rightAmount = 0;
+        foreach (var amount in attachedSyringes.Values) {
+            if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
+                rightAmount++;
+            }
+        }
+        if (rightAmount == 6) {
+            Popup("Valittiin oikea määrä lääkettä.", MsgType.Notify);
+        } else {
+            Popup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
+        }
     }
     #endregion
 }

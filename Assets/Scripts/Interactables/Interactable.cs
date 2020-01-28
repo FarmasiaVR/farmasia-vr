@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour {
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
-    public EnumBitField<InteractState> State { get; private set; } = new EnumBitField<InteractState>();
+    public EnumBitField<InteractState> State { get; set; } = new EnumBitField<InteractState>();
 
     public RigidbodyContainer RigidbodyContainer { get; private set; }
     public Rigidbody Rigidbody {
@@ -29,6 +29,8 @@ public class Interactable : MonoBehaviour {
 
     [SerializeField]
     private bool disableHighlighting;
+
+    private ObjectHighlight highlight;
     #endregion
 
     protected virtual void Awake() {
@@ -36,8 +38,9 @@ public class Interactable : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        if (gameObject.GetComponent<ObjectHighlight>() == null && !disableHighlighting) {
-            gameObject.AddComponent<ObjectHighlight>();
+        if (gameObject.GetComponent<ObjectHighlight>() == null) {
+            gameObject.AddComponent<ObjectHighlight>().DisableHighlighting(disableHighlighting);
+
         }
 
         gameObject.tag = iTag;
@@ -101,6 +104,15 @@ public class Interactable : MonoBehaviour {
     public bool IsOnFloor {
         get {
             return State == InteractState.OnFloor;
+        }
+    }
+
+    public ObjectHighlight Highlight {
+        get {
+            if (highlight == null) {
+                highlight = GetComponent<ObjectHighlight>();
+            }
+            return highlight;
         }
     }
 }

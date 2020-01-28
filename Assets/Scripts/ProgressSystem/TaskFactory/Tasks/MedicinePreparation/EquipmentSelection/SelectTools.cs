@@ -17,6 +17,7 @@ public class SelectTools : TaskBase {
     /// Is removed when finished and doesn't require previous task completion.
     /// </summary>
     public SelectTools() : base(TaskType.SelectTools, true, false) {
+        SetCheckAll(false);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
@@ -52,14 +53,19 @@ public class SelectTools : TaskBase {
                 EnableCondition(Conditions.SyringeCapBagPickedUp);
                 break;
         }
-        CheckClearConditions(false);
+        CompleteTask();
     }
     #endregion
 
+    protected override void OnTaskComplete() {
+        Popup("Työväline valittu.", MsgType.Done);
+    }
+
     #region Public Methods
+
     public override void FinishTask() {
-        UISystem.Instance.CreatePopup("Työväline valittu.", MsgType.Done);
         base.FinishTask();
+        
     }
 
     public override string GetDescription() {

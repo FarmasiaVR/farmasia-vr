@@ -22,7 +22,7 @@ public abstract class AttachmentConnector : ItemConnector {
     }
 
     protected static float angleLimit = 20;
-    protected static float maxAttachDistance = 0.2f;
+    protected static float maxAttachDistance = 0.03f;
 
     #region Fields
     public GeneralItem GeneralItem { get; protected set; }

@@ -22,7 +22,9 @@
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
-        door.BreakAtLongDistance = !hand.RemoteGrabbing;
+        if (door != null) {
+            door.BreakAtLongDistance = !hand.RemoteGrabbing;
+        }
 
         door?.SetAngleOffset(hand.ColliderPosition);
 

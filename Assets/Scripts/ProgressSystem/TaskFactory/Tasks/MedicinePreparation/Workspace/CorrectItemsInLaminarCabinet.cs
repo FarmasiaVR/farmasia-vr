@@ -12,9 +12,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle, SyringeCap }
-    private int smallSyringes;
-    private int objectCount;
-    private int checkTimes;
+    private int smallSyringes = 0;
+    private int objectCount = 0;
+    private bool firstCheckDone = false;
     
     private CabinetBase laminarCabinet;
     #endregion
@@ -25,10 +25,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {
+        SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        SetItemsToZero();
-        checkTimes = 0;
         points = 2;
     }
     #endregion
@@ -52,34 +51,29 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// </summary>
     private void CorrectItems(CallbackData data) {
         if (laminarCabinet == null) {
-            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
         List<GameObject> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
-            UISystem.Instance.CreatePopup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
-        checkTimes++;
         objectCount = objects.Count;
 
         CheckConditions(objects);
-        
-        bool check = CheckClearConditions(true);
-        if (!check) {
-            MissingItems(checkTimes);
+
+        CompleteTask();
+        if (!IsCompleted()) {
+            MissingItems();
         }
     } 
     #endregion
 
     #region Private Methods
-    private void SetItemsToZero() {
-        smallSyringes = 0;
-    }
 
     private void CheckConditions(List<GameObject> objects) {
+        SyringeCapFactoryEnabled();
         foreach(GameObject value in objects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
@@ -104,40 +98,30 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 case ObjectType.Bottle:
                     EnableCondition(Conditions.MedicineBottle);
                     break;
-                case ObjectType.SyringeCap:
-                    EnableCondition(Conditions.SyringeCap);
-                    break;
             }
         }   
     }
 
-    private void MissingItems(int checkTimes) {
-        if (checkTimes == 1) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä puuttuu.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
-        } else {
-            UISystem.Instance.CreatePopup("Työvälineitä puuttuu.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+    private void SyringeCapFactoryEnabled() {
+        if (laminarCabinet.CapFactoryEnabled) {
+            EnableCondition(Conditions.SyringeCap);
         }
-        SetItemsToZero();
+    }
+
+    private void MissingItems() {
+        if (!firstCheckDone) {
+            Popup("Työvälineitä puuttuu.", MsgType.Mistake, -2);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
+            firstCheckDone = true;
+        } else {
+            Popup("Työvälineitä puuttuu.", MsgType.Mistake);
+        }
+        smallSyringes = 0;
         DisableConditions();
     }
     #endregion 
 
     #region Public Methods
-    public override void FinishTask() {
-        if (checkTimes == 1) {
-            // 1 disinfect cloth + 1 syringe cap + 1 sterile bag + 6 small syringes + 1 big syringe + 1 luerlock + 1 needle + 1 bottle = 11 items
-            if (objectCount == 13) {
-                UISystem.Instance.CreatePopup(2, "Oikea määrä työvälineitä.", MsgType.Notify);
-            } else {
-                UISystem.Instance.CreatePopup(1, "Liikaa työvälineitä.", MsgType.Notify);
-                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
-            }
-        }
-        base.FinishTask();
-    }
 
     public override string GetDescription() {
         return DESCRIPTION;
@@ -146,6 +130,15 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     public override string GetHint() {
         string missingItemsHint = laminarCabinet.GetMissingItems();
         return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint; 
+    }
+
+    protected override void OnTaskComplete() {
+        if (objectCount == 12) {
+            Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
+        } else {
+            Popup("Liikaa työvälineitä.", MsgType.Error, -1);
+            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+        }
     }
     #endregion
 }

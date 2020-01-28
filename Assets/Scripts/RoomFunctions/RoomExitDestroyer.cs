@@ -13,7 +13,7 @@ public class RoomExitDestroyer : MonoBehaviour {
 
         if (MultiColliderTool.CheckCollision(gameObject, item.gameObject)) return;
 
-        Events.FireEvent(EventType.ItemDroppedOnFloor, CallbackData.Object(item));
+        //Events.FireEvent(EventType.ItemDroppedOnFloor, CallbackData.Object(item));
         item.DestroyInteractable();
     }
 }

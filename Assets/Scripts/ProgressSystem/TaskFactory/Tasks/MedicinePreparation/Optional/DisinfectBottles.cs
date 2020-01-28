@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DisinfectBottles : TaskBase {
     #region Fields
-    bool allUsedBottlesWereDisinfected;
+    private bool allUsedBottlesWereDisinfected;
     #endregion
 
     #region Constructor
@@ -39,7 +39,7 @@ public class DisinfectBottles : TaskBase {
             if (!bottle.IsClean) {
                 allUsedBottlesWereDisinfected = false;
             }
-        }  
+        }
     }
     #endregion
 
@@ -58,6 +58,10 @@ public class DisinfectBottles : TaskBase {
 
     public override string GetHint() {
         return "";
+    }
+
+    protected override void OnTaskComplete() {
+        throw new NotImplementedException();
     }
     #endregion
 }

@@ -10,5 +10,6 @@
     Dropper,
     BottleCap,
     SterileBag,
-    DisinfectingCloth
+    DisinfectingCloth,
+    Die
 }

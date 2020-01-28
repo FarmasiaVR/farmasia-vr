@@ -15,6 +15,18 @@ MonoBehaviour:
   IsInteracting: 0
   disableHighlighting: 0
   isClean: 0
+--- !u!114 &826150581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6963516270492311521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f98cdfe8886a694ba629f946954d305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2565540401832605345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,16 +129,11 @@ PrefabInstance:
       propertyPath: capacity
       value: 80000
       objectReference: {fileID: 0}
-    - target: {fileID: 8067146742206830368, guid: 32dbe3815180f394eba2d1767aa895c2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8067146740602620392, guid: 32dbe3815180f394eba2d1767aa895c2,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4735d5e11d6855f46b281b104ffd12c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32dbe3815180f394eba2d1767aa895c2, type: 3}
 --- !u!1001 &4807692169888492390
@@ -144,17 +151,17 @@ PrefabInstance:
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.1793
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.8000002
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
@@ -164,7 +171,7 @@ PrefabInstance:
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9961947
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
@@ -174,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.08715588
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
@@ -189,7 +196,7 @@ PrefabInstance:
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 1459274520269375124, guid: 55360ee779e2949419e8ce96f3bbca80,
         type: 3}
@@ -216,23 +223,7 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7305993598009172172, guid: 55360ee779e2949419e8ce96f3bbca80,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7305993598009172172, guid: 55360ee779e2949419e8ce96f3bbca80,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7305993596392226311, guid: 55360ee779e2949419e8ce96f3bbca80,
-        type: 3}
-      propertyPath: amount
-      value: 80000
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2924812914347387853, guid: 55360ee779e2949419e8ce96f3bbca80, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55360ee779e2949419e8ce96f3bbca80, type: 3}
 --- !u!1 &6963516270492311521 stripped
 GameObject:

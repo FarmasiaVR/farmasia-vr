@@ -12,10 +12,6 @@ public class BlockMover : MonoBehaviour {
     private Rigidbody rb;
     #endregion
 
-    private void Awake() {
-
-    }
-
     private void Start() {
         // Get physics component
         rb = GetComponent<Rigidbody>();

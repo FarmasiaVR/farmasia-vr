@@ -192,6 +192,7 @@ public class ProgressManager {
         } else {
             CurrentPackage = packages[index + 1];
             CurrentPackage.StartTask();
+            UpdateHint();
         }
     }
 
@@ -226,13 +227,15 @@ public class ProgressManager {
     #region Description Methods
     public void UpdateDescription() {
         if (!testMode) {
-            if (CurrentPackage != null) {
-                UISystem.Instance.UpdateDescription(CurrentPackage.activeTasks);
+            if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
+                UISystem.Instance.Descript = CurrentPackage.CurrentTask.GetDescription();
 #if UNITY_NONVRCOMPUTER
 #else
 
                 VRVibrationManager.Vibrate();
 #endif
+            } else {
+                UISystem.Instance.Descript = "";
             }
         }
     }
@@ -240,7 +243,7 @@ public class ProgressManager {
 
     #region Hint Methods
     public void UpdateHint() {
-        if (!testMode && CurrentPackage != null) {
+        if (!testMode && CurrentPackage != null && CurrentPackage.CurrentTask != null) {
             HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
         }
     }
