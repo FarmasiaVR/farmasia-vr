@@ -73,6 +73,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Private Methods
 
     private void CheckConditions(List<GameObject> objects) {
+        SyringeCapFactoryEnabled();
         foreach(GameObject value in objects) {
             GeneralItem item = value.GetComponent<GeneralItem>();
             ObjectType type = item.ObjectType;
@@ -97,11 +98,14 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 case ObjectType.Bottle:
                     EnableCondition(Conditions.MedicineBottle);
                     break;
-                case ObjectType.SyringeCap:
-                    EnableCondition(Conditions.SyringeCap);
-                    break;
             }
         }   
+    }
+
+    private void SyringeCapFactoryEnabled() {
+        if (laminarCabinet.CapFactoryEnabled) {
+            EnableCondition(Conditions.SyringeCap);
+        }
     }
 
     private void MissingItems() {
@@ -129,7 +133,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        if (objectCount == 13) {
+        if (objectCount == 12) {
             Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
         } else {
             Popup("Liikaa työvälineitä.", MsgType.Error, -1);

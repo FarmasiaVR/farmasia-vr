@@ -32,6 +32,10 @@ public class CabinetBase : MonoBehaviour {
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
 
+    private bool capFactoryEnabled = false;
+    public bool CapFactoryEnabled => capFactoryEnabled;
+    
+
     private Pipeline capBagEnterPipeline;
     private bool folded;
     #endregion
@@ -194,6 +198,7 @@ public class CabinetBase : MonoBehaviour {
             meshCopy.transform.rotation = targetRot;
 
             syringeCapFactory.SetActive(true);
+            capFactoryEnabled = true;
         }
 
         StartCoroutine(EnableCapFactory());
