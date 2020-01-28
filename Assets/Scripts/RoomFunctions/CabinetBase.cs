@@ -26,7 +26,10 @@ public class CabinetBase : MonoBehaviour {
     private GameObject childCollider;
 
     [SerializeField]
-    private GameObject sterileDrape;
+    private Animator sterileDrape;
+
+
+    //private GameObject sterileDrape;
 
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
@@ -86,22 +89,15 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void UnfoldCloth() {
-
         if (folded) {
             return;
         }
         folded = true;
-
         if (sterileDrape == null) {
             Logger.Warning("Sterile drape not set in laminar cabinet, not performing animation.");
             return;
         }
-
-        GameObject startState = sterileDrape.transform.GetChild(0).gameObject;
-        GameObject endState = sterileDrape.transform.GetChild(1).gameObject;
-
-        Destroy(startState);
-        endState.SetActive(true);
+        sterileDrape.SetBool("ItemPlaced", true);
     }
 
     private void ExitCabinet(Collider other) {
