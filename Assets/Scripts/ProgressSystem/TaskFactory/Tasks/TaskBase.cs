@@ -50,8 +50,6 @@ public abstract class TaskBase : ITask {
                 UnsubscribeAllEvents();
             }
         }
-
-        Logger.Print("VERDICT: " + completed);
     }
 
     protected abstract void OnTaskComplete();
