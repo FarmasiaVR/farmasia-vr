@@ -39,7 +39,6 @@ public abstract class TaskBase : ITask {
         started = true;
     }
 
-    //needs fixing
     public virtual void CompleteTask() {
 
         completed = CheckClearConditions();
@@ -54,7 +53,6 @@ public abstract class TaskBase : ITask {
 
     protected abstract void OnTaskComplete();
 
-    //When ProgressManager is done! Finish all tasks.
     public virtual void FinishTask() {
         UnsubscribeAllEvents();
         isFinished = true;

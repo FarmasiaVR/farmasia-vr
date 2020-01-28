@@ -227,7 +227,7 @@ public class ProgressManager {
     #region Description Methods
     public void UpdateDescription() {
         if (!testMode) {
-            if (CurrentPackage != null) {
+            if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
                 UISystem.Instance.Descript = CurrentPackage.CurrentTask.GetDescription();
 #if UNITY_NONVRCOMPUTER
 #else
