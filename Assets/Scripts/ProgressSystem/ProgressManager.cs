@@ -192,6 +192,7 @@ public class ProgressManager {
         } else {
             CurrentPackage = packages[index + 1];
             CurrentPackage.StartTask();
+            UpdateHint();
         }
     }
 
@@ -240,7 +241,7 @@ public class ProgressManager {
 
     #region Hint Methods
     public void UpdateHint() {
-        if (!testMode && CurrentPackage != null) {
+        if (!testMode && CurrentPackage != null && CurrentPackage.CurrentTask != null) {
             HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
         }
     }

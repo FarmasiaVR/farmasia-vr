@@ -72,7 +72,6 @@ public abstract class TaskBase : ITask {
             } else {
                 package.MoveTaskToManager((ITask)this);
             }
-            G.Instance.Progress.UpdateHint();
         }
     }
     #endregion
