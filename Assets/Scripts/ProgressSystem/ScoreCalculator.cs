@@ -120,12 +120,13 @@ public class ScoreCalculator {
     /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
-    public void GetScoreString(out int score, out string scoreString) {
+    public void GetScoreString(out int score, out string scoreString, Dictionary<string, int> mistakes) {
 
         string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
         string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
+        string generalMistakes = "\nYleisvirheet:\n";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
@@ -142,8 +143,15 @@ public class ScoreCalculator {
             }
             addedBeforeTimeList += before + ", ";
         }
-        summary += "Kokonaispistemäärä: " + score + " / " + Text("" + maxScore, Colour.Green) + "!";
-        scoreString = summary + scoreCountPerTask;// + beforeTimeSummary + addedBeforeTimeList;
+        generalMistakes = mistakes.Count == 0 ? "" : generalMistakes;
+        foreach (var pair in mistakes) {
+            generalMistakes += "\n" + Text("" + pair.Value, Colour.Red) + " : " + pair.Key;
+            score -= pair.Value;
+        }
+
+
+        summary += "Kokonaispistemäärä: " + Text("" +  score, Colour.Blue) + " / " + maxScore + "!\n";
+        scoreString = summary + scoreCountPerTask + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }
     private string TaskToString(TaskType type) {

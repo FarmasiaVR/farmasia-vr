@@ -6,10 +6,36 @@ public class GeneralItem : Grabbable {
     protected ObjectType objectType = ObjectType.None;
     public ObjectType ObjectType { get => objectType; set { objectType = value; } }
 
+    public enum ContaminateState {
+        Clean,
+        Contaminated,
+        FloorContaminated
+    }
+
     [SerializeField]
     private bool isClean = true;
-    public bool IsClean { get => isClean; set => isClean = value; }
+    private ContaminateState contamination;
+    public ContaminateState Contamination {
+        get => contamination; 
+        set {
+            if (value == ContaminateState.Clean) {
+                contamination = ContaminateState.Clean;
+            } else if (value == ContaminateState.Contaminated) {
+                if (contamination != ContaminateState.FloorContaminated) {
+                    contamination = ContaminateState.Contaminated;
+                }
+            } else {
+                contamination = ContaminateState.FloorContaminated;
+            }
+        }
+    }
+    public bool IsClean { get => Contamination == ContaminateState.Clean; }
     #endregion
+
+    protected override void Start() {
+        base.Start();
+        Contamination = isClean ? ContaminateState.Clean : ContaminateState.Contaminated;
+    }
 
     public static GeneralItem Find(Transform t) {
         return Interactable.GetInteractableObject(t)?.GetComponent<GeneralItem>();
@@ -17,7 +43,7 @@ public class GeneralItem : Grabbable {
 
     protected virtual void OnCollisionEnter(Collision coll) {
         if (coll.gameObject.tag == "Floor") {
-            IsClean = false;
+            Contamination = ContaminateState.FloorContaminated;
             State.On(InteractState.OnFloor);
             Events.FireEvent(EventType.ItemDroppedOnFloor, CallbackData.Object(this));
         }

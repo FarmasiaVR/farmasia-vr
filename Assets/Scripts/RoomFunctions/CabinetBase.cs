@@ -70,6 +70,11 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
+        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
+            UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
+            G.Instance.Progress.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+        }
+
         if (Time.timeSinceLevelLoad > 5) {
             UnfoldCloth();
         }
@@ -206,12 +211,12 @@ public class CabinetBase : MonoBehaviour {
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
             Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
-            syringeCapFactory.GetComponent<GeneralItem>().IsClean = capBag.IsClean;
+            syringeCapFactory.GetComponent<GeneralItem>().Contamination = capBag.Contamination;
             bool capFactoryAlreadyEnabled = false;
             foreach (GameObject obj in objectsInsideArea) {
                 GeneralItem item = obj.GetComponent<GeneralItem>();
                 if (item.ObjectType == ObjectType.SyringeCap) {
-                    item.IsClean = capBag.IsClean;
+                    item.Contamination = capBag.Contamination;
                     capFactoryAlreadyEnabled = true;
                 }
             }
