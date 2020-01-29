@@ -1,207 +1,219 @@
 {
-  "action_manifest_version" : 0,
-  "alias_info" : {},
-  "app_key" : "application.generated.unity.farmasiavr.exe",
-  "bindings" : {
-     "/actions/buggy" : {
-        "chords" : [],
-        "haptics" : [],
-        "poses" : [],
-        "skeleton" : [],
-        "sources" : []
-     },
-     "/actions/default" : {
-        "chords" : [],
-        "haptics" : [
-           {
-              "output" : "/actions/default/out/haptic",
-              "path" : "/user/hand/left/output/haptic"
-           },
-           {
-              "output" : "/actions/default/out/haptic",
-              "path" : "/user/hand/right/output/haptic"
-           }
-        ],
-        "poses" : [
-           {
-              "output" : "/actions/default/in/pose",
-              "path" : "/user/hand/left/pose/raw"
-           },
-           {
-              "output" : "/actions/default/in/pose",
-              "path" : "/user/hand/right/pose/raw"
-           }
-        ],
-        "skeleton" : [
-           {
-              "output" : "/actions/default/in/skeletonlefthand",
-              "path" : "/user/hand/left/input/skeleton/left"
-           },
-           {
-              "output" : "/actions/default/in/skeletonrighthand",
-              "path" : "/user/hand/right/input/skeleton/right"
-           }
-        ],
-        "sources" : [
-           {
-              "inputs" : {
-                 "center" : {
-                    "output" : "/actions/default/in/dpadcenter"
-                 },
-                 "east" : {
-                    "output" : "/actions/default/in/dpadeast"
-                 },
-                 "north" : {
-                    "output" : "/actions/default/in/dpadnorth"
-                 },
-                 "south" : {
-                    "output" : "/actions/default/in/dpadsouth"
-                 },
-                 "west" : {
-                    "output" : "/actions/default/in/dpadwest"
-                 }
-              },
-              "mode" : "dpad",
-              "parameters" : {
-                 "sub_mode" : "click"
-              },
-              "path" : "/user/hand/left/input/trackpad"
-           },
-           {
-              "inputs" : {
-                 "center" : {
-                    "output" : "/actions/default/in/dpadcenter"
-                 },
-                 "east" : {
-                    "output" : "/actions/default/in/dpadeast"
-                 },
-                 "north" : {
-                    "output" : "/actions/default/in/dpadnorth"
-                 },
-                 "south" : {
-                    "output" : "/actions/default/in/dpadsouth"
-                 },
-                 "west" : {
-                    "output" : "/actions/default/in/dpadwest"
-                 }
-              },
-              "mode" : "dpad",
-              "parameters" : {
-                 "sub_mode" : "click"
-              },
-              "path" : "/user/hand/right/input/trackpad"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/triggerclick"
-                 },
-                 "pull" : {
-                    "output" : "/actions/default/in/triggervalue"
-                 }
-              },
-              "mode" : "trigger",
-              "path" : "/user/hand/left/input/trigger"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/triggerclick"
-                 },
-                 "pull" : {
-                    "output" : "/actions/default/in/triggervalue"
-                 }
-              },
-              "mode" : "trigger",
-              "path" : "/user/hand/right/input/trigger"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/padclick"
-                 },
-                 "position" : {
-                    "output" : "/actions/default/in/padtouchvalue"
-                 },
-                 "touch" : {
-                    "output" : "/actions/default/in/padtouch"
-                 }
-              },
-              "mode" : "trackpad",
-              "path" : "/user/hand/left/input/trackpad"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/padclick"
-                 },
-                 "position" : {
-                    "output" : "/actions/default/in/padtouchvalue"
-                 },
-                 "touch" : {
-                    "output" : "/actions/default/in/padtouch"
-                 }
-              },
-              "mode" : "trackpad",
-              "path" : "/user/hand/right/input/trackpad"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/grip"
-                 }
-              },
-              "mode" : "button",
-              "path" : "/user/hand/left/input/grip"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/grip"
-                 }
-              },
-              "mode" : "button",
-              "path" : "/user/hand/right/input/grip"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/menu"
-                 }
-              },
-              "mode" : "button",
-              "path" : "/user/hand/left/input/application_menu"
-           },
-           {
-              "inputs" : {
-                 "click" : {
-                    "output" : "/actions/default/in/menu"
-                 }
-              },
-              "mode" : "button",
-              "path" : "/user/hand/right/input/application_menu"
-           }
-        ]
-     },
-     "/actions/platformer" : {
-        "chords" : [],
-        "haptics" : [],
-        "poses" : [],
-        "skeleton" : [],
-        "sources" : []
-     },
-     "/actions/testcontrolsset" : {
-        "chords" : [],
-        "haptics" : [],
-        "poses" : [],
-        "skeleton" : [],
-        "sources" : []
-     }
-  },
-  "category" : "steamvr_input",
-  "controller_type" : "vive_controller",
-  "description" : "Saved as a test for Farmasia VR.",
-  "name" : "My farmasia-vr [Testing] configuration for Vive Controller",
-  "options" : {},
-  "simulated_actions" : []
+   "action_manifest_version" : 0,
+   "alias_info" : {},
+   "app_key" : "application.generated.unity.farmasiavr.exe",
+   "bindings" : {
+      "/actions/buggy" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : []
+      },
+      "/actions/default" : {
+         "chords" : [],
+         "haptics" : [
+            {
+               "output" : "/actions/default/out/haptic",
+               "path" : "/user/hand/left/output/haptic"
+            },
+            {
+               "output" : "/actions/default/out/haptic",
+               "path" : "/user/hand/right/output/haptic"
+            }
+         ],
+         "poses" : [
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/hand/left/pose/raw"
+            },
+            {
+               "output" : "/actions/default/in/pose",
+               "path" : "/user/hand/right/pose/raw"
+            }
+         ],
+         "skeleton" : [
+            {
+               "output" : "/actions/default/in/skeletonlefthand",
+               "path" : "/user/hand/left/input/skeleton/left"
+            },
+            {
+               "output" : "/actions/default/in/skeletonrighthand",
+               "path" : "/user/hand/right/input/skeleton/right"
+            }
+         ],
+         "sources" : [
+            {
+               "inputs" : {
+                  "center" : {
+                     "output" : "/actions/default/in/dpadcenter"
+                  },
+                  "east" : {
+                     "output" : "/actions/default/in/dpadeast"
+                  },
+                  "north" : {
+                     "output" : "/actions/default/in/dpadnorth"
+                  },
+                  "south" : {
+                     "output" : "/actions/default/in/dpadsouth"
+                  },
+                  "west" : {
+                     "output" : "/actions/default/in/dpadwest"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "center" : {
+                     "output" : "/actions/default/in/dpadcenter"
+                  },
+                  "east" : {
+                     "output" : "/actions/default/in/dpadeast"
+                  },
+                  "north" : {
+                     "output" : "/actions/default/in/dpadnorth"
+                  },
+                  "south" : {
+                     "output" : "/actions/default/in/dpadsouth"
+                  },
+                  "west" : {
+                     "output" : "/actions/default/in/dpadwest"
+                  }
+               },
+               "mode" : "dpad",
+               "parameters" : {
+                  "sub_mode" : "click"
+               },
+               "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "pull" : {
+                     "output" : "/actions/default/in/triggervalue"
+                  }
+               },
+               "mode" : "trigger",
+               "path" : "/user/hand/left/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "pull" : {
+                     "output" : "/actions/default/in/triggervalue"
+                  }
+               },
+               "mode" : "trigger",
+               "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/padclick"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/padtouchvalue"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/padtouch"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/padclick"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/padtouchvalue"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/padtouch"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/grip"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/grip"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/grip"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/grip"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/menu"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/application_menu"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/menu"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/application_menu"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/triggerclick"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/triggerclick"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/trigger"
+            }
+         ]
+      },
+      "/actions/platformer" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : []
+      },
+      "/actions/testcontrolsset" : {
+         "chords" : [],
+         "haptics" : [],
+         "poses" : [],
+         "skeleton" : [],
+         "sources" : []
+      }
+   },
+   "category" : "steamvr_input",
+   "controller_type" : "vive_controller",
+   "description" : "Controller binding",
+   "name" : "Official Farmasia VR Binding",
+   "options" : {},
+   "simulated_actions" : []
 }
