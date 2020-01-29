@@ -44,7 +44,6 @@ public class ItemsToSterileBag : TaskBase {
     #region Event Subscriptions
     public override void Subscribe() {
         base.SubscribeEvent(PutToBag, EventType.SterileBag);
-        base.SubscribeEvent(HandsExit, EventType.HandsExitLaminarCabinet);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
     }
 
@@ -114,40 +113,6 @@ public class ItemsToSterileBag : TaskBase {
             }
         }
         return count;
-    }
-
-    private void HandsExit(CallbackData data) {
-        if (IsPreviousTasksCompleted(requiredTasks) && !TaskMovedToSide) {
-            MoveTaskToSide();
-        }
-    }
-
-    private void MoveTaskToSide() {
-        G.Instance.Progress.ChangePackage();
-        G.Instance.Progress.UpdateDescription();
-        TaskMovedToSide = true;
-        RemoveCapFactories();
-    }
-
-    private void RemoveCapFactories() {
-        Logger.Print("Removing Cap Factory");
-        GameObject[] gobjs = GameObject.FindGameObjectsWithTag("CapFactory");
-        foreach (GameObject obj in gobjs) {
-            obj.GetComponent<ObjectFactory>().IsEnabled = false;
-        }
-    }
-
-    private bool CapsOnSyringes() {
-        int count = 0;
-        foreach (Syringe syringe in sterileBag.Syringes) {
-            if (syringe.HasSyringeCap) {
-                count++;
-            }
-        }
-        if (count == sterileBag.Syringes.Count) {
-            return true;
-        }
-        return false;
     }
     #endregion
 

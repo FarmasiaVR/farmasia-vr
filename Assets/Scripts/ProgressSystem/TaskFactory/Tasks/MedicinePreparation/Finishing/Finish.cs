@@ -72,7 +72,7 @@ public class Finish : TaskBase {
         foreach (Package p in G.Instance.Progress.packages) {
             if (p.name == PackageName.Workspace) {
                 if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
-                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag).FinishTask();
+                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag)?.FinishTask();
                 }
                 break;
             }

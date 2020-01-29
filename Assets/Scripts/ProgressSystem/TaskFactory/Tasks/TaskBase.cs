@@ -221,5 +221,18 @@ public abstract class TaskBase : ITask {
         }
     }
 
+    public override string ToString() {
+
+        string s = "TaskType: " + taskType + ", finished: " + isFinished;
+
+        s += "\nstrted: " + Started;
+        s += "\ncheck cond: " + checkAllClearConditions;
+        s += "\nis completed: " + completed;
+        s += "\nremove when finished: " + removeWhenFinished;
+        s += "\nrequires previous: " + requiresPreviousTaskCompletion;
+        s += "\nprevious completed: " + previousTasksCompleted;
+
+        return s;
+    }
     #endregion
 }

@@ -28,6 +28,8 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     private Animator sterileDrape;
 
+    private HashSet<GeneralItem> EnteredObjects;
+    private HashSet<GeneralItem> ReEnteredObjects;
 
     //private GameObject sterileDrape;
 
@@ -57,6 +59,9 @@ public class CabinetBase : MonoBehaviour {
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
 
+        EnteredObjects = new HashSet<GeneralItem>();
+        ReEnteredObjects = new HashSet<GeneralItem>();
+
         if (syringeCapFactory != null) {
             syringeCapFactory.SetActive(false);
         }
@@ -70,9 +75,20 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
+        //if (EnteredObjects.Contains(item) && !ReEnteredObjects.Contains(item)) {
+        //    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
+        //    G.Instance.Progress.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+        //    ReEnteredObjects.Add(item);
+        //}
+        //EnteredObjects.Add(item);
+
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
             UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
             G.Instance.Progress.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+
+            // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
+            item.Contamination = GeneralItem.ContaminateState.Clean;
+            item.Contamination = GeneralItem.ContaminateState.Contaminated;
         }
 
         if (Time.timeSinceLevelLoad > 5) {

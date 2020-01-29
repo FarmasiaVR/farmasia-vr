@@ -136,7 +136,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (objectCount == 12) {
             Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
         } else {
-            Popup("Liikaa työvälineitä.", MsgType.Error, -1);
+            Popup("Liikaa työvälineitä.", MsgType.Mistake, -1);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
         }
     }

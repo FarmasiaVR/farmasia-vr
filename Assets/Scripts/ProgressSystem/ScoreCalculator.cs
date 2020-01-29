@@ -126,7 +126,7 @@ public class ScoreCalculator {
         string scoreCountPerTask = "";
         string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
-        string generalMistakes = "\nYleisvirheet:\n";
+        string generalMistakes = "\n\nYleisvirheet:\n";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
