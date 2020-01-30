@@ -87,7 +87,7 @@ public class Package {
         }
     }
 
-    private void ForceClosePreviousTasks(ITask calledTask) {
+    public void ForceClosePreviousTasks(ITask calledTask) {
         foreach (ITask task in activeTasks) {
             if (calledTask.GetTaskType() == task.GetTaskType()) {
                 return;

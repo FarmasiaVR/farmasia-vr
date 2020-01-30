@@ -95,10 +95,17 @@ public class MedicineToSyringe : TaskBase {
         bool fail = false;
         if (syringe.Container.Capacity != RIGHT_SYRINGE_CAPACITY) {
             Popup("Väärän kokoinen ruisku", MsgType.Mistake, -1);
+            G.Instance.Progress.Calculator.Subtract(taskType);
             fail = true;
         }
         if (syringe.Container.Amount < MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE) {
             Popup("Liian vähän lääkettä", MsgType.Mistake, -1);
+            G.Instance.Progress.Calculator.Subtract(taskType);
+            fail = true;
+        }
+        if (!syringe.IsClean) {
+            G.Instance.Progress.Calculator.Subtract(taskType);
+            Popup("Ruisku oli likainen", MsgType.Mistake, -1);
             fail = true;
         }
 
