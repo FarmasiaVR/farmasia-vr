@@ -45,14 +45,6 @@ public abstract class AttachmentConnector : ItemConnector {
         if (a == null || b == null) return;
 
         if (!a.IsClean || !b.IsClean) {
-            // start of debug
-            if (a.IsClean) {
-                Logger.Print(b + " contaminated " + a);
-            }
-            if (b.IsClean) {
-                Logger.Print(a + " contamined " + b);
-            }
-            // end of debug
             a.Contamination = GeneralItem.ContaminateState.Contaminated;
             b.Contamination = GeneralItem.ContaminateState.Contaminated;
         }
