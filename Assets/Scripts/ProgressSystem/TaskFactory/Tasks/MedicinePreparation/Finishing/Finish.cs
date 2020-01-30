@@ -9,8 +9,8 @@ public class Finish : TaskBase {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
 
-    private const string DESCRIPTION = "Siirry pois työtilasta.";
-    private const string HINT = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
+    private const string DESCRIPTION = "";
+    private const string HINT = "";
     #endregion
 
     #region Fields
