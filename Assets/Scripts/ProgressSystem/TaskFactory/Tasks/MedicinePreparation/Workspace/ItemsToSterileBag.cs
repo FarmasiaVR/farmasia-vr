@@ -41,7 +41,7 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(PutToBag, EventType.SterileBag);
+        base.SubscribeEvent(PutToBag, EventType.CloseSterileBag);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
     }
 

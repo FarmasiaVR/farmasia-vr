@@ -12,7 +12,7 @@
     Disinfect,
     AttachLuerlock,
     AmountOfMedicine,
-    SterileBag,
+    CloseSterileBag,
     RoomDoor,
     ItemDroppedInTrash,
     ItemDroppedOnFloor,

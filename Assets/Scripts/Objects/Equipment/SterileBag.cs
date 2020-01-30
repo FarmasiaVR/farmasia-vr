@@ -13,6 +13,9 @@ public class SterileBag : GeneralItem {
     [SerializeField]
     private GameObject childCollider;
 
+    [SerializeField]
+    private DragAcceptable closeButton;
+
     private float ejectSpeed = 0.6f;
     private float ejectDistance = 0.47f;
     #endregion
@@ -20,6 +23,8 @@ public class SterileBag : GeneralItem {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
+
+        NullCheck.CheckSafe(closeButton);
 
         Syringes = new List<Syringe>();
         
@@ -66,7 +71,7 @@ public class SterileBag : GeneralItem {
             IsSterile = false;
         }
 
-        Events.FireEvent(EventType.SterileBag, CallbackData.Object(this));
+        Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
 
         if (Syringes.Count == 6) {
             CloseSterileBag();
@@ -75,6 +80,8 @@ public class SterileBag : GeneralItem {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
+
+        OpenSterileBag();
 
         float angle = Vector3.Angle(Vector3.down, transform.up);
 
@@ -134,9 +141,23 @@ public class SterileBag : GeneralItem {
         syringe.RigidbodyContainer.Enable();
     }
 
+    private void OpenSterileBag() {
+
+        if (closeButton.IsGrabbed) {
+            Hand.GrabbingHand(closeButton).Uninteract();
+        }
+
+        closeButton.gameObject.SetActive(false);
+    }
     private void CloseSterileBag() {
         IsClosed = true;
-        Events.FireEvent(EventType.SterileBag, CallbackData.Object(this));
+        
+        closeButton.gameObject.SetActive(true);
+        closeButton.OnAccept += CloseSterileBagFinal;
+    }
+
+    private void CloseSterileBagFinal() {
+        Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
     }
 
     private Vector3 ObjectPosition(int index) {
