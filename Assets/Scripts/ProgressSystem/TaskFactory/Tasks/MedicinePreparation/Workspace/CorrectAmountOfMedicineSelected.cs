@@ -32,7 +32,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
         base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
         base.SubscribeEvent(InvalidSyringePush, EventType.PushingToSmallerSyringe);
@@ -41,7 +41,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 

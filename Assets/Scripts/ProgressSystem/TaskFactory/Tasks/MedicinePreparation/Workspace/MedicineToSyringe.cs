@@ -33,7 +33,7 @@ public class MedicineToSyringe : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         SubscribeEvent(NeedleWithSyringeInsertedIntoBottle, EventType.SyringeWithNeedleEntersBottle);
         SubscribeEvent(FinishedTakingMedicineToSyringe, EventType.FinishedTakingMedicineToSyringe);
     }
@@ -42,7 +42,7 @@ public class MedicineToSyringe : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 

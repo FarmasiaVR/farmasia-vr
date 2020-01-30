@@ -28,16 +28,16 @@ public class CorrectItemsInThroughput : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
 
     private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        CabinetBase cabinet = (CabinetBase) data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 

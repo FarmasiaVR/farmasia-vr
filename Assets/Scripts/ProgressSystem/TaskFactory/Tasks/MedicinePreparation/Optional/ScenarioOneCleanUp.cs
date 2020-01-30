@@ -32,6 +32,15 @@ public class ScenarioOneCleanUp : TaskBase {
         base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);
         base.SubscribeEvent(ItemDroppedInWrongTrash, EventType.ItemDroppedInWrongTrash);
+        base.SubscribeEvent(ItemPlacedInLaminarCabinet, EventType.ItemPlacedInCabinet);
+    }
+
+    private void ItemPlacedInLaminarCabinet(CallbackData data) {
+        GeneralItem item = (GeneralItem)data.DataObject;
+        if (item == null) {
+            return;
+        }
+        itemsToBeCleaned.Remove(item);
     }
 
     private void ItemDroppedOnFloor(CallbackData data) {

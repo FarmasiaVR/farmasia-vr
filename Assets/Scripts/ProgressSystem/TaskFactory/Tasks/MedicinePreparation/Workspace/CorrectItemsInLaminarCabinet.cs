@@ -34,7 +34,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
 
@@ -42,7 +42,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 
