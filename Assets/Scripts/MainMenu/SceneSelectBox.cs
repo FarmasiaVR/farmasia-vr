@@ -17,8 +17,19 @@ public class SceneSelectBox : Interactable {
     [SerializeField]
     private UnityEvent onActivate;
 
+    private void OnValidate() {
+        bar = liquid.GetComponent<ProgressBar>();
+        if (isInstant) {
+            bar.instant = true;
+        } else {
+            bar.instant = false;
+        }
+    }
+
     protected override void Start() {
         base.Start();
+        if (isInstant) {
+        }
         Type.Set(InteractableType.Interactable);
         bar = liquid.GetComponent<ProgressBar>();
     }

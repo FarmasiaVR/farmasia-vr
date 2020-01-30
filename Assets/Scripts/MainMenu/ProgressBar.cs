@@ -13,24 +13,31 @@ public class ProgressBar : MonoBehaviour {
     public bool grabbing = false;
     private const float MAX = 1;
     private const float MINIMUM = 0;
-    private const float SPEED = 0.005f;
+    [SerializeField]
+    private float speed = 0.005f;
     [SerializeField]
     private float currentPercentage = 0;
+    public bool instant = false;
+
 
     public void Start() {
         done = false;
     }
 
     private void Update() {
+        if (instant) {
+            currentPercentage = MAX;
+            return;
+        }
         if (grabbing) {
-            currentPercentage += SPEED;
+            currentPercentage += speed;
             if (currentPercentage >= MAX) {
                 currentPercentage = MAX;
                 done = true;
             }
         } else {
             if (currentPercentage > MINIMUM) {
-                currentPercentage -= SPEED;
+                currentPercentage -= speed;
                 if (currentPercentage < MINIMUM) {
                     currentPercentage = 0;
                 }

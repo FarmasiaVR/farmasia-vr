@@ -45,8 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 6034328044454097100}
+  done: 0
   grabbing: 0
+  speed: 0.01
   currentPercentage: 0
+  instant: 0
 --- !u!1 &5839879232214318232
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +461,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7b69c659436ad4fad5d1de02e9d456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
+  isInstant: 0
   liquid: {fileID: 3345505373407561083}
+  onActivate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!65 &6967227861180337566
 BoxCollider:
   m_ObjectHideFlags: 0
