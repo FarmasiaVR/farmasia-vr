@@ -3,6 +3,8 @@ using UnityEngine.Events;
 
 public class SceneSelectBox : Interactable {
     [SerializeField]
+    private bool isInstant;
+    [SerializeField]
     GameObject liquid;
     ProgressBar bar;
     private bool activated;
@@ -30,7 +32,11 @@ public class SceneSelectBox : Interactable {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-        bar.grabbing = true;
+        if (isInstant) {
+            onActivate?.Invoke();
+        } else {
+            bar.grabbing = true;
+        }
     }
 
     public override void Uninteract(Hand hand) {
