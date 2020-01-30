@@ -67,7 +67,10 @@ public class DragAcceptable : Interactable {
         Hidden = hide;
         GetComponent<Collider>().isTrigger = hide;
         GetComponent<Renderer>().enabled = !hide;
-        transform.GetChild(0).GetComponent<Renderer>().enabled = !hide;
+        foreach (Transform child in transform) {
+            var r = child.GetComponent<Renderer>();
+            r.enabled = !hide;
+        }
     }
 
     #region Updating

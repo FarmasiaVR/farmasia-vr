@@ -9,6 +9,8 @@ public class HintText : MonoBehaviour {
     private Vector3 targetSize;
     private Transform btn;
     private DragAcceptable button;
+
+    public string Text { get; internal set; }
     #endregion
 
     private void Awake() {

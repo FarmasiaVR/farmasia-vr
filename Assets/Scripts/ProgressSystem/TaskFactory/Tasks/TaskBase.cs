@@ -219,7 +219,6 @@ public abstract class TaskBase : ITask {
 
     protected void Popup(string message, MsgType type, int point = int.MaxValue) {
         if (point != int.MaxValue) {
-            G.Instance.Progress.AddTaskMistake(message);
             UISystem.Instance.CreatePopup(point, message, type);
         } else {
             UISystem.Instance.CreatePopup(message, type);
@@ -227,9 +226,6 @@ public abstract class TaskBase : ITask {
 
         switch (type) {
             case MsgType.Mistake:
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                break;
-            case MsgType.Notify:
                 G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                 break;
         }
