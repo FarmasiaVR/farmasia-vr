@@ -15,13 +15,13 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false, false) {
         base.unsubscribeAllEvents = false;
         Subscribe();
-        points = 1;
+        points = 0;
     }
     #endregion
 
     #region Event Subscriptions
     public override void Subscribe() {
-        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         SubscribeEvent(VentilationBlocked, EventType.VentilationBlocked);
         SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
     }
@@ -30,7 +30,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 

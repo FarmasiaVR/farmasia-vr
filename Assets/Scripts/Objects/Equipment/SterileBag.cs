@@ -13,6 +13,9 @@ public class SterileBag : GeneralItem {
     [SerializeField]
     private GameObject childCollider;
 
+    [SerializeField]
+    private DragAcceptable closeButton;
+
     private float ejectSpeed = 0.6f;
     private float ejectDistance = 0.47f;
     #endregion
@@ -22,7 +25,7 @@ public class SterileBag : GeneralItem {
         base.Start();
 
         Syringes = new List<Syringe>();
-        
+
         ObjectType = ObjectType.SterileBag;
 
         IsClosed = false;
@@ -31,6 +34,13 @@ public class SterileBag : GeneralItem {
         Type.On(InteractableType.Interactable);
 
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => OnBagEnter(collider)));
+
+        if (closeButton != null) {
+            Logger.Print("Initializing bag");
+            closeButton.ActivateCountLimit = 1;
+            closeButton.OnAccept = CloseSterileBagFinal;
+            closeButton.Hide(true);
+        }
     }
 
     private void OnBagEnter(Collider other) {
@@ -45,7 +55,7 @@ public class SterileBag : GeneralItem {
             return;
         }
 
-        if (Syringes.Count >= 6) {
+        if (Syringes.Count == 6) {
             return;
         }
 
@@ -66,15 +76,15 @@ public class SterileBag : GeneralItem {
             IsSterile = false;
         }
 
-        Events.FireEvent(EventType.SterileBag, CallbackData.Object(this));
-
         if (Syringes.Count == 6) {
-            CloseSterileBag();
+            EnableClosing();
         }
     }
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
+
+        DisableClosing();
 
         float angle = Vector3.Angle(Vector3.down, transform.up);
 
@@ -134,9 +144,35 @@ public class SterileBag : GeneralItem {
         syringe.RigidbodyContainer.Enable();
     }
 
-    private void CloseSterileBag() {
+    private void EnableClosing() {
+
+        if (closeButton == null) {
+            return;
+        }
+
+        System.Console.WriteLine("Opening sterilebag");
+
+        if (closeButton.IsGrabbed) {
+            Hand.GrabbingHand(closeButton).Uninteract();
+        }
+
+        closeButton.Hide(false);
+        closeButton.gameObject.SetActive(true);
+    }
+    private void DisableClosing() {
+
+        if (closeButton == null) {
+            return;
+        }
+
         IsClosed = true;
-        Events.FireEvent(EventType.SterileBag, CallbackData.Object(this));
+        closeButton.Hide(true);
+    }
+
+    private void CloseSterileBagFinal() {
+        closeButton.SafeDestroy();
+        System.Console.WriteLine("Close sterilebag final!");
+        Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
     }
 
     private Vector3 ObjectPosition(int index) {

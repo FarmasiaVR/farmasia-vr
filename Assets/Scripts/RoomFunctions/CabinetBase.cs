@@ -28,16 +28,20 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     private Animator sterileDrape;
 
+    private HashSet<GeneralItem> EnteredObjects;
+    private HashSet<GeneralItem> ReEnteredObjects;
 
     //private GameObject sterileDrape;
 
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
+    [SerializeField]
+    private GameObject syringeCapFactoryPos = null;
 
     private bool capFactoryEnabled = false;
     public bool CapFactoryEnabled => capFactoryEnabled;
-    
+
 
     private Pipeline capBagEnterPipeline;
     private bool folded;
@@ -57,6 +61,9 @@ public class CabinetBase : MonoBehaviour {
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
 
+        EnteredObjects = new HashSet<GeneralItem>();
+        ReEnteredObjects = new HashSet<GeneralItem>();
+
         if (syringeCapFactory != null) {
             syringeCapFactory.SetActive(false);
         }
@@ -70,14 +77,34 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
+        //if (EnteredObjects.Contains(item) && !ReEnteredObjects.Contains(item)) {
+        //    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
+        //    G.Instance.Progress.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+        //    ReEnteredObjects.Add(item);
+        //}
+        //EnteredObjects.Add(item);
+
+        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
+            UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
+            G.Instance.Progress.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+
+            // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
+            item.Contamination = GeneralItem.ContaminateState.Clean;
+            item.Contamination = GeneralItem.ContaminateState.Contaminated;
+        }
+
         if (Time.timeSinceLevelLoad > 5) {
             UnfoldCloth();
         }
 
         if (!itemPlaced) {
-            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
+            Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
             itemPlaced = true;
         }
+        if (type == CabinetType.Laminar) {
+            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(item));
+        }
+
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
@@ -171,8 +198,8 @@ public class CabinetBase : MonoBehaviour {
             Vector3 startPos = capBag.transform.position;
             Quaternion startRot = capBag.transform.rotation;
 
-            Vector3 targetPos = syringeCapFactory.transform.position;
-            Quaternion targetRot = syringeCapFactory.transform.rotation;
+            Vector3 targetPos = syringeCapFactoryPos.transform.position;
+            Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
 
             float time = 2.5f;
             float currentTime = 0;
@@ -206,12 +233,12 @@ public class CabinetBase : MonoBehaviour {
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
             Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
-            syringeCapFactory.GetComponent<GeneralItem>().IsClean = capBag.IsClean;
+            syringeCapFactory.GetComponent<GeneralItem>().Contamination = capBag.Contamination;
             bool capFactoryAlreadyEnabled = false;
             foreach (GameObject obj in objectsInsideArea) {
                 GeneralItem item = obj.GetComponent<GeneralItem>();
                 if (item.ObjectType == ObjectType.SyringeCap) {
-                    item.IsClean = capBag.IsClean;
+                    item.Contamination = capBag.Contamination;
                     capFactoryAlreadyEnabled = true;
                 }
             }

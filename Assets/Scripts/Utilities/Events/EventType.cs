@@ -12,7 +12,7 @@
     Disinfect,
     AttachLuerlock,
     AmountOfMedicine,
-    SterileBag,
+    CloseSterileBag,
     RoomDoor,
     ItemDroppedInTrash,
     ItemDroppedOnFloor,
@@ -23,7 +23,7 @@
     UninteractWithObject,
     GrabUninteractWithObject,
     GrabInteractWithObject,
-    ItemPlacedInCabinet,
+    ItemPlacedForReference,
     VentilationBlocked,
     SyringeWithNeedleEntersBottle,
     FinishedTakingMedicineToSyringe,
@@ -32,5 +32,6 @@
     HandsExitLaminarCabinet,
     HandleGrabbed,
     PushingToSmallerSyringe,
-    ItemDroppedInWrongTrash
+    ItemDroppedInWrongTrash,
+    ItemPlacedInCabinet
 }

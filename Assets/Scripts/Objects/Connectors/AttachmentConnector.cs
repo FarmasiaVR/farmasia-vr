@@ -41,14 +41,22 @@ public abstract class AttachmentConnector : ItemConnector {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
     }
 
+    private void SpreadContamination(GeneralItem a, GeneralItem b) {
+        if (a == null || b == null) return;
+
+        if (!a.IsClean || !b.IsClean) {
+            a.Contamination = GeneralItem.ContaminateState.Contaminated;
+            b.Contamination = GeneralItem.ContaminateState.Contaminated;
+        }
+    }
+
 
     #region Attaching
     protected void ReplaceObject(GameObject newObject) {
-        if (attached.GameObject == newObject) {
-            return;
-        }
+        if (attached.GameObject == newObject) return;
 
         if (attached.GameObject != null) {
+            SpreadContamination(Interactable.GetInteractable(Object) as GeneralItem, attached.Interactable as GeneralItem);
             CollisionIgnore.IgnoreCollisions(GeneralItem.transform, attached.GameObject.transform, false);
         }
 
@@ -56,6 +64,8 @@ public abstract class AttachmentConnector : ItemConnector {
             attached.Interactable = null;
             return;
         }
+
+        SpreadContamination(Interactable.GetInteractable(Object) as GeneralItem, Interactable.GetInteractable(newObject.transform) as GeneralItem);
 
         attached.Scale = newObject.transform.localScale;
         attached.Interactable = newObject.GetComponent<Interactable>();

@@ -35,23 +35,36 @@ public abstract class TaskBase : ITask {
     }
 
     #region Task Progression
+    public void ForceClose() {
+        G.Instance.Progress.Calculator.SetScoreToZero(taskType);
+        G.Instance.Progress.AddMistake("Tehtävää ei suoritettu!", 2);
+        CloseTask();
+    }
+
     public virtual void StartTask() {
         started = true;
     }
 
     public virtual void CompleteTask() {
-
         completed = CheckClearConditions();
         if (completed) {
-            RemoveFromPackage();
-            OnTaskComplete();
-            if (unsubscribeAllEvents) {
-                UnsubscribeAllEvents();
-            }
+            CloseTask();
+        }
+    }
+
+    private void CloseTask() {
+        RemoveFromPackage();
+        OnTaskComplete();
+        if (unsubscribeAllEvents) {
+            UnsubscribeAllEvents();
         }
     }
 
     protected abstract void OnTaskComplete();
+
+    public void ForceComplete() {
+
+    }
 
     public virtual void FinishTask() {
         UnsubscribeAllEvents();
@@ -215,11 +228,21 @@ public abstract class TaskBase : ITask {
             case MsgType.Mistake:
                 G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                 break;
-            case MsgType.Notify:
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                break;
         }
     }
 
+    public override string ToString() {
+
+        string s = "TaskType: " + taskType + ", finished: " + isFinished;
+
+        s += "\nstrted: " + Started;
+        s += "\ncheck cond: " + checkAllClearConditions;
+        s += "\nis completed: " + completed;
+        s += "\nremove when finished: " + removeWhenFinished;
+        s += "\nrequires previous: " + requiresPreviousTaskCompletion;
+        s += "\nprevious completed: " + previousTasksCompleted;
+
+        return s;
+    }
     #endregion
 }

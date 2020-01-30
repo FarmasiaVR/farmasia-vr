@@ -73,6 +73,12 @@ public class TutorialScene : SceneScript {
         CreateVideoHint(startingVideo);
     }
 
+    private void Update() {
+        if (VideoHint.CurrentVideo == null) {
+            CreateVideoHint(startingVideo);
+        }
+    }
+
     private void OnGrab(CallbackData data) {
 
         Interactable interactable = ((Hand)data.DataObject).Connector.GrabbedInteractable;

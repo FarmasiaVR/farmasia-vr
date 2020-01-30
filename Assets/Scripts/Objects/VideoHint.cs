@@ -148,8 +148,13 @@ public class VideoHint : MonoBehaviour {
             return;
         }
 
+
         if (CurrentVideo != null) {
-            CurrentVideo.DestroyHint();
+            if (!CurrentVideo.videoTitle.Equals(videoTitle)) {
+                CurrentVideo.DestroyHint();
+            } else {
+                return;
+            }
         }
 
         Init();

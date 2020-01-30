@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Finish : TaskBase {
@@ -8,8 +9,8 @@ public class Finish : TaskBase {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
 
-    private const string DESCRIPTION = "Siirry pois työtilasta.";
-    private const string HINT = "Siirry pois työtilasta tarttumalla ovenkahvaan.";
+    private const string DESCRIPTION = "";
+    private const string HINT = "";
     #endregion
 
     #region Fields
@@ -28,14 +29,14 @@ public class Finish : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
     }
 
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
     #endregion
@@ -125,13 +126,16 @@ public class Finish : TaskBase {
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
+    public override async void FinishTask() {
+
+
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
+        await Task.Delay(1000);
         CompleteTask();
         base.FinishTask();
     }

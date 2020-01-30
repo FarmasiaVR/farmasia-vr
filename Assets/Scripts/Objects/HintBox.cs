@@ -111,6 +111,7 @@ public class HintBox : DragAcceptable {
 
         newHintText.transform.position = position;
         newHintText.transform.LookAt(Player.Camera.transform);
+        hintInstance.Text = message;
 
         TextMeshPro text = newHintText.transform.Find("Text").GetComponent<TextMeshPro>();
 
@@ -120,7 +121,11 @@ public class HintBox : DragAcceptable {
     public static void CreateHint(string message, bool open = false) {
 
         if (hintInstance != null) {
-            hintInstance.DestroyHint();
+            if (hintInstance.Text.Equals(message)) {
+                return;
+            } else {
+                hintInstance.DestroyHint();
+            }
         }
 
         if (boxInstance != null) {

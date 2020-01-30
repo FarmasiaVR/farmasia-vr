@@ -56,6 +56,9 @@ public class ScoreCalculator {
     /// <param name="task">Refers to a task to subtract given points.</param>
     /// <param name="subtractScore">Gives the amount of points to be subtracted.</param>
     public void SubtractWithScore(TaskType task, int subtractScore) {
+        if (subtractScore < 0) {
+            throw new Exception("Cannot subtract negative score!");
+        }
         if (!points.ContainsKey(task)) {
             return;
         }
@@ -70,6 +73,13 @@ public class ScoreCalculator {
         Subtract(task);
         beforeTime.Add(task.ToString());
     }
+
+    public void SetScoreToZero(TaskType task) {
+        if (!points.ContainsKey(task)) {
+            return;
+        }
+        points[task] = 0;
+    } 
 
     private enum Colour {
         Yellow,
@@ -120,12 +130,14 @@ public class ScoreCalculator {
     /// Returns current Score for different tasks.
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
-    public void GetScoreString(out int score, out string scoreString) {
+    public void GetScoreString(out int score, out string scoreString, ProgressManager p) {
 
         string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
         string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
+        string taskMistakes = "\n\nTehtävä virheet:\n";
+        string generalMistakes = "\n\nYleisvirheet:\n";
         score = 0;
 
         foreach (TaskType type in points.Keys) {
@@ -142,8 +154,20 @@ public class ScoreCalculator {
             }
             addedBeforeTimeList += before + ", ";
         }
-        summary += "Kokonaispistemäärä: " + score + " / " + Text("" + maxScore, Colour.Green) + "!";
-        scoreString = summary + scoreCountPerTask;// + beforeTimeSummary + addedBeforeTimeList;
+        generalMistakes = p.Mistakes.Count == 0 ? "" : generalMistakes;
+        foreach (var pair in p.Mistakes) {
+            generalMistakes += "\n" + Text("-" + pair.Value + " : " + pair.Key, Colour.Red);
+            score -= pair.Value;
+        }
+        taskMistakes = p.TaskMistakes.Count == 0 ? "" : taskMistakes;
+        string coloredMistakes = "";
+        foreach (string mistake in p.TaskMistakes) {
+            coloredMistakes += "\n" + mistake;
+        }
+        taskMistakes += Text(coloredMistakes, Colour.Red);
+
+        summary += "Kokonaispistemäärä: " + Text("" +  score, Colour.Blue) + " / " + maxScore + "!\n";
+        scoreString = summary + scoreCountPerTask + taskMistakes + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }
     private string TaskToString(TaskType type) {

@@ -10,6 +10,9 @@ public class ProgressManager {
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
+
+    public Dictionary<string, int> Mistakes { get; private set; }
+    public HashSet<string> TaskMistakes { get; private set; }
     #endregion
 
     #region Constructor
@@ -20,6 +23,8 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
+        TaskMistakes = new HashSet<string>();
+        Mistakes = new Dictionary<string, int>();
     }
 
     public void SetSceneType(SceneTypes scene) {
@@ -181,6 +186,10 @@ public class ProgressManager {
             Logger.Print(task.GetType());
         }
     }
+
+    internal void AddTaskMistake(string message) {
+        TaskMistakes.Add(message);
+    }
     #endregion
 
     #region Finishing Packages and Manager
@@ -205,7 +214,7 @@ public class ProgressManager {
                 RemoveTask(task);
                 string scoreString;
                 int score;
-                Calculator.GetScoreString(out score, out scoreString);
+                Calculator.GetScoreString(out score, out scoreString, this);
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);
                 break;
@@ -248,6 +257,14 @@ public class ProgressManager {
         }
     }
     #endregion
+
+    public void AddMistake(string mistake, int minusPoints = 1) {
+        if (Mistakes.ContainsKey(mistake)) {
+            Mistakes[mistake] += minusPoints;
+        } else {
+            Mistakes.Add(mistake, minusPoints);
+        }
+    }
 
     public bool IsCurrentPackage(PackageName name) {
         return CurrentPackage.name == name;

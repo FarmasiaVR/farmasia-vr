@@ -28,16 +28,16 @@ public class CorrectItemsInThroughput : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
 
     private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        CabinetBase cabinet = (CabinetBase) data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 
@@ -54,6 +54,28 @@ public class CorrectItemsInThroughput : TaskBase {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
+
+        int gCount = 0;
+
+        foreach (GameObject obj in containedObjects) {
+
+            GeneralItem g = Interactable.GetInteractable(obj.transform) as GeneralItem;
+            if ( g == null) {
+                continue;
+            }
+
+            if (!g.IsClean) {
+                G.Instance.Progress.Calculator.Subtract(taskType);
+                Popup("Väliantokaapissa oli likainen esine", MsgType.Mistake);
+            }
+        }
+
+        if (gCount - 11 > 0) {
+            int minus = gCount - 11;
+            G.Instance.Progress.Calculator.SubtractWithScore(taskType, minus);
+            Popup("Väliantokaapissa oli liikaa esineitä", MsgType.Mistake);
+        }
+
         objectCount = containedObjects.Count;
         CheckConditions(containedObjects);
         if (door.IsClosed) {
@@ -123,7 +145,11 @@ public class CorrectItemsInThroughput : TaskBase {
 
     protected override void OnTaskComplete() {
 
+
+
     }
+
+
     #endregion
 
     #region Public Methods

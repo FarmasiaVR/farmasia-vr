@@ -29,7 +29,7 @@ public class MedicinePreparationSceneRestarter : MonoBehaviour {
 
         MedicinePreparationScene m = (MedicinePreparationScene)G.Instance.Scene;
 
-        m.PlayFirstRoom(Points);
+        m.PlayFirstRoom(Points, 1);
 
         while (m.IsAutoPlaying) {
             yield return null;

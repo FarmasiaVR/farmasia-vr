@@ -15,13 +15,13 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
         Subscribe();
-        points = 1;
+        points = 0;
     }
     #endregion
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInThroughput);
     }
 
@@ -29,7 +29,7 @@ public class CorrectLayoutInThroughput : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 

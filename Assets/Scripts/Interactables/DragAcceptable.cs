@@ -67,6 +67,10 @@ public class DragAcceptable : Interactable {
         Hidden = hide;
         GetComponent<Collider>().isTrigger = hide;
         GetComponent<Renderer>().enabled = !hide;
+        foreach (Transform child in transform) {
+            var r = child.GetComponent<Renderer>();
+            r.enabled = !hide;
+        }
     }
 
     #region Updating
@@ -119,7 +123,6 @@ public class DragAcceptable : Interactable {
 
     #region Activating
     protected virtual void Activate() {
-
         if (ActivateCount >= ActivateCountLimit && ActivateCountLimit >= 0) {
             return;
         }
@@ -131,7 +134,9 @@ public class DragAcceptable : Interactable {
         ActivateCount++;
     }
     private void Release() {
-        Hand.GrabbingHand(this)?.Uninteract();
+        if (IsGrabbed) {
+            Hand.GrabbingHand(this)?.Uninteract();
+        }
     }
 
     public void SafeDestroy() {

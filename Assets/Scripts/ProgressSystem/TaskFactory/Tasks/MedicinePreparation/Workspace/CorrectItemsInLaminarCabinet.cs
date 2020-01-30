@@ -34,7 +34,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
     }
 
@@ -42,7 +42,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedInCabinet);
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
 
@@ -136,7 +136,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (objectCount == 12) {
             Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
         } else {
-            Popup("Liikaa työvälineitä.", MsgType.Error, -1);
+            Popup("Liikaa työvälineitä.", MsgType.Mistake, -1);
             G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
         }
     }
