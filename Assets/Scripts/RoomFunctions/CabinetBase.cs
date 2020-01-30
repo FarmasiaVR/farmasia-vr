@@ -41,7 +41,7 @@ public class CabinetBase : MonoBehaviour {
 
     private bool capFactoryEnabled = false;
     public bool CapFactoryEnabled => capFactoryEnabled;
-    
+
 
     private Pipeline capBagEnterPipeline;
     private bool folded;
@@ -98,9 +98,13 @@ public class CabinetBase : MonoBehaviour {
         }
 
         if (!itemPlaced) {
-            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(this));
+            Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
             itemPlaced = true;
         }
+        if (type == CabinetType.Laminar) {
+            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(item));
+        }
+
         if (!objectsInsideArea.Contains(foundObject)) {
             objectsInsideArea.Add(foundObject);
             ObjectType type = item.ObjectType;
