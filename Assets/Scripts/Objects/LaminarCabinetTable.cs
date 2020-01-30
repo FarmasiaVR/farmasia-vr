@@ -28,8 +28,8 @@ public class LaminarCabinetTable : MonoBehaviour {
 
         IEnumerator Wait() {
             yield return new WaitForSeconds(ContaminateTime);
-            
-            if (!safeZone.Contains(item) && contaminateZone.Contains(item)) {
+
+            if (!safeZone.Contains(item) && contaminateZone.Contains(item) && item.IsClean) {
                 UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
                 G.Instance.Progress.AddMistake("Esine koski laminaarikaapin pintaa");
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;

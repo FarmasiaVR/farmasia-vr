@@ -11,7 +11,8 @@ public class ProgressManager {
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
 
-    public Dictionary<string, int> Mistakes;
+    public Dictionary<string, int> Mistakes { get; private set; }
+    public HashSet<string> TaskMistakes { get; private set; }
     #endregion
 
     #region Constructor
@@ -22,6 +23,7 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
+        TaskMistakes = new HashSet<string>();
         Mistakes = new Dictionary<string, int>();
     }
 
@@ -184,6 +186,10 @@ public class ProgressManager {
             Logger.Print(task.GetType());
         }
     }
+
+    internal void AddTaskMistake(string message) {
+        TaskMistakes.Add(message);
+    }
     #endregion
 
     #region Finishing Packages and Manager
@@ -208,7 +214,7 @@ public class ProgressManager {
                 RemoveTask(task);
                 string scoreString;
                 int score;
-                Calculator.GetScoreString(out score, out scoreString, Mistakes);
+                Calculator.GetScoreString(out score, out scoreString, this);
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);
                 break;

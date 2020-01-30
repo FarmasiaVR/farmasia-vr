@@ -13,7 +13,6 @@ public class ItemsToSterileBag : TaskBase {
     public enum Conditions { SyringesPut }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectAmountOfMedicineSelected };
     private CabinetBase laminarCabinet;
-    bool TaskMovedToSide;
     private SterileBag sterileBag;
 
     private const int correctCapacity = 1000;
@@ -37,7 +36,6 @@ public class ItemsToSterileBag : TaskBase {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 2;
-        TaskMovedToSide = false;
     }
     #endregion
 
@@ -118,7 +116,9 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Public Methods
     public override void FinishTask() {
+        Logger.Print("TRYING TO FINISHNESTHG STERILEBVAG");
         if (!isFinished) {
+            Logger.Print("Finsihsetin sterilebag");
             //if (sterileBag.Syringes.Count >= 6) {
             //    if (CapsOnSyringes()) {
             //        if (TaskMovedToSide) {
@@ -159,10 +159,11 @@ public class ItemsToSterileBag : TaskBase {
                 Popup(errorString, MsgType.Mistake);
                 G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, mistakes);
             } else {
-                if (TaskMovedToSide) {
-                    Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
-                }
+                Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
             }
+
+            Logger.Print("Mistake amount " + mistakes);
+            Logger.Error(errorString);
 
             base.FinishTask();
         }
@@ -183,22 +184,22 @@ public class ItemsToSterileBag : TaskBase {
 
     private void CheckSyringe(Syringe syringe, ref int mistakes, ref HashSet<SterileBagMistake> mistakesList) {
         if (syringe.Container.Capacity != correctCapacity) {
-            mistakes--;
+            mistakes++;
             mistakesList.Add(SterileBagMistake.IncorrectSyringe);
         }
 
         if (!syringe.HasSyringeCap) {
-            mistakes--;
+            mistakes++;
             mistakesList.Add(SterileBagMistake.NoCap);
         }
 
         if (syringe.Container.Amount != correctAmount) {
-            mistakes--;
+            mistakes++;
             mistakesList.Add(SterileBagMistake.IncorrectAmountOfMedicine);
         }
 
         if (!syringe.IsClean) {
-            mistakes--;
+            mistakes++;
             mistakesList.Add(SterileBagMistake.ContaminatedSyringe);
         }
     }

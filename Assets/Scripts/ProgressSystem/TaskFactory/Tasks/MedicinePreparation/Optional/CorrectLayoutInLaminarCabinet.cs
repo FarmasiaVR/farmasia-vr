@@ -15,7 +15,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false, false) {
         base.unsubscribeAllEvents = false;
         Subscribe();
-        points = 1;
+        points = 0;
     }
     #endregion
 

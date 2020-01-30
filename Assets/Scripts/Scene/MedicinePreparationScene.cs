@@ -36,7 +36,7 @@ public class MedicinePreparationScene : SceneScript {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            PlayFirstRoom(2);
+            PlayFirstRoom(2, 1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             DebugTheShitOutOfProgressManager();
@@ -55,15 +55,15 @@ public class MedicinePreparationScene : SceneScript {
         }
     }
 
-    public void PlayFirstRoom(int points, int autoPlayeStrentgh = 0) {
+    public void PlayFirstRoom(int points, int str = 0) {
 
-        if (IsAutoPlaying || played || autoPlayStrength == 0) {
+        if (IsAutoPlaying || played || str == 0) {
             return;
         }
         played = true;
         IsAutoPlaying = true;
 
-        StartCoroutine(PlayCoroutine(points, autoPlayStrength));
+        StartCoroutine(PlayCoroutine(points, str));
     }
 
     private Vector3 SpawnPos {
@@ -213,11 +213,11 @@ public class MedicinePreparationScene : SceneScript {
         IgnoreCollisions(all, false);
         yield return null;
 
+        IsAutoPlaying = false;
+
         if (autoPlay == 1) {
             yield break;
         }
-
-        IsAutoPlaying = false;
 
         Vector3 offSet = new Vector3(-0.4f, 0.5f, 0);
         Vector3 Offset() {

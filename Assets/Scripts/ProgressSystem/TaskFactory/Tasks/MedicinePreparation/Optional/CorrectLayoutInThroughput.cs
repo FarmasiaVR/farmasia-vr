@@ -15,7 +15,7 @@ public class CorrectLayoutInThroughput : TaskBase {
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
         Subscribe();
-        points = 1;
+        points = 0;
     }
     #endregion
 

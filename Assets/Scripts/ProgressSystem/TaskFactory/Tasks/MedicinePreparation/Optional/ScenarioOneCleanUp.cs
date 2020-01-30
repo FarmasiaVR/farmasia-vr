@@ -23,7 +23,13 @@ public class ScenarioOneCleanUp : TaskBase {
     }
     #endregion
 
-    #region Event Subscriptions
+    public override void StartTask() {
+        CheckCleaniness();
+    }
+    
+
+
+    #region Event Subscription
     /// <summary>
     /// Subscribes to required Events.
     /// </summary>
@@ -79,14 +85,24 @@ public class ScenarioOneCleanUp : TaskBase {
         if (G.Instance.Progress.IsCurrentPackage(PackageName.EquipmentSelection)) {
             return;
         }
+        
         GeneralItem item = data.DataObject as GeneralItem;
         if (!item.IsClean) {
-            if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
+
+            if (!G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp) && item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
                 Popup("Esine laitettiin roskakoriin liian aikaisin.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.ScenarioOneCleanUp);
             }
             itemsToBeCleaned.Remove(item);
         }
+
+        if (G.Instance.Progress.IsCurrentPackage(PackageName.CleanUp)) {
+            CheckCleaniness();
+        }
+        
+    }
+
+    private void CheckCleaniness() {
         if (itemsToBeCleaned.Count == 0 && base.package != null) {
             CompleteTask();
         }

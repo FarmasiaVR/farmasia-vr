@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Finish : TaskBase {
@@ -72,7 +73,7 @@ public class Finish : TaskBase {
         foreach (Package p in G.Instance.Progress.packages) {
             if (p.name == PackageName.Workspace) {
                 if (!p.doneTypes.Contains(TaskType.ItemsToSterileBag)) {
-                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag)?.FinishTask();
+                    G.Instance.Progress.FindTaskWithType(TaskType.ItemsToSterileBag).FinishTask();
                 }
                 break;
             }
@@ -125,13 +126,16 @@ public class Finish : TaskBase {
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
+    public override async void FinishTask() {
+
+
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
+        await Task.Delay(1000);
         CompleteTask();
         base.FinishTask();
     }

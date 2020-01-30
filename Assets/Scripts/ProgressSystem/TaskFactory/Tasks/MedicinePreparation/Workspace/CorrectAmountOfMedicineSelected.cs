@@ -7,15 +7,15 @@ using UnityEngine;
 public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Constants
-    private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
-    private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
+    private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 150;
+    private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 150;
 
     private const string DESCRIPTION = "Vedä ruiskuun lääkettä.";
     private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
     #endregion
 
     #region Fields
-    public enum Conditions { RightAmountOfMedicine }
+    public enum Conditions { }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
     private CabinetBase laminarCabinet;
@@ -61,7 +61,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
  
         if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
             if (IsPreviousTasksCompleted(requiredTasks)) {
-                Logger.Print("YES");
                 if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
                     attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
 
@@ -76,13 +75,11 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
                             Popup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
                         }
                     } else {
-                        EnableCondition(Conditions.RightAmountOfMedicine);
                         CompleteTask();
                         return;
                     }
                 }
             } else {
-                Logger.Print("NO");
                 attachedSyringes.Remove(s.GetInstanceID());
             }
 

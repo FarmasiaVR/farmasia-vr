@@ -9,11 +9,13 @@ public class MedicineToSyringe : TaskBase {
 
     private const string DESCRIPTION = "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.";
     private const string HINT = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
+
+    private Syringe syringe;
     #endregion
 
     #region Fields
     // private Dictionary<int, int> syringes = new Dictionary<int, int>();
-    public enum Conditions { RightSize, RightAmountInSyringe }
+    public enum Conditions { }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.CorrectItemsInLaminarCabinet };
     private CabinetBase laminarCabinet;
     #endregion
@@ -54,7 +56,7 @@ public class MedicineToSyringe : TaskBase {
     }
 
     private void FinishedTakingMedicineToSyringe(CallbackData data) {
-        Syringe s = (Syringe)data.DataObject;
+        syringe = (Syringe)data.DataObject;
 
         if (laminarCabinet == null) {
             if (!takenBeforeTime) {
@@ -64,7 +66,7 @@ public class MedicineToSyringe : TaskBase {
             } else {
                 Popup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
             }
-        } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+        } else if (!laminarCabinet.objectsInsideArea.Contains(syringe.gameObject)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
             Popup("Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
         } else {
@@ -72,34 +74,9 @@ public class MedicineToSyringe : TaskBase {
                 Popup("Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
             }
-            CheckConditions(s);
+            //CheckConditions(s);
         }
-    }
-
-
-    private void CheckConditions(Syringe syringe) {
-        if (syringe.Container.Amount >= MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE) {
-            EnableCondition(Conditions.RightAmountInSyringe);
-        }
-        if (syringe.Container.Capacity == RIGHT_SYRINGE_CAPACITY) {
-            EnableCondition(Conditions.RightSize);
-        }
-
         CompleteTask();
-
-        if (!IsCompleted()) {
-            ReceivedPoints();
-        }
-    }
-
-    private void ReceivedPoints() {
-        if (base.GetNonClearedConditions().Count == 2) {
-            Popup("Väärä ruiskun koko ja määrä lääkettä.", MsgType.Mistake, -2);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 2);
-        } else {
-            Popup("Väärä ruiskun koko tai määrä lääkettä.", MsgType.Mistake, -1);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.MedicineToSyringe, 1);
-        }
     }
     #endregion
 
@@ -114,7 +91,20 @@ public class MedicineToSyringe : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        Popup("Lääkkeen ottaminen onnistui.", MsgType.Notify, 2);
+
+        bool fail = false;
+        if (syringe.Container.Capacity != RIGHT_SYRINGE_CAPACITY) {
+            Popup("Väärän kokoinen ruisku", MsgType.Mistake, -1);
+            fail = true;
+        }
+        if (syringe.Container.Amount < MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE) {
+            Popup("Liian vähän lääkettä", MsgType.Mistake, -1);
+            fail = true;
+        }
+
+        if (!fail) {
+            Popup("Lääkkeen ottaminen onnistui.", MsgType.Notify, 2);
+        }
     }
     #endregion
 }

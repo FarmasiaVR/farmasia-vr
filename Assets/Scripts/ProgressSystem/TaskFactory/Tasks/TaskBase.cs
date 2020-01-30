@@ -53,6 +53,10 @@ public abstract class TaskBase : ITask {
 
     protected abstract void OnTaskComplete();
 
+    public void ForceComplete() {
+
+    }
+
     public virtual void FinishTask() {
         UnsubscribeAllEvents();
         isFinished = true;
@@ -206,6 +210,7 @@ public abstract class TaskBase : ITask {
 
     protected void Popup(string message, MsgType type, int point = int.MaxValue) {
         if (point != int.MaxValue) {
+            G.Instance.Progress.AddTaskMistake(message);
             UISystem.Instance.CreatePopup(point, message, type);
         } else {
             UISystem.Instance.CreatePopup(message, type);
