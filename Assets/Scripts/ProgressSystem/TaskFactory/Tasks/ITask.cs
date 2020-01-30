@@ -5,6 +5,8 @@ public interface ITask {
     TaskType GetTaskType();
     void SetPackage(Package package);
     void StartTask();
+
+    void ForceClose();
     /// <summary>
     /// Checks for task completion. Determines will the task be finished or moved.
     /// </summary>

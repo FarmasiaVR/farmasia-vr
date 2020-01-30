@@ -35,19 +35,28 @@ public abstract class TaskBase : ITask {
     }
 
     #region Task Progression
+    public void ForceClose() {
+        G.Instance.Progress.Calculator.SetScoreToZero(taskType);
+        G.Instance.Progress.AddMistake("Tehtävää ei suoritettu!", 2);
+        CloseTask();
+    }
+
     public virtual void StartTask() {
         started = true;
     }
 
     public virtual void CompleteTask() {
-
         completed = CheckClearConditions();
         if (completed) {
-            RemoveFromPackage();
-            OnTaskComplete();
-            if (unsubscribeAllEvents) {
-                UnsubscribeAllEvents();
-            }
+            CloseTask();
+        }
+    }
+
+    private void CloseTask() {
+        RemoveFromPackage();
+        OnTaskComplete();
+        if (unsubscribeAllEvents) {
+            UnsubscribeAllEvents();
         }
     }
 

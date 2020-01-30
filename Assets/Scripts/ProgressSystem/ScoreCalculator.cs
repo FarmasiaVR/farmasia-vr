@@ -71,6 +71,13 @@ public class ScoreCalculator {
         beforeTime.Add(task.ToString());
     }
 
+    public void SetScoreToZero(TaskType task) {
+        if (!points.ContainsKey(task)) {
+            return;
+        }
+        points[task] = 0;
+    } 
+
     private enum Colour {
         Yellow,
         Black,
