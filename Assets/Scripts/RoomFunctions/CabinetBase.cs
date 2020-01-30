@@ -36,6 +36,8 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
+    [SerializeField]
+    private GameObject syringeCapFactoryPos = null;
 
     private bool capFactoryEnabled = false;
     public bool CapFactoryEnabled => capFactoryEnabled;
@@ -192,8 +194,8 @@ public class CabinetBase : MonoBehaviour {
             Vector3 startPos = capBag.transform.position;
             Quaternion startRot = capBag.transform.rotation;
 
-            Vector3 targetPos = syringeCapFactory.transform.position;
-            Quaternion targetRot = syringeCapFactory.transform.rotation;
+            Vector3 targetPos = syringeCapFactoryPos.transform.position;
+            Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
 
             float time = 2.5f;
             float currentTime = 0;
