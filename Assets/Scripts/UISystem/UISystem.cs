@@ -73,6 +73,9 @@ public class UISystem : MonoBehaviour {
     }
 
     public void CreatePopup(string message, MsgType type) {
+        if (type == MsgType.Mistake) {
+            G.Instance.Progress.AddTaskMistake(message);
+        }
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
         SetCurrentPopup(popupMessage);

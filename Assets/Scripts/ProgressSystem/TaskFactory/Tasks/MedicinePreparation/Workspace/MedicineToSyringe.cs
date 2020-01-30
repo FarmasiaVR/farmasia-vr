@@ -92,6 +92,10 @@ public class MedicineToSyringe : TaskBase {
 
     protected override void OnTaskComplete() {
 
+        if (syringe == null) {
+            return;
+        }
+
         bool fail = false;
         if (syringe.Container.Capacity != RIGHT_SYRINGE_CAPACITY) {
             Popup("Väärän kokoinen ruisku", MsgType.Mistake, -1);

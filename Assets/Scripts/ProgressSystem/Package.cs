@@ -88,7 +88,14 @@ public class Package {
     }
 
     public void ForceClosePreviousTasks(ITask calledTask) {
+
+        List<ITask> tasks = new List<ITask>();
+
         foreach (ITask task in activeTasks) {
+            tasks.Add(task);
+          
+        }
+        foreach (ITask task in tasks) {
             if (calledTask.GetTaskType() == task.GetTaskType()) {
                 return;
             }
