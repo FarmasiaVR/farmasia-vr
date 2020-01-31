@@ -6,7 +6,7 @@ public interface ITask {
     void SetPackage(Package package);
     void StartTask();
 
-    void ForceClose();
+    void ForceClose(bool taskHasPoints);
     /// <summary>
     /// Checks for task completion. Determines will the task be finished or moved.
     /// </summary>

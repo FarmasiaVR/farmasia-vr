@@ -43,6 +43,12 @@ public class SterileBag : GeneralItem {
         }
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            CloseSterileBagFinal();
+        }
+    }
+
     private void OnBagEnter(Collider other) {
 
         Syringe syringe = Interactable.GetInteractable(other.transform) as Syringe;

@@ -84,9 +84,9 @@ public class CabinetBase : MonoBehaviour {
         //}
         //EnteredObjects.Add(item);
 
-        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
+        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && type == CabinetType.Laminar) {
             UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
-            G.Instance.Progress.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+            G.Instance.Progress.Calculator.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
 
             // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
             item.Contamination = GeneralItem.ContaminateState.Clean;

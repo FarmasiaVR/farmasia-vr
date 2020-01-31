@@ -17,6 +17,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     private bool firstCheckDone = false;
     
     private CabinetBase laminarCabinet;
+
     #endregion
 
     #region Constructor
@@ -133,11 +134,46 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        if (objectCount == 12) {
+
+        int syringeCount = 0;
+
+        int luerlockCount = 0;
+        int needleCount = 0;
+        int bottleCount = 0;
+        bool correctBottle = false;
+
+        int uncleanCount = 0;
+
+        foreach (var item in laminarCabinet.GetContainedItems()) {
+            if (Interactable.GetInteractable(item.transform) as GeneralItem is var g && g != null) {
+                if (g.ObjectType == ObjectType.Syringe) {
+                    syringeCount++;
+                } else if (g.ObjectType == ObjectType.Luerlock) {
+                    luerlockCount++;
+                } else if (g.ObjectType == ObjectType.Needle) {
+                    needleCount++;
+                } else if (g.ObjectType == ObjectType.Bottle) {
+                    bottleCount++;
+
+                    int capacity = ((MedicineBottle)g).Container.Capacity;
+                    if (capacity == 4000) {
+                        correctBottle = true;
+                    }
+                }
+
+                if (!g.IsClean && g.ObjectType != ObjectType.Bottle) {
+                    uncleanCount++;
+                }
+            }
+        }
+
+        if (syringeCount == 7 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
             Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
-        } else {
-            Popup("Liikaa työvälineitä.", MsgType.Mistake, -1);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInLaminarCabinet);
+        }
+
+        if (uncleanCount > 0) {
+            G.Instance.Progress.Calculator.SubtractWithScore(taskType, uncleanCount);
+            Popup("Likainen esine laminaarikaapissa", MsgType.Mistake, uncleanCount);
         }
     }
     #endregion

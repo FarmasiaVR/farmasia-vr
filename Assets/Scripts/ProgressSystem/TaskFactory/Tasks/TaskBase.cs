@@ -35,9 +35,18 @@ public abstract class TaskBase : ITask {
     }
 
     #region Task Progression
-    public void ForceClose() {
-        G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-        G.Instance.Progress.AddMistake("Tehtävää ei suoritettu!", 2);
+    public virtual void ForceClose(bool taskHasPoints) {
+        if (IsCompleted()) {
+            return;
+        }
+
+        Logger.PrintVariables("Force closing", taskType);
+        
+        if (taskHasPoints) {
+            Logger.Print("Task has points: " + taskType + ", points: " + points);
+            G.Instance.Progress.Calculator.SetScoreToZero(taskType);
+            G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
+        }
         CloseTask();
     }
 
@@ -52,7 +61,7 @@ public abstract class TaskBase : ITask {
         }
     }
 
-    private void CloseTask() {
+    protected void CloseTask() {
         RemoveFromPackage();
         OnTaskComplete();
         if (unsubscribeAllEvents) {
@@ -61,10 +70,6 @@ public abstract class TaskBase : ITask {
     }
 
     protected abstract void OnTaskComplete();
-
-    public void ForceComplete() {
-
-    }
 
     public virtual void FinishTask() {
         UnsubscribeAllEvents();

@@ -65,15 +65,18 @@ public class CorrectItemsInThroughput : TaskBase {
             }
 
             if (!g.IsClean) {
+                if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                    continue;
+                }
                 G.Instance.Progress.Calculator.Subtract(taskType);
-                Popup("Väliantokaapissa oli likainen esine", MsgType.Mistake);
+                Popup("Läpiantokaapissa oli likainen esine", MsgType.Mistake);
             }
         }
 
         if (gCount - 11 > 0) {
             int minus = gCount - 11;
             G.Instance.Progress.Calculator.SubtractWithScore(taskType, minus);
-            Popup("Väliantokaapissa oli liikaa esineitä", MsgType.Mistake);
+            Popup("Läpiantokaapissa oli liikaa esineitä", MsgType.Mistake);
         }
 
         objectCount = containedObjects.Count;
@@ -155,7 +158,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #region Public Methods
     public override void CompleteTask() {
         base.CompleteTask();
-        Logger.Print("ONKO HOIDETTU: " + IsCompleted());
+
         if (IsCompleted()) {
             if (!correctMedicineBottle) {
                 Popup("Liian iso lääkepullo.", MsgType.Mistake, -1);
@@ -164,7 +167,7 @@ public class CorrectItemsInThroughput : TaskBase {
             if (objectCount == 11) {
                 Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
             } else {
-                Popup("Liikaa työvälineitä.", MsgType.Notify, -1);
+                Popup("Liikaa työvälineitä läpiantokaapissa.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();

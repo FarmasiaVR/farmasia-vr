@@ -31,12 +31,12 @@ public class MedicinePreparationScene : SceneScript {
     protected override void Start() {
         base.Start();
         NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, correctPositions, teleportDoorKnob);
-        PlayFirstRoom(2, autoPlayStrength);
+        PlayFirstRoom(autoPlayStrength);
     }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            PlayFirstRoom(2, 1);
+            PlayFirstRoom(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             DebugTheShitOutOfProgressManager();
@@ -55,7 +55,7 @@ public class MedicinePreparationScene : SceneScript {
         }
     }
 
-    public void PlayFirstRoom(int points, int str = 0) {
+    public void PlayFirstRoom(int str = 0) {
 
         if (IsAutoPlaying || played || str == 0) {
             return;
@@ -63,7 +63,7 @@ public class MedicinePreparationScene : SceneScript {
         played = true;
         IsAutoPlaying = true;
 
-        StartCoroutine(PlayCoroutine(points, str));
+        StartCoroutine(PlayCoroutine(str));
     }
 
     private Vector3 SpawnPos {
@@ -75,21 +75,18 @@ public class MedicinePreparationScene : SceneScript {
 
     public override void Restart() {
         if (InSecondRoom) {
-            Logger.Warning("Get first room points here");
-            int points = 0;
-
             GameObject g = new GameObject();
             MedicinePreparationSceneRestarter r = g.AddComponent<MedicinePreparationSceneRestarter>();
             DontDestroyOnLoad(g);
 
-            r.Points = points;
+            r.ScoreState = G.Instance.Progress.SavedScoreState;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } else {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
-    private IEnumerator PlayCoroutine(int points, int autoPlay) {
+    private IEnumerator PlayCoroutine(int autoPlay) {
 
         yield return null;
         yield return null;

@@ -77,7 +77,7 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
     #endregion
 }

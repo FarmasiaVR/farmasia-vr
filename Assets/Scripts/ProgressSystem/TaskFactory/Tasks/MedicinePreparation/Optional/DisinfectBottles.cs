@@ -61,7 +61,26 @@ public class DisinfectBottles : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+    }
+
+    public override void ForceClose(bool killpoints) {
+        if (IsCompleted()) {
+            return;
+        }
+
+        Logger.PrintVariables("Force closing", taskType);
+
+        if (killpoints) {
+
+            if (!allUsedBottlesWereDisinfected) {
+                G.Instance.Progress.Calculator.SetScoreToZero(taskType);
+            }
+
+            Logger.Print("Task has points: " + taskType + ", points: " + points);
+            G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
+        }
+        CloseTask();
     }
     #endregion
 }

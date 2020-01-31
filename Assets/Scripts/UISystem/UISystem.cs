@@ -68,7 +68,7 @@ public class UISystem : MonoBehaviour {
     /// <param name="type">Type of message. Different types have different colours.</param>
     public void CreatePopup(int point, string message, MsgType type) {
         if (type == MsgType.Mistake) {
-            G.Instance.Progress.AddTaskMistake(message);
+            G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
@@ -77,7 +77,7 @@ public class UISystem : MonoBehaviour {
 
     public void CreatePopup(string message, MsgType type) {
         if (type == MsgType.Mistake) {
-            G.Instance.Progress.AddTaskMistake(message);
+            G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
