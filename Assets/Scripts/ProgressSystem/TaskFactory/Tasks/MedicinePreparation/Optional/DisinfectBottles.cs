@@ -32,14 +32,11 @@ public class DisinfectBottles : TaskBase {
     /// </summary>
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        FinishTask();
+        G.Instance.Progress.ForceCloseTask(taskType, false);
     }
     #endregion
 
     #region Public Methods
-    public override void FinishTask() {
-        base.FinishTask();
-    }
 
     public override string GetDescription() {
         return base.GetDescription();

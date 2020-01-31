@@ -93,7 +93,7 @@ public class CabinetBase : MonoBehaviour {
             item.Contamination = GeneralItem.ContaminateState.Contaminated;
         }
 
-        if (Time.timeSinceLevelLoad > 5) {
+        if (Time.timeSinceLevelLoad > 1) {
             UnfoldCloth();
         }
 

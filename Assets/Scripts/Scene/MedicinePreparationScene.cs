@@ -18,6 +18,9 @@ public class MedicinePreparationScene : SceneScript {
     private Transform correctPositions;
 
     [SerializeField]
+    private Transform correctPositionLaminarCabinet;
+
+    [SerializeField]
     private Interactable teleportDoorKnob;
 
     private bool played;
@@ -218,22 +221,33 @@ public class MedicinePreparationScene : SceneScript {
             yield break;
         }
 
-        Vector3 offSet = new Vector3(-0.4f, 0.5f, 0);
-        Vector3 Offset() {
-            offSet += new Vector3(0.1f, 0, 0);
-            return offSet;
-        }
+        yield return new WaitForSeconds(1);
 
-        CabinetBase cabinet = GameObject.FindObjectOfType<CabinetBase>();
+        capBag.transform.position = correctPositionLaminarCabinet.GetChild(0).position;
+        capBag.transform.up = correctPositions.right;
+        capBag.Rigidbody.velocity = Vector3.zero;
+        yield return null;
+        luerlock.transform.position = correctPositionLaminarCabinet.GetChild(1).position;
+        luerlock.transform.up = correctPositions.right;
+        luerlock.Rigidbody.velocity = Vector3.zero;
+        yield return null;
+        needle.transform.position = correctPositionLaminarCabinet.GetChild(2).position;
+        needle.transform.up = correctPositions.right;
+        needle.Rigidbody.velocity = Vector3.zero;
+        yield return null;
+        bigSyringe.transform.position = correctPositionLaminarCabinet.GetChild(3).position;
+        bigSyringe.transform.up = correctPositions.right;
+        bigSyringe.Rigidbody.velocity = Vector3.zero;
+        yield return null;
+        bottle.transform.position = correctPositionLaminarCabinet.GetChild(4).position;
+        bottle.transform.up = correctPositions.right;
+        bottle.Rigidbody.velocity = Vector3.zero;
 
-        capBag.transform.position = cabinet.transform.position + Offset();
-        luerlock.transform.position = cabinet.transform.position + Offset();
-        needle.transform.position = cabinet.transform.position + Offset();
-        bigSyringe.transform.position = cabinet.transform.position + Offset();
-        bottle.transform.position = cabinet.transform.position + Offset();
-
-        foreach (var s in smallSyringes) {
-            s.transform.position = cabinet.transform.position + Offset();
+        for (int i = 0; i < 6; i++) {
+            smallSyringes[i].transform.position = correctPositionLaminarCabinet.GetChild(5 + i).position;
+            smallSyringes[i].transform.up = correctPositions.right;
+            smallSyringes[i].Rigidbody.velocity = Vector3.zero;
+            yield return null;
         }
     }
 

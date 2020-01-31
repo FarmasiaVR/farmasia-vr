@@ -44,12 +44,18 @@ public abstract class TaskBase : ITask {
         
         if (taskHasPoints) {
             Logger.Print("Task has points: " + taskType + ", points: " + points);
-            G.Instance.Progress.Calculator.SetScoreToZero(taskType);
             if (taskType != TaskType.DisinfectBottles) {
+                G.Instance.Progress.Calculator.SetScoreToZero(taskType);
                 G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
             }
         }
+        // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
+        CompleteTask();
+        FinishTask();
+        isFinished = true;
+        completed = true;
+        UnsubscribeAllEvents();
     }
 
     public virtual void StartTask() {
@@ -57,6 +63,7 @@ public abstract class TaskBase : ITask {
     }
 
     public virtual void CompleteTask() {
+        Logger.Print("COMPLETE TASK: " + taskType);
         completed = CheckClearConditions();
         if (completed) {
             CloseTask();
@@ -64,6 +71,9 @@ public abstract class TaskBase : ITask {
     }
 
     protected void CloseTask() {
+
+        Logger.Print("CLOSE TASK");
+
         RemoveFromPackage();
         OnTaskComplete();
         if (unsubscribeAllEvents) {
@@ -74,6 +84,7 @@ public abstract class TaskBase : ITask {
     protected abstract void OnTaskComplete();
 
     public virtual void FinishTask() {
+        Logger.Print("FINISH TASK");
         UnsubscribeAllEvents();
         isFinished = true;
     }

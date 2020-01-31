@@ -52,7 +52,9 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
 
-        usedSyringes.Add(s, 0);
+        if (!usedSyringes.ContainsKey(s)) {
+            usedSyringes.Add(s, 0);
+        }
 
         if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
             attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
@@ -67,9 +69,10 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         int minus = 0;
         int oldMinus = 0;
 
-        if (usedSyringes.ContainsKey(s)) {
-            oldMinus = usedSyringes[s];
+        if (!usedSyringes.ContainsKey(s)) {
+            return;
         }
+        oldMinus = usedSyringes[s];
 
         if (!s.IsClean) {
             minus--;
@@ -82,9 +85,15 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Done);
         }
 
+        if (minus > oldMinus) {
+            usedSyringes[s] = minus;
+        }
+
         if (usedSyringes.Count >= 6) {
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, minus - oldMinus);
-            CompleteTask();
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, minus);
+            G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
+            G.Instance.Progress.ForceCloseTask(taskType, false);
+            Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
         }
 
         //if (attachedSyringes.ContainsKey(s.GetInstanceID())) {

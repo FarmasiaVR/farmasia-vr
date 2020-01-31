@@ -53,7 +53,7 @@ public class MedicineToSyringe : TaskBase {
         if (!IsPreviousTasksCompleted(requiredTasks) && G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             Popup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
             G.Instance.Progress.ForceCloseTask(TaskType.CorrectItemsInLaminarCabinet, false);
-            G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles);
+            G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles, false);
         }
     }
 
