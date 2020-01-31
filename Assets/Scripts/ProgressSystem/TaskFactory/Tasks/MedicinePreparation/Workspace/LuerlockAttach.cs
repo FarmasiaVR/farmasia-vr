@@ -73,6 +73,12 @@ public class LuerlockAttach : TaskBase {
             MedicineSyringeCheck(item);
         }
 
+        if (!item.IsClean) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
+            UISystem.Instance.CreatePopup(-1, "Ruisku oli likainen", MsgType.Mistake);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+        }
+
         CompleteTask();
 
         if (!IsCompleted()) {

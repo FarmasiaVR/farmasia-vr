@@ -23,7 +23,7 @@ public class DisinfectBottles : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(DisinfectBottleCap, EventType.Disinfect);
+        base.SubscribeEvent(DisinfectBottleCap, EventType.BottleDisinfect);
     }
 
     /// <summary>
@@ -32,24 +32,13 @@ public class DisinfectBottles : TaskBase {
     /// </summary>
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        GeneralItem item = data.DataObject as GeneralItem;
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Bottle) {
-            MedicineBottle bottle = item as MedicineBottle;
-            if (!bottle.IsClean) {
-                allUsedBottlesWereDisinfected = false;
-            }
-        }
+        FinishTask();
     }
     #endregion
 
     #region Public Methods
     public override void FinishTask() {
-        if (!allUsedBottlesWereDisinfected) {
-            G.Instance.Progress.Calculator.Subtract(TaskType.DisinfectBottles);
-        }
         base.FinishTask();
-        
     }
 
     public override string GetDescription() {
@@ -62,25 +51,6 @@ public class DisinfectBottles : TaskBase {
 
     protected override void OnTaskComplete() {
         //throw new NotImplementedException();
-    }
-
-    public override void ForceClose(bool killpoints) {
-        if (IsCompleted()) {
-            return;
-        }
-
-        Logger.PrintVariables("Force closing", taskType);
-
-        if (killpoints) {
-
-            if (!allUsedBottlesWereDisinfected) {
-                G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-            }
-
-            Logger.Print("Task has points: " + taskType + ", points: " + points);
-            G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
-        }
-        CloseTask();
     }
     #endregion
 }

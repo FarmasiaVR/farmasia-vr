@@ -45,7 +45,9 @@ public abstract class TaskBase : ITask {
         if (taskHasPoints) {
             Logger.Print("Task has points: " + taskType + ", points: " + points);
             G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-            G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
+            if (taskType != TaskType.DisinfectBottles) {
+                G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
+            }
         }
         CloseTask();
     }

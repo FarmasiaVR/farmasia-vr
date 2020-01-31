@@ -22,7 +22,8 @@ public class DisinfectingCloth : GeneralItem {
             MedicineBottle bottle = item as MedicineBottle;
             if (!bottle.IsClean) {
                 bottle.Contamination = ContaminateState.Clean;
-                UISystem.Instance.CreatePopup("Lääkepullon korkki puhdistettu.", MsgType.Notify);
+                UISystem.Instance.CreatePopup("Lääkepullon korkki puhdistettu.", MsgType.Done);
+                Events.FireEvent(EventType.BottleDisinfect, CallbackData.Object(bottle));
             }
         }
     }

@@ -53,7 +53,7 @@ public class MedicineToSyringe : TaskBase {
         if (!IsPreviousTasksCompleted(requiredTasks) && G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             Popup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
             G.Instance.Progress.ForceCloseTask(TaskType.CorrectItemsInLaminarCabinet, false);
-            G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles, false);
+            G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles);
         }
     }
 
@@ -111,7 +111,7 @@ public class MedicineToSyringe : TaskBase {
         }
         if (!syringe.IsClean) {
             G.Instance.Progress.Calculator.Subtract(taskType);
-            Popup("Ruisku oli likainen", MsgType.Mistake, -1);
+            Popup("Ruisku tai pullo oli likainen", MsgType.Mistake, -1);
             fail = true;
         }
 

@@ -66,19 +66,21 @@ public class UISystem : MonoBehaviour {
     /// <param name="point">Amount of points for the task. Some tasks do not use this.</param>
     /// <param name="message">Message to be displayed for the player.</param>
     /// <param name="type">Type of message. Different types have different colours.</param>
-    public void CreatePopup(int point, string message, MsgType type) {
-        if (type == MsgType.Mistake) {
+    public void CreatePopup(int point, string message, MsgType type, bool taskMistake = true) {
+        if (type == MsgType.Mistake && taskMistake) {
             G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
+        Logger.Print("Popup: " + message);
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
         SetCurrentPopup(popupMessage);
     }
 
-    public void CreatePopup(string message, MsgType type) {
-        if (type == MsgType.Mistake) {
+    public void CreatePopup(string message, MsgType type, bool taskMistake = true) {
+        if (type == MsgType.Mistake && taskMistake) {
             G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
+        Logger.Print("Popup: " + message);
         GameObject popupMessage = InitUIComponent(popupPrefab);
         popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
         SetCurrentPopup(popupMessage);

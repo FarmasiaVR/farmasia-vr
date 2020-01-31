@@ -173,7 +173,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
         if (uncleanCount > 0) {
             G.Instance.Progress.Calculator.SubtractWithScore(taskType, uncleanCount);
-            Popup("Likainen esine laminaarikaapissa", MsgType.Mistake, uncleanCount);
+            Popup("Likainen esine laminaarikaapissa", MsgType.Mistake, -uncleanCount);
         }
     }
     #endregion

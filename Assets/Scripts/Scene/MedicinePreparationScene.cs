@@ -26,6 +26,8 @@ public class MedicinePreparationScene : SceneScript {
     private Vector3 spawnPos = new Vector3(1000, 1000, 1000);
 
     public bool InSecondRoom { get; set; }
+
+    public bool NeedleUsed { get; set; }
     #endregion
 
     protected override void Start() {

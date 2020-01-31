@@ -9,7 +9,7 @@
     CorrectItemsInLaminarCabinet,
     CorrectLayoutInLaminarCabinet,
     Missing,
-    Disinfect,
+    BottleDisinfect,
     AttachLuerlock,
     AmountOfMedicine,
     CloseSterileBag,

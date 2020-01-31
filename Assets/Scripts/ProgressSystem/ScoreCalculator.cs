@@ -181,7 +181,9 @@ public class ScoreCalculator {
         }
         taskMistakes += Text(coloredMistakes, Colour.Red);
 
-        summary += "Kokonaispistemäärä: " + Text("" +  score, Colour.Blue) + " / " + maxScore + "!\n";
+        Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
+
+        summary += "Kokonaispistemäärä: " + Text("" +  score, pointColour) + " / " + maxScore + "!\n";
         scoreString = summary + scoreCountPerTask + taskMistakes + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }
