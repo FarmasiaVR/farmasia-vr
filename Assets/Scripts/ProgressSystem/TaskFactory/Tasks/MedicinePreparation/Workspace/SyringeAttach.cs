@@ -59,7 +59,7 @@ public class SyringeAttach : TaskBase {
         }
         if (!IsPreviousTasksCompleted(requiredTasks)) {
             return;
-        } else if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
+        } else if (!laminarCabinet.GetContainedItems().Contains(s)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
             Popup("Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
             attachedSyringes.Remove(s.GetInstanceID());

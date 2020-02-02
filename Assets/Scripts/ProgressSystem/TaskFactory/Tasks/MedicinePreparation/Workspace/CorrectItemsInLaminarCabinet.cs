@@ -55,7 +55,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
-        List<GameObject> objects = laminarCabinet.GetContainedItems();
+        List<Interactable> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
             Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
@@ -73,10 +73,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Private Methods
 
-    private void CheckConditions(List<GameObject> objects) {
+    private void CheckConditions(List<Interactable> objects) {
         SyringeCapFactoryEnabled();
-        foreach(GameObject value in objects) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
+        foreach(Interactable value in objects) {
+            GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:

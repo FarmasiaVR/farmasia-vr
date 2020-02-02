@@ -49,7 +49,7 @@ public class CorrectItemsInThroughput : TaskBase {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
-        List<GameObject> containedObjects = cabinet.GetContainedItems();
+        List<Interactable> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
@@ -57,9 +57,9 @@ public class CorrectItemsInThroughput : TaskBase {
 
         int gCount = 0;
 
-        foreach (GameObject obj in containedObjects) {
+        foreach (Interactable obj in containedObjects) {
 
-            GeneralItem g = Interactable.GetInteractable(obj.transform) as GeneralItem;
+            GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
             }
@@ -106,9 +106,9 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     #region Private Methods
-    private void CheckConditions(List<GameObject> containedObjects) {
-        foreach (GameObject value in containedObjects) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
+    private void CheckConditions(List<Interactable> containedObjects) {
+        foreach (Interactable value in containedObjects) {
+            GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:

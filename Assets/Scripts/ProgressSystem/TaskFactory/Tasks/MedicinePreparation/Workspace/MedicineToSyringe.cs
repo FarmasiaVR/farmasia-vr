@@ -68,7 +68,7 @@ public class MedicineToSyringe : TaskBase {
             } else {
                 Popup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
             }
-        } else if (!laminarCabinet.objectsInsideArea.Contains(syringe.gameObject)) {
+        } else if (!laminarCabinet.GetContainedItems().Contains(syringe)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
             Popup("Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
         } else {

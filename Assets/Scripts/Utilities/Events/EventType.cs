@@ -29,7 +29,6 @@
     FinishedTakingMedicineToSyringe,
     SyringeToLuerlock,
     SyringeFromLuerlock,
-    HandsExitLaminarCabinet,
     HandleGrabbed,
     PushingToSmallerSyringe,
     ItemDroppedInWrongTrash,
