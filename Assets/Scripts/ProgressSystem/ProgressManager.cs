@@ -6,13 +6,15 @@ public class ProgressManager {
 
     #region Fields
     private bool testMode;
+    private List<TaskBase> trueAllTasksThatAreNeverRemoved;
+    private Dictionary<TaskType, int> taskMaxPoints;
     private HashSet<ITask> allTasks;
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
 
-    public Dictionary<string, int> Mistakes { get; private set; }
-    public HashSet<string> TaskMistakes { get; private set; }
+
+    public byte[] SavedScoreState { get; private set; }
     #endregion
 
     #region Constructor
@@ -23,8 +25,35 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<ITask>();
         packages = new List<Package>();
-        TaskMistakes = new HashSet<string>();
-        Mistakes = new Dictionary<string, int>();
+    }
+
+    public void ForceCloseTasks(ITask calledTask) {
+
+        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count);
+
+        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
+            if (calledTask.GetTaskType() == task.GetTaskType()) {
+                continue;
+            }
+            if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
+                continue;
+            }
+            Logger.Print("max poings: " + task.GetTaskType() + ", pounts: " + taskMaxPoints[task.GetTaskType()]);
+            task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
+        }
+    }
+    public void ForceCloseTask(TaskType type, bool killPoints = true) {
+        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
+            if (task.GetTaskType() == type) {
+                if (killPoints) {
+                    task.ForceClose(taskMaxPoints[type] > 0);
+                } else {
+                    task.ForceClose(false);
+                }
+                
+                return;
+            }
+        }
     }
 
     public void SetSceneType(SceneTypes scene) {
@@ -54,6 +83,15 @@ public class ProgressManager {
         }
     }
 
+    public void SaveProgress() {
+        SavedScoreState = DataSerializer.Serializer(Calculator);
+    }
+    public void SetProgress(byte[] state) {
+        ScoreCalculator c = DataSerializer.Deserializer<ScoreCalculator>(state);
+        if (c != null) {
+            Calculator = c;
+        }
+    }
     #endregion
 
     #region Initialization
@@ -122,6 +160,13 @@ public class ProgressManager {
             .Select(v => TaskFactory.GetTask(v))
             .Where(v => v != null)
             .ToList());
+
+        trueAllTasksThatAreNeverRemoved = new List<TaskBase>();
+        taskMaxPoints = new Dictionary<TaskType, int>();
+        foreach (ITask task in allTasks) {
+            trueAllTasksThatAreNeverRemoved.Add(task as TaskBase);
+            taskMaxPoints.Add(task.GetTaskType(), task.GetPoints());
+        }
     }
 
     public void AddTask(ITask task) {
@@ -187,9 +232,7 @@ public class ProgressManager {
         }
     }
 
-    internal void AddTaskMistake(string message) {
-        TaskMistakes.Add(message);
-    }
+    
     #endregion
 
     #region Finishing Packages and Manager
@@ -258,13 +301,7 @@ public class ProgressManager {
     }
     #endregion
 
-    public void AddMistake(string mistake, int minusPoints = 1) {
-        if (Mistakes.ContainsKey(mistake)) {
-            Mistakes[mistake] += minusPoints;
-        } else {
-            Mistakes.Add(mistake, minusPoints);
-        }
-    }
+    
 
     public bool IsCurrentPackage(PackageName name) {
         return CurrentPackage.name == name;

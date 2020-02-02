@@ -43,6 +43,12 @@ public class SterileBag : GeneralItem {
         }
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            CloseSterileBagFinal();
+        }
+    }
+
     private void OnBagEnter(Collider other) {
 
         Syringe syringe = Interactable.GetInteractable(other.transform) as Syringe;
@@ -169,7 +175,7 @@ public class SterileBag : GeneralItem {
         closeButton.Hide(true);
     }
 
-    private void CloseSterileBagFinal() {
+    public void CloseSterileBagFinal() {
         closeButton.SafeDestroy();
         System.Console.WriteLine("Close sterilebag final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));

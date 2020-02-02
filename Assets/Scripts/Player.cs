@@ -36,7 +36,6 @@ public class Player : MonoBehaviour {
     public static Transform Transform { get; private set; }
     public static Camera Camera { get; private set; }
     const int MAX_POINTS = 25;
-    const string DefaultNumber = "DEFAULT";
     #endregion
 
     public void Awake() {
@@ -63,6 +62,11 @@ public class Player : MonoBehaviour {
     }
 
     public static void SavePlayerData(int score, string scoreString) {
+
+        if (Info.Name == null) {
+            return;
+        }
+
         string path = Application.dataPath + "/stats.txt";
 
         PlayerData[] prev = LoadPlayerData(path);

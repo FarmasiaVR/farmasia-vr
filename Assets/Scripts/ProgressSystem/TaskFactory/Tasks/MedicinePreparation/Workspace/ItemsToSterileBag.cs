@@ -36,7 +36,7 @@ public class ItemsToSterileBag : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(PutToBag, EventType.CloseSterileBag);
+        base.SubscribeEvent(OnSterileBagClose, EventType.CloseSterileBag);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
     }
 
@@ -48,9 +48,9 @@ public class ItemsToSterileBag : TaskBase {
         }
     }
 
-    private void PutToBag(CallbackData data2) {
+    private void OnSterileBagClose(CallbackData data2) {
         sterileBag = (SterileBag)data2.DataObject;
-        package.ForceClosePreviousTasks(this);
+        G.Instance.Progress.ForceCloseTasks(this);
         CompleteTask();
         FinishTask();
     }

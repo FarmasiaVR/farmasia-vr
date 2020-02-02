@@ -2,14 +2,17 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+[Serializable]
 public class ScoreCalculator {
 
     #region Fields
     Dictionary<TaskType, int> points;
     Dictionary<TaskType, int> maxPoints;
-    HashSet<ITask> tasks;
-    HashSet<String> beforeTime;
+    HashSet<string> beforeTime;
     private int maxScore = 0;
+
+    public Dictionary<string, int> Mistakes { get; private set; }
+    public HashSet<string> TaskMistakes { get; private set; }
     #endregion
 
     #region Constructor
@@ -18,17 +21,29 @@ public class ScoreCalculator {
     /// </summary>
     public ScoreCalculator(HashSet<ITask> allTasks) {
         points = new Dictionary<TaskType, int>();
-        tasks = new HashSet<ITask>(allTasks);
-        beforeTime = new HashSet<String>();
-        AddTasks();
+        beforeTime = new HashSet<string>();
+        TaskMistakes = new HashSet<string>();
+        Mistakes = new Dictionary<string, int>();
+        AddTasks(allTasks);
     }
     #endregion
 
+    public void AddMistake(string mistake, int minusPoints = 1) {
+        if (Mistakes.ContainsKey(mistake)) {
+            Mistakes[mistake] += minusPoints;
+        } else {
+            Mistakes.Add(mistake, minusPoints);
+        }
+    }
+
+    internal void AddTaskMistake(string message) {
+        TaskMistakes.Add(message);
+    }
     #region Private Methods
     /// <summary>
     /// Adds all tasks into the list of zero points.
     /// </summary>
-    private void AddTasks() {
+    private void AddTasks(HashSet<ITask> tasks) {
         maxPoints = new Dictionary<TaskType, int>();
         foreach (ITask task in tasks) {
             points.Add(task.GetTaskType(), task.GetPoints());
@@ -154,19 +169,21 @@ public class ScoreCalculator {
             }
             addedBeforeTimeList += before + ", ";
         }
-        generalMistakes = p.Mistakes.Count == 0 ? "" : generalMistakes;
-        foreach (var pair in p.Mistakes) {
+        generalMistakes = p.Calculator.Mistakes.Count == 0 ? "" : generalMistakes;
+        foreach (var pair in p.Calculator.Mistakes) {
             generalMistakes += "\n" + Text("-" + pair.Value + " : " + pair.Key, Colour.Red);
             score -= pair.Value;
         }
-        taskMistakes = p.TaskMistakes.Count == 0 ? "" : taskMistakes;
+        taskMistakes = p.Calculator.TaskMistakes.Count == 0 ? "" : taskMistakes;
         string coloredMistakes = "";
-        foreach (string mistake in p.TaskMistakes) {
+        foreach (string mistake in p.Calculator.TaskMistakes) {
             coloredMistakes += "\n" + mistake;
         }
         taskMistakes += Text(coloredMistakes, Colour.Red);
 
-        summary += "Kokonaispistemäärä: " + Text("" +  score, Colour.Blue) + " / " + maxScore + "!\n";
+        Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
+
+        summary += "Kokonaispistemäärä: " + Text("" +  score, pointColour) + " / " + maxScore + "!\n";
         scoreString = summary + scoreCountPerTask + taskMistakes + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }

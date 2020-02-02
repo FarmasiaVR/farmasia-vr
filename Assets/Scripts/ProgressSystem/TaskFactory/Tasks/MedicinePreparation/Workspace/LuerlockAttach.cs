@@ -56,7 +56,7 @@ public class LuerlockAttach : TaskBase {
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake);
             G.Instance.Audio.Play(AudioClipType.MistakeMessage);
             return;
-        } else if (!laminarCabinet.objectsInsideArea.Contains(g)) {
+        } else if (!laminarCabinet.GetContainedItems().Contains(item)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
             G.Instance.Audio.Play(AudioClipType.MistakeMessage);
@@ -71,6 +71,12 @@ public class LuerlockAttach : TaskBase {
         ObjectType type = item.ObjectType;
         if (type == ObjectType.Syringe) {
             MedicineSyringeCheck(item);
+        }
+
+        if (!item.IsClean) {
+            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
+            UISystem.Instance.CreatePopup(-1, "Ruisku oli likainen", MsgType.Mistake);
+            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
         }
 
         CompleteTask();

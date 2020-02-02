@@ -43,6 +43,8 @@ public class RoomTeleport : MonoBehaviour {
         }
 
         player.position = playerDst.position;
+
+        G.Instance.Progress.SaveProgress();
     }
 
     private void CreateSpawner(Transform item) {

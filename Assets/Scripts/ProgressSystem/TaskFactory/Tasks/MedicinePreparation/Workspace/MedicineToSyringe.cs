@@ -52,6 +52,8 @@ public class MedicineToSyringe : TaskBase {
         Syringe s = data.DataObject as Syringe;
         if (!IsPreviousTasksCompleted(requiredTasks) && G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             Popup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
+            G.Instance.Progress.ForceCloseTask(TaskType.CorrectItemsInLaminarCabinet, false);
+            G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles, false);
         }
     }
 
@@ -66,7 +68,7 @@ public class MedicineToSyringe : TaskBase {
             } else {
                 Popup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
             }
-        } else if (!laminarCabinet.objectsInsideArea.Contains(syringe.gameObject)) {
+        } else if (!laminarCabinet.GetContainedItems().Contains(syringe)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
             Popup("Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
         } else {
@@ -109,7 +111,7 @@ public class MedicineToSyringe : TaskBase {
         }
         if (!syringe.IsClean) {
             G.Instance.Progress.Calculator.Subtract(taskType);
-            Popup("Ruisku oli likainen", MsgType.Mistake, -1);
+            Popup("Ruisku tai pullo oli likainen", MsgType.Mistake, -1);
             fail = true;
         }
 

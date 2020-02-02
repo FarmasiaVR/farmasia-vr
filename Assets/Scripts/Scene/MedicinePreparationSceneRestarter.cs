@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class MedicinePreparationSceneRestarter : MonoBehaviour {
 
     #region fields
-    public int Points { get; set; }
+    public byte[] ScoreState { get; set; }
     #endregion
 
     private void Awake() {
@@ -28,15 +28,15 @@ public class MedicinePreparationSceneRestarter : MonoBehaviour {
         yield return null;
 
         MedicinePreparationScene m = (MedicinePreparationScene)G.Instance.Scene;
-
-        m.PlayFirstRoom(Points, 1);
-
+        m.PlayFirstRoom(MedicinePreparationScene.AutoPlayStrength.WorkspaceRoom);
         while (m.IsAutoPlaying) {
             yield return null;
         }
 
         Player.Camera.enabled = true;
-
+        if (ScoreState != null) {
+            G.Instance.Progress.SetProgress(ScoreState);
+        }
         Destroy(gameObject);
     }
 }

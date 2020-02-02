@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaminarCabinetTable : MonoBehaviour {
 
     #region fields
-    private static float ContaminateTime = 1.5f;
+    private static float ContaminateTime = 0.75f;
 
     private TriggerInteractableContainer safeZone;
     private TriggerInteractableContainer contaminateZone;
@@ -30,8 +30,8 @@ public class LaminarCabinetTable : MonoBehaviour {
             yield return new WaitForSeconds(ContaminateTime);
 
             if (!safeZone.Contains(item) && contaminateZone.Contains(item) && item.IsClean) {
-                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake);
-                G.Instance.Progress.AddMistake("Esine koski laminaarikaapin pintaa");
+                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake, false);
+                G.Instance.Progress.Calculator.AddMistake("Esine koski laminaarikaapin pintaa");
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
         }

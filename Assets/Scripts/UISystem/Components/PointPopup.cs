@@ -146,8 +146,7 @@ public class PointPopup : MonoBehaviour {
     /// <param name="text">Message showed to player.</param>
     /// <param name="type">Message Type changes message's colour.</param>
     public void SetPopup(string text, MsgType type) {
-        SetColour(type);
-        textField.text = text;
+        SetPopup(int.MinValue, text, type);
     }
 
     /// <summary>
@@ -158,7 +157,9 @@ public class PointPopup : MonoBehaviour {
     /// <param name="type">Message Type changes message's colour.</param>
     public void SetPopup(int point, string text, MsgType type) {
         SetColour(type);
-        if (point > 0) {
+        if (point == int.MinValue) {
+            textField.text = text;
+        } else if (point > 0) {
             textField.text = text + "\n+" + point;
         } else {
             textField.text = text + "\n" + point;

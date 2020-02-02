@@ -49,7 +49,7 @@ public class CorrectItemsInThroughput : TaskBase {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
         }
-        List<GameObject> containedObjects = cabinet.GetContainedItems();
+        List<Interactable> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
@@ -57,23 +57,26 @@ public class CorrectItemsInThroughput : TaskBase {
 
         int gCount = 0;
 
-        foreach (GameObject obj in containedObjects) {
+        foreach (Interactable obj in containedObjects) {
 
-            GeneralItem g = Interactable.GetInteractable(obj.transform) as GeneralItem;
+            GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
+                if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                    continue;
+                }
                 G.Instance.Progress.Calculator.Subtract(taskType);
-                Popup("Väliantokaapissa oli likainen esine", MsgType.Mistake);
+                Popup("Läpiantokaapissa oli likainen esine", MsgType.Mistake);
             }
         }
 
         if (gCount - 11 > 0) {
             int minus = gCount - 11;
             G.Instance.Progress.Calculator.SubtractWithScore(taskType, minus);
-            Popup("Väliantokaapissa oli liikaa esineitä", MsgType.Mistake);
+            Popup("Läpiantokaapissa oli liikaa esineitä", MsgType.Mistake);
         }
 
         objectCount = containedObjects.Count;
@@ -103,9 +106,9 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
     #region Private Methods
-    private void CheckConditions(List<GameObject> containedObjects) {
-        foreach (GameObject value in containedObjects) {
-            GeneralItem item = value.GetComponent<GeneralItem>();
+    private void CheckConditions(List<Interactable> containedObjects) {
+        foreach (Interactable value in containedObjects) {
+            GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
             switch (type) {
                 case ObjectType.Syringe:
@@ -155,16 +158,16 @@ public class CorrectItemsInThroughput : TaskBase {
     #region Public Methods
     public override void CompleteTask() {
         base.CompleteTask();
-        Logger.Print("ONKO HOIDETTU: " + IsCompleted());
+
         if (IsCompleted()) {
             if (!correctMedicineBottle) {
                 Popup("Liian iso lääkepullo.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
             if (objectCount == 11) {
-                Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
+                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Notify, 2);
             } else {
-                Popup("Liikaa työvälineitä.", MsgType.Notify, -1);
+                Popup("Liikaa työvälineitä läpiantokaapissa.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();

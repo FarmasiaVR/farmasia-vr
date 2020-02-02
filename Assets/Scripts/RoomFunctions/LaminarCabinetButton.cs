@@ -8,6 +8,6 @@ public class LaminarCabinetButton : Interactable {
 
     public override void Interact(Hand hand) {
         Logger.Print("Button interact");
-        Events.FireEvent(EventType.CorrectItemsInLaminarCabinet);
+        Events.FireEvent(EventType.CheckLaminarCabinetItems);
     }
 }

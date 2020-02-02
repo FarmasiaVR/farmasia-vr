@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CabinetBase : MonoBehaviour {
@@ -19,7 +20,6 @@ public class CabinetBase : MonoBehaviour {
     public enum CabinetType { PassThrough, Laminar }
     [SerializeField]
     public CabinetType type;
-    public List<GameObject> objectsInsideArea;
     private Dictionary<Types, int> missingObjects;
     private bool itemPlaced = false;
     [SerializeField]
@@ -28,8 +28,7 @@ public class CabinetBase : MonoBehaviour {
     [SerializeField]
     private Animator sterileDrape;
 
-    private HashSet<GeneralItem> EnteredObjects;
-    private HashSet<GeneralItem> ReEnteredObjects;
+    private Dictionary<GeneralItem, bool> FirstEnterObjects;
 
     //private GameObject sterileDrape;
 
@@ -42,6 +41,7 @@ public class CabinetBase : MonoBehaviour {
     private bool capFactoryEnabled = false;
     public bool CapFactoryEnabled => capFactoryEnabled;
 
+    private TriggerInteractableContainer itemContainer;
 
     private Pipeline capBagEnterPipeline;
     private bool folded;
@@ -49,7 +49,6 @@ public class CabinetBase : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
-        objectsInsideArea = new List<GameObject>();
         missingObjects = new Dictionary<Types, int>();
         missingObjects.Add(Types.Needle, 1);
         missingObjects.Add(Types.BigSyringe, 1);
@@ -58,42 +57,44 @@ public class CabinetBase : MonoBehaviour {
         missingObjects.Add(Types.MedicineBottle, 1);
         missingObjects.Add(Types.SyringeCapBag, 1);
 
-        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => EnterCabinet(collider)));
-        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnExit(collider => ExitCabinet(collider)));
+        itemContainer = childCollider.gameObject.AddComponent<TriggerInteractableContainer>();
+        itemContainer.OnEnter = EnterCabinet;
+        itemContainer.OnExit = ExitCabinet;
 
-        EnteredObjects = new HashSet<GeneralItem>();
-        ReEnteredObjects = new HashSet<GeneralItem>();
+        FirstEnterObjects = new Dictionary<GeneralItem, bool>();
 
         if (syringeCapFactory != null) {
             syringeCapFactory.SetActive(false);
         }
     }
 
-    private void EnterCabinet(Collider other) {
-
-        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
+    private void EnterCabinet(Interactable other) {
+        GeneralItem item = other as GeneralItem;
         if (item == null) {
             return;
         }
 
-        //if (EnteredObjects.Contains(item) && !ReEnteredObjects.Contains(item)) {
-        //    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
-        //    G.Instance.Progress.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
-        //    ReEnteredObjects.Add(item);
-        //}
-        //EnteredObjects.Add(item);
+        if (FirstEnterObjects.ContainsKey(item)) {
+            if (!FirstEnterObjects[item]) {
+                UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
+                G.Instance.Progress.Calculator.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                FirstEnterObjects[item] = true;
+            }
+        } else {
+            FirstEnterObjects.Add(item, false);
+        }
 
-        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
+        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
+            Logger.Print("Item was on floor: " + item.name);
             UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
-            G.Instance.Progress.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+            G.Instance.Progress.Calculator.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
 
             // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
             item.Contamination = GeneralItem.ContaminateState.Clean;
             item.Contamination = GeneralItem.ContaminateState.Contaminated;
         }
 
-        if (Time.timeSinceLevelLoad > 5) {
+        if (Time.timeSinceLevelLoad > 1) {
             UnfoldCloth();
         }
 
@@ -101,18 +102,26 @@ public class CabinetBase : MonoBehaviour {
             Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
             itemPlaced = true;
         }
-        if (type == CabinetType.Laminar) {
+        if (this.type == CabinetType.Laminar) {
             Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(item));
         }
 
-        if (!objectsInsideArea.Contains(foundObject)) {
-            objectsInsideArea.Add(foundObject);
-            ObjectType type = item.ObjectType;
-            Types underlyingType = CheckItemType(type, item, enteringCabinet: true);
-            if (underlyingType != Types.Null) {
-                missingObjects[underlyingType]--;
-            }
+        ObjectType type = item.ObjectType;
+        Types underlyingType = CheckItemType(type, item, enteringCabinet: true);
+        if (underlyingType != Types.Null) {
+            missingObjects[underlyingType]--;
         }
+    }
+    private void ExitCabinet(Interactable other) {
+
+        GeneralItem item = other as GeneralItem;
+        if (item == null) {
+            return;
+        }
+
+        ObjectType type = item.ObjectType;
+        Types underlyingType = CheckItemType(type, item, enteringCabinet: false);
+        ReAddMissingObjects(underlyingType);
     }
 
     private void UnfoldCloth() {
@@ -127,20 +136,7 @@ public class CabinetBase : MonoBehaviour {
         sterileDrape.SetBool("ItemPlaced", true);
     }
 
-    private void ExitCabinet(Collider other) {
-        if (other?.transform.parent?.gameObject.GetComponent<Hand>() != null && this.type == CabinetType.Laminar) {
-            Events.FireEvent(EventType.HandsExitLaminarCabinet, CallbackData.NoData());
-        }
-        GameObject foundObject = Interactable.GetInteractableObject(other.transform);
-        GeneralItem item = foundObject?.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-        objectsInsideArea.Remove(foundObject);
-        ObjectType type = item.ObjectType;
-        Types underlyingType = CheckItemType(type, item, enteringCabinet: false);
-        ReAddMissingObjects(underlyingType);
-    }
+
 
     private Types CheckItemType(ObjectType itemType, GeneralItem item, bool enteringCabinet) {
         Types type = Types.Null;
@@ -176,7 +172,7 @@ public class CabinetBase : MonoBehaviour {
 
             yield return new WaitForSeconds(2);
 
-            if (!objectsInsideArea.Contains(capBag.gameObject)) {
+            if (!itemContainer.Contains(capBag)) {
                 yield break;
             }
 
@@ -228,15 +224,18 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void DestroyCapBagAndInitFactory(GeneralItem capBag) {
-        if (capBag != null && objectsInsideArea.Contains(capBag.gameObject)) {
+        if (capBag != null && itemContainer.Contains(capBag)) {
 
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
             Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
             syringeCapFactory.GetComponent<GeneralItem>().Contamination = capBag.Contamination;
             bool capFactoryAlreadyEnabled = false;
-            foreach (GameObject obj in objectsInsideArea) {
-                GeneralItem item = obj.GetComponent<GeneralItem>();
+            foreach (Interactable obj in itemContainer.Objects) {
+                GeneralItem item = obj as GeneralItem;
+                if (item == null) {
+                    continue;
+                }
                 if (item.ObjectType == ObjectType.SyringeCap) {
                     item.Contamination = capBag.Contamination;
                     capFactoryAlreadyEnabled = true;
@@ -284,8 +283,8 @@ public class CabinetBase : MonoBehaviour {
     /// <summary>
     /// Returns list presentation of contained gameobjects.
     /// </summary>
-    public List<GameObject> GetContainedItems() {
-        return objectsInsideArea;
+    public List<Interactable> GetContainedItems() {
+        return itemContainer.Objects.ToList();
     }
 
     public String GetMissingItems() {
