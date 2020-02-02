@@ -89,7 +89,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             usedSyringes[s] = minus;
         }
 
-        if (usedSyringes.Count >= 6) {
+        if (usedSyringes.Count >= 7) {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, minus);
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
             G.Instance.Progress.ForceCloseTask(taskType, false);

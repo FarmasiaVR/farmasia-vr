@@ -28,7 +28,7 @@ public class MedicinePreparationSceneRestarter : MonoBehaviour {
         yield return null;
 
         MedicinePreparationScene m = (MedicinePreparationScene)G.Instance.Scene;
-        m.PlayFirstRoom(1);
+        m.PlayFirstRoom(MedicinePreparationScene.AutoPlayStrength.WorkspaceRoom);
         while (m.IsAutoPlaying) {
             yield return null;
         }

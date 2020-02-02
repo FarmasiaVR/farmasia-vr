@@ -36,7 +36,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     #region Event Subscriptions
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        base.SubscribeEvent(CorrectItems, EventType.CorrectItemsInLaminarCabinet);
+        base.SubscribeEvent(CheckLaminarCabientButton, EventType.CheckLaminarCabinetItems);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -50,7 +50,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
     /// <summary>
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
-    private void CorrectItems(CallbackData data) {
+    private void CheckLaminarCabientButton(CallbackData data) {
         if (laminarCabinet == null) {
             Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
@@ -60,67 +60,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
         }
-        objectCount = objects.Count;
 
-        CheckConditions(objects);
-
-        CompleteTask();
-        if (!IsCompleted()) {
-            MissingItems();
-        }
+        G.Instance.Progress.ForceCloseTask(taskType, false);
     } 
     #endregion
-
-    #region Private Methods
-
-    private void CheckConditions(List<Interactable> objects) {
-        SyringeCapFactoryEnabled();
-        foreach(Interactable value in objects) {
-            GeneralItem item = value as GeneralItem;
-            ObjectType type = item.ObjectType;
-            switch (type) {
-                case ObjectType.Syringe:
-                    Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 20000) {
-                        EnableCondition(Conditions.BigSyringe); 
-                    } else if (syringe.Container.Capacity == 1000) {
-                        smallSyringes++;
-                        if (smallSyringes == 6) {
-                            EnableCondition(Conditions.SmallSyringes);
-                        }
-                    }
-                    break;
-                case ObjectType.Needle:
-                    EnableCondition(Conditions.Needle); 
-                    break;
-                case ObjectType.Luerlock:
-                    EnableCondition(Conditions.Luerlock);
-                    break;
-                case ObjectType.Bottle:
-                    EnableCondition(Conditions.MedicineBottle);
-                    break;
-            }
-        }   
-    }
-
-    private void SyringeCapFactoryEnabled() {
-        if (laminarCabinet.CapFactoryEnabled) {
-            EnableCondition(Conditions.SyringeCap);
-        }
-    }
-
-    private void MissingItems() {
-        if (!firstCheckDone) {
-            Popup("Työvälineitä puuttuu.", MsgType.Mistake, -2);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInLaminarCabinet, 2);
-            firstCheckDone = true;
-        } else {
-            Popup("Työvälineitä puuttuu.", MsgType.Mistake);
-        }
-        smallSyringes = 0;
-        DisableConditions();
-    }
-    #endregion 
 
     #region Public Methods
 
@@ -168,7 +111,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         }
 
         if (syringeCount == 7 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
-            Popup("Oikea määrä työvälineitä.", MsgType.Notify, 2);
+            Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Notify, 2);
+        } else {
+            Popup("Väärä määrä työvälineitä laminaarikaapissa.", MsgType.Notify, 2);
+            G.Instance.Progress.Calculator.SubtractWithScore(taskType, 2);
         }
 
         if (uncleanCount > 0) {

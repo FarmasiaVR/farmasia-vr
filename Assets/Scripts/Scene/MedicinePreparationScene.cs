@@ -6,12 +6,28 @@ using UnityEngine.SceneManagement;
 public class MedicinePreparationScene : SceneScript {
 
     #region fields
+    public enum AutoPlayStrength {
+        None = 0,
+        ItemsToPassThrough,
+        WorkspaceRoom,
+        ItemsToLaminarCabinet,
+        CheckCabinetItems,
+        DisinfectBottle,
+        TakeMedicine,
+        BigSyringeToLuerlock,
+        MedicineToSmallSyringes,
+        AddSyringeCaps,
+        SyringesToSterileBag,
+        CloseSterileBag,
+        Cleanup,
+    }
+
     [SerializeField]
-    public int autoPlayStrength;
+    public AutoPlayStrength autoPlayStrength;
 
     [Tooltip("Prefabs")]
     [SerializeField]
-    private GameObject p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle;
+    private GameObject p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth;
 
     [Tooltip("Scene items")]
     [SerializeField]
@@ -21,7 +37,13 @@ public class MedicinePreparationScene : SceneScript {
     private Transform correctPositionLaminarCabinet;
 
     [SerializeField]
-    private Interactable teleportDoorKnob;
+    private Interactable teleportDoorKnob, laminarCabinetCheckButton;
+
+    [SerializeField]
+    private SterileBag sterileBag;
+
+    [SerializeField]
+    private TrashBin regularTrash, sharpTrash;
 
     private bool played;
     public bool IsAutoPlaying { get; private set; }
@@ -35,13 +57,14 @@ public class MedicinePreparationScene : SceneScript {
 
     protected override void Start() {
         base.Start();
-        NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, correctPositions, teleportDoorKnob);
+        NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth);
+        NullCheck.Check(correctPositions, teleportDoorKnob, laminarCabinetCheckButton, sterileBag, regularTrash, sharpTrash);
         PlayFirstRoom(autoPlayStrength);
     }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            PlayFirstRoom(1);
+            PlayFirstRoom(AutoPlayStrength.WorkspaceRoom);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             DebugTheShitOutOfProgressManager();
@@ -60,15 +83,15 @@ public class MedicinePreparationScene : SceneScript {
         }
     }
 
-    public void PlayFirstRoom(int str = 0) {
+    public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
 
-        if (IsAutoPlaying || played || str == 0) {
+        if (IsAutoPlaying || played || strength == 0) {
             return;
         }
         played = true;
         IsAutoPlaying = true;
 
-        StartCoroutine(PlayCoroutine(str));
+        StartCoroutine(PlayCoroutine(strength));
     }
 
     private Vector3 SpawnPos {
@@ -91,7 +114,7 @@ public class MedicinePreparationScene : SceneScript {
         }
     }
 
-    private IEnumerator PlayCoroutine(int autoPlay) {
+    private IEnumerator PlayCoroutine(AutoPlayStrength autoPlay) {
 
         yield return null;
         yield return null;
@@ -127,22 +150,22 @@ public class MedicinePreparationScene : SceneScript {
         yield return null;
 
         Interactable capBag = ToIntr(g_syringeCapBag);
-        Interactable luerlock = ToIntr(g_luerlock);
-        Interactable needle = ToIntr(g_needle);
-        Interactable bigSyringe = ToIntr(g_bigSyringe);
-        Interactable bottle = ToIntr(g_bottle);
+        LuerlockAdapter luerlock = ToIntr(g_luerlock) as LuerlockAdapter;
+        Needle needle = ToIntr(g_needle) as Needle;
+        Syringe bigSyringe = ToIntr(g_bigSyringe) as Syringe;
+        MedicineBottle bottle = ToIntr(g_bottle) as MedicineBottle;
 
-        Interactable[] smallSyringes = new Interactable[6];
+        Syringe[] smallSyringes = new Syringe[6];
 
 
         for (int i = 0; i < 6; i++) {
-            smallSyringes[i] = ToIntr(g_smallSyringes[i]);
+            smallSyringes[i] = ToIntr(g_smallSyringes[i]) as Syringe;
             NullCheck.Check(smallSyringes[i]);
         }
 
         NullCheck.Check(capBag, luerlock, needle, bigSyringe, bottle);
         // Select tools task
-        
+
         Hand hand = VRInput.Hands[0].Hand;
 
         yield return null;
@@ -204,10 +227,11 @@ public class MedicinePreparationScene : SceneScript {
             yield return null;
         }
 
-        // Set task CorrectItemsInThroughPutScore points here
-        Logger.Warning("Set task CorrectItemsInThroughPutScore points here");
+        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
+            yield break;
+        }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return Wait;
         hand.InteractWith(teleportDoorKnob);
 
 
@@ -217,7 +241,7 @@ public class MedicinePreparationScene : SceneScript {
 
         IsAutoPlaying = false;
 
-        if (autoPlay == 1) {
+        if (autoPlay == AutoPlayStrength.WorkspaceRoom) {
             yield break;
         }
 
@@ -248,6 +272,152 @@ public class MedicinePreparationScene : SceneScript {
             smallSyringes[i].transform.up = correctPositions.right;
             smallSyringes[i].Rigidbody.velocity = Vector3.zero;
             yield return null;
+        }
+
+        if (autoPlay == AutoPlayStrength.ItemsToLaminarCabinet) {
+            yield break;
+        }
+
+        yield return Wait;
+        hand.InteractWith(laminarCabinetCheckButton);
+
+        if (autoPlay == AutoPlayStrength.CheckCabinetItems) {
+            yield break;
+        }
+
+        yield return Wait;
+
+        GameObject g_sterileCloth = Instantiate(p_sterileCloth);
+        g_sterileCloth.transform.position = new Vector3(100, 100, 100);
+        g_sterileCloth.name = "STERILE CLOTH AUTOPLAY";
+        yield return null;
+        Interactable sterileCloth = Interactable.GetInteractable(g_sterileCloth.transform);
+
+        sterileCloth.transform.position = bottle.transform.position;
+
+        yield return Wait;
+        sterileCloth.transform.position = bottle.transform.position + new Vector3(0, 0.25f, 0);
+
+        if (autoPlay == AutoPlayStrength.DisinfectBottle) {
+            yield break;
+        }
+
+        needle.Connector.ConnectItem(bigSyringe);
+        yield return null;
+        yield return null;
+
+        needle.transform.position = bottle.transform.position;
+        bottle.Container.TransferTo(bigSyringe.Container, 900);
+        yield return null;
+        yield return null;
+
+        needle.transform.position = bottle.transform.position + new Vector3(0, 0.25f, 0);
+
+        yield return null;
+        yield return null;
+
+        needle.Connector.Connection.Remove();
+        bigSyringe.transform.position = needle.transform.position + new Vector3(0.05f, 0, 0);
+
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.TakeMedicine) {
+            yield break;
+        }
+
+        luerlock.LeftConnector.ConnectItem(bigSyringe);
+        Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(bigSyringe.gameObject));
+        Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(bigSyringe.gameObject));
+
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.BigSyringeToLuerlock) {
+            yield break;
+        }
+
+        foreach (Syringe smallSyringe in smallSyringes) {
+            luerlock.RightConnector.ConnectItem(smallSyringe);
+            Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(smallSyringe.gameObject));
+            Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(smallSyringe.gameObject));
+            yield return null;
+            yield return null;
+
+            bigSyringe.Container.TransferTo(smallSyringe.Container, 150);
+
+            yield return null;
+            yield return null;
+
+            luerlock.RightConnector.Connection.Remove();
+            smallSyringe.transform.position = luerlock.transform.position + new Vector3(0.05f, 0, 0);
+            yield return null;
+            yield return null;
+        }
+
+        luerlock.LeftConnector.Connection.Remove();
+        bigSyringe.transform.position = luerlock.transform.position + new Vector3(-0.05f, 0, 0);
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.MedicineToSmallSyringes) {
+            yield break;
+        }
+
+        foreach (Syringe smallSyringe in smallSyringes) {
+            SyringeCap.AddSyringeCap(smallSyringe);
+        }
+
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.AddSyringeCaps) {
+            yield break;
+        }
+
+        foreach (Syringe smallSyringe in smallSyringes) {
+            smallSyringe.transform.position = sterileBag.transform.position;
+            yield return null;
+            yield return null;
+        }
+
+        if (autoPlay == AutoPlayStrength.SyringesToSterileBag) {
+            yield break;
+        }
+
+        sterileBag.CloseSterileBagFinal();
+
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.CloseSterileBag) {
+            yield break;
+        }
+
+        needle.transform.position = sharpTrash.transform.position;
+        yield return null;
+        yield return null;
+
+        luerlock.transform.position = regularTrash.transform.position;
+        yield return null;
+        yield return null;
+
+        sterileCloth.transform.position = regularTrash.transform.position;
+        yield return null;
+        yield return null;
+
+        bigSyringe.transform.position = regularTrash.transform.position;
+        yield return null;
+        yield return null;
+
+        if (autoPlay == AutoPlayStrength.Cleanup) {
+            yield break;
+        }
+    }
+
+    private WaitForSeconds Wait {
+        get {
+            return new WaitForSeconds(0.25f);
         }
     }
 

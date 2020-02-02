@@ -6,7 +6,7 @@
     PutObject,
     CorrectItemsInThroughput,
     CorrectLayoutInThroughput,
-    CorrectItemsInLaminarCabinet,
+    CheckLaminarCabinetItems,
     CorrectLayoutInLaminarCabinet,
     Missing,
     BottleDisinfect,

@@ -175,7 +175,7 @@ public class SterileBag : GeneralItem {
         closeButton.Hide(true);
     }
 
-    private void CloseSterileBagFinal() {
+    public void CloseSterileBagFinal() {
         closeButton.SafeDestroy();
         System.Console.WriteLine("Close sterilebag final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));

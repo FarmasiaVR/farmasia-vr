@@ -47,6 +47,9 @@ public class Finish : TaskBase {
         int pointsForMedicineAmount = 0;
         foreach (Interactable value in laminarCabinet.GetContainedItems()) {
             GeneralItem item = value as GeneralItem;
+            if (item == null) {
+                return;
+            }
             ObjectType type = item.ObjectType;
             if (type == ObjectType.Syringe) {
                 Syringe s = item.GetComponent<Syringe>();

@@ -84,14 +84,8 @@ public class CabinetBase : MonoBehaviour {
             FirstEnterObjects.Add(item, false);
         }
 
-        //if (EnteredObjects.Contains(item) && !ReEnteredObjects.Contains(item)) {
-        //    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
-        //    G.Instance.Progress.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
-        //    ReEnteredObjects.Add(item);
-        //}
-        //EnteredObjects.Add(item);
-
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
+            Logger.Print("Item was on floor: " + item.name);
             UISystem.Instance.CreatePopup(-1, "Lattialla olevia esineitä ei saa tuoda laminaarikaappiin", MsgType.Mistake);
             G.Instance.Progress.Calculator.AddMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
 
@@ -239,6 +233,9 @@ public class CabinetBase : MonoBehaviour {
             bool capFactoryAlreadyEnabled = false;
             foreach (Interactable obj in itemContainer.Objects) {
                 GeneralItem item = obj as GeneralItem;
+                if (item == null) {
+                    continue;
+                }
                 if (item.ObjectType == ObjectType.SyringeCap) {
                     item.Contamination = capBag.Contamination;
                     capFactoryAlreadyEnabled = true;
