@@ -51,7 +51,7 @@ public class InfoBox : MonoBehaviour {
     #region Event Subscriptions
     public void Subscribe() {
         Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
-        Events.SubscribeToEvent(HandleGrabbed, EventType.HandleGrabbed);
+        Events.SubscribeToEvent(HandleGrabbed, EventType.RoomDoor);
     }
     #endregion
 

@@ -14,7 +14,7 @@ public class ProgressManager {
     public ScoreCalculator Calculator { get; private set; }
 
 
-    public byte[] SavedScoreState { get; private set; }
+   // public byte[] SavedScoreState { get; private set; }
     #endregion
 
     #region Constructor
@@ -83,9 +83,6 @@ public class ProgressManager {
         }
     }
 
-    public void SaveProgress() {
-        SavedScoreState = DataSerializer.Serializer(Calculator);
-    }
     public void SetProgress(byte[] state) {
         ScoreCalculator c = DataSerializer.Deserializer<ScoreCalculator>(state);
         if (c != null) {
@@ -257,6 +254,7 @@ public class ProgressManager {
                 RemoveTask(task);
                 string scoreString;
                 int score;
+                MedicinePreparationScene.SavedScoreState = null;
                 Calculator.GetScoreString(out score, out scoreString, this);
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);

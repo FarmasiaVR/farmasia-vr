@@ -43,6 +43,8 @@ public class Player : MonoBehaviour {
         Transform = transform;
         Camera = Transform.Find("Camera").GetComponent<Camera>();
 
+        Logger.Print("plAyer: " + transform.name);
+
         if (Transform == null || Camera == null) {
             throw new System.Exception("Player init failed");
         }

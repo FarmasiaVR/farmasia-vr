@@ -53,6 +53,10 @@ public class MedicinePreparationScene : SceneScript {
     public bool InSecondRoom { get; set; }
 
     public bool NeedleUsed { get; set; }
+
+    public bool Restarted { get; set; }
+
+    public static byte[] SavedScoreState;
     #endregion
 
     protected override void Start() {
@@ -67,11 +71,17 @@ public class MedicinePreparationScene : SceneScript {
             PlayFirstRoom(AutoPlayStrength.WorkspaceRoom);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
-            DebugTheShitOutOfProgressManager();
+            DebugTasks();
         }
     }
 
-    private void DebugTheShitOutOfProgressManager() {
+    public void SaveProgress(bool overwrite = false) {
+        if (SavedScoreState != null || overwrite) {
+            SavedScoreState = DataSerializer.Serializer(G.Instance.Progress.Calculator);
+        }
+    }
+
+    private void DebugTasks() {
 
         Logger.Print("All tasks");
         foreach (var asd in G.Instance.Progress.GetAllTasks()) {
@@ -107,7 +117,7 @@ public class MedicinePreparationScene : SceneScript {
             MedicinePreparationSceneRestarter r = g.AddComponent<MedicinePreparationSceneRestarter>();
             DontDestroyOnLoad(g);
 
-            r.ScoreState = G.Instance.Progress.SavedScoreState;
+            r.ScoreState = SavedScoreState;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } else {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

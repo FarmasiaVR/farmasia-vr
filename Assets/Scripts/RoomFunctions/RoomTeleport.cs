@@ -44,7 +44,11 @@ public class RoomTeleport : MonoBehaviour {
 
         player.position = playerDst.position;
 
-        G.Instance.Progress.SaveProgress();
+        MedicinePreparationScene m = G.Instance.Scene as MedicinePreparationScene;
+
+        if (!m.Restarted || MedicinePreparationScene.SavedScoreState == null) {
+            m.SaveProgress();
+        }
     }
 
     private void CreateSpawner(Transform item) {
