@@ -92,7 +92,7 @@ public class HintBox : DragAcceptable {
     }
 
     protected override void Activate() {
-        G.Instance.Progress.Calculator.AddMistake("Opened a hint.");
+        G.Instance.Progress.Calculator.AddMistake("Vinkki laatikko avattiin");
 
         if (ActivateCount > 0) {
             return;
