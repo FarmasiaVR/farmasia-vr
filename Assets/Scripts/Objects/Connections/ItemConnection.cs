@@ -15,6 +15,10 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected virtual void OnRemoveConnection() { }
 
+    protected virtual void Start() {
+        //NullCheck.Check(Connector);
+    }
+
     protected virtual void Update() {
 
     }
@@ -30,6 +34,7 @@ public abstract class ItemConnection : MonoBehaviour {
         return LuerlockLooseItemConnection.Configuration(connector, target, addTo);
     }
     public static JointConnection AddJointConnection(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Warning("Add joint connection");
         return JointConnection.Configuration(connector, target, addTo);
     }
     #endregion

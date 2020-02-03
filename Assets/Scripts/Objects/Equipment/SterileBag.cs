@@ -179,6 +179,7 @@ public class SterileBag : GeneralItem {
         closeButton.SafeDestroy();
         System.Console.WriteLine("Close sterilebag final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
+        CleanupObject.GetCleanup().EnableCleanup();
     }
 
     private Vector3 ObjectPosition(int index) {

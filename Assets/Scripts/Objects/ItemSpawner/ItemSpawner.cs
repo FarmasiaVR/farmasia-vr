@@ -29,6 +29,8 @@ public class ItemSpawner : MonoBehaviour {
 
             currentObject = Instantiate(copy, transform.position, transform.rotation);
             GeneralItem g = Interactable.GetInteractable(currentObject.transform) as GeneralItem;
+            Logger.Warning("ITEM SPAWNER COPIES ITEM CONNECTION EVEN THOUGH IT ABSOLUTELY SHOULD NOT");
+            Destroy(g.GetComponent<ItemConnection>());
             g.Contamination = GeneralItem.ContaminateState.Clean;
 
             //CopyChildStates(Interactable.GetInteractable(copy.transform) as GeneralItem, g);

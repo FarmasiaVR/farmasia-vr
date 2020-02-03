@@ -24,7 +24,7 @@ public class ScenarioOneCleanUp : TaskBase {
     #endregion
 
     public override void StartTask() {
-        CheckCleaniness();
+        //CheckCleaniness();
     }
     
 
@@ -34,6 +34,7 @@ public class ScenarioOneCleanUp : TaskBase {
     /// Subscribes to required Events.
     /// </summary>
     public override void Subscribe() {
+        return;
         base.SubscribeEvent(ItemDroppedOnFloor, EventType.ItemDroppedOnFloor);
         base.SubscribeEvent(ItemLiftedOffFloor, EventType.ItemLiftedOffFloor);
         base.SubscribeEvent(ItemDroppedInTrash, EventType.ItemDroppedInTrash);

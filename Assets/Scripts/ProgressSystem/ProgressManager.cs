@@ -110,6 +110,7 @@ public class ProgressManager {
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = {
+            TaskType.ScenarioOneCleanUp,
             TaskType.Finish
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));

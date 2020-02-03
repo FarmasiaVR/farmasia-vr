@@ -29,11 +29,19 @@ public class JointConnection : ItemConnection {
 
     protected override void Update() {
         base.Update();
-
+        if (transformTarget == null) {
+            Logger.Warning("NOW TARGET IS NULL AND WE ARE IN: " + transform.name);
+            return;
+        }
+        NullCheck.Check(transform, transformTarget);
+        Logger.PrintVariables("transformTaerget", transformTarget.name);
+        Logger.PrintVariables("itemConnector", Connector.Object.name);
         transform.rotation = Quaternion.Lerp(transform.rotation, transformTarget.rotation, 0.5f);
     }
 
     protected override void OnRemoveConnection() {
+
+        Logger.Warning("Removing joint connection from: " + transform.name);
 
         SetVelocity();
 
@@ -48,6 +56,9 @@ public class JointConnection : ItemConnection {
     }
 
     public static JointConnection Configuration(ItemConnector connector, Transform target, Interactable addTo) {
+
+        NullCheck.Check(connector, target, addTo);
+
         Rigidbody targetRB = GetTargetRigidbody(target);
 
         JointConnection conn = addTo.gameObject.AddComponent<JointConnection>();

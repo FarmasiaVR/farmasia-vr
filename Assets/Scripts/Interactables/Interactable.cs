@@ -31,6 +31,8 @@ public class Interactable : MonoBehaviour {
     private bool disableHighlighting;
 
     private ObjectHighlight highlight;
+
+    public bool Destroyed { get; private set; }
     #endregion
 
     protected virtual void Awake() {
@@ -72,8 +74,15 @@ public class Interactable : MonoBehaviour {
     }
 
     public void DestroyInteractable() {
+
+        if (Destroyed) {
+            return;
+        }
+        Destroyed = true;
+
         IEnumerator DestroySequence() {
             if (Interactors.Hand != null) {
+                Logger.Warning("Uninteracting before destroy");
                 Interactors.Hand.Uninteract();
             }
             // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
@@ -83,6 +92,8 @@ public class Interactable : MonoBehaviour {
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
+
+            Logger.Warning("Destoyed: " + this.name);
             Destroy(gameObject);
         }
 
