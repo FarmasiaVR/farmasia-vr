@@ -53,13 +53,11 @@ public class LuerlockAttach : TaskBase {
 
         if (laminarCabinet == null) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake, -1);
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(item)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
             return;
         }
 
@@ -75,8 +73,7 @@ public class LuerlockAttach : TaskBase {
 
         if (!item.IsClean) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            UISystem.Instance.CreatePopup(-1, "Ruisku oli likainen", MsgType.Mistake);
-            G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+            Popup("Ruisku oli likainen", MsgType.Mistake, -1);
         }
 
         CompleteTask();

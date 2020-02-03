@@ -63,13 +63,17 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
         oldMinus = usedSyringes[s];
 
-        if (!s.IsClean) {
+
+        if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && !s.IsClean) {
+            minus++;
+            minus++;
+            Popup("Väärä määrä lääkettä ruiskussa ja likainen", MsgType.Mistake, -2);
+        } else if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
+            minus++;
+            Popup("Väärä määrä lääkettä", MsgType.Mistake, -1);
+        } else if (!s.IsClean) {
             minus++;
             Popup("Ruisku tai luerlock oli likainen", MsgType.Mistake, -1);
-        }
-        if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-            minus++;
-            Popup("Väärä määrä lääkettä ruiskussa", MsgType.Mistake, -1);
         } else {
             Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Done);
         }
