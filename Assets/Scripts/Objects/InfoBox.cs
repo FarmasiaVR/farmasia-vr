@@ -35,7 +35,7 @@ public class InfoBox : MonoBehaviour {
 
     #endregion
 
-    private void Awake() {
+    private void Start() {
         Subscribe();
         textField = text.GetComponent<TextMeshPro>();
         text.SetActive(false);
