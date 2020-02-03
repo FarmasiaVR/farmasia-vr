@@ -12,7 +12,7 @@ public class LuerlockAttach : TaskBase {
     public enum Conditions { SyringeWithMedicineAttached }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe };
     private CabinetBase laminarCabinet;
-
+    private bool fail = false;
     private bool firstCheckDone = false;
     #endregion
 
@@ -54,10 +54,12 @@ public class LuerlockAttach : TaskBase {
         if (laminarCabinet == null) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             Popup("Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake, -1);
+            Fail();
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(item)) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             Popup("Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
+            Fail();
             return;
         }
 
@@ -74,6 +76,7 @@ public class LuerlockAttach : TaskBase {
         if (!item.IsClean) {
             G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
             Popup("Ruisku oli likainen", MsgType.Mistake, -1);
+            Fail();
         }
 
         CompleteTask();
@@ -83,6 +86,7 @@ public class LuerlockAttach : TaskBase {
                 Popup("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
                 firstCheckDone = true;
+                Fail();
             } else {
                 Popup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
             }
@@ -94,6 +98,10 @@ public class LuerlockAttach : TaskBase {
         if (syringe.Container.Amount > 0) {
             EnableCondition(Conditions.SyringeWithMedicineAttached);
         }
+    }
+
+    private void Fail() {
+        fail = true;
     }
     #endregion
 
@@ -108,7 +116,9 @@ public class LuerlockAttach : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Notify, 1);
+        if (!fail) {
+            Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Done, 1);
+        }
     }
     #endregion
 }

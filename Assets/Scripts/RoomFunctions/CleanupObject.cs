@@ -29,7 +29,7 @@ public class CleanupObject : MonoBehaviour {
         GeneralItem g = (GeneralItem)data.DataObject;
 
         if (g.ObjectType == ObjectType.Bottle) {
-            UISystem.Instance.CreatePopup(-1, "Pulloa ei saa heittää roskikseen", MsgType.Error);
+            UISystem.Instance.CreatePopup(-1, "Pulloa ei saa heittää roskikseen", MsgType.Mistake);
             G.Instance.Progress.Calculator.AddTaskMistake("Pulloa ei saa heittää roskikseen");
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
         }
