@@ -30,8 +30,6 @@ public class CabinetBase : MonoBehaviour {
 
     private Dictionary<GeneralItem, bool> FirstEnterObjects;
 
-    //private GameObject sterileDrape;
-
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
@@ -230,7 +228,6 @@ public class CabinetBase : MonoBehaviour {
 
             Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
             syringeCapFactory.GetComponent<GeneralItem>().Contamination = capBag.Contamination;
-            bool capFactoryAlreadyEnabled = false;
             foreach (Interactable obj in itemContainer.Objects) {
                 GeneralItem item = obj as GeneralItem;
                 if (item == null) {
@@ -238,7 +235,6 @@ public class CabinetBase : MonoBehaviour {
                 }
                 if (item.ObjectType == ObjectType.SyringeCap) {
                     item.Contamination = capBag.Contamination;
-                    capFactoryAlreadyEnabled = true;
                 }
             }
 
@@ -287,8 +283,8 @@ public class CabinetBase : MonoBehaviour {
         return itemContainer.Objects.ToList();
     }
 
-    public String GetMissingItems() {
-        String missing = "";
+    public string GetMissingItems() {
+        string missing = "";
         foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
                 missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";

@@ -16,10 +16,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Fields
     public enum Conditions { }
-    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
     private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    private CabinetBase laminarCabinet;
-
     private Dictionary<Syringe, int> usedSyringes;
     #endregion
 
@@ -34,17 +31,9 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
 
     #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
         base.SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
         base.SubscribeEvent(InvalidSyringePush, EventType.PushingToSmallerSyringe);
-    }
-    private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
-        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
-            laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        }
     }
 
     private void AddSyringe(CallbackData data) {
@@ -95,38 +84,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             G.Instance.Progress.ForceCloseTask(taskType, false);
             Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
         }
-
-        //if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-        //    if (IsPreviousTasksCompleted(requiredTasks)) {
-        //        if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount) {
-        //            attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
-
-        //            if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-        //                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectAmountOfMedicineSelected);
-        //                Popup("Lääkettä otettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
-        //                attachedSyringes.Remove(s.GetInstanceID());
-        //            } else if (attachedSyringes.Count != 6) {
-        //                if (s.Container.Amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && s.Container.Amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-        //                    Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Notify);
-        //                } else {
-        //                    Popup("Ruiskuun otettiin väärä määrä lääkettä.", MsgType.Mistake);
-        //                }
-        //            } else {
-        //                CompleteTask();
-        //                return;
-        //            }
-        //        }
-        //    } else {
-        //        attachedSyringes.Remove(s.GetInstanceID());
-        //    }
-
-        //    foreach (ITask task in G.Instance.Progress.GetAllTasks()) {
-        //        if (task.GetTaskType() == TaskType.SyringeAttach) {
-        //            package.MoveTaskFromManagerBeforeTask(TaskType.SyringeAttach, this);
-        //            break;
-        //        }
-        //    }
-        //}
     }
 
     private void InvalidSyringePush(CallbackData data) {

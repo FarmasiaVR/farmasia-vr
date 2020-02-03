@@ -12,12 +12,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle, SyringeCap }
-    private int smallSyringes = 0;
-    private int objectCount = 0;
-    private bool firstCheckDone = false;
-    
     private CabinetBase laminarCabinet;
-
     #endregion
 
     #region Constructor
