@@ -4,7 +4,11 @@ public class PointPopup : MonoBehaviour {
     #region Fields
     private GameObject textObject;
     private TextMeshPro textField;
+    private GameObject point1, point2;
+
     private Color color;
+
+    private const float LERP_AMOUNT = 0.5f;
     #endregion
 
     #region Variables
@@ -41,40 +45,44 @@ public class PointPopup : MonoBehaviour {
         G.Instance.Audio.Play(AudioClipType.MinusPoint);
         CalculateStartingPosition();
     }
+
+    public void SetObjectPath(GameObject point1, GameObject point2) {
+        this.point1 = point1;
+        this.point2 = point2;
+    }
+
     #endregion
 
     #region Private Methods
-    /// <summary>
-    /// Calculates and sets transform starting position. Used for animation.
-    /// </summary>
     private void CalculateStartingPosition() {
         textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
     }
 
-    /// <summary>
-    /// Flips the scale of the Popup. This is required depending on does it follow rotation or camera.
-    /// </summary>
-    /// <param name="x">-1 = Inverted, 1 = Normal</param>
     private void FlipScale(float x) {
         transform.localScale.Set(x, transform.localScale.y, transform.localScale.z);
     }
 
-    /// <summary>
-    /// Called only if popup lifespan is at the end.
-    /// Removes current Popup from UISystem and then destroys itself.
-    /// Object might be destoyed earlier by another popup in UISystem.
-    /// </summary>
     private void Remove() {
         UISystem.Instance.DeleteCurrent();
         Destroy(transform.gameObject);
     }
 
-    /// <summary>
-    /// Used for animating the Popup. Once animation is done, Popup destroys itself.
-    /// </summary>
+    private void MoveTowardsPoint(GameObject obj) {
+        if (obj == null) {
+            return;
+        }
+        Vector3 position = gameObject.transform.position;
+        gameObject.transform.position = Vector3.Lerp(position, obj.transform.position, Time.deltaTime + LERP_AMOUNT);
+    }
+
     private void Update() {
+
+
         timer += Time.deltaTime;
+
+
         if (!fadeInCompleted) {
+            MoveTowardsPoint(point1);
             textObject.transform.localPosition += new Vector3(0, 0, -speed);
             distanceTravelled += speed;
             transparency = distanceTravelled / distanceToTravel;
@@ -94,6 +102,7 @@ public class PointPopup : MonoBehaviour {
                     visualCompleted = true;
                 }
             } else {
+                MoveTowardsPoint(point2);
                 textObject.transform.localPosition += new Vector3(0, 0, speed);
                 distanceTravelled -= speed;
                 transparency = distanceTravelled / distanceToTravel;
@@ -140,21 +149,10 @@ public class PointPopup : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    /// <summary>
-    /// Used for changing default text and type of instantiated popup.
-    /// </summary>
-    /// <param name="text">Message showed to player.</param>
-    /// <param name="type">Message Type changes message's colour.</param>
     public void SetPopup(string text, MsgType type) {
         SetPopup(int.MinValue, text, type);
     }
 
-    /// <summary>
-    /// Used for changing default point, text and type of copied popup (from prefab).
-    /// </summary>
-    /// <param name="point">Amount of points gained from task completion. (or failure).</param>
-    /// <param name="text">Message showed to player.</param>
-    /// <param name="type">Message Type changes message's colour.</param>
     public void SetPopup(int point, string text, MsgType type) {
         SetColour(type);
         if (point == int.MinValue) {

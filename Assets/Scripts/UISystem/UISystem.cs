@@ -77,11 +77,15 @@ public class UISystem : MonoBehaviour {
 
         Logger.Print("Popup: " + message);
         GameObject popupMessage = InitUIComponent(popupPrefab);
+        PointPopup popup = popupMessage.GetComponent<PointPopup>();
+        popup.SetObjectPath(player, hand.gameObject);
+
+
 
         if (point == int.MinValue) {
-            popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
+           popup.SetPopup(message, type);
         } else {
-            popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
+            popup.SetPopup(point, message, type);
         }
         SetCurrentPopup(popupMessage);
     }

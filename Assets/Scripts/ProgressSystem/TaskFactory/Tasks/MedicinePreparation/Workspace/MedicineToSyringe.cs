@@ -117,7 +117,7 @@ public class MedicineToSyringe : TaskBase {
         }
 
         if (!fail) {
-            Popup("Lääkkeen ottaminen onnistui.", MsgType.Notify, 2);
+            Popup("Lääkkeen ottaminen onnistui.", MsgType.Done, 2);
         }
     }
     #endregion
