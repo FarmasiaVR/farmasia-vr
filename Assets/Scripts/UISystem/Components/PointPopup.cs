@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections;
+
 public class PointPopup : MonoBehaviour {
     #region Fields
     private GameObject textObject;
     private TextMeshPro textField;
     private GameObject point1, point2;
+    private Transform lookAt;
 
     private Color color;
 
-    private const float LERP_AMOUNT = 0.5f;
+    private const float LERP_AMOUNT = 0.05f;
     #endregion
 
     #region Variables
@@ -42,7 +45,6 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void Start() {
-        G.Instance.Audio.Play(AudioClipType.MinusPoint);
         CalculateStartingPosition();
     }
 
@@ -53,7 +55,14 @@ public class PointPopup : MonoBehaviour {
 
     #endregion
 
+
     #region Private Methods
+    public void LookAt(GameObject obj) {
+        if (obj != null) {
+            lookAt = obj.transform;
+        }
+    }
+
     private void CalculateStartingPosition() {
         textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
     }
@@ -67,22 +76,31 @@ public class PointPopup : MonoBehaviour {
         Destroy(transform.gameObject);
     }
 
-    private void MoveTowardsPoint(GameObject obj) {
-        if (obj == null) {
+    private void MoveTowardsPoint(Vector3 vector) {
+        if (vector == null) {
             return;
         }
         Vector3 position = gameObject.transform.position;
-        gameObject.transform.position = Vector3.Lerp(position, obj.transform.position, Time.deltaTime + LERP_AMOUNT);
+        gameObject.transform.position = Vector3.Lerp(position, vector, Time.deltaTime + LERP_AMOUNT);
+    }
+
+    private void FixedUpdate() {
+        if (lookAt != null) {
+            transform.LookAt(lookAt);
+        }
+
+        if (!fadeInCompleted) {
+            MoveTowardsPoint(point1.transform.TransformPoint(new Vector3(0, 0.1f, 0.4f)));
+        } else {
+            MoveTowardsPoint(point2.transform.position);
+        }
     }
 
     private void Update() {
 
-
         timer += Time.deltaTime;
 
-
         if (!fadeInCompleted) {
-            MoveTowardsPoint(point1);
             textObject.transform.localPosition += new Vector3(0, 0, -speed);
             distanceTravelled += speed;
             transparency = distanceTravelled / distanceToTravel;
@@ -102,7 +120,7 @@ public class PointPopup : MonoBehaviour {
                     visualCompleted = true;
                 }
             } else {
-                MoveTowardsPoint(point2);
+
                 textObject.transform.localPosition += new Vector3(0, 0, speed);
                 distanceTravelled -= speed;
                 transparency = distanceTravelled / distanceToTravel;

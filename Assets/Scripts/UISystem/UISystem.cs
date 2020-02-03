@@ -29,7 +29,7 @@ public class UISystem : MonoBehaviour {
         } else {
             Instance = this;
         }
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("MainCamera");
         handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
     }
@@ -39,8 +39,8 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
-        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform);
-        uiComponent.transform.SetParent(handuiInScene.transform, false);
+        GameObject uiComponent = Instantiate(gobj);
+        uiComponent.transform.position = player.transform.position;
         return uiComponent;
     }
     #endregion
@@ -79,6 +79,7 @@ public class UISystem : MonoBehaviour {
         GameObject popupMessage = InitUIComponent(popupPrefab);
         PointPopup popup = popupMessage.GetComponent<PointPopup>();
         popup.SetObjectPath(player, hand.gameObject);
+        popup.LookAt(player);
 
 
 
