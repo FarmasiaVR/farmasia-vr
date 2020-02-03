@@ -75,7 +75,11 @@ public class UISystem : MonoBehaviour {
             G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
 
-        Logger.Print("Popup: " + message);
+        switch (type) {
+            case MsgType.Mistake:
+                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                break;
+        }
         GameObject popupMessage = InitUIComponent(popupPrefab);
         PointPopup popup = popupMessage.GetComponent<PointPopup>();
         popup.SetObjectPath(player, hand.gameObject);
@@ -89,14 +93,6 @@ public class UISystem : MonoBehaviour {
             popup.SetPopup(point, message, type);
         }
         SetCurrentPopup(popupMessage);
-    }
-    #endregion
-
-    #region Test Functions
-    private void KeyListener() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            CreatePopup("THIS IS A TEST", MsgType.Mistake);
-        }
     }
     #endregion
 }

@@ -34,7 +34,7 @@ public class CleanupObject : MonoBehaviour {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
         }
         if (g.ObjectType == ObjectType.SterileBag) {
-            UISystem.Instance.CreatePopup(-1, "Steriilipussia ei saa heittää roskikseen", MsgType.Error);
+            UISystem.Instance.CreatePopup(-1, "Steriilipussia ei saa heittää roskikseen", MsgType.Mistake);
             G.Instance.Progress.Calculator.AddTaskMistake("Steriilipussia ei saa heittää roskikseen");
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
         }

@@ -241,12 +241,6 @@ public abstract class TaskBase : ITask {
         } else {
             UISystem.Instance.CreatePopup(message, type);
         }
-
-        switch (type) {
-            case MsgType.Mistake:
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                break;
-        }
     }
 
     public override string ToString() {
