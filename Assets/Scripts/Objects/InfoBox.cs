@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -51,7 +52,7 @@ public class InfoBox : MonoBehaviour {
     #region Event Subscriptions
     public void Subscribe() {
         Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
-        Events.SubscribeToEvent(HandleGrabbed, EventType.RoomDoor);
+        Events.SubscribeToEvent(GrabbedRoomDoor, EventType.RoomDoor);
     }
     #endregion
 
@@ -68,10 +69,12 @@ public class InfoBox : MonoBehaviour {
         }
     }
 
-    private void HandleGrabbed(CallbackData data) {
+    private async void GrabbedRoomDoor(CallbackData data) {
+        await Task.Delay(10);
+
         if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             ShowInfoBox(WORKSPACE_ROOM_MESSAGE);
-            Events.UnsubscribeFromEvent(HandleGrabbed, EventType.HandleGrabbed);
+            Events.UnsubscribeFromEvent(GrabbedRoomDoor, EventType.RoomDoor);
         }
     }
 
@@ -83,14 +86,13 @@ public class InfoBox : MonoBehaviour {
 
         activeLerpAmount = 5;
 
+        StartCoroutine(ReEnable());
         IEnumerator ReEnable() {
             yield return new WaitForSeconds(1);
             activeLerpAmount = defaultLerpAmount;
             yield return new WaitForSeconds(9);
             text.SetActive(false);
         }
-
-        StartCoroutine(ReEnable());
     }
 
     private Vector3 GetTargetPosition() {
