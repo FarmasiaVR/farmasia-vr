@@ -93,6 +93,7 @@ public class MedicineToSyringe : TaskBase {
     }
 
     protected override void OnTaskComplete() {
+        (G.Instance.Scene as MedicinePreparationScene).NeedleUsed = true;
 
         if (syringe == null) {
             return;
