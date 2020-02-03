@@ -74,16 +74,24 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Done);
         }
 
-        if (minus < oldMinus) {
-            usedSyringes[s] = -minus;
+        if (minus > oldMinus) {
+            usedSyringes[s] = minus;
         }
 
         if (usedSyringes.Count >= 7) {
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, minus);
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, GetTotalMinus());
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
             G.Instance.Progress.ForceCloseTask(taskType, false);
             Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
         }
+    }
+
+    private int GetTotalMinus() {
+        int sum = 0;
+        foreach (var pair in usedSyringes) {
+            sum += pair.Value;
+        }
+        return sum;
     }
 
     private void InvalidSyringePush(CallbackData data) {
