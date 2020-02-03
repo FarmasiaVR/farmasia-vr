@@ -6,7 +6,7 @@ public class ObjectFactory : MonoBehaviour {
 
     #region Fields
     public GameObject CopyObject { get; set; }
-    private GameObject latestCopy;
+    public GameObject LatestCopy { get; set; }
     private Interactable interactable;
 
     private GameObject lastPicked;
@@ -80,7 +80,7 @@ public class ObjectFactory : MonoBehaviour {
 
     private void Update() {
         if (interactable.State == InteractState.Grabbed && IsEnabled) {
-            latestCopy.GetComponent<Rigidbody>().isKinematic = false;
+            LatestCopy.GetComponent<Rigidbody>().isKinematic = false;
             CreateNewCopy();
         }
     }
@@ -108,25 +108,25 @@ public class ObjectFactory : MonoBehaviour {
     }
 
     private void CreateNewCopy() {
-        GameObject handObject = latestCopy;
+        GameObject handObject = LatestCopy;
 
-        if (latestCopy != null) {
+        if (LatestCopy != null) {
             triggerColliderCount.SetInteractable(handObject);
 
-            if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) {
-                Destroy(latestCopy);
+            if (LatestCopy.GetComponent<Rigidbody>().isKinematic == true) {
+                Destroy(LatestCopy);
             }
         }
 
-        latestCopy = Instantiate(CopyObject);
-        latestCopy.transform.position = transform.position;
+        LatestCopy = Instantiate(CopyObject);
+        LatestCopy.transform.position = transform.position;
 
-        interactable = latestCopy.GetComponent<Interactable>();
-        latestCopy.SetActive(true);
+        interactable = LatestCopy.GetComponent<Interactable>();
+        LatestCopy.SetActive(true);
 
         if (handObject != null) {
-            CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
-            StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));
+            CollisionIgnore.IgnoreCollisions(handObject.transform, LatestCopy.transform, true);
+            StartCoroutine(CheckCollisionRelease(handObject, LatestCopy, interactable));
         }
 
         lastPicked = handObject;

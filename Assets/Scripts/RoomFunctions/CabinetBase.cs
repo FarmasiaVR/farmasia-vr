@@ -134,8 +134,6 @@ public class CabinetBase : MonoBehaviour {
         sterileDrape.SetBool("ItemPlaced", true);
     }
 
-
-
     private Types CheckItemType(ObjectType itemType, GeneralItem item, bool enteringCabinet) {
         Types type = Types.Null;
         if (itemType == ObjectType.Syringe) {
@@ -161,6 +159,9 @@ public class CabinetBase : MonoBehaviour {
     }
 
     public void DisableCapFactory() {
+        ObjectFactory f = syringeCapFactory.GetComponent<ObjectFactory>();
+        if (f == null) return;
+        f.LatestCopy.GetComponent<Interactable>().DestroyInteractable();
         syringeCapFactory.SetActive(false);
     }
 
