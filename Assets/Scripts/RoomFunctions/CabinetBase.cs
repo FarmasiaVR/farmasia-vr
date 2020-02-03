@@ -162,6 +162,7 @@ public class CabinetBase : MonoBehaviour {
     }
 
     public void DisableCapFactory() {
+        Logger.Warning("Trying to disable cap factory");
         ObjectFactory f = syringeCapFactory.GetComponent<ObjectFactory>();
         if (f == null) return;
 

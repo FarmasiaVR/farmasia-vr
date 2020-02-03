@@ -18,6 +18,7 @@ public class SterileBag : GeneralItem {
 
     private float ejectSpeed = 0.6f;
     private float ejectDistance = 0.47f;
+    private bool finalClose;
     #endregion
 
     // Start is called before the first frame update
@@ -89,6 +90,10 @@ public class SterileBag : GeneralItem {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
+
+        if (finalClose) {
+            return;
+        }
 
         DisableClosing();
 
@@ -176,6 +181,7 @@ public class SterileBag : GeneralItem {
     }
 
     public void CloseSterileBagFinal() {
+        finalClose = true;
         closeButton.SafeDestroy();
         System.Console.WriteLine("Close sterilebag final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
