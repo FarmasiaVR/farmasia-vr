@@ -75,13 +75,11 @@ public class CleanupObject : MonoBehaviour {
             }
         }
 
-        Logger.Print("Room item count: " + count);
         return count;
     }
 
     private int AcceptedCount() {
         int acc = 1 + secondPassThroughCabinet.GetContainedItems().Count;
-        Logger.Print("Accepted item count: " + acc);
         return acc;
     }
 

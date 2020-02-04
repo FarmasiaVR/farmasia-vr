@@ -29,7 +29,6 @@ public class HandConnector : ItemConnector {
         GrabbedInteractable.State.On(InteractState.Grabbed);
         GrabbedInteractable.Interactors.SetHand(Hand);
 
-        Logger.Warning("Firing PickupObjet");
         Events.FireEvent(EventType.PickupObject, CallbackData.Object(GrabbedInteractable.gameObject));
         AttachGrabbedItem(GrabbedInteractable);
     }

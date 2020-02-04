@@ -74,7 +74,6 @@ public class Interactable : MonoBehaviour {
     }
 
     public void DestroyInteractable() {
-
         if (Destroyed) {
             return;
         }
@@ -82,7 +81,6 @@ public class Interactable : MonoBehaviour {
 
         IEnumerator DestroySequence() {
             if (Interactors.Hand != null) {
-                Logger.Warning("Uninteracting before destroy");
                 Interactors.Hand.Uninteract();
             }
             // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
@@ -93,7 +91,6 @@ public class Interactable : MonoBehaviour {
             yield return null;
             yield return null;
 
-            Logger.Warning("Destoyed: " + this.name);
             Destroy(gameObject);
         }
 

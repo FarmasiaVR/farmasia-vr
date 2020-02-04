@@ -4,6 +4,8 @@ using System.Collections.Generic;
 /// <summary>
 /// In case syringes were dropped, this task is created to check if the player puts the dropped syringes to trash before finishing the game.
 /// </summary>
+
+//Responsibility from this class was removed, check out CleanupObject.cs which is attached to WorkspaceRoom in the scene
 public class ScenarioOneCleanUp : TaskBase {
     #region Fields
     private string description = "Siivoa lopuksi työtila.";

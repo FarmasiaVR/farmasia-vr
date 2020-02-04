@@ -6,8 +6,12 @@ public class ProgressManager {
 
     #region Fields
     private bool testMode;
+
+    // Actual list of every task. No task is ever removed from this list
     private List<TaskBase> trueAllTasksThatAreNeverRemoved;
     private Dictionary<TaskType, int> taskMaxPoints;
+
+    // Oot actually all tasks
     private HashSet<ITask> allTasks;
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
@@ -38,7 +42,7 @@ public class ProgressManager {
             if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
-            Logger.Print("max poings: " + task.GetTaskType() + ", pounts: " + taskMaxPoints[task.GetTaskType()]);
+            Logger.Print("max points: " + task.GetTaskType() + ", points: " + taskMaxPoints[task.GetTaskType()]);
             task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
         }
     }
