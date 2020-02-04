@@ -161,22 +161,6 @@ public class CabinetBase : MonoBehaviour {
         return type;
     }
 
-    public void DisableCapFactory() {
-        Logger.Warning("Trying to disable cap factory");
-        ObjectFactory f = syringeCapFactory.GetComponent<ObjectFactory>();
-        if (f == null) return;
-
-        f.LatestCopy.GetComponent<Interactable>().DestroyInteractable();
-        syringeCapFactory.SetActive(false);
-
-        if (capBagMeshCopy == null) return;
-
-        EnableTrueCapBag();
-        trueCapBag.transform.position = capBagMeshCopy.transform.position;
-        trueCapBag.transform.rotation = capBagMeshCopy.transform.rotation;
-        Destroy(capBagMeshCopy);
-    }
-
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
         if (hasCapBag) return;
 

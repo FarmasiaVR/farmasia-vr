@@ -87,7 +87,7 @@ public class CleanupObject : MonoBehaviour {
 
         Logger.Print("enable cleanup");
 
-        laminarCabinet.DisableCapFactory();
+        ObjectFactory.DestroyAllFactories(true);
 
         foreach (Interactable i in secondPassThroughCabinet.GetContainedItems()) {
             i.DestroyInteractable();
