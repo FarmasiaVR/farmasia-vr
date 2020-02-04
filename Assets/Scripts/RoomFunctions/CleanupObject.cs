@@ -12,12 +12,13 @@ public class CleanupObject : MonoBehaviour {
 
     private TriggerInteractableContainer roomItems;
 
-    private bool started;
+    private bool startedCleanup;
     private bool finished;
 
     private void Start() {
         
         roomItems = coll.gameObject.AddComponent<TriggerInteractableContainer>();
+        Events.SubscribeToEvent(ItemLiftedFromFloor, this, EventType.ItemLiftedOffFloor);
         Events.SubscribeToEvent(ItemDroppedInTrash, this, EventType.ItemDroppedInTrash);
     }
 
@@ -25,6 +26,15 @@ public class CleanupObject : MonoBehaviour {
         return GameObject.FindObjectOfType<CleanupObject>();
     }
 
+    private void ItemLiftedFromFloor(CallbackData data) {
+        GeneralItem item = (GeneralItem)data.DataObject;
+
+        if (!startedCleanup && !item.IsClean) {
+            UISystem.Instance.CreatePopup(-1, "Siivoa lattialla olevat esineet vasta lopuksi", MsgType.Mistake);
+            G.Instance.Progress.Calculator.AddTaskMistake("Siivoa lattialla olevat esineet vasta lopuksi");
+            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
+        }
+    }
     private void ItemDroppedInTrash(CallbackData data) {
         GeneralItem g = (GeneralItem)data.DataObject;
 
@@ -41,7 +51,7 @@ public class CleanupObject : MonoBehaviour {
     }
 
     private void Update() {
-        if (started && !finished) {
+        if (startedCleanup && !finished) {
             if (RoomGeneralItemCount() <= AcceptedCount()) {
                 finished = true;
                 Logger.Warning("Finishing cleanup");
@@ -88,6 +98,6 @@ public class CleanupObject : MonoBehaviour {
         //    Destroy(i);
         //}
 
-        started = true;
+        startedCleanup = true;
     }
 }
