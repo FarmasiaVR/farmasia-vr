@@ -144,9 +144,6 @@ public class CorrectItemsInThroughput : TaskBase {
     
 
     protected override void OnTaskComplete() {
-
-
-
     }
 
 
@@ -156,16 +153,9 @@ public class CorrectItemsInThroughput : TaskBase {
     public override void CompleteTask() {
         base.CompleteTask();
 
-        Logger.Warning("Possibly giving duplicate minus points, CHECK ME OUT!!!!!!");
-
         if (IsCompleted()) {
-            if (!correctMedicineBottle) {
-                CreateTaskMistake("Liian iso lääkepullo", 1);
-            }
             if (objectCount == 11) {
-                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done, 2);
-            } else {
-                CreateTaskMistake("Liikaa työvälineitä läpiantokaapissa.", 1);
+                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
