@@ -79,7 +79,7 @@ public class UISystem : MonoBehaviour {
         GameObject popupMessage = InitUIComponent(popupPrefab);
         PointPopup popup = popupMessage.GetComponent<PointPopup>();
         popup.SetObjectPath(player, player);
-        popup.LookAt(player);
+        popup.SetCamera(player);
 
         if (point == int.MinValue) {
            popup.SetPopup(message, type);
