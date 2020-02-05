@@ -77,8 +77,20 @@ public class Interactable : MonoBehaviour {
         if (Destroyed) {
             return;
         }
-        
+
         Destroyed = true;
+
+        if (this.enabled && gameObject.activeInHierarchy) {
+            StartCoroutine(DestroySequence());
+        } else {
+            if (Interactors.Hand != null) {
+                Interactors.Hand.Uninteract();
+            }
+            if (Interactors.LuerlockPair.Value != null) {
+                Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).Connection.Remove();
+            }
+            Destroy(gameObject);
+        }
 
         IEnumerator DestroySequence() {
             if (Interactors.Hand != null) {
@@ -95,12 +107,10 @@ public class Interactable : MonoBehaviour {
             Logger.Print("Destroy interactable " + this.name);
             Destroy(gameObject);
         }
-
-        StartCoroutine(DestroySequence());
     }
     protected virtual void OnDestroy() {
-        if (!Destroyed) {
-            Logger.Warning("Interactables must be destroyed using Interactable.DestroyInteractable method, destroyed interactable: " + this.name);
+        if (!Destroyed && gameObject.activeInHierarchy) {
+            Logger.Error("Active Interactables must be destroyed using Interactable.DestroyInteractable method. Destroyed interactable: " + this.name);
         }
     }
 
