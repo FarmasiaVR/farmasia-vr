@@ -97,7 +97,7 @@ public class ScoreCalculator {
             return;
         }
         points[task] = 0;
-    } 
+    }
 
     private enum Colour {
         Yellow,
@@ -153,7 +153,6 @@ public class ScoreCalculator {
         string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
         string addedBeforeTimeList = "";
-        string taskMistakes = "\n\nTehtävä virheet:\n";
         string generalMistakes = "\n\nYleisvirheet:\n";
         score = 0;
 
@@ -164,7 +163,7 @@ public class ScoreCalculator {
             scoreCountPerTask += "\n " + PrintPoints(points[type], maxPoints[type]) + " : " + TaskToString(type);
             if (TaskMistakes.ContainsKey(type)) {
                 foreach (string mistake in TaskMistakes[type]) {
-                    scoreCountPerTask += "\n  " +Text(mistake, Colour.Red);
+                    scoreCountPerTask += "\n    " + Text("- " + mistake, Colour.Red);
                 }
             }
             score += points[type];
@@ -184,8 +183,8 @@ public class ScoreCalculator {
 
         Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
 
-        summary += "Kokonaispistemäärä: " + Text("" +  score, pointColour) + " / " + maxScore + "!\n";
-        scoreString = summary + scoreCountPerTask + taskMistakes + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
+        summary += "Kokonaispistemäärä: " + Text("" + score, pointColour) + " / " + maxScore + "!\n";
+        scoreString = summary + scoreCountPerTask + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }
     private string TaskToString(TaskType type) {
