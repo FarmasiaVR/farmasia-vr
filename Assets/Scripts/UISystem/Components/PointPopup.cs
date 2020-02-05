@@ -72,7 +72,6 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void CalculateStartingPosition() {
-        //textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
         textObject.transform.position = CameraCenter + cam.forward * popupSpawnDistance;
     }
 
@@ -109,7 +108,6 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void Update() {
-
         timer += Time.deltaTime;
 
         if (!fadeInCompleted) {
