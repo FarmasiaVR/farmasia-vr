@@ -124,6 +124,7 @@ public class Syringe : GeneralItem {
             TransferToLuerlock(liquidAmount);
         } else if (State == InteractState.InBottle) {
             TransferToBottle(liquidAmount);
+            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Eject(liquidAmount);
         }

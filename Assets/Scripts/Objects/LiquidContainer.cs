@@ -133,8 +133,8 @@ public class LiquidContainer : MonoBehaviour {
             }
 
             if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                G.Instance.Progress.Calculator.AddMistake("L‰‰kett‰ otettiin uudestaan");
-                UISystem.Instance.CreatePopup(-1, "L‰‰kett‰ otettiin uudestaan", MsgType.Mistake, false);
+                G.Instance.Progress.Calculator.AddMistake("L‰‰kett‰ yritettiin ottaa uudestaan");
+                UISystem.Instance.CreatePopup(-1, "L‰‰kett‰ yritettiin ottaa uudestaan", MsgType.Mistake, false);
             }
 
             Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));

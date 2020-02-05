@@ -96,6 +96,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                     int capacity = ((MedicineBottle)g).Container.Capacity;
                     if (capacity == 4000) {
                         correctBottle = true;
+                    } else if (capacity == 100000) {
+                        G.Instance.Progress.Calculator.AddMistake("Väärää lääkettä laminaarikaapissa", 5);
                     }
                 }
 
