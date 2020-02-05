@@ -92,7 +92,7 @@ public class PointPopup : MonoBehaviour {
         if (!fadeInCompleted) {
             MoveTowardsPoint(point1.transform.TransformPoint(new Vector3(0, 0.1f, 0.4f)));
         } else {
-            MoveTowardsPoint(point2.transform.position);
+            MoveTowardsPoint(point1.transform.TransformPoint(new Vector3(0, 0.2f, 0.5f)));
         }
     }
 
@@ -101,7 +101,7 @@ public class PointPopup : MonoBehaviour {
         timer += Time.deltaTime;
 
         if (!fadeInCompleted) {
-            textObject.transform.localPosition += new Vector3(0, 0, -speed);
+            textObject.transform.localPosition += textObject.transform.forward * speed;
             distanceTravelled += speed;
             transparency = distanceTravelled / distanceToTravel;
             textField.alpha = transparency;
@@ -120,8 +120,7 @@ public class PointPopup : MonoBehaviour {
                     visualCompleted = true;
                 }
             } else {
-
-                textObject.transform.localPosition += new Vector3(0, 0, speed);
+                textObject.transform.localPosition -= textObject.transform.forward * speed;
                 distanceTravelled -= speed;
                 transparency = distanceTravelled / distanceToTravel;
                 textField.alpha = transparency;
