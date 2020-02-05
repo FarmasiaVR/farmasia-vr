@@ -29,7 +29,7 @@ public class LaminarCabinetTable : MonoBehaviour {
         IEnumerator Wait() {
             yield return new WaitForSeconds(ContaminateTime);
 
-            if (!safeZone.Contains(item) && contaminateZone.Contains(item) && item.IsClean) {
+            if (!safeZone.Contains(item) && contaminateZone.Contains(item) && (item.IsClean || item.ObjectType == ObjectType.Bottle)) {
                 TaskBase.CreateGeneralMistake("Esine koski laminaarikaapin pintaa");
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
