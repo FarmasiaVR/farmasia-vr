@@ -44,6 +44,7 @@ public class DisinfectBottles : TaskBase {
 
     protected override void OnTaskComplete() {
 
+        return;
         CabinetBase cabinet = null;
         foreach (CabinetBase c in GameObject.FindObjectsOfType<CabinetBase>()) {
             if (c.type == CabinetBase.CabinetType.Laminar) {
