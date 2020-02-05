@@ -3,6 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Checks if Throughput Cupboard (läpiantokaappi) has correct layout.
 /// </summary>
+
+    // Class is deprecated
 public class CorrectLayoutInThroughput : TaskBase {
     #region Fields
     private CabinetBase cabinet;
@@ -22,7 +24,6 @@ public class CorrectLayoutInThroughput : TaskBase {
     #region Event Subscriptions
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        base.SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInThroughput);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -31,42 +32,6 @@ public class CorrectLayoutInThroughput : TaskBase {
             this.cabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
-    }
-
-    /// <summary>
-    /// Once fired by an event, checks how many items have been picked up and if they are arranged.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
-    private void ArrangedItems(CallbackData data) {
-        if (!ItemsArranged()) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInThroughput);
-        }
-    }
-
-    /// <summary>
-    /// Checks that the items are arranged according to rules.
-    /// </summary>
-    /// <returns>"Returns true if the items are arranged."</returns>
-    private bool ItemsArranged() {
-        /* KESKEN
-        List<GameObject> objects = cabinet.GetContainedItems();
-        Collider collisionMashUp = null;
-        foreach (GameObject leobject in objects) {
-            Collider col = leobject.GetComponent<Collider>();
-            
-            if (collisionMashUp == null) {
-                collisionMashUp = col;
-                continue;
-            }
-            
-            if () {
-                return false;
-            }
-            
-        }*/
-        return true;
     }
     #endregion
 

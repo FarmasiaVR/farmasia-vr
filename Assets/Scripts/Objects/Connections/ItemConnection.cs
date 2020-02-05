@@ -15,6 +15,10 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected virtual void OnRemoveConnection() { }
 
+    protected virtual void Start() {
+        //NullCheck.Check(Connector);
+    }
+
     protected virtual void Update() {
 
     }

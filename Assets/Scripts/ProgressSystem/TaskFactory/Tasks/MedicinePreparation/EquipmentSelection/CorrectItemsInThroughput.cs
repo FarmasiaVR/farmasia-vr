@@ -165,7 +165,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
             }
             if (objectCount == 11) {
-                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Notify, 2);
+                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done, 2);
             } else {
                 Popup("Liikaa työvälineitä läpiantokaapissa.", MsgType.Mistake, -1);
                 G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);

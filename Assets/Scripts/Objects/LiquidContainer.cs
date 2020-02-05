@@ -127,14 +127,16 @@ public class LiquidContainer : MonoBehaviour {
         if (generalItem.ObjectType == ObjectType.Bottle) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
+
             if (!generalItem.IsClean) {
                 needle.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
+
             if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                G.Instance.Progress.Calculator.AddMistake("L‰‰kett‰ otettiin uudestaan");
-                UISystem.Instance.CreatePopup(-1, "L‰‰kett‰ otettiin uudestaan", MsgType.Mistake, false);
+                G.Instance.Progress.Calculator.AddMistake("L‰‰kett‰ yritettiin ottaa uudestaan");
+                UISystem.Instance.CreatePopup(-1, "L‰‰kett‰ yritettiin ottaa uudestaan", MsgType.Mistake, false);
             }
-            (G.Instance.Scene as MedicinePreparationScene).NeedleUsed = true;
+
             Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
         }
 

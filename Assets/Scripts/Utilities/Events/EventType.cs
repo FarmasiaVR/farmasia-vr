@@ -26,6 +26,7 @@
     ItemPlacedForReference,
     VentilationBlocked,
     SyringeWithNeedleEntersBottle,
+    TakingMedicineFromBottle,
     FinishedTakingMedicineToSyringe,
     SyringeToLuerlock,
     SyringeFromLuerlock,

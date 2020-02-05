@@ -33,7 +33,6 @@ public class SyringeAttach : TaskBase {
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
-        SubscribeEvent(RemoveSyringe, EventType.SyringeFromLuerlock);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -67,28 +66,6 @@ public class SyringeAttach : TaskBase {
         } else {
             base.package.MoveTaskToManager(this);
         }
-    }
-
-    private void RemoveSyringe(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        Syringe s = item.GetComponent<Syringe>();
-
-
-        //if (attachedSyringes.ContainsKey(s.GetInstanceID())) {
-        //    if (IsPreviousTasksCompleted(requiredTasks)) {
-        //        if (!laminarCabinet.objectsInsideArea.Contains(s.gameObject)) {
-        //            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.SyringeAttach);
-        //            Popup("Ruisku poistettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
-        //            attachedSyringes.Remove(s.GetInstanceID());
-        //        } else if (attachedSyringes[s.GetInstanceID()] != s.Container.Amount && attachedSyringes.Count == 6) {
-        //            attachedSyringes[s.GetInstanceID()] = s.Container.Amount;
-        //            FinishTask();
-        //        }
-        //    } else {
-        //        attachedSyringes.Remove(s.GetInstanceID());
-        //    }  
-        //}
     }
     #endregion
 

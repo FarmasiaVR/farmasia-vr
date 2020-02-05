@@ -31,6 +31,8 @@ public class Interactable : MonoBehaviour {
     private bool disableHighlighting;
 
     private ObjectHighlight highlight;
+
+    public bool Destroyed { get; private set; }
     #endregion
 
     protected virtual void Awake() {
@@ -72,6 +74,11 @@ public class Interactable : MonoBehaviour {
     }
 
     public void DestroyInteractable() {
+        if (Destroyed) {
+            return;
+        }
+        Destroyed = true;
+
         IEnumerator DestroySequence() {
             if (Interactors.Hand != null) {
                 Interactors.Hand.Uninteract();
@@ -83,6 +90,7 @@ public class Interactable : MonoBehaviour {
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
+
             Destroy(gameObject);
         }
 

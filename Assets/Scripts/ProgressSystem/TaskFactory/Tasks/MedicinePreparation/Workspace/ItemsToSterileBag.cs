@@ -125,8 +125,6 @@ public class ItemsToSterileBag : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        Logger.Print("DISABLING CAP FACTORY");
-        laminarCabinet.DisableCapFactory();
     }
     #endregion
 }

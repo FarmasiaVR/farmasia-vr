@@ -38,6 +38,7 @@ public class MedicineToSyringe : TaskBase {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         SubscribeEvent(NeedleWithSyringeInsertedIntoBottle, EventType.SyringeWithNeedleEntersBottle);
         SubscribeEvent(FinishedTakingMedicineToSyringe, EventType.FinishedTakingMedicineToSyringe);
+        SubscribeEvent(TakingMedicineFromBottle, EventType.TakingMedicineFromBottle);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -54,6 +55,14 @@ public class MedicineToSyringe : TaskBase {
             Popup("Siirrä kaikki tarvittavat työvälineet ensin laminaarikaappiin.", MsgType.Notify);
             G.Instance.Progress.ForceCloseTask(TaskType.CorrectItemsInLaminarCabinet, false);
             G.Instance.Progress.ForceCloseTask(TaskType.DisinfectBottles, false);
+        }
+    }
+
+    private void TakingMedicineFromBottle(CallbackData data) {
+        Syringe s = data.DataObject as Syringe;
+        if (s.BottleContainer.Capacity == 100000) {
+            Popup("Ruiskulla otettiin väärää lääkettä", MsgType.Mistake, -5);
+            G.Instance.Progress.Calculator.AddMistake("Ruiskulla otettiin väärää lääkettä", 5);
         }
     }
 
@@ -93,6 +102,7 @@ public class MedicineToSyringe : TaskBase {
     }
 
     protected override void OnTaskComplete() {
+        (G.Instance.Scene as MedicinePreparationScene).NeedleUsed = true;
 
         if (syringe == null) {
             return;
@@ -116,7 +126,7 @@ public class MedicineToSyringe : TaskBase {
         }
 
         if (!fail) {
-            Popup("Lääkkeen ottaminen onnistui.", MsgType.Notify, 2);
+            Popup("Lääkkeen ottaminen onnistui.", MsgType.Done, 2);
         }
     }
     #endregion

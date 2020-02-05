@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 public class EnableFactory : MonoBehaviour {
+
     private void Start() {
         GetComponent<Rigidbody>().isKinematic = true;
         gameObject.SetActive(false);

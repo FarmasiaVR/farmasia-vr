@@ -63,7 +63,6 @@ public abstract class TaskBase : ITask {
     }
 
     public virtual void CompleteTask() {
-        Logger.Print("COMPLETE TASK: " + taskType);
         completed = CheckClearConditions();
         if (completed) {
             CloseTask();
@@ -71,9 +70,6 @@ public abstract class TaskBase : ITask {
     }
 
     protected void CloseTask() {
-
-        Logger.Print("CLOSE TASK");
-
         RemoveFromPackage();
         OnTaskComplete();
         if (unsubscribeAllEvents) {
@@ -84,7 +80,6 @@ public abstract class TaskBase : ITask {
     protected abstract void OnTaskComplete();
 
     public virtual void FinishTask() {
-        Logger.Print("FINISH TASK");
         UnsubscribeAllEvents();
         isFinished = true;
     }
@@ -240,12 +235,6 @@ public abstract class TaskBase : ITask {
             UISystem.Instance.CreatePopup(point, message, type);
         } else {
             UISystem.Instance.CreatePopup(message, type);
-        }
-
-        switch (type) {
-            case MsgType.Mistake:
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                break;
         }
     }
 

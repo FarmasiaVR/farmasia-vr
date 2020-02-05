@@ -5,9 +5,6 @@ using UnityEngine;
 /// Disinfect bottle cork. If not done, object will be contaminated.
 /// </summary>
 public class DisinfectBottles : TaskBase {
-    #region Fields
-    private bool allUsedBottlesWereDisinfected;
-    #endregion
 
     #region Constructor
     ///  <summary>
@@ -17,7 +14,6 @@ public class DisinfectBottles : TaskBase {
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
         points = 1;
-        allUsedBottlesWereDisinfected = true;
     }
     #endregion
 
@@ -47,7 +43,22 @@ public class DisinfectBottles : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        //throw new NotImplementedException();
+
+        CabinetBase cabinet = null;
+        foreach (CabinetBase c in GameObject.FindObjectsOfType<CabinetBase>()) {
+            if (c.type == CabinetBase.CabinetType.Laminar) {
+                cabinet = c;
+            }
+        }
+
+        foreach (Interactable interactable in cabinet.GetContainedItems()) {
+            GeneralItem g = interactable as GeneralItem;
+            if (g != null && !g.IsClean) {
+                Popup("Pullon korkkia ei puhdistettu", MsgType.Error);
+                G.Instance.Progress.Calculator.SubtractWithScore(taskType, 1);
+                return;
+            }
+        }
     }
     #endregion
 }

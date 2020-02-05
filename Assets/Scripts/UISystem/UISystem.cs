@@ -29,7 +29,7 @@ public class UISystem : MonoBehaviour {
         } else {
             Instance = this;
         }
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("MainCamera");
         handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
     }
@@ -39,8 +39,8 @@ public class UISystem : MonoBehaviour {
     /// </summary>
     /// <returns>Reference to the instantiated GameObject</returns>
     private GameObject InitUIComponent(GameObject gobj) {
-        GameObject uiComponent = Instantiate(gobj, handuiInScene.transform);
-        uiComponent.transform.SetParent(handuiInScene.transform, false);
+        GameObject uiComponent = Instantiate(gobj);
+        uiComponent.transform.position = player.transform.position;
         return uiComponent;
     }
     #endregion
@@ -75,23 +75,24 @@ public class UISystem : MonoBehaviour {
             G.Instance.Progress.Calculator.AddTaskMistake(message);
         }
 
-        Logger.Print("Popup: " + message);
+        switch (type) {
+            case MsgType.Mistake:
+                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
+                break;
+        }
         GameObject popupMessage = InitUIComponent(popupPrefab);
+        PointPopup popup = popupMessage.GetComponent<PointPopup>();
+        popup.SetObjectPath(player, hand.gameObject);
+        popup.LookAt(player);
+
+
 
         if (point == int.MinValue) {
-            popupMessage.GetComponent<PointPopup>().SetPopup(message, type);
+           popup.SetPopup(message, type);
         } else {
-            popupMessage.GetComponent<PointPopup>().SetPopup(point, message, type);
+            popup.SetPopup(point, message, type);
         }
         SetCurrentPopup(popupMessage);
-    }
-    #endregion
-
-    #region Test Functions
-    private void KeyListener() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            CreatePopup("THIS IS A TEST", MsgType.Mistake);
-        }
     }
     #endregion
 }

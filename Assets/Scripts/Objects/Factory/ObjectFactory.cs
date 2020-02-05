@@ -6,7 +6,10 @@ public class ObjectFactory : MonoBehaviour {
 
     #region Fields
     public GameObject CopyObject { get; set; }
-    private GameObject latestCopy;
+    public GameObject LatestCopy { get; set; }
+
+    public GameObject TriggerCopy { get; private set; }
+
     private Interactable interactable;
 
     private GameObject lastPicked;
@@ -26,15 +29,13 @@ public class ObjectFactory : MonoBehaviour {
 
     private void CreateColliderCopy() {
 
-        GameObject triggerCopy = new GameObject();
+        TriggerCopy = new GameObject();
 
-        CopyTransform(CopyObject.transform, triggerCopy.transform);
+        CopyTransform(CopyObject.transform, TriggerCopy.transform);
 
-
-
-        triggerColliderCount = triggerCopy.AddComponent<ColliderHitCount>();
+        triggerColliderCount = TriggerCopy.AddComponent<ColliderHitCount>();
         CopyObject.SetActive(true);
-        RecursiveCopyColliders(CopyObject.transform, triggerCopy.transform);
+        RecursiveCopyColliders(CopyObject.transform, TriggerCopy.transform);
         CopyObject.SetActive(false);
     }
 
@@ -80,7 +81,7 @@ public class ObjectFactory : MonoBehaviour {
 
     private void Update() {
         if (interactable.State == InteractState.Grabbed && IsEnabled) {
-            latestCopy.GetComponent<Rigidbody>().isKinematic = false;
+            LatestCopy.GetComponent<Rigidbody>().isKinematic = false;
             CreateNewCopy();
         }
     }
@@ -108,27 +109,66 @@ public class ObjectFactory : MonoBehaviour {
     }
 
     private void CreateNewCopy() {
-        GameObject handObject = latestCopy;
+        GameObject handObject = LatestCopy;
 
-        if (latestCopy != null) {
+        if (LatestCopy != null) {
             triggerColliderCount.SetInteractable(handObject);
 
-            if (latestCopy.GetComponent<Rigidbody>().isKinematic == true) {
-                Destroy(latestCopy);
+            if (LatestCopy.GetComponent<Rigidbody>().isKinematic == true) {
+                Destroy(LatestCopy);
             }
         }
 
-        latestCopy = Instantiate(CopyObject);
-        latestCopy.transform.position = transform.position;
+        LatestCopy = Instantiate(CopyObject);
+        LatestCopy.transform.position = transform.position;
 
-        interactable = latestCopy.GetComponent<Interactable>();
-        latestCopy.SetActive(true);
+        interactable = LatestCopy.GetComponent<Interactable>();
+        LatestCopy.SetActive(true);
 
         if (handObject != null) {
-            CollisionIgnore.IgnoreCollisions(handObject.transform, latestCopy.transform, true);
-            StartCoroutine(CheckCollisionRelease(handObject, latestCopy, interactable));
+            CollisionIgnore.IgnoreCollisions(handObject.transform, LatestCopy.transform, true);
+            StartCoroutine(CheckCollisionRelease(handObject, LatestCopy, interactable));
         }
 
         lastPicked = handObject;
+    }
+
+    public static void DestroyAllFactories(bool createMeshCopies) {
+        ObjectFactory[] factories = GameObject.FindObjectsOfType<ObjectFactory>();
+
+        foreach (ObjectFactory f in factories) {
+
+            //if (createMeshCopies) {
+            //    CreateMeshCopy(f.LatestCopy);
+            //}
+
+            Interactable i = Interactable.GetInteractable(f.LatestCopy.transform);
+            i.DestroyInteractable();
+            Destroy(f.CopyObject);
+            Destroy(f.TriggerCopy);
+            Destroy(f.gameObject);
+        }
+    }
+    public static GameObject CreateMeshCopy(GameObject original) {
+
+        Logger.Error("THIS FUNCITON CAUSES INFINITE LOOP & CRASH WTF");
+        return null;
+
+        GameObject meshCopy = new GameObject();
+
+        foreach (Transform child in original.transform) {
+            Vector3 lpos = child.localPosition;
+            Vector3 lrot = child.localEulerAngles;
+
+            Transform mesh = Instantiate(child.gameObject).transform;
+            mesh.SetParent(original.transform);
+            mesh.localPosition = lpos;
+            mesh.localEulerAngles = lrot;
+        }
+
+        meshCopy.transform.position = original.transform.position;
+        meshCopy.transform.rotation = original.transform.rotation;
+
+        return meshCopy;
     }
 }

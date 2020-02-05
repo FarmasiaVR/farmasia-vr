@@ -36,7 +36,6 @@ public class SyringeDisplay : MonoBehaviour {
         if (followedObject != null) {
             transform.position = followedObject.transform.position;
         } else {
-            Logger.Warning("No object to follow in SyringeDisplay, Destroying!");
             Destroy(gameObject);
         }
         textParentTransform.LookAt(cam.transform, Vector3.up);

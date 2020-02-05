@@ -6,15 +6,19 @@ public class ProgressManager {
 
     #region Fields
     private bool testMode;
+
+    // Actual list of every task. No task is ever removed from this list
     private List<TaskBase> trueAllTasksThatAreNeverRemoved;
     private Dictionary<TaskType, int> taskMaxPoints;
+
+    // Oot actually all tasks
     private HashSet<ITask> allTasks;
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
 
 
-    public byte[] SavedScoreState { get; private set; }
+   // public byte[] SavedScoreState { get; private set; }
     #endregion
 
     #region Constructor
@@ -38,7 +42,7 @@ public class ProgressManager {
             if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
-            Logger.Print("max poings: " + task.GetTaskType() + ", pounts: " + taskMaxPoints[task.GetTaskType()]);
+            Logger.Print("max points: " + task.GetTaskType() + ", points: " + taskMaxPoints[task.GetTaskType()]);
             task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
         }
     }
@@ -83,9 +87,6 @@ public class ProgressManager {
         }
     }
 
-    public void SaveProgress() {
-        SavedScoreState = DataSerializer.Serializer(Calculator);
-    }
     public void SetProgress(byte[] state) {
         ScoreCalculator c = DataSerializer.Deserializer<ScoreCalculator>(state);
         if (c != null) {
@@ -113,6 +114,7 @@ public class ProgressManager {
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = {
+            TaskType.ScenarioOneCleanUp,
             TaskType.Finish
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
@@ -257,6 +259,7 @@ public class ProgressManager {
                 RemoveTask(task);
                 string scoreString;
                 int score;
+                MedicinePreparationScene.SavedScoreState = null;
                 Calculator.GetScoreString(out score, out scoreString, this);
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);

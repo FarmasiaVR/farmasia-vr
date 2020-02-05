@@ -30,8 +30,6 @@ public class CabinetBase : MonoBehaviour {
 
     private Dictionary<GeneralItem, bool> FirstEnterObjects;
 
-    //private GameObject sterileDrape;
-
     [SerializeField]
     [Tooltip("Used only in laminar cabinet. This factory will be set active when a SyringeCapBag has entered the laminar cabinet.")]
     private GameObject syringeCapFactory = null;
@@ -45,6 +43,9 @@ public class CabinetBase : MonoBehaviour {
 
     private Pipeline capBagEnterPipeline;
     private bool folded;
+    private bool hasCapBag;
+    private GameObject capBagMeshCopy;
+    private GeneralItem trueCapBag;
     #endregion
 
     // Start is called before the first frame update
@@ -74,14 +75,16 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
-        if (FirstEnterObjects.ContainsKey(item)) {
-            if (!FirstEnterObjects[item]) {
-                UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
-                G.Instance.Progress.Calculator.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
-                FirstEnterObjects[item] = true;
+        if (this.type == CabinetType.Laminar) {
+            if (FirstEnterObjects.ContainsKey(item)) {
+                if (!FirstEnterObjects[item]) {
+                    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
+                    G.Instance.Progress.Calculator.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                    FirstEnterObjects[item] = true;
+                }
+            } else {
+                FirstEnterObjects.Add(item, false);
             }
-        } else {
-            FirstEnterObjects.Add(item, false);
         }
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
@@ -136,8 +139,6 @@ public class CabinetBase : MonoBehaviour {
         sterileDrape.SetBool("ItemPlaced", true);
     }
 
-
-
     private Types CheckItemType(ObjectType itemType, GeneralItem item, bool enteringCabinet) {
         Types type = Types.Null;
         if (itemType == ObjectType.Syringe) {
@@ -162,37 +163,38 @@ public class CabinetBase : MonoBehaviour {
         return type;
     }
 
-    public void DisableCapFactory() {
-        syringeCapFactory.SetActive(false);
-    }
-
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
+        if (hasCapBag) return;
+
+        trueCapBag = capBag;
+        hasCapBag = true;
+        StartCoroutine(EnableCapFactory());
 
         IEnumerator EnableCapFactory() {
 
             yield return new WaitForSeconds(2);
 
-            if (!itemContainer.Contains(capBag)) {
+            if (!itemContainer.Contains(trueCapBag)) {
                 yield break;
             }
 
-            GameObject meshCopy = new GameObject();
+            capBagMeshCopy = new GameObject();
 
-            foreach (Transform child in capBag.transform) {
+            foreach (Transform child in trueCapBag.transform) {
                 Vector3 lpos = child.localPosition;
                 Vector3 lrot = child.localEulerAngles;
 
                 Transform mesh = Instantiate(child.gameObject).transform;
-                mesh.SetParent(meshCopy.transform);
+                mesh.SetParent(capBagMeshCopy.transform);
                 mesh.localPosition = lpos;
                 mesh.localEulerAngles = lrot;
             }
 
-            meshCopy.transform.position = capBag.transform.position;
-            meshCopy.transform.rotation = capBag.transform.rotation;
+            capBagMeshCopy.transform.position = trueCapBag.transform.position;
+            capBagMeshCopy.transform.rotation = trueCapBag.transform.rotation;
 
-            Vector3 startPos = capBag.transform.position;
-            Quaternion startRot = capBag.transform.rotation;
+            Vector3 startPos = trueCapBag.transform.position;
+            Quaternion startRot = trueCapBag.transform.rotation;
 
             Vector3 targetPos = syringeCapFactoryPos.transform.position;
             Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
@@ -200,52 +202,57 @@ public class CabinetBase : MonoBehaviour {
             float time = 2.5f;
             float currentTime = 0;
 
-            DestroyCapBagAndInitFactory(capBag);
+            DestroyCapBagAndInitFactory();
 
             while (currentTime < time) {
                 currentTime += Time.deltaTime;
 
                 float progress = currentTime / time;
 
-                meshCopy.transform.position = Vector3.Slerp(startPos, targetPos, progress);
-                meshCopy.transform.rotation = Quaternion.Slerp(startRot, targetRot, progress);
+                capBagMeshCopy.transform.position = Vector3.Slerp(startPos, targetPos, progress);
+                capBagMeshCopy.transform.rotation = Quaternion.Slerp(startRot, targetRot, progress);
 
                 yield return null;
             }
 
-            meshCopy.transform.position = targetPos;
-            meshCopy.transform.rotation = targetRot;
+            capBagMeshCopy.transform.position = targetPos;
+            capBagMeshCopy.transform.rotation = targetRot;
 
             syringeCapFactory.SetActive(true);
             capFactoryEnabled = true;
         }
-
-        StartCoroutine(EnableCapFactory());
     }
 
-    private void DestroyCapBagAndInitFactory(GeneralItem capBag) {
-        if (capBag != null && itemContainer.Contains(capBag)) {
+    private void DestroyCapBagAndInitFactory() {
+        if (trueCapBag != null && itemContainer.Contains(trueCapBag)) {
 
             Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
 
-            Logger.Print("Setting IsClean of caps inside laminar cabinet to " + capBag.IsClean);
-            syringeCapFactory.GetComponent<GeneralItem>().Contamination = capBag.Contamination;
-            bool capFactoryAlreadyEnabled = false;
+            Logger.Print("Setting IsClean of caps inside laminar cabinet to " + trueCapBag.IsClean);
+            syringeCapFactory.GetComponent<GeneralItem>().Contamination = trueCapBag.Contamination;
             foreach (Interactable obj in itemContainer.Objects) {
                 GeneralItem item = obj as GeneralItem;
                 if (item == null) {
                     continue;
                 }
                 if (item.ObjectType == ObjectType.SyringeCap) {
-                    item.Contamination = capBag.Contamination;
-                    capFactoryAlreadyEnabled = true;
+                    item.Contamination = trueCapBag.Contamination;
                 }
             }
 
-            capBag.DestroyInteractable();
+            //capBag.DestroyInteractable();
+            DisableTrueCapBag();
         } else {
             Logger.Print("Syringe cap bag not inside cabinet anymore, won't destroy or set factory active");
         }
+    }
+
+    private void DisableTrueCapBag() {
+        trueCapBag.gameObject.SetActive(false);
+    }
+
+    private void EnableTrueCapBag() {
+        trueCapBag.gameObject.SetActive(true);
     }
 
     private void ReAddMissingObjects(Types itemType) {
@@ -287,8 +294,8 @@ public class CabinetBase : MonoBehaviour {
         return itemContainer.Objects.ToList();
     }
 
-    public String GetMissingItems() {
-        String missing = "";
+    public string GetMissingItems() {
+        string missing = "";
         foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
                 missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";
