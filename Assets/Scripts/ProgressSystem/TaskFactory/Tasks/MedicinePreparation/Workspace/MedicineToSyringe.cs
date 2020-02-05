@@ -70,19 +70,16 @@ public class MedicineToSyringe : TaskBase {
 
         if (laminarCabinet == null) {
             if (!takenBeforeTime) {
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-                Popup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake, -1);
+                CreateTaskMistake("Lääkettä yritettiin ottaa liian aikaisin", 1);
                 takenBeforeTime = true;
             } else {
                 Popup("Lääkettä yritettiin ottaa liian aikaisin.", MsgType.Mistake);
             }
         } else if (!laminarCabinet.GetContainedItems().Contains(syringe)) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.MedicineToSyringe);
-            Popup("Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
+            CreateTaskMistake("Lääkettä yritettiin ottaa laminaarikaapin ulkopuolella", 1);
         } else {
             if (!IsPreviousTasksCompleted(requiredTasks)) {
-                Popup("Tarvittavia työvälineitä ei siirretty laminaarikaappiin.", MsgType.Mistake, -1);
-                G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.CorrectItemsInLaminarCabinet);
+                CreateTaskMistake("Tarvittavia työvälineitä ei siirretty laminaarikaappiin", 1);
             }
             //CheckConditions(s);
         }
@@ -109,18 +106,15 @@ public class MedicineToSyringe : TaskBase {
 
         bool fail = false;
         if (syringe.Container.Capacity != RIGHT_SYRINGE_CAPACITY) {
-            Popup("Väärän kokoinen ruisku", MsgType.Mistake, -1);
-            G.Instance.Progress.Calculator.Subtract(taskType);
+            CreateTaskMistake("Väärän kokoinen ruisku", 1);
             fail = true;
         }
         if (syringe.Container.Amount < MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE) {
-            Popup("Liian vähän lääkettä", MsgType.Mistake, -1);
-            G.Instance.Progress.Calculator.Subtract(taskType);
+            CreateTaskMistake("Liian vähän lääkettä", 1);
             fail = true;
         }
         if (!syringe.IsClean) {
-            G.Instance.Progress.Calculator.Subtract(taskType);
-            Popup("Ruisku tai pullo oli likainen", MsgType.Mistake, -1);
+            CreateTaskMistake("Ruisku tai pullo oli likainen", 1);
             fail = true;
         }
 

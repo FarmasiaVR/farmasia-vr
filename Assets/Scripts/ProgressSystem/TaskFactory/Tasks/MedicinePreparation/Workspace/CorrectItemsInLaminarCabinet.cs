@@ -110,13 +110,11 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         if (syringeCount == 7 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
         } else {
-            Popup("Väärä määrä työvälineitä laminaarikaapissa.", MsgType.Mistake, -2);
-            G.Instance.Progress.Calculator.SubtractWithScore(taskType, 2);
+            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
         }
 
         if (uncleanCount > 0) {
-            G.Instance.Progress.Calculator.SubtractWithScore(taskType, uncleanCount);
-            Popup("Likainen esine laminaarikaapissa", MsgType.Mistake, -uncleanCount);
+            CreateTaskMistake("Likainen esine laminaarikaapissa", uncleanCount);
         }
     }
     #endregion

@@ -68,15 +68,13 @@ public class CorrectItemsInThroughput : TaskBase {
                 if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
                     continue;
                 }
-                G.Instance.Progress.Calculator.Subtract(taskType);
-                Popup("Läpiantokaapissa oli likainen esine", MsgType.Mistake);
+                CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
             }
         }
 
         if (gCount - 11 > 0) {
             int minus = gCount - 11;
-            G.Instance.Progress.Calculator.SubtractWithScore(taskType, minus);
-            Popup("Läpiantokaapissa oli liikaa esineitä", MsgType.Mistake);
+            CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", minus);
         }
 
         objectCount = containedObjects.Count;
@@ -94,8 +92,7 @@ public class CorrectItemsInThroughput : TaskBase {
 
     private void MissingItems() {
         if (!firstCheckDone) {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake, -2);
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectItemsInThroughput, 2);
+            CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
             firstCheckDone = true;
         } else {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
@@ -159,16 +156,16 @@ public class CorrectItemsInThroughput : TaskBase {
     public override void CompleteTask() {
         base.CompleteTask();
 
+        Logger.Warning("Possibly giving duplicate minus points, CHECK ME OUT!!!!!!");
+
         if (IsCompleted()) {
             if (!correctMedicineBottle) {
-                Popup("Liian iso lääkepullo.", MsgType.Mistake, -1);
-                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
+                CreateTaskMistake("Liian iso lääkepullo", 1);
             }
             if (objectCount == 11) {
                 Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done, 2);
             } else {
-                Popup("Liikaa työvälineitä läpiantokaapissa.", MsgType.Mistake, -1);
-                G.Instance.Progress.Calculator.Subtract(TaskType.CorrectItemsInThroughput);
+                CreateTaskMistake("Liikaa työvälineitä läpiantokaapissa.", 1);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;

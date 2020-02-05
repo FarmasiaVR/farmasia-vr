@@ -303,10 +303,9 @@ public class MedicinePreparationScene : SceneScript {
         yield return null;
         Interactable sterileCloth = Interactable.GetInteractable(g_sterileCloth.transform);
 
-        //sterileCloth.transform.position = bottle.transform.position;
+        sterileCloth.transform.position = bottle.transform.position;
 
         yield return Wait;
-        //sterileCloth.transform.position = bottle.transform.position + new Vector3(0, 0.25f, 0);
 
         sterileCloth.transform.position = regularTrash.transform.position;
         yield return null;

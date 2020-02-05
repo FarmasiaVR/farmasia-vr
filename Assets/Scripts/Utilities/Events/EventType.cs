@@ -24,7 +24,6 @@
     GrabUninteractWithObject,
     GrabInteractWithObject,
     ItemPlacedForReference,
-    VentilationBlocked,
     SyringeWithNeedleEntersBottle,
     TakingMedicineFromBottle,
     FinishedTakingMedicineToSyringe,

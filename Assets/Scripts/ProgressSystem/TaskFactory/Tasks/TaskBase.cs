@@ -263,9 +263,11 @@ public abstract class TaskBase : ITask {
         G.Instance.Progress.Calculator.CreateMistake(mistake, minus);
     }
     public static void CreateTaskMistakeGlobal(TaskType type, string mistake, int minus) {
-        UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
-        G.Instance.Progress.Calculator.SubtractWithScore(type, minus);
-        G.Instance.Progress.Calculator.CreateTaskMistake(type, mistake);
+        if (mistake != null) {
+            UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
+            G.Instance.Progress.Calculator.CreateTaskMistake(type, mistake);
+        }
+        G.Instance.Progress.Calculator.SubtractPoints(type, minus);
     }
     #endregion
     #endregion

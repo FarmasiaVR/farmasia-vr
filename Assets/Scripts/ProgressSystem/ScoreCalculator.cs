@@ -60,20 +60,9 @@ public class ScoreCalculator {
     /// <summary>
     /// Subtracts a point from given task.
     /// </summary>
-    /// <param name="task">Refers to a task to subtract a point.</param>
-    public void Subtract(TaskType task) {
-        if (!points.ContainsKey(task)) {
-            return;
-        }
-        points[task] -= 1;
-    }
-
-    /// <summary>
-    /// Subtracts a point from given task.
-    /// </summary>
     /// <param name="task">Refers to a task to subtract given points.</param>
     /// <param name="subtractScore">Gives the amount of points to be subtracted.</param>
-    public void SubtractWithScore(TaskType task, int subtractScore) {
+    public void SubtractPoints(TaskType task, int subtractScore) {
         if (subtractScore < 0) {
             throw new Exception("Cannot subtract negative score!");
         }
@@ -87,8 +76,8 @@ public class ScoreCalculator {
     /// Subtracts a point from given task. Moves it to before time list.
     /// </summary>
     /// <param name="task">Refers to a task to subtract a point.</param>
-    public void SubtractBeforeTime(TaskType task) {
-        Subtract(task);
+    public void SubtractBeforeTime(TaskType task, int subtractScore) {
+        SubtractPoints(task, subtractScore);
         beforeTime.Add(task.ToString());
     }
 

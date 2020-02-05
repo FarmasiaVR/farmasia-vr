@@ -54,8 +54,8 @@ public class DisinfectBottles : TaskBase {
         foreach (Interactable interactable in cabinet.GetContainedItems()) {
             GeneralItem g = interactable as GeneralItem;
             if (g != null && !g.IsClean) {
-                Popup("Pullon korkkia ei puhdistettu", MsgType.Error);
-                G.Instance.Progress.Calculator.SubtractWithScore(taskType, 1);
+                Logger.Warning("Possibly deprecated minus disinfect bottle");
+                CreateTaskMistake("Pullon korkkia ei puhdistettu", 1);
                 return;
             }
         }

@@ -65,10 +65,12 @@ public class Finish : TaskBase {
         }
 
         if (pointsForSyringeSize < 6) {
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, 6 - pointsForSyringeSize);
+            Logger.Error("Deprecated finish minus");
+            //G.Instance.Progress.Calculator.SubtractWithScore(TaskType.SyringeAttach, 6 - pointsForSyringeSize);
         }
         if (pointsForMedicineAmount < 6) {
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, 6 - pointsForMedicineAmount);
+            Logger.Error("Deprecated finish minus");
+            //G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, 6 - pointsForMedicineAmount);
         }
     }
 

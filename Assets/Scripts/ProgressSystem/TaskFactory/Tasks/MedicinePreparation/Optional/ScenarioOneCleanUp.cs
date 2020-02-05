@@ -32,7 +32,8 @@ public class ScenarioOneCleanUp : TaskBase {
 
     public override void FinishTask() {
         if (itemsToBeCleaned.Count != 0) {
-            G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
+            Logger.Error("Deprecated cleanup minus");
+            //G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
         }
         base.FinishTask();
     }
