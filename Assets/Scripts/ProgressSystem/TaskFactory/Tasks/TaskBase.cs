@@ -35,19 +35,17 @@ public abstract class TaskBase : ITask {
     }
 
     #region Task Progression
-    public virtual void ForceClose(bool taskHasPoints) {
+    public virtual void ForceClose(bool removePoints) {
         if (IsCompleted()) {
             return;
         }
 
         Logger.PrintVariables("Force closing", taskType);
-        
-        if (taskHasPoints) {
+
+        if (removePoints) {
             Logger.Print("Task has points: " + taskType + ", points: " + points);
-            if (taskType != TaskType.DisinfectBottles) {
-                G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-                G.Instance.Progress.Calculator.AddMistake("Kaikkia tehtäviä ei suoritettu", 2);
-            }
+            G.Instance.Progress.Calculator.SetScoreToZero(taskType);
+            TaskBase.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
@@ -238,6 +236,8 @@ public abstract class TaskBase : ITask {
         }
     }
 
+
+
     public override string ToString() {
 
         string s = "TaskType: " + taskType + ", finished: " + isFinished;
@@ -251,5 +251,22 @@ public abstract class TaskBase : ITask {
 
         return s;
     }
+
+    #region Mistakes
+    public void CreateTaskMistake(string mistake, int minus) {
+        CreateTaskMistakeGlobal(taskType, mistake, minus);
+    }
+    public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true) {
+        if (showMessage) {
+            UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
+        }
+        G.Instance.Progress.Calculator.CreateMistake(mistake, minus);
+    }
+    public static void CreateTaskMistakeGlobal(TaskType type, string mistake, int minus) {
+        UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
+        G.Instance.Progress.Calculator.SubtractWithScore(type, minus);
+        G.Instance.Progress.Calculator.CreateTaskMistake(type, mistake);
+    }
+    #endregion
     #endregion
 }

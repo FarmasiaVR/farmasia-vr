@@ -12,7 +12,7 @@ public class ScoreCalculator {
     private int maxScore = 0;
 
     public Dictionary<string, int> Mistakes { get; private set; }
-    public HashSet<string> TaskMistakes { get; private set; }
+    public Dictionary<TaskType, HashSet<string>> TaskMistakes { get; private set; }
     #endregion
 
     #region Constructor
@@ -22,13 +22,13 @@ public class ScoreCalculator {
     public ScoreCalculator(HashSet<ITask> allTasks) {
         points = new Dictionary<TaskType, int>();
         beforeTime = new HashSet<string>();
-        TaskMistakes = new HashSet<string>();
+        TaskMistakes = new Dictionary<TaskType, HashSet<string>>();
         Mistakes = new Dictionary<string, int>();
         AddTasks(allTasks);
     }
     #endregion
 
-    public void AddMistake(string mistake, int minusPoints = 1) {
+    public void CreateMistake(string mistake, int minusPoints = 1) {
         if (Mistakes.ContainsKey(mistake)) {
             Mistakes[mistake] += minusPoints;
         } else {
@@ -36,8 +36,11 @@ public class ScoreCalculator {
         }
     }
 
-    internal void AddTaskMistake(string message) {
-        TaskMistakes.Add(message);
+    public void CreateTaskMistake(TaskType type, string mistake) {
+        if (!TaskMistakes.ContainsKey(type)) {
+            TaskMistakes.Add(type, new HashSet<string>());
+        }
+        TaskMistakes[type].Add(mistake);
     }
     #region Private Methods
     /// <summary>
@@ -149,7 +152,6 @@ public class ScoreCalculator {
 
         string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
         string scoreCountPerTask = "";
-        string beforeTimeSummary = "Liian aikaisin koitetut tehtävät:\n";
         string addedBeforeTimeList = "";
         string taskMistakes = "\n\nTehtävä virheet:\n";
         string generalMistakes = "\n\nYleisvirheet:\n";
@@ -160,6 +162,11 @@ public class ScoreCalculator {
                 continue;
             }
             scoreCountPerTask += "\n " + PrintPoints(points[type], maxPoints[type]) + " : " + TaskToString(type);
+            if (TaskMistakes.ContainsKey(type)) {
+                foreach (string mistake in TaskMistakes[type]) {
+                    scoreCountPerTask += "\n  " +Text(mistake, Colour.Red);
+                }
+            }
             score += points[type];
         }
         foreach (string before in beforeTime) {
@@ -174,12 +181,6 @@ public class ScoreCalculator {
             generalMistakes += "\n" + Text("-" + pair.Value + " : " + pair.Key, Colour.Red);
             score -= pair.Value;
         }
-        taskMistakes = p.Calculator.TaskMistakes.Count == 0 ? "" : taskMistakes;
-        string coloredMistakes = "";
-        foreach (string mistake in p.Calculator.TaskMistakes) {
-            coloredMistakes += "\n" + mistake;
-        }
-        taskMistakes += Text(coloredMistakes, Colour.Red);
 
         Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
 

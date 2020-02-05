@@ -80,9 +80,8 @@ public class SyringeAttach : TaskBase {
         if (usedSyringes.Count >= 6) {
             Popup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
         } else {
-            Popup("Yksi tai useampi ruiskuista ei ollut oikean kokoinen.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.AddMistake("Väärän kokoinen ruisku luerlockiin");
-            G.Instance.Progress.Calculator.SubtractWithScore(taskType, Math.Abs(usedSyringes.Count - 6));
+            int minus = Math.Abs(usedSyringes.Count - 6);
+            CreateTaskMistake("Yksi tai useampi ruiskuista ei ollut oikean kokoinen", minus);
         }
     }
 
