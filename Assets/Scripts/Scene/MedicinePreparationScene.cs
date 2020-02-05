@@ -238,6 +238,7 @@ public class MedicinePreparationScene : SceneScript {
         }
 
         if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
+            IgnoreCollisions(all, false);
             yield break;
         }
 

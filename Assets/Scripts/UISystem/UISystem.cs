@@ -76,6 +76,9 @@ public class UISystem : MonoBehaviour {
                 G.Instance.Audio.Play(AudioClipType.MistakeMessage);
                 break;
         }
+
+        Logger.Print(point + " " + type + " " + message);
+
         GameObject popupMessage = InitUIComponent(popupPrefab);
         PointPopup popup = popupMessage.GetComponent<PointPopup>();
         popup.SetObjectPath(player, player);

@@ -116,6 +116,8 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     }
 
     protected override void OnTaskComplete() {
+
+        return;
         int rightAmount = 0;
         foreach (var amount in attachedSyringes.Values) {
             if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
