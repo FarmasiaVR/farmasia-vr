@@ -306,7 +306,12 @@ public class MedicinePreparationScene : SceneScript {
         sterileCloth.transform.position = bottle.transform.position;
 
         yield return Wait;
-        sterileCloth.transform.position = bottle.transform.position + new Vector3(0, 0.25f, 0);
+        //sterileCloth.transform.position = bottle.transform.position + new Vector3(0, 0.25f, 0);
+
+        sterileCloth.transform.position = regularTrash.transform.position;
+        yield return null;
+        yield return null;
+
 
         if (autoPlay == AutoPlayStrength.DisinfectBottle) {
             yield break;
@@ -409,10 +414,6 @@ public class MedicinePreparationScene : SceneScript {
         yield return null;
 
         luerlock.transform.position = regularTrash.transform.position;
-        yield return null;
-        yield return null;
-
-        sterileCloth.transform.position = regularTrash.transform.position;
         yield return null;
         yield return null;
 

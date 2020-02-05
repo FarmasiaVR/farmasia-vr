@@ -107,6 +107,10 @@ public abstract class AttachmentConnector : ItemConnector {
             return;
         }
 
+        if (!GeneralItem.IsGrabbed && !interactable.IsGrabbed) {
+            return;
+        }
+
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
             // Position Offset here
 

@@ -7,8 +7,8 @@ public class ItemSpawner : MonoBehaviour {
     GameObject currentObject;
 
     private void Start() {
-        Events.SubscribeToEvent(Copy, EventType.ItemDroppedOnFloor);
-        Events.SubscribeToEvent(Copy, EventType.ItemDroppedInTrash);
+        Events.SubscribeToEvent(Copy, this, EventType.ItemDroppedOnFloor);
+        Events.SubscribeToEvent(Copy, this, EventType.ItemDroppedInTrash);
         if (copy != null) {
             currentObject = copy;
         }

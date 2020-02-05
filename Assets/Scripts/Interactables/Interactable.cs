@@ -77,6 +77,7 @@ public class Interactable : MonoBehaviour {
         if (Destroyed) {
             return;
         }
+        
         Destroyed = true;
 
         IEnumerator DestroySequence() {
@@ -91,10 +92,16 @@ public class Interactable : MonoBehaviour {
             yield return null;
             yield return null;
 
+            Logger.Print("Destroy interactable " + this.name);
             Destroy(gameObject);
         }
 
         StartCoroutine(DestroySequence());
+    }
+    protected virtual void OnDestroy() {
+        if (!Destroyed) {
+            Logger.Warning("Interactables must be destroyed using Interactable.DestroyInteractable method, destroyed interactable: " + this.name);
+        }
     }
 
     public bool IsAttached {

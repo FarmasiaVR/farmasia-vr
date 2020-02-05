@@ -100,6 +100,11 @@ public class CleanupObject : MonoBehaviour {
         foreach (Interactable i in secondPassThroughCabinet.GetContainedItems()) {
             i.DestroyInteractable();
         }
+
+        foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
+            Destroy(i.gameObject);
+        }
+
         //foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
         //    Destroy(i);
         //}
