@@ -25,7 +25,7 @@ public class SyringeAttach : TaskBase {
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
         usedSyringes = new HashSet<Syringe>();
-        points = 6;
+        points = 3;
     }
     #endregion
 
@@ -40,7 +40,7 @@ public class SyringeAttach : TaskBase {
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        }        
+        }
     }
 
     private void AddSyringe(CallbackData data) {
@@ -76,10 +76,8 @@ public class SyringeAttach : TaskBase {
 
     public override void FinishTask() {
         base.FinishTask();
-        if (usedSyringes.Count >= 6) {
-            Popup("Valitut ruiskut olivat oikean kokoisia.", MsgType.Notify);
-        } else {
-            int minus = Math.Abs(usedSyringes.Count - 6);
+        if (usedSyringes.Count < 6) {
+            int minus = (int)Mathf.Round(Math.Abs(usedSyringes.Count - 6));
             CreateTaskMistake("Yksi tai useampi ruiskuista ei ollut oikean kokoinen", minus);
         }
     }
@@ -93,7 +91,7 @@ public class SyringeAttach : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        
+
     }
     #endregion
 }
