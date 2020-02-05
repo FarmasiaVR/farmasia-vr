@@ -61,7 +61,7 @@ public class MedicineToSyringe : TaskBase {
     private void TakingMedicineFromBottle(CallbackData data) {
         Syringe s = data.DataObject as Syringe;
         if (s.BottleContainer.Capacity == 100000) {
-            Popup("Ruiskulla otettiin väärää lääkettä", MsgType.Mistake, 5);
+            Popup("Ruiskulla otettiin väärää lääkettä", MsgType.Mistake, -5);
             G.Instance.Progress.Calculator.AddMistake("Ruiskulla otettiin väärää lääkettä", 5);
         }
     }
