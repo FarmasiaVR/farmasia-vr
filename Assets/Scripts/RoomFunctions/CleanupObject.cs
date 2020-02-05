@@ -60,7 +60,7 @@ public class CleanupObject : MonoBehaviour {
 
     private void Update() {
         if (startedCleanup && !finished) {
-            if (RoomGeneralItemCount() <= AcceptedCount()) {
+            if (RoomGeneralItemCount() <= 1) {
                 finished = true;
                 Logger.Warning("Finishing cleanup");
                 G.Instance.Progress.ForceCloseTask(TaskType.ScenarioOneCleanUp, false);
@@ -78,7 +78,6 @@ public class CleanupObject : MonoBehaviour {
                 if (g.Rigidbody == null || g.Rigidbody.isKinematic) {
                     continue;
                 }
-                //Logger.Print("Clean up item: " + count + ", " + i.name);
                 count++;
             }
         }
@@ -86,15 +85,7 @@ public class CleanupObject : MonoBehaviour {
         return count;
     }
 
-    private int AcceptedCount() {
-        int acc = 1 + secondPassThroughCabinet.GetContainedItems().Count;
-        return acc;
-    }
-
     public void EnableCleanup() {
-
-        Logger.Print("enable cleanup");
-
         ObjectFactory.DestroyAllFactories(true);
 
         foreach (Interactable i in secondPassThroughCabinet.GetContainedItems()) {
@@ -104,10 +95,6 @@ public class CleanupObject : MonoBehaviour {
         foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
             Destroy(i.gameObject);
         }
-
-        //foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
-        //    Destroy(i);
-        //}
 
         startedCleanup = true;
     }

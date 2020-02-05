@@ -9,7 +9,7 @@ public class HandCollider : MonoBehaviour {
     public ObjectHighlight PreviousHighlight { get; private set; }
 
     private TriggerInteractableContainer container;
-    private Collider collider;
+    private Collider handColl;
 
     private enum ModelType {
         None = -1,
@@ -25,7 +25,7 @@ public class HandCollider : MonoBehaviour {
         container = gameObject.AddComponent<TriggerInteractableContainer>();
         container.OnExit = OnInteractableExit;
 
-        collider = GetComponent<Collider>();
+        handColl = GetComponent<Collider>();
 
         StartCoroutine(SetCollPos());
     }
@@ -72,7 +72,7 @@ public class HandCollider : MonoBehaviour {
     }
 
     public void Enable(bool enable) {
-        collider.enabled = enable;
+        handColl.enabled = enable;
         if (!enable) {
             container.ResetContainer();
         }
