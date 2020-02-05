@@ -18,11 +18,9 @@ public class TrashBin : MonoBehaviour {
         
         if (item != null) {
             if (trashType == TrashType.Sharp && item.ObjectType != ObjectType.Needle) {
-                Logger.Warning("Normal item placed in sharp trash: " + item.ObjectType);
-                Events.FireEvent(EventType.ItemDroppedInWrongTrash, CallbackData.Object(item));
+                TaskBase.CreateGeneralMistake("Normal item placed in sharp trash", 1, true);
             } else if (trashType == TrashType.Nonsharp && item.ObjectType == ObjectType.Needle) {
-                Logger.Warning("Sharp item placed in normal trash: " + item.ObjectType);
-                Events.FireEvent(EventType.ItemDroppedInWrongTrash, CallbackData.Object(item));
+                TaskBase.CreateGeneralMistake("Sharp item placed in normal trash", 1, true);
             }
 
             Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
