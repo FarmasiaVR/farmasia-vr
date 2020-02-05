@@ -41,6 +41,10 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         GeneralItem item = g.GetComponent<GeneralItem>();
         Syringe s = item.GetComponent<Syringe>();
 
+        if (s.Container.Capacity == 20000) {
+            return;
+        }
+
         if (!usedSyringes.ContainsKey(s)) {
             usedSyringes.Add(s, 0);
         }
@@ -63,7 +67,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
         oldMinus = usedSyringes[s];
 
-
         if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && !s.IsClean) {
             minus++;
             minus++;
@@ -82,7 +85,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             usedSyringes[s] = minus;
         }
 
-        if (usedSyringes.Count >= 7) {
+        if (usedSyringes.Count >= 6) {
             G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, GetTotalMinus());
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
             G.Instance.Progress.ForceCloseTask(taskType, false);
@@ -122,7 +125,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             }
         }
         if (rightAmount == 6) {
-            Popup("Valittiin oikea määrä lääkettä.", MsgType.Notify);
+            Popup("Valittiin oikea määrä lääkettä.", MsgType.Done);
         } else {
             Popup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
         }

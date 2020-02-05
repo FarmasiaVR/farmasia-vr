@@ -117,7 +117,7 @@ public class LuerlockAttach : TaskBase {
 
     protected override void OnTaskComplete() {
         if (!fail) {
-            Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Done, 1);
+            Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Done);
         }
     }
     #endregion

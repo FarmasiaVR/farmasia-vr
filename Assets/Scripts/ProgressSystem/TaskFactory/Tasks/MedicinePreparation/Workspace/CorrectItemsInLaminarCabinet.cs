@@ -106,9 +106,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         }
 
         if (syringeCount == 7 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
-            Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Notify, 2);
+            Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
         } else {
-            Popup("Väärä määrä työvälineitä laminaarikaapissa.", MsgType.Notify, 2);
+            Popup("Väärä määrä työvälineitä laminaarikaapissa.", MsgType.Mistake, -2);
             G.Instance.Progress.Calculator.SubtractWithScore(taskType, 2);
         }
 
