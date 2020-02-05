@@ -29,6 +29,10 @@ public class CleanupObject : MonoBehaviour {
     private void ItemLiftedFromFloor(CallbackData data) {
         GeneralItem item = (GeneralItem)data.DataObject;
 
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
+            return;
+        }
+
         if (!startedCleanup && !item.IsClean) {
             UISystem.Instance.CreatePopup(-1, "Siivoa lattialla olevat esineet vasta lopuksi", MsgType.Mistake);
             G.Instance.Progress.Calculator.AddTaskMistake("Siivoa lattialla olevat esineet vasta lopuksi");
@@ -37,6 +41,10 @@ public class CleanupObject : MonoBehaviour {
     }
     private void ItemDroppedInTrash(CallbackData data) {
         GeneralItem g = (GeneralItem)data.DataObject;
+
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
+            return;
+        }
 
         if (g.ObjectType == ObjectType.Bottle) {
             UISystem.Instance.CreatePopup(-1, "Pulloa ei saa heittää roskikseen", MsgType.Mistake);
