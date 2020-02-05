@@ -75,14 +75,16 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
 
-        if (FirstEnterObjects.ContainsKey(item)) {
-            if (!FirstEnterObjects[item]) {
-                UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
-                G.Instance.Progress.Calculator.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
-                FirstEnterObjects[item] = true;
+        if (this.type == CabinetType.Laminar) {
+            if (FirstEnterObjects.ContainsKey(item)) {
+                if (!FirstEnterObjects[item]) {
+                    UISystem.Instance.CreatePopup(-1, "Esineitä ei saa tuoda pois työskentelytilasta", MsgType.Mistake);
+                    G.Instance.Progress.Calculator.AddMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                    FirstEnterObjects[item] = true;
+                }
+            } else {
+                FirstEnterObjects.Add(item, false);
             }
-        } else {
-            FirstEnterObjects.Add(item, false);
         }
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
