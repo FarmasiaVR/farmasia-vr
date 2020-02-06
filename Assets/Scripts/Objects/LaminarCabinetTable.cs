@@ -27,8 +27,6 @@ public class LaminarCabinetTable : MonoBehaviour {
     #endregion
 
     private void ContaminateItem(GeneralItem item) {
-        Logger.Print("why not work");
-
         if (!safeZone.Contains(item) && contaminateZone.Contains(item)) {
             StartCoroutine(Wait());
         }
