@@ -84,7 +84,7 @@ public class UISystem : MonoBehaviour {
         popup.SetObjectPath(player, player);
         popup.SetCamera(player);
 
-        if (point == int.MinValue) {
+        if (point == int.MinValue || point == 0) {
            popup.SetPopup(message, type);
         } else {
             popup.SetPopup(point, message, type);

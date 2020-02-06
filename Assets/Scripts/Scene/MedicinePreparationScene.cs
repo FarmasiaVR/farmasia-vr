@@ -67,9 +67,6 @@ public class MedicinePreparationScene : SceneScript {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            PlayFirstRoom(AutoPlayStrength.WorkspaceRoom);
-        }
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             DebugTasks();
         }
