@@ -50,7 +50,7 @@ public class TestHandMover : MonoBehaviour {
 
 #if UNITY_EDITOR
 #else
-        Destroy(gameObject);
+        Destroy(this);
 #endif
 
         right = transform.GetChild(1);
