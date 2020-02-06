@@ -15,7 +15,28 @@ public class Description : MonoBehaviour {
     }
 
     private void SetText() {
-        string text = "<color=#000000> " + G.Instance.Progress.CurrentPackage.name  + " </color> \n";
+        string packageName = "";
+        if (G.Instance.Progress.CurrentPackage.activeTasks.Count <= 0) {
+            currentTextField.text = "<color=#0be325> Pisteet oikealla \n-----></color>";
+            return;
+        }
+
+
+        switch (G.Instance.Progress.CurrentPackage.name) {
+            case PackageName.EquipmentSelection:
+                packageName = "Työvälineiden valinta";
+                break;
+            case PackageName.Workspace:
+                packageName = "Työskentely Tila";
+                break;
+            case PackageName.CleanUp:
+                packageName = "Tilan Siivoaminen";
+                break;
+        }
+        
+
+
+        string text = "<color=#000000> " + packageName  + " </color> \n";
         text += UISystem.Instance.Descript;
         currentTextField.text = text;
     }
