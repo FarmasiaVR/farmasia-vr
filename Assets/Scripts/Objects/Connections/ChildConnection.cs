@@ -17,7 +17,9 @@ public class ChildConnection : ItemConnection {
 
    
     protected override void OnRemoveConnection() {
+        Logger.Print("Removing child connection: " + name);
         interactable.RigidbodyContainer.EnableAndDeparent();
+        interactable.Rigidbody.velocity = Vector3.zero;
     }
 
     public static void SafeSetParent(Transform parent, Transform child) {

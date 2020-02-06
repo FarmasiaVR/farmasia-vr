@@ -29,6 +29,12 @@ public class GUIConsole : Movable {
     }
 
     protected override void Start() {
+
+#if UNITY_EDITOR
+#else
+        Destroy(gameObject);
+#endif
+
         base.Start();
 
         text = transform.Find("Text").GetComponent<TextMeshPro>();
@@ -132,7 +138,7 @@ public class GUIConsole : Movable {
     }
 
 
-    #region Static methods
+#region Static methods
     public static void Log(string message) {
         string[] lines = message.Split('\n');
         foreach (string line in lines) {
@@ -151,5 +157,5 @@ public class GUIConsole : Movable {
             log.Add("<color=#FF0000>Error: </color>" + line);
         }
     }
-    #endregion
+#endregion
 }

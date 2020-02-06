@@ -5,9 +5,17 @@ using UnityEngine;
 
 public abstract class ItemConnection : MonoBehaviour {
 
+    protected bool removed;
+
     protected abstract ItemConnector Connector { get; set; }
 
     public void Remove() {
+        if (removed) {
+        Logger.Print("Re-Removing item conn");
+            return;
+        }
+        Logger.PrintVariables("Removing item conn", name);
+        removed = true;
         OnRemoveConnection();
         Destroy(this);
         Connector.OnReleaseItem();

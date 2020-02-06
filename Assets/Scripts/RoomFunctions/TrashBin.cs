@@ -25,8 +25,37 @@ public class TrashBin : MonoBehaviour {
                 Events.FireEvent(EventType.ItemDroppedInWrongTrash);
             }
 
+            //PrepareObjectForRemoving(item);
+
+            if (item.ObjectType == ObjectType.Luerlock) {
+                Logger.Print("Trash bin luerlock count: " + ((LuerlockAdapter)item).AttachedInteractables.Count);
+            }
+
+            PrepareObjectForRemoving(item);
+
             Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             item.DestroyInteractable();
+        }
+    }
+
+    private void PrepareObjectForRemoving(GeneralItem item) {
+
+        if (item.IsGrabbed) {
+            item.Interactors.Hand.Connector.Connection.Remove();
+        }
+
+        if (item.ObjectType == ObjectType.Needle) {
+            ((Needle)item).ReleaseItem();
+        } else if (item.ObjectType == ObjectType.Luerlock) {
+            ((LuerlockAdapter)item).ReleaseItems();
+        }
+
+        if (item.IsAttached) {
+            if (item.State == InteractState.LuerlockAttached) {
+                item.Interactors.LuerlockPair.Value.GetConnector(item.Interactors.LuerlockPair.Key).Connection.Remove();
+            } else if (item.State == InteractState.NeedleAttached) {
+                item.Interactors.Needle.Connector.Connection.Remove();
+            }
         }
     }
 
