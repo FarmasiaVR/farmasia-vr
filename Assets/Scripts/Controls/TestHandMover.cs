@@ -47,6 +47,12 @@ public class TestHandMover : MonoBehaviour {
     #endregion
 
     private void Start() {
+
+#if UNITY_EDITOR
+#else
+        Destroy(gameObject);
+#endif
+
         right = transform.GetChild(1);
         left = transform.GetChild(0);
         cam = transform.GetChild(2);

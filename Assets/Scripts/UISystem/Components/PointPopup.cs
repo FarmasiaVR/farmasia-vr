@@ -7,11 +7,19 @@ public class PointPopup : MonoBehaviour {
     private GameObject textObject;
     private TextMeshPro textField;
     private GameObject point1, point2;
-    private Transform lookAt;
+    private Transform cam;
 
     private Color color;
 
     private const float LERP_AMOUNT = 0.05f;
+
+    private float popupSpawnDistance = 0.5f;
+    private float popupDistance = 0.5f;
+    private float popupHeightOffset = -0.2f;
+    private float centerOffset = 0.06f;
+    // CameraCenter is where the center of your head is, not the headset (eyes) is.
+    private Vector3 CameraCenter { get => cam.position - cam.forward * centerOffset; }
+
     #endregion
 
     #region Variables
@@ -57,14 +65,14 @@ public class PointPopup : MonoBehaviour {
 
 
     #region Private Methods
-    public void LookAt(GameObject obj) {
+    public void SetCamera(GameObject obj) {
         if (obj != null) {
-            lookAt = obj.transform;
+            cam = obj.transform;
         }
     }
 
     private void CalculateStartingPosition() {
-        textObject.transform.localPosition = new Vector3(textObject.transform.localPosition.x, textObject.transform.localPosition.y, textObject.transform.localPosition.z + startingPoint);
+        textObject.transform.position = CameraCenter + cam.forward * popupSpawnDistance;
     }
 
     private void FlipScale(float x) {
@@ -85,23 +93,25 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (lookAt != null) {
-            transform.LookAt(lookAt);
-        }
+        Vector3 dir = new Vector3(cam.forward.x, popupHeightOffset, cam.forward.z).normalized;
+        Vector3 pos = CameraCenter + dir * popupDistance;
 
         if (!fadeInCompleted) {
-            MoveTowardsPoint(point1.transform.TransformPoint(new Vector3(0, 0.1f, 0.4f)));
+            MoveTowardsPoint(pos);
         } else {
-            MoveTowardsPoint(point2.transform.position);
+            MoveTowardsPoint(pos);
+        }
+
+        if (cam != null) {
+            transform.LookAt(cam);
         }
     }
 
     private void Update() {
-
         timer += Time.deltaTime;
 
         if (!fadeInCompleted) {
-            textObject.transform.localPosition += new Vector3(0, 0, -speed);
+            textObject.transform.localPosition += textObject.transform.forward * speed;
             distanceTravelled += speed;
             transparency = distanceTravelled / distanceToTravel;
             textField.alpha = transparency;
@@ -120,8 +130,7 @@ public class PointPopup : MonoBehaviour {
                     visualCompleted = true;
                 }
             } else {
-
-                textObject.transform.localPosition += new Vector3(0, 0, speed);
+                textObject.transform.localPosition -= textObject.transform.forward * speed;
                 distanceTravelled -= speed;
                 transparency = distanceTravelled / distanceToTravel;
                 textField.alpha = transparency;

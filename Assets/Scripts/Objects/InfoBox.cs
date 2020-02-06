@@ -23,7 +23,7 @@ public class InfoBox : MonoBehaviour {
     [SerializeField]
     private Vector3 offset;
     [SerializeField]
-    private float centerOffset = 0.2f;
+    private float centerOffset = 0.06f;
     [SerializeField]
     private float defaultLerpAmount;
     [SerializeField]

@@ -142,8 +142,9 @@ public class ObjectFactory : MonoBehaviour {
             //    CreateMeshCopy(f.LatestCopy);
             //}
 
-            Interactable i = Interactable.GetInteractable(f.LatestCopy.transform);
-            i.DestroyInteractable();
+            Interactable latestCopy = Interactable.GetInteractable(f.LatestCopy.transform);
+
+            latestCopy.DestroyInteractable();
             Destroy(f.CopyObject);
             Destroy(f.TriggerCopy);
             Destroy(f.gameObject);

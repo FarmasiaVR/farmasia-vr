@@ -131,4 +131,9 @@ public class LuerlockAdapter : GeneralItem {
         }
         throw new Exception("Connector not found");
     }
+
+    public void ReleaseItems() {
+        LeftConnector.Connection?.Remove();
+        RightConnector.Connection?.Remove();
+    }
 }

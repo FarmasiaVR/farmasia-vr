@@ -77,24 +77,53 @@ public class Interactable : MonoBehaviour {
         if (Destroyed) {
             return;
         }
+
         Destroyed = true;
 
+        if (this.enabled && gameObject.activeInHierarchy) {
+            StartCoroutine(DestroySequence());
+        } else {
+            PrepareItemForRemoval();
+            Destroy(gameObject);
+        }
+
         IEnumerator DestroySequence() {
-            if (Interactors.Hand != null) {
-                Interactors.Hand.Uninteract();
-            }
+            
             // Could cause problems, need to verify that Interactors are nullified when releasing from hand, bottle or luerlock
-            if (Interactors.LuerlockPair.Value != null) {
-                Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).Connection.Remove();
-            }
+
+            PrepareItemForRemoval();
+
             transform.position = new Vector3(10000, 10000, 10000);
             yield return null;
             yield return null;
 
+            Logger.Print("Destroy interactable " + this.name);
             Destroy(gameObject);
         }
+    }
+    private void PrepareItemForRemoval() {
+        if (IsGrabbed) {
+            Interactors.Hand.Uninteract();
+        }
 
-        StartCoroutine(DestroySequence());
+        if (Interactors.LuerlockPair.Value != null) {
+            Interactors.LuerlockPair.Value.GetConnector(Interactors.LuerlockPair.Key).Connection.Remove();
+        }
+        //if (this as GeneralItem is var item && item != null) {
+        //    if (item.ObjectType == ObjectType.Luerlock && item as LuerlockAdapter is var l) {
+        //        Logger.Print("Removing luerlock items: " + l.AttachedInteractables.Count);
+        //        l.LeftConnector.AttachedInteractable?.DestroyInteractable();
+        //        l.RightConnector.AttachedInteractable?.DestroyInteractable();
+        //    } else if (item.ObjectType == ObjectType.Needle && item as Needle is var n ) {
+        //        n.Connector.AttachedInteractable?.DestroyInteractable();
+        //    }
+        //}
+    }
+
+    protected virtual void OnDestroy() {
+        if (!Destroyed && gameObject.activeInHierarchy) {
+            Logger.Error("Active Interactables must be destroyed using Interactable.DestroyInteractable method. Destroyed interactable: " + this.name);
+        }
     }
 
     public bool IsAttached {

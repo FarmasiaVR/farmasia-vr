@@ -6,6 +6,7 @@ public class LaminarCabinetTable : MonoBehaviour {
 
     #region fields
     private static float ContaminateTime = 0.75f;
+    private HashSet<int> contaminatedItems;
 
     private TriggerInteractableContainer safeZone;
     private TriggerInteractableContainer contaminateZone;
@@ -14,6 +15,7 @@ public class LaminarCabinetTable : MonoBehaviour {
     private void Start() {
         safeZone = transform.GetChild(0).gameObject.AddComponent<TriggerInteractableContainer>();
         contaminateZone = transform.GetChild(1).gameObject.AddComponent<TriggerInteractableContainer>();
+        contaminatedItems = new HashSet<int>();
     }
 
     #region Collision events
@@ -25,17 +27,22 @@ public class LaminarCabinetTable : MonoBehaviour {
     #endregion
 
     private void ContaminateItem(GeneralItem item) {
+        if (!safeZone.Contains(item) && contaminateZone.Contains(item)) {
+            StartCoroutine(Wait());
+        }
 
         IEnumerator Wait() {
             yield return new WaitForSeconds(ContaminateTime);
 
-            if (!safeZone.Contains(item) && contaminateZone.Contains(item) && item.IsClean) {
-                UISystem.Instance.CreatePopup("Työvälineet eivät saisi koskea laminaarikaapin pintaa.", MsgType.Mistake, false);
-                G.Instance.Progress.Calculator.AddMistake("Esine koski laminaarikaapin pintaa");
+            if (safeZone.Contains(item) || !contaminateZone.Contains(item)) {
+                yield break;
+            }
+
+            if (item.IsClean || !contaminatedItems.Contains(item.GetInstanceID())) {
+                contaminatedItems.Add(item.GetInstanceID());
+                TaskBase.CreateGeneralMistake("Esine koski laminaarikaapin pintaa");
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
         }
-
-        StartCoroutine(Wait());
     }
 }

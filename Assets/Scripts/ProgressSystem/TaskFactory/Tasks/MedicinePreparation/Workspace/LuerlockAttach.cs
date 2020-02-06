@@ -52,13 +52,11 @@ public class LuerlockAttach : TaskBase {
         }
 
         if (laminarCabinet == null) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            Popup("Ruisku kiinnitettiin liian aikaisin.", MsgType.Mistake, -1);
+            CreateTaskMistake("Ruisku kiinnitettiin liian aikaisin.", 1);
             Fail();
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(item)) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            Popup("Ruisku kiinnitettiin laminaarikaapin ulkopuolella.", MsgType.Mistake, -1);
+            CreateTaskMistake("Ruisku kiinnitettiin laminaarikaapin ulkopuolella", 1);
             Fail();
             return;
         }
@@ -74,8 +72,7 @@ public class LuerlockAttach : TaskBase {
         }
 
         if (!item.IsClean) {
-            G.Instance.Progress.Calculator.SubtractBeforeTime(TaskType.LuerlockAttach);
-            Popup("Ruisku oli likainen", MsgType.Mistake, -1);
+            CreateTaskMistake("Ruisku oli likainen", 1);
             Fail();
         }
 
@@ -83,8 +80,8 @@ public class LuerlockAttach : TaskBase {
 
         if (!IsCompleted()) {
             if (!firstCheckDone) {
+                CreateTaskMistake("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun", 1);
                 Popup("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake, -1);
-                G.Instance.Progress.Calculator.Subtract(TaskType.LuerlockAttach);
                 firstCheckDone = true;
                 Fail();
             } else {

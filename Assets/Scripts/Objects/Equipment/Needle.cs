@@ -11,4 +11,7 @@ public class Needle : GeneralItem {
         Connector = new NeedleConnector(this, transform.Find("Syringe Collider").gameObject);
         Connector.Subscribe();
     }
+    public void ReleaseItem() {
+        Connector.Connection?.Remove();
+    }
 }

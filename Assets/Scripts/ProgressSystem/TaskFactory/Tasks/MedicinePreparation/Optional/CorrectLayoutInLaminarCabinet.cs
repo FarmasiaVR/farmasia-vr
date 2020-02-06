@@ -23,7 +23,6 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
     #region Event Subscriptions
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        SubscribeEvent(VentilationBlocked, EventType.VentilationBlocked);
         SubscribeEvent(ArrangedItems, EventType.CorrectLayoutInLaminarCabinet);
     }
 
@@ -44,14 +43,8 @@ public class CorrectLayoutInLaminarCabinet : TaskBase {
             return;
         }
         if (!ItemsArranged()) {
-            UISystem.Instance.CreatePopup(0, "Työvälineitä ei ryhmitelty.", MsgType.Mistake);
-            G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
+            // NOT IMPLEMENTED
         }
-    }
-
-    private void VentilationBlocked(CallbackData data) {
-        UISystem.Instance.CreatePopup(0, "Ilmanvaihto estynyt.", MsgType.Mistake);
-        G.Instance.Progress.Calculator.Subtract(TaskType.CorrectLayoutInLaminarCabinet);
     }
 
     /// <summary>

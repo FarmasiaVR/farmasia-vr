@@ -68,15 +68,14 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         oldMinus = usedSyringes[s];
 
         if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && !s.IsClean) {
-            minus++;
-            minus++;
-            Popup("Väärä määrä lääkettä ruiskussa ja likainen", MsgType.Mistake, -2);
+            minus += 2;
+            CreateTaskMistake("Väärä määrä lääkettä ruiskussa ja likainen", 0);
         } else if (s.Container.Amount != MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
             minus++;
-            Popup("Väärä määrä lääkettä", MsgType.Mistake, -1);
+            CreateTaskMistake("Väärä määrä lääkettä", 0);
         } else if (!s.IsClean) {
             minus++;
-            Popup("Ruisku tai luerlock oli likainen", MsgType.Mistake, -1);
+            CreateTaskMistake("Ruisku tai luerlock oli likainen", 0);
         } else {
             Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Done);
         }
@@ -86,7 +85,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
         }
 
         if (usedSyringes.Count >= 6) {
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.CorrectAmountOfMedicineSelected, GetTotalMinus());
+            CreateTaskMistake(null, GetTotalMinus());
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
             G.Instance.Progress.ForceCloseTask(taskType, false);
             Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
@@ -102,8 +101,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     }
 
     private void InvalidSyringePush(CallbackData data) {
-        G.Instance.Progress.Calculator.Subtract(TaskType.CorrectAmountOfMedicineSelected);
-        Popup("Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", MsgType.Mistake, -1);
+        CreateTaskMistake("Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", 1);
     }
     #endregion
 
@@ -118,17 +116,6 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
     }
 
     protected override void OnTaskComplete() {
-        int rightAmount = 0;
-        foreach (var amount in attachedSyringes.Values) {
-            if (amount >= MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE && amount <= MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE) {
-                rightAmount++;
-            }
-        }
-        if (rightAmount == 6) {
-            Popup("Valittiin oikea määrä lääkettä.", MsgType.Done);
-        } else {
-            Popup("Yhdessä tai useammassa ruiskussa oli väärä määrä lääkettä.", MsgType.Notify);
-        }
     }
     #endregion
 }

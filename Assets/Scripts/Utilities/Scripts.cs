@@ -38,4 +38,8 @@ public class Scripts : MonoBehaviour {
     public static T GetScriptComponent<T>() {
         return Instance.GetComponent<T>();
     }
+
+    public static void DestroyWrapper(Object o) {
+        Destroy(o);
+    }
 }

@@ -34,9 +34,7 @@ public class CleanupObject : MonoBehaviour {
         }
 
         if (!startedCleanup && !item.IsClean) {
-            UISystem.Instance.CreatePopup(-1, "Siivoa lattialla olevat esineet vasta lopuksi", MsgType.Mistake);
-            G.Instance.Progress.Calculator.AddTaskMistake("Siivoa lattialla olevat esineet vasta lopuksi");
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
+            TaskBase.CreateTaskMistakeGlobal(TaskType.ScenarioOneCleanUp, "Siivoa lattialla olevat esineet vasta lopuksi", 1);
         }
     }
     private void ItemDroppedInTrash(CallbackData data) {
@@ -47,20 +45,16 @@ public class CleanupObject : MonoBehaviour {
         }
 
         if (g.ObjectType == ObjectType.Bottle) {
-            UISystem.Instance.CreatePopup(-1, "Pulloa ei saa heittää roskikseen", MsgType.Mistake);
-            G.Instance.Progress.Calculator.AddTaskMistake("Pulloa ei saa heittää roskikseen");
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
+            TaskBase.CreateTaskMistakeGlobal(TaskType.ScenarioOneCleanUp, "Pulloa ei saa heittää roskikseen", 1);
         }
         if (g.ObjectType == ObjectType.SterileBag) {
-            UISystem.Instance.CreatePopup(-1, "Steriilipussia ei saa heittää roskikseen", MsgType.Mistake);
-            G.Instance.Progress.Calculator.AddTaskMistake("Steriilipussia ei saa heittää roskikseen");
-            G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ScenarioOneCleanUp, 1);
+            TaskBase.CreateTaskMistakeGlobal(TaskType.ScenarioOneCleanUp, "Steriilipussia ei saa heittää roskikseen", 1);
         }
     }
 
     private void Update() {
         if (startedCleanup && !finished) {
-            if (RoomGeneralItemCount() <= AcceptedCount()) {
+            if (RoomGeneralItemCount() <= 1) {
                 finished = true;
                 Logger.Warning("Finishing cleanup");
                 G.Instance.Progress.ForceCloseTask(TaskType.ScenarioOneCleanUp, false);
@@ -78,7 +72,6 @@ public class CleanupObject : MonoBehaviour {
                 if (g.Rigidbody == null || g.Rigidbody.isKinematic) {
                     continue;
                 }
-                //Logger.Print("Clean up item: " + count + ", " + i.name);
                 count++;
             }
         }
@@ -86,23 +79,16 @@ public class CleanupObject : MonoBehaviour {
         return count;
     }
 
-    private int AcceptedCount() {
-        int acc = 1 + secondPassThroughCabinet.GetContainedItems().Count;
-        return acc;
-    }
-
     public void EnableCleanup() {
-
-        Logger.Print("enable cleanup");
-
         ObjectFactory.DestroyAllFactories(true);
 
         foreach (Interactable i in secondPassThroughCabinet.GetContainedItems()) {
             i.DestroyInteractable();
         }
-        //foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
-        //    Destroy(i);
-        //}
+
+        foreach (ItemSpawner i in GameObject.FindObjectsOfType<ItemSpawner>()) {
+            Destroy(i.gameObject);
+        }
 
         startedCleanup = true;
     }

@@ -48,7 +48,7 @@ public class ProgressManager {
     }
     public void ForceCloseTask(TaskType type, bool killPoints = true) {
         foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
-            if (task.GetTaskType() == type) {
+            if (task.GetTaskType() == type && !task.IsCompleted()) {
                 if (killPoints) {
                     task.ForceClose(taskMaxPoints[type] > 0);
                 } else {

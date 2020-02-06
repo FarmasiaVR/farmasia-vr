@@ -71,8 +71,7 @@ public class ItemsToSterileBag : TaskBase {
             }
 
             if (mistakes > 0) {
-                Popup(errorString, MsgType.Mistake);
-                G.Instance.Progress.Calculator.SubtractWithScore(TaskType.ItemsToSterileBag, mistakes);
+                CreateTaskMistake(errorString, mistakes);
             } else {
                 Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
             }

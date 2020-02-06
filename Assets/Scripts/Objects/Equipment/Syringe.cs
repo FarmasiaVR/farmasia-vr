@@ -23,7 +23,6 @@ public class Syringe : GeneralItem {
     [SerializeField]
     private Transform handle;
 
-    [SerializeField]
     private GameObject syringeCap;
     public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
@@ -50,6 +49,9 @@ public class Syringe : GeneralItem {
         SetSyringeHandlePosition();
 
         hasBeenInBottle = false;
+
+        syringeCap = transform.Find("syringe_cap").gameObject;
+        NullCheck.Check(syringeCap);
 
         syringeCap.SetActive(false);
 
