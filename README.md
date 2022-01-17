@@ -61,4 +61,4 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
 
 ### VR controls
 
-HTC Vive Pro with two controllers is used in VR.
+HTC Vive Pro with two controllers is used in VR. 
