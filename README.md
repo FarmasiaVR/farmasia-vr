@@ -1,6 +1,7 @@
-# Pharmacy VR Game - Will you manage to prepare eye medicine correctly?
+# Pharmacy VR Game Part 2
 
-(Software engineering project, University of Helsinki 2019)
+This fork implements part 2 of the original game
+(Software engineering project, University of Helsinki 2022)
 [Video](https://youtu.be/pIKCZFZo2UA)
 
 ## Instructions
@@ -33,13 +34,12 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 The project was created with `Unity Version: 2019.2.3.f1` and the same version should be used for development.
 
-The project backlog and sprint backlogs can be found from the [Projects tab](https://github.com/ohtuprojekti-farmasia/farmasia-vr/projects).
-
 - Wiki
   - [Git workflow document](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Git)
   - [Code reviewing policy](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Code-Review)
-- Google Drive (for developers only)
-  - [Hour reporting](https://docs.google.com/spreadsheets/d/172n3x7qiSKR59cWD9qFkiI0BeyIeioPuUemOGYUafxo)
+ 
+- Development documents
+  - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1QbWEpiNEt-0H225ZIYymeJ4stKKGCl3CIwYoJT8NL5s/edit?usp=sharing)
   - [Game progress documentation](https://drive.google.com/drive/folders/15dfxnX83RKYnoJctVRlVwDZz04T9ufm9)
   - [Documentation for customer meetings](https://drive.google.com/drive/folders/1bOcsczs5CZJoa-Yq4EV9SUukr1nqUTt_)
 
