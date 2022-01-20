@@ -4,22 +4,6 @@ This fork implements part 2 of the original game
 (Software engineering project, University of Helsinki 2022)
 [Video](https://youtu.be/pIKCZFZo2UA)
 
-## Instructions
-
-### Cloning
-
-First step for you is to setup the platform definition files. Create file  projectRoot/Assets/csc.rsp
-If your system supports VR, set the file contents to this:
-```
--define:UNITY_VRCOMPUTER
-```
-If your system does not support VR, set the file contents to this:
-```
--define:UNITY_NONVRCOMPUTER
-```
-
-The definitions are system specific so the file csc.rsp file is ignored in gitignore.
-
 ## Description
 
 Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of two parts – preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
@@ -40,8 +24,21 @@ The project was created with `Unity Version: 2019.2.3.f1` and the same version s
  
 - Development documents
   - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1QbWEpiNEt-0H225ZIYymeJ4stKKGCl3CIwYoJT8NL5s/edit?usp=sharing)
-  - [Game progress documentation](https://drive.google.com/drive/folders/15dfxnX83RKYnoJctVRlVwDZz04T9ufm9)
-  - [Documentation for customer meetings](https://drive.google.com/drive/folders/1bOcsczs5CZJoa-Yq4EV9SUukr1nqUTt_)
+  - [Some WIP architecture diagrams](https://app.diagrams.net/#G1zGultE_-2kT3pbttZezY0fnKzPWykIT0)
+
+## Cloning
+
+First step for you is to setup the platform definition files. Create file  projectRoot/Assets/csc.rsp
+If your system supports VR, set the file contents to this:
+```
+-define:UNITY_VRCOMPUTER
+```
+If your system does not support VR, set the file contents to this:
+```
+-define:UNITY_NONVRCOMPUTER
+```
+
+The definitions are system specific so the file csc.rsp file is ignored in gitignore.
 
 ## Build & Deployment
 
@@ -59,7 +56,4 @@ Press K to move the camera, L to control the right hand and J to control the lef
 
 Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting.
 
-### VR controls
-
-HTC Vive Pro with two controllers is used in VR. 
  
