@@ -1,14 +1,7 @@
 {
   "app_key": "application.generated.unity.steamvr.exe",
   "bindings": {
-    "/actions/buggy": {
-      "chords": [],
-      "poses": [],
-      "haptics": [],
-      "sources": [],
-      "skeleton": []
-    },
-    "/actions/default": {
+    "default_for_reference_can_delete": {
       "chords": [],
       "poses": [
         {
@@ -42,12 +35,189 @@
         }
       ]
     },
-    "/actions/platformer": {
+    "/actions/default": {
       "chords": [],
-      "poses": [],
-      "haptics": [],
-      "sources": [],
-      "skeleton": []
+      "poses": [
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/raw"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/raw"
+        }
+      ],
+      "haptics": [
+        {
+          "output": "/actions/default/out/haptic",
+          "path": "/user/hand/left/output/haptic"
+        },
+        {
+          "output": "/actions/default/out/haptic",
+          "path": "/user/hand/right/output/haptic"
+        }
+      ],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "trigger",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/triggerclick"
+            },
+            "pull": {
+              "output": "/actions/default/in/triggervalue"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trigger",
+          "mode": "trigger",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/triggerclick"
+            },
+            "pull": {
+              "output": "/actions/default/in/triggervalue"
+            }
+          }
+        },
+
+        {
+          "path": "/user/hand/right/input/b",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/menu"
+            }
+          }
+        },
+
+        {
+          "path": "/user/hand/left/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/default/in/padtouchvalue"
+            },
+            "touch": {
+              "output": "/actions/default/in/padclick"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/default/in/padtouchvalue"
+            },
+            "touch": {
+              "output": "/actions/default/in/padclick"
+            }
+          }
+        },
+
+        {
+          "path": "/user/hand/left/input/joystick",
+          "mode": "joystick",
+          "parameters": {
+            "sticky_click": "false"
+          },
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/padclick"
+            },
+            "touch": {
+              "output": "/actions/default/in/padtouch"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/joystick",
+          "mode": "joystick",
+          "parameters": {
+            "sticky_click": "false"
+          },
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/padclick"
+            },
+            "touch": {
+              "output": "/actions/default/in/padtouch"
+            }
+          }
+        },
+
+        {
+          "path": "/user/hand/left/input/joystick",
+          "mode": "scroll",
+          "parameters": {
+            "scroll_mode": "smooth",
+            "smooth_scroll_joystick_max_scroll_velocity": "44.5"
+          },
+          "inputs": {
+            "scroll": {
+              "output": "/actions/default/in/padtouchvalue"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/joystick",
+          "mode": "scroll",
+          "parameters": {
+            "scroll_mode": "smooth",
+            "smooth_scroll_joystick_max_scroll_velocity": "43.9"
+          },
+          "inputs": {
+            "scroll": {
+              "output": "/actions/default/in/padtouchvalue"
+            }
+          }
+        },
+
+        {
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/grip"
+            }
+          },
+          "mode": "button",
+          "parameters": {
+            "click_activate_threshold": "0.8",
+            "click_deactivate_threshold": "0.7"
+          },
+          "path": "/user/hand/left/input/grip"
+        },
+        {
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/grip"
+            }
+          },
+          "mode": "button",
+          "parameters": {
+            "click_activate_threshold": "0.8",
+            "click_deactivate_threshold": "0.7"
+          },
+          "path": "/user/hand/right/input/grip"
+        }
+      ],
+      "skeleton": [
+        {
+          "output": "/actions/default/in/skeletonlefthand",
+          "path": "/user/hand/left/input/skeleton/left"
+        },
+        {
+          "output": "/actions/default/in/skeletonrighthand",
+          "path": "/user/hand/right/input/skeleton/right"
+        }
+      ]
     }
   },
   "controller_type": "oculus_touch",
