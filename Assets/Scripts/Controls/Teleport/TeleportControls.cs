@@ -20,7 +20,7 @@ public class TeleportControls : MonoBehaviour {
     #endregion
 
     private void Start() {
-        handType = GetComponent<VRHandControls>().handType;
+        handType = GetComponent<VRActionsMapper>().handType;
         line = GetComponent<LineRenderer>();
         arc = new TeleportArc();
         Assert.IsNotNull(player, "Player transform has not been set in Editor");
