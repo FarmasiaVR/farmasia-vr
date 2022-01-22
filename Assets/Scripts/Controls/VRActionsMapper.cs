@@ -38,7 +38,6 @@ public class VRActionsMapper : MonoBehaviour {
     public SteamVR_Input_Sources handType;
 
     public Hand Hand { get; private set; }
-    private TeleportControls teleport;
     #endregion
 
     private void Start() {
@@ -48,7 +47,6 @@ public class VRActionsMapper : MonoBehaviour {
         }
 
         Hand = GetComponent<Hand>();
-        teleport = GetComponent<TeleportControls>();
 
         VRInput.SetHandControls(handType, this);
 
