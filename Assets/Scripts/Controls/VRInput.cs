@@ -6,12 +6,12 @@ using Valve.VR;
 
 public static class VRInput {
 
-    #region fields
     private static Dictionary<HandControl, ControlState> controls;
 
     public static VRActionsMapper[] Hands { get; private set; }
     private static Vector2[] padTouches;
     private static float[] triggerValues;
+
 
     private struct HandControl {
         ControlType Control;
@@ -40,9 +40,8 @@ public static class VRInput {
             return hashCode;
         }
     }
-    #endregion
 
-    #region Constructors
+
     static VRInput() {
         controls = new Dictionary<HandControl, ControlState>();
 
@@ -60,9 +59,8 @@ public static class VRInput {
         padTouches = new Vector2[4];
         triggerValues = new float[4];
     }
-    #endregion
 
-    #region Controls
+
     private static void SetControlState(ControlType c, SteamVR_Input_Sources handType, int getDown, bool down, int getUp) {
 
         HandControl key = new HandControl(c, handType);
@@ -135,9 +133,8 @@ public static class VRInput {
         return controls[key].GetUp == Time.frameCount;
     #endif
     }
-    #endregion
 
-    #region Skeletons
+
     public static void SetHandControls(SteamVR_Input_Sources handType, VRActionsMapper hand) {
         if (handType == SteamVR_Input_Sources.RightHand) {
             Hands[0] = hand;
@@ -145,6 +142,7 @@ public static class VRInput {
             Hands[1] = hand;
         }
     }
+
     public static SteamVR_Action_Skeleton Skeleton(SteamVR_Input_Sources handType) {
         if (handType == SteamVR_Input_Sources.RightHand) {
             return RightSkeleton;
@@ -165,9 +163,7 @@ public static class VRInput {
             return Hands[1].Skeleton;
         }
     }
-    #endregion
 
-    #region Pad touch value
     public static void SetPadTouchValue(SteamVR_Input_Sources handType, Vector2 value, Vector2 delta) {
         if (handType == SteamVR_Input_Sources.RightHand) {
             RightPadValue = value;
@@ -230,25 +226,13 @@ public static class VRInput {
             padTouches[3] = value;
         }
     }
-    #endregion
 
-    #region Trigger value
     public static void SetTriggerValue(SteamVR_Input_Sources handType, float value, float delta) {
         if (handType == SteamVR_Input_Sources.RightHand) {
             RightTriggerValue = value;
         } else if (handType == SteamVR_Input_Sources.LeftHand) {
             LeftTriggerValue = value;
         }
-    }
-
-    public static float TriggerValue(SteamVR_Input_Sources handType) {
-        if (handType == SteamVR_Input_Sources.RightHand) {
-            return RightTriggerValue;
-        } else if (handType == SteamVR_Input_Sources.LeftHand) {
-            return LeftTriggerValue;
-        }
-
-        return 0;
     }
 
     public static float RightTriggerValue {
@@ -259,14 +243,7 @@ public static class VRInput {
             triggerValues[0] = value;
         }
     }
-    public static float RightTriggerDelta {
-        get {
-            return triggerValues[1];
-        }
-        private set {
-            triggerValues[1] = value;
-        }
-    }
+    
     public static float LeftTriggerValue {
         get {
             return triggerValues[2];
@@ -275,13 +252,4 @@ public static class VRInput {
             triggerValues[2] = value;
         }
     }
-    public static float LeftTriggerDelta {
-        get {
-            return triggerValues[3];
-        }
-        private set {
-            triggerValues[3] = value;
-        }
-    }
-    #endregion
 }
