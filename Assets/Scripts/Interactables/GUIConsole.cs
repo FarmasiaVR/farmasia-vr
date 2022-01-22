@@ -8,11 +8,9 @@ using UnityEngine;
 
 public class GUIConsole : Movable {
 
-    #region Fields
     public static List<string> log;
-    private static float scrollTreshold = 0.01f;
 
-    private bool touch;
+    private float lastScrollTime;
 
     private int prevIndex;
     private int currentIndex;
@@ -22,7 +20,6 @@ public class GUIConsole : Movable {
     private TextMeshPro text;
 
     private bool recent;
-    #endregion
 
     static GUIConsole() {
         log = new List<string>();
@@ -30,10 +27,10 @@ public class GUIConsole : Movable {
 
     protected override void Start() {
 
-#if UNITY_EDITOR
-#else
-        Destroy(gameObject);
-#endif
+        #if UNITY_EDITOR
+        #else
+            Destroy(gameObject);
+        #endif
 
         base.Start();
 
@@ -54,17 +51,6 @@ public class GUIConsole : Movable {
         base.Interact(hand);
 
         recent = true;
-
-        StartCoroutine(DisableAccidentalScroll());
-    }
-    private IEnumerator DisableAccidentalScroll() {
-        float time = 0.5f;
-
-        while (time > 0) {
-            touch = false;
-            time -= Time.deltaTime;
-            yield return null;
-        }
     }
 
     public override void OnGrab(Hand hand) {
@@ -74,31 +60,29 @@ public class GUIConsole : Movable {
 
     private void UpdateIndex(Hand hand) {
 
-        if (VRInput.GetControlDown(hand.HandType, ControlType.PadTouch)) {
-            touch = true;
+        if (VRInput.GetControl(hand.HandType, ControlType.DPadNorth)) {
+            Scroll(-1);
         }
 
-        if (!touch) {
-            return;
+        if (VRInput.GetControl(hand.HandType, ControlType.DPadSouth)) {
+            Scroll(1);
         }
 
-        if (VRInput.GetControl(hand.HandType, ControlType.PadTouch)) {
-            int swipe = SwipeDirection(VRInput.PadTouchValue(hand.HandType), VRInput.PadTouchDelta(hand.HandType));
-            if (swipe != 0) {
-                currentIndex += swipe;
-                recent = false;
-            }
+        if (VRInput.GetControlDown(hand.HandType, ControlType.PadClick)) {
+            ShowRecent();
         }
     }
 
-    private int SwipeDirection(Vector2 current, Vector2 delta) {
-
-        if (delta.y > scrollTreshold) {
-            return 1;
-        } else if (delta.y < -scrollTreshold) {
-            return -1;
+    /// <summary>
+    /// Scrolls to direction every 0.1 seconds
+    /// </summary>
+    /// <param name="dir"></param>
+    private void Scroll(int dir) {
+        if (Time.time - lastScrollTime > 0.1f) {
+            currentIndex += dir;
+            lastScrollTime = Time.time;
         }
-        return 0;
+        recent = false;
     }
 
     private void ShowRecent() {
