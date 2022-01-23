@@ -185,7 +185,7 @@
           "parameters": {},
           "inputs": {
             "click": {
-              "output": "/actions/default/in/dpadcenter"
+              "output": "/actions/default/in/padclick"
             },
             "position": {
               "output": "/actions/default/in/padtouchvalue"
@@ -201,7 +201,7 @@
           "parameters": {},
           "inputs": {
             "click": {
-              "output": "/actions/default/in/dpadcenter"
+              "output": "/actions/default/in/padclick"
             },
             "position": {
               "output": "/actions/default/in/padtouchvalue"
@@ -210,8 +210,52 @@
               "output": "/actions/default/in/padtouch"
             }
           }
-        }
-      ],
+        },
+        {
+          "inputs" : {
+             "center" : {
+                "output" : "/actions/default/in/dpadcenter"
+             },
+             "east" : {
+                "output" : "/actions/default/in/dpadeast"
+             },
+             "north" : {
+                "output" : "/actions/default/in/dpadnorth"
+             },
+             "south" : {
+                "output" : "/actions/default/in/dpadsouth"
+             },
+             "west" : {
+                "output" : "/actions/default/in/dpadwest"
+             }
+          },
+          "mode" : "dpad",
+          "parameters" : {},
+          "path" : "/user/hand/left/input/thumbstick"
+       },
+       {
+          "inputs" : {
+             "center" : {
+                "output" : "/actions/default/in/dpadcenter"
+             },
+             "east" : {
+                "output" : "/actions/default/in/dpadeast"
+             },
+             "north" : {
+                "output" : "/actions/default/in/dpadnorth"
+             },
+             "south" : {
+                "output" : "/actions/default/in/dpadsouth"
+             },
+             "west" : {
+                "output" : "/actions/default/in/dpadwest"
+             }
+          },
+          "mode" : "dpad",
+          "parameters" : {},
+          "path" : "/user/hand/right/input/thumbstick"
+       }
+      ],      
       "skeleton": [
         {
           "output": "/actions/default/in/skeletonlefthand",
