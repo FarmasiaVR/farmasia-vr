@@ -962,6 +962,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 692825128}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &945232501
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1006903071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,40 +1595,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1415355171
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1436912254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,13 +1626,7 @@ Transform:
   m_Father: {fileID: 405716030}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1551886830 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7425624366270787786, guid: 22069d79fdb0a6540915e10b3a2c9092,
-    type: 3}
-  m_PrefabInstance: {fileID: 1398615742}
-  m_PrefabAsset: {fileID: 0}
---- !u!43 &1572580996
+--- !u!43 &1550649463
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1795,6 +1789,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1551886830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7425624366270787786, guid: 22069d79fdb0a6540915e10b3a2c9092,
+    type: 3}
+  m_PrefabInstance: {fileID: 1398615742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1595824050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,12 +2405,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1415355171}
+      objectReference: {fileID: 945232501}
     - target: {fileID: 7825122742825631936, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1572580996}
+      objectReference: {fileID: 1550649463}
     - target: {fileID: 8558149182029478652, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2612,7 +2612,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: abe99a826fc62f04a84622afd47a2961, type: 2}
+      objectReference: {fileID: 2100000, guid: 706eba9fadf55bf4cae00a161a519611, type: 2}
     - target: {fileID: 7362207784736930412, guid: 780d6a0bab4a84042b1d2f8482b2b8a5,
         type: 3}
       propertyPath: instant
@@ -2627,7 +2627,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0844cfe8642534b42b4207ba2c5ac5f7, type: 2}
+      objectReference: {fileID: 2100000, guid: 2ee03258743904568b70422ca95fbe7d, type: 2}
     - target: {fileID: 8819033432336977820, guid: 780d6a0bab4a84042b1d2f8482b2b8a5,
         type: 3}
       propertyPath: m_Name
