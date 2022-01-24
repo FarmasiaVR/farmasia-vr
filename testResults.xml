@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="43" result="Failed(Child)" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.0871199">
+  <test-suite type="TestSuite" id="1053" name="farmasia-vr" fullname="farmasia-vr" runstate="Runnable" testcasecount="43" result="Failed" site="Child" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.087120" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1101" name="Tests.dll" fullname="C:/Users/Veikko/Desktop/farmasia-vr/Library/ScriptAssemblies/Tests.dll" runstate="Runnable" testcasecount="43" result="Failed" site="Child" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.075156" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="4852" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1102" name="Tests" fullname="Tests" runstate="Runnable" testcasecount="43" result="Failed" site="Child" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.074023" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestFixture" id="1054" name="AngleLockTest" fullname="Tests.AngleLockTest" classname="Tests.AngleLockTest" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.033460" total="6" passed="4" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-case id="1059" name="TestMinusFortyFiveToFortyFiveClampLeft" fullname="Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveClampLeft" methodname="TestMinusFortyFiveToFortyFiveClampLeft" classname="Tests.AngleLockTest" runstate="Runnable" seed="1021815249" result="Failed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.017470" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[  Angle is not clamped to left
+  Expected: 315.0f
+  But was:  45.0f
+]]></message>
+              <stack-trace><![CDATA[at Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveClampLeft () [0x00074] in C:\Users\Veikko\Desktop\farmasia-vr\Assets\Tests\EditTests\AngleLockTest.cs:56
+]]></stack-trace>
+            </failure>
+          </test-case>
+          <test-case id="1060" name="TestMinusFortyFiveToFortyFiveClampRight" fullname="Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveClampRight" methodname="TestMinusFortyFiveToFortyFiveClampRight" classname="Tests.AngleLockTest" runstate="Runnable" seed="127850817" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.001773" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1058" name="TestMinusFortyFiveToFortyFiveNoClamp" fullname="Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveNoClamp" methodname="TestMinusFortyFiveToFortyFiveNoClamp" classname="Tests.AngleLockTest" runstate="Runnable" seed="242403005" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000351" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1056" name="TestZeroToNinetyClampLeft" fullname="Tests.AngleLockTest.TestZeroToNinetyClampLeft" methodname="TestZeroToNinetyClampLeft" classname="Tests.AngleLockTest" runstate="Runnable" seed="58334953" result="Failed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000612" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[  Angle is not clamped to left
+  Expected: 0.0f
+  But was:  90.0f
+]]></message>
+              <stack-trace><![CDATA[at Tests.AngleLockTest.TestZeroToNinetyClampLeft () [0x0006d] in C:\Users\Veikko\Desktop\farmasia-vr\Assets\Tests\EditTests\AngleLockTest.cs:27
+]]></stack-trace>
+            </failure>
+          </test-case>
+          <test-case id="1057" name="TestZeroToNinetyClampRight" fullname="Tests.AngleLockTest.TestZeroToNinetyClampRight" methodname="TestZeroToNinetyClampRight" classname="Tests.AngleLockTest" runstate="Runnable" seed="1689275696" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000296" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1055" name="TestZeroToNinetyNoClamp" fullname="Tests.AngleLockTest.TestZeroToNinetyNoClamp" methodname="TestZeroToNinetyNoClamp" classname="Tests.AngleLockTest" runstate="Runnable" seed="641197248" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000263" asserts="0">
+            <properties />
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="1073" name="EventsTest" fullname="Tests.EventsTest" classname="Tests.EventsTest" runstate="Runnable" testcasecount="8" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.009859" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1078" name="Data_AllMatchingCallbacksAreRemoved" fullname="Tests.EventsTest.Data_AllMatchingCallbacksAreRemoved" methodname="Data_AllMatchingCallbacksAreRemoved" classname="Tests.EventsTest" runstate="Runnable" seed="367630101" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.003037" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1076" name="Data_CallbackCanBeRemoved" fullname="Tests.EventsTest.Data_CallbackCanBeRemoved" methodname="Data_CallbackCanBeRemoved" classname="Tests.EventsTest" runstate="Runnable" seed="2122288236" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000549" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1075" name="Data_CallbacksAreCalled" fullname="Tests.EventsTest.Data_CallbacksAreCalled" methodname="Data_CallbacksAreCalled" classname="Tests.EventsTest" runstate="Runnable" seed="738962989" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000383" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1081" name="Data_CallbackSupportMultipleCallbacks" fullname="Tests.EventsTest.Data_CallbackSupportMultipleCallbacks" methodname="Data_CallbackSupportMultipleCallbacks" classname="Tests.EventsTest" runstate="Runnable" seed="1420944773" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000423" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1077" name="Data_OnlyMatchingCallbacksAreRemoved" fullname="Tests.EventsTest.Data_OnlyMatchingCallbacksAreRemoved" methodname="Data_OnlyMatchingCallbacksAreRemoved" classname="Tests.EventsTest" runstate="Runnable" seed="1207442448" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000289" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1074" name="Data_ResetWorks" fullname="Tests.EventsTest.Data_ResetWorks" methodname="Data_ResetWorks" classname="Tests.EventsTest" runstate="Runnable" seed="875838267" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000255" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1079" name="Data_SameCallbackCanBeAddedTwice" fullname="Tests.EventsTest.Data_SameCallbackCanBeAddedTwice" methodname="Data_SameCallbackCanBeAddedTwice" classname="Tests.EventsTest" runstate="Runnable" seed="1156948540" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000267" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1080" name="Data_SubscriptionsCanBeOverwritten" fullname="Tests.EventsTest.Data_SubscriptionsCanBeOverwritten" methodname="Data_SubscriptionsCanBeOverwritten" classname="Tests.EventsTest" runstate="Runnable" seed="1402007159" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000413" asserts="0">
+            <properties />
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="1061" name="TestEnumBitField" fullname="Tests.TestEnumBitField" classname="Tests.TestEnumBitField" runstate="Runnable" testcasecount="11" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.009064" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1071" name="TestAdditionOperator" fullname="Tests.TestEnumBitField.TestAdditionOperator" methodname="TestAdditionOperator" classname="Tests.TestEnumBitField" runstate="Runnable" seed="2063489969" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000848" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1068" name="TestAll" fullname="Tests.TestEnumBitField.TestAll" methodname="TestAll" classname="Tests.TestEnumBitField" runstate="Runnable" seed="1749343688" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000696" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1062" name="TestEmptyConstructor" fullname="Tests.TestEnumBitField.TestEmptyConstructor" methodname="TestEmptyConstructor" classname="Tests.TestEnumBitField" runstate="Runnable" seed="1665274477" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000243" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1066" name="TestEnumConstructor" fullname="Tests.TestEnumBitField.TestEnumConstructor" methodname="TestEnumConstructor" classname="Tests.TestEnumBitField" runstate="Runnable" seed="880800290" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000489" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1070" name="TestEquality" fullname="Tests.TestEnumBitField.TestEquality" methodname="TestEquality" classname="Tests.TestEnumBitField" runstate="Runnable" seed="629046676" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.002601" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1065" name="TestInConstructorMinValue" fullname="Tests.TestEnumBitField.TestInConstructorMinValue" methodname="TestInConstructorMinValue" classname="Tests.TestEnumBitField" runstate="Runnable" seed="673132971" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000233" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1063" name="TestIntConstructor" fullname="Tests.TestEnumBitField.TestIntConstructor" methodname="TestIntConstructor" classname="Tests.TestEnumBitField" runstate="Runnable" seed="990935754" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000235" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1064" name="TestIntConstructorMaxValue" fullname="Tests.TestEnumBitField.TestIntConstructorMaxValue" methodname="TestIntConstructorMaxValue" classname="Tests.TestEnumBitField" runstate="Runnable" seed="1828068211" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000200" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1069" name="TestOnOff" fullname="Tests.TestEnumBitField.TestOnOff" methodname="TestOnOff" classname="Tests.TestEnumBitField" runstate="Runnable" seed="122661689" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000230" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1067" name="TestSet" fullname="Tests.TestEnumBitField.TestSet" methodname="TestSet" classname="Tests.TestEnumBitField" runstate="Runnable" seed="633612607" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000241" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1072" name="TestSubtractionOperator" fullname="Tests.TestEnumBitField.TestSubtractionOperator" methodname="TestSubtractionOperator" classname="Tests.TestEnumBitField" runstate="Runnable" seed="282379537" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000318" asserts="0">
+            <properties />
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="1082" name="TestPipeline" fullname="Tests.TestPipeline" classname="Tests.TestPipeline" runstate="Runnable" testcasecount="18" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.010592" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1100" name="TestAbortFromFunctor" fullname="Tests.TestPipeline.TestAbortFromFunctor" methodname="TestAbortFromFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="487453928" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.001219" asserts="0">
+            <properties />
+            <reason>
+              <message><![CDATA[Pipeline does not crash when aborting from within the pipeline itself]]></message>
+            </reason>
+          </test-case>
+          <test-case id="1099" name="TestAbortSetsIsDone" fullname="Tests.TestPipeline.TestAbortSetsIsDone" methodname="TestAbortSetsIsDone" classname="Tests.TestPipeline" runstate="Runnable" seed="1067924378" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000258" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1095" name="TestDelayVoidFunctor" fullname="Tests.TestPipeline.TestDelayVoidFunctor" methodname="TestDelayVoidFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="2117956692" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000551" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1083" name="TestEmpty" fullname="Tests.TestPipeline.TestEmpty" methodname="TestEmpty" classname="Tests.TestPipeline" runstate="Runnable" seed="480431306" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000185" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1098" name="TestFuncPreDelay" fullname="Tests.TestPipeline.TestFuncPreDelay" methodname="TestFuncPreDelay" classname="Tests.TestPipeline" runstate="Runnable" seed="1054860868" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000330" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1096" name="TestFuncPreFunc" fullname="Tests.TestPipeline.TestFuncPreFunc" methodname="TestFuncPreFunc" classname="Tests.TestPipeline" runstate="Runnable" seed="1951250294" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000470" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1097" name="TestFuncPreIntFunc" fullname="Tests.TestPipeline.TestFuncPreIntFunc" methodname="TestFuncPreIntFunc" classname="Tests.TestPipeline" runstate="Runnable" seed="95741216" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000569" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1088" name="TestNullFunctorIntFunctor" fullname="Tests.TestPipeline.TestNullFunctorIntFunctor" methodname="TestNullFunctorIntFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="454321028" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000299" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1089" name="TestNullGetterIntFunctor" fullname="Tests.TestPipeline.TestNullGetterIntFunctor" methodname="TestNullGetterIntFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="1821752910" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000221" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1084" name="TestNullVoidFunctor" fullname="Tests.TestPipeline.TestNullVoidFunctor" methodname="TestNullVoidFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="1328073201" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000208" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1092" name="TestObjectFunctor" fullname="Tests.TestPipeline.TestObjectFunctor" methodname="TestObjectFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="275338835" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000609" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1093" name="TestOneDelay" fullname="Tests.TestPipeline.TestOneDelay" methodname="TestOneDelay" classname="Tests.TestPipeline" runstate="Runnable" seed="1128694155" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000220" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1090" name="TestOneIntFunctor" fullname="Tests.TestPipeline.TestOneIntFunctor" methodname="TestOneIntFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="1211282460" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000291" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1085" name="TestOneVoidFunctor" fullname="Tests.TestPipeline.TestOneVoidFunctor" methodname="TestOneVoidFunctor" classname="Tests.TestPipeline" runstate="Runnable" seed="1457755032" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000240" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1094" name="TestTwoDelays" fullname="Tests.TestPipeline.TestTwoDelays" methodname="TestTwoDelays" classname="Tests.TestPipeline" runstate="Runnable" seed="45387027" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000252" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1091" name="TestTwoIntFunctors" fullname="Tests.TestPipeline.TestTwoIntFunctors" methodname="TestTwoIntFunctors" classname="Tests.TestPipeline" runstate="Runnable" seed="1394501152" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000352" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1086" name="TestTwoVoidFunctors" fullname="Tests.TestPipeline.TestTwoVoidFunctors" methodname="TestTwoVoidFunctors" classname="Tests.TestPipeline" runstate="Runnable" seed="542904198" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000289" asserts="0">
+            <properties />
+          </test-case>
+          <test-case id="1087" name="TestVoidFunctorIsDone" fullname="Tests.TestPipeline.TestVoidFunctorIsDone" methodname="TestVoidFunctorIsDone" classname="Tests.TestPipeline" runstate="Runnable" seed="293719343" result="Passed" start-time="2022-01-24 20:22:14Z" end-time="2022-01-24 20:22:14Z" duration="0.000236" asserts="0">
+            <properties />
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
