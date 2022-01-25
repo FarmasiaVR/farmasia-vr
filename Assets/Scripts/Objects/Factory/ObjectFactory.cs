@@ -138,10 +138,6 @@ public class ObjectFactory : MonoBehaviour {
 
         foreach (ObjectFactory f in factories) {
 
-            //if (createMeshCopies) {
-            //    CreateMeshCopy(f.LatestCopy);
-            //}
-
             Interactable latestCopy = Interactable.GetInteractable(f.LatestCopy.transform);
 
             latestCopy.DestroyInteractable();
@@ -149,27 +145,5 @@ public class ObjectFactory : MonoBehaviour {
             Destroy(f.TriggerCopy);
             Destroy(f.gameObject);
         }
-    }
-    public static GameObject CreateMeshCopy(GameObject original) {
-
-        Logger.Error("THIS FUNCITON CAUSES INFINITE LOOP & CRASH WTF");
-        return null;
-
-        GameObject meshCopy = new GameObject();
-
-        foreach (Transform child in original.transform) {
-            Vector3 lpos = child.localPosition;
-            Vector3 lrot = child.localEulerAngles;
-
-            Transform mesh = Instantiate(child.gameObject).transform;
-            mesh.SetParent(original.transform);
-            mesh.localPosition = lpos;
-            mesh.localEulerAngles = lrot;
-        }
-
-        meshCopy.transform.position = original.transform.position;
-        meshCopy.transform.rotation = original.transform.rotation;
-
-        return meshCopy;
     }
 }
