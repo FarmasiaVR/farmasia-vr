@@ -54,6 +54,6 @@ In Unity play mode press space to activate the test camera and hand controls.
 
 Press K to move the camera, L to control the right hand and J to control the left hand.
 
-Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting.
+Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting. 
 
  
