@@ -17,8 +17,8 @@ jobs:
         with:
           lfs: true
       - uses: webfactory/ssh-agent@v0.5.4
-              with:
-                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
