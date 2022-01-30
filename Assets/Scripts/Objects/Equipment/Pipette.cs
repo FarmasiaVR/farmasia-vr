@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pipette : GeneralItem {
+    
+    public LiquidContainer Container { get; private set; }
+    
+    private int LiquidTransferStep = 50;
+    
+    private float defaultPosition, maxPosition;
+    
+    public Transform handle;
+    
+    private GameObject liquidDisplay;
+    
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
+        liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
     }
 
     // Update is called once per frame
@@ -22,4 +34,6 @@ public class Pipette : GeneralItem {
         }
         
     }
+    
+    
 }
