@@ -12,6 +12,8 @@ public static class VRInput {
     private static Vector2[] padTouches;
     private static float[] triggerValues;
 
+    public static bool DebugInput = false;
+
 
     private struct HandControl {
         ControlType Control;
@@ -75,7 +77,8 @@ public static class VRInput {
 
     public static void ControlDown(ControlType c, SteamVR_Input_Sources handType) {
 
-        Logger.Print("Down: " + c.ToString());
+        if (DebugInput) Logger.Print(c.ToString());
+
         HandControl key = new HandControl(c, handType);
 
         ControlState state = controls[key];

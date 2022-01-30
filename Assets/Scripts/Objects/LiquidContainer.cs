@@ -102,6 +102,12 @@ public class LiquidContainer : MonoBehaviour {
         target.SetAmount(target.Amount + toTransfer);
     }
 
+    /// <summary>
+    /// Tries to find a LiquidContainer component from the Transform component,
+    /// or from its child object named "Liquid"
+    /// </summary>
+    /// <param name="t">The Transform of the GameObject to search</param>
+    /// <returns>The LiquidContainer found or null</returns>
     public static LiquidContainer FindLiquidContainer(Transform t) {
 
         LiquidContainer c = t.GetComponent<LiquidContainer>();

@@ -6,34 +6,37 @@ public class Pipette : GeneralItem {
     
     public LiquidContainer Container { get; private set; }
     
-    private int LiquidTransferStep = 50;
+    // How much liquid is moved per click
+    public int LiquidTransferStep = 50;
     
-    private float defaultPosition, maxPosition;
+    public float defaultPosition, maxPosition;
     
     public Transform handle;
-    
-    private GameObject liquidDisplay;
 
+    // The LiquidContainer this Pipette is interacting with
+    public LiquidContainer BottleContainer { get; set; }
+
+    public bool hasBeenInBottle;
+
+    private GameObject liquidDisplay;
     private GameObject currentDisplay;
-    private bool displayState;
-    
-    // Start is called before the first frame update
+
+    private bool isDisplayOn;
+
     protected override void Start() {
         base.Start();
 
         Container = LiquidContainer.FindLiquidContainer(transform);
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
-
-        displayState = false;
+        isDisplayOn = false;
     }
 
     public void EnableDisplay() {
-        if (displayState) {
+        if (isDisplayOn) {
             return;
         }
-
-        displayState = true;
+        isDisplayOn = true;
         currentDisplay = Instantiate(liquidDisplay);
         SyringeDisplay display = currentDisplay.GetComponent<SyringeDisplay>();
         display.SetFollowedObject(gameObject);
@@ -51,7 +54,7 @@ public class Pipette : GeneralItem {
             Destroy(currentDisplay);
         }
 
-        displayState = false;
+        isDisplayOn = false;
     }
 
     public override void OnGrabStart(Hand hand) {

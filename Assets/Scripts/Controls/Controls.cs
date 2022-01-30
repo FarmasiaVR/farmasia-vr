@@ -15,7 +15,6 @@ public static class Controls {
     private static ControlType menu;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
-
     #endregion
 
     #region Getters
