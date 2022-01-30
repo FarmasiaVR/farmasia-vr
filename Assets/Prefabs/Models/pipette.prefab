@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2791633700910705541}
   - component: {fileID: 1173837675278690580}
   - component: {fileID: 776772582081187761}
+  - component: {fileID: 2883309988260932368}
+  - component: {fileID: 1888062325075292462}
   m_Layer: 0
   m_Name: pipette
   m_TagString: Untagged
@@ -63,6 +65,37 @@ CapsuleCollider:
   m_Height: 0.11
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2883309988260932368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791633700910705540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc091a8b1ba4fce419f7dba2b35ccef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
+  isClean: 1
+  handle: {fileID: 0}
+--- !u!114 &1888062325075292462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791633700910705540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cfd7363510d0241a45d1086b6b89b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liquid: {fileID: 0}
+  amount: 5
+  capacity: 10
 --- !u!1001 &2791633700194568060
 PrefabInstance:
   m_ObjectHideFlags: 0

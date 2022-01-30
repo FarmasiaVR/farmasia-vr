@@ -13,26 +13,57 @@ public class Pipette : GeneralItem {
     public Transform handle;
     
     private GameObject liquidDisplay;
+
+    private GameObject currentDisplay;
+    private bool displayState;
     
     // Start is called before the first frame update
-    void Start()
-    {
+    protected override void Start() {
         base.Start();
+
+        Container = LiquidContainer.FindLiquidContainer(transform);
+
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
+
+        displayState = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void EnableDisplay() {
+        if (displayState) {
+            return;
+        }
+
+        displayState = true;
+        currentDisplay = Instantiate(liquidDisplay);
+        SyringeDisplay display = currentDisplay.GetComponent<SyringeDisplay>();
+        display.SetFollowedObject(gameObject);
+
+    }
+
+    public void DisableDisplay() {
+        if (State != InteractState.LuerlockAttached && State != InteractState.Grabbed) {
+            DestroyDisplay();
+        }
+    }
+
+    public void DestroyDisplay() {
+        if (currentDisplay != null) {
+            Destroy(currentDisplay);
+        }
+
+        displayState = false;
     }
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
-        if (!IsClean) {
-            Logger.Print("Pipette grabbed and it was dirty!");
-        }
-        
+
+        EnableDisplay();
+    }
+
+    public override void OnGrabEnd(Hand hand) {
+        base.OnGrabEnd(hand);
+
+        DisableDisplay();
     }
     
     

@@ -9,7 +9,6 @@ public class SyringeDisplay : MonoBehaviour {
     GameObject followedObject;
     Transform textParentTransform;
     GameObject cam;
-    Syringe syringe;
     LiquidContainer container;
     TextMeshPro textField;
     bool liquidPresent = false;
@@ -21,9 +20,20 @@ public class SyringeDisplay : MonoBehaviour {
 
     public void SetFollowedObject(GameObject follow) {
         followedObject = follow;
-        syringe = followedObject.GetComponent<Syringe>();
-        container = syringe.Container;
-        liquidPresent = true;
+
+        Syringe syringe = followedObject.GetComponent<Syringe>();
+        if (syringe != null) {
+            container = syringe.Container;
+            liquidPresent = true;
+            return;
+        }
+
+        Pipette pipette = follow.GetComponent<Pipette>();
+        if (pipette != null) {
+            container = pipette.Container;
+            liquidPresent = true;
+            return;
+        }
     }
 
     void Start() {
