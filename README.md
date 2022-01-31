@@ -2,6 +2,7 @@
 
 [![Test project](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/test_runner.yml/badge.svg)](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/test_runner.yml)
 [![Static code analysis](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/code_analysis.yml/badge.svg)](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/code_analysis.yml)
+
 This fork implements part 2 of the original game
 (Software engineering project, University of Helsinki 2022)
 [Video](https://youtu.be/pIKCZFZo2UA)
