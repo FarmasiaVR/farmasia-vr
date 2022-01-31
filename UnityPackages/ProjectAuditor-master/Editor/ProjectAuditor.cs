@@ -110,6 +110,12 @@ namespace Unity.ProjectAuditor.Editor
             }
         }
 
+        public void SaveAsset()
+        {
+            AssetDatabase.ForceReserializeAssets(new List<string>() { DefaultAssetPath });
+            AssetDatabase.SaveAssets();
+        }
+
         void InitModules()
         {
             foreach (var type in TypeCache.GetTypesDerivedFrom(typeof(ProjectAuditorModule)))

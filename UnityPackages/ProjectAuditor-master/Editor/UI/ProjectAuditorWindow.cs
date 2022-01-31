@@ -809,6 +809,11 @@ namespace Unity.ProjectAuditor.Editor.UI
                         ProjectAuditorAnalytics.UIButton.Unmute, analytic, table.GetSelectedItems());
                 }
 
+                if (GUILayout.Button(Contents.SaveRulesButton, GUILayout.ExpandWidth(true), GUILayout.Width(100)))
+                {
+                    SaveRules();
+                }
+
                 GUI.enabled = true;
 
                 EditorGUILayout.EndHorizontal();
@@ -943,6 +948,11 @@ namespace Unity.ProjectAuditor.Editor.UI
         {
             m_ProjectAuditor.config.ClearRules(item.ProblemDescriptor,
                 item.hasChildren ? string.Empty : item.ProjectIssue.GetCallingMethod());
+        }
+
+        void SaveRules()
+        {
+            m_ProjectAuditor.SaveAsset();
         }
 
         void DrawToolbar()
@@ -1120,6 +1130,7 @@ namespace Unity.ProjectAuditor.Editor.UI
 
             public static readonly GUIContent MuteButton = new GUIContent("Mute", "Always ignore selected issues.");
             public static readonly GUIContent UnmuteButton = new GUIContent("Unmute", "Always show selected issues.");
+            public static readonly GUIContent SaveRulesButton = new GUIContent("Save rules", "Save all rules to file");
 
             public static readonly GUIContent FiltersFoldout = new GUIContent("Filters", "Filtering Criteria");
             public static readonly GUIContent ActionsFoldout = new GUIContent("Actions", "Actions on selected issues");

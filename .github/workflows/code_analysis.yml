@@ -1,14 +1,17 @@
 name: Static code analysis
 
-on:
-  workflow_dispatch: {}
+on: [push, pull_request]
+
 jobs:
   performAnalysis:
     name: Perform static code analysis using Project Auditor
     runs-on: ubuntu-latest
-    container: unityci/editor:2019.4.34f1-base-0
+    container:
+      image: unityci/editor:2019.4.34f1-base-0
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           lfs: true
       - uses: actions/cache@v2
@@ -17,3 +20,16 @@ jobs:
           key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-
+      - name: Save license file
+        run: echo "${UNITY_LICENSE}" | tr -d '\r' > /root/Unity_lic.ulf
+      - name: Activate
+        run: /opt/unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -manualLicenseFile /root/Unity_lic.ulf || exit 0
+      - name: Run the analysis
+        run: /opt/unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -projectPath . -executeMethod ProjectAuditorCI.AuditAndExport -logfile ./analysis.log
+      - name: Archive log
+        uses: actions/upload-artifact@v2
+        with:
+          name: Log
+          path: /analysis.log
+      - name: Process log
+        run: ./logParser.sh
