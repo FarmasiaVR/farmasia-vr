@@ -8,13 +8,14 @@ public class LiquidDisplay : Display {
     TextMeshPro textField;
     bool liquidPresent = false;
 
-    private StringBuilder stringBuilder;
+    private StringBuilder stringBuilder = new StringBuilder();
 
     private const string VOLUME = "ml";
 
     public override void SetFollowedObject(GameObject follow) {
         base.SetFollowedObject(follow);
 
+        
         // Workaround, check Syringe and Pipette. Later, they hopefully both belong to a base class
 
         Syringe syringe = follow.GetComponent<Syringe>();
@@ -36,7 +37,6 @@ public class LiquidDisplay : Display {
     new void Start() {
         base.Start();
         stringBuilder.EnsureCapacity(16);
-        stringBuilder.Append("12.123/12.123" + VOLUME);
         textField = base.textObject.GetComponent<TextMeshPro>();
     }
 
