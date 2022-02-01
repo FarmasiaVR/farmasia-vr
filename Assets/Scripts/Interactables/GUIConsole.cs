@@ -7,6 +7,7 @@ using UnityEngine;
 // NOTE: THIS CLASS CANNOT CALL Logger METHODS, RECURSIVE INFINITE LOOP
 
 public class GUIConsole : Movable {
+    private StringBuilder stringBuilder = new StringBuilder();
 
     public static List<string> log;
 
@@ -106,16 +107,16 @@ public class GUIConsole : Movable {
     }
 
     private string GetMessages(int from, int amount) {
-        StringBuilder b = new StringBuilder();
-
         for (int i = from - amount + 1; i <= from; i++) {
             if (InvalidIndex(i)) {
                 continue;
             }
-            b.AppendLine(i + ": " + log[i]);
+            stringBuilder.AppendLine(string.Format("{0}: {1}", i.ToString(), log[i]));
         }
+        string result = stringBuilder.ToString();
+        stringBuilder.Clear();
 
-        return b.ToString();
+        return result;
     }
     private bool InvalidIndex(int i) {
         return i < 0 || i >= log.Count;
@@ -132,13 +133,13 @@ public class GUIConsole : Movable {
     public static void LogWarning(string message) {
         string[] lines = message.Split('\n');
         foreach (string line in lines) {
-            log.Add("<color=#ffff00> Warning: </color>" + line);
+            log.Add(string.Format("<color=#ffff00> Warning: </color> {0}", line));
         }
     }
     public static void LogError(string message) {
         string[] lines = message.Split('\n');
         foreach (string line in lines) {
-            log.Add("<color=#FF0000>Error: </color>" + line);
+            log.Add(string.Format("<color=#FF0000>Error: </color> {0}", line));
         }
     }
 #endregion

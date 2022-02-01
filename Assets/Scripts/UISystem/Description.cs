@@ -36,8 +36,7 @@ public class Description : MonoBehaviour {
         
 
 
-        string text = "<color=#000000> " + packageName  + " </color> \n";
-        text += UISystem.Instance.Descript;
+        string text = string.Format("<color=#000000> {0} </color> \n{1}", packageName, UISystem.Instance.Descript);
         currentTextField.text = text;
     }
 }

@@ -185,9 +185,9 @@ public class PointPopup : MonoBehaviour {
         if (point == int.MinValue) {
             textField.text = text;
         } else if (point > 0) {
-            textField.text = text + "\n+" + point;
+            textField.text = text + "\n+" + point.ToString();
         } else {
-            textField.text = text + "\n" + point;
+            textField.text = text + "\n" + point.ToString();
         }
     }
     #endregion

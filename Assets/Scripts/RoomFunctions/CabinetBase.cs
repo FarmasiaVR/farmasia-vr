@@ -296,7 +296,7 @@ public class CabinetBase : MonoBehaviour {
         string missing = "";
         foreach (KeyValuePair<Types, int> value in missingObjects) {
             if (value.Value > 0) {
-                missing = missing + " " + value.Key + " " + value.Value + " kpl, \n";
+                missing = string.Format("{0} {1} {2} kpl, \n", missing, value.Key.ToString(), value.Value.ToString());
             }
         }
         return missing;

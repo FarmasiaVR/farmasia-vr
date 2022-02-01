@@ -23,7 +23,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
     }
     #endregion
 
-    protected override void Update() {
+    // TODO: Can this be done in a coroutine?
+    protected void Update() {
         UpdatePosition();
     }
 

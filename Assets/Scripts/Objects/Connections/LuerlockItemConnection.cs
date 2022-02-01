@@ -15,7 +15,7 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
-        Logger.Print("Throwing LuerlockItemConnection, interactable: " + interactable);
+        Logger.Print(string.Format("Throwing LuerlockItemConnection, interactable: {0}", interactable));
         if (interactable != null && interactable.State == InteractState.Grabbed) {
             Logger.Print("Throwing luerlock");
             var handType = Hand.GrabbingHand(interactable).HandType;

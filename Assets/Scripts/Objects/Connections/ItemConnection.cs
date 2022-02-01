@@ -23,14 +23,6 @@ public abstract class ItemConnection : MonoBehaviour {
 
     protected virtual void OnRemoveConnection() { }
 
-    protected virtual void Start() {
-        //NullCheck.Check(Connector);
-    }
-
-    protected virtual void Update() {
-
-    }
-
     #region Static methods
     public static ChildConnection AddChildConnection(ItemConnector connector, Transform target, Interactable addTo) {
         return ChildConnection.Configuration(connector, target, addTo);

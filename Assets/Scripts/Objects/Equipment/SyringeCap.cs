@@ -20,7 +20,7 @@ public class SyringeCap : GeneralItem {
         if (other.name == "SyringeTip" && this.State == InteractState.Grabbed) {
             GameObject foundObject = GetInteractableObject(other.transform);
             GeneralItem item = foundObject?.GetComponent<GeneralItem>();
-            Logger.Print(other.gameObject.name + " colliding with syringe cap");
+            Logger.Print(string.Format("{0} colliding with syringe cap", other.gameObject.name));
             if (item?.ObjectType == ObjectType.Syringe) {
                 Syringe syringe = item as Syringe;
                 if (!syringe.HasSyringeCap) {

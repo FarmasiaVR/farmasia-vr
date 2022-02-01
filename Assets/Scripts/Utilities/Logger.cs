@@ -64,6 +64,14 @@ public static class Logger {
         }
     }
 
+    public static void Error(string message) { 
+        Debug.Log(message);
+
+        if (LogInGame) {
+            GUIConsole.LogError(message);
+        }
+    }
+
     public static void Error(object message) {
         string msg = ObjectToString(message);
 

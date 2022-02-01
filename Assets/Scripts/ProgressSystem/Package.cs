@@ -83,7 +83,7 @@ public class Package {
             packageCompleted = true;
             manager.ChangePackage();
         } else {
-            Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
+            Debug.Log(string.Format("Still {0} left in package: {1}", activeTasks.Count.ToString(), name.ToString()));
         }
     }
 
@@ -123,7 +123,8 @@ public class Package {
 
     #region Helpful Methods
     public void PrintAllTasks() {
-        Logger.Print("Package name: " + name + "\nThese tasks are inside currently\n");
+
+        Logger.Print(string.Format("Package name: {0}\nThese tasks are inside currently\n", name.ToString()));
         foreach (ITask task in activeTasks) {
             Logger.Print(task.GetType());
         }

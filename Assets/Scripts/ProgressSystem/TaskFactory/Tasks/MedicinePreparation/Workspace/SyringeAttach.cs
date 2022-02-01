@@ -51,7 +51,7 @@ public class SyringeAttach : TaskBase {
 
         if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY) {
             usedSyringes.Add(s);
-            Logger.Print("Added new syringe to used: " + usedSyringes.Count);
+            Logger.Print("Added new syringe to used: " + usedSyringes.Count.ToString());
         }
 
         if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
