@@ -6,12 +6,6 @@ using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
 
-    #region Constants
-    private const float SWIPE_DEFAULT_TIME = 0.75f;
-    private const float LIQUID_TRANSFER_SPEED = 15;
-    #endregion
-
-    #region fields
     public LiquidContainer Container { get; private set; }
 
     [SerializeField]
@@ -34,7 +28,6 @@ public class Syringe : GeneralItem {
     private GameObject liquidDisplay;
     private GameObject currentDisplay;
     private bool displayState;
-    #endregion
 
     protected override void Start() {
         base.Start();
@@ -66,7 +59,7 @@ public class Syringe : GeneralItem {
 
         displayState = true;
         currentDisplay = Instantiate(liquidDisplay);
-        SyringeDisplay display = currentDisplay.GetComponent<SyringeDisplay>();
+        LiquidDisplay display = currentDisplay.GetComponent<LiquidDisplay>();
         display.SetFollowedObject(gameObject);
 
         EnableForOtherSyringeDisplay();
