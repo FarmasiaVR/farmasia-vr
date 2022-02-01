@@ -17,6 +17,7 @@ public class SyringeDisplayer : MonoBehaviour {
     }
 
     private void Update() {
+        // todo: Can this be done by eventsystem
         CheckHandGrab(left, ref leftChecked, ref displayLeft);
         CheckHandGrab(right, ref rightChecked, ref displayRight);
     }

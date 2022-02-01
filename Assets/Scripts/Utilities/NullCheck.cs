@@ -11,7 +11,7 @@ public static class NullCheck {
     public static void Check(params object[] objs) {
         for (int i = 0; i < objs.Length; i++) {
             if (objs[i] == null) {
-                throw new System.NullReferenceException("Null check object was null. Object index " + i + " was null");
+                throw new System.NullReferenceException("Null check object was null. Object index " + i.ToString() + " was null");
             }
         }
     }

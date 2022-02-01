@@ -97,40 +97,26 @@ public class ScoreCalculator {
         Blue
     }
 
+    private static readonly Dictionary<Colour, string> ColourCodes = new Dictionary<Colour, string>() {
+        { Colour.Yellow, "<color=#ebe134>" },
+        { Colour.Black, "<color=#000000>" },
+        { Colour.Green, "<color=#2dcc27>" },
+        { Colour.Red, "<color=#cc3727>" },
+        { Colour.White, "<color=#ffffff>" },
+        { Colour.Blue, "<color=#27c7cc>" }
+    };
+
     private string Text(string message, Colour colour) {
-        string text = "";
-        switch (colour) {
-            case Colour.Black:
-                text += "<color=#000000>";
-                break;
-            case Colour.Yellow:
-                text += "<color=#ebe134>";
-                break;
-            case Colour.Red:
-                text += "<color=#cc3727>";
-                break;
-            case Colour.Green:
-                text += "<color=#2dcc27>";
-                break;
-            case Colour.White:
-                text += "<color=#ffffff>";
-                break;
-            case Colour.Blue:
-                text += "<color=#27c7cc>";
-                break;
-        }
-        text += message + "</color>";
+        string text = string.Format("{0}{1}</color>", ColourCodes[colour], message);
         return text;
     }
 
     private string PrintPoints(int gottenPoints, int maxPoints) {
-        string text = "";
-        if (gottenPoints < maxPoints) {
-            text += Text("" + gottenPoints, Colour.Red);
-        } else {
-            text += Text("" + gottenPoints, Colour.Green);
-        }
-        return text += " / " + Text("" + maxPoints, Colour.Green);
+        string text = gottenPoints.ToString();
+        text = Text(text,
+            gottenPoints < maxPoints ? Colour.Red : Colour.Green
+        );
+        return string.Format("{0} / {1}", text, Text(maxPoints.ToString(), Colour.Green));
     }
 
     /// <summary>
@@ -138,8 +124,7 @@ public class ScoreCalculator {
     /// </summary>
     /// <returns>Returns a String presentation of the summary.</returns>
     public void GetScoreString(out int score, out string scoreString, ProgressManager p) {
-
-        string summary = "Onnittelut " + Text(Player.Info.Name, Colour.Blue) + ", peli päättyi!\n\n";
+        string summary = string.Format("Onnittelut {0}, peli päättyi!\n\n", Text(Player.Info.Name, Colour.Blue));
         string scoreCountPerTask = "";
         string addedBeforeTimeList = "";
         string generalMistakes = "\n\nYleisvirheet:\n";
@@ -149,10 +134,13 @@ public class ScoreCalculator {
             if (maxPoints[type] == 0) {
                 continue;
             }
-            scoreCountPerTask += "\n " + PrintPoints(points[type], maxPoints[type]) + " : " + TaskToString(type);
+            scoreCountPerTask = string.Format("\n {0} : {1}", PrintPoints(points[type], maxPoints[type]), TaskToString(type));
             if (TaskMistakes.ContainsKey(type)) {
                 foreach (string mistake in TaskMistakes[type]) {
-                    scoreCountPerTask += "\n    " + Text("- " + mistake, Colour.Red);
+                    scoreCountPerTask = string.Format(
+                        "{0}\n    {1}",
+                        scoreCountPerTask,
+                        Text(string.Format("- {0}", mistake), Colour.Red));
                 }
             }
             score += points[type];
@@ -162,18 +150,26 @@ public class ScoreCalculator {
                 addedBeforeTimeList += before;
                 break;
             }
-            addedBeforeTimeList += before + ", ";
+            addedBeforeTimeList += string.Format("{0}, ", before);
         }
         generalMistakes = p.Calculator.Mistakes.Count == 0 ? "" : generalMistakes;
         foreach (var pair in p.Calculator.Mistakes) {
-            generalMistakes += "\n" + Text("-" + pair.Value + " : " + pair.Key, Colour.Red);
+            generalMistakes = string.Format(
+                "\n{0} : {1}",
+                Text(string.Format("-{0} : {1}", pair.Value.ToString(), pair.Key), Colour.Red)
+            );
             score -= pair.Value;
         }
 
         Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
 
-        summary += "Kokonaispistemäärä: " + Text("" + score, pointColour) + " / " + maxScore + "!\n";
-        scoreString = summary + scoreCountPerTask + generalMistakes;// + beforeTimeSummary + addedBeforeTimeList;
+        summary = string.Format(
+            "{0}Kokonaispistemäärä: {1} / {2}!\n",
+            summary,
+            Text(score.ToString(), pointColour),
+            maxScore.ToString()
+        );
+        scoreString = string.Format("{0}{1}{2}", summary, scoreCountPerTask, generalMistakes); // + beforeTimeSummary + addedBeforeTimeList;
         Logger.Print(scoreString);
     }
     private string TaskToString(TaskType type) {

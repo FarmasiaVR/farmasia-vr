@@ -52,7 +52,12 @@ public class SyringeDisplay : MonoBehaviour {
         if (liquidPresent) {
             double contAmount = (double)container.Amount / 1000;
 
-            textField.text = contAmount.ToString("F3") + "/" + ((double)container.Capacity / 1000) + VOLUME;
+            textField.text = string.Format(
+                "{0}/{1}{2}",
+                contAmount.ToString("F3"),
+                ((double)container.Capacity / 1000).ToString(),
+                VOLUME
+            );
         }
     }
 }

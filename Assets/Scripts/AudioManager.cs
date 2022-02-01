@@ -37,14 +37,14 @@ public class AudioManager {
 
             AudioClip audioClip = GetAudioClip(type);
             if (audioClip == null) {
-                Logger.Error("No AudioClip found for type: " + type + " and filename '" + audioClips[type].filename + "'. Wrong filename?");
+                Logger.Error(string.Format("No AudioClip found for type: {0} and filename '{1}'. Wrong filename?", type.ToString(), audioClips[type].filename));
                 return;
             }
 
             audioSrc.spatialBlend = spatialBlend;
             audioSrc.PlayOneShot(audioClip, 1.0f);
         } catch (Exception e) {
-            Logger.Error("Error with playing audio file of type: " + type + " from source " + audioSourceObject + "\nError message: " + e.Message);
+            Logger.Error(String.Format("Error with playing audio file of type: {0} from source {1}\nError message: {2}", type.ToString(), audioSourceObject.ToString(), e.Message));
         }
     }
 
@@ -68,7 +68,7 @@ public class AudioManager {
 
     private AudioClip GetAudioClip(AudioClipType type) {
         if (audioClips[type].clip == null) {
-            audioClips[type].clip = Resources.Load<AudioClip>(AUDIO_FILE_LOCATION + audioClips[type].filename);
+            audioClips[type].clip = Resources.Load<AudioClip>(string.Format("{0}{1}", AUDIO_FILE_LOCATION, audioClips[type].filename));
         }
         return audioClips[type].clip;
     }

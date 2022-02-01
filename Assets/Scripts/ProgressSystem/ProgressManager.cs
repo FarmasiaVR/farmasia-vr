@@ -33,7 +33,7 @@ public class ProgressManager {
 
     public void ForceCloseTasks(ITask calledTask) {
 
-        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count);
+        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
 
         foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
             if (calledTask.GetTaskType() == task.GetTaskType()) {
@@ -42,7 +42,11 @@ public class ProgressManager {
             if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
-            Logger.Print("max points: " + task.GetTaskType() + ", points: " + taskMaxPoints[task.GetTaskType()]);
+            Logger.Print(string.Format(
+                "max points: {0}, points: {1}",
+                task.GetTaskType().ToString(),
+                taskMaxPoints[task.GetTaskType()].ToString()
+            ));
             task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
         }
     }

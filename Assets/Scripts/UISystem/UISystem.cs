@@ -77,7 +77,7 @@ public class UISystem : MonoBehaviour {
                 break;
         }
 
-        Logger.Print(point + " " + type + " " + message);
+        Logger.Print(string.Format("{0} {1} {2}", point.ToString(), type.ToString(), message));
 
         GameObject popupMessage = InitUIComponent(popupPrefab);
         PointPopup popup = popupMessage.GetComponent<PointPopup>();

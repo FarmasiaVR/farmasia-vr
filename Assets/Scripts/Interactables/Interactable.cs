@@ -122,7 +122,7 @@ public class Interactable : MonoBehaviour {
 
     protected virtual void OnDestroy() {
         if (!Destroyed && gameObject.activeInHierarchy) {
-            Logger.Error("Active Interactables must be destroyed using Interactable.DestroyInteractable method. Destroyed interactable: " + this.name);
+            Logger.Error(string.Format("Active Interactables must be destroyed using Interactable.DestroyInteractable method. Destroyed interactable: {0}", this.name));
         }
     }
 
