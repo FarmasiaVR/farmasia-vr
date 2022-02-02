@@ -10,7 +10,7 @@ public class BottleCap : GeneralItem {
         ObjectType = ObjectType.Needle;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
 
-        Connector = new BottleCapConnector(this, transform.Find("Bottle Opening").gameObject);
+        Connector = new BottleCapConnector(this, transform.parent.Find("Bottle Opening").gameObject);
         Connector.Subscribe();
     }
 
