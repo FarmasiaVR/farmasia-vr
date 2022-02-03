@@ -41,6 +41,11 @@ public class GeneralItem : Grabbable {
         return Interactable.GetInteractableObject(t)?.GetComponent<GeneralItem>();
     }
 
+
+    /// <summary>
+    /// Is called when this item collides with another
+    /// </summary>
+    /// <param name="coll"></param>
     protected virtual void OnCollisionEnter(Collision coll) {
         if (coll.gameObject.tag == "Floor") {
             Contamination = ContaminateState.FloorContaminated;
