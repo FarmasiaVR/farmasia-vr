@@ -29,9 +29,9 @@ The project was created with `Unity Version: 2019.2.3.f1` and the same version s
   - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1QbWEpiNEt-0H225ZIYymeJ4stKKGCl3CIwYoJT8NL5s/edit?usp=sharing)
   - [Some WIP architecture diagrams](https://app.diagrams.net/#G1zGultE_-2kT3pbttZezY0fnKzPWykIT0)
 
-![](https://github.com/MikkoHimanka/farmasia-vr/blob/dev/Docs/16439036321364375859242318815669.jpg)
-Seinä.jpg
 
+<img src=/Docs/16439036321364375859242318815669.jpg width="480" />
+Seinä.jpg
 
 ## Cloning
 
