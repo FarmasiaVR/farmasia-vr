@@ -18,6 +18,7 @@ public class Syringe : GeneralItem {
     private Transform handle;
 
     private GameObject syringeCap;
+    public bool capVisible;
     public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
     public LiquidContainer BottleContainer { get; set; }
@@ -46,7 +47,7 @@ public class Syringe : GeneralItem {
         syringeCap = transform.Find("syringe_cap").gameObject;
         NullCheck.Check(syringeCap);
 
-        syringeCap.SetActive(false);
+        syringeCap.SetActive(capVisible);
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
         displayState = false;
