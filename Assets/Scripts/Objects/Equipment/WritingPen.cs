@@ -3,7 +3,6 @@ using System.Collections;
 
 public class WritingPen : GeneralItem {
 
-    // Use this for initialization
     protected override void Start() {
         base.Start();
 
@@ -21,5 +20,10 @@ public class WritingPen : GeneralItem {
         }
 
         Logger.Print("Writing stuff!");
+        Write(writable);
+    }
+
+    private void Write(Writable writable) {
+        writable.Write("Kirjoitusta");
     }
 }
