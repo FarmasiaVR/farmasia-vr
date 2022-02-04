@@ -19,11 +19,13 @@ public class WritingPen : GeneralItem {
             return;
         }
 
-        Logger.Print("Writing stuff!");
         Write(writable);
     }
 
     private void Write(Writable writable) {
-        writable.Write("Kirjoitusta");
+        bool didWrite = writable.Write("Kirjoitusta");
+        if (didWrite) {
+            Logger.Print("Wrote stuff with pen!");
+        }
     }
 }
