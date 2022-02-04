@@ -11,5 +11,6 @@
     BottleCap,
     SterileBag,
     DisinfectingCloth,
-    Die
+    Die,
+    Pen
 }

@@ -5,7 +5,7 @@ public class WritingPen : GeneralItem {
 
     protected override void Start() {
         base.Start();
-
+        objectType = ObjectType.Pen;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
     }
 
@@ -27,5 +27,19 @@ public class WritingPen : GeneralItem {
         if (didWrite) {
             Logger.Print("Wrote stuff with pen!");
         }
+        var writingGameObject = GameObject.Find("WritingOptions");
+        Logger.Print("game object " + writingGameObject);
+        if (writingGameObject == null) {
+            Logger.Print("Writing options not found");
+            return;
+        }
+        Logger.Print("Opened writing options");
+        var writingOptions = writingGameObject.GetComponent<WritingOptions>();
+        if (writingOptions == null) {
+            Logger.Print("Did not found gameObject writing options");
+            return;
+        }
+        writingOptions.SetVisible(true);
+        
     }
 }
