@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class CorrectItemsInThroughput : TaskBase {
+public class CorrectItemsInThroughputMembrane : TaskBase {
     #region Constants
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     #endregion
@@ -18,7 +18,7 @@ public class CorrectItemsInThroughput : TaskBase {
     #endregion
 
     #region Constructor
-    public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
+    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughput, true, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
