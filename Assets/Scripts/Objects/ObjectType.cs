@@ -12,5 +12,6 @@
     SterileBag,
     DisinfectingCloth,
     Die,
-    Pen
+    Pen,
+    Pump
 }
