@@ -1,27 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class WritingOption : DragAcceptable {
 
     [SerializeField]
     private string optionName = "valinta";
 
-    protected override void Activate() {
-        Logger.Print("Activated: " + optionName);
-    }
+    [SerializeField]
+    private Material selectedMaterial;
+    [SerializeField]
+    private Material deselectedMaterial;
+
+    [SerializeField]
+    private GameObject boxObject;
+
+    private bool selected;
+
+    public Action<string> onSelect;
+    public Action<string> onDeselect;
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-        Logger.Print("Chose: " + optionName);
+
+        selected = !selected;
+        if (selected)
+            onSelect(optionName);
+        else
+            onDeselect(optionName);
+
+        UpdateMaterial();
     }
 
-    public override void OnGrabStart(Hand hand) {
-        base.OnGrabStart(hand);
-        Logger.Print("Grab started on: " + optionName);
+    public void Reset() {
+        selected = false;
     }
 
-    public override void OnGrabEnd(Hand hand) {
-        base.OnGrabStart(hand);
-        Logger.Print("Grab ended on: " + optionName);
+    private void UpdateMaterial() {
+        if (selected) {
+            boxObject.GetComponent<MeshRenderer>().material = selectedMaterial;
+        } else {
+            boxObject.GetComponent<MeshRenderer>().material = deselectedMaterial;
+        }
     }
 }
