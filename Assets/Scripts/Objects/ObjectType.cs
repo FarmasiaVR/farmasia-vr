@@ -13,5 +13,11 @@
     DisinfectingCloth,
     Die,
     Pen,
-    Pump
+    Pump,
+    PeptoniWater,
+    SoycaseineBottle,
+    TioglycolateBottle,
+    Tweezers,
+    Scalpel,
+    Pipette
 }

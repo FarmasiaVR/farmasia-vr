@@ -72,13 +72,14 @@ public class ProgressManager {
                 return;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
-                AddTasks();
+                AddTasks(scene);
                 Calculator = new ScoreCalculator(allTasks);
                 GenerateScenarioOne();
                 break;
             case SceneTypes.MembraneFilteration:
-                //todo
-                //GenerateScenarioTwo();
+                AddTasks(scene);
+                Calculator = new ScoreCalculator(allTasks);
+                GenerateScenarioTwo();
                 break;
             case SceneTypes.Tutorial:
                 return;
@@ -129,6 +130,15 @@ public class ProgressManager {
         packages.Add(cleanUp);
     }
 
+    private void GenerateScenarioTwo()
+    {
+        TaskType[] selectTasks = {
+            TaskType.CorrectItemsInThroughputMembrane
+        };
+        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        packages.Add(equipmentSelection);
+    }
+
     #region Package Init Functions
     /// <summary>
     /// Creates a new package.
@@ -160,10 +170,10 @@ public class ProgressManager {
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
     /// </summary>
-    public void AddTasks() {
+    public void AddTasks(SceneTypes scene) {
         allTasks = new HashSet<ITask>(Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
-            .Select(v => TaskFactory.GetTask(v))
+            .Select(v => TaskFactory.GetTask(v, scene))
             .Where(v => v != null)
             .ToList());
 

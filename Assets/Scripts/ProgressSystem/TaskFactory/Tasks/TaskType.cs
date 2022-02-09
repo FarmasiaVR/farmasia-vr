@@ -15,5 +15,7 @@ public enum TaskType {
     CorrectAmountOfMedicineSelected,
     ItemsToSterileBag,
     ScenarioOneCleanUp,
-    Finish
+    Finish,
+    CorrectItemsInThroughputMembrane,
+    SelectToolsMembrane
 }

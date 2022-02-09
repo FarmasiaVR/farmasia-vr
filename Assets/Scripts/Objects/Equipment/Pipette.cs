@@ -22,6 +22,7 @@ public class Pipette : GeneralItem {
     private ItemDisplay display;
 
     protected override void Start() {
+        objectType = ObjectType.Pipette;
         base.Start();
 
         Container = LiquidContainer.FindLiquidContainer(transform);

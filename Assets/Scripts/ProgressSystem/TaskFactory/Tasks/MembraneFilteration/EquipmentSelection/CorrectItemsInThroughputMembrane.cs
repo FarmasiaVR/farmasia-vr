@@ -8,17 +8,16 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
-    private int smallSyringes = 0;
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette }
+    private int bottles100ml = 0;
     private int objectCount;
     private bool firstCheckDone = false;
-    private bool correctMedicineBottle = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
 
     #region Constructor
-    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughput, true, false) {
+    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughputMembrane, true, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
@@ -72,8 +71,8 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             }
         }
 
-        if (gCount - 11 > 0) {
-            int minus = gCount - 11;
+        if (gCount - 5 > 0) { 
+            int minus = gCount - 5;
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", minus);
         }
 
@@ -98,7 +97,6 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
         }
         //Logger.Print(cabinet.GetMissingItems());
-        smallSyringes = 0;
         DisableConditions();
     }
 
@@ -108,34 +106,29 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
             switch (type) {
-                case ObjectType.Syringe:
-                    Syringe syringe = item as Syringe;
-                    if (syringe.Container.Capacity == 20000) {
-                        EnableCondition(Conditions.BigSyringe);
-                    } else if (syringe.Container.Capacity == 1000) {
-                        smallSyringes++;
-                        if (smallSyringes == 6) {
-                            EnableCondition(Conditions.SmallSyringes);
-                        }
-                    }
-                    break;
-                case ObjectType.Needle:
-                    EnableCondition(Conditions.Needle);
-                    break;
-                case ObjectType.Luerlock:
-                    EnableCondition(Conditions.Luerlock);
-                    break;
-                case ObjectType.SyringeCapBag:
-                    EnableCondition(Conditions.SyringeCapBag);
-                    break;
                 case ObjectType.Bottle:
-                    MedicineBottle bottle = item as MedicineBottle;
-                    if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
-                        EnableCondition(Conditions.RightBottle);
+                    bottles100ml++;
+                    if (bottles100ml == 4) {
+                        EnableCondition(Conditions.Bottles100ml);
                     }
-                    if (bottle.Container.Capacity == 4000) {
-                        correctMedicineBottle = true;
-                    }
+                    break;
+                /*case ObjectType.PeptoniWater;
+                    EnableCondition(Conditions.PeptoniWaterBottle);
+                    break;
+                case ObjectType.SoycaseineBottle;
+                    EnableCondition(Conditions.SoycaseineBottle);
+                    break;
+                case ObjectType.TioglycolateBottle;
+                    EnableCondition(Conditions.TioglycolateBottle);
+                    break;
+                case ObjectType.Tweezers;
+                    EnableCondition(Conditions.Tweezers);
+                    break;
+                case ObjectType.Scalpel;
+                    EnableCondition(Conditions.Scalpel);
+                    break;*/
+                case ObjectType.Pipette:
+                    EnableCondition(Conditions.Pipette);
                     break;
             }
         }
@@ -154,7 +147,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         base.CompleteTask();
 
         if (IsCompleted()) {
-            if (objectCount == 11) {
+            if (objectCount == 5) {
                 Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
