@@ -4,9 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class CabinetRequiredItems {
+    public static Dictionary<ObjectType, int> ForMedicinePreparation() {
+        var items = new Dictionary<ObjectType, int>();
+        items.Add(ObjectType.Needle, 1);
+        items.Add(ObjectType.BigSyringe, 1);
+        items.Add(ObjectType.Syringe, 6);
+        items.Add(ObjectType.Luerlock, 1);
+        items.Add(ObjectType.Bottle, 1);
+        items.Add(ObjectType.SyringeCapBag, 1);
+
+        return items;
+    }
+
+    public static Dictionary<ObjectType, int> ForMembraneFilteration() {
+        var items = new Dictionary<ObjectType, int>();
+        items.Add(ObjectType.Scalpel, 1);
+
+        return items;
+    }
+
+}
+
 public class CabinetBase : MonoBehaviour {
 
-    public enum Types {
+    /*public enum Types {
         Null,
         Needle,
         BigSyringe,
@@ -14,13 +36,13 @@ public class CabinetBase : MonoBehaviour {
         Luerlock,
         MedicineBottle,
         SyringeCapBag
-    }
+    }*/
 
     #region Fields
     public enum CabinetType { PassThrough, Laminar }
     [SerializeField]
     public CabinetType type;
-    private Dictionary<Types, int> missingObjects;
+    private Dictionary<ObjectType, int> missingObjects;
     private bool itemPlaced = false;
     [SerializeField]
     private GameObject childCollider;
@@ -50,13 +72,12 @@ public class CabinetBase : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
-        missingObjects = new Dictionary<Types, int>();
-        missingObjects.Add(Types.Needle, 1);
-        missingObjects.Add(Types.BigSyringe, 1);
-        missingObjects.Add(Types.SmallSyringe, 6);
-        missingObjects.Add(Types.Luerlock, 1);
-        missingObjects.Add(Types.MedicineBottle, 1);
-        missingObjects.Add(Types.SyringeCapBag, 1);
+        switch (G.Instance.CurrentSceneType)
+        {
+            case (SceneTypes.MedicinePreparation): missingObjects = CabinetRequiredItems.ForMedicinePreparation(); break;
+            case (SceneTypes.MembraneFilteration): missingObjects = CabinetRequiredItems.ForMembraneFilteration(); break;
+            default: missingObjects = CabinetRequiredItems.ForMedicinePreparation(); break;
+        }
 
         itemContainer = childCollider.gameObject.AddComponent<TriggerInteractableContainer>();
         itemContainer.OnEnter = EnterCabinet;
@@ -108,10 +129,17 @@ public class CabinetBase : MonoBehaviour {
         }
 
         ObjectType type = item.ObjectType;
-        Types underlyingType = CheckItemType(type, item, enteringCabinet: true);
-        if (underlyingType != Types.Null) {
-            missingObjects[underlyingType]--;
+
+        if (type == ObjectType.SyringeCapBag)
+        {
+            if (this.type == CabinetType.Laminar)
+            {
+                SyringeCapBagEnteredLaminarCabinet(item);
+            }
         }
+
+        missingObjects[type]--;
+        
     }
     private void ExitCabinet(Interactable other) {
 
@@ -121,8 +149,14 @@ public class CabinetBase : MonoBehaviour {
         }
 
         ObjectType type = item.ObjectType;
-        Types underlyingType = CheckItemType(type, item, enteringCabinet: false);
-        ReAddMissingObjects(underlyingType);
+        if (type == ObjectType.SyringeCapBag)
+        {
+            if (this.type == CabinetType.Laminar)
+            {
+                SyringeCapBagEnteredLaminarCabinet(item);
+            }
+        }
+        ReAddMissingObjects(type);
     }
 
     private void UnfoldCloth() {
@@ -135,30 +169,6 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
         sterileDrape.SetBool("ItemPlaced", true);
-    }
-
-    private Types CheckItemType(ObjectType itemType, GeneralItem item, bool enteringCabinet) {
-        Types type = Types.Null;
-        if (itemType == ObjectType.Syringe) {
-            Syringe syringe = item as Syringe;
-            if (syringe.Container.Capacity == 20000) {
-                type = Types.BigSyringe;
-            } else if (syringe.Container.Capacity == 1000) {
-                type = Types.SmallSyringe;
-            }
-        } else if (itemType == ObjectType.Bottle) {
-            type = Types.MedicineBottle;
-        } else if (itemType == ObjectType.Needle) {
-            type = Types.Needle;
-        } else if (itemType == ObjectType.Luerlock) {
-            type = Types.Luerlock;
-        } else if (itemType == ObjectType.SyringeCapBag) {
-            type = Types.SyringeCapBag;
-            if (this.type == CabinetType.Laminar && enteringCabinet) {
-                SyringeCapBagEnteredLaminarCabinet(item);
-            }
-        }
-        return type;
     }
 
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem capBag) {
@@ -253,32 +263,32 @@ public class CabinetBase : MonoBehaviour {
         trueCapBag.gameObject.SetActive(true);
     }
 
-    private void ReAddMissingObjects(Types itemType) {
-        if (missingObjects.ContainsKey(itemType)) {
-            switch (itemType) {
-                case Types.Needle:
-                    if (missingObjects[itemType] == 0) {
-                        missingObjects[itemType]++;
+    private void ReAddMissingObjects(ObjectType objectType) {
+        if (missingObjects.ContainsKey(objectType)) {
+            switch (objectType) {
+                case ObjectType.Needle:
+                    if (missingObjects[objectType] == 0) {
+                        missingObjects[objectType]++;
                     }
                     break;
-                case Types.BigSyringe:
-                    if (missingObjects[itemType] == 0) {
-                        missingObjects[itemType]++;
+                case ObjectType.BigSyringe:
+                    if (missingObjects[objectType] == 0) {
+                        missingObjects[objectType]++;
                     }
                     break;
-                case Types.SmallSyringe:
-                    if (missingObjects[itemType] < 6) {
-                        missingObjects[itemType]++;
+                case ObjectType.Syringe:
+                    if (missingObjects[objectType] < 6) {
+                        missingObjects[objectType]++;
                     }
                     break;
-                case Types.Luerlock:
-                    if (missingObjects[itemType] == 0) {
-                        missingObjects[itemType]++;
+                case ObjectType.Luerlock:
+                    if (missingObjects[objectType] == 0) {
+                        missingObjects[objectType]++;
                     }
                     break;
-                case Types.MedicineBottle:
-                    if (missingObjects[itemType] == 0) {
-                        missingObjects[itemType]++;
+                case ObjectType.Bottle:
+                    if (missingObjects[objectType] == 0) {
+                        missingObjects[objectType]++;
                     }
                     break;
             }
@@ -294,7 +304,7 @@ public class CabinetBase : MonoBehaviour {
 
     public string GetMissingItems() {
         string missing = "";
-        foreach (KeyValuePair<Types, int> value in missingObjects) {
+        foreach (KeyValuePair<ObjectType, int> value in missingObjects) {
             if (value.Value > 0) {
                 missing = string.Format("{0} {1} {2} kpl, \n", missing, value.Key.ToString(), value.Value.ToString());
             }
