@@ -62,6 +62,7 @@ public abstract class TaskBase : ITask {
 
     public virtual void CompleteTask() {
         completed = CheckClearConditions();
+        Logger.Print("Clear conditions: " + completed);
         if (completed) {
             CloseTask();
         }

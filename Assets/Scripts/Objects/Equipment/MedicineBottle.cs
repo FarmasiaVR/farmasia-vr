@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 public class MedicineBottle : GeneralItem {
 
     #region fields
-    public LiquidContainer Container { get; private set; } 
+    public LiquidContainer Container { get; private set; }
     #endregion
 
     protected override void Start() {
@@ -12,6 +12,5 @@ public class MedicineBottle : GeneralItem {
 
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
-        ObjectType = ObjectType.Bottle;
     }
 }

@@ -14,9 +14,11 @@
     Die,
     Pen,
     Pump,
-    PeptoniWater,
+    PeptoniWaterBottle,
     SoycaseineBottle,
     TioglycolateBottle,
+    SoycaseinePlate,
+    SabouradDextrosiPlate,
     Tweezers,
     Scalpel,
     Pipette

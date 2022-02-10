@@ -5,12 +5,15 @@ using System.Collections.Generic;
 public class CorrectItemsInThroughputMembrane : TaskBase {
     #region Constants
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti.";
     #endregion
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate }
     private int bottles100ml = 0;
+    private int soycaseinePlate = 0;
     private int objectCount;
+    private int correctItemCount = 14;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -57,7 +60,8 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         int gCount = 0;
 
         foreach (Interactable obj in containedObjects) {
-
+            
+            gCount++;
             GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
@@ -71,14 +75,15 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             }
         }
 
-        if (gCount - 5 > 0) { 
-            int minus = gCount - 5;
+        if (gCount - correctItemCount > 0) { 
+            int minus = gCount - correctItemCount;
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", minus);
         }
 
         objectCount = containedObjects.Count;
         CheckConditions(containedObjects);
         if (door.IsClosed) {
+
             CompleteTask();
             if (!IsCompleted()) {
                 MissingItems();
@@ -105,6 +110,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         foreach (Interactable value in containedObjects) {
             GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
+            Logger.Print("Condition: " + type);
             switch (type) {
                 case ObjectType.Bottle:
                     bottles100ml++;
@@ -112,21 +118,31 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
                         EnableCondition(Conditions.Bottles100ml);
                     }
                     break;
-                /*case ObjectType.PeptoniWater;
+                case ObjectType.SoycaseinePlate:
+                    soycaseinePlate++;
+                    if (soycaseinePlate == 3)
+                    {
+                        EnableCondition(Conditions.SoycaseinePlate);
+                    }
+                    break;
+                case ObjectType.SabouradDextrosiPlate:
+                    EnableCondition(Conditions.SabouradDextrosiPlate);
+                    break;
+                case ObjectType.PeptoniWaterBottle:
                     EnableCondition(Conditions.PeptoniWaterBottle);
                     break;
-                case ObjectType.SoycaseineBottle;
+                case ObjectType.SoycaseineBottle:
                     EnableCondition(Conditions.SoycaseineBottle);
                     break;
-                case ObjectType.TioglycolateBottle;
+                case ObjectType.TioglycolateBottle:
                     EnableCondition(Conditions.TioglycolateBottle);
                     break;
-                case ObjectType.Tweezers;
+                case ObjectType.Tweezers:
                     EnableCondition(Conditions.Tweezers);
                     break;
-                case ObjectType.Scalpel;
+                case ObjectType.Scalpel:
                     EnableCondition(Conditions.Scalpel);
-                    break;*/
+                    break;
                 case ObjectType.Pipette:
                     EnableCondition(Conditions.Pipette);
                     break;
@@ -147,7 +163,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         base.CompleteTask();
 
         if (IsCompleted()) {
-            if (objectCount == 5) {
+            if (objectCount == correctItemCount) {
                 Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
