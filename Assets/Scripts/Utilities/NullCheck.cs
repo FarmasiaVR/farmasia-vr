@@ -5,6 +5,7 @@ using UnityEngine;
 public static class NullCheck {
 
     /// <summary>
+    /// Useless as shit, dont use this or you will be fired.
     /// Throws error if parameters are null
     /// </summary>
     /// <param name="objs"></param>
@@ -17,6 +18,7 @@ public static class NullCheck {
     }
 
     /// <summary>
+    /// Useless as shit, dont use this or you will be fired.
     /// Returns false is parameters are null
     /// </summary>
     /// <param name="objs"></param>
