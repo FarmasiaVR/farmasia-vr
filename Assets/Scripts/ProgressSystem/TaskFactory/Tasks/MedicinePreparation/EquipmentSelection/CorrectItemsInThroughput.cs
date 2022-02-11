@@ -58,16 +58,16 @@ public class CorrectItemsInThroughput : TaskBase {
         int gCount = 0;
 
         foreach (Interactable obj in containedObjects) {
-
+            if (obj is MedicineBottle) {
+                continue;
+            }
             GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
-                if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                    continue;
-                }
+                Logger.Warning(g.name + " in throughput cabinet was not clean");
                 CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
             }
         }
@@ -93,6 +93,7 @@ public class CorrectItemsInThroughput : TaskBase {
     private void MissingItems() {
         if (!firstCheckDone) {
             CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
+            Logger.Print("object count: " + objectCount + ", small syringe count: " + smallSyringes);
             firstCheckDone = true;
         } else {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
@@ -128,7 +129,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.SyringeCapBag:
                     EnableCondition(Conditions.SyringeCapBag);
                     break;
-                case ObjectType.Bottle:
+                case ObjectType.Medicine:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
                         EnableCondition(Conditions.RightBottle);

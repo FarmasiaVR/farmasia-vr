@@ -162,11 +162,11 @@ public class MedicinePreparationScene : SceneScript {
         Syringe bigSyringe = ToInteractable(g_bigSyringe) as Syringe;
         MedicineBottle bottle = ToInteractable(g_bottle) as MedicineBottle;
 
-        Syringe[] smallSyringes = new SmallSyringe[6];
+        SmallSyringe[] smallSyringes = new SmallSyringe[6];
 
 
         for (int i = 0; i < 6; i++) {
-            smallSyringes[i] = ToInteractable(g_smallSyringes[i]) as Syringe;
+            smallSyringes[i] = ToInteractable(g_smallSyringes[i]) as SmallSyringe;
             NullCheck.Check(smallSyringes[i]);
         }
 
