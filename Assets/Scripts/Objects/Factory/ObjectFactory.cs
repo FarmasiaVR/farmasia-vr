@@ -80,6 +80,7 @@ public class ObjectFactory : MonoBehaviour {
     #endregion
 
     private void Update() {
+        if (interactable == null) Logger.Warning("Something went wrong with ObjectFactory: " + CopyObject.ToString());
         if (interactable.State == InteractState.Grabbed && IsEnabled) {
             LatestCopy.GetComponent<Rigidbody>().isKinematic = false;
             CreateNewCopy();
