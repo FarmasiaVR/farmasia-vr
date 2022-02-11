@@ -29,7 +29,7 @@ public class LuerlockItemConnection : ItemConnection {
     public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {
             return LuerlockConfiguration(connector, hand, interactable);
-        } else if (interactable.State == InteractState.NeedleAttached) {
+        } else if (interactable.State == InteractState.NeedleAttached || interactable.State == InteractState.LidAttached) {
             return NeedleConfiguration(connector, hand, interactable);
         }
 

@@ -21,5 +21,7 @@
     SabouradDextrosiPlate,
     Tweezers,
     Scalpel,
-    Pipette
+    Pipette,
+    AgarPlateBottom,
+    AgarPlateLid,
 }

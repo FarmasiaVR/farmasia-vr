@@ -77,6 +77,29 @@ public static class ConnectionHandler {
 
         otherHand.InteractWith(otherItem, false);
     }
+    public static void GrabLidWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+
+        AgarPlateLid lid = addTo as AgarPlateLid;
+
+        if (lid == null) {
+            throw new System.Exception("Needle is null");
+        }
+
+        Interactable otherItem = lid.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherItem);
+
+        otherHand.Connector.Connection.Remove();
+
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth?.transform;
+        target = handOffset ?? target;
+
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
+
+        otherHand.InteractWith(otherItem, false);
+    }
     #endregion
 
     #region Releasing
