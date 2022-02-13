@@ -57,12 +57,13 @@ public abstract class TaskBase : ITask {
     }
 
     public virtual void StartTask() {
+        Logger.Print("PROGRESS: started " + taskType.ToString());
         started = true;
     }
 
     public virtual void CompleteTask() {
         completed = CheckClearConditions();
-        Logger.Print("Clear conditions: " + completed);
+        //Logger.Print("Clear conditions: " + completed);
         if (completed) {
             CloseTask();
         }

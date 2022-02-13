@@ -146,7 +146,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
             } else if (syringe.Container.Capacity == 1000) {
                 type = Types.SmallSyringe;
             }
-        } else if (itemType == ObjectType.Bottle) {
+        } else if (itemType == ObjectType.Bottle || itemType == ObjectType.Medicine) {
             type = Types.MedicineBottle;
         } else if (itemType == ObjectType.Needle) {
             type = Types.Needle;

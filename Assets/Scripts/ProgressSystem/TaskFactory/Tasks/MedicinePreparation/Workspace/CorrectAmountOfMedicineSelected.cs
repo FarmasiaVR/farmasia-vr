@@ -88,7 +88,7 @@ public class CorrectAmountOfMedicineSelected : TaskBase {
             CreateTaskMistake(null, GetTotalMinus());
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
             G.Instance.Progress.ForceCloseTask(taskType, false);
-            Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
+            //Logger.Print("CLOSED SYRINGE ATTACH AND CORRECT AMOUNT");
         }
     }
 

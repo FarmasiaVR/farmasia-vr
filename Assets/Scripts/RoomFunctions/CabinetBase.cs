@@ -11,7 +11,7 @@ public class CabinetRequiredItems {
         items.Add(ObjectType.BigSyringe, 1);
         items.Add(ObjectType.Syringe, 6);
         items.Add(ObjectType.Luerlock, 1);
-        items.Add(ObjectType.Bottle, 1);
+        items.Add(ObjectType.Medicine, 1);
         items.Add(ObjectType.SyringeCapBag, 1);
 
         return items;

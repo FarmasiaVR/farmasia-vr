@@ -97,7 +97,7 @@ public class Interactable : MonoBehaviour {
             yield return null;
             yield return null;
 
-            Logger.Print("Destroy interactable " + this.name);
+            //Logger.Print("Destroy interactable " + this.name);
             Destroy(gameObject);
         }
     }
