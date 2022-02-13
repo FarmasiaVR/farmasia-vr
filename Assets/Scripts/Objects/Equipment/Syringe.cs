@@ -115,6 +115,7 @@ public class Syringe : GeneralItem {
             Logger.Warning("Cannot change liquid amount of syringe with a cap");
             return;
         }
+            Logger.Print("Taking medicine");
 
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
             TransferToLuerlock(liquidAmount);

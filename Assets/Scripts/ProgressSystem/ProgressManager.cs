@@ -207,20 +207,6 @@ public class ProgressManager {
     }
 
     /// <summary>
-    /// Moves task to package into given point. Used by packages.
-    /// </summary>
-    /// <param name="package">Packages to move task to.</param>
-    /// <param name="taskType">Type to move.</param>
-    /// <param name="previousTask">Task point where found task will be moved.</param>
-    public void MoveToPackageBeforeTask(Package package, TaskType taskType, ITask previousTask) {
-        ITask foundTask = FindTaskWithType(taskType);
-        if (foundTask != null) {
-            package.AddNewTaskBeforeTask(foundTask, previousTask);
-            allTasks.Remove(foundTask);
-        }
-    }
-
-    /// <summary>
     /// Finds task with given type.
     /// </summary>
     /// <param name="taskType">Type of task to find.</param>
