@@ -9,8 +9,7 @@ public class Pump : GeneralItem
 
     protected override void Start()
     {
-        base.Start();        
-
-        ObjectType = ObjectType.Pump;
+        base.Start();       
+       
     }
 }

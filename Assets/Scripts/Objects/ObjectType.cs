@@ -24,4 +24,5 @@
     Pipette,
     AgarPlateBottom,
     AgarPlateLid,
+    PumpFilter
 }
