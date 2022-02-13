@@ -156,7 +156,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
                     break;
                 case ObjectType.SterileBag:
                     EnableCondition(Conditions.SterileBag);
-                    break;*/
+                    break;
             }
         }
     }
