@@ -130,7 +130,7 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle) {
+        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
 
