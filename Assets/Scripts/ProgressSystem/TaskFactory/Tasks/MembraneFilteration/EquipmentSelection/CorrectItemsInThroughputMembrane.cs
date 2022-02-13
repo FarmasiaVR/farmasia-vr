@@ -9,7 +9,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     #endregion
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag }
     private int bottles100ml = 0;
     private int soycaseinePlate = 0;
     private int objectCount;
@@ -145,6 +145,15 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
                     break;
                 case ObjectType.Pipette:
                     EnableCondition(Conditions.Pipette);
+                    break;
+                case ObjectType.Pump:
+                    EnableCondition(Conditions.Pump);
+                    break;
+                case ObjectType.PumpFilter:
+                    EnableCondition(Conditions.PumpFilter);
+                    break;
+                case ObjectType.SterileBag:
+                    EnableCondition(Conditions.SterileBag);
                     break;
             }
         }

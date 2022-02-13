@@ -2,6 +2,7 @@
     Grabbed,
     LuerlockAttached,
     NeedleAttached,
+    LidAttached,
     InBottle,
     OnFloor
 }
