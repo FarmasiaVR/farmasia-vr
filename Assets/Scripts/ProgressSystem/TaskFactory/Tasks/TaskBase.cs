@@ -153,6 +153,7 @@ public abstract class TaskBase : ITask {
     #region Condition Methods
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
+            Logger.Print("Enabled Condition: " + condition.ToString());
             clearConditions[condition.GetHashCode()] = true;
         }
     }

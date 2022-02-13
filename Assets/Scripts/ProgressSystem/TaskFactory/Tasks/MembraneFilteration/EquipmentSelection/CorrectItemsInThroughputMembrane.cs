@@ -47,10 +47,11 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         if ((DoorGoTo)data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
+
         if (cabinet == null) {
-            Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
-            return;
+            Logger.Error("cabinet was null in CorrectItemsThroughputMembrane! That is weird.");
         }
+
         List<Interactable> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
@@ -68,7 +69,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             }
 
             if (!g.IsClean) {
-                if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                if ((g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
                     continue;
                 }
                 CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
@@ -113,6 +114,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
             Logger.Print("Condition: " + type);
             switch (type) {
                 case ObjectType.Bottle:
+                case ObjectType.Medicine:
                     bottles100ml++;
                     if (bottles100ml == 4) {
                         EnableCondition(Conditions.Bottles100ml);
@@ -154,7 +156,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
                     break;
                 case ObjectType.SterileBag:
                     EnableCondition(Conditions.SterileBag);
-                    break;
+                    break;*/
             }
         }
     }
