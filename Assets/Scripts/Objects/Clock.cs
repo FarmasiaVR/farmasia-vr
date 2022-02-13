@@ -12,9 +12,9 @@ public class Clock : MonoBehaviour
         minutePointer = gameObject.transform.GetChild(2).gameObject;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
 
-        System.DateTime currentTime = System.DateTime.Now;
+        System.DateTime currentTime = System.DateTime.UtcNow;
 
         float minuteAngle = currentTime.Minute * 1 / 60f * 360f;
         float hourAngle = currentTime.Hour * 1 / 12f * 360f;
