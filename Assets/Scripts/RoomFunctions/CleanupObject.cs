@@ -44,7 +44,7 @@ public class CleanupObject : MonoBehaviour {
             return;
         }
 
-        if (g.ObjectType == ObjectType.Bottle) {
+        if (g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) {
             TaskBase.CreateTaskMistakeGlobal(TaskType.ScenarioOneCleanUp, "Pulloa ei saa heittää roskikseen", 1);
         }
         if (g.ObjectType == ObjectType.SterileBag) {
@@ -66,7 +66,7 @@ public class CleanupObject : MonoBehaviour {
         int count = 0;
         foreach (Interactable i in roomItems.Objects) {
             if (i as GeneralItem is var g && g != null) {
-                if (g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.SterileBag) {
+                if (g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.SterileBag || g.ObjectType == ObjectType.Medicine) {
                     continue;
                 }
                 if (g.Rigidbody == null || g.Rigidbody.isKinematic) {

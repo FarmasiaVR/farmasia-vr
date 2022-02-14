@@ -83,14 +83,14 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         int uncleanCount = 0;
 
         foreach (var item in laminarCabinet.GetContainedItems()) {
-            if (Interactable.GetInteractable(item.transform) as GeneralItem is var g && g != null) {
-                if (g.ObjectType == ObjectType.Syringe) {
+            if (Interactable.GetInteractable(item.transform) is var g && g != null) {
+                if (g is Syringe) {
                     syringeCount++;
-                } else if (g.ObjectType == ObjectType.Luerlock) {
+                } else if (g is LuerlockAdapter) {
                     luerlockCount++;
-                } else if (g.ObjectType == ObjectType.Needle) {
+                } else if (g is Needle) {
                     needleCount++;
-                } else if (g.ObjectType == ObjectType.Bottle) {
+                } else if (g is MedicineBottle) {
                     bottleCount++;
 
                     int capacity = ((MedicineBottle)g).Container.Capacity;
@@ -101,8 +101,9 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                     }
                 }
 
-                if (!g.IsClean && g.ObjectType != ObjectType.Bottle) {
+                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is MedicineBottle)) {
                     uncleanCount++;
+                    Logger.Warning(g.name + " in laminar cabinet was not clean");
                 }
             }
         }
@@ -111,6 +112,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
         } else {
             CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
+
         }
 
         if (uncleanCount > 0) {

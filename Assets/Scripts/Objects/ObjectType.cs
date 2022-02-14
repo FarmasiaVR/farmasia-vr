@@ -1,6 +1,7 @@
 ﻿public enum ObjectType {
     None,
     Syringe,
+    BigSyringe,
     SyringeCap,
     SyringeCapBag,
     Luerlock,

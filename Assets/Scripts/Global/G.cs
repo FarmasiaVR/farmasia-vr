@@ -13,6 +13,8 @@ public sealed class G {
     public ProgressManager Progress { get; private set; }
     public PipelineManager Pipeline { get; }
 
+    public SceneTypes CurrentSceneType;
+
     private SceneScript sceneScript;
     public SceneScript Scene {
         get {

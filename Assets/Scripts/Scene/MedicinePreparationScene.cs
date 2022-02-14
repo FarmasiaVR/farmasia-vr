@@ -61,8 +61,8 @@ public class MedicinePreparationScene : SceneScript {
 
     protected override void Start() {
         base.Start();
-        NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth);
-        NullCheck.Check(correctPositions, teleportDoorKnob, laminarCabinetCheckButton, sterileBag, regularTrash, sharpTrash);
+        //NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth);
+        //NullCheck.Check(correctPositions, teleportDoorKnob, laminarCabinetCheckButton, sterileBag, regularTrash, sharpTrash);
         PlayFirstRoom(autoPlayStrength);
     }
 
@@ -156,17 +156,17 @@ public class MedicinePreparationScene : SceneScript {
         yield return null;
         yield return null;
 
-        Interactable capBag = ToIntr(g_syringeCapBag);
-        LuerlockAdapter luerlock = ToIntr(g_luerlock) as LuerlockAdapter;
-        Needle needle = ToIntr(g_needle) as Needle;
-        Syringe bigSyringe = ToIntr(g_bigSyringe) as Syringe;
-        MedicineBottle bottle = ToIntr(g_bottle) as MedicineBottle;
+        Interactable capBag = ToInteractable(g_syringeCapBag);
+        LuerlockAdapter luerlock = ToInteractable(g_luerlock) as LuerlockAdapter;
+        Needle needle = ToInteractable(g_needle) as Needle;
+        Syringe bigSyringe = ToInteractable(g_bigSyringe) as Syringe;
+        MedicineBottle bottle = ToInteractable(g_bottle) as MedicineBottle;
 
-        Syringe[] smallSyringes = new Syringe[6];
+        SmallSyringe[] smallSyringes = new SmallSyringe[6];
 
 
         for (int i = 0; i < 6; i++) {
-            smallSyringes[i] = ToIntr(g_smallSyringes[i]) as Syringe;
+            smallSyringes[i] = ToInteractable(g_smallSyringes[i]) as SmallSyringe;
             NullCheck.Check(smallSyringes[i]);
         }
 
@@ -438,7 +438,11 @@ public class MedicinePreparationScene : SceneScript {
             }
         }
     }
-    private Interactable ToIntr(GameObject g) {
-        return Interactable.GetInteractable(g.transform);
+    private Interactable ToInteractable(GameObject g) {
+        var interactable = Interactable.GetInteractable(g.transform);
+        if (interactable == null) {
+            Logger.Warning(g.name + " converted to interactable was null");
+        }
+        return interactable;
     }
 }
