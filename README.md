@@ -63,4 +63,7 @@ Press K to move the camera, L to control the right hand and J to control the lef
 
 Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting. 
 
- 
+## Contributors
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
