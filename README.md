@@ -19,7 +19,7 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Development
 
-The project was created with `Unity Version: 2019.2.3.f1` and the same version should be used for development.
+The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2019.4.35f1` .
 
 - Wiki
   - [Git workflow document](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Git)
