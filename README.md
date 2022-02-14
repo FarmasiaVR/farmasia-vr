@@ -147,18 +147,18 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/SPitkanen">
-            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
-            <br />
-            <sub><b>SPitkanen</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/kivik-beep">
             <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
             <br />
             <sub><b>Kivik-beep</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/SPitkanen">
+            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+            <br />
+            <sub><b>SPitkanen</b></sub>
         </a>
     </td></tr>
 </table>
