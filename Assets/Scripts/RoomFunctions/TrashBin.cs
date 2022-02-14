@@ -28,7 +28,7 @@ public class TrashBin : MonoBehaviour {
             //PrepareObjectForRemoving(item);
 
             if (item.ObjectType == ObjectType.Luerlock) {
-                Logger.Print("Trash bin luerlock count: " + ((LuerlockAdapter)item).AttachedInteractables.Count);
+                Logger.Print("Trash bin luerlock count: " + ((LuerlockAdapter)item).AttachedInteractables.Count.ToString());
             }
 
             PrepareObjectForRemoving(item);

@@ -74,6 +74,7 @@ public class TutorialScene : SceneScript {
     }
 
     private void Update() {
+        // TODO: Can this check be avoided?
         if (VideoHint.CurrentVideo == null) {
             CreateVideoHint(startingVideo);
         }

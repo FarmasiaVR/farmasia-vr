@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Package {
 
-    #region Fields
     private ProgressManager manager;
     public PackageName name { get; private set; }
     public bool packageCompleted { get; private set; }
@@ -19,9 +18,7 @@ public class Package {
             return activeTasks[0];
         }
     }
-    #endregion
 
-    #region Constructor
     /// <summary>
     /// Initiates all fields.
     /// </summary>
@@ -34,9 +31,7 @@ public class Package {
         activeTasks = new List<ITask>();
         doneTypes = new List<TaskType>();
     }
-    #endregion
 
-    #region Task Addition
     /// <summary>
     /// Adds a task and updates description.
     /// </summary>
@@ -46,20 +41,6 @@ public class Package {
         activeTasks.Add(task);
         manager.UpdateDescription();
     }
-
-    /// <summary>
-    /// Adds a task before certain index.
-    /// </summary>
-    /// <param name="task">New task to add before index.</param>
-    /// <param name="previousTask">Refers to the task that called this method.</param>
-    public void AddNewTaskBeforeTask(ITask task, ITask previousTask) {
-        if (activeTasks.Contains(previousTask)) {
-            task.SetPackage(this);
-            activeTasks.Insert(activeTasks.IndexOf(previousTask), task);
-            manager.UpdateDescription();
-        }
-    }
-    #endregion
 
     #region Task Removal
     /// <summary>
@@ -83,11 +64,10 @@ public class Package {
             packageCompleted = true;
             manager.ChangePackage();
         } else {
-            Debug.Log("Still " + activeTasks.Count + " left in package: " + name);
+            Debug.Log(string.Format("Still {0} left in package: {1}", activeTasks.Count.ToString(), name.ToString()));
         }
     }
 
-    #region Task Movement
     /// <summary>
     /// Moves task back to ProgressManager
     /// </summary>
@@ -103,27 +83,10 @@ public class Package {
         }
     }
 
-    /// <summary>
-    /// Moves task from ProgressManager
-    /// </summary>
-    /// <param name="type">Given type of task to move.</param>
-    public void MoveTaskFromManager(TaskType type) {
-        manager.MoveToPackage(this, type);
-    }
 
-    /// <summary>
-    /// Moves task from ProgressManager before given task
-    /// </summary>
-    /// <param name="type">Given type of task to move.</param>
-    /// <param name="previousTask">Task point where given task will be moved</param>
-    public void MoveTaskFromManagerBeforeTask(TaskType type, ITask previousTask) {
-        manager.MoveToPackageBeforeTask(this, type, previousTask);
-    }
-    #endregion
-
-    #region Helpful Methods
     public void PrintAllTasks() {
-        Logger.Print("Package name: " + name + "\nThese tasks are inside currently\n");
+
+        Logger.Print(string.Format("Package name: {0}\nThese tasks are inside currently\n", name.ToString()));
         foreach (ITask task in activeTasks) {
             Logger.Print(task.GetType());
         }
@@ -135,5 +98,4 @@ public class Package {
         }
     }
 
-    #endregion
 }

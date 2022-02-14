@@ -15,7 +15,7 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
-        Logger.Print("Throwing LuerlockItemConnection, interactable: " + interactable);
+        Logger.Print(string.Format("Throwing LuerlockItemConnection, interactable: {0}", interactable));
         if (interactable != null && interactable.State == InteractState.Grabbed) {
             Logger.Print("Throwing luerlock");
             var handType = Hand.GrabbingHand(interactable).HandType;
@@ -29,7 +29,7 @@ public class LuerlockItemConnection : ItemConnection {
     public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {
             return LuerlockConfiguration(connector, hand, interactable);
-        } else if (interactable.State == InteractState.NeedleAttached) {
+        } else if (interactable.State == InteractState.NeedleAttached || interactable.State == InteractState.LidAttached) {
             return NeedleConfiguration(connector, hand, interactable);
         }
 

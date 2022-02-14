@@ -5,21 +5,11 @@ using Valve.VR;
 
 public class HandCollider : MonoBehaviour {
 
-    #region Fields
     public ObjectHighlight PreviousHighlight { get; private set; }
 
     private TriggerInteractableContainer container;
     private Collider handColl;
 
-    private enum ModelType {
-        None = -1,
-        Vive = 2,
-        Index = 4
-    }
-
-    private static Vector3 INDEX_POS = new Vector3(0, 0, -0.0863f);
-    private static Vector3 VIVE_POS = new Vector3(0, -0.03f, 0.015f);
-    #endregion
 
     private void Start() {
         container = gameObject.AddComponent<TriggerInteractableContainer>();
@@ -41,23 +31,8 @@ public class HandCollider : MonoBehaviour {
                 continue;
             }
 
-            if (BIsHTCViveController(type)) {
-                Logger.Print("Using VIVE controller");
-                transform.localPosition = VIVE_POS;
-            } else {
-                Logger.Print("Using INDEX controller");
-                transform.localPosition = INDEX_POS;
-            }
-
             break;
         }
-    }
-
-    bool BIsHTCViveController(SteamVR_TrackedObject.EIndex type) {
-        System.Text.StringBuilder sbType = new System.Text.StringBuilder(1000);
-        Valve.VR.ETrackedPropertyError err = Valve.VR.ETrackedPropertyError.TrackedProp_Success;
-        SteamVR.instance.hmd.GetStringTrackedDeviceProperty((uint)type, Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String, sbType, 1000, ref err);
-        return (err == Valve.VR.ETrackedPropertyError.TrackedProp_Success && sbType.ToString().StartsWith("HTC"));
     }
 
     private SteamVR_TrackedObject.EIndex GetModelType() {

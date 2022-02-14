@@ -8,9 +8,6 @@ public class HandSmoother : MonoBehaviour {
     private Transform handOffset;
 
     [SerializeField]
-    private float force = 10;
-
-    [SerializeField]
     private float distanceLimit = 0.02f;
 
     private float factorMultiplier = 50;
@@ -26,11 +23,6 @@ public class HandSmoother : MonoBehaviour {
     private float Distance {
         get {
             return Vector3.Distance(transform.position, handOffset.position);
-        }
-    }
-    private bool IsClose {
-        get {
-            return Distance < distanceLimit;
         }
     }
 

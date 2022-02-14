@@ -28,7 +28,7 @@ public class LiquidObject : MonoBehaviour {
         }
 
         if (percentage < 0 || percentage > 1) {
-            throw new ArgumentOutOfRangeException("percentage", percentage, "Percentage should be [0, 1]");
+            throw new ArgumentOutOfRangeException("percentage", percentage.ToString(), "Percentage should be [0, 1]");
         }
 
         this.percentage = percentage;

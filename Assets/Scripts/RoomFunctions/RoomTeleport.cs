@@ -37,7 +37,7 @@ public class RoomTeleport : MonoBehaviour {
             CreateSpawner(item);
         }
 
-        foreach (VRHandControls h in VRInput.Hands) {
+        foreach (VRActionsMapper h in VRInput.Hands) {
             h.Hand.GrabUninteract();
             h.Hand.Uninteract();
         }

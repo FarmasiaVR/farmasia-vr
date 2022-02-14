@@ -6,6 +6,12 @@ using UnityEngine.Assertions;
 public class SterileBag : GeneralItem {
 
     #region fields
+    public Syringe syringe1;
+    public Syringe syringe2;
+    public Syringe syringe3;
+    public Syringe syringe4;
+    public Syringe syringe5;
+    public Syringe syringe6;
 
     public List<Syringe> Syringes { get; private set; }
     public bool IsClosed { get; private set; }
@@ -26,6 +32,12 @@ public class SterileBag : GeneralItem {
         base.Start();
 
         Syringes = new List<Syringe>();
+        if (syringe1 != null) SetSyringe(syringe1);
+        if (syringe2 != null) SetSyringe(syringe2);
+        if (syringe3 != null) SetSyringe(syringe3);
+        if (syringe4 != null) SetSyringe(syringe4);
+        if (syringe5 != null) SetSyringe(syringe5);
+        if (syringe6 != null) SetSyringe(syringe6);
 
         ObjectType = ObjectType.SterileBag;
 

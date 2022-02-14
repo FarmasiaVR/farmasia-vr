@@ -24,7 +24,6 @@ public abstract class AttachmentConnector : ItemConnector {
     protected static float angleLimit = 20;
     protected static float maxAttachDistance = 0.03f;
 
-    #region Fields
     public GeneralItem GeneralItem { get; protected set; }
     public GameObject Collider { get; protected set; }
     // public Joint Joint { get; protected set; }
@@ -35,7 +34,6 @@ public abstract class AttachmentConnector : ItemConnector {
     protected AttachedObject attached;
 
     protected abstract InteractState AttachState { get; }
-    #endregion
 
     public void Subscribe() {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
@@ -51,7 +49,6 @@ public abstract class AttachmentConnector : ItemConnector {
     }
 
 
-    #region Attaching
     protected void ReplaceObject(GameObject newObject) {
         if (attached.GameObject == newObject) return;
 
@@ -87,14 +84,10 @@ public abstract class AttachmentConnector : ItemConnector {
         Connection = ItemConnection.AddChildConnection(this, GeneralItem.transform, attached.Interactable);
     }
 
-    #region Type overrides
     protected abstract void SetInteractors();
     protected abstract void SnapObjectPosition();
     protected abstract void AttachEvents(GameObject intObject);
-    #endregion
 
-
-    #endregion
 
     protected void ObjectEnter(Collider collider) {
 

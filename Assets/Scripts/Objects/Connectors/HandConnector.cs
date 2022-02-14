@@ -72,10 +72,24 @@ public class HandConnector : ItemConnector {
 
                 if (needle.State == InteractState.Grabbed) {
                     ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
-                } else {
+                }
+                else {
                     ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
                 }
-            } else {
+            } else if (interactable.State == InteractState.LidAttached) {
+                AgarPlateLid lid = interactable.Interactors.AgarPlateLid;
+                if (lid == null) {
+                    throw new Exception("Item is AraPlateLid but lid was null");
+                }
+
+                if (lid.State == InteractState.Grabbed) {
+                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+                }
+                else {
+                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+                }
+            }
+            else {
                 throw new Exception("Interactrable State is attached but not attached");
             }
         } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
@@ -93,6 +107,13 @@ public class HandConnector : ItemConnector {
                     ConnectionHandler.GrabNeedleWhenAttachedItemIsGrabbed(this, Hand.transform, needle);
                 } else {
                     ConnectionHandler.GrabItem(this, Hand.Smooth.transform, needle);
+                }
+            } else if (generalItem.ObjectType == ObjectType.AgarPlateLid) {
+                AgarPlateLid lid = generalItem as AgarPlateLid;
+                if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                    ConnectionHandler.GrabLidWhenAttachedItemIsGrabbed(this, Hand.transform, lid);
+                } else {
+                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, lid);
                 }
             } else {
                 ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);

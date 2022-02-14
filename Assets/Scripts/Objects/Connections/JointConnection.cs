@@ -27,8 +27,7 @@ public class JointConnection : ItemConnection {
     }
 
 
-    protected override void Update() {
-        base.Update();
+    protected void Update() {
         if (transformTarget == null) {
             return;
         }
@@ -81,6 +80,6 @@ public class JointConnection : ItemConnection {
             return target.GetComponent<Rigidbody>();
         }
 
-        throw new System.Exception("No target rigidbody found: " + target.name);
+        throw new System.Exception(string.Format("No target rigidbody found: {0}", target.name));
     }
 }

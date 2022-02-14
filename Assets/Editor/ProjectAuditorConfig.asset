@@ -1,0 +1,921 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424c5a33b3bea46f3bd7ae461a273b6d, type: 3}
+  m_Name: ProjectAuditorConfig
+  m_EditorClassIdentifier: 
+  AnalyzeOnBuild: 0
+  AnalyzeInBackground: 1
+  AnalyzeEditorCode: 0
+  FailBuildOnIssues: 0
+  LogTimingsInfo: 0
+  SaveBuildReports: 0
+  m_Rules:
+  - severity: 4
+    filter: System.Void AudioManager::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void Hand::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void HandCollider::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void VRActionsMapper::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void VRInput::.cctor()
+    id: 102002
+  - severity: 4
+    filter: System.Byte[] DataSerializer::Serializer(System.Object)
+    id: 102002
+  - severity: 4
+    filter: T DataSerializer::Deserializer(System.Byte[])
+    id: 102002
+  - severity: 4
+    filter: System.Void G::.cctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void G::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void G::ResetProgressManager()
+    id: 102002
+  - severity: 4
+    filter: System.Void G::CheckConfiguration()
+    id: 102002
+  - severity: 4
+    filter: System.Void GUIConsole::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void GUIConsole::.cctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void Interactable::Awake()
+    id: 102002
+  - severity: 4
+    filter: System.Void Interactable::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void ObjectHighlight::InitializeMaterials()
+    id: 102002
+  - severity: 4
+    filter: RigidbodyState RigidbodyContainer::get_State()
+    id: 102002
+  - severity: 4
+    filter: System.Void RigidbodyContainer::Enable()
+    id: 102002
+  - severity: 4
+    filter: System.Void RigidbodyContainer::Disable()
+    id: 102002
+  - severity: 4
+    filter: System.Void RigidbodyState::.ctor(UnityEngine.Rigidbody)
+    id: 102002
+  - severity: 4
+    filter: System.Void RigidbodyState::SetValues(UnityEngine.Rigidbody,RigidbodyState/EnableSettings)
+    id: 102002
+  - severity: 4
+    filter: System.Void ConnectionHandler::GrabLuerlockWhenAttachedItemsAreGrabbed(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: System.Void ConnectionHandler::GrabNeedleWhenAttachedItemIsGrabbed(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: UnityEngine.Rigidbody JointConnection::GetTargetRigidbody(UnityEngine.Transform)
+    id: 102002
+  - severity: 4
+    filter: LuerlockItemConnection LuerlockItemConnection::Configuration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: LuerlockItemConnection LuerlockItemConnection::LuerlockConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: LuerlockItemConnection LuerlockItemConnection::NeedleConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: LuerlockLooseItemConnection LuerlockLooseItemConnection::Configuration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102002
+  - severity: 4
+    filter: System.Void AttachmentConnector::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void HandConnector::AttachGrabbedItem(Interactable)
+    id: 102002
+  - severity: 4
+    filter: System.Void CopyObjects::Copy(UnityEngine.GameObject,UnityEngine.GameObject,System.Collections.Generic.List`1<UnityEngine.GameObject>)
+    id: 102002
+  - severity: 4
+    filter: System.Collections.Generic.List`1<UnityEngine.Rigidbody> LuerlockAdapter::get_AttachedRigidbodies()
+    id: 102002
+  - severity: 4
+    filter: System.Collections.Generic.List`1<Interactable> LuerlockAdapter::get_AttachedInteractables()
+    id: 102002
+  - severity: 4
+    filter: System.Void LuerlockAdapter::Start()
+    id: 102002
+  - severity: 4
+    filter: Interactable LuerlockAdapter::GetOtherInteractable(Interactable)
+    id: 102002
+  - severity: 4
+    filter: System.Void Needle::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void SterileBag::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void Syringe::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void SyringeCap::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void ColliderHitCount::Awake()
+    id: 102002
+  - severity: 4
+    filter: System.Void ColliderHitCount::SubscribeToCollisions(UnityEngine.GameObject)
+    id: 102002
+  - severity: 4
+    filter: System.Void ObjectFactory::CreateColliderCopy()
+    id: 102002
+  - severity: 4
+    filter: System.Void ObjectFactory::RecursiveCopyColliders(UnityEngine.Transform,UnityEngine.Transform)
+    id: 102002
+  - severity: 4
+    filter: System.Void HintBox::Init(System.Boolean)
+    id: 102002
+  - severity: 4
+    filter: UnityEngine.Vector3 HintBox::GetHintPosition()
+    id: 102002
+  - severity: 4
+    filter: System.Void HintText::DestroyHint()
+    id: 102002
+  - severity: 4
+    filter: System.Void InfoBox::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void InfoBox::ObjectPickedUp(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void ItemSpawner::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void LaminarCabinetTable::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void LiquidContainer::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void LiquidObject::OnValidate()
+    id: 102002
+  - severity: 4
+    filter: System.Void LiquidObject::SetFillPercentage(System.Single)
+    id: 102002
+  - severity: 4
+    filter: System.Void VideoHint::PlayVideo()
+    id: 102002
+  - severity: 4
+    filter: System.Void Player::Awake()
+    id: 102002
+  - severity: 4
+    filter: System.Void Package::.ctor(PackageName,ProgressManager)
+    id: 102002
+  - severity: 4
+    filter: System.Void ProgressManager::.ctor(System.Boolean)
+    id: 102002
+  - severity: 4
+    filter: System.Void ProgressManager::SetSceneType(SceneTypes)
+    id: 102002
+  - severity: 4
+    filter: System.Void ProgressManager::GenerateScenarioOne()
+    id: 102002
+  - severity: 4
+    filter: Package ProgressManager::CreatePackageWithList(PackageName,System.Collections.Generic.List`1<TaskType>)
+    id: 102002
+  - severity: 4
+    filter: System.Void ProgressManager::AddTasks()
+    id: 102002
+  - severity: 4
+    filter: System.Void ScoreCalculator::.ctor(System.Collections.Generic.HashSet`1<ITask>)
+    id: 102002
+  - severity: 4
+    filter: System.Void ScoreCalculator::CreateTaskMistake(TaskType,System.String)
+    id: 102002
+  - severity: 4
+    filter: System.Void ScoreCalculator::AddTasks(System.Collections.Generic.HashSet`1<ITask>)
+    id: 102002
+  - severity: 4
+    filter: System.Void ScoreCalculator::SubtractPoints(TaskType,System.Int32)
+    id: 102002
+  - severity: 4
+    filter: ITask TaskFactory::GetTask(TaskType)
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectItemsInThroughput::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectItemsInThroughput::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void SelectMedicine::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void SelectTools::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void Finish::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void Finish::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectLayoutInLaminarCabinet::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectLayoutInLaminarCabinet::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectLayoutInThroughput::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectLayoutInThroughput::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void DisinfectBottles::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void ScenarioOneCleanUp::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectAmountOfMedicineSelected::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectAmountOfMedicineSelected::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectItemsInLaminarCabinet::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void CorrectItemsInLaminarCabinet::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void ItemsToSterileBag::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void ItemsToSterileBag::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void ItemsToSterileBag::FinishTask()
+    id: 102002
+  - severity: 4
+    filter: System.Void LuerlockAttach::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void LuerlockAttach::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void LuerlockAttach::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicineToSyringe::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicineToSyringe::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicineToSyringe::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void SyringeAttach::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void SyringeAttach::Subscribe()
+    id: 102002
+  - severity: 4
+    filter: System.Void SyringeAttach::SetCabinetReference(CallbackData)
+    id: 102002
+  - severity: 4
+    filter: System.Void TaskBase::.ctor(TaskType,System.Boolean,System.Boolean)
+    id: 102002
+  - severity: 4
+    filter: System.Collections.Generic.List`1<System.Int32> TaskBase::GetNonClearedConditions()
+    id: 102002
+  - severity: 4
+    filter: System.Void CabinetBase::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void CleanupObject::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void RoomTeleport::TeleportPlayerAndPassthroughCabinet()
+    id: 102002
+  - severity: 4
+    filter: System.Void RoomTeleport::CreateSpawner(UnityEngine.Transform)
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicinePreparationScene::Restart()
+    id: 102002
+  - severity: 4
+    filter: UnityEngine.WaitForSeconds MedicinePreparationScene::get_Wait()
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicinePreparationSceneRestarter::Awake()
+    id: 102002
+  - severity: 4
+    filter: System.Void MedicinePreparationSceneRestarter::SceneLoaded(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode)
+    id: 102002
+  - severity: 4
+    filter: System.Void TutorialScene::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void HandMeshToggler::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void TriggerInteractableContainer::ResetContainer()
+    id: 102002
+  - severity: 4
+    filter: System.Void EndSummary::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void EndSummary::SnapScreenshot()
+    id: 102002
+  - severity: 4
+    filter: System.Void IntroUI::Start()
+    id: 102002
+  - severity: 4
+    filter: System.Void CollisionSubscription::.ctor()
+    id: 102002
+  - severity: 4
+    filter: EnumBitField`1<T> EnumBitField`1::op_Addition(EnumBitField`1<T>,EnumBitField`1<T>)
+    id: 102002
+  - severity: 4
+    filter: EnumBitField`1<T> EnumBitField`1::op_Subtraction(EnumBitField`1<T>,EnumBitField`1<T>)
+    id: 102002
+  - severity: 4
+    filter: System.Collections.Generic.List`1<T> EnumBitField`1::GetOnList()
+    id: 102002
+  - severity: 4
+    filter: System.Collections.Generic.List`1<T> EnumBitField`1::GetOffList()
+    id: 102002
+  - severity: 4
+    filter: EnumBitField`1<T> EnumBitField`1::Copy()
+    id: 102002
+  - severity: 4
+    filter: System.Void ComponentEventsContainer::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void Events::Reset()
+    id: 102002
+  - severity: 4
+    filter: System.Void Events::SubscribeToEvent(Events/EventDataCallback,UnityEngine.Component,EventType)
+    id: 102002
+  - severity: 4
+    filter: System.Void Events::OverrideSubscription(Events/EventDataCallback,UnityEngine.Component,EventType)
+    id: 102002
+  - severity: 4
+    filter: T GameObjectUtility::EnsureComponent(UnityEngine.GameObject)
+    id: 102002
+  - severity: 4
+    filter: T[] GameObjectUtility::EnsureComponents(UnityEngine.GameObject,System.Int32)
+    id: 102002
+  - severity: 4
+    filter: System.Void Logger::PrintVariables(System.Object[])
+    id: 102002
+  - severity: 4
+    filter: System.String Logger::ObjectsToString(System.String,System.Object[])
+    id: 102002
+  - severity: 4
+    filter: System.Void NullCheck::Check(System.Object[])
+    id: 102002
+  - severity: 4
+    filter: System.Void Pipeline::.ctor()
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::Func(Pipeline/VoidFunction)
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::PreFunc(Pipeline/VoidFunction)
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::TFunc(Pipeline/TFunction`1<T>,Pipeline/GetTFunction`1<T>)
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::PreTFunc(Pipeline/TFunction`1<T>,Pipeline/GetTFunction`1<T>)
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::Delay(System.Single)
+    id: 102002
+  - severity: 4
+    filter: Pipeline Pipeline::PreDelay(System.Single)
+    id: 102002
+  - severity: 4
+    filter: System.Void PipelineManager::.ctor()
+    id: 102002
+  - severity: 4
+    filter: Pipeline PipelineManager::New()
+    id: 102002
+  - severity: 4
+    filter: UnityEngine.GameObject Scripts::get_ScriptsObject()
+    id: 102002
+  - severity: 4
+    filter: System.Void Scripts::ResetScriptsInstance()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean HintText/<InitSpawn>d__10::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Void InfoBox/<GrabbedRoomDoor>d__17::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean InfoBox/<<ShowInfoBox>g__ReEnable|18_0>d::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean LaminarCabinetTable/<>c__DisplayClass6_0/<<ContaminateItem>g__Wait|0>d::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean VideoHint/<InitSpawn>d__20::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean CabinetBase/<<SyringeCapBagEnteredLaminarCabinet>g__EnableCapFactory|24_0>d::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Boolean MedicinePreparationScene/<PlayCoroutine>d__43::MoveNext()
+    id: 102002
+  - severity: 4
+    filter: System.Void Hand::Start()
+    id: 101224
+  - severity: 4
+    filter: System.Void CopyObjects::Copy(UnityEngine.Transform,UnityEngine.Transform,System.Collections.Generic.List`1<UnityEngine.Transform>)
+    id: 101224
+  - severity: 4
+    filter: System.Void Syringe::EnableDisplay()
+    id: 101224
+  - severity: 4
+    filter: System.Void EnableFactory::Start()
+    id: 101224
+  - severity: 4
+    filter: System.Void ItemSpawner::Copy(CallbackData)
+    id: 101224
+  - severity: 4
+    filter: System.Boolean CabinetBase/<<SyringeCapBagEnteredLaminarCabinet>g__EnableCapFactory|24_0>d::MoveNext()
+    id: 101224
+  - severity: 4
+    filter: System.Boolean MedicinePreparationScene/<PlayCoroutine>d__43::MoveNext()
+    id: 101224
+  - severity: 4
+    filter: System.Void ObjectFactory::CreateNewCopy()
+    id: 101224
+  - severity: 4
+    filter: System.Void HintBox::CreateHintText(System.String,UnityEngine.Vector3)
+    id: 101224
+  - severity: 4
+    filter: System.Void HintBox::CreateHint(System.String,System.Boolean)
+    id: 101224
+  - severity: 4
+    filter: UnityEngine.GameObject UISystem::InitUIComponent(UnityEngine.GameObject)
+    id: 101224
+  - severity: 4
+    filter: System.Boolean Hand::CanGrabInteract()
+    id: 102004
+  - severity: 4
+    filter: System.Void MovementControls::GetPlayArea()
+    id: 102004
+  - severity: 4
+    filter: System.Void VRActionsMapper::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void VRInput::.cctor()
+    id: 102004
+  - severity: 4
+    filter: System.Void DoorHandle::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void DoorHandle::Interact(Hand)
+    id: 102004
+  - severity: 4
+    filter: System.Void DoorHandle::Uninteract(Hand)
+    id: 102004
+  - severity: 4
+    filter: System.Void DragAcceptable::Initialize()
+    id: 102004
+  - severity: 4
+    filter: System.Void GUIConsole::Log(System.String)
+    id: 102004
+  - severity: 4
+    filter: System.Void GUIConsole::LogWarning(System.String)
+    id: 102004
+  - severity: 4
+    filter: System.Void GUIConsole::LogError(System.String)
+    id: 102004
+  - severity: 4
+    filter: System.Void Grabbable::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void Movable::Awake()
+    id: 102004
+  - severity: 4
+    filter: System.Void RoomDoorHandle::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void MenuButton::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void SceneLoader::LoadScene()
+    id: 102004
+  - severity: 4
+    filter: System.Void SceneSelectBox::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void ItemConnection::Remove()
+    id: 102004
+  - severity: 4
+    filter: System.Void JointConnection::Update()
+    id: 102004
+  - severity: 4
+    filter: JointConnection JointConnection::Configuration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 102004
+  - severity: 4
+    filter: System.Void AttachmentConnector::ReplaceObject(UnityEngine.GameObject)
+    id: 102004
+  - severity: 4
+    filter: System.Void HandConnector::ConnectItem(Interactable)
+    id: 102004
+  - severity: 4
+    filter: System.Void HandConnector::OnReleaseItem()
+    id: 102004
+  - severity: 4
+    filter: System.Void LuerlockConnector::OnReleaseItem()
+    id: 102004
+  - severity: 4
+    filter: System.Void NeedleConnector::OnReleaseItem()
+    id: 102004
+  - severity: 4
+    filter: System.Void DisinfectingCloth::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void LuerlockAdapter::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void Needle::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void SterileBag::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void Syringe::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void SyringeCap::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void SyringeCap::AddSyringeCap(Syringe)
+    id: 102004
+  - severity: 4
+    filter: System.Void SyringeCapBag::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void GeneralItem::OnCollisionEnter(UnityEngine.Collision)
+    id: 102004
+  - severity: 4
+    filter: System.Void GeneralItem::OnGrabStart(Hand)
+    id: 102004
+  - severity: 4
+    filter: System.Void HintBox::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void LiquidContainer::OnTrueEnter(Interactable)
+    id: 102004
+  - severity: 4
+    filter: System.Void LiquidContainer::OnTrueExit(Interactable)
+    id: 102004
+  - severity: 4
+    filter: System.Void Player::SavePlayerData(System.Int32,System.String)
+    id: 102004
+  - severity: 4
+    filter: Player/PlayerData[] Player::LoadPlayerData(System.String)
+    id: 102004
+  - severity: 4
+    filter: System.Void Package::CheckChangePackage()
+    id: 102004
+  - severity: 4
+    filter: System.Void ProgressManager::ForceCloseTasks(ITask)
+    id: 102004
+  - severity: 4
+    filter: System.Void ProgressManager::GenerateScenarioOne()
+    id: 102004
+  - severity: 4
+    filter: System.Void TaskBase::ForceClose(System.Boolean)
+    id: 102004
+  - severity: 4
+    filter: System.Void RemoteGrabLine::Start()
+    id: 101039
+  - severity: 4
+    filter: System.Void VideoHint::Awake()
+    id: 101039
+  - severity: 4
+    filter: System.Void TextureResizer::Start()
+    id: 101039
+  - severity: 4
+    filter: System.Void TestHandMover::SetState(TestHandMover/ControlState)
+    id: 102002
+  - severity: 4
+    filter: UnityEngine.Transform TestHandMover::GetCurrentTransform()
+    id: 102002
+  - severity: 4
+    filter: Valve.VR.SteamVR_Input_Sources TestHandMover::GetHandType()
+    id: 102002
+  - severity: 4
+    filter: LuerlockConnector LuerlockAdapter::GetConnector(Interactable)
+    id: 102002
+  - severity: 4
+    filter: System.Void HandCollider::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void Interactable::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void RigidbodyContainer::Enable()
+    id: 101225
+  - severity: 4
+    filter: ChildConnection ChildConnection::Configuration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: JointConnection JointConnection::Configuration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: LuerlockItemConnection LuerlockItemConnection::LuerlockConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: LuerlockItemConnection LuerlockItemConnection::NeedleConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: LuerlockLooseItemConnection LuerlockLooseItemConnection::LuerlockConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: LuerlockLooseItemConnection LuerlockLooseItemConnection::NeedleConfiguration(ItemConnector,UnityEngine.Transform,Interactable)
+    id: 101225
+  - severity: 4
+    filter: T ComponentCopy::Copy(T,UnityEngine.GameObject)
+    id: 101225
+  - severity: 4
+    filter: System.Void ObjectFactory::CreateColliderCopy()
+    id: 101225
+  - severity: 4
+    filter: System.Void ObjectFactory::AddCollider(UnityEngine.GameObject,UnityEngine.Vector3)
+    id: 101225
+  - severity: 4
+    filter: UnityEngine.Joint JointConfiguration::AddFixedJoint(UnityEngine.GameObject)
+    id: 101225
+  - severity: 4
+    filter: UnityEngine.Joint JointConfiguration::AddConfigurableJoint(UnityEngine.GameObject)
+    id: 101225
+  - severity: 4
+    filter: UnityEngine.Joint JointConfiguration::AddSpringJoints(UnityEngine.GameObject,System.Single)
+    id: 101225
+  - severity: 4
+    filter: System.Void LaminarCabinetTable::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void LiquidContainer::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void CabinetBase::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void CleanupObject::Start()
+    id: 101225
+  - severity: 4
+    filter: System.Void RoomTeleport::CreateSpawner(UnityEngine.Transform)
+    id: 101225
+  - severity: 4
+    filter: System.Void MedicinePreparationScene::Restart()
+    id: 101225
+  - severity: 4
+    filter: System.Void JointBreakSubscription::Subscribe(UnityEngine.GameObject,JointBreakSubscription/JointBreakCallback)
+    id: 101225
+  - severity: 4
+    filter: CollisionSubscription CollisionSubscription::GetOrAddScript(UnityEngine.GameObject)
+    id: 101225
+  - severity: 4
+    filter: T GameObjectUtility::EnsureComponent(UnityEngine.GameObject)
+    id: 101225
+  - severity: 4
+    filter: T[] GameObjectUtility::EnsureComponents(UnityEngine.GameObject,System.Int32)
+    id: 101225
+  - severity: 4
+    filter: System.Boolean HintText/<InitSpawn>d__10::MoveNext()
+    id: 101225
+  - severity: 4
+    filter: System.Boolean VideoHint/<InitSpawn>d__20::MoveNext()
+    id: 101225
+  - severity: 4
+    filter: System.Void VRInput::.cctor()
+    id: 101049
+  - severity: 4
+    filter: System.Void HintBox::Init(System.Boolean)
+    id: 101049
+  - severity: 4
+    filter: System.Void ProgressManager::SetSceneType(SceneTypes)
+    id: 101049
+  - severity: 4
+    filter: System.Void ProgressManager::AddTasks()
+    id: 101049
+  - severity: 4
+    filter: System.Void ScoreCalculator::GetScoreString(System.Int32&,System.String&,ProgressManager)
+    id: 101049
+  - severity: 4
+    filter: System.Void TaskBase::DisableConditions()
+    id: 101049
+  - severity: 4
+    filter: System.Collections.Generic.List`1<Interactable> CabinetBase::GetContainedItems()
+    id: 101049
+  - severity: 4
+    filter: System.Collections.Generic.List`1<T> EnumBitField`1::GetOnList()
+    id: 101049
+  - severity: 4
+    filter: System.Collections.Generic.List`1<T> EnumBitField`1::GetOffList()
+    id: 101049
+  - severity: 4
+    filter: UnityEngine.GameObject Interactable::GetInteractableObject(UnityEngine.Transform)
+    id: 101229
+  - severity: 4
+    filter: UnityEngine.Transform LuerlockAdapter::LuerlockPosition(UnityEngine.Transform)
+    id: 101229
+  - severity: 4
+    filter: System.Void ObjectHighlight::InitializeMaterials()
+    id: 101026
+  - severity: 4
+    filter: System.Void CollisionIgnore::IgnoreCollisions(UnityEngine.Transform,UnityEngine.Transform,System.Boolean)
+    id: 101026
+  - severity: 4
+    filter: System.Void ObjectHighlight::AddMaterialsFromRenderer(UnityEngine.Renderer)
+    id: 101084
+  - severity: 4
+    filter: System.Void ObjectFactory::DestroyAllFactories(System.Boolean)
+    id: 101129
+  - severity: 4
+    filter: System.Void CleanupObject::EnableCleanup()
+    id: 101129
+  - severity: 4
+    filter: System.Void EndSummary::SnapScreenshot()
+    id: 101129
+  - severity: 4
+    filter: System.Void GeneralItem::OnCollisionEnter(UnityEngine.Collision)
+    id: 101223
+  - severity: 4
+    filter: System.Void LaminarCabinetTable::ContaminateItem(GeneralItem)
+    id: 102003
+  - severity: 4
+    filter: T ComponentCopy::Copy(T,UnityEngine.GameObject)
+    id: 101050
+  - severity: 4
+    filter: System.Void Player::Initialize(System.String)
+    id: 101230
+  - severity: 4
+    filter: System.Void Player::SavePlayerData(System.Int32,System.String)
+    id: 101230
+  - severity: 4
+    filter: System.Void EndSummary::SnapScreenshot()
+    id: 101132
+  - severity: 4
+    filter: UnityEngine.Bounds MultiColliderTool::GetCombinedColliderBounds(UnityEngine.GameObject)
+    id: 101028
+  - severity: 4
+    filter: System.Void CubeTexture::Start()
+    id: 101069
+  - severity: 4
+    filter: System.Void RoomDoorHandle::Interact(Hand)
+    id: 102000
+  - severity: 4
+    filter: System.Void ScoreCalculator::GetScoreString(System.Int32&,System.String&,ProgressManager)
+    id: 101226
+  - severity: 4
+    filter: System.Void ObjectFactory::CopyTransform(UnityEngine.Transform,UnityEngine.Transform)
+    id: 101226
+  - severity: 4
+    filter: System.Void VideoHint::PlayVideo()
+    id: 101226
+  - severity: 4
+    filter: System.Void Player::Awake()
+    id: 101226
+  - severity: 4
+    filter: System.Void Player::SavePlayerData(System.Int32,System.String)
+    id: 101226
+  - severity: 4
+    filter: System.Void ProgressManager::ForceCloseTasks(ITask)
+    id: 101226
+  - severity: 4
+    filter: System.String CorrectItemsInThroughput::GetHint()
+    id: 101226
+  - severity: 4
+    filter: System.String CorrectItemsInLaminarCabinet::GetHint()
+    id: 101226
+  - severity: 4
+    filter: System.Void ItemsToSterileBag::FinishTask()
+    id: 101226
+  - severity: 4
+    filter: System.Void SyringeAttach::AddSyringe(CallbackData)
+    id: 101226
+  - severity: 4
+    filter: System.Void CabinetBase::EnterCabinet(Interactable)
+    id: 101226
+  - severity: 4
+    filter: System.Void CabinetBase::DestroyCapBagAndInitFactory()
+    id: 101226
+  - severity: 4
+    filter: System.Void TrashBin::EnterTrashbin(UnityEngine.Collider)
+    id: 101226
+  - severity: 4
+    filter: System.String TutorialScene::GetHintString(ObjectType,System.String)
+    id: 101226
+  - severity: 4
+    filter: System.Boolean TriggerInteractableContainer::RemoveFromDictionary(Interactable)
+    id: 101226
+  - severity: 4
+    filter: System.Void PointPopup::SetPopup(System.Int32,System.String,MsgType)
+    id: 101226
+  - severity: 4
+    filter: System.String EndSummary::GetPath()
+    id: 101226
+  - severity: 4
+    filter: System.String Logger::VarString(System.Object,System.Object)
+    id: 101226
+  - severity: 4
+    filter: System.Void NullCheck::Check(System.Object[])
+    id: 101226
+  - severity: 4
+    filter: System.Boolean Interactable/<<DestroyInteractable>g__DestroySequence|32_0>d::MoveNext()
+    id: 101226
+  - severity: 4
+    filter: System.String TaskBase::ToString()
+    id: 102004
+  - severity: 4
+    filter: System.Void LaminarCabinetButton::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void MedicinePreparationScene::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Void EndSummary::SnapScreenshot()
+    id: 102004
+  - severity: 4
+    filter: System.Void CubeTexture::Start()
+    id: 102004
+  - severity: 4
+    filter: System.Boolean MedicinePreparationScene/<PlayCoroutine>d__43::MoveNext()
+    id: 102004
+  - severity: 4
+    filter: System.Void ScoreCalculator::.cctor()
+    id: 102002
+  - severity: 4
+    filter: System.String TaskBase::ToString()
+    id: 102002
+  - severity: 4
+    filter: System.Void Player::SavePlayerData(System.Int32,System.String)
+    id: 102000
+  - severity: 4
+    filter: System.Void CorrectItemsInThroughput::CheckConditions(System.Collections.Generic.List`1<Interactable>)
+    id: 102000
+  - severity: 4
+    filter: System.Void SelectMedicine::PickupObject(CallbackData)
+    id: 102000
+  - severity: 4
+    filter: System.Void SelectTools::PickupObject(CallbackData)
+    id: 102000
+  - severity: 4
+    filter: System.Void LuerlockAttach::MedicineSyringeCheck(GeneralItem)
+    id: 102000
+  - severity: 4
+    filter: System.Void ComponentEventsContainer::Unsubscribe(CallbackComponentPair)
+    id: 102000
+  - severity: 4
+    filter: System.Boolean CallbackComponentPair::Equals(System.Object)
+    id: 102000
+  - severity: 4
+    filter: System.Boolean VRInput/HandControl::Equals(System.Object)
+    id: 102000
+  - severity: 4
+    filter: System.Void Pipette::EnableDisplay()
+    id: 101224
+  - severity: 4
+    filter: System.Void VideoHint::CreateVideoHint(UnityEngine.Video.VideoClip,System.String,UnityEngine.Vector3)
+    id: 101224
+  - severity: 4
+    filter: System.Void SyringeDisplayer::InstantiateSyringeDisplay(UnityEngine.GameObject&,UnityEngine.GameObject)
+    id: 101224
+  - severity: 4
+    filter: System.Void LiquidDisplay::.ctor()
+    id: 102002
+  - severity: 4
+    filter: System.Void Clock::Awake()
+    id: 102004
+  - severity: 4
+    filter: System.Void SceneTime::Awake()
+    id: 102004

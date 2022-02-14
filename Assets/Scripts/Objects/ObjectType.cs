@@ -1,6 +1,7 @@
 ﻿public enum ObjectType {
     None,
     Syringe,
+    BigSyringe,
     SyringeCap,
     SyringeCapBag,
     Luerlock,
@@ -11,5 +12,18 @@
     BottleCap,
     SterileBag,
     DisinfectingCloth,
-    Die
+    Die,
+    Pen,
+    Pump,
+    PeptoniWaterBottle,
+    SoycaseineBottle,
+    TioglycolateBottle,
+    SoycaseinePlate,
+    SabouradDextrosiPlate,
+    Tweezers,
+    Scalpel,
+    Pipette,
+    AgarPlateBottom,
+    AgarPlateLid,
+    PumpFilter
 }

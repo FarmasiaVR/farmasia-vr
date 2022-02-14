@@ -18,7 +18,7 @@ public class DisinfectingCloth : GeneralItem {
         if (item == null) {
             return;
         }
-        if (item.ObjectType == ObjectType.Bottle && this.IsClean) {
+        if ((item.ObjectType == ObjectType.Bottle || item.ObjectType == ObjectType.Medicine) && this.IsClean) {
             MedicineBottle bottle = item as MedicineBottle;
             if (!bottle.IsClean) {
                 bottle.Contamination = ContaminateState.Clean;

@@ -40,10 +40,10 @@ public abstract class TaskBase : ITask {
             return;
         }
 
-        Logger.PrintVariables("Force closing", taskType);
+        Logger.PrintVariables("Force closing", taskType.ToString());
 
         if (removePoints) {
-            Logger.Print("Task has points: " + taskType + ", points: " + points);
+            Logger.Print(string.Format("Task has points: {0}, points: {1}", taskType.ToString(), points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(taskType);
             TaskBase.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
         }
@@ -57,11 +57,13 @@ public abstract class TaskBase : ITask {
     }
 
     public virtual void StartTask() {
+        Logger.Print("PROGRESS: started " + taskType.ToString());
         started = true;
     }
 
     public virtual void CompleteTask() {
         completed = CheckClearConditions();
+        //Logger.Print("Clear conditions: " + completed);
         if (completed) {
             CloseTask();
         }
@@ -151,6 +153,7 @@ public abstract class TaskBase : ITask {
     #region Condition Methods
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
+            Logger.Print("Enabled Condition: " + condition.ToString());
             clearConditions[condition.GetHashCode()] = true;
         }
     }
@@ -239,17 +242,29 @@ public abstract class TaskBase : ITask {
 
 
     public override string ToString() {
+        System.Text.StringBuilder strBuilder = new System.Text.StringBuilder();
 
-        string s = "TaskType: " + taskType + ", finished: " + isFinished;
+        string s = string.Format(
+            "TaskType: {0}, finished: {1}",
+            taskType.ToString(),
+            isFinished.ToString()
+        );
 
-        s += "\nstrted: " + Started;
-        s += "\ncheck cond: " + checkAllClearConditions;
-        s += "\nis completed: " + completed;
-        s += "\nremove when finished: " + removeWhenFinished;
-        s += "\nrequires previous: " + requiresPreviousTaskCompletion;
-        s += "\nprevious completed: " + previousTasksCompleted;
+        string[] strings = new string[] {
+            s,
+            "\nstrted: ", Started.ToString(),
+            "\ncheck cond: ", checkAllClearConditions.ToString(),
+            "\nis completed: ", completed.ToString(),
+            "\nremove when finished: ", removeWhenFinished.ToString(),
+            "\nrequires previous: ", requiresPreviousTaskCompletion.ToString(),
+            "\nprevious completed: ", previousTasksCompleted.ToString()
+        };
 
-        return s;
+        for (int i = 0; i < strings.Length; i++) {
+            strBuilder.Append(strings[i]);
+        }
+        
+        return strBuilder.ToString();
     }
 
     #region Mistakes

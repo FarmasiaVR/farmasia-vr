@@ -7,11 +7,20 @@ public struct Interactors {
     public KeyValuePair<LuerlockAdapter.Side, LuerlockAdapter> LuerlockPair { get; private set; }
     public GameObject Bottle;
     public Needle Needle { get; private set; }
+    public AgarPlateLid AgarPlateLid { get; private set;  }
 
     public void SetHand(Hand hand) {
         Hand = hand;
     }
 
+    public void SetAgarPlateLid(AgarPlateLid lid) {
+        AgarPlateLid = lid;
+    }
+
+    public void ResetAgarPlateLid() {
+        AgarPlateLid = null;
+    }
+    
     public void SetLuerlockPair(LuerlockAdapter.Side side, LuerlockAdapter luerlock) {
         if (luerlock == null) {
             // Luerlock pair.Value can only be null when removing the syringe from luerlock, therefore Warning instead of Error

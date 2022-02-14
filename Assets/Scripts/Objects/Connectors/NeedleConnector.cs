@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class NeedleConnector : AttachmentConnector {
 
-
-    #region Fields
     public override ItemConnection Connection { get; set; }
 
     protected override InteractState AttachState => InteractState.NeedleAttached;
-    #endregion
+
 
     public NeedleConnector(Needle needle, GameObject collider) : base(needle.transform) {
         GeneralItem = needle;
@@ -16,7 +14,6 @@ public class NeedleConnector : AttachmentConnector {
         this.Collider = collider;
     }
 
-    #region Attaching
     public override void ConnectItem(Interactable interactable) {
 
         if ((interactable as Syringe) is var syringe && syringe != null && syringe.HasSyringeCap) {
@@ -61,9 +58,7 @@ public class NeedleConnector : AttachmentConnector {
         Vector3 offset = coll.position - luerlockPos.position;
         GeneralItem.transform.position -= offset;
     }
-    #endregion
 
-    #region Releasing
     public override void OnReleaseItem() {
 
         Syringe syringe = (Syringe)attached.Interactable;
@@ -77,5 +72,4 @@ public class NeedleConnector : AttachmentConnector {
             Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
         }
     }
-    #endregion
 }

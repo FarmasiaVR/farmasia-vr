@@ -1,23 +1,11 @@
-# Pharmacy VR Game - Will you manage to prepare eye medicine correctly?
+# Pharmacy VR Game Part 2
 
-(Software engineering project, University of Helsinki 2019)
+[![Test project](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/test_runner.yml/badge.svg)](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/test_runner.yml)
+[![Static code analysis](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/code_analysis.yml/badge.svg)](https://github.com/MikkoHimanka/farmasia-vr/actions/workflows/code_analysis.yml)
+
+This fork implements part 2 of the original game
+(Software engineering project, University of Helsinki 2022)
 [Video](https://youtu.be/pIKCZFZo2UA)
-
-## Instructions
-
-### Cloning
-
-First step for you is to setup the platform definition files. Create file  projectRoot/Assets/csc.rsp
-If your system supports VR, set the file contents to this:
-```
--define:UNITY_VRCOMPUTER
-```
-If your system does not support VR, set the file contents to this:
-```
--define:UNITY_NONVRCOMPUTER
-```
-
-The definitions are system specific so the file csc.rsp file is ignored in gitignore.
 
 ## Description
 
@@ -33,15 +21,31 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 The project was created with `Unity Version: 2019.2.3.f1` and the same version should be used for development.
 
-The project backlog and sprint backlogs can be found from the [Projects tab](https://github.com/ohtuprojekti-farmasia/farmasia-vr/projects).
-
 - Wiki
   - [Git workflow document](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Git)
   - [Code reviewing policy](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Code-Review)
-- Google Drive (for developers only)
-  - [Hour reporting](https://docs.google.com/spreadsheets/d/172n3x7qiSKR59cWD9qFkiI0BeyIeioPuUemOGYUafxo)
-  - [Game progress documentation](https://drive.google.com/drive/folders/15dfxnX83RKYnoJctVRlVwDZz04T9ufm9)
-  - [Documentation for customer meetings](https://drive.google.com/drive/folders/1bOcsczs5CZJoa-Yq4EV9SUukr1nqUTt_)
+ 
+- Development documents
+  - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1QbWEpiNEt-0H225ZIYymeJ4stKKGCl3CIwYoJT8NL5s/edit?usp=sharing)
+  - [Some WIP architecture diagrams](https://app.diagrams.net/#G1zGultE_-2kT3pbttZezY0fnKzPWykIT0)
+
+
+<img src=/Docs/16439036321364375859242318815669.jpg width="480" />
+Seinä.jpg
+
+## Cloning
+
+First step for you is to setup the platform definition files. Create file  projectRoot/Assets/csc.rsp
+If your system supports VR, set the file contents to this:
+```
+-define:UNITY_VRCOMPUTER
+```
+If your system does not support VR, set the file contents to this:
+```
+-define:UNITY_NONVRCOMPUTER
+```
+
+The definitions are system specific so the file csc.rsp file is ignored in gitignore.
 
 ## Build & Deployment
 
@@ -57,8 +61,105 @@ In Unity play mode press space to activate the test camera and hand controls.
 
 Press K to move the camera, L to control the right hand and J to control the left hand.
 
-Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting.
+Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting. 
 
-### VR controls
+## Contributors
 
-HTC Vive Pro with two controllers is used in VR.
+<!-- readme: contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/farmasia-vr">
+            <img src="https://avatars.githubusercontent.com/u/55394182?v=4" width="100;" alt="farmasia-vr"/>
+            <br />
+            <sub><b>Farmasia-vr</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/porrasm">
+            <img src="https://avatars.githubusercontent.com/u/31691452?v=4" width="100;" alt="porrasm"/>
+            <br />
+            <sub><b>Eetu Ikonen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Mirex97">
+            <img src="https://avatars.githubusercontent.com/u/32763253?v=4" width="100;" alt="Mirex97"/>
+            <br />
+            <sub><b>Kukkis</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/SirVeggie">
+            <img src="https://avatars.githubusercontent.com/u/32365239?v=4" width="100;" alt="SirVeggie"/>
+            <br />
+            <sub><b>Veikka</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/doc97">
+            <img src="https://avatars.githubusercontent.com/u/4580546?v=4" width="100;" alt="doc97"/>
+            <br />
+            <sub><b>Daniel Riissanen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/heidihas">
+            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+            <br />
+            <sub><b>Heidi Hassinen</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Reksa97">
+            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+            <br />
+            <sub><b>Reko Kälkäjä</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Veikkosuhonen">
+            <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
+            <br />
+            <sub><b>Veikmaster</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/vrfarmasia">
+            <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
+            <br />
+            <sub><b>Vrfarmasia</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/MikkoHimanka">
+            <img src="https://avatars.githubusercontent.com/u/28507056?v=4" width="100;" alt="MikkoHimanka"/>
+            <br />
+            <sub><b>Mikko Himanka</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hepitk">
+            <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
+            <br />
+            <sub><b>Hepitk</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/SPitkanen">
+            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+            <br />
+            <sub><b>SPitkanen</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/kivik-beep">
+            <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
+            <br />
+            <sub><b>Kivik-beep</b></sub>
+        </a>
+    </td></tr>
+</table>
+<!-- readme: contributors -end -->

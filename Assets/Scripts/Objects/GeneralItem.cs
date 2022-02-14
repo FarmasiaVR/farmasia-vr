@@ -3,6 +3,7 @@
 public class GeneralItem : Grabbable {
 
     #region fields
+    [SerializeField]
     protected ObjectType objectType = ObjectType.None;
     public ObjectType ObjectType { get => objectType; set { objectType = value; } }
 
@@ -41,6 +42,11 @@ public class GeneralItem : Grabbable {
         return Interactable.GetInteractableObject(t)?.GetComponent<GeneralItem>();
     }
 
+
+    /// <summary>
+    /// Is called when this item collides with another
+    /// </summary>
+    /// <param name="coll"></param>
     protected virtual void OnCollisionEnter(Collision coll) {
         if (coll.gameObject.tag == "Floor") {
             Contamination = ContaminateState.FloorContaminated;

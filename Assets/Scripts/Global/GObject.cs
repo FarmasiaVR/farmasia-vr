@@ -8,6 +8,7 @@ public class GObject : MonoBehaviour {
     private void Start() {
         G.Instance.ResetProgressManager();
         G.Instance.Progress.SetSceneType(scene);
+        G.Instance.CurrentSceneType = scene;
     }
 
     private void Update() {

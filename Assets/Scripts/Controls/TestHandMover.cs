@@ -172,7 +172,7 @@ public class TestHandMover : MonoBehaviour {
         } else if (state == ControlState.HAND_RIGHT) {
             Cursor.lockState = CursorLockMode.None;
         } else {
-            throw new NotImplementedException("ControlState not implemented: " + state);
+            throw new NotImplementedException(string.Format("ControlState not implemented: {0}", state.ToString()));
         }
         currentState = state;
     }
@@ -197,7 +197,7 @@ public class TestHandMover : MonoBehaviour {
         } else if (currentState == ControlState.HAND_RIGHT) {
             return right;
         } else {
-            throw new NotImplementedException("ControlState not implemented: " + currentState);
+            throw new NotImplementedException(string.Format("ControlState not implemented: {0}", currentState.ToString()));
         }
     }
 

@@ -102,6 +102,12 @@ public class LiquidContainer : MonoBehaviour {
         target.SetAmount(target.Amount + toTransfer);
     }
 
+    /// <summary>
+    /// Tries to find a LiquidContainer component from the Transform component,
+    /// or from its child object named "Liquid"
+    /// </summary>
+    /// <param name="t">The Transform of the GameObject to search</param>
+    /// <returns>The LiquidContainer found or null</returns>
     public static LiquidContainer FindLiquidContainer(Transform t) {
 
         LiquidContainer c = t.GetComponent<LiquidContainer>();
@@ -124,7 +130,7 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle) {
+        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
 
@@ -132,8 +138,10 @@ public class LiquidContainer : MonoBehaviour {
                 needle.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
 
-            if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                TaskBase.CreateGeneralMistake("L‰‰kett‰ yritettiin ottaa uudestaan");
+            if (G.Instance.Scene is MedicinePreparationScene) {
+                if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
+                    TaskBase.CreateGeneralMistake("L‰‰kett‰ yritettiin ottaa uudestaan");
+                }
             }
 
             Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
@@ -141,6 +149,7 @@ public class LiquidContainer : MonoBehaviour {
 
         syringe.BottleContainer = this;
     }
+
     private void OnTrueExit(Interactable enteringInteractable) {
 
         Needle needle = enteringInteractable as Needle;
@@ -153,7 +162,7 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle) {
+        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
         }

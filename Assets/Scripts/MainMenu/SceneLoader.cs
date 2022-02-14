@@ -19,6 +19,7 @@ public class SceneLoader : MonoBehaviour {
                 ChangeScene("Tutorial");
                 return;
             case SceneTypes.MembraneFilteration:
+                ChangeScene("MembraneFilteration");
                 return;
         }
     }

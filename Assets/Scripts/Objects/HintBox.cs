@@ -133,7 +133,7 @@ public class HintBox : DragAcceptable {
                 boxInstance.SafeDestroy();
                 boxInstance = null;
             } else {
-                Logger.Print("Box exists, returning");
+                //Logger.Print("Box exists, returning");
                 return;
             }
         }

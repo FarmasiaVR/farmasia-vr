@@ -6,12 +6,6 @@ using UnityEngine.Assertions;
 
 public class Syringe : GeneralItem {
 
-    #region Constants
-    private const float SWIPE_DEFAULT_TIME = 0.75f;
-    private const float LIQUID_TRANSFER_SPEED = 15;
-    #endregion
-
-    #region fields
     public LiquidContainer Container { get; private set; }
 
     [SerializeField]
@@ -24,6 +18,7 @@ public class Syringe : GeneralItem {
     private Transform handle;
 
     private GameObject syringeCap;
+    public bool capVisible;
     public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
 
     public LiquidContainer BottleContainer { get; set; }
@@ -34,7 +29,6 @@ public class Syringe : GeneralItem {
     private GameObject liquidDisplay;
     private GameObject currentDisplay;
     private bool displayState;
-    #endregion
 
     protected override void Start() {
         base.Start();
@@ -53,7 +47,7 @@ public class Syringe : GeneralItem {
         syringeCap = transform.Find("syringe_cap").gameObject;
         NullCheck.Check(syringeCap);
 
-        syringeCap.SetActive(false);
+        syringeCap.SetActive(capVisible);
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
         displayState = false;
@@ -66,7 +60,7 @@ public class Syringe : GeneralItem {
 
         displayState = true;
         currentDisplay = Instantiate(liquidDisplay);
-        SyringeDisplay display = currentDisplay.GetComponent<SyringeDisplay>();
+        LiquidDisplay display = currentDisplay.GetComponent<LiquidDisplay>();
         display.SetFollowedObject(gameObject);
 
         EnableForOtherSyringeDisplay();
@@ -121,6 +115,7 @@ public class Syringe : GeneralItem {
             Logger.Warning("Cannot change liquid amount of syringe with a cap");
             return;
         }
+            Logger.Print("Taking medicine");
 
         if (State == InteractState.LuerlockAttached && Interactors.LuerlockPair.Value.ObjectCount == 2) {
             TransferToLuerlock(liquidAmount);

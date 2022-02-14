@@ -33,7 +33,7 @@ public class ProgressManager {
 
     public void ForceCloseTasks(ITask calledTask) {
 
-        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count);
+        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
 
         foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
             if (calledTask.GetTaskType() == task.GetTaskType()) {
@@ -42,7 +42,11 @@ public class ProgressManager {
             if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
-            Logger.Print("max points: " + task.GetTaskType() + ", points: " + taskMaxPoints[task.GetTaskType()]);
+            Logger.Print(string.Format(
+                "max points: {0}, points: {1}",
+                task.GetTaskType().ToString(),
+                taskMaxPoints[task.GetTaskType()].ToString()
+            ));
             task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
         }
     }
@@ -68,13 +72,14 @@ public class ProgressManager {
                 return;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
-                AddTasks();
+                AddTasks(scene);
                 Calculator = new ScoreCalculator(allTasks);
                 GenerateScenarioOne();
                 break;
             case SceneTypes.MembraneFilteration:
-                //todo
-                //GenerateScenarioTwo();
+                AddTasks(scene);
+                Calculator = new ScoreCalculator(allTasks);
+                GenerateScenarioTwo();
                 break;
             case SceneTypes.Tutorial:
                 return;
@@ -125,6 +130,15 @@ public class ProgressManager {
         packages.Add(cleanUp);
     }
 
+    private void GenerateScenarioTwo()
+    {
+        TaskType[] selectTasks = {
+            TaskType.CorrectItemsInThroughputMembrane
+        };
+        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        packages.Add(equipmentSelection);
+    }
+
     #region Package Init Functions
     /// <summary>
     /// Creates a new package.
@@ -156,10 +170,10 @@ public class ProgressManager {
     /// Creates a single task from every enum TaskType object.
     /// Adds tasks into currently activeTasks.
     /// </summary>
-    public void AddTasks() {
+    public void AddTasks(SceneTypes scene) {
         allTasks = new HashSet<ITask>(Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
-            .Select(v => TaskFactory.GetTask(v))
+            .Select(v => TaskFactory.GetTask(v, scene))
             .Where(v => v != null)
             .ToList());
 
@@ -188,20 +202,6 @@ public class ProgressManager {
         ITask foundTask = FindTaskWithType(taskType);
         if (foundTask != null) {
             package.AddTask(foundTask);
-            allTasks.Remove(foundTask);
-        }
-    }
-
-    /// <summary>
-    /// Moves task to package into given point. Used by packages.
-    /// </summary>
-    /// <param name="package">Packages to move task to.</param>
-    /// <param name="taskType">Type to move.</param>
-    /// <param name="previousTask">Task point where found task will be moved.</param>
-    public void MoveToPackageBeforeTask(Package package, TaskType taskType, ITask previousTask) {
-        ITask foundTask = FindTaskWithType(taskType);
-        if (foundTask != null) {
-            package.AddNewTaskBeforeTask(foundTask, previousTask);
             allTasks.Remove(foundTask);
         }
     }

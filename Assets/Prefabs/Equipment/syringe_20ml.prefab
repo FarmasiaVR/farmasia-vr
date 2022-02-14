@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsInteracting: 0
   disableHighlighting: 0
+  objectType: 1
   isClean: 1
   LiquidTransferStep: 100
   defaultPosition: 0
   maxPosition: -0.0671
   handle: {fileID: 5867154209022641271}
-  syringeCap: {fileID: 7535694350647119240}
+  capVisible: 0
   hasBeenInBottle: 0
 --- !u!1001 &1758617307166047551
 PrefabInstance:
@@ -28,10 +29,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7781479681260800746, guid: 792a2c5276c3b614e8b50d8c40909090,
+    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
-      propertyPath: m_Name
-      value: syringe_20ml
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
@@ -50,6 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.7071068
       objectReference: {fileID: 0}
@@ -61,16 +82,6 @@ PrefabInstance:
     - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
@@ -88,20 +99,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+    - target: {fileID: 7781479681260800746, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
+      propertyPath: m_Name
+      value: syringe_20ml
       objectReference: {fileID: 0}
-    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+    - target: {fileID: 8139120572220125367, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6748089141167044857, guid: 792a2c5276c3b614e8b50d8c40909090,
+    - target: {fileID: 8512909043022091385, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8512909043022091385, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
@@ -120,11 +131,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8512909043022091385, guid: 792a2c5276c3b614e8b50d8c40909090,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8512909043022091385, guid: 792a2c5276c3b614e8b50d8c40909090,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
@@ -132,11 +138,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8139120572220125367, guid: 792a2c5276c3b614e8b50d8c40909090,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 792a2c5276c3b614e8b50d8c40909090, type: 3}
@@ -149,12 +150,6 @@ GameObject:
 --- !u!4 &5867154209022641271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5263455300513954120, guid: 792a2c5276c3b614e8b50d8c40909090,
-    type: 3}
-  m_PrefabInstance: {fileID: 1758617307166047551}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7535694350647119240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8139120572220125367, guid: 792a2c5276c3b614e8b50d8c40909090,
     type: 3}
   m_PrefabInstance: {fileID: 1758617307166047551}
   m_PrefabAsset: {fileID: 0}

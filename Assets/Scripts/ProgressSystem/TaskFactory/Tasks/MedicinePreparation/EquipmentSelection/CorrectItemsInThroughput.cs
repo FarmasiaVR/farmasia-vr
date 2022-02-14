@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 
 public class CorrectItemsInThroughput : TaskBase {
-    #region Constants
-    private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
-    #endregion
 
-    #region Fields
+    private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
     private int smallSyringes = 0;
     private int objectCount;
@@ -15,18 +13,15 @@ public class CorrectItemsInThroughput : TaskBase {
     private bool correctMedicineBottle = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
-    #endregion
 
-    #region Constructor
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         points = 2;
     }
-    #endregion
 
-    #region Event Subscriptions
+
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
@@ -58,16 +53,16 @@ public class CorrectItemsInThroughput : TaskBase {
         int gCount = 0;
 
         foreach (Interactable obj in containedObjects) {
-
+            if (obj is MedicineBottle) {
+                continue;
+            }
             GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
-                if (g.ObjectType == ObjectType.Bottle && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                    continue;
-                }
+                Logger.Warning(g.name + " in throughput cabinet was not clean");
                 CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
             }
         }
@@ -88,11 +83,12 @@ public class CorrectItemsInThroughput : TaskBase {
             Popup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
         }
     }
-    #endregion
+
 
     private void MissingItems() {
         if (!firstCheckDone) {
             CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
+            Logger.Print("object count: " + objectCount + ", small syringe count: " + smallSyringes);
             firstCheckDone = true;
         } else {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
@@ -102,7 +98,6 @@ public class CorrectItemsInThroughput : TaskBase {
         DisableConditions();
     }
 
-    #region Private Methods
     private void CheckConditions(List<Interactable> containedObjects) {
         foreach (Interactable value in containedObjects) {
             GeneralItem item = value as GeneralItem;
@@ -128,7 +123,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.SyringeCapBag:
                     EnableCondition(Conditions.SyringeCapBag);
                     break;
-                case ObjectType.Bottle:
+                case ObjectType.Medicine:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
                         EnableCondition(Conditions.RightBottle);
@@ -147,9 +142,7 @@ public class CorrectItemsInThroughput : TaskBase {
     }
 
 
-    #endregion
 
-    #region Public Methods
     public override void CompleteTask() {
         base.CompleteTask();
 
@@ -170,5 +163,4 @@ public class CorrectItemsInThroughput : TaskBase {
         string missingItemsHint = cabinet?.GetMissingItems() ?? "Kaikki";
         return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: " + missingItemsHint;
     }
-    #endregion
 }

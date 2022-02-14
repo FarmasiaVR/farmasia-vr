@@ -23,7 +23,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
     }
     #endregion
 
-    protected override void Update() {
+    // TODO: Can this be done in a coroutine?
+    protected void Update() {
         UpdatePosition();
     }
 
@@ -78,6 +79,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
             return LuerlockConfiguration(connector, hand, interactable);
         } else if (interactable.State == InteractState.NeedleAttached) {
             return NeedleConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.LidAttached) {
+            return LidConfiguration(connector, hand, interactable);
         }
 
         throw new Exception("No such configuration type for InteractState");
@@ -106,6 +109,19 @@ public class LuerlockLooseItemConnection : ItemConnection {
         conn.parentItem = interactable.Interactors.Needle;
         conn.startLocal = interactable.transform.localPosition;
         conn.state = InteractState.NeedleAttached;
+
+        return conn;
+    }
+    public static LuerlockLooseItemConnection LidConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
+
+        LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
+
+        conn.Connector = connector;
+        conn.interactable = interactable;
+        conn.hand = hand.GetComponent<Hand>();
+        conn.parentItem = interactable.Interactors.AgarPlateLid;
+        conn.startLocal = interactable.transform.localPosition;
+        conn.state = InteractState.LidAttached;
 
         return conn;
     }

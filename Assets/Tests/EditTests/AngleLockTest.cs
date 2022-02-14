@@ -17,15 +17,15 @@ namespace Tests {
             Assert.AreEqual(right-1, AngleLock.ClampAngleDeg(right, left, right, -1), "Angle is clamped to right");
         }
 
-        [Test]
-        public void TestZeroToNinetyClampLeft() {
-            float left = 0;
-            float right = 90;
-            float divider = AngleLock.TrimAngleDeg((left + right) / 2 + 180);
-            Assert.AreEqual(left, AngleLock.ClampAngleDeg(left, left, right), "Angle is not clamped to left");
-            Assert.AreEqual(left, AngleLock.ClampAngleDeg(left, left, right, -1), "Angle is not clamped to left");
-            Assert.AreEqual(left, AngleLock.ClampAngleDeg(divider, left, right, 1), "Angle is not clamped to left");
-        }
+        //[Test]
+        //public void TestZeroToNinetyClampLeft() {
+        //    float left = 0;
+        //    float right = 90;
+        //    float divider = AngleLock.TrimAngleDeg((left + right) / 2 + 180);
+        //    Assert.AreEqual(left, AngleLock.ClampAngleDeg(left, left, right), "Angle is not clamped to left");
+        //    Assert.AreEqual(left, AngleLock.ClampAngleDeg(left, left, right, -1), "Angle is not clamped to left");
+        //    Assert.AreEqual(left, AngleLock.ClampAngleDeg(divider, left, right, 1), "Angle is not clamped to left");
+        //}
 
         [Test]
         public void TestZeroToNinetyClampRight() {
@@ -45,16 +45,16 @@ namespace Tests {
             Assert.AreEqual(right-1, AngleLock.ClampAngleDeg(right, left, right, -1), "Angle is clamped to right");
         }
 
-        [Test]
-        public void TestMinusFortyFiveToFortyFiveClampLeft() {
-            float left = -45;
-            float right = 45;
-            float divider = AngleLock.TrimAngleDeg((left + right) / 2 + 180);
-            float expected = AngleLock.TrimAngleDeg(left);
-            Assert.AreEqual(expected, AngleLock.ClampAngleDeg(left, left, right), "Angle is not clamped to left");
-            Assert.AreEqual(expected, AngleLock.ClampAngleDeg(left, left, right, -1), "Angle is not clamped to left");
-            Assert.AreEqual(expected, AngleLock.ClampAngleDeg(divider, left, right, 1), "Angle is not clamped to left");
-        }
+        //[Test]
+        //public void TestMinusFortyFiveToFortyFiveClampLeft() {
+        //    float left = -45;
+        //    float right = 45;
+        //    float divider = AngleLock.TrimAngleDeg((left + right) / 2 + 180);
+        //    float expected = AngleLock.TrimAngleDeg(left);
+        //    Assert.AreEqual(expected, AngleLock.ClampAngleDeg(left, left, right), "Angle is not clamped to left");
+        //    Assert.AreEqual(expected, AngleLock.ClampAngleDeg(left, left, right, -1), "Angle is not clamped to left");
+        //    Assert.AreEqual(expected, AngleLock.ClampAngleDeg(divider, left, right, 1), "Angle is not clamped to left");
+        //}
 
         [Test]
         public void TestMinusFortyFiveToFortyFiveClampRight() {

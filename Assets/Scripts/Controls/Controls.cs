@@ -5,6 +5,8 @@ public static class Controls {
     #region Fields
     private static ControlType grab;
     private static ControlType grabInteract;
+
+    private static ControlType remoteGrabMode;
     private static ControlType remoteGrab;
 
     private static ControlType takeMedicine;
@@ -13,7 +15,6 @@ public static class Controls {
     private static ControlType menu;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
-
     #endregion
 
     #region Getters
@@ -36,6 +37,16 @@ public static class Controls {
             }
 
             return grabInteract;
+        }
+    }
+
+    public static ControlType RemoteGrabMode {
+        get {
+            if (remoteGrabMode == ControlType.NotAssigned) {
+                Logger.Warning("Control remoteGrabMode has not been assigned");
+            }
+
+            return remoteGrabMode;
         }
     }
 
@@ -94,6 +105,8 @@ public static class Controls {
     public static void SetDefaultControls() {
         grab = ControlType.TriggerClick;
         grabInteract = ControlType.PadClick;
+
+        remoteGrabMode = ControlType.DPadNorth;
         remoteGrab = ControlType.TriggerClick;
 
         takeMedicine = ControlType.DPadWest;

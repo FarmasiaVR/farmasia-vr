@@ -14,7 +14,7 @@ public class Hand : MonoBehaviour {
     public HandSmoother Smooth { get; private set; }
 
     private bool IsTryingToGrab { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.Grab); }
-    private bool IsTryingToRemoteGrab { get => !IsGrabbed && VRInput.PadTouchValue(HandType) != Vector2.zero; }
+    private bool InRemoteGrabMode { get => !IsGrabbed && VRInput.GetControl(HandType, Controls.RemoteGrabMode); }
 
     private static float extendedGrabAngle = 30f;
 
@@ -43,7 +43,7 @@ public class Hand : MonoBehaviour {
     private void Start() {
         HandCollider = transform.Find("HandColl").GetComponent<HandCollider>();
         ExtendedHandCollider = transform.Find("ExtendedHandColl").GetComponent<HandCollider>();
-        HandType = GetComponent<VRHandControls>()?.handType ?? SteamVR_Input_Sources.Any;
+        HandType = GetComponent<VRActionsMapper>()?.handType ?? SteamVR_Input_Sources.Any;
         Connector = new HandConnector(this);
 
         Assert.IsFalse(HandType == SteamVR_Input_Sources.Any, "Invalid hand type");
@@ -85,7 +85,7 @@ public class Hand : MonoBehaviour {
                 GrabUninteract();
             }
         } else {
-            if (VRInput.GetControlDown(HandType, Controls.GrabInteract)) {
+            if (InRemoteGrabMode) {
                 StartRemoteGrab();
             }
         }
@@ -112,11 +112,9 @@ public class Hand : MonoBehaviour {
 
         StartCoroutine(RemoteGrabCoroutine());
     }
+
     private IEnumerator RemoteGrabCoroutine() {
         while (RemoteGrabbing) {
-
-
-
             UpdateRemoteGrab();
             yield return null;
         }
@@ -125,8 +123,8 @@ public class Hand : MonoBehaviour {
 
     private void UpdateRemoteGrab() {
 
-        line.Enable(IsTryingToRemoteGrab);
-        if (IsTryingToRemoteGrab) {
+        line.Enable(InRemoteGrabMode);
+        if (InRemoteGrabMode) {
             Interactable pointedObj = ExtendedHandCollider.GetPointedObject(extendedGrabAngle);
 
             if (pointedObj != null && VRInput.GetControlDown(HandType, Controls.RemoteGrab)) {
@@ -253,13 +251,15 @@ public class Hand : MonoBehaviour {
         return false;
     }
     private void MoveObject(Interactable interactable, Vector3 position) {
-
         if (interactable.State == InteractState.LuerlockAttached) {
             Vector3 offset = position - interactable.transform.position;
             interactable.Interactors.LuerlockPair.Value.transform.position += offset;
         } else if (interactable.State == InteractState.NeedleAttached) {
             Vector3 offset = position - interactable.transform.position;
             interactable.Interactors.Needle.transform.position += offset;
+        } else if (interactable.State == InteractState.LidAttached) {
+            Vector3 offset = position - interactable.transform.position;
+            interactable.Interactors.AgarPlateLid.transform.position += offset;
         } else {
             interactable.transform.position = position;
         }
@@ -278,7 +278,7 @@ public class Hand : MonoBehaviour {
     #endregion
 
     public static Hand GrabbingHand(Interactable interactable) {
-        foreach (VRHandControls controls in VRInput.Hands) {
+        foreach (VRActionsMapper controls in VRInput.Hands) {
             if (interactable == controls.Hand.Connector.GrabbedInteractable) {
                 return controls.Hand;
             } else if (interactable == controls.Hand.interactedInteractable) {
