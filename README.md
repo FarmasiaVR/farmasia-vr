@@ -72,7 +72,7 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         <a href="https://github.com/farmasia-vr">
             <img src="https://avatars.githubusercontent.com/u/55394182?v=4" width="100;" alt="farmasia-vr"/>
             <br />
-            <sub><b>farmasia-vr</b></sub>
+            <sub><b>Farmasia-vr</b></sub>
         </a>
     </td>
     <td align="center">
@@ -129,7 +129,7 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         <a href="https://github.com/vrfarmasia">
             <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
             <br />
-            <sub><b>vrfarmasia</b></sub>
+            <sub><b>Vrfarmasia</b></sub>
         </a>
     </td>
     <td align="center">
@@ -143,7 +143,7 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         <a href="https://github.com/hepitk">
             <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
             <br />
-            <sub><b>hepitk</b></sub>
+            <sub><b>Hepitk</b></sub>
         </a>
     </td>
     <td align="center">
@@ -158,7 +158,7 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         <a href="https://github.com/kivik-beep">
             <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
             <br />
-            <sub><b>kivik-beep</b></sub>
+            <sub><b>Kivik-beep</b></sub>
         </a>
     </td></tr>
 </table>
