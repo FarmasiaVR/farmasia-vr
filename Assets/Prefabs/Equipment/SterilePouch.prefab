@@ -187,9 +187,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341d3bbe931173e6bb0790cb8f2dbb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteracting: 0
+  disableHighlighting: 0
+  objectType: 11
   isClean: 1
-  objectsInBag: []
+  syringe1: {fileID: 0}
+  syringe2: {fileID: 0}
+  syringe3: {fileID: 0}
+  syringe4: {fileID: 0}
+  syringe5: {fileID: 0}
+  syringe6: {fileID: 0}
   childCollider: {fileID: 6897923061750437896}
+  closeButton: {fileID: 0}
 --- !u!65 &2561450159938075694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -472,6 +481,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -712,6 +722,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -746,9 +757,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: -3298800115395149385, guid: b54f0dcee4a16ed40928384bce8b8218, type: 3}
 --- !u!1 &7751600175682529496
 GameObject:
