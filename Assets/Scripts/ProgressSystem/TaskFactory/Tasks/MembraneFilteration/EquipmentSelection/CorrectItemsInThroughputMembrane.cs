@@ -111,7 +111,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
         foreach (Interactable value in containedObjects) {
             GeneralItem item = value as GeneralItem;
             ObjectType type = item.ObjectType;
-            Logger.Print("Condition: " + type);
+            //Logger.Print("Condition: " + type);
             switch (type) {
                 case ObjectType.Bottle:
                 case ObjectType.Medicine:
