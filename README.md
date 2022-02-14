@@ -63,4 +63,103 @@ Press K to move the camera, L to control the right hand and J to control the lef
 
 Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing and ungrabbing. Right click is used for interacting. 
 
- 
+## Contributors
+
+<!-- readme: contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/farmasia-vr">
+            <img src="https://avatars.githubusercontent.com/u/55394182?v=4" width="100;" alt="farmasia-vr"/>
+            <br />
+            <sub><b>farmasia-vr</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/porrasm">
+            <img src="https://avatars.githubusercontent.com/u/31691452?v=4" width="100;" alt="porrasm"/>
+            <br />
+            <sub><b>Eetu Ikonen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Mirex97">
+            <img src="https://avatars.githubusercontent.com/u/32763253?v=4" width="100;" alt="Mirex97"/>
+            <br />
+            <sub><b>Kukkis</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/SirVeggie">
+            <img src="https://avatars.githubusercontent.com/u/32365239?v=4" width="100;" alt="SirVeggie"/>
+            <br />
+            <sub><b>Veikka</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/doc97">
+            <img src="https://avatars.githubusercontent.com/u/4580546?v=4" width="100;" alt="doc97"/>
+            <br />
+            <sub><b>Daniel Riissanen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/heidihas">
+            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+            <br />
+            <sub><b>Heidi Hassinen</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/Reksa97">
+            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+            <br />
+            <sub><b>Reko Kälkäjä</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Veikkosuhonen">
+            <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
+            <br />
+            <sub><b>Veikmaster</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/vrfarmasia">
+            <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
+            <br />
+            <sub><b>vrfarmasia</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/MikkoHimanka">
+            <img src="https://avatars.githubusercontent.com/u/28507056?v=4" width="100;" alt="MikkoHimanka"/>
+            <br />
+            <sub><b>Mikko Himanka</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hepitk">
+            <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
+            <br />
+            <sub><b>hepitk</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/SPitkanen">
+            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+            <br />
+            <sub><b>SPitkanen</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/kivik-beep">
+            <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
+            <br />
+            <sub><b>kivik-beep</b></sub>
+        </a>
+    </td></tr>
+</table>
+<!-- readme: contributors -end -->
