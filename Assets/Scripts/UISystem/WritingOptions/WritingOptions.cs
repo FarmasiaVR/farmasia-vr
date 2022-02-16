@@ -14,7 +14,8 @@ public class WritingOptions : MonoBehaviour {
     private GameObject errorTextObject;
     private TextMeshPro errorTextField;
 
-    private List<string> selectedOptions = new List<string>();
+    private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
+    private Dictionary<WritingType, string> alreadySelectedOptions = new Dictionary<WritingType, string>();
     private string alreadyWrittenText;
     private string resultText;
 
@@ -30,7 +31,7 @@ public class WritingOptions : MonoBehaviour {
     private GameObject toggle;
 
     // Callback that is invoked when the submit button is clicked. The WritingPen will set this.
-    public Action<string> onSubmit;
+    public Action<Dictionary<WritingType, string>> onSubmit;
 
     void Start() {
         resultTextField = resultTextObject.GetComponent<TextMeshPro>();
@@ -68,22 +69,22 @@ public class WritingOptions : MonoBehaviour {
         submit.onSelect = Submit;
     }
 
-    private void AddOption(string option) {
+    private void AddOption(WritingOption option) {
         if (selectedOptions.Count == maxLines) return;
-        selectedOptions.Add(option);
+        selectedOptions.Add(option.WritingType, option.OptionText);
         UpdateResultingText();
         UpdateErrorMessage();
     }
 
-    private void RemoveOption(string option) {
-        selectedOptions.Remove(option);
+    private void RemoveOption(WritingOption option) {
+        selectedOptions.Remove(option.WritingType);
         UpdateResultingText();
         UpdateErrorMessage();
     }
 
     private void UpdateResultingText() {
         resultText = alreadyWrittenText;
-        foreach (string line in selectedOptions) {
+        foreach (string line in selectedOptions.Values) {
             resultText += line + "\n";
         }
         resultTextField.SetText(resultText);
@@ -102,7 +103,7 @@ public class WritingOptions : MonoBehaviour {
     }
 
     private void Submit() {
-        onSubmit(resultText);
+        onSubmit(selectedOptions);
         ResetOptions();
     }
 

@@ -50,6 +50,8 @@ public static class TaskFactory {
             {
                 case TaskType.CorrectItemsInThroughputMembrane:
                     return new CorrectItemsInThroughputMembrane();
+                case TaskType.WriteTextsToItems:
+                    return new WriteTextsToItems();
                 default:
                     return null;
             }

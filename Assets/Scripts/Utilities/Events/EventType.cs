@@ -32,5 +32,6 @@
     HandleGrabbed,
     PushingToSmallerSyringe,
     ItemDroppedInWrongTrash,
-    ItemPlacedInCabinet
+    ItemPlacedInCabinet,
+    WriteToObject
 }

@@ -13,7 +13,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     private int bottles100ml = 0;
     private int soycaseinePlate = 0;
     private int objectCount;
-    private int correctItemCount = 14;
+    private int correctItemCount = 17;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -187,8 +187,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     }
 
     public override string GetHint() {
-        string missingItemsHint = cabinet?.GetMissingItems() ?? "Kaikki";
-        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: " + missingItemsHint;
+        return HINT;
     }
     #endregion
 }
