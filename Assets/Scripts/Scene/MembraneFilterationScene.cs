@@ -19,8 +19,7 @@ class MembraneFilterationScene : SceneScript {
 
     [Tooltip("Prefabs")]
     [SerializeField]
-    private GameObject p_pipette, p_tweezers, p_scalpel, p_soyCaseinePlate, p_sabouradDextrosiPlate, p_bottle100ml, 
-        p_soyCaseineBottle, p_peptonWaterBottle, p_tioglykolateBottle, p_pump, p_pump_filter, p_filledSterileBag;
+    private GameObject p_pipette, p_tweezers, p_scalpel, p_soyCaseinePlate, p_sabouradDextrosiPlate, p_bottle100ml;
 
     [Tooltip("Scene items")]
     [SerializeField]
@@ -56,13 +55,14 @@ class MembraneFilterationScene : SceneScript {
             e => {
                 if (e != null)
                     Logger.Error(e);
-                Logger.Print("Autoplay finished");
             }
         );
     }
 
     private IEnumerator PlayCoroutine(AutoPlayStrength autoPlay) {
-        
+
+        yield return Wait();
+
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> gameObjects = new List<GameObject>() {
             p_pipette,
@@ -72,22 +72,13 @@ class MembraneFilterationScene : SceneScript {
             p_soyCaseinePlate,
             p_soyCaseinePlate,
             p_soyCaseinePlate,
+
             p_sabouradDextrosiPlate,
 
             p_bottle100ml,
             p_bottle100ml,
             p_bottle100ml,
             p_bottle100ml,
-
-            p_soyCaseineBottle,
-            p_peptonWaterBottle,
-            p_tioglykolateBottle,
-
-            p_pump,
-            p_pump_filter,
-
-            p_filledSterileBag,
-
 
         }.Select(InstantiateObject).ToList();
 
@@ -111,17 +102,9 @@ class MembraneFilterationScene : SceneScript {
 
         AllowCollisionsBetween(transforms, true);
 
-        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
-            yield break;
-        }
-
         yield return Wait();
 
-        hand.InteractWith(teleportDoorKnob);
-
-        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
-            yield break;
-        }
+        Logger.Print("Autoplay finished");
 
         yield break;
     }
