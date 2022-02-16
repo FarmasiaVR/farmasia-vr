@@ -6,6 +6,7 @@ using Unity.ProjectAuditor.Editor.UI.Framework;
 using Unity.ProjectAuditor.Editor.Auditors;
 using Unity.ProjectAuditor.Editor.CodeAnalysis;
 using Unity.ProjectAuditor.Editor.Utils;
+using Unity.ProjectAuditor.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -814,6 +815,10 @@ namespace Unity.ProjectAuditor.Editor.UI
                     SaveRules();
                 }
 
+                if (GUILayout.Button(Contents.RunCIButton, GUILayout.ExpandWidth(true), GUILayout.Width(150))) {
+                    ProjectAuditorCI.AuditAndExport();
+                }
+
                 GUI.enabled = true;
 
                 EditorGUILayout.EndHorizontal();
@@ -1131,7 +1136,8 @@ namespace Unity.ProjectAuditor.Editor.UI
             public static readonly GUIContent MuteButton = new GUIContent("Mute", "Always ignore selected issues.");
             public static readonly GUIContent UnmuteButton = new GUIContent("Unmute", "Always show selected issues.");
             public static readonly GUIContent SaveRulesButton = new GUIContent("Save rules", "Save all rules to file");
-
+            public static readonly GUIContent RunCIButton =
+                new GUIContent("Run to console", "Runs analysis and logs result to console");
             public static readonly GUIContent FiltersFoldout = new GUIContent("Filters", "Filtering Criteria");
             public static readonly GUIContent ActionsFoldout = new GUIContent("Actions", "Actions on selected issues");
 
