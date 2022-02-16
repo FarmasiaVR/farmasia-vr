@@ -8,5 +8,8 @@ public enum WritingType {
     Tioglykolate,
     SoyCaseine,
     Name,
+    LeftHand,
+    RightHand,
+
 
 }

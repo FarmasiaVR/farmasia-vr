@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 public class WriteTextsToItems : TaskBase
 {
-    private class Item
+    /*private class Item
     {
         public int instanceId;
         public WritingType liquid;
@@ -13,7 +13,8 @@ public class WriteTextsToItems : TaskBase
         {
             this.instanceId = instanceId;
         }
-    }
+    }*/
+    // Instead, use WritingSpecifications.GetInitialRequiredWritings()
 
     #region Constants
     private const string DESCRIPTION = "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
