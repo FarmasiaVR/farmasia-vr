@@ -88,7 +88,6 @@ class MembraneFilterationScene : SceneScript {
 
             p_filledSterileBag,
 
-
         }.Select(InstantiateObject).ToList();
 
         List<Transform> transforms = gameObjects.Select(go => go.transform).ToList();
