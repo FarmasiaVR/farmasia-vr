@@ -2,6 +2,19 @@ using UnityEngine;
 using System;
 public class WriteTextsToItems : TaskBase
 {
+    private class Item
+    {
+        public int instanceId;
+        public WritingType liquid;
+        public WritingType name;
+        public WritingType date;
+        public WritingType time;
+        private Item(int instanceId)
+        {
+            this.instanceId = instanceId;
+        }
+    }
+
     #region Constants
     private const string DESCRIPTION = "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
     private const string HINT = "Kosketa kynällä esinettä, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niitä. Voit perua kirjoituksen painamalla tekstiä uudestaan ennen kuin painat vihreää nappia";
@@ -37,9 +50,13 @@ public class WriteTextsToItems : TaskBase
     {
         GameObject gobj = (GameObject)data.DataObject;
         ObjectType type = gobj.GetComponent<GeneralItem>().ObjectType;
+        Logger.Print("OBJECTID: " + gobj.GetInstanceID());
         Logger.Print("Progress system object type: " + type);
         Writable text = gobj.GetComponent<Writable>();
         Logger.Print("Progress sytemiä varten tekstin löytyminen: " + text.Text);
+        foreach (var option in text.WrittenLines)
+            Logger.Print(option.Key + " = " + option.Value);
+
 
         if (type == ObjectType.Bottle)
         {

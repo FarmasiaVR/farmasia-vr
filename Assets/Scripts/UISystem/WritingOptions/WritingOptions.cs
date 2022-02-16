@@ -15,6 +15,7 @@ public class WritingOptions : MonoBehaviour {
     private TextMeshPro errorTextField;
 
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
+    private Dictionary<WritingType, string> alreadySelectedOptions = new Dictionary<WritingType, string>();
     private string alreadyWrittenText;
     private string resultText;
 
@@ -30,7 +31,7 @@ public class WritingOptions : MonoBehaviour {
     private GameObject toggle;
 
     // Callback that is invoked when the submit button is clicked. The WritingPen will set this.
-    public Action<string> onSubmit;
+    public Action<Dictionary<WritingType, string>> onSubmit;
 
     void Start() {
         resultTextField = resultTextObject.GetComponent<TextMeshPro>();
@@ -102,7 +103,7 @@ public class WritingOptions : MonoBehaviour {
     }
 
     private void Submit() {
-        onSubmit(resultText);
+        onSubmit(selectedOptions);
         ResetOptions();
     }
 
