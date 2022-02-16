@@ -13,14 +13,18 @@ public class WriteTextsToItems : TaskBase
     /// Conditions must be met to render task complete
     /// </summary>
     public enum Conditions { SoycaseinePlatesHaveText, SabouradDextrosiPlateHasText, BottlesHaveText }
-    private int numberOfObjectsThatHaveText = 0;
-    private int numberOfObjectsThatShouldHaveText = 8;
+    private int writtenBottles = 0;
+    private int writtenSoycaseinePlates = 0;
+    private int writtenSabouradPlates = 0;
+    private int numberOfObjectsThatShouldHaveText = 1;
     #endregion
 
     public WriteTextsToItems() : base(TaskType.WriteTextsToItems, true, false)
     {
+        SetCheckAll(true);
         Subscribe();
-
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+        points = 2;
     }
 
     #region Event Subscriptions
@@ -36,20 +40,46 @@ public class WriteTextsToItems : TaskBase
         Logger.Print("Progress system object type: " + type);
         Writable text = gobj.GetComponent<Writable>();
         Logger.Print("Progress sytemiä varten tekstin löytyminen: " + text.Text);
+
+        if (type == ObjectType.Bottle)
+        {
+            writtenBottles++;
+            if (writtenBottles == 1)
+            {
+                EnableCondition(Conditions.BottlesHaveText);
+                EnableCondition(Conditions.SoycaseinePlatesHaveText);
+                EnableCondition(Conditions.SabouradDextrosiPlateHasText);
+            }
+        }
+        if (type == ObjectType.SoycaseinePlate)
+        {
+            writtenSoycaseinePlates++;
+        }
+        if (type == ObjectType.SabouradDextrosiPlate)
+        {
+            writtenSabouradPlates++;
+        }
+
+        if (writtenBottles == numberOfObjectsThatShouldHaveText)
+        {
+            CompleteTask();
+        }
+
     }
     #endregion
     protected override void OnTaskComplete()
     {
-        //////////////////////// TODO /////////////////////////
-        throw new NotImplementedException();
     }
 
     #region Public Methods
 
-    public override void FinishTask()
+    public override void CompleteTask()
     {
-        base.FinishTask();
-
+        base.CompleteTask();
+        if (IsCompleted())
+        {
+            Popup("Hyvin kirjoitettu.", MsgType.Done);
+        }
     }
 
     public override string GetDescription()

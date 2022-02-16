@@ -135,8 +135,13 @@ public class ProgressManager {
         TaskType[] selectTasks = {
             TaskType.CorrectItemsInThroughputMembrane
         };
+        TaskType[] workSpaceTasks = {
+            TaskType.WriteTextsToItems
+        };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
         packages.Add(equipmentSelection);
+        packages.Add(workSpace);
     }
 
     #region Package Init Functions
