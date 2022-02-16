@@ -5,10 +5,13 @@ using System;
 public class WritingOption : DragAcceptable {
 
     [SerializeField]
-    private string optionName = "valinta";
+    public string OptionText = "valinta";
+
+    public WritingType WritingType;
 
     [SerializeField]
     private Material selectedMaterial;
+    
     [SerializeField]
     private Material deselectedMaterial;
 
@@ -17,17 +20,17 @@ public class WritingOption : DragAcceptable {
 
     private bool selected;
 
-    public Action<string> onSelect;
-    public Action<string> onDeselect;
+    public Action<WritingOption> onSelect;
+    public Action<WritingOption> onDeselect;
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
 
         selected = !selected;
         if (selected)
-            onSelect(optionName);
+            onSelect(this);
         else
-            onDeselect(optionName);
+            onDeselect(this);
 
         UpdateMaterial();
     }
