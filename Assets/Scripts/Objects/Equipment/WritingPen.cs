@@ -22,10 +22,10 @@ public class WritingPen : GeneralItem {
             return;
         }
 
-        Write(writable);
+        Write(writable, foundObject);
     }
 
-    private void Write(Writable writable) {
+    private void Write(Writable writable, GameObject foundObject) {
         
         // Find the writing options object, make it visible, set a callback for when user submits text from the options
         
@@ -48,6 +48,9 @@ public class WritingPen : GeneralItem {
         writingOptions.SetWritable(writable);
 
         // Set the callback so that it writes to the writable when it is submitted
-        writingOptions.onSubmit = (text) => { writable.Text = text; };
+        writingOptions.onSubmit = (text) => {
+            writable.Text = text;
+            Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+        };
     }
 }
