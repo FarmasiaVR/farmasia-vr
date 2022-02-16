@@ -115,6 +115,10 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
+        yield return Wait();
+        yield return Wait();
+        yield return Wait();
+        yield return Wait();
 
         hand.InteractWith(teleportDoorKnob);
 
