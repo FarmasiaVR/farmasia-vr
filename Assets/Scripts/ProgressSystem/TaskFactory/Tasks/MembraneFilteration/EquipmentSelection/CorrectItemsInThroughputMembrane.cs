@@ -13,7 +13,7 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     private int bottles100ml = 0;
     private int soycaseinePlate = 0;
     private int objectCount;
-    private int correctItemCount = 14;
+    private int correctItemCount = 17;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;

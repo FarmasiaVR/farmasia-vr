@@ -48,6 +48,8 @@ public class WritingPen : GeneralItem {
         writingOptions.SetWritable(writable);
 
         // Set the callback so that it writes to the writable when it is submitted
-        writingOptions.onSubmit = (text) => { writable.Text = text; };
+        writingOptions.onSubmit = (text) => { 
+            writable.Text = text;
+        };
     }
 }
