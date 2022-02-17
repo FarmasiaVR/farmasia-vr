@@ -30,18 +30,6 @@ public static class WritingSpecifications {
             WritingType.Name,
             WritingType.SoyCaseine
             ),
-        
-        // Sormenpäämaljat (must be before soijakaseiini laskeumamalja, as it could match the same items)
-        new WritingSpec(ObjectType.SoycaseinePlate,
-            WritingType.Name,
-            WritingType.Time,
-            WritingType.RightHand
-            ),
-        new WritingSpec(ObjectType.SoycaseinePlate,
-            WritingType.Name,
-            WritingType.Time,
-            WritingType.LeftHand
-            ),
 
         // Laskeumamaljat
         new WritingSpec(ObjectType.SoycaseinePlate,
@@ -51,6 +39,19 @@ public static class WritingSpecifications {
         new WritingSpec(ObjectType.SabouradDextrosiPlate,
             WritingType.Name,
             WritingType.Time
+            ),
+
+        // Sormenpäämaljat (must be before soijakaseiini laskeumamalja, as it could match the same items)
+        // Will be iterated backwards in WriteTextToItems -> last
+        new WritingSpec(ObjectType.SoycaseinePlate,
+            WritingType.Name,
+            WritingType.Time,
+            WritingType.RightHand
+            ),
+        new WritingSpec(ObjectType.SoycaseinePlate,
+            WritingType.Name,
+            WritingType.Time,
+            WritingType.LeftHand
             ),
 
     };
