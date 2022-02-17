@@ -22,14 +22,13 @@ public class WriteTextsToItems : TaskBase
     #endregion
 
     #region Fields
-
     /// <summary>
     /// Conditions must be met to render task complete
     /// </summary>
     public enum Conditions { SoycaseinePlatesHaveText, SabouradDextrosiPlateHasText, BottlesHaveText }
-    private int writtenBottles = 0;
-    private int writtenSoycaseinePlates = 0;
-    private int writtenSabouradPlates = 0;
+    private int bottles = 0;
+    private int soycaseinePlates = 0;
+    private int sabouradPlates = 0;
     private int numberOfObjectsThatShouldHaveText = 1;
     #endregion
 
@@ -44,41 +43,41 @@ public class WriteTextsToItems : TaskBase
     #region Event Subscriptions
     public override void Subscribe()
     {
-        base.SubscribeEvent(DoSomething, EventType.WriteToObject);
+        base.SubscribeEvent(TrackWrittenObjects, EventType.WriteToObject);
     }
 
-    private void DoSomething(CallbackData data)
+    private void TrackWrittenObjects(CallbackData data)
     {
-        GameObject gobj = (GameObject)data.DataObject;
-        ObjectType type = gobj.GetComponent<GeneralItem>().ObjectType;
-        Logger.Print("OBJECTID: " + gobj.GetInstanceID());
-        Logger.Print("Progress system object type: " + type);
-        Writable text = gobj.GetComponent<Writable>();
-        Logger.Print("Progress sytemiä varten tekstin löytyminen: " + text.Text);
-        foreach (var option in text.WrittenLines)
+        GameObject gameObject = (GameObject)data.DataObject;
+        ObjectType objectType = gameObject.GetComponent<GeneralItem>().ObjectType;
+        Logger.Print("OBJECTID: " + gameObject.GetInstanceID());
+        Logger.Print("Progress system object objectType: " + objectType);
+        Writable textComponent = gameObject.GetComponent<Writable>();
+        Logger.Print("Progress sytemiä varten tekstin löytyminen: " + textComponent.Text);
+        foreach (var option in textComponent.WrittenLines)
             Logger.Print(option.Key + " = " + option.Value);
 
 
-        if (type == ObjectType.Bottle)
+        if (objectType == ObjectType.Bottle)
         {
-            writtenBottles++;
-            if (writtenBottles == 1)
+            bottles++;
+            if (bottles == 1)
             {
                 EnableCondition(Conditions.BottlesHaveText);
                 EnableCondition(Conditions.SoycaseinePlatesHaveText);
                 EnableCondition(Conditions.SabouradDextrosiPlateHasText);
             }
         }
-        if (type == ObjectType.SoycaseinePlate)
+        if (objectType == ObjectType.SoycaseinePlate)
         {
-            writtenSoycaseinePlates++;
+            soycaseinePlates++;
         }
-        if (type == ObjectType.SabouradDextrosiPlate)
+        if (objectType == ObjectType.SabouradDextrosiPlate)
         {
-            writtenSabouradPlates++;
+            sabouradPlates++;
         }
 
-        if (writtenBottles == numberOfObjectsThatShouldHaveText)
+        if (bottles == numberOfObjectsThatShouldHaveText)
         {
             CompleteTask();
         }
