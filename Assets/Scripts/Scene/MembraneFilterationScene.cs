@@ -12,6 +12,7 @@ class MembraneFilterationScene : SceneScript {
         None = 0,
         ItemsToPassThrough,
         WorkspaceRoom,
+        ItemsToWorkspace
     }
 
     [SerializeField]
@@ -27,7 +28,7 @@ class MembraneFilterationScene : SceneScript {
     private Transform correctPositions;
 
     [SerializeField]
-    private Transform correctPositionLaminarCabinet;
+    private Transform correctPositionsWorkspace;
 
     [SerializeField]
     private Interactable teleportDoorKnob;
@@ -115,14 +116,22 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
-        yield return Wait();
-        yield return Wait();
-        yield return Wait();
-        yield return Wait();
 
         hand.InteractWith(teleportDoorKnob);
 
-        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
+        if (autoPlay == AutoPlayStrength.WorkspaceRoom) {
+            yield break;
+        }
+
+        yield return Wait();
+
+        // Set to correct positions in workspace
+        for (int i = 0; i < transforms.Count; i++) {
+            yield return Wait();
+            DropAt(transforms[i], correctPositionsWorkspace.GetChild(i).transform);
+        }
+
+        if (autoPlay == AutoPlayStrength.ItemsToWorkspace) {
             yield break;
         }
 
