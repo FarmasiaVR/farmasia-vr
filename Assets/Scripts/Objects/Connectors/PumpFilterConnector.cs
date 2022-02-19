@@ -19,7 +19,8 @@ public class PumpFilterConnector : AttachmentConnector
 
     public override void ConnectItem(Interactable interactable)
     {
-
+        Logger.Print("Pump filter trying to connect to " + interactable);
+        
         if (interactable.IsAttached)
         {
             return;

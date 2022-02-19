@@ -142,22 +142,35 @@ class MembraneFilterationScene : SceneScript {
 
         yield return Wait();
 
-        Interactable pump = ToInteractable(gameObjects[14]);
-        Interactable filter = ToInteractable(gameObjects[15]);
+        Pump pump = ToInteractable(gameObjects[14]) as Pump;
+        PumpFilter filter = ToInteractable(gameObjects[15]) as PumpFilter;
+
+        yield return Wait();
+
+        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.12f);
+
+        yield return Wait();
 
         hand.InteractWith(filter);
 
         Logger.Print("Autoplay grabbed filter");
 
-        yield return Wait();
+        yield return Wait(2);
 
-        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.01f);
+        hand.transform.position -= Vector3.up * 0.04f;
 
-        Logger.Print("Autoplay dropped filter into position");
+        Logger.Print("Autoplay moved filter into position");
 
-        yield return Wait(1);
+        yield return Wait(2);
 
         hand.Uninteract();
+
+        yield return Wait();
+
+        if (filter.Connector.AttachedInteractable == null) {
+            filter.Connector.ConnectItem(pump);
+            Logger.Print("Autoplay forced pump filter connection");
+        }
 
         yield break;
     }
@@ -184,7 +197,7 @@ class MembraneFilterationScene : SceneScript {
     }
 
     private WaitForSeconds Wait(float seconds) {
-        return new WaitForSeconds(0.25f);
+        return new WaitForSeconds(seconds);
     }
 
     private void AllowCollisionsBetween(List<Transform> items, bool allow) {
