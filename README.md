@@ -112,17 +112,17 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/Veikkosuhonen">
-            <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
-            <br />
-            <sub><b>Veikmaster</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/Reksa97">
             <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
             <br />
             <sub><b>Reko Kälkäjä</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Veikkosuhonen">
+            <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
+            <br />
+            <sub><b>Veikmaster</b></sub>
         </a>
     </td>
     <td align="center">
