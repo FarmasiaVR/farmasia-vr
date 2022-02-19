@@ -39,6 +39,8 @@ public class PumpFilterConnector : AttachmentConnector
         {
             itemHand.InteractWith(interactable, false);
         }
+
+        Logger.Print("Pump filter connected");
     }
 
     protected override void SetInteractors()

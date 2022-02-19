@@ -12,7 +12,8 @@ class MembraneFilterationScene : SceneScript {
         None = 0,
         ItemsToPassThrough,
         WorkspaceRoom,
-        ItemsToWorkspace
+        ItemsToWorkspace,
+        PreparePump,
     }
 
     [SerializeField]
@@ -84,10 +85,10 @@ class MembraneFilterationScene : SceneScript {
             p_peptonWaterBottle,
             p_tioglykolateBottle,
 
-            p_pump,
-            p_pump_filter,
+            p_pump, // 14
+            p_pump_filter, // 15
 
-            p_filledSterileBag,
+            p_filledSterileBag, // 16
 
         }.Select(InstantiateObject).ToList();
 
@@ -119,6 +120,10 @@ class MembraneFilterationScene : SceneScript {
 
         hand.InteractWith(teleportDoorKnob);
 
+        yield return Wait();
+
+        hand.Uninteract();
+
         if (autoPlay == AutoPlayStrength.WorkspaceRoom) {
             yield break;
         }
@@ -135,6 +140,25 @@ class MembraneFilterationScene : SceneScript {
             yield break;
         }
 
+        yield return Wait();
+
+        Interactable pump = ToInteractable(gameObjects[14]);
+        Interactable filter = ToInteractable(gameObjects[15]);
+
+        hand.InteractWith(filter);
+
+        Logger.Print("Autoplay grabbed filter");
+
+        yield return Wait();
+
+        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.01f);
+
+        Logger.Print("Autoplay dropped filter into position");
+
+        yield return Wait(1);
+
+        hand.Uninteract();
+
         yield break;
     }
 
@@ -146,11 +170,20 @@ class MembraneFilterationScene : SceneScript {
     }
 
     private void DropAt(Transform theObject, Transform position) {
-        theObject.position = position.position;
+        DropAt(theObject, position.position);
+    }
+
+    private void DropAt(Transform theObject, Vector3 position) {
+        theObject.position = position;
+        theObject.eulerAngles = Vector3.up;
         theObject.gameObject.GetComponent<Rigidbody>().velocity *= 0f;
     }
 
     private WaitForSeconds Wait() {
+        return Wait(0.25f);
+    }
+
+    private WaitForSeconds Wait(float seconds) {
         return new WaitForSeconds(0.25f);
     }
 
