@@ -13,7 +13,7 @@ public class PumpFilter : GeneralItem
         ObjectType = ObjectType.PumpFilter;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
 
-        Connector = new PumpFilterConnector(this, transform.Find("Collider").gameObject);
+        Connector = new PumpFilterConnector(this, transform.Find("Pump Collider").gameObject);
         Connector.Subscribe();
     }
     public void ReleaseItem()
