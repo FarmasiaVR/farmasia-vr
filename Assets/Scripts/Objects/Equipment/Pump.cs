@@ -9,7 +9,9 @@ public class Pump : GeneralItem
 
     protected override void Start()
     {
-        base.Start();       
-       
+        base.Start();
+        ObjectType = ObjectType.Pump;
+        Type.On(InteractableType.Attachable, InteractableType.Interactable, InteractableType.SmallObject);
+
     }
 }

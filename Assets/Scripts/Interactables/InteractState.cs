@@ -4,5 +4,6 @@
     NeedleAttached,
     LidAttached,
     InBottle,
-    OnFloor
+    OnFloor,
+    PumpFilterAttached
 }
