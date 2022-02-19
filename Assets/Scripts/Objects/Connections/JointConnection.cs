@@ -18,6 +18,7 @@ public class JointConnection : ItemConnection {
     }
 
     private void SetJoint() {
+        Logger.Print("SetJoint: rb = " + rb.mass);
         joint = JointConfiguration.AddJoint(gameObject, rb.mass);
         joint.connectedBody = target;
     }
