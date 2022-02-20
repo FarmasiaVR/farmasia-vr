@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class JointConnection : ItemConnection {
 
@@ -13,12 +14,25 @@ public class JointConnection : ItemConnection {
     #endregion
 
     private void Awake() {
+        Logger.Print("JointConnection Awake");
         interactable = GetComponent<Interactable>();
+        Logger.Print("JointConnection interactable = " + interactable);
         rb = interactable.Rigidbody;
+        Logger.Print("JointConnection rb = " + rb);
     }
 
     private void SetJoint() {
-        Logger.Print("SetJoint: rb = " + rb.mass);
+        // debug this shit
+        try {
+            Logger.Print("SetJoint: rb = " + rb.mass);
+
+        } catch (NullReferenceException e) {
+            Logger.Warning("------ EPIC DEBUG STARTING --------");
+            Logger.Print("The rb.mass call caused NRE. Interactable was " + interactable);
+            Logger.Print("The Target RigidBody was " + target);
+            Logger.Print("The transformTarget was " + transformTarget);
+            Logger.Print("The Connector " + Connector.Connection);
+        }
         joint = JointConfiguration.AddJoint(gameObject, rb.mass);
         joint.connectedBody = target;
     }

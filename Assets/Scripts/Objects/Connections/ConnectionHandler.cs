@@ -5,24 +5,29 @@ public static class ConnectionHandler {
 
     #region Attaching
     public static void GrabItem(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabItem, target = " + target + " addTo = " + addTo);
         connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
     }
 
 
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabLuerlockAttachedItem, target = " + target + " addTo = " + addTo);
         connector.Connection = ItemConnection.AddLuerlockItemConnection(connector, target, addTo);
     }
 
     public static void GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabLuerlockAttachedItemWhenLuerlockIsGrabbed, target = " + target + " addTo = " + addTo);
         connector.Connection = ItemConnection.AddLuerlockLooseItemConnection(connector, target, addTo);
     }
 
     public static void GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed, target = " + target + " addTo = " + addTo);
         connector.Connection = ItemConnection.AddLuerlockLooseItemConnection(connector, target, addTo);
     }
 
     // Verify for Luerlock/Needle
     public static void GrabLuerlockWhenAttachedItemsAreGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabLuerlockWhenAttachedItemsAreGrabbed, target = " + target + " addTo = " + addTo);
 
         LuerlockAdapter luerlock = addTo as LuerlockAdapter;
 
@@ -55,6 +60,7 @@ public static class ConnectionHandler {
     }
 
     public static void GrabNeedleWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabNeedleWhenAttachedItemIsGrabbed, target = " + target + " addTo = " + addTo);
 
         Needle needle = addTo as Needle;
 
@@ -78,6 +84,7 @@ public static class ConnectionHandler {
         otherHand.InteractWith(otherItem, false);
     }
     public static void GrabLidWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo) {
+        Logger.Print("ConnectionHandler GrabLidWhenAttachedItemIsGrabbed, target = " + target + " addTo = " + addTo);
 
         AgarPlateLid lid = addTo as AgarPlateLid;
 

@@ -102,7 +102,8 @@ class MembraneFilterationScene : SceneScript {
 
         Hand hand = VRInput.Hands[0].Hand;
 
-        // Set to correct positions in throughput cabinet
+        // --- Set to correct positions in throughput cabinet ---
+
         for (int i = 0; i < transforms.Count; i++) { 
             yield return Wait();
             DropAt(transforms[i], correctPositions.GetChild(i).transform);
@@ -118,6 +119,8 @@ class MembraneFilterationScene : SceneScript {
 
         yield return Wait();
 
+        // --- Go to workspace ---
+
         hand.InteractWith(teleportDoorKnob);
 
         yield return Wait();
@@ -130,7 +133,8 @@ class MembraneFilterationScene : SceneScript {
 
         yield return Wait();
 
-        // Set to correct positions in workspace
+        // --- Set to correct positions in workspace ---
+
         for (int i = 0; i < transforms.Count; i++) {
             yield return Wait();
             DropAt(transforms[i], correctPositionsWorkspace.GetChild(i).transform);
@@ -141,6 +145,8 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
+
+        // --- Try to connect pump filter ---
 
         Pump pump = ToInteractable(gameObjects[14]) as Pump;
         PumpFilter filter = ToInteractable(gameObjects[15]) as PumpFilter;
@@ -153,15 +159,11 @@ class MembraneFilterationScene : SceneScript {
 
         hand.InteractWith(filter);
 
-        Logger.Print("Autoplay grabbed filter");
-
-        yield return Wait(2);
+        yield return Wait();
 
         hand.transform.position -= Vector3.up * 0.04f;
 
-        Logger.Print("Autoplay moved filter into position");
-
-        yield return Wait(2);
+        yield return Wait();
 
         hand.Uninteract();
 

@@ -63,6 +63,7 @@ public class RigidbodyContainer {
         }
 
         state.SetRigidbody(Rigidbody);
+        Logger.Print("RigidBody of " +interactable + " created");
     }
     public void Disable() {
 
@@ -74,6 +75,7 @@ public class RigidbodyContainer {
     
         SaveState();
         MonoBehaviour.Destroy(Rigidbody);
+        Logger.Print("RigidBody of " +interactable + " destroyed");
     }
     public void SaveState() {
         state = new RigidbodyState(Rigidbody);
