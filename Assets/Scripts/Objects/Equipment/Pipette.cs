@@ -26,6 +26,9 @@ public class Pipette : GeneralItem {
         base.Start();
 
         Container = LiquidContainer.FindLiquidContainer(transform);
+
+        
+        Type.On(InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
     }
 
     public override void OnGrabStart(Hand hand) {
@@ -40,6 +43,38 @@ public class Pipette : GeneralItem {
         if (State != InteractState.LuerlockAttached && State != InteractState.Grabbed) {
             display.DisableDisplay();
         }
+    }
+
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
+
+        bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
+        bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
+
+        Logger.Print("Taking medicine");
+
+        if(takeMedicine == sendMedicine) {
+            return;
+        }
+
+        if (State == InteractState.InBottle) {
+            TransferToBottle(sendMedicine);
+            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        } else {
+            Eject();
+        }
+    }
+
+    private void Eject() {
+        Container.SetAmount(0);
+    }
+
+    private void TransferToBottle(bool into) {
+        if (BottleContainer == null) return;
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+
+
+        Container.TransferTo(BottleContainer, into ? Container.Amount : -Container.Amount);
     }
     
     

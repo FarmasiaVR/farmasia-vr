@@ -179,10 +179,18 @@ public class LiquidContainer : MonoBehaviour {
         Logger.Print("Exited bottle:" + enteringInteractable);
 
         Needle needle = enteringInteractable as Needle;
-        if (needle == null) {
-            return;
+        if (needle != null) {
+            OnNeedleExit(needle);
         }
 
+        Pipette pipette = enteringInteractable as Pipette;
+        if (pipette != null) {
+            OnPipetteExit(pipette);
+        }
+        
+    }
+
+    private void OnNeedleExit(Needle needle) {
         Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) {
             return;
@@ -191,6 +199,13 @@ public class LiquidContainer : MonoBehaviour {
         if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
+        }
+    }
+
+    private void OnPipetteExit(Pipette pipette) {
+        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+            pipette.State.Off(InteractState.InBottle);
+            pipette.BottleContainer = null;
         }
     }
 }
