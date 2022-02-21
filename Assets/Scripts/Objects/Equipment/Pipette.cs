@@ -50,14 +50,29 @@ public class Pipette : GeneralItem {
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
-
-        if(takeMedicine == sendMedicine) {
-            return;
+        
+        if (takeMedicine) {
+            TakeMedicine();
+        } else if (sendMedicine) {
+            SendMedicine();
         }
-        Logger.Print("Taking medicine"+takeMedicine);
+
+    }
+
+    public void TakeMedicine() {
+        Logger.Print("Taking medicine");
 
         if (State == InteractState.InBottle) {
-            TransferToBottle(sendMedicine);
+            TransferToBottle(false);
+            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        }
+    }
+
+    public void SendMedicine() {
+        Logger.Print("Sending medicine");
+
+        if (State == InteractState.InBottle) {
+            TransferToBottle(true);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Eject();
@@ -74,8 +89,7 @@ public class Pipette : GeneralItem {
 
         Logger.Print("in container:"+Container.Amount);
 
-        Container.TransferTo(BottleContainer, into ? Container.Amount : -Container.Amount);
+        Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
     }
-    
     
 }

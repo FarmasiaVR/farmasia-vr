@@ -174,6 +174,28 @@ class MembraneFilterationScene : SceneScript {
             Logger.Print("Autoplay forced pump filter connection");
         }
 
+        Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
+        MedicineBottle bottle = ToInteractable(gameObjects[7]) as MedicineBottle;
+        MedicineBottle tioglygolate = ToInteractable(gameObjects[13]) as MedicineBottle;
+
+        yield return Wait();
+
+        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.02f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+
+        yield return Wait();
+
+        hand.transform.position = pipette.transform.position;
+
+        yield return Wait();
+
+        
+        hand.InteractWith(pipette);
+        yield return Wait();
+        hand.transform.eulerAngles = Vector3.down;
+        
+        pipette.TakeMedicine();
+
         yield break;
     }
 
