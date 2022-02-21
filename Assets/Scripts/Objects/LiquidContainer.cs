@@ -121,10 +121,20 @@ public class LiquidContainer : MonoBehaviour {
 
     private void OnTrueEnter(Interactable enteringInteractable) {
         Needle needle = enteringInteractable as Needle;
-        if (needle == null || !needle.Connector.HasAttachedObject) {
-            return;
+        Pipette pipette = enteringInteractable as Pipette;
+        if (needle!=null && needle.Connector.HasAttachedObject) {
+            OnSyringeEnter(needle);
+        }
+        
+        if (pipette!=null) {
+            Logger.Print("pipette entered bottle");
+            OnPipetteEnter(pipette);
         }
 
+        
+    }
+
+    private void OnSyringeEnter(Needle needle) {
         Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) {
             return;
@@ -140,7 +150,7 @@ public class LiquidContainer : MonoBehaviour {
 
             if (G.Instance.Scene is MedicinePreparationScene) {
                 if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                    TaskBase.CreateGeneralMistake("Lääkettä yritettiin ottaa uudestaan");
+                    TaskBase.CreateGeneralMistake("Lï¿½ï¿½kettï¿½ yritettiin ottaa uudestaan");
                 }
             }
 
@@ -150,7 +160,23 @@ public class LiquidContainer : MonoBehaviour {
         syringe.BottleContainer = this;
     }
 
+    private void OnPipetteEnter(Pipette pipette) {
+        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+            pipette.State.On(InteractState.InBottle);
+            pipette.hasBeenInBottle = true;
+
+            if (!generalItem.IsClean) {
+                pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
+            }
+
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(pipette));
+        }
+
+        pipette.BottleContainer = this;
+    }
+
     private void OnTrueExit(Interactable enteringInteractable) {
+        Logger.Print("Exited bottle:" + enteringInteractable);
 
         Needle needle = enteringInteractable as Needle;
         if (needle == null) {
