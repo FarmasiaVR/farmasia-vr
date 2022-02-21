@@ -51,11 +51,10 @@ public class Pipette : GeneralItem {
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
-        Logger.Print("Taking medicine");
-
         if(takeMedicine == sendMedicine) {
             return;
         }
+        Logger.Print("Taking medicine"+takeMedicine);
 
         if (State == InteractState.InBottle) {
             TransferToBottle(sendMedicine);
@@ -73,6 +72,7 @@ public class Pipette : GeneralItem {
         if (BottleContainer == null) return;
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
 
+        Logger.Print("in container:"+Container.Amount);
 
         Container.TransferTo(BottleContainer, into ? Container.Amount : -Container.Amount);
     }
