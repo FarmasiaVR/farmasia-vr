@@ -88,8 +88,12 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (amount == 0) return;
+        if (amount == 0) {
+            Logger.Print("Transferring 0");
+            return;
+        }
         if (amount < 0) {
+            Logger.Print("Transferring away from");
             target.TransferTo(this, -amount);
             return;
         }
@@ -97,6 +101,8 @@ public class LiquidContainer : MonoBehaviour {
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
+
+        Logger.Print("Transferring " + toTransfer + " in total");
 
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
@@ -127,7 +133,6 @@ public class LiquidContainer : MonoBehaviour {
         }
         
         if (pipette!=null) {
-            Logger.Print("pipette entered bottle");
             OnPipetteEnter(pipette);
         }
 
@@ -161,7 +166,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (generalItem is MedicineBottle) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
@@ -176,8 +181,6 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnTrueExit(Interactable enteringInteractable) {
-        Logger.Print("Exited bottle:" + enteringInteractable);
-
         Needle needle = enteringInteractable as Needle;
         if (needle != null) {
             OnNeedleExit(needle);

@@ -60,8 +60,6 @@ public class Pipette : GeneralItem {
     }
 
     public void TakeMedicine() {
-        Logger.Print("Taking medicine");
-
         if (State == InteractState.InBottle) {
             TransferToBottle(false);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
@@ -69,8 +67,6 @@ public class Pipette : GeneralItem {
     }
 
     public void SendMedicine() {
-        Logger.Print("Sending medicine");
-
         if (State == InteractState.InBottle) {
             TransferToBottle(true);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
@@ -86,8 +82,6 @@ public class Pipette : GeneralItem {
     private void TransferToBottle(bool into) {
         if (BottleContainer == null) return;
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
-        Logger.Print("in container:"+Container.Amount);
 
         Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
     }
