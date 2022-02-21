@@ -134,6 +134,15 @@ public static class ConnectionHandler {
         otherHand.InteractWith(otherInteractable, false);
     }
 
+    public static void ReleaseLidWhenLidAttachedItemIsGrabbed(AgarPlateLid lid) {
+
+        Interactable otherInteractable = lid.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable, false);
+    }
+
     public static void ReleaseLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(Interactable grabbedInteractable, LuerlockAdapter luerlock) {
 
         Interactable otherInteractable = luerlock.GetOtherInteractable(grabbedInteractable);
@@ -142,5 +151,7 @@ public static class ConnectionHandler {
         otherHand.Connector.Connection.Remove();
         otherHand.InteractWith(otherInteractable);
     }
+
+
     #endregion
 }

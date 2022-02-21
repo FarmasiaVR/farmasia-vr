@@ -195,6 +195,10 @@ public class HandConnector : ItemConnector {
             if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
                 ConnectionHandler.ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(needle);
             }
+        } else if (GrabbedInteractable as AgarPlateLid is var lid && lid != null) {
+            if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                ConnectionHandler.ReleaseLidWhenLidAttachedItemIsGrabbed(lid);
+            }
         }
     }
 

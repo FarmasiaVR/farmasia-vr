@@ -55,6 +55,7 @@ public class AgarPlateLidConnector : AttachmentConnector {
     }
 
     public override void OnReleaseItem() {
+        Logger.Print("Releasing agarplates");
 
         AgarPlateBottom bottom = (AgarPlateBottom)attached.Interactable;
 
