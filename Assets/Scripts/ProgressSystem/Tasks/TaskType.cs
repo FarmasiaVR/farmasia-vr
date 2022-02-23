@@ -18,5 +18,6 @@ public enum TaskType {
     Finish,
     CorrectItemsInThroughputMembrane,
     SelectToolsMembrane,
-    WriteTextsToItems
+    WriteTextsToItems,
+    FillBottles
 }

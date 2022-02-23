@@ -52,6 +52,8 @@ public static class TaskFactory {
                     return new CorrectItemsInThroughputMembrane();
                 case TaskType.WriteTextsToItems:
                     return new WriteTextsToItems();
+                case TaskType.FillBottles:
+                    return new FillBottles();
                 default:
                     return null;
             }

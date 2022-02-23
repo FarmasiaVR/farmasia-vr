@@ -16,12 +16,13 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
-    [SerializeField]
-    private LiquidType liquidType;
+    public LiquidType LiquidType;
 
-    private GeneralItem generalItem;
+    public GeneralItem GeneralItem;
 
     private TriggerInteractableContainer itemContainer;
+
+    public bool Impure;
 
     public int Amount {
         get { return amount; }
@@ -72,7 +73,7 @@ public class LiquidContainer : MonoBehaviour {
 
             yield return null;
 
-            generalItem = (GeneralItem)Interactable.GetInteractable(transform);
+            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
         }
     }
 
@@ -99,25 +100,43 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        ApplyLiquidType(target);
-
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
+        if (toTransfer == 0) return;
+
         Logger.Print("Transferring " + toTransfer + " in total");
+
+        TransferLiquidType(target);
 
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
+
+        FireBottleFillingEvent(target);
     }
 
-    private void ApplyLiquidType(LiquidContainer target) {
-        if (target.liquidType == LiquidType.None) {
-            target.liquidType = liquidType;
-        } else {
-            target.liquidType = LiquidType.Mixed;
+    private void TransferLiquidType(LiquidContainer target) {
+        if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
+            target.LiquidType = LiquidType;
+        } else { // Case: the target has held or holds different liquid
+            Logger.Print("Transferring to " + target.GeneralItem + " which might be bad, its got " + target.Amount);
+            if (target.Amount == 0) {
+                Logger.Print("Transferring made it impure");
+                target.LiquidType = LiquidType;
+                target.Impure = true;
+            } else {
+                Logger.Print("Liquids mixed!");
+                target.LiquidType = LiquidType.Mixed;
+            }
         }
-        Logger.Print("Receiving LiquidContainer's type set to " + target.liquidType);
+        Logger.Print("Receiving LiquidContainer's type set to " + target.LiquidType);
+    }
+
+    private void FireBottleFillingEvent(LiquidContainer target) {
+        if (target.GeneralItem is MedicineBottle || target.GeneralItem is PumpFilter) {
+            Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
+        }
     }
 
     /// <summary>
@@ -157,11 +176,11 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
 
-            if (!generalItem.IsClean) {
+            if (!GeneralItem.IsClean) {
                 needle.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
 
@@ -178,11 +197,11 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (generalItem is MedicineBottle) {
+        if (GeneralItem is MedicineBottle) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
-            if (!generalItem.IsClean) {
+            if (!GeneralItem.IsClean) {
                 pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
 
@@ -211,14 +230,14 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
         }
     }
 
     private void OnPipetteExit(Pipette pipette) {
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
             pipette.State.Off(InteractState.InBottle);
             pipette.BottleContainer = null;
         }

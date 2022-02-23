@@ -33,5 +33,6 @@
     PushingToSmallerSyringe,
     ItemDroppedInWrongTrash,
     ItemPlacedInCabinet,
-    WriteToObject
+    WriteToObject,
+    TransferLiquidToBottle
 }
