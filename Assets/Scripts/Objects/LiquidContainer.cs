@@ -16,6 +16,9 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
+    [SerializeField]
+    private LiquidType liquidType;
+
     private GeneralItem generalItem;
 
     private TriggerInteractableContainer itemContainer;
@@ -89,14 +92,14 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         if (amount == 0) {
-            Logger.Print("Transferring 0");
             return;
         }
         if (amount < 0) {
-            Logger.Print("Transferring away from");
             target.TransferTo(this, -amount);
             return;
         }
+
+        ApplyLiquidType(target);
 
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
@@ -106,6 +109,15 @@ public class LiquidContainer : MonoBehaviour {
 
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
+    }
+
+    private void ApplyLiquidType(LiquidContainer target) {
+        if (target.liquidType == LiquidType.None) {
+            target.liquidType = liquidType;
+        } else {
+            target.liquidType = LiquidType.Mixed;
+        }
+        Logger.Print("Receiving LiquidContainer's type set to " + target.liquidType);
     }
 
     /// <summary>
