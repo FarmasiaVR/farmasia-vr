@@ -106,7 +106,7 @@ public class HandConnector : ItemConnector {
         }
 
         if (lid.State == InteractState.Grabbed) {
-            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+            ConnectionHandler.GrabLidWhenAttachedItemIsGrabbed(this, Hand.transform, interactable);
         }
         else {
             ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
@@ -196,6 +196,7 @@ public class HandConnector : ItemConnector {
                 ConnectionHandler.ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(needle);
             }
         } else if (GrabbedInteractable as AgarPlateLid is var lid && lid != null) {
+            Logger.Print("here");
             if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
                 ConnectionHandler.ReleaseLidWhenLidAttachedItemIsGrabbed(lid);
             }
