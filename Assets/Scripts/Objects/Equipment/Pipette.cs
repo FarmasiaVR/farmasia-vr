@@ -63,6 +63,8 @@ public class Pipette : GeneralItem {
         if (State == InteractState.InBottle) {
             TransferToBottle(false);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        } else {
+            Logger.Print("Pipette not in bottle");
         }
     }
 

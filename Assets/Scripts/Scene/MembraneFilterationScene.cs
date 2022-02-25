@@ -22,7 +22,7 @@ class MembraneFilterationScene : SceneScript {
     [Tooltip("Prefabs")]
     [SerializeField]
     private GameObject p_pipette, p_tweezers, p_scalpel, p_soyCaseinePlate, p_sabouradDextrosiPlate, p_bottle100ml, 
-        p_soyCaseineBottle, p_peptonWaterBottle, p_tioglykolateBottle, p_pump, p_pump_filter, p_filledSterileBag;
+        p_soyCaseineBottle, p_peptonWaterBottle, p_tioglykolateBottle, p_pump, p_pump_filter, p_filledSterileBag, p_writingPen;
 
     [Tooltip("Scene items")]
     [SerializeField]
@@ -90,6 +90,8 @@ class MembraneFilterationScene : SceneScript {
 
             p_filledSterileBag, // 16
 
+            p_writingPen, // 17
+
         }.Select(InstantiateObject).ToList();
 
         List<Transform> transforms = gameObjects.Select(go => go.transform).ToList();
@@ -104,7 +106,7 @@ class MembraneFilterationScene : SceneScript {
 
         // --- Set to correct positions in throughput cabinet ---
 
-        for (int i = 0; i < transforms.Count; i++) { 
+        for (int i = 0; i < transforms.Count - 1; i++) { // -1 because no pen
             yield return Wait();
             DropAt(transforms[i], correctPositions.GetChild(i).transform);
         }
@@ -174,27 +176,101 @@ class MembraneFilterationScene : SceneScript {
             Logger.Print("Autoplay forced pump filter connection");
         }
 
+        // Write
+        WritingPen pen = ToInteractable(gameObjects[17]) as WritingPen;
         Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
-        MedicineBottle bottle = ToInteractable(gameObjects[7]) as MedicineBottle;
+        MedicineBottle bottleT1 = ToInteractable(gameObjects[7]) as MedicineBottle;
+        MedicineBottle bottleT2 = ToInteractable(gameObjects[8]) as MedicineBottle;
+        MedicineBottle bottleS1 = ToInteractable(gameObjects[9]) as MedicineBottle;
+        MedicineBottle bottleS2 = ToInteractable(gameObjects[10]) as MedicineBottle;
+        MedicineBottle soycaseine = ToInteractable(gameObjects[11]) as MedicineBottle;
         MedicineBottle tioglygolate = ToInteractable(gameObjects[13]) as MedicineBottle;
 
+        // Fill bottles
+        // tioglygolate 1
         yield return Wait();
-
-        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.02f);
+        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
-
         yield return Wait();
-
         hand.transform.position = pipette.transform.position;
-
         yield return Wait();
-
-        
         hand.InteractWith(pipette);
         yield return Wait();
         hand.transform.eulerAngles = Vector3.down;
-        
         pipette.TakeMedicine();
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(pipette.transform, bottleT1.transform.position + Vector3.up * 0.05f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        yield return Wait();
+        hand.InteractWith(pipette);
+        yield return Wait();
+        pipette.SendMedicine();
+        hand.Uninteract();
+
+        // tioglygolate 1
+        yield return Wait(0.5f);
+        tioglygolate.transform.eulerAngles *= 0f;
+        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.2f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        hand.transform.position = pipette.transform.position;
+        hand.transform.eulerAngles = Vector3.down;
+        hand.InteractWith(pipette);
+        yield return Wait(0.5f);
+        pipette.TakeMedicine();
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(pipette.transform, bottleT2.transform.position + Vector3.up * 0.05f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        yield return Wait();
+        hand.InteractWith(pipette);
+        yield return Wait();
+        pipette.SendMedicine();
+        hand.Uninteract();
+
+        // soycaseine 1
+        yield return Wait(0.5f);
+        tioglygolate.transform.eulerAngles *= 0f;
+        DropAt(pipette.transform, soycaseine.transform.position + Vector3.up * 0.2f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        hand.transform.position = pipette.transform.position;
+        hand.transform.eulerAngles = Vector3.down;
+        hand.InteractWith(pipette);
+        yield return Wait(0.5f);
+        pipette.TakeMedicine();
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(pipette.transform, bottleS1.transform.position + Vector3.up * 0.05f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        yield return Wait();
+        hand.InteractWith(pipette);
+        yield return Wait();
+        pipette.SendMedicine();
+        hand.Uninteract();
+
+        // soycaseine 2
+        yield return Wait(0.5f);
+        tioglygolate.transform.eulerAngles *= 0f;
+        DropAt(pipette.transform, soycaseine.transform.position + Vector3.up * 0.2f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        hand.transform.position = pipette.transform.position;
+        hand.transform.eulerAngles = Vector3.down;
+        hand.InteractWith(pipette);
+        yield return Wait(0.5f);
+        pipette.TakeMedicine();
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(pipette.transform, bottleS2.transform.position + Vector3.up * 0.05f);
+        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        yield return Wait();
+        hand.InteractWith(pipette);
+        yield return Wait();
+        pipette.SendMedicine();
+        hand.Uninteract();
 
         yield break;
     }
@@ -217,7 +293,7 @@ class MembraneFilterationScene : SceneScript {
     }
 
     private WaitForSeconds Wait() {
-        return Wait(0.25f);
+        return Wait(0.1f);
     }
 
     private WaitForSeconds Wait(float seconds) {
