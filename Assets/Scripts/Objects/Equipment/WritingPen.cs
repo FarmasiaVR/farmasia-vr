@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WritingPen : GeneralItem {
 
@@ -48,8 +49,12 @@ public class WritingPen : GeneralItem {
 
         // Set the callback so that it writes to the writable when it is submitted
         writingOptions.onSubmit = (selectedOptions) => {
-            writable.AddWrittenLines(selectedOptions);
-            Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+            SubmitWriting(writable, foundObject, selectedOptions);
         };
+    }
+
+    public void SubmitWriting(Writable writable, GameObject foundObject, Dictionary<WritingType, string> selectedOptions) {
+        writable.AddWrittenLines(selectedOptions);
+        Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
     }
 }

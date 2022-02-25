@@ -71,10 +71,10 @@ class MembraneFilterationScene : SceneScript {
             p_scalpel,
             p_tweezers,
 
-            p_soyCaseinePlate,
-            p_soyCaseinePlate,
-            p_soyCaseinePlate,
-            p_sabouradDextrosiPlate,
+            p_soyCaseinePlate, // 3
+            p_soyCaseinePlate, // 4
+            p_soyCaseinePlate, // 5
+            p_sabouradDextrosiPlate, // 6
 
             p_bottle100ml,
             p_bottle100ml,
@@ -176,8 +176,11 @@ class MembraneFilterationScene : SceneScript {
             Logger.Print("Autoplay forced pump filter connection");
         }
 
-        // Write
         WritingPen pen = ToInteractable(gameObjects[17]) as WritingPen;
+        GeneralItem plateS1 = ToInteractable(gameObjects[3]) as GeneralItem;
+        GeneralItem plateS2 = ToInteractable(gameObjects[4]) as GeneralItem;
+        GeneralItem plateS3 = ToInteractable(gameObjects[5]) as GeneralItem;
+        GeneralItem plateSD = ToInteractable(gameObjects[6]) as GeneralItem;
         Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
         MedicineBottle bottleT1 = ToInteractable(gameObjects[7]) as MedicineBottle;
         MedicineBottle bottleT2 = ToInteractable(gameObjects[8]) as MedicineBottle;
@@ -185,6 +188,66 @@ class MembraneFilterationScene : SceneScript {
         MedicineBottle bottleS2 = ToInteractable(gameObjects[10]) as MedicineBottle;
         MedicineBottle soycaseine = ToInteractable(gameObjects[11]) as MedicineBottle;
         MedicineBottle tioglygolate = ToInteractable(gameObjects[13]) as MedicineBottle;
+
+        // Write
+        var writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Time, ""},
+        };
+        pen.SubmitWriting(plateS1.GetComponent<Writable>(), plateS1.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Time, ""},
+        };
+        pen.SubmitWriting(plateSD.GetComponent<Writable>(), plateSD.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Time, ""},
+            {WritingType.RightHand, ""}
+        };
+        pen.SubmitWriting(plateS2.GetComponent<Writable>(), plateS2.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Time, ""},
+            {WritingType.LeftHand, ""}
+        };
+        pen.SubmitWriting(plateS3.GetComponent<Writable>(), plateS3.gameObject, writing);
+
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.SoyCaseine, ""},
+        };
+        pen.SubmitWriting(bottleS1.GetComponent<Writable>(), bottleS1.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.SoyCaseine, ""},
+        };
+        pen.SubmitWriting(bottleS2.GetComponent<Writable>(), bottleS2.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Tioglykolate, ""},
+        };
+        pen.SubmitWriting(bottleT1.GetComponent<Writable>(), bottleT1.gameObject, writing);
+
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, ""},
+            {WritingType.Tioglykolate, ""},
+        };
+        pen.SubmitWriting(bottleT2.GetComponent<Writable>(), bottleT2.gameObject, writing);
 
         // Fill bottles
         // tioglygolate 1
