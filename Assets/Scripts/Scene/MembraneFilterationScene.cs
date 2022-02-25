@@ -238,14 +238,14 @@ class MembraneFilterationScene : SceneScript {
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, ""},
-            {WritingType.Tioglykolate, ""},
+            {WritingType.Tioglygolate, ""},
         };
         pen.SubmitWriting(bottleT1.GetComponent<Writable>(), bottleT1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, ""},
-            {WritingType.Tioglykolate, ""},
+            {WritingType.Tioglygolate, ""},
         };
         pen.SubmitWriting(bottleT2.GetComponent<Writable>(), bottleT2.gameObject, writing);
 

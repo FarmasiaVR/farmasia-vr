@@ -5,7 +5,7 @@ using System;
 public enum WritingType {
     Date,
     Time,
-    Tioglykolate,
+    Tioglygolate,
     SoyCaseine,
     Name,
     LeftHand,

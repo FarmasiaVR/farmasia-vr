@@ -8,6 +8,5 @@ public enum LiquidType {
     None,
     Soycaseine,
     Tioglygolate,
-    Peptonwater,
-    Mixed
+    Peptonwater
 }

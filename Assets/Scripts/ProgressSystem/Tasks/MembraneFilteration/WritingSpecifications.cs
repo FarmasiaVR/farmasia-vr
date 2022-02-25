@@ -13,12 +13,12 @@ public static class WritingSpecifications {
         new WritingSpec(ObjectType.Bottle,
             WritingType.Date,
             WritingType.Name,
-            WritingType.Tioglykolate
+            WritingType.Tioglygolate
             ),
         new WritingSpec(ObjectType.Bottle,
             WritingType.Date,
             WritingType.Name,
-            WritingType.Tioglykolate
+            WritingType.Tioglygolate
             ),
         new WritingSpec(ObjectType.Bottle,
             WritingType.Date,

@@ -13,6 +13,8 @@ class FillBottles: TaskBase {
 
     private readonly int REQUIRED_AMOUNT = 100;
 
+    private HashSet<MedicineBottle> bottles = new HashSet<MedicineBottle>();
+
     public FillBottles() : base(TaskType.FillBottles, true, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
@@ -24,7 +26,10 @@ class FillBottles: TaskBase {
         if (container.GeneralItem is MedicineBottle bottle && bottle.ObjectType == ObjectType.Bottle) {
             Logger.Print("Filling bottle, " + soycaseineBottlesDone + " " + tioglygolateBottlesDone);
             if (bottle.Container.Amount >= REQUIRED_AMOUNT) {
+                if (bottles.Contains(bottle)) return;
+                bottles.Add(bottle);
                 if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
+
                     soycaseineBottlesDone++;
                 } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
                     tioglygolateBottlesDone++;
@@ -33,7 +38,41 @@ class FillBottles: TaskBase {
         }
         if (soycaseineBottlesDone >= 2 && tioglygolateBottlesDone >= 2) {
             EnableCondition(Conditions.BottlesFilled);
+            CheckMistakes();
             CompleteTask();
+        }
+    }
+
+    private void CheckMistakes() {
+        foreach (var bottle in bottles) {
+
+            var writable = bottle.GetComponent<Writable>();
+            if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
+
+                if (!writable.WrittenLines.ContainsKey(WritingType.SoyCaseine)) {
+                    CreateTaskMistake("Pulloon johon laitettiin soijakaseiinia, ei ole kirjoitettu 'Soijakaseiini'", 1);
+                }
+                if (bottle.Container.Amount > REQUIRED_AMOUNT) {
+                    CreateTaskMistake("Soijakaseiinipullossa oli liikaa nestettä", 1);
+                }
+                if (bottle.Container.Impure) {
+                    CreateTaskMistake("Soijakaseiinipullon neste oli sekoittunut", 1);
+                }
+
+            } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
+
+                if (!writable.WrittenLines.ContainsKey(WritingType.Tioglygolate)) {
+                    CreateTaskMistake("Pulloon johon laitettiin tioglykolaattia, ei ole kirjoitettu 'Tioglykolaatti'", 1);
+                }
+                if (bottle.Container.Amount > REQUIRED_AMOUNT) {
+                    CreateTaskMistake("Tioglykolaattipullossa oli liikaa nestettä", 1);
+                }
+                if (bottle.Container.Impure) {
+                    CreateTaskMistake("Tioglykolaattipullon neste oli sekoittunut", 1);
+                }
+            }
+
+            
         }
     }
 

@@ -127,7 +127,7 @@ public class LiquidContainer : MonoBehaviour {
                 target.Impure = true;
             } else {
                 Logger.Print("Liquids mixed!");
-                target.LiquidType = LiquidType.Mixed;
+                target.Impure = true;
             }
         }
         Logger.Print("Receiving LiquidContainer's type set to " + target.LiquidType);
