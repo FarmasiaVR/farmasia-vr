@@ -34,10 +34,12 @@ public static class WritingSpecifications {
         // Laskeumamaljat
         new WritingSpec(ObjectType.SoycaseinePlate,
             WritingType.Name,
+            WritingType.Date,
             WritingType.Time
             ),
         new WritingSpec(ObjectType.SabouradDextrosiPlate,
             WritingType.Name,
+            WritingType.Date,
             WritingType.Time
             ),
 
@@ -46,11 +48,13 @@ public static class WritingSpecifications {
         new WritingSpec(ObjectType.SoycaseinePlate,
             WritingType.Name,
             WritingType.Time,
+            WritingType.Date,
             WritingType.RightHand
             ),
         new WritingSpec(ObjectType.SoycaseinePlate,
             WritingType.Name,
             WritingType.Time,
+            WritingType.Date,
             WritingType.LeftHand
             ),
 
