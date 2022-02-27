@@ -66,6 +66,9 @@ public class HandConnector : ItemConnector {
         } else if (interactable.State == InteractState.LidAttached) {
             Logger.Print("Attaching interactable with lid");
             AttachAgarplateLidAttached(interactable);
+        } else if (interactable.State == InteractState.PumpFilterAttached) {
+            Logger.Print("Attaching interactable with filter");
+            AttachPumpFilterAttached(interactable);
         } else {
             throw new Exception("Interactrable State is attached but not attached");
         }
@@ -113,6 +116,24 @@ public class HandConnector : ItemConnector {
         }
     }
 
+    private void AttachPumpFilterAttached(Interactable interactable)
+    {
+        PumpFilter filter = interactable.Interactors.PumpFilter;
+        if (filter == null)
+        {
+            throw new Exception("Item is PumpFilter but filter was null");
+        }
+
+        if (filter.State == InteractState.Grabbed)
+        {
+            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+        }
+        else
+        {
+            ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+        }
+    }
+
     private void AttachGeneralItem(GeneralItem generalItem) {
         if (generalItem is LuerlockAdapter luerlock) {
             AttachLuerlock(luerlock);
@@ -120,7 +141,10 @@ public class HandConnector : ItemConnector {
             AttachNeedle(needle);
         } else if (generalItem is AgarPlateLid lid) {
             AttachAgarplateLid(lid);
-        } else {
+        } else if (generalItem is PumpFilter filter) {
+            AttachPumpFilter(filter);
+        }
+        else {
             ConnectionHandler.GrabItem(this, Hand.Smooth.transform, generalItem);
         }
     }
@@ -146,6 +170,17 @@ public class HandConnector : ItemConnector {
             ConnectionHandler.GrabLidWhenAttachedItemIsGrabbed(this, Hand.transform, lid);
         } else {
             ConnectionHandler.GrabItem(this, Hand.Smooth.transform, lid);
+        }
+    }
+    private void AttachPumpFilter(PumpFilter filter)
+    {
+        if (filter.Connector.HasAttachedObject && filter.Connector.AttachedInteractable.State == InteractState.Grabbed)
+        {
+            ConnectionHandler.GrabPumpFilterWhenAttachedItemIsGrabbed(this, Hand.transform, filter);
+        }
+        else
+        {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, filter);
         }
     }
 
@@ -198,6 +233,11 @@ public class HandConnector : ItemConnector {
         } else if (GrabbedInteractable as AgarPlateLid is var lid && lid != null) {
             if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
                 ConnectionHandler.ReleaseLidWhenLidAttachedItemIsGrabbed(lid);
+            }
+        } else if (GrabbedInteractable as PumpFilter is var filter && filter != null)
+        {
+            if (filter.Connector.HasAttachedObject && filter.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                ConnectionHandler.ReleasePumpFilterWhenPumpFilterAttachedItemIsGrabbed(filter);
             }
         }
     }

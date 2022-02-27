@@ -107,6 +107,32 @@ public static class ConnectionHandler {
 
         otherHand.InteractWith(otherItem, false);
     }
+    public static void GrabPumpFilterWhenAttachedItemIsGrabbed(ItemConnector connector, Transform target, Interactable addTo)
+    {
+        Logger.Print("ConnectionHandler GrabPumpFilterWhenAttachedItemIsGrabbed, target = " + target + " addTo = " + addTo);
+
+        PumpFilter filter = addTo as PumpFilter;
+
+        if (filter == null)
+        {
+            throw new System.Exception("Needle is null");
+        }
+
+        Interactable otherItem = filter.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherItem);
+
+        otherHand.Connector.Connection.Remove();
+
+        HandSmoother smooth = target.GetComponent<Hand>().Smooth;
+        Transform handOffset = smooth?.transform;
+        target = handOffset ?? target;
+
+        connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
+        smooth?.DisableInitMode();
+
+        otherHand.InteractWith(otherItem, false);
+    }
     #endregion
 
     #region Releasing
@@ -137,6 +163,15 @@ public static class ConnectionHandler {
     public static void ReleaseLidWhenLidAttachedItemIsGrabbed(AgarPlateLid lid) {
 
         Interactable otherInteractable = lid.Connector.AttachedInteractable;
+
+        Hand otherHand = Hand.GrabbingHand(otherInteractable);
+        otherHand.Connector.Connection.Remove();
+        otherHand.InteractWith(otherInteractable, false);
+    }
+    public static void ReleasePumpFilterWhenPumpFilterAttachedItemIsGrabbed(PumpFilter filter)
+    {
+
+        Interactable otherInteractable = filter.Connector.AttachedInteractable;
 
         Hand otherHand = Hand.GrabbingHand(otherInteractable);
         otherHand.Connector.Connection.Remove();

@@ -33,6 +33,8 @@ public class LuerlockItemConnection : ItemConnection {
             return NeedleConfiguration(connector, hand, interactable);
         } else if (interactable.State == InteractState.LidAttached) {
             return LidConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.PumpFilterAttached) {
+            return PumpFilterConfiguration(connector, hand, interactable);
         }
 
         throw new Exception("No such configuration type for InteractState");
@@ -92,6 +94,32 @@ public class LuerlockItemConnection : ItemConnection {
         Rigidbody lidRB = interactable.Interactors.AgarPlateLid.Rigidbody;
 
         if (targetRB == null || lidRB == null) {
+            throw new System.Exception("Both parties did not have rigidbody");
+        }
+
+        LuerlockItemConnection conn = interactable.gameObject.AddComponent<LuerlockItemConnection>();
+
+        conn.Connector = connector;
+        conn.connectedRB = lidRB;
+        conn.interactable = interactable;
+
+        Joint joint = JointConfiguration.AddJoint(targetRB.gameObject, lidRB.mass);
+        joint.connectedBody = lidRB;
+
+        conn.joint = joint;
+
+        JointBreakSubscription.Subscribe(hand.gameObject, conn.JointBreak);
+
+        return conn;
+    }
+    private static LuerlockItemConnection PumpFilterConfiguration(ItemConnector connector, Transform hand, Interactable interactable)
+    {
+
+        Rigidbody targetRB = hand.GetComponent<Rigidbody>();
+        Rigidbody lidRB = interactable.Interactors.PumpFilter.Rigidbody;
+
+        if (targetRB == null || lidRB == null)
+        {
             throw new System.Exception("Both parties did not have rigidbody");
         }
 
