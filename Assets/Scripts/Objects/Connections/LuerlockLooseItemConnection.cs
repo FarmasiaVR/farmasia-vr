@@ -64,6 +64,10 @@ public class LuerlockLooseItemConnection : ItemConnection {
             (parentItem as LuerlockAdapter).GetConnector(interactable).Connection.Remove();
         } else if (state == InteractState.NeedleAttached) {
             (parentItem as Needle).Connector.Connection.Remove();
+        } else if (state == InteractState.LidAttached) {
+            (parentItem as AgarPlateLid).Connector.Connection.Remove();
+        } else if (state == InteractState.PumpFilterAttached) {
+            (parentItem as PumpFilter).Connector.Connection.Remove();
         }
 
         interactable.transform.position = hand.Smooth.transform.position;
@@ -81,6 +85,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
             return NeedleConfiguration(connector, hand, interactable);
         } else if (interactable.State == InteractState.LidAttached) {
             return LidConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.PumpFilterAttached) {
+            return PumpFilterConfiguration(connector, hand, interactable);
         }
 
         throw new Exception("No such configuration type for InteractState");
@@ -122,6 +128,20 @@ public class LuerlockLooseItemConnection : ItemConnection {
         conn.parentItem = interactable.Interactors.AgarPlateLid;
         conn.startLocal = interactable.transform.localPosition;
         conn.state = InteractState.LidAttached;
+
+        return conn;
+    }
+    public static LuerlockLooseItemConnection PumpFilterConfiguration(ItemConnector connector, Transform hand, Interactable interactable)
+    {
+
+        LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
+
+        conn.Connector = connector;
+        conn.interactable = interactable;
+        conn.hand = hand.GetComponent<Hand>();
+        conn.parentItem = interactable.Interactors.PumpFilter;
+        conn.startLocal = interactable.transform.localPosition;
+        conn.state = InteractState.PumpFilterAttached;
 
         return conn;
     }
