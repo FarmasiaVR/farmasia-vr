@@ -13,6 +13,8 @@ class MembraneFilterationScene : SceneScript {
         ItemsToPassThrough,
         WorkspaceRoom,
         ItemsToWorkspace,
+        WriteItems,
+        FillBottles,
         PreparePump,
     }
 
@@ -148,34 +150,6 @@ class MembraneFilterationScene : SceneScript {
 
         yield return Wait();
 
-        // --- Try to connect pump filter ---
-
-        Pump pump = ToInteractable(gameObjects[14]) as Pump;
-        PumpFilter filter = ToInteractable(gameObjects[15]) as PumpFilter;
-
-        yield return Wait();
-
-        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.12f);
-
-        yield return Wait();
-
-        hand.InteractWith(filter);
-
-        yield return Wait();
-
-        hand.transform.position -= Vector3.up * 0.04f;
-
-        yield return Wait();
-
-        hand.Uninteract();
-
-        yield return Wait();
-
-        if (filter.Connector.AttachedInteractable == null) {
-            filter.Connector.ConnectItem(pump);
-            Logger.Print("Autoplay forced pump filter connection");
-        }
-
         WritingPen pen = ToInteractable(gameObjects[17]) as WritingPen;
         GeneralItem plateS1 = ToInteractable(gameObjects[3]) as GeneralItem;
         GeneralItem plateS2 = ToInteractable(gameObjects[4]) as GeneralItem;
@@ -248,6 +222,10 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.Tioglygolate, ""},
         };
         pen.SubmitWriting(bottleT2.GetComponent<Writable>(), bottleT2.gameObject, writing);
+
+        if (autoPlay == AutoPlayStrength.WriteItems) {
+            yield break;
+        }
 
         // Fill bottles
         // tioglygolate 1
@@ -334,6 +312,42 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
         pipette.SendMedicine();
         hand.Uninteract();
+
+        if (autoPlay == AutoPlayStrength.FillBottles) {
+            yield break;
+        }
+
+        // --- Try to connect pump filter ---
+
+        Pump pump = ToInteractable(gameObjects[14]) as Pump;
+        PumpFilter filter = ToInteractable(gameObjects[15]) as PumpFilter;
+
+        yield return Wait();
+
+        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.12f);
+
+        yield return Wait();
+
+        hand.InteractWith(filter);
+
+        yield return Wait();
+
+        hand.transform.position -= Vector3.up * 0.04f;
+
+        yield return Wait();
+
+        hand.Uninteract();
+
+        yield return Wait();
+
+        if (filter.Connector.AttachedInteractable == null) {
+            filter.Connector.ConnectItem(pump);
+            Logger.Print("Autoplay forced pump filter connection");
+        }
+
+        if (autoPlay == AutoPlayStrength.PreparePump) {
+            yield break;
+        }
 
         yield break;
     }

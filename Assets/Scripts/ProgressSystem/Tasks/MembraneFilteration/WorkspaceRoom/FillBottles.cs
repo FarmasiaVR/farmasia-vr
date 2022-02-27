@@ -24,7 +24,6 @@ class FillBottles: TaskBase {
     private void OnBottleFill(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
         if (container.GeneralItem is MedicineBottle bottle && bottle.ObjectType == ObjectType.Bottle) {
-            Logger.Print("Filling bottle, " + soycaseineBottlesDone + " " + tioglygolateBottlesDone);
             if (bottle.Container.Amount >= REQUIRED_AMOUNT) {
                 if (bottles.Contains(bottle)) return;
                 bottles.Add(bottle);
@@ -83,7 +82,7 @@ class FillBottles: TaskBase {
     public override void CompleteTask() {
         base.CompleteTask();
         if (IsCompleted()) {
-            Popup("Kova", MsgType.Done);
+            Popup("Hienoa, pullot täytetty", MsgType.Done);
         }
     }
 
