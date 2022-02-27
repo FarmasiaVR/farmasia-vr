@@ -242,7 +242,7 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleT1.transform.position + Vector3.up * 0.05f);
+        DropAt(pipette.transform, bottleT1.transform.position + Vector3.up * 0.1f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
         hand.InteractWith(pipette);
@@ -250,10 +250,10 @@ class MembraneFilterationScene : SceneScript {
         pipette.SendMedicine();
         hand.Uninteract();
 
-        // tioglygolate 1
+        // tioglygolate 2
         yield return Wait(0.5f);
         tioglygolate.transform.eulerAngles *= 0f;
-        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.2f);
+        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
         hand.transform.position = pipette.transform.position;
         hand.transform.eulerAngles = Vector3.down;
@@ -263,7 +263,7 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleT2.transform.position + Vector3.up * 0.05f);
+        DropAt(pipette.transform, bottleT2.transform.position + Vector3.up * 0.1f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
         hand.InteractWith(pipette);
@@ -284,7 +284,7 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleS1.transform.position + Vector3.up * 0.05f);
+        DropAt(pipette.transform, bottleS1.transform.position + Vector3.up * 0.1f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
         hand.InteractWith(pipette);
@@ -305,7 +305,7 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleS2.transform.position + Vector3.up * 0.05f);
+        DropAt(pipette.transform, bottleS2.transform.position + Vector3.up * 0.1f);
         pipette.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
         hand.InteractWith(pipette);
