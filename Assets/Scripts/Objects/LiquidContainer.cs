@@ -106,8 +106,6 @@ public class LiquidContainer : MonoBehaviour {
 
         if (toTransfer == 0) return;
 
-        Logger.Print("Transferring " + toTransfer + " in total");
-
         TransferLiquidType(target);
 
         SetAmount(Amount - toTransfer);
@@ -120,17 +118,13 @@ public class LiquidContainer : MonoBehaviour {
         if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
-            Logger.Print("Transferring to " + target.GeneralItem + " which might be bad, its got " + target.Amount);
             if (target.Amount == 0) {
-                Logger.Print("Transferring made it impure");
                 target.LiquidType = LiquidType;
                 target.Impure = true;
             } else {
-                Logger.Print("Liquids mixed!");
                 target.Impure = true;
             }
         }
-        Logger.Print("Receiving LiquidContainer's type set to " + target.LiquidType);
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {

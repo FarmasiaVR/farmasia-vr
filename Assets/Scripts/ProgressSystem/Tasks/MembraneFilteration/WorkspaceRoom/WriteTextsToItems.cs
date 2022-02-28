@@ -48,8 +48,6 @@ public class WriteTextsToItems : TaskBase
         GameObject gameObject = (GameObject)data.DataObject;
         ObjectType objectType = gameObject.GetComponent<GeneralItem>().ObjectType;
         Writable textComponent = gameObject.GetComponent<Writable>();
-        foreach (var option in textComponent.WrittenLines)
-            Logger.Print(option.Key + " = " + option.Value);
 
         bool containsObject = false;
         int index = 0;

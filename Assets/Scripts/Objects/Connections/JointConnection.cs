@@ -14,11 +14,8 @@ public class JointConnection : ItemConnection {
     #endregion
 
     private void Awake() {
-        Logger.Print("JointConnection Awake");
         interactable = GetComponent<Interactable>();
-        Logger.Print("JointConnection interactable = " + interactable);
         rb = interactable.Rigidbody;
-        Logger.Print("JointConnection rb = " + rb);
     }
 
     private void SetJoint() {
