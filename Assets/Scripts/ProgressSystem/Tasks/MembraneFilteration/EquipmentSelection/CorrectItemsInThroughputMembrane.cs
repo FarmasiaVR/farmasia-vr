@@ -5,15 +5,19 @@ using System.Collections.Generic;
 public class CorrectItemsInThroughputMembrane : TaskBase {
     #region Constants
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
-    private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti.";
+    private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
+        "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
+        "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
+        "Toinen laskeumamalja on sabourad-dekstroosimalja.";
     #endregion
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, }
     private int bottles100ml = 0;
     private int soycaseinePlate = 0;
+    private int pipette = 0;
     private int objectCount;
-    private int correctItemCount = 17;
+    private int correctItemCount = 19;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -146,7 +150,11 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
                     EnableCondition(Conditions.Scalpel);
                     break;
                 case ObjectType.Pipette:
-                    EnableCondition(Conditions.Pipette);
+                    pipette++;
+                    if (pipette == 3) 
+                    { 
+                        EnableCondition(Conditions.Pipette);
+                    }
                     break;
                 case ObjectType.Pump:
                     EnableCondition(Conditions.Pump);

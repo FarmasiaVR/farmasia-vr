@@ -92,7 +92,10 @@ class MembraneFilterationScene : SceneScript {
 
             p_filledSterileBag, // 16
 
-            p_writingPen, // 17
+            p_pipette,
+            p_pipette,
+
+            p_writingPen, // 19
 
         }.Select(InstantiateObject).ToList();
 
@@ -150,12 +153,14 @@ class MembraneFilterationScene : SceneScript {
 
         yield return Wait();
 
-        WritingPen pen = ToInteractable(gameObjects[17]) as WritingPen;
+        WritingPen pen = ToInteractable(gameObjects[19]) as WritingPen;
         GeneralItem plateS1 = ToInteractable(gameObjects[3]) as GeneralItem;
         GeneralItem plateS2 = ToInteractable(gameObjects[4]) as GeneralItem;
         GeneralItem plateS3 = ToInteractable(gameObjects[5]) as GeneralItem;
         GeneralItem plateSD = ToInteractable(gameObjects[6]) as GeneralItem;
         Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
+        Pipette pipette2 = ToInteractable(gameObjects[17]) as Pipette;
+        Pipette pipette3 = ToInteractable(gameObjects[18]) as Pipette;
         MedicineBottle bottleT1 = ToInteractable(gameObjects[7]) as MedicineBottle;
         MedicineBottle bottleT2 = ToInteractable(gameObjects[8]) as MedicineBottle;
         MedicineBottle bottleS1 = ToInteractable(gameObjects[9]) as MedicineBottle;
@@ -231,7 +236,7 @@ class MembraneFilterationScene : SceneScript {
         // tioglygolate 1
         yield return Wait();
         DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
         yield return Wait();
         hand.transform.position = pipette.transform.position;
         yield return Wait();
@@ -243,7 +248,7 @@ class MembraneFilterationScene : SceneScript {
         hand.Uninteract();
         yield return Wait();
         DropAt(pipette.transform, bottleT1.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
         yield return Wait();
         hand.InteractWith(pipette);
         yield return Wait();
@@ -254,7 +259,7 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait(0.5f);
         tioglygolate.transform.eulerAngles *= 0f;
         DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
         hand.transform.position = pipette.transform.position;
         hand.transform.eulerAngles = Vector3.down;
         hand.InteractWith(pipette);
@@ -264,7 +269,7 @@ class MembraneFilterationScene : SceneScript {
         hand.Uninteract();
         yield return Wait();
         DropAt(pipette.transform, bottleT2.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
         yield return Wait();
         hand.InteractWith(pipette);
         yield return Wait();
@@ -274,43 +279,46 @@ class MembraneFilterationScene : SceneScript {
         // soycaseine 1
         yield return Wait(0.5f);
         tioglygolate.transform.eulerAngles *= 0f;
-        DropAt(pipette.transform, soycaseine.transform.position + Vector3.up * 0.2f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
-        hand.transform.position = pipette.transform.position;
-        hand.transform.eulerAngles = Vector3.down;
-        hand.InteractWith(pipette);
+        yield return Wait();
+        DropAt(pipette2.transform, soycaseine.transform.position + Vector3.up * 0.2f);
+        yield return Wait();
+        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
+        hand.transform.position = pipette2.transform.position;
+        yield return Wait();
+        hand.transform.eulerAngles = Vector3.down;;
+        hand.InteractWith(pipette2);
         yield return Wait(0.5f);
-        pipette.TakeMedicine();
+        pipette2.TakeMedicine();
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleS1.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        DropAt(pipette2.transform, bottleS1.transform.position + Vector3.up * 0.1f);
+        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
-        hand.InteractWith(pipette);
+        hand.InteractWith(pipette2);
         yield return Wait();
-        pipette.SendMedicine();
+        pipette2.SendMedicine();
         hand.Uninteract();
 
         // soycaseine 2
         yield return Wait(0.5f);
         tioglygolate.transform.eulerAngles *= 0f;
-        DropAt(pipette.transform, soycaseine.transform.position + Vector3.up * 0.2f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
-        hand.transform.position = pipette.transform.position;
+        DropAt(pipette2.transform, soycaseine.transform.position + Vector3.up * 0.2f);
+        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
+        hand.transform.position = pipette2.transform.position;
         hand.transform.eulerAngles = Vector3.down;
-        hand.InteractWith(pipette);
+        hand.InteractWith(pipette2);
         yield return Wait(0.5f);
-        pipette.TakeMedicine();
+        pipette2.TakeMedicine();
         yield return Wait();
         hand.Uninteract();
         yield return Wait();
-        DropAt(pipette.transform, bottleS2.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180,0,0);
+        DropAt(pipette2.transform, bottleS2.transform.position + Vector3.up * 0.1f);
+        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
         yield return Wait();
-        hand.InteractWith(pipette);
+        hand.InteractWith(pipette2);
         yield return Wait();
-        pipette.SendMedicine();
+        pipette2.SendMedicine();
         hand.Uninteract();
 
         if (autoPlay == AutoPlayStrength.FillBottles) {
