@@ -136,7 +136,8 @@ public class ProgressManager {
             TaskType.CorrectItemsInThroughputMembrane
         };
         TaskType[] workSpaceTasks = {
-            TaskType.WriteTextsToItems
+            TaskType.WriteTextsToItems,
+            TaskType.FillBottles
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
