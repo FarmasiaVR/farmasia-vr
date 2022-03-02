@@ -43,17 +43,16 @@ public abstract class TaskBase : ITask {
         Logger.PrintVariables("Force closing", taskType.ToString());
 
         if (removePoints) {
-            Logger.Print(string.Format("Task has points: {0}, points: {1}", taskType.ToString(), points.ToString()));
+            Logger.Print(string.Format("Task still has points left: {0}, points: {1}", taskType.ToString(), points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(taskType);
             TaskBase.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
-        CompleteTask();
         FinishTask();
         isFinished = true;
         completed = true;
-        UnsubscribeAllEvents();
+        Logger.Warning(taskType + " is now finished for good");
     }
 
     public virtual void StartTask() {
@@ -153,7 +152,7 @@ public abstract class TaskBase : ITask {
     #region Condition Methods
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
-            Logger.Print("Enabled Condition: " + condition.ToString());
+            Logger.Print(this.taskType.ToString() +  " Enabled Condition: " + condition.ToString());
             clearConditions[condition.GetHashCode()] = true;
         }
     }

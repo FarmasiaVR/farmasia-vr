@@ -47,81 +47,143 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
         if (interactable.IsAttached) {
-
-            if (interactable.State == InteractState.LuerlockAttached) {
-                LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
-
-
-                if (luerlock.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
-                } else {
-
-                    if (luerlock.GrabbedObjectCount == 2) {
-                        ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
-                    } else {
-                        ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
-                    }
-                }
-            } else if (interactable.State == InteractState.NeedleAttached) {
-
-                Needle needle = interactable.Interactors.Needle;
-
-                if (needle == null) {
-                    throw new Exception("Item is needle attached but needle was null");
-                }
-
-                if (needle.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
-                }
-                else {
-                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
-                }
-            } else if (interactable.State == InteractState.LidAttached) {
-                AgarPlateLid lid = interactable.Interactors.AgarPlateLid;
-                if (lid == null) {
-                    throw new Exception("Item is AraPlateLid but lid was null");
-                }
-
-                if (lid.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
-                }
-                else {
-                    ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
-                }
-            }
-            else {
-                throw new Exception("Interactrable State is attached but not attached");
-            }
+            Logger.Print("Attaching attached");
+            AttachAttached(interactable);
         } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
-
-            if (generalItem.ObjectType == ObjectType.Luerlock) {
-                LuerlockAdapter luerlock = generalItem as LuerlockAdapter;
-                if (luerlock.GrabbedObjectCount > 0) {
-                    ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
-                } else {
-                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, luerlock);
-                }
-            } else if (generalItem.ObjectType == ObjectType.Needle) {
-                Needle needle = generalItem as Needle;
-                if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabNeedleWhenAttachedItemIsGrabbed(this, Hand.transform, needle);
-                } else {
-                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, needle);
-                }
-            } else if (generalItem.ObjectType == ObjectType.AgarPlateLid) {
-                AgarPlateLid lid = generalItem as AgarPlateLid;
-                if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
-                    ConnectionHandler.GrabLidWhenAttachedItemIsGrabbed(this, Hand.transform, lid);
-                } else {
-                    ConnectionHandler.GrabItem(this, Hand.Smooth.transform, lid);
-                }
-            } else {
-                ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
-            }
+            Logger.Print("Attaching general");
+            AttachGeneralItem(generalItem);
         } else {
             ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
         }
     }
+
+    private void AttachAttached(Interactable interactable) {
+        if (interactable.State == InteractState.LuerlockAttached) {
+            AttachLuerlockAttached(interactable);
+        } else if (interactable.State == InteractState.NeedleAttached) {
+            Logger.Print("Attaching interactable with needle");
+            AttachNeedleAttached(interactable);
+        } else if (interactable.State == InteractState.LidAttached) {
+            Logger.Print("Attaching interactable with lid");
+            AttachAgarplateLidAttached(interactable);
+        } else if (interactable.State == InteractState.PumpFilterAttached) {
+            Logger.Print("Attaching interactable with filter");
+            AttachPumpFilterAttached(interactable);
+        } else {
+            throw new Exception("Interactrable State is attached but not attached");
+        }
+    }
+
+    private void AttachLuerlockAttached(Interactable interactable) {
+        LuerlockAdapter luerlock = interactable.Interactors.LuerlockPair.Value;
+        if (luerlock.State == InteractState.Grabbed) {
+            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+        } else {
+
+            if (luerlock.GrabbedObjectCount == 2) {
+                ConnectionHandler.GrabLuerlockAttachedItemWhenOtherLuerlockAttachedItemIsGrabbed(this, Hand.transform, interactable);
+            } else {
+                ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+            }
+        }
+    }
+
+    private void AttachNeedleAttached(Interactable interactable) {
+        Needle needle = interactable.Interactors.Needle;
+        if (needle == null) {
+            throw new Exception("Item is needle attached but needle was null");
+        }
+
+        if (needle.State == InteractState.Grabbed) {
+            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+        }
+        else {
+            ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+        }
+    }
+
+    private void AttachAgarplateLidAttached(Interactable interactable) {
+        AgarPlateLid lid = interactable.Interactors.AgarPlateLid;
+        if (lid == null) {
+            throw new Exception("Item is AraPlateLid but lid was null");
+        }
+
+        if (lid.State == InteractState.Grabbed) {
+            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+        }
+        else {
+            ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+        }
+    }
+
+    private void AttachPumpFilterAttached(Interactable interactable)
+    {
+        PumpFilter filter = interactable.Interactors.PumpFilter;
+        if (filter == null)
+        {
+            throw new Exception("Item is PumpFilter but filter was null");
+        }
+
+        if (filter.State == InteractState.Grabbed)
+        {
+            ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
+        }
+        else
+        {
+            ConnectionHandler.GrabLuerlockAttachedItem(this, Hand.transform, interactable);
+        }
+    }
+
+    private void AttachGeneralItem(GeneralItem generalItem) {
+        if (generalItem is LuerlockAdapter luerlock) {
+            AttachLuerlock(luerlock);
+        } else if (generalItem is Needle needle) {
+            AttachNeedle(needle);
+        } else if (generalItem is AgarPlateLid lid) {
+            AttachAgarplateLid(lid);
+        } else if (generalItem is PumpFilter filter) {
+            AttachPumpFilter(filter);
+        }
+        else {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, generalItem);
+        }
+    }
+
+    private void AttachLuerlock(LuerlockAdapter luerlock) {
+        if (luerlock.GrabbedObjectCount > 0) {
+            ConnectionHandler.GrabLuerlockWhenAttachedItemsAreGrabbed(this, Hand.transform, luerlock);
+        } else {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, luerlock);
+        }
+    }
+
+    private void AttachNeedle(Needle needle) {
+        if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+            ConnectionHandler.GrabNeedleWhenAttachedItemIsGrabbed(this, Hand.transform, needle);
+        } else {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, needle);
+        }
+    }
+
+    private void AttachAgarplateLid(AgarPlateLid lid) {
+        if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+            ConnectionHandler.GrabLidWhenAttachedItemIsGrabbed(this, Hand.transform, lid);
+        } else {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, lid);
+        }
+    }
+    private void AttachPumpFilter(PumpFilter filter)
+    {
+        if (filter.Connector.HasAttachedObject && filter.Connector.AttachedInteractable.State == InteractState.Grabbed)
+        {
+            ConnectionHandler.GrabPumpFilterWhenAttachedItemIsGrabbed(this, Hand.transform, filter);
+        }
+        else
+        {
+            ConnectionHandler.GrabItem(this, Hand.Smooth.transform, filter);
+        }
+    }
+
     #endregion
 
     #region Releasing
@@ -148,6 +210,7 @@ public class HandConnector : ItemConnector {
 
         GrabbedInteractable = null;
     }
+
     private void SafeRelease() {
         if (GrabbedInteractable.State == InteractState.LuerlockAttached) {
 
@@ -167,7 +230,17 @@ public class HandConnector : ItemConnector {
             if (needle.Connector.HasAttachedObject && needle.Connector.AttachedInteractable.State == InteractState.Grabbed) {
                 ConnectionHandler.ReleaseNeedleWhenNeedleAttachedItemIsGrabbed(needle);
             }
+        } else if (GrabbedInteractable as AgarPlateLid is var lid && lid != null) {
+            if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                ConnectionHandler.ReleaseLidWhenLidAttachedItemIsGrabbed(lid);
+            }
+        } else if (GrabbedInteractable as PumpFilter is var filter && filter != null)
+        {
+            if (filter.Connector.HasAttachedObject && filter.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                ConnectionHandler.ReleasePumpFilterWhenPumpFilterAttachedItemIsGrabbed(filter);
+            }
         }
     }
+
     #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WritingPen : GeneralItem {
 
@@ -22,15 +23,14 @@ public class WritingPen : GeneralItem {
             return;
         }
 
-        Write(writable);
+        Write(writable, foundObject);
     }
 
-    private void Write(Writable writable) {
+    private void Write(Writable writable, GameObject foundObject) {
         
         // Find the writing options object, make it visible, set a callback for when user submits text from the options
         
         var writingGameObject = GameObject.Find("WritingOptions");
-        Logger.Print("game object " + writingGameObject);
         if (writingGameObject == null) {
             Logger.Print("Writing options not found");
             return;
@@ -48,6 +48,13 @@ public class WritingPen : GeneralItem {
         writingOptions.SetWritable(writable);
 
         // Set the callback so that it writes to the writable when it is submitted
-        writingOptions.onSubmit = (text) => { writable.Text = text; };
+        writingOptions.onSubmit = (selectedOptions) => {
+            SubmitWriting(writable, foundObject, selectedOptions);
+        };
+    }
+
+    public void SubmitWriting(Writable writable, GameObject foundObject, Dictionary<WritingType, string> selectedOptions) {
+        writable.AddWrittenLines(selectedOptions);
+        Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
     }
 }

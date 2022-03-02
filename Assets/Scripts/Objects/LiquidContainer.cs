@@ -16,9 +16,13 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField]
     private int amount;
 
-    private GeneralItem generalItem;
+    public LiquidType LiquidType;
+
+    public GeneralItem GeneralItem;
 
     private TriggerInteractableContainer itemContainer;
+
+    public bool Impure;
 
     public int Amount {
         get { return amount; }
@@ -69,7 +73,7 @@ public class LiquidContainer : MonoBehaviour {
 
             yield return null;
 
-            generalItem = (GeneralItem)Interactable.GetInteractable(transform);
+            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
         }
     }
 
@@ -88,7 +92,9 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (amount == 0) return;
+        if (amount == 0) {
+            return;
+        }
         if (amount < 0) {
             target.TransferTo(this, -amount);
             return;
@@ -98,8 +104,33 @@ public class LiquidContainer : MonoBehaviour {
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
+        if (toTransfer == 0) return;
+
+        TransferLiquidType(target);
+
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
+
+        FireBottleFillingEvent(target);
+    }
+
+    private void TransferLiquidType(LiquidContainer target) {
+        if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
+            target.LiquidType = LiquidType;
+        } else { // Case: the target has held or holds different liquid
+            if (target.Amount == 0) {
+                target.LiquidType = LiquidType;
+                target.Impure = true;
+            } else {
+                target.Impure = true;
+            }
+        }
+    }
+
+    private void FireBottleFillingEvent(LiquidContainer target) {
+        if (target.GeneralItem is MedicineBottle || target.GeneralItem is PumpFilter) {
+            Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
+        }
     }
 
     /// <summary>
@@ -121,26 +152,35 @@ public class LiquidContainer : MonoBehaviour {
 
     private void OnTrueEnter(Interactable enteringInteractable) {
         Needle needle = enteringInteractable as Needle;
-        if (needle == null || !needle.Connector.HasAttachedObject) {
-            return;
+        Pipette pipette = enteringInteractable as Pipette;
+        if (needle!=null && needle.Connector.HasAttachedObject) {
+            OnSyringeEnter(needle);
+        }
+        
+        if (pipette!=null) {
+            OnPipetteEnter(pipette);
         }
 
+        
+    }
+
+    private void OnSyringeEnter(Needle needle) {
         Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
             syringe.State.On(InteractState.InBottle);
             syringe.hasBeenInBottle = true;
 
-            if (!generalItem.IsClean) {
+            if (!GeneralItem.IsClean) {
                 needle.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
 
             if (G.Instance.Scene is MedicinePreparationScene) {
                 if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                    TaskBase.CreateGeneralMistake("Lääkettä yritettiin ottaa uudestaan");
+                    TaskBase.CreateGeneralMistake("Lï¿½ï¿½kettï¿½ yritettiin ottaa uudestaan");
                 }
             }
 
@@ -150,21 +190,50 @@ public class LiquidContainer : MonoBehaviour {
         syringe.BottleContainer = this;
     }
 
-    private void OnTrueExit(Interactable enteringInteractable) {
+    private void OnPipetteEnter(Pipette pipette) {
+        if (GeneralItem is MedicineBottle) {
+            pipette.State.On(InteractState.InBottle);
+            pipette.hasBeenInBottle = true;
 
-        Needle needle = enteringInteractable as Needle;
-        if (needle == null) {
-            return;
+            if (!GeneralItem.IsClean) {
+                pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
+            }
+
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(pipette));
         }
 
+        pipette.BottleContainer = this;
+    }
+
+    private void OnTrueExit(Interactable enteringInteractable) {
+        Needle needle = enteringInteractable as Needle;
+        if (needle != null) {
+            OnNeedleExit(needle);
+        }
+
+        Pipette pipette = enteringInteractable as Pipette;
+        if (pipette != null) {
+            OnPipetteExit(pipette);
+        }
+        
+    }
+
+    private void OnNeedleExit(Needle needle) {
         Syringe syringe = needle.Connector.AttachedInteractable as Syringe;
         if (syringe == null) {
             return;
         }
 
-        if (generalItem.ObjectType == ObjectType.Bottle || generalItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
+        }
+    }
+
+    private void OnPipetteExit(Pipette pipette) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
+            pipette.State.Off(InteractState.InBottle);
+            pipette.BottleContainer = null;
         }
     }
 }

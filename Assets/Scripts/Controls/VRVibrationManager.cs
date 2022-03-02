@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
@@ -37,7 +38,11 @@ public class VRVibrationManager : MonoBehaviour {
 
     #region Public methods
     public void TriggerVibration() { 
-        hapticAction.Execute(0, 0.1f, (TestingFrequency * TestingStrength), (TestingAmplitude * TestingStrength), SteamVR_Input_Sources.LeftHand);
+        try { 
+            hapticAction.Execute(0, 0.1f, (TestingFrequency * TestingStrength), (TestingAmplitude * TestingStrength), SteamVR_Input_Sources.LeftHand);
+        } catch (Exception e) {
+            Logger.Warning("Vibration failed!");
+        }
     }
     #endregion
 }

@@ -189,7 +189,7 @@ public class SterileBag : GeneralItem {
     public void CloseSterileBagFinal() {
         finalClose = true;
         closeButton.SafeDestroy();
-        System.Console.WriteLine("Close sterilebag final!");
+        Logger.Print("Close Sterile bag Final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
         CleanupObject.GetCleanup().EnableCleanup();
     }

@@ -39,7 +39,7 @@ public class SelectMedicine : TaskBase {
             return;
         }
         ObjectType type = item.ObjectType;
-        if (type == ObjectType.Bottle) {
+        if (type == ObjectType.Bottle || type == ObjectType.Medicine) {
             EnableCondition(Conditions.BottlePickup);
         }
         CompleteTask();

@@ -19,7 +19,7 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Development
 
-The project was created with `Unity Version: 2019.2.3.f1` and the same version should be used for development.
+The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2019.4.35f1` .
 
 - Wiki
   - [Git workflow document](https://github.com/ohtuprojekti-farmasia/farmasia-vr/wiki/Git)
@@ -112,17 +112,17 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/Reksa97">
-            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
-            <br />
-            <sub><b>Reko Kälkäjä</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/Veikkosuhonen">
             <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
             <br />
             <sub><b>Veikmaster</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Reksa97">
+            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+            <br />
+            <sub><b>Reko Kälkäjä</b></sub>
         </a>
     </td>
     <td align="center">
@@ -147,18 +147,18 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/SPitkanen">
-            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
-            <br />
-            <sub><b>SPitkanen</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/kivik-beep">
             <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
             <br />
             <sub><b>Kivik-beep</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/SPitkanen">
+            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+            <br />
+            <sub><b>SPitkanen</b></sub>
         </a>
     </td></tr>
 </table>

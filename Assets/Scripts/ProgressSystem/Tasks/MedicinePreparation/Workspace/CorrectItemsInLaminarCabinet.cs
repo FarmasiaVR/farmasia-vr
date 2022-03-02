@@ -56,7 +56,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             return;
         }
 
-        G.Instance.Progress.ForceCloseTask(taskType, false);
+        CheckItems();
+        CompleteTask();
+
+        //G.Instance.Progress.ForceCloseTask(taskType, false);
     } 
     #endregion
 
@@ -71,8 +74,10 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
         return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint; 
     }
 
-    protected override void OnTaskComplete() {
+    protected override void OnTaskComplete() { /* Nothing */ }
 
+    private void CheckItems() {
+        Logger.Print("Checking cabinet items if they are correct");
         int syringeCount = 0;
 
         int luerlockCount = 0;
@@ -84,21 +89,31 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
 
         foreach (var item in laminarCabinet.GetContainedItems()) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
-                if (g is Syringe) {
+                if (g is SmallSyringe) {
                     syringeCount++;
+                    if (syringeCount == 6) {
+                        EnableCondition(Conditions.SmallSyringes);
+                    }
+                } else if (g is Syringe) {
+                    EnableCondition(Conditions.BigSyringe);
                 } else if (g is LuerlockAdapter) {
+                    EnableCondition(Conditions.Luerlock);
                     luerlockCount++;
                 } else if (g is Needle) {
+                    EnableCondition(Conditions.Needle);
                     needleCount++;
-                } else if (g is MedicineBottle) {
+                } else if (g is MedicineBottle bottle) {
                     bottleCount++;
 
-                    int capacity = ((MedicineBottle)g).Container.Capacity;
+                    int capacity = bottle.Container.Capacity;
                     if (capacity == 4000) {
+                        EnableCondition(Conditions.MedicineBottle);
                         correctBottle = true;
                     } else if (capacity == 100000) {
                         CreateTaskMistake("Väärä pullo laminaarikaapissa", 5);
                     }
+                } else if (g is SyringeCapBag) {
+                    EnableCondition(Conditions.SyringeCap);
                 }
 
                 if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is MedicineBottle)) {
@@ -108,7 +123,8 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
             }
         }
 
-        if (syringeCount == 7 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
+        if (syringeCount == 6 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
+            Logger.Print("All done");
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
         } else {
             CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);

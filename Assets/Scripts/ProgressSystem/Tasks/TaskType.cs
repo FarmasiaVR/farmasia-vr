@@ -17,5 +17,7 @@ public enum TaskType {
     ScenarioOneCleanUp,
     Finish,
     CorrectItemsInThroughputMembrane,
-    SelectToolsMembrane
+    SelectToolsMembrane,
+    WriteTextsToItems,
+    FillBottles
 }

@@ -123,6 +123,7 @@ public class CorrectItemsInThroughput : TaskBase {
                 case ObjectType.SyringeCapBag:
                     EnableCondition(Conditions.SyringeCapBag);
                     break;
+                case ObjectType.Bottle:
                 case ObjectType.Medicine:
                     MedicineBottle bottle = item as MedicineBottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {

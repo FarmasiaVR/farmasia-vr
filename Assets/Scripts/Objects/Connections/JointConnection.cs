@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class JointConnection : ItemConnection {
 
@@ -18,6 +19,17 @@ public class JointConnection : ItemConnection {
     }
 
     private void SetJoint() {
+        // debug this shit
+        try {
+            Logger.Print("SetJoint: rb = " + rb.mass);
+
+        } catch (NullReferenceException e) {
+            Logger.Warning("------ EPIC DEBUG STARTING --------");
+            Logger.Print("The rb.mass call caused NRE. Interactable was " + interactable);
+            Logger.Print("The Target RigidBody was " + target);
+            Logger.Print("The transformTarget was " + transformTarget);
+            Logger.Print("The Connector " + Connector.Connection);
+        }
         joint = JointConfiguration.AddJoint(gameObject, rb.mass);
         joint.connectedBody = target;
     }

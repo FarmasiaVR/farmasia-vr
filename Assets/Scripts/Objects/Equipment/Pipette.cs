@@ -26,6 +26,9 @@ public class Pipette : GeneralItem {
         base.Start();
 
         Container = LiquidContainer.FindLiquidContainer(transform);
+
+        
+        Type.On(InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
     }
 
     public override void OnGrabStart(Hand hand) {
@@ -41,6 +44,48 @@ public class Pipette : GeneralItem {
             display.DisableDisplay();
         }
     }
-    
+
+    public override void OnGrab(Hand hand) {
+        base.OnGrab(hand);
+
+        bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
+        bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
+        
+        if (takeMedicine) {
+            TakeMedicine();
+        } else if (sendMedicine) {
+            SendMedicine();
+        }
+
+    }
+
+    public void TakeMedicine() {
+        if (State == InteractState.InBottle) {
+            TransferToBottle(false);
+            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        } else {
+            Logger.Print("Pipette not in bottle");
+        }
+    }
+
+    public void SendMedicine() {
+        if (State == InteractState.InBottle) {
+            TransferToBottle(true);
+            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        } else {
+            Eject();
+        }
+    }
+
+    private void Eject() {
+        Container.SetAmount(0);
+    }
+
+    private void TransferToBottle(bool into) {
+        if (BottleContainer == null) return;
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+
+        Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
+    }
     
 }

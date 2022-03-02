@@ -8,6 +8,7 @@ public struct Interactors {
     public GameObject Bottle;
     public Needle Needle { get; private set; }
     public AgarPlateLid AgarPlateLid { get; private set;  }
+    public PumpFilter PumpFilter { get; private set; }
 
     public void SetHand(Hand hand) {
         Hand = hand;
@@ -45,4 +46,19 @@ public struct Interactors {
     public void ResetNeedle() {
         this.Needle = null;
     }
+    public void SetPumpFilter(PumpFilter filter)
+    {
+        if (filter == null)
+        {
+            Logger.Error("PumpFilter value was null. Problem with SetInteractors cast?");
+        }
+        this.PumpFilter = filter;
+    }
+    public void ResetPumpFilter()
+    {
+        this.PumpFilter = null;
+    }
+
+
+
 }
