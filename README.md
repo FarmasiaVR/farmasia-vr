@@ -140,17 +140,17 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/hepitk">
-            <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
-            <br />
-            <sub><b>Hepitk</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/kivik-beep">
             <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
             <br />
             <sub><b>Kivik-beep</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hepitk">
+            <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
+            <br />
+            <sub><b>Hepitk</b></sub>
         </a>
     </td></tr>
 <tr>
