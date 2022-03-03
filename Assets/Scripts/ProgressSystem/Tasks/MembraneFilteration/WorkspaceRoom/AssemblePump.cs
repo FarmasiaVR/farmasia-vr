@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 class AssemblePump: TaskBase {
 
-    #region Fields
-    public enum Conditions {  }
+    public enum Conditions { PumpAssembled }
     
     private CabinetBase laminarCabinet;
     private bool fail = false;
@@ -16,9 +15,7 @@ class AssemblePump: TaskBase {
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
     }
-    #endregion
 
-    #region Event Subscriptions
     public override void Subscribe() {
         base.SubscribeEvent(AttachFilter, EventType.AttachFilter);
     }
@@ -35,11 +32,9 @@ class AssemblePump: TaskBase {
 
         if (laminarCabinet == null) {
             CreateTaskMistake("Filtteri kiinnitettiin liian aikaisin.", 1);
-            Fail();
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(filter)) {
             CreateTaskMistake("Filtteri kiinnitettiin laminaarikaapin ulkopuolella", 1);
-            Fail();
             return;
         }
         
@@ -88,5 +83,4 @@ class AssemblePump: TaskBase {
     public override string GetHint() {
         return "Kiinnitä filtteri pumppuun.";
     }
-    #endregion
 }

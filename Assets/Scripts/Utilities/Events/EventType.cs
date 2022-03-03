@@ -34,5 +34,6 @@
     ItemDroppedInWrongTrash,
     ItemPlacedInCabinet,
     WriteToObject,
-    TransferLiquidToBottle
+    TransferLiquidToBottle,
+    AttachFilter
 }
