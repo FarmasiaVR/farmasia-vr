@@ -73,6 +73,8 @@ public class LiquidContainer : MonoBehaviour {
 
             GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
         }
+
+        liquid.SetMaterialFromType(LiquidType);
     }
 
     private void OnValidate() {
@@ -123,6 +125,7 @@ public class LiquidContainer : MonoBehaviour {
                 target.Impure = true;
             }
         }
+        target.liquid.SetMaterialFromType(target.LiquidType);
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
@@ -158,8 +161,6 @@ public class LiquidContainer : MonoBehaviour {
         if (pipette!=null) {
             OnPipetteEnter(pipette);
         }
-
-        
     }
 
     private void OnSyringeEnter(Needle needle) {

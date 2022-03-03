@@ -6,18 +6,11 @@ public class LiquidObject : MonoBehaviour {
     #region fields
     [SerializeField]
     private MeshRenderer mesh;
-    private MeshRenderer parent;
 
     private float percentage;
-
     #endregion
 
     private void OnValidate() {
-        parent = GetComponentInParent<MeshRenderer>();
-
-        if (float.IsNaN(percentage)) {
-            throw new Exception("Value was NaN");
-        }
         UpdateObject();
     }
 
@@ -49,5 +42,22 @@ public class LiquidObject : MonoBehaviour {
         if (mesh != null) {
             mesh.enabled = percentage > 0;
         }
+    }
+
+    public void SetMaterialFromType(LiquidType type) {
+        switch (type) {
+            case LiquidType.Peptonwater:
+                mesh.material = Resources.Load<Material>("Liquids/PeptonWater");
+                break;
+                
+            case LiquidType.Tioglygolate:
+                mesh.material = Resources.Load<Material>("Liquids/Tioglygolate");
+                break;
+                
+            case LiquidType.Soycaseine:
+                mesh.material = Resources.Load<Material>("Liquids/Soycaseine"); ;
+                break;
+        }
+        Logger.Print("Set material of liquid to " + mesh.material);
     }
 }        

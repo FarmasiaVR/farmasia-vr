@@ -128,9 +128,6 @@ public class CorrectItemsInThroughput : TaskBase {
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
                         EnableCondition(Conditions.RightBottle);
                     }
-                    if (bottle.Container.Capacity == 4000) {
-                        correctMedicineBottle = true;
-                    }
                     break;
             }
         }
