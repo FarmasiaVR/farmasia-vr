@@ -40,7 +40,7 @@ public class VRVibrationManager : MonoBehaviour {
     public void TriggerVibration() { 
         try { 
             hapticAction.Execute(0, 0.1f, (TestingFrequency * TestingStrength), (TestingAmplitude * TestingStrength), SteamVR_Input_Sources.LeftHand);
-        } catch (Exception e) {
+        } catch (Exception) {
             Logger.Warning("Vibration failed!");
         }
     }

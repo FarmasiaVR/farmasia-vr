@@ -7,8 +7,8 @@ class AssemblePump: TaskBase {
     public enum Conditions { PumpAssembled }
     
     private CabinetBase laminarCabinet;
-    private bool fail = false;
-    private bool firstCheckDone = false;
+    // private bool fail = false;
+    // private bool firstCheckDone = false;
 
     public AssemblePump() : base(TaskType.AssemblePump, true, false) {
         SetCheckAll(true);

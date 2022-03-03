@@ -6,7 +6,6 @@ using UnityEngine.Assertions;
 
 public class LiquidContainer : MonoBehaviour {
 
-    #region fields
     [SerializeField]
     private LiquidObject liquid;
 
@@ -53,7 +52,6 @@ public class LiquidContainer : MonoBehaviour {
         get { return capacity; }
         private set { capacity = Math.Max(value, 0); }
     }
-    #endregion
 
     private void Awake() {
         Assert.IsNotNull(liquid);

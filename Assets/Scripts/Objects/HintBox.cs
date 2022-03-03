@@ -10,10 +10,8 @@ public class HintBox : DragAcceptable {
     #region Fields
     #region Settings
     private static bool initialized = false;
-    private static float defaultDistance = 0.5f;
     private static Vector3[] positions;
     private static float maxDistance = 2f;
-    private static float hintMaxAngleDiff = 75;
 
     private static float viewLimitX = 0.8f;
     private static float viewLimitY = 0.6f;

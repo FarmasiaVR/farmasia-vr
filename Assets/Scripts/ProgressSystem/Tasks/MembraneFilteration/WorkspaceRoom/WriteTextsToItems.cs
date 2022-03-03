@@ -15,9 +15,6 @@ public class WriteTextsToItems : TaskBase
     /// Conditions must be met to render task complete
     /// </summary>
     public enum Conditions { ObjectsHaveText }
-    private int bottles = 0;
-    private int soycaseinePlates = 0;
-    private int sabouradPlates = 0;
     private int numberOfObjectsThatShouldHaveText = 8;
     private List<GameObject> writtenObjects;
     #endregion
@@ -46,8 +43,6 @@ public class WriteTextsToItems : TaskBase
     private void TrackWrittenObjects(CallbackData data)
     {
         GameObject gameObject = (GameObject)data.DataObject;
-        ObjectType objectType = gameObject.GetComponent<GeneralItem>().ObjectType;
-        Writable textComponent = gameObject.GetComponent<Writable>();
 
         bool containsObject = false;
         int index = 0;

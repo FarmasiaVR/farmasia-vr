@@ -23,7 +23,7 @@ public class JointConnection : ItemConnection {
         try {
             Logger.Print("SetJoint: rb = " + rb.mass);
 
-        } catch (NullReferenceException e) {
+        } catch (NullReferenceException) {
             Logger.Warning("------ EPIC DEBUG STARTING --------");
             Logger.Print("The rb.mass call caused NRE. Interactable was " + interactable);
             Logger.Print("The Target RigidBody was " + target);

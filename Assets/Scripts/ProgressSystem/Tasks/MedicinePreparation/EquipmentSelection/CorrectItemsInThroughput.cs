@@ -10,7 +10,6 @@ public class CorrectItemsInThroughput : TaskBase {
     private int smallSyringes = 0;
     private int objectCount;
     private bool firstCheckDone = false;
-    private bool correctMedicineBottle = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
 
