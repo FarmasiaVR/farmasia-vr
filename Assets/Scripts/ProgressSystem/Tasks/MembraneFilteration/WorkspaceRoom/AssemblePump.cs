@@ -18,7 +18,16 @@ class AssemblePump: TaskBase {
     }
 
     public override void Subscribe() {
+        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AttachFilter, EventType.AttachFilter);
+    }
+
+    private void SetCabinetReference(CallbackData data) {
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
+            laminarCabinet = cabinet;
+            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
+        }
     }
     /// <summary>
     /// Check if the filter is connected to pump inside the laminar cabinet
@@ -27,14 +36,14 @@ class AssemblePump: TaskBase {
         Logger.Print("Started to attach filter to "+ data.DataObject);
         Pump pump = data.DataObject as Pump;
 
-    /*    if (laminarCabinet == null) {
+        if (laminarCabinet == null) {
             CreateTaskMistake("Filtteri kiinnitettiin liian aikaisin.", 1);
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(pump)) {
             CreateTaskMistake("Filtteri kiinnitettiin laminaarikaapin ulkopuolella", 1);
             return;
         }
-    */
+    
         EnableCondition(Conditions.PumpAssembled);
         CompleteTask();
     }
