@@ -35,5 +35,6 @@
     ItemPlacedInCabinet,
     WriteToObject,
     TransferLiquidToBottle,
-    AttachFilter
+    AttachFilter,
+    PlateOpened
 }

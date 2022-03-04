@@ -137,6 +137,7 @@ public class ProgressManager {
         };
         TaskType[] workSpaceTasks = {
             TaskType.WriteTextsToItems,
+            TaskType.OpenAgarplates,
             TaskType.FillBottles,
             TaskType.AssemblePump
             
