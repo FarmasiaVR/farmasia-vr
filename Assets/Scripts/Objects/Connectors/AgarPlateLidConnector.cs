@@ -58,12 +58,13 @@ public class AgarPlateLidConnector : AttachmentConnector {
         Logger.Print("Releasing agarplates");
 
         AgarPlateBottom bottom = (AgarPlateBottom)attached.Interactable;
+        GameObject gameObject = (GameObject)attached.GameObject;
 
         attached.Interactable.Interactors.ResetAgarPlateLid();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
         ReplaceObject(null);
-        Events.FireEvent(EventType.PlateOpened, CallbackData.Object(attached.Interactable));
+        Events.FireEvent(EventType.PlateOpened, CallbackData.Object(gameObject));
     }
 }

@@ -29,10 +29,15 @@ public class OpenAgarplates : TaskBase {
         base.SubscribeEvent(TrackOpenedPlates, EventType.PlateOpened);
     }
 
+    /// <summary>
+    /// When event is fired, checkwhat type of plate was opened and increment amount. If both have been opened end task.
+    /// Reduce points if player opens too many plates.
+    /// </summary>
+    /// <param name="data"></param>
     private void TrackOpenedPlates(CallbackData data) {
-        Logger.Print("Tracking opened plates");
         GameObject gameObject = (GameObject)data.DataObject;
-        ObjectType plateType = gameObject.GetComponent<AgarPlateLid>().ObjectType;
+        Logger.Print(gameObject);
+        ObjectType plateType = gameObject.GetComponent<AgarPlateBottom>().ObjectType;
         if (plateType == ObjectType.SabouradDextrosiPlate) {
             sabouradPlates++;
         }
@@ -40,7 +45,10 @@ public class OpenAgarplates : TaskBase {
             soycaseinePlates++;
         }
 
-        if (soycaseinePlates + sabouradPlates == 4) {
+        if (soycaseinePlates >= 1 && sabouradPlates >= 1) {
+            if (soycaseinePlates + sabouradPlates > 2) {
+                CreateTaskMistake("Avasit liian monta maljaa >:(", soycaseinePlates + sabouradPlates - 2);
+            }
             EnableCondition(Conditions.OpenedCorrectPlates);
             CompleteTask();
         }
