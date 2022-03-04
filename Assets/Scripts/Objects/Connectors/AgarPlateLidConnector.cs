@@ -64,5 +64,6 @@ public class AgarPlateLidConnector : AttachmentConnector {
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
         ReplaceObject(null);
+        Events.FireEvent(EventType.PlateOpened, CallbackData.Object(attached.Interactable));
     }
 }

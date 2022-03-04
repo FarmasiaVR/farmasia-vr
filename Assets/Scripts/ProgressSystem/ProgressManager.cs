@@ -133,10 +133,12 @@ public class ProgressManager {
     private void GenerateScenarioTwo()
     {
         TaskType[] selectTasks = {
+            TaskType.OpenAgarplates,
             TaskType.CorrectItemsInThroughputMembrane
         };
         TaskType[] workSpaceTasks = {
             TaskType.WriteTextsToItems,
+            TaskType.OpenAgarplates,
             TaskType.FillBottles
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));

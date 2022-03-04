@@ -18,7 +18,7 @@ public class OpenAgarplates : TaskBase {
     private int sabouradPlates = 0;
     #endregion
 
-    public OpenAgarplates() : base(TaskType.OpenAgarplates, true, false) {
+    public OpenAgarplates() : base(TaskType.OpenAgarplates, true, true) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
