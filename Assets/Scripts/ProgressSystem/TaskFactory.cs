@@ -54,6 +54,10 @@ public static class TaskFactory {
                     return new WriteTextsToItems();
                 case TaskType.FillBottles:
                     return new FillBottles();
+                case TaskType.AssemblePump:
+                    return new AssemblePump();
+                case TaskType.OpenAgarplates:
+                    return new OpenAgarplates();
                 default:
                     return null;
             }

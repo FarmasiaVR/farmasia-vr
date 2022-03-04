@@ -42,6 +42,7 @@ public class PumpFilterConnector : AttachmentConnector
         }
 
         Logger.Print("Pump filter connected");
+        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(interactable));
     }
 
     protected override void SetInteractors()
