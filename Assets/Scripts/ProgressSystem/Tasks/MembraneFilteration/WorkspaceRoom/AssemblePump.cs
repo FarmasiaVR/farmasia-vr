@@ -43,7 +43,10 @@ class AssemblePump: TaskBase {
     /// Check if the medicinewaste pipe is connected to pump
     /// </summary>
     private void AttachPipe(CallbackData data) {
-        
+        Logger.Print("Started to attach pipe to "+ data.DataObject);
+
+        // EnableCondition(Conditions.PipeAttached);
+        // CompleteTask();
     }
 
     private void CheckMistakes() {
