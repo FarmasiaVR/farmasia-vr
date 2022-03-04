@@ -30,6 +30,7 @@ public class OpenAgarplates : TaskBase {
     }
 
     private void TrackOpenedPlates(CallbackData data) {
+        Logger.Print("Tracking opened plates");
         GameObject gameObject = (GameObject)data.DataObject;
         ObjectType plateType = gameObject.GetComponent<AgarPlateLid>().ObjectType;
         if (plateType == ObjectType.SabouradDextrosiPlate) {
