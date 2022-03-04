@@ -54,6 +54,8 @@ public static class TaskFactory {
                     return new WriteTextsToItems();
                 case TaskType.FillBottles:
                     return new FillBottles();
+                case TaskType.AssemblePump:
+                    return new AssemblePump();
                 default:
                     return null;
             }

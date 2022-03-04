@@ -14,6 +14,7 @@ class AssemblePump: TaskBase {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         points = 1;
+        Subscribe();
     }
 
     public override void Subscribe() {
@@ -23,21 +24,18 @@ class AssemblePump: TaskBase {
     /// Check if the filter is connected to pump inside the laminar cabinet
     /// </summary>
     private void AttachFilter(CallbackData data) {
+        Logger.Print("Started to attach filter to "+ data.DataObject);
         Pump pump = data.DataObject as Pump;
-        PumpFilter filter = pump.GetComponent<PumpFilter>();
 
-        if (filter == null ) {
-            return;
-        }
-
-        if (laminarCabinet == null) {
+    /*    if (laminarCabinet == null) {
             CreateTaskMistake("Filtteri kiinnitettiin liian aikaisin.", 1);
             return;
-        } else if (!laminarCabinet.GetContainedItems().Contains(filter)) {
+        } else if (!laminarCabinet.GetContainedItems().Contains(pump)) {
             CreateTaskMistake("Filtteri kiinnitettiin laminaarikaapin ulkopuolella", 1);
             return;
         }
-        
+    */
+        EnableCondition(Conditions.PumpAssembled);
         CompleteTask();
     }
 
@@ -46,19 +44,6 @@ class AssemblePump: TaskBase {
     /// </summary>
     private void AttachPipe(CallbackData data) {
         
-    }
-
- 
-    private void OnPumpAssemble(CallbackData data) {
-        Pump pump = data.DataObject as Pump;
-        PumpFilter filter = data.DataObject as PumpFilter;
-        bool conn = false;
-
-        if (conn) {
-            EnableCondition(Conditions.PumpAssembled);
-            CheckMistakes();
-            CompleteTask();
-        }
     }
 
     private void CheckMistakes() {
