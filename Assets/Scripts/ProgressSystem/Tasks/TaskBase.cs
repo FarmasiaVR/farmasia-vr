@@ -52,7 +52,7 @@ public abstract class TaskBase : ITask {
         FinishTask();
         isFinished = true;
         completed = true;
-        Logger.Warning(taskType + " is now finished for good");
+        Logger.Warning($"{taskType.ToString()} is now finished for good");
     }
 
     public virtual void StartTask() {

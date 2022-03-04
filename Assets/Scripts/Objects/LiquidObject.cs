@@ -58,6 +58,6 @@ public class LiquidObject : MonoBehaviour {
                 mesh.material = Resources.Load<Material>("Liquids/Soycaseine"); ;
                 break;
         }
-        Logger.Print("Set material of liquid to " + mesh.material);
+        Logger.Print($"Set material of liquid to {mesh.sharedMaterial.name}");
     }
 }        
