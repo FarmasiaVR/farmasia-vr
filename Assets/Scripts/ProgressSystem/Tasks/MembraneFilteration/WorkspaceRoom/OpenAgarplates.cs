@@ -39,7 +39,7 @@ public class OpenAgarplates : TaskBase {
             soycaseinePlates++;
         }
 
-        if (soycaseinePlates + sabouradPlates == 1) {
+        if (soycaseinePlates + sabouradPlates == 4) {
             EnableCondition(Conditions.OpenedCorrectPlates);
             CompleteTask();
         }
