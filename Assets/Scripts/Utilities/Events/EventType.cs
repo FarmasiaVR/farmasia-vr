@@ -36,5 +36,6 @@
     WriteToObject,
     TransferLiquidToBottle,
     AttachFilter,
-    PlateOpened
+    PlateOpened,
+    AttachPipe
 }

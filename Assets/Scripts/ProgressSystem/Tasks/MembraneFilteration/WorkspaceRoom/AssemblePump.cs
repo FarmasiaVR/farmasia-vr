@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 class AssemblePump: TaskBase {
 
-    public enum Conditions { PumpAssembled }
+    public enum Conditions { FilterAttached, PipeAttached }
     
     private CabinetBase laminarCabinet;
     // private bool fail = false;
@@ -20,6 +20,7 @@ class AssemblePump: TaskBase {
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AttachFilter, EventType.AttachFilter);
+        base.SubscribeEvent(AttachPipe, EventType.AttachPipe);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -44,7 +45,7 @@ class AssemblePump: TaskBase {
             return;
         }
     
-        EnableCondition(Conditions.PumpAssembled);
+        EnableCondition(Conditions.FilterAttached);
         CompleteTask();
     }
 
@@ -54,8 +55,8 @@ class AssemblePump: TaskBase {
     private void AttachPipe(CallbackData data) {
         Logger.Print("Started to attach pipe to "+ data.DataObject);
 
-        // EnableCondition(Conditions.PipeAttached);
-        // CompleteTask();
+        EnableCondition(Conditions.PipeAttached);
+        CompleteTask();
     }
 
     private void CheckMistakes() {
@@ -78,6 +79,6 @@ class AssemblePump: TaskBase {
     }
 
     public override string GetHint() {
-        return "Kiinnitä filtteri pumppuun.";
+        return "Kiinnitä filtteri ja letku pumppuun.";
     }
 }
