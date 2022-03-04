@@ -5,7 +5,6 @@ public class AgarPlateLid : GeneralItem {
 
     protected override void Start() {
         base.Start();
-        ObjectType = ObjectType.AgarPlateLid;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
 
         Connector = new AgarPlateLidConnector(this, transform.Find("Bottom Collider").gameObject);
