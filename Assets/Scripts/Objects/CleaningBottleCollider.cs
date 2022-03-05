@@ -6,7 +6,7 @@ public class CleaningBottleCollider : MonoBehaviour
 {
     public GameObject Effect;
     private List<GeneralItem> Items = new List<GeneralItem>();
-    private ParticleSystem particleSystem;
+    private new ParticleSystem particleSystem;
 
     private void Awake() {
         particleSystem = Effect.GetComponent<ParticleSystem>();

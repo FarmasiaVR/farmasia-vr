@@ -23,7 +23,5 @@
     Tweezers,
     Scalpel,
     Pipette,
-    AgarPlateBottom,
-    AgarPlateLid,
     PumpFilter
 }

@@ -37,7 +37,6 @@ public sealed class G {
     }
 
     public void ResetProgressManager() {
-        Logger.Warning("Resetting ProgressManager");
         Progress = new ProgressManager(false);
     }
 

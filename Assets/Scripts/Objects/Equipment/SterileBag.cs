@@ -81,8 +81,6 @@ public class SterileBag : GeneralItem {
         VRInput.Hands[1].Hand.HandCollider.RemoveInteractable(syringe);
         VRInput.Hands[1].Hand.ExtendedHandCollider.RemoveInteractable(syringe);
 
-        Logger.Print("Set syringe");
-
         SetSyringe(syringe);
 
         if (syringe.IsClean) {

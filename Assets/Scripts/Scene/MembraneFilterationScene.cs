@@ -99,11 +99,9 @@ class MembraneFilterationScene : SceneScript {
 
         }.Select(InstantiateObject).ToList();
 
-        List<Transform> transforms = gameObjects.Select(go => go.transform).ToList();
+        List<Transform> transforms = gameObjects.Select(SelectTransform).ToList();
 
-        yield return Wait();
-
-        //AllowCollisionsBetween(all, false);
+        Logger.Print(transforms[5]);
 
         yield return Wait();
 
@@ -117,8 +115,6 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
-
-        AllowCollisionsBetween(transforms, true);
 
         if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
             yield break;
@@ -154,10 +150,10 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
 
         WritingPen pen = ToInteractable(gameObjects[19]) as WritingPen;
-        GeneralItem plateS1 = ToInteractable(gameObjects[3]) as GeneralItem;
-        GeneralItem plateS2 = ToInteractable(gameObjects[4]) as GeneralItem;
-        GeneralItem plateS3 = ToInteractable(gameObjects[5]) as GeneralItem;
-        GeneralItem plateSD = ToInteractable(gameObjects[6]) as GeneralItem;
+        AgarPlateLid plateS1Lid = gameObjects[3].GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateS2Lid = gameObjects[4].GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateS3Lid = gameObjects[5].GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateSDLid = gameObjects[6].GetComponentInChildren<AgarPlateLid>();
         Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
         Pipette pipette2 = ToInteractable(gameObjects[17]) as Pipette;
         Pipette pipette3 = ToInteractable(gameObjects[18]) as Pipette;
@@ -174,14 +170,14 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.Date, ""},
             {WritingType.Time, ""},
         };
-        pen.SubmitWriting(plateS1.GetComponent<Writable>(), plateS1.gameObject, writing);
+        pen.SubmitWriting(plateS1Lid.GetComponent<Writable>(), plateS1Lid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, ""},
             {WritingType.Time, ""},
         };
-        pen.SubmitWriting(plateSD.GetComponent<Writable>(), plateSD.gameObject, writing);
+        pen.SubmitWriting(plateSDLid.GetComponent<Writable>(), plateSDLid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
@@ -189,7 +185,7 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.Time, ""},
             {WritingType.RightHand, ""}
         };
-        pen.SubmitWriting(plateS2.GetComponent<Writable>(), plateS2.gameObject, writing);
+        pen.SubmitWriting(plateS2Lid.GetComponent<Writable>(), plateS2Lid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
@@ -197,7 +193,7 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.Time, ""},
             {WritingType.LeftHand, ""}
         };
-        pen.SubmitWriting(plateS3.GetComponent<Writable>(), plateS3.gameObject, writing);
+        pen.SubmitWriting(plateS3Lid.GetComponent<Writable>(), plateS3Lid.gameObject, writing);
 
 
         writing = new Dictionary<WritingType, string>() {
@@ -367,6 +363,14 @@ class MembraneFilterationScene : SceneScript {
         return g;
     }
 
+    private Transform SelectTransform(GameObject gameObject) {
+        if (gameObject.GetComponent<Rigidbody>() != null) {
+            return gameObject.transform;
+        } else {
+            return gameObject.GetComponentInChildren<Rigidbody>().transform;
+        }
+    }
+
     private void DropAt(Transform theObject, Transform position) {
         DropAt(theObject, position.position);
     }
@@ -374,7 +378,11 @@ class MembraneFilterationScene : SceneScript {
     private void DropAt(Transform theObject, Vector3 position) {
         theObject.position = position;
         theObject.eulerAngles = Vector3.up;
-        theObject.gameObject.GetComponent<Rigidbody>().velocity *= 0f;
+        var rigidBody = theObject.gameObject.GetComponent<Rigidbody>();
+        if (rigidBody == null) {
+            rigidBody = theObject.gameObject.GetComponentInChildren<Rigidbody>();
+        }
+        rigidBody.velocity *= 0f;
     }
 
     private WaitForSeconds Wait() {

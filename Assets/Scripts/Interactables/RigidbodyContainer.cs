@@ -75,7 +75,6 @@ public class RigidbodyContainer {
     
         SaveState();
         MonoBehaviour.Destroy(Rigidbody);
-        Logger.Print("RigidBody of " +interactable + " destroyed");
     }
     public void SaveState() {
         state = new RigidbodyState(Rigidbody);

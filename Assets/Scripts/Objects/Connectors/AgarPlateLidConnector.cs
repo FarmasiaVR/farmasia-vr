@@ -31,7 +31,6 @@ public class AgarPlateLidConnector : AttachmentConnector {
         if (itemGrabbed) {
             itemHand.InteractWith(interactable, false);
         }
-        Logger.Print("Agar plates connected");
     }
 
     protected override void SetInteractors() {
