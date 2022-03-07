@@ -133,6 +133,7 @@ public class ProgressManager {
     private void GenerateScenarioTwo()
     {
         TaskType[] selectTasks = {
+            TaskType.OpenAgarplates,
             TaskType.CorrectItemsInThroughputMembrane
         };
         TaskType[] workSpaceTasks = {

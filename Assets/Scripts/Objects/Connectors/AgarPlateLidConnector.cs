@@ -58,6 +58,7 @@ public class AgarPlateLidConnector : AttachmentConnector {
 
         AgarPlateBottom bottom = (AgarPlateBottom)attached.Interactable;
         GameObject gameObject = (GameObject)attached.GameObject;
+        Logger.Print("game object: " + gameObject);
 
         attached.Interactable.Interactors.ResetAgarPlateLid();
 
