@@ -75,7 +75,7 @@ public class HandCollider : MonoBehaviour {
     private void HighlightObject(Interactable obj) {
         UnhighlightPrevious();
 
-        if (container.Contains(obj)) {
+        if (container.Contains(obj) && !obj.DisableHighlighting) {
             PreviousHighlight = obj.Highlight;
             PreviousHighlight?.Highlight();
         }

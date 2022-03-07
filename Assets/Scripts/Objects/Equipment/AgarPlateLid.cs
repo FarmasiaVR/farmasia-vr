@@ -19,7 +19,18 @@ public class AgarPlateLid : GeneralItem {
 
         Connector.ConnectItem(Bottom);
     }
+
     public void ReleaseItem() {
         Connector.Connection?.Remove();
+    }
+
+    public void FixedUpdate() {
+        if (IsGrabbed && (IsAttached || Connector.HasAttachedObject)) {
+            Type.Off(InteractableType.Grabbable);
+            DisableHighlighting = true;
+        } else {
+            Type.On(InteractableType.Grabbable);
+            DisableHighlighting = false;
+        }
     }
 }

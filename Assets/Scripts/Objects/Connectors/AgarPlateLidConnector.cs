@@ -18,7 +18,6 @@ public class AgarPlateLidConnector : AttachmentConnector {
         if (interactable.IsAttached) {
             return;
         }
-
         bool itemGrabbed = interactable.State == InteractState.Grabbed;
         Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
 
@@ -64,6 +63,8 @@ public class AgarPlateLidConnector : AttachmentConnector {
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
+        attached.Interactable.Type.On(InteractableType.Grabbable);
+        this.GeneralItem.Type.On(InteractableType.Grabbable);
         ReplaceObject(null);
         Events.FireEvent(EventType.PlateOpened, CallbackData.Object(gameObject));
     }

@@ -28,7 +28,7 @@ public class Interactable : MonoBehaviour {
     public Interactors Interactors;
 
     [SerializeField]
-    private bool disableHighlighting;
+    public bool DisableHighlighting;
 
     private ObjectHighlight highlight;
 
@@ -41,7 +41,7 @@ public class Interactable : MonoBehaviour {
 
     protected virtual void Start() {
         if (gameObject.GetComponent<ObjectHighlight>() == null) {
-            gameObject.AddComponent<ObjectHighlight>().DisableHighlighting(disableHighlighting);
+            gameObject.AddComponent<ObjectHighlight>().DisableHighlighting(DisableHighlighting);
 
         }
 
