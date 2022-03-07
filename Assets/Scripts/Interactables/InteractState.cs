@@ -5,5 +5,6 @@
     LidAttached,
     InBottle,
     OnFloor,
-    PumpFilterAttached
+    PumpFilterAttached,
+    CapAttached
 }

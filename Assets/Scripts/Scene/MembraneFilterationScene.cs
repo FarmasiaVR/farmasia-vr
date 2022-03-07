@@ -382,7 +382,7 @@ class MembraneFilterationScene : SceneScript {
         if (rigidBody == null) {
             rigidBody = theObject.gameObject.GetComponentInChildren<Rigidbody>();
         }
-        rigidBody.velocity *= 0f;
+        // rigidBody.velocity *= 0f;
     }
 
     private WaitForSeconds Wait() {

@@ -10,6 +10,8 @@ public struct Interactors {
     public AgarPlateLid AgarPlateLid { get; private set;  }
     public PumpFilter PumpFilter { get; private set; }
 
+    public BottleCap BottleCap;
+
     public void SetHand(Hand hand) {
         Hand = hand;
     }

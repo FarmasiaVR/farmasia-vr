@@ -15,9 +15,9 @@ public class LuerlockItemConnection : ItemConnection {
     }
 
     protected override void OnRemoveConnection() {
-        Logger.Print(string.Format("Throwing LuerlockItemConnection, interactable: {0}", interactable));
+        // Logger.Print(string.Format("Throwing LuerlockItemConnection, interactable: {0}", interactable));
         if (interactable != null && interactable.State == InteractState.Grabbed) {
-            Logger.Print("Throwing luerlock");
+            // Logger.Print("Throwing luerlock");
             var handType = Hand.GrabbingHand(interactable).HandType;
 
             connectedRB.velocity = VRInput.Skeleton(handType).velocity;
@@ -35,6 +35,8 @@ public class LuerlockItemConnection : ItemConnection {
             return LidConfiguration(connector, hand, interactable);
         } else if (interactable.State == InteractState.PumpFilterAttached) {
             return PumpFilterConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.CapAttached) {
+            return CapConfiguration(connector, hand, interactable);
         }
 
         throw new Exception("No such configuration type for InteractState");
@@ -131,6 +133,31 @@ public class LuerlockItemConnection : ItemConnection {
 
         Joint joint = JointConfiguration.AddJoint(targetRB.gameObject, lidRB.mass);
         joint.connectedBody = lidRB;
+
+        conn.joint = joint;
+
+        JointBreakSubscription.Subscribe(hand.gameObject, conn.JointBreak);
+
+        return conn;
+    }
+
+    private static LuerlockItemConnection CapConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
+
+        Rigidbody targetRB = hand.GetComponent<Rigidbody>();
+        Rigidbody capRB = interactable.Interactors.BottleCap.Rigidbody;
+
+        if (targetRB == null || capRB == null) {
+            throw new System.Exception("Both parties did not have rigidbody");
+        }
+
+        LuerlockItemConnection conn = interactable.gameObject.AddComponent<LuerlockItemConnection>();
+
+        conn.Connector = connector;
+        conn.connectedRB = capRB;
+        conn.interactable = interactable;
+
+        Joint joint = JointConfiguration.AddJoint(targetRB.gameObject, capRB.mass);
+        joint.connectedBody = capRB;
 
         conn.joint = joint;
 

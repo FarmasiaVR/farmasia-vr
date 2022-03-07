@@ -4,41 +4,55 @@ using System.Collections;
 public class BottleCapConnector : AttachmentConnector {
     public override ItemConnection Connection { get; set; }
 
-    public BottleCapConnector(BottleCap needle, GameObject collider) : base(needle.transform) {
-        GeneralItem = needle;
+    public BottleCapConnector(BottleCap cap, GameObject collider) : base(cap.transform) {
+        GeneralItem = cap;
         attached = new AttachedObject();
         this.Collider = collider;
     }
 
-    protected override InteractState AttachState => throw new System.NotImplementedException();
+    protected override InteractState AttachState => InteractState.CapAttached;
 
     public override void ConnectItem(Interactable interactable) {
-        throw new System.NotImplementedException();
+        if (interactable.IsAttached) {
+            return;
+        }
+        bool itemGrabbed = interactable.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+
+        if (itemGrabbed) {
+            interactable.GetComponent<ItemConnection>().Remove();
+        }
+
+        ReplaceObject(interactable?.gameObject);
+
+        if (itemGrabbed) {
+            itemHand.InteractWith(interactable, false);
+        }
     }
 
     public override void OnReleaseItem() {
-        throw new System.NotImplementedException();
+        Logger.Print("Releasing bottle cap");
+        ReplaceObject(null);
+        attached.Interactable.Interactors.BottleCap = null;
     }
 
     protected override void AttachEvents(GameObject intObject) {
-        throw new System.NotImplementedException();
+        
     }
 
     protected override void SetInteractors() {
-        throw new System.NotImplementedException();
+        attached.Interactable.Interactors.BottleCap = GeneralItem as BottleCap;
     }
 
     protected override void SnapObjectPosition() {
-        throw new System.NotImplementedException();
-    }
+        Transform obj = attached.GameObject.transform;
+        Transform coll = Collider.transform;
+        Transform capPosition = obj.Find("CapPosition");
 
-    // Use this for initialization
-    void Start() {
+        Vector3 pivot = Vector3.Cross(coll.up, obj.up);
+        obj.Rotate(pivot, -Vector3.SignedAngle(coll.up, obj.up, pivot), Space.World);
 
-    }
-
-    // Update is called once per frame
-    void Update() {
-
+        Vector3 offset = coll.position - capPosition.position;
+        GeneralItem.transform.position -= offset;
     }
 }

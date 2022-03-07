@@ -21,7 +21,7 @@ public class JointConnection : ItemConnection {
     private void SetJoint() {
         // debug this shit
         try {
-            Logger.Print("SetJoint: rb = " + rb.mass);
+            var s = "SetJoint: rb = " + rb.mass;
 
         } catch (NullReferenceException) {
             Logger.Warning("------ EPIC DEBUG STARTING --------");

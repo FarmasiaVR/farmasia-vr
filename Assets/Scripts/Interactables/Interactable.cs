@@ -128,7 +128,11 @@ public class Interactable : MonoBehaviour {
 
     public bool IsAttached {
         get {
-            return State == InteractState.LuerlockAttached || State == InteractState.NeedleAttached || State == InteractState.LidAttached || State == InteractState.PumpFilterAttached;
+            return State == InteractState.LuerlockAttached
+                || State == InteractState.NeedleAttached
+                || State == InteractState.LidAttached
+                || State == InteractState.PumpFilterAttached
+                || State == InteractState.CapAttached;
         }
     }
 

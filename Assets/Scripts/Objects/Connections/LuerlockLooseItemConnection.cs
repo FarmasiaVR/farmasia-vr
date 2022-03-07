@@ -87,6 +87,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
             return LidConfiguration(connector, hand, interactable);
         } else if (interactable.State == InteractState.PumpFilterAttached) {
             return PumpFilterConfiguration(connector, hand, interactable);
+        } else if (interactable.State == InteractState.CapAttached) {
+            return CapConfiguration(connector, hand, interactable);
         }
 
         throw new Exception("No such configuration type for InteractState");
@@ -131,8 +133,7 @@ public class LuerlockLooseItemConnection : ItemConnection {
 
         return conn;
     }
-    public static LuerlockLooseItemConnection PumpFilterConfiguration(ItemConnector connector, Transform hand, Interactable interactable)
-    {
+    public static LuerlockLooseItemConnection PumpFilterConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
 
         LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
 
@@ -142,6 +143,19 @@ public class LuerlockLooseItemConnection : ItemConnection {
         conn.parentItem = interactable.Interactors.PumpFilter;
         conn.startLocal = interactable.transform.localPosition;
         conn.state = InteractState.PumpFilterAttached;
+
+        return conn;
+    }
+    public static LuerlockLooseItemConnection CapConfiguration(ItemConnector connector, Transform hand, Interactable interactable) {
+
+        LuerlockLooseItemConnection conn = interactable.gameObject.AddComponent<LuerlockLooseItemConnection>();
+
+        conn.Connector = connector;
+        conn.interactable = interactable;
+        conn.hand = hand.GetComponent<Hand>();
+        conn.parentItem = interactable.Interactors.BottleCap;
+        conn.startLocal = interactable.transform.localPosition;
+        conn.state = InteractState.CapAttached;
 
         return conn;
     }
