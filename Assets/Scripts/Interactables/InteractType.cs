@@ -3,6 +3,4 @@
     Interactable,
     Draggable,
     Attachable,
-    HasLiquid,
-    SmallObject
 }

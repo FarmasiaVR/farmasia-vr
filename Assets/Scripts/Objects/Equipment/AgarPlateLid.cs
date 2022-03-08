@@ -10,7 +10,7 @@ public class AgarPlateLid : ConnectableItem {
 
     protected override void Start() {
         base.Start();
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
 
         Connector = new AgarPlateLidConnector(this, transform.Find("Bottom Collider").gameObject);
         Connector.Subscribe();

@@ -166,9 +166,7 @@ public class HandConnector : ItemConnector {
                 ConnectionHandler.ReleaseItemWhenAttachedItemIsGrabbed(filter.Connector.AttachedInteractable);
             }
         } else if (GrabbedInteractable as BottleCap is var cap && cap != null) {
-            Logger.Print("Trying to release cap");
             if (cap.Connector.HasAttachedObject && cap.Connector.AttachedInteractable.State == InteractState.Grabbed) {
-                Logger.Print("Trying to release cap part 2");
                 ConnectionHandler.ReleaseItemWhenAttachedItemIsGrabbed(cap.Connector.AttachedInteractable);
             }
         }

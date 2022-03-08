@@ -37,7 +37,7 @@ public class Syringe : GeneralItem {
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
 
-        Type.On(InteractableType.Attachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Attachable, InteractableType.Interactable);
 
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();

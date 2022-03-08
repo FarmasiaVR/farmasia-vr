@@ -8,7 +8,7 @@ public class PumpFilter : ConnectableItem {
     protected override void Start() {
         base.Start();
         ObjectType = ObjectType.PumpFilter;
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
 
         Connector = new PumpFilterConnector(this, transform.Find("Pump Collider").gameObject);
         Connector.Subscribe();

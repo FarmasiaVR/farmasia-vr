@@ -78,7 +78,6 @@ public class LuerlockAdapter : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.Luerlock;
-        Type.On(InteractableType.SmallObject);
         Contamination = ContaminateState.Clean;
 
         connectors = new Dictionary<Side, LuerlockConnector> {

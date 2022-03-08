@@ -68,6 +68,8 @@ public class LuerlockLooseItemConnection : ItemConnection {
             (parentItem as AgarPlateLid).Connector.Connection.Remove();
         } else if (state == InteractState.PumpFilterAttached) {
             (parentItem as PumpFilter).Connector.Connection.Remove();
+        } else if (state == InteractState.CapAttached) {
+            (parentItem as BottleCap).Connector.Connection.Remove();
         }
 
         interactable.transform.position = hand.Smooth.transform.position;

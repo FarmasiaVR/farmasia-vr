@@ -12,7 +12,7 @@ public class SyringeCap : GeneralItem {
 
         ObjectType = ObjectType.SyringeCap;
 
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
         CollisionSubscription.SubscribeToTrigger(capHeadTrigger, new TriggerListener().OnEnter(collider => CapHeadCollision(collider)));
     }
 

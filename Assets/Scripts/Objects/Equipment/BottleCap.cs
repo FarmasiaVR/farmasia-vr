@@ -10,7 +10,7 @@ public class BottleCap : ConnectableItem {
 
     protected override void Start() {
         base.Start();
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
 
         Connector = new BottleCapConnector(this, transform.Find("Bottom Collider").gameObject);
         Connector.Subscribe();
@@ -22,13 +22,21 @@ public class BottleCap : ConnectableItem {
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
-        ReleaseItem();
+        RemoveCap();
     }
 
-    public void ReleaseItem() {
-        if (IsAttached) {
-            Logger.Print("Releasing bottle cap when grabbed");
+    public void RemoveCap() {
+        if (Connector.HasAttachedObject) {
+            var bottle = Connector.AttachedInteractable;
             Connector.Connection?.Remove();
+            CoroutineUtils.StartThrowingCoroutine(this, DisableAttachingForAWhile(bottle));
         }
+    }
+
+    IEnumerator DisableAttachingForAWhile(Interactable bottle) {
+        bottle.Type.Off(InteractableType.Attachable);
+        yield return new WaitForSeconds(2);
+        bottle.Type.On(InteractableType.Attachable);
+        yield break;
     }
 }

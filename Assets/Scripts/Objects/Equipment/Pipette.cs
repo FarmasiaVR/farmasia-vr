@@ -28,7 +28,7 @@ public class Pipette : GeneralItem {
         Container = LiquidContainer.FindLiquidContainer(transform);
 
         
-        Type.On(InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
     }
 
     public override void OnGrabStart(Hand hand) {

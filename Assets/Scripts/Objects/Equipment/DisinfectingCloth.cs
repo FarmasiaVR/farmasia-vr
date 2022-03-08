@@ -7,7 +7,7 @@ public class DisinfectingCloth : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.DisinfectingCloth;
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
     }
 
     protected override void OnCollisionEnter(Collision other) {

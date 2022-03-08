@@ -6,7 +6,7 @@ public class Needle : ConnectableItem {
     protected override void Start() {
         base.Start();
         ObjectType = ObjectType.Needle;
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
 
         Connector = new NeedleConnector(this, transform.Find("Syringe Collider").gameObject);
         Connector.Subscribe();

@@ -9,7 +9,7 @@ public class MedicineBottle : GeneralItem {
 
     protected override void Start() {
         base.Start();
-        // objectType = ObjectType.Medicine;
+        Type.On(InteractableType.Attachable);
         Container = LiquidContainer.FindLiquidContainer(transform);
         Assert.IsNotNull(Container);
     }

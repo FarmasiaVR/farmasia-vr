@@ -31,9 +31,7 @@ public class BottleCapConnector : AttachmentConnector {
     }
 
     public override void OnReleaseItem() {
-        Logger.Print("Releasing bottle cap");
-        ReplaceObject(null);
-        attached.Interactable.Interactors.BottleCap = null;
+        attached.Interactable.Interactors.ResetCap();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
@@ -47,7 +45,7 @@ public class BottleCapConnector : AttachmentConnector {
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.BottleCap = GeneralItem as BottleCap;
+        attached.Interactable.Interactors.SetCap(GeneralItem as BottleCap);
     }
 
     protected override void SnapObjectPosition() {

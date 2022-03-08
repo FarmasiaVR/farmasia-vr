@@ -11,7 +11,7 @@ public class Pump : GeneralItem
     {
         base.Start();
         ObjectType = ObjectType.Pump;
-        Type.On(InteractableType.Attachable, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Attachable, InteractableType.Interactable);
 
     }
 }

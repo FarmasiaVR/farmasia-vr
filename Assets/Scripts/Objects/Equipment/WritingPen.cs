@@ -7,7 +7,7 @@ public class WritingPen : GeneralItem {
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Pen;
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
     }
 
     protected override void OnCollisionEnter(Collision other) {
