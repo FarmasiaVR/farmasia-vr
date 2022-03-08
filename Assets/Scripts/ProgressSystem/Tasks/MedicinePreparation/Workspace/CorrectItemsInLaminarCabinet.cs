@@ -102,7 +102,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                 } else if (g is Needle) {
                     EnableCondition(Conditions.Needle);
                     needleCount++;
-                } else if (g is MedicineBottle bottle) {
+                } else if (g is Bottle bottle) {
                     bottleCount++;
 
                     int capacity = bottle.Container.Capacity;
@@ -116,7 +116,7 @@ public class CorrectItemsInLaminarCabinet : TaskBase {
                     EnableCondition(Conditions.SyringeCap);
                 }
 
-                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is MedicineBottle)) {
+                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
                     uncleanCount++;
                     Logger.Warning(g.name + " in laminar cabinet was not clean");
                 }

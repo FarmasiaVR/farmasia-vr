@@ -157,12 +157,12 @@ class MembraneFilterationScene : SceneScript {
         Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
         Pipette pipette2 = ToInteractable(gameObjects[17]) as Pipette;
         Pipette pipette3 = ToInteractable(gameObjects[18]) as Pipette;
-        MedicineBottle bottleT1 = ToInteractable(gameObjects[7]) as MedicineBottle;
-        MedicineBottle bottleT2 = ToInteractable(gameObjects[8]) as MedicineBottle;
-        MedicineBottle bottleS1 = ToInteractable(gameObjects[9]) as MedicineBottle;
-        MedicineBottle bottleS2 = ToInteractable(gameObjects[10]) as MedicineBottle;
-        MedicineBottle soycaseine = ToInteractable(gameObjects[11]) as MedicineBottle;
-        MedicineBottle tioglygolate = ToInteractable(gameObjects[13]) as MedicineBottle;
+        Bottle bottleT1 = ToInteractable(gameObjects[7]) as Bottle;
+        Bottle bottleT2 = ToInteractable(gameObjects[8]) as Bottle;
+        Bottle bottleS1 = ToInteractable(gameObjects[9]) as Bottle;
+        Bottle bottleS2 = ToInteractable(gameObjects[10]) as Bottle;
+        Bottle soycaseine = ToInteractable(gameObjects[11]) as Bottle;
+        Bottle tioglygolate = ToInteractable(gameObjects[13]) as Bottle;
 
         // Write
         var writing = new Dictionary<WritingType, string>() {

@@ -95,7 +95,7 @@ public class CabinetBase : MonoBehaviour {
         var items = new Dictionary<Type, int>();
         items.Add(typeof(Needle), 1);
         items.Add(typeof(LuerlockAdapter), 1);
-        items.Add(typeof(MedicineBottle), 1);
+        items.Add(typeof(Bottle), 1);
         items.Add(typeof(SmallSyringe), 6);
         items.Add(typeof(Syringe), 1);
         items.Add(typeof(SyringeCap), 1);

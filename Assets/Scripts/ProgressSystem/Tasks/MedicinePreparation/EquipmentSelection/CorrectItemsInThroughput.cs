@@ -52,7 +52,7 @@ public class CorrectItemsInThroughput : TaskBase {
         int gCount = 0;
 
         foreach (Interactable obj in containedObjects) {
-            if (obj is MedicineBottle) {
+            if (obj is Bottle) {
                 continue;
             }
             GeneralItem g = obj as GeneralItem;
@@ -124,7 +124,7 @@ public class CorrectItemsInThroughput : TaskBase {
                     break;
                 case ObjectType.Bottle:
                 case ObjectType.Medicine:
-                    MedicineBottle bottle = item as MedicineBottle;
+                    Bottle bottle = item as Bottle;
                     if (bottle.Container.Capacity == 4000 || bottle.Container.Capacity == 16000) {
                         EnableCondition(Conditions.RightBottle);
                     }

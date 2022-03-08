@@ -11,7 +11,7 @@ public class BottleCapConnector : AttachmentConnector {
     }
 
     public override void ConnectItem(Interactable interactable) {
-        var bottle = interactable as MedicineBottle;
+        var bottle = interactable as Bottle;
         if (bottle == null || bottle.IsAttached) {
             return;
         }

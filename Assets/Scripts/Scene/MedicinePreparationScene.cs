@@ -160,7 +160,7 @@ public class MedicinePreparationScene : SceneScript {
         LuerlockAdapter luerlock = ToInteractable(g_luerlock) as LuerlockAdapter;
         Needle needle = ToInteractable(g_needle) as Needle;
         Syringe bigSyringe = ToInteractable(g_bigSyringe) as Syringe;
-        MedicineBottle bottle = ToInteractable(g_bottle) as MedicineBottle;
+        Bottle bottle = ToInteractable(g_bottle) as Bottle;
 
         SmallSyringe[] smallSyringes = new SmallSyringe[6];
 

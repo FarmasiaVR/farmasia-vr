@@ -13,7 +13,7 @@ class FillBottles: TaskBase {
 
     private readonly int REQUIRED_AMOUNT = 30000;
 
-    private HashSet<MedicineBottle> bottles = new HashSet<MedicineBottle>();
+    private HashSet<Bottle> bottles = new HashSet<Bottle>();
 
     public FillBottles() : base(TaskType.FillBottles, true, false) {
         SetCheckAll(true);
@@ -23,7 +23,7 @@ class FillBottles: TaskBase {
 
     private void OnBottleFill(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
-        if (container.GeneralItem is MedicineBottle bottle && bottle.ObjectType == ObjectType.Bottle) {
+        if (container.GeneralItem is Bottle bottle && bottle.ObjectType == ObjectType.Bottle) {
             if (bottle.Container.Amount >= REQUIRED_AMOUNT) {
                 if (bottles.Contains(bottle)) return;
                 bottles.Add(bottle);

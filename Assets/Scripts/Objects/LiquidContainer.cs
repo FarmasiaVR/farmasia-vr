@@ -129,7 +129,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
-        if (target.GeneralItem is MedicineBottle || target.GeneralItem is PumpFilter) {
+        if (target.GeneralItem is Bottle || target.GeneralItem is PumpFilter) {
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
         }
     }
@@ -190,7 +190,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (GeneralItem is MedicineBottle) {
+        if (GeneralItem is Bottle) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
