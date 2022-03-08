@@ -34,6 +34,12 @@ public class BottleCapConnector : AttachmentConnector {
         Logger.Print("Releasing bottle cap");
         ReplaceObject(null);
         attached.Interactable.Interactors.BottleCap = null;
+
+        // Attach state might need to change
+        attached.Interactable.State.Off(AttachState);
+        attached.Interactable.Type.On(InteractableType.Grabbable);
+        this.GeneralItem.Type.On(InteractableType.Grabbable);
+        ReplaceObject(null);
     }
 
     protected override void AttachEvents(GameObject intObject) {

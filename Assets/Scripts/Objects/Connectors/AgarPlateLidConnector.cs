@@ -53,11 +53,8 @@ public class AgarPlateLidConnector : AttachmentConnector {
     }
 
     public override void OnReleaseItem() {
-        Logger.Print("Releasing agarplates");
-
         AgarPlateBottom bottom = (AgarPlateBottom)attached.Interactable;
         GameObject gameObject = (GameObject)attached.GameObject;
-        Logger.Print("game object: " + gameObject);
 
         attached.Interactable.Interactors.ResetAgarPlateLid();
 

@@ -9,7 +9,6 @@ public static class ConnectionHandler {
         connector.Connection = ItemConnection.AddJointConnection(connector, target, addTo);
     }
 
-
     public static void GrabLuerlockAttachedItem(ItemConnector connector, Transform target, Interactable addTo) {
         // Logger.Print("ConnectionHandler GrabLuerlockAttachedItem, target = " + target + " addTo = " + addTo);
         connector.Connection = ItemConnection.AddLuerlockItemConnection(connector, target, addTo);
@@ -108,7 +107,5 @@ public static class ConnectionHandler {
         otherHand.Connector.Connection.Remove();
         otherHand.InteractWith(otherInteractable);
     }
-
-
     #endregion
 }

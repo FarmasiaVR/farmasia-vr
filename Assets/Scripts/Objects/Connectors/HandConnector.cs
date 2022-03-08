@@ -35,10 +35,8 @@ public class HandConnector : ItemConnector {
 
     private void AttachGrabbedItem(Interactable interactable) {
         if (interactable.IsAttached) {
-            // Logger.Print("Attaching attached");
             AttachAttached(interactable);
         } else if (interactable as GeneralItem is var generalItem && generalItem != null) {
-            // Logger.Print("Attaching general");
             AttachGeneralItem(generalItem);
         } else {
             ConnectionHandler.GrabItem(this, Hand.Smooth.transform, interactable);
@@ -49,7 +47,6 @@ public class HandConnector : ItemConnector {
         if (interactable.State == InteractState.LuerlockAttached) {
             AttachLuerlockAttached(interactable);
         } else if (interactable.IsAttached) {
-            Logger.Print("Attaching interactable with needle");
             AttachConnectableItemAttached(interactable);
         } else {
             throw new Exception("Interactrable State is attached but not attached");
@@ -107,7 +104,6 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachConnectableItem(ConnectableItem item) {
-        Logger.Print(item.Connector);
         if (item.Connector.HasAttachedObject && item.Connector.AttachedInteractable.State == InteractState.Grabbed) {
             ConnectionHandler.GrabItemWhenAttachedItemIsGrabbed(this, Hand.transform, item);
         } else {
@@ -141,6 +137,7 @@ public class HandConnector : ItemConnector {
     }
 
     private void SafeRelease() {
+        Logger.Print("Something is being released");
         if (GrabbedInteractable.State == InteractState.LuerlockAttached) {
 
             LuerlockAdapter l = GrabbedInteractable.Interactors.LuerlockPair.Value;
@@ -161,6 +158,7 @@ public class HandConnector : ItemConnector {
             }
         } else if (GrabbedInteractable as AgarPlateLid is var lid && lid != null) {
             if (lid.Connector.HasAttachedObject && lid.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                Logger.Print("Releasing agar plates part 2");
                 ConnectionHandler.ReleaseItemWhenAttachedItemIsGrabbed(lid.Connector.AttachedInteractable);
             }
         } else if (GrabbedInteractable as PumpFilter is var filter && filter != null) {
@@ -168,7 +166,9 @@ public class HandConnector : ItemConnector {
                 ConnectionHandler.ReleaseItemWhenAttachedItemIsGrabbed(filter.Connector.AttachedInteractable);
             }
         } else if (GrabbedInteractable as BottleCap is var cap && cap != null) {
+            Logger.Print("Trying to release cap");
             if (cap.Connector.HasAttachedObject && cap.Connector.AttachedInteractable.State == InteractState.Grabbed) {
+                Logger.Print("Trying to release cap part 2");
                 ConnectionHandler.ReleaseItemWhenAttachedItemIsGrabbed(cap.Connector.AttachedInteractable);
             }
         }
