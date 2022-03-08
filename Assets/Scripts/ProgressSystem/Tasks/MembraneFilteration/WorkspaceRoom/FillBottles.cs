@@ -11,7 +11,7 @@ class FillBottles: TaskBase {
     private int soycaseineBottlesDone = 0;
     private int tioglygolateBottlesDone = 0;
 
-    private readonly int REQUIRED_AMOUNT = 100;
+    private readonly int REQUIRED_AMOUNT = 30000;
 
     private HashSet<MedicineBottle> bottles = new HashSet<MedicineBottle>();
 
