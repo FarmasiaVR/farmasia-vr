@@ -1,46 +1,47 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
-public class NeedleConnector : AttachmentConnector {
-
+class SimpleAttachmentConnector : AttachmentConnector {
     public override ItemConnection Connection { get; set; }
 
     protected override InteractState AttachState => InteractState.ConnectableAttached;
 
+    public Func<Interactable, bool> CanConnect = (interactable) => true;
+    public Action<Interactable> AfterConnect = (interactable) => { };
+    public Action<Interactable> AfterRelease = (interactable) => { };
 
-    public NeedleConnector(Needle needle, GameObject collider) : base(needle.transform) {
-        GeneralItem = needle;
+    public SimpleAttachmentConnector(ConnectableItem item, GameObject collider) : base(item.transform) {
+        GeneralItem = item;
         attached = new AttachedObject();
         this.Collider = collider;
     }
 
     public override void ConnectItem(Interactable interactable) {
-        var syringe = interactable as Syringe;
-        if (syringe == null || syringe.HasSyringeCap) {
-            Logger.Warning("Trying to attach needle to syringe with a cap");
+        if (!CanConnect(interactable)) {
             return;
         }
 
-        if (syringe.IsAttached) {
+        if (interactable.IsAttached) {
             return;
         }
 
-        bool itemGrabbed = syringe.State == InteractState.Grabbed;
-        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(syringe) : null;
+        bool itemGrabbed = interactable.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
 
         if (itemGrabbed) {
-            syringe.GetComponent<ItemConnection>().Remove();
+            interactable.GetComponent<ItemConnection>().Remove();
         }
 
-        ReplaceObject(syringe.gameObject);
+        ReplaceObject(interactable.gameObject);
 
         if (itemGrabbed) {
-            itemHand.InteractWith(syringe, false);
+            itemHand.InteractWith(interactable, false);
         }
+        AfterConnect(interactable);
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as Needle);
+        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as ConnectableItem);
     }
 
     protected override void AttachEvents(GameObject intObject) {
@@ -60,16 +61,11 @@ public class NeedleConnector : AttachmentConnector {
     }
 
     public override void OnReleaseItem() {
-
-        Syringe syringe = (Syringe)attached.Interactable;
-
         attached.Interactable.Interactors.ResetConnectableItem();
 
-        // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
+        AfterRelease(attached.Interactable);
         ReplaceObject(null);
-        if (syringe.Container.Amount > 0) {
-            Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
-        }
     }
 }
+

@@ -10,7 +10,14 @@ public class PumpFilter : ConnectableItem {
         ObjectType = ObjectType.PumpFilter;
         Type.On(InteractableType.Interactable);
 
-        Connector = new PumpFilterConnector(this, transform.Find("Pump Collider").gameObject);
+        Connector = new SimpleAttachmentConnector(this, transform.Find("Pump Collider").gameObject) {
+            CanConnect = (interactable) => {
+                return interactable is Pump;
+            },
+            AfterConnect = (interactable) => {
+                Events.FireEvent(EventType.AttachFilter, CallbackData.Object(interactable));
+            }
+        };
         Connector.Subscribe();
     }
 

@@ -12,7 +12,14 @@ public class AgarPlateLid : ConnectableItem {
         base.Start();
         Type.On(InteractableType.Interactable);
 
-        Connector = new AgarPlateLidConnector(this, transform.Find("Bottom Collider").gameObject);
+        Connector = new SimpleAttachmentConnector(this, transform.Find("Bottom Collider").gameObject) {
+            CanConnect = (interactable) => {
+                return interactable is AgarPlateBottom;
+            },
+            AfterRelease = (interactable) => {
+                Events.FireEvent(EventType.PlateOpened, CallbackData.Object(interactable));
+            }
+        };
         Connector.Subscribe();
 
         var Bottom = BottomObject.GetComponent<Interactable>();

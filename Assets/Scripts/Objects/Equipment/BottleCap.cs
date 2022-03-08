@@ -12,7 +12,11 @@ public class BottleCap : ConnectableItem {
         base.Start();
         Type.On(InteractableType.Interactable);
 
-        Connector = new BottleCapConnector(this, transform.Find("Bottom Collider").gameObject);
+        Connector = new SimpleAttachmentConnector(this, transform.Find("Bottom Collider").gameObject) {
+            CanConnect = (interactable) => {
+                return interactable is Bottle;
+            }
+        };
         Connector.Subscribe();
 
         var Bottom = BottomObject.GetComponent<Interactable>();

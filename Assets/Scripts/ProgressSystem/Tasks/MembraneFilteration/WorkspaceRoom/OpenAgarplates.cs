@@ -44,9 +44,8 @@ public class OpenAgarplates : TaskBase {
     /// </summary>
     /// <param name="data"></param>
     private void TrackOpenedPlates(CallbackData data) {
-        GameObject gameObject = (GameObject)data.DataObject;
-        Interactable interactable = gameObject.GetComponent<AgarPlateBottom>();
-        ObjectType plateType = gameObject.GetComponent<AgarPlateBottom>().ObjectType;
+        GeneralItem interactable = data.DataObject as AgarPlateBottom;
+        ObjectType plateType = interactable.ObjectType;
 
         if (laminarCabinet == null) {
             CreateTaskMistake("Avasit laskeumamaljan liian aikaisin", 1);
