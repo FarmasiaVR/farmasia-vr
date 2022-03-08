@@ -9,8 +9,7 @@ public struct Interactors {
     public Needle Needle { get; private set; }
     public AgarPlateLid AgarPlateLid { get; private set;  }
     public PumpFilter PumpFilter { get; private set; }
-
-    public BottleCap BottleCap;
+    public BottleCap BottleCap { get; set; }
 
     public void SetHand(Hand hand) {
         Hand = hand;

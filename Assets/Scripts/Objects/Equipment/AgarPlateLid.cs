@@ -1,9 +1,9 @@
 ﻿
 using UnityEngine;
 
-public class AgarPlateLid : GeneralItem {
+public class AgarPlateLid : ConnectableItem {
 
-    public AgarPlateLidConnector Connector { get; private set; }
+    public override AttachmentConnector Connector { get; set; }
 
     [SerializeField]
     private GameObject BottomObject;

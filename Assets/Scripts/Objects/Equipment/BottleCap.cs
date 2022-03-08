@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BottleCap : GeneralItem {
+public class BottleCap : ConnectableItem {
 
-    public BottleCapConnector Connector { get; private set; }
+    public override AttachmentConnector Connector { get; set; }
 
     [SerializeField]
     private GameObject BottomObject;

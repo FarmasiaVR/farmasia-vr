@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PumpFilter : GeneralItem
-{
+public class PumpFilter : ConnectableItem {
+    public override AttachmentConnector Connector { get; set; }
 
-    public PumpFilterConnector Connector { get; private set; }
-
-    protected override void Start()
-    {
+    protected override void Start() {
         base.Start();
         ObjectType = ObjectType.PumpFilter;
         Type.On(InteractableType.Interactable, InteractableType.SmallObject);
@@ -16,8 +13,8 @@ public class PumpFilter : GeneralItem
         Connector = new PumpFilterConnector(this, transform.Find("Pump Collider").gameObject);
         Connector.Subscribe();
     }
-    public void ReleaseItem()
-    {
+
+    public void ReleaseItem() {
         Connector.Connection?.Remove();
     }
 }

@@ -1,7 +1,7 @@
 ﻿
-public class Needle : GeneralItem {
+public class Needle : ConnectableItem {
 
-    public NeedleConnector Connector { get; private set; }
+    public override AttachmentConnector Connector { get; set; }
 
     protected override void Start() {
         base.Start();
