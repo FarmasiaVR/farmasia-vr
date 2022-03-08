@@ -67,17 +67,7 @@ public class HandConnector : ItemConnector {
     }
 
     private void AttachConnectableItemAttached(Interactable interactable) {
-        ConnectableItem connectable = null;
-        if (interactable.State == InteractState.NeedleAttached) {
-            connectable = interactable.Interactors.Needle;
-        } else if (interactable.State == InteractState.LidAttached) {
-            connectable = interactable.Interactors.AgarPlateLid;
-        } else if (interactable.State == InteractState.PumpFilterAttached) {
-            connectable = interactable.Interactors.PumpFilter;
-        } else if (interactable.State == InteractState.CapAttached) {
-            connectable = interactable.Interactors.BottleCap;
-        }
-
+        ConnectableItem connectable = interactable.Interactors.ConnectableItem;
         if (connectable != null && connectable.State == InteractState.Grabbed) {
             ConnectionHandler.GrabLuerlockAttachedItemWhenLuerlockIsGrabbed(this, Hand.transform, interactable);
         } else {

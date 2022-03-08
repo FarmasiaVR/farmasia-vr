@@ -10,28 +10,27 @@ public class BottleCapConnector : AttachmentConnector {
         this.Collider = collider;
     }
 
-    protected override InteractState AttachState => InteractState.CapAttached;
-
     public override void ConnectItem(Interactable interactable) {
-        if (interactable.IsAttached) {
+        var bottle = interactable as MedicineBottle;
+        if (bottle == null || bottle.IsAttached) {
             return;
         }
-        bool itemGrabbed = interactable.State == InteractState.Grabbed;
-        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+        bool itemGrabbed = bottle.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(bottle) : null;
 
         if (itemGrabbed) {
-            interactable.GetComponent<ItemConnection>().Remove();
+            bottle.GetComponent<ItemConnection>().Remove();
         }
 
-        ReplaceObject(interactable?.gameObject);
+        ReplaceObject(bottle.gameObject);
 
         if (itemGrabbed) {
-            itemHand.InteractWith(interactable, false);
+            itemHand.InteractWith(bottle, false);
         }
     }
 
     public override void OnReleaseItem() {
-        attached.Interactable.Interactors.ResetCap();
+        attached.Interactable.Interactors.ResetConnectableItem();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);
@@ -45,7 +44,7 @@ public class BottleCapConnector : AttachmentConnector {
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.SetCap(GeneralItem as BottleCap);
+        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as BottleCap);
     }
 
     protected override void SnapObjectPosition() {

@@ -5,7 +5,7 @@ public class NeedleConnector : AttachmentConnector {
 
     public override ItemConnection Connection { get; set; }
 
-    protected override InteractState AttachState => InteractState.NeedleAttached;
+    protected override InteractState AttachState => InteractState.ConnectableAttached;
 
 
     public NeedleConnector(Needle needle, GameObject collider) : base(needle.transform) {
@@ -15,32 +15,32 @@ public class NeedleConnector : AttachmentConnector {
     }
 
     public override void ConnectItem(Interactable interactable) {
-
-        if ((interactable as Syringe) is var syringe && syringe != null && syringe.HasSyringeCap) {
+        var syringe = interactable as Syringe;
+        if (syringe == null || syringe.HasSyringeCap) {
             Logger.Warning("Trying to attach needle to syringe with a cap");
             return;
         }
 
-        if (interactable.IsAttached) {
+        if (syringe.IsAttached) {
             return;
         }
 
-        bool itemGrabbed = interactable.State == InteractState.Grabbed;
-        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+        bool itemGrabbed = syringe.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(syringe) : null;
 
         if (itemGrabbed) {
-            interactable.GetComponent<ItemConnection>().Remove();
+            syringe.GetComponent<ItemConnection>().Remove();
         }
 
-        ReplaceObject(interactable?.gameObject);
+        ReplaceObject(syringe.gameObject);
 
         if (itemGrabbed) {
-            itemHand.InteractWith(interactable, false);
+            itemHand.InteractWith(syringe, false);
         }
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.SetNeedle(GeneralItem as Needle);
+        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as Needle);
     }
 
     protected override void AttachEvents(GameObject intObject) {
@@ -63,7 +63,7 @@ public class NeedleConnector : AttachmentConnector {
 
         Syringe syringe = (Syringe)attached.Interactable;
 
-        attached.Interactable.Interactors.ResetNeedle();
+        attached.Interactable.Interactors.ResetConnectableItem();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);

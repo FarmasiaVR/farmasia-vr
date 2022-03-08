@@ -7,56 +7,43 @@ public class PumpFilterConnector : AttachmentConnector
 
     public override ItemConnection Connection { get; set; }
 
-    protected override InteractState AttachState => InteractState.PumpFilterAttached;
-
-
-    public PumpFilterConnector(PumpFilter filter, GameObject collider) : base(filter.transform)
-    {
+    public PumpFilterConnector(PumpFilter filter, GameObject collider) : base(filter.transform) {
         GeneralItem = filter;
         attached = new AttachedObject();
         this.Collider = collider;
     }
 
-    public override void ConnectItem(Interactable interactable)
-    {
-        Logger.Print("Pump filter trying to connect to " + interactable);
-        
-        if (interactable.IsAttached)
-        {
+    public override void ConnectItem(Interactable interactable) {
+        var pump = interactable as Pump;
+        if (pump == null || pump.IsAttached) {
             return;
         }
 
-        bool itemGrabbed = interactable.State == InteractState.Grabbed;
-        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+        bool itemGrabbed = pump.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(pump) : null;
 
-        if (itemGrabbed)
-        {
-            interactable.GetComponent<ItemConnection>().Remove();
+        if (itemGrabbed) {
+            pump.GetComponent<ItemConnection>().Remove();
         }
 
-        ReplaceObject(interactable?.gameObject);
+        ReplaceObject(pump.gameObject);
 
-        if (itemGrabbed)
-        {
-            itemHand.InteractWith(interactable, false);
+        if (itemGrabbed) {
+            itemHand.InteractWith(pump, false);
         }
 
-        Logger.Print("Pump filter connected");
-        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(interactable));
+        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(pump));
     }
 
-    protected override void SetInteractors()
-    {
-        attached.Interactable.Interactors.SetPumpFilter(GeneralItem as PumpFilter);
+    protected override void SetInteractors() {
+        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as PumpFilter);
     }
 
-    protected override void AttachEvents(GameObject intObject)
-    {
+    protected override void AttachEvents(GameObject intObject) {
         G.Instance.Audio.Play(AudioClipType.LockedItem);
     }
 
-    protected override void SnapObjectPosition()
-    {
+    protected override void SnapObjectPosition() {
         Transform obj = attached.GameObject.transform;
         Transform coll = Collider.transform;
         Transform luerlockPos = LuerlockAdapter.LuerlockPosition(obj);
@@ -68,12 +55,10 @@ public class PumpFilterConnector : AttachmentConnector
         GeneralItem.transform.position -= offset;
     }
 
-    public override void OnReleaseItem()
-    {
-
+    public override void OnReleaseItem() {
         Pump pump = (Pump)attached.Interactable;
 
-        attached.Interactable.Interactors.ResetPumpFilter();
+        attached.Interactable.Interactors.ResetConnectableItem();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);

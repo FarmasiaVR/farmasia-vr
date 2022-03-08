@@ -5,9 +5,6 @@ public class AgarPlateLidConnector : AttachmentConnector {
 
     public override ItemConnection Connection { get; set; }
 
-    protected override InteractState AttachState => InteractState.LidAttached;
-
-
     public AgarPlateLidConnector(AgarPlateLid lid, GameObject collider) : base(lid.transform) {
         GeneralItem = lid;
         attached = new AttachedObject();
@@ -15,25 +12,27 @@ public class AgarPlateLidConnector : AttachmentConnector {
     }
 
     public override void ConnectItem(Interactable interactable) {
-        if (interactable.IsAttached) {
+        var bottom = interactable as AgarPlateBottom;
+        if (bottom == null || bottom.IsAttached) {
             return;
         }
-        bool itemGrabbed = interactable.State == InteractState.Grabbed;
-        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(interactable) : null;
+
+        bool itemGrabbed = bottom.State == InteractState.Grabbed;
+        Hand itemHand = itemGrabbed ? Hand.GrabbingHand(bottom) : null;
 
         if (itemGrabbed) {
-            interactable.GetComponent<ItemConnection>().Remove();
+            bottom.GetComponent<ItemConnection>().Remove();
         }
 
-        ReplaceObject(interactable?.gameObject);
+        ReplaceObject(bottom.gameObject);
 
         if (itemGrabbed) {
-            itemHand.InteractWith(interactable, false);
+            itemHand.InteractWith(bottom, false);
         }
     }
 
     protected override void SetInteractors() {
-        attached.Interactable.Interactors.SetAgarPlateLid(GeneralItem as AgarPlateLid);
+        attached.Interactable.Interactors.SetConnectableItem(GeneralItem as AgarPlateLid);
     }
 
     protected override void AttachEvents(GameObject intObject) {
@@ -56,7 +55,7 @@ public class AgarPlateLidConnector : AttachmentConnector {
         AgarPlateBottom bottom = (AgarPlateBottom)attached.Interactable;
         GameObject gameObject = (GameObject)attached.GameObject;
 
-        attached.Interactable.Interactors.ResetAgarPlateLid();
+        attached.Interactable.Interactors.ResetConnectableItem();
 
         // Attach state might need to change
         attached.Interactable.State.Off(AttachState);

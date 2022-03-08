@@ -29,14 +29,8 @@ public class LuerlockItemConnection : ItemConnection {
     public static LuerlockItemConnection Configuration(ItemConnector connector, Transform hand, Interactable interactable) {
         if (interactable.State == InteractState.LuerlockAttached) {
             return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.LuerlockPair.Value);
-        } else if (interactable.State == InteractState.NeedleAttached) {
-            return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.Needle);
-        } else if (interactable.State == InteractState.LidAttached) {
-            return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.AgarPlateLid);
-        } else if (interactable.State == InteractState.PumpFilterAttached) {
-            return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.PumpFilter);
-        } else if (interactable.State == InteractState.CapAttached) {
-            return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.BottleCap);
+        } else if (interactable.State == InteractState.ConnectableAttached) {
+            return ConnectableItemConfiguration(connector, hand, interactable, interactable.Interactors.ConnectableItem);
         }
 
         throw new Exception("No such configuration type for InteractState");

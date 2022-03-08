@@ -38,23 +38,23 @@ public class TrashBin : MonoBehaviour {
         }
     }
 
-    private void PrepareObjectForRemoving(GeneralItem item) {
+    private void PrepareObjectForRemoving(GeneralItem interactable) {
 
-        if (item.IsGrabbed) {
-            item.Interactors.Hand.Connector.Connection.Remove();
+        if (interactable.IsGrabbed) {
+            interactable.Interactors.Hand.Connector.Connection.Remove();
         }
 
-        if (item.ObjectType == ObjectType.Needle) {
-            ((Needle)item).ReleaseItem();
-        } else if (item.ObjectType == ObjectType.Luerlock) {
-            ((LuerlockAdapter)item).ReleaseItems();
+        if (interactable.ObjectType == ObjectType.Needle) {
+            ((Needle)interactable).ReleaseItem();
+        } else if (interactable.ObjectType == ObjectType.Luerlock) {
+            ((LuerlockAdapter)interactable).ReleaseItems();
         }
 
-        if (item.IsAttached) {
-            if (item.State == InteractState.LuerlockAttached) {
-                item.Interactors.LuerlockPair.Value.GetConnector(item.Interactors.LuerlockPair.Key).Connection.Remove();
-            } else if (item.State == InteractState.NeedleAttached) {
-                item.Interactors.Needle.Connector.Connection.Remove();
+        if (interactable.IsAttached) {
+            if (interactable.State == InteractState.LuerlockAttached) {
+                interactable.Interactors.LuerlockPair.Value.GetConnector(interactable.Interactors.LuerlockPair.Key).Connection.Remove();
+            } else if (interactable.State == InteractState.ConnectableAttached) {
+                interactable.Interactors.ConnectableItem.Connector.Connection.Remove();
             }
         }
     }
