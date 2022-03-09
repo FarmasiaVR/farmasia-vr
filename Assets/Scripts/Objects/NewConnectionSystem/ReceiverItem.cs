@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using UnityEngine;
 
-public class Receiver : AttachItem
+public class ReceiverItem : AttachmentItem
 {
     public ObjectType ReceivedObjectType;
 
@@ -88,9 +88,9 @@ public class Receiver : AttachItem
             NearestItem.transform.position = transform.position + GetComponent<SphereCollider>().center;
             NearestItem.transform.rotation = transform.rotation;
 
-            AttachItem nearestItemAttachItem = NearestItem.GetComponent<AttachItem>();
-            nearestItemAttachItem.Attached = true;
-            nearestItemAttachItem.AttachedInteractable = this;
+            AttachmentItem nearestItemAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
+            nearestItemAttachmentItem.Attached = true;
+            nearestItemAttachmentItem.AttachedInteractable = this;
             
             PossibleItems.Clear();
             NearestItem = null;

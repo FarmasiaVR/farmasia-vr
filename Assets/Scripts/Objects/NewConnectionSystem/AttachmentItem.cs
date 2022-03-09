@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttachItem : GeneralItem
+public class AttachmentItem : GeneralItem
 {
     public bool Attached = false;
-    public AttachItem AttachedInteractable = null;
+    public AttachmentItem AttachedInteractable = null;
 
-    public AttachItem GetParent() {
+    public AttachmentItem GetParent() {
         if (!Attached) return this;
         return AttachedInteractable.GetParent();
     }

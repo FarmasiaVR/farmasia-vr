@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BigPipette : Receiver
+public class BigPipette : ReceiverItem
 {
 
 }

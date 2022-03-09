@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lego : Receiver
+public class Lego : ReceiverItem
 {
 
 }

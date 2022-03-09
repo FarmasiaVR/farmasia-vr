@@ -160,7 +160,7 @@ public class Hand : MonoBehaviour {
         ExtendedHandCollider.Enable(false);
         interactable.Highlight.Unhighlight();
 
-        if (interactable is AttachItem attachment && attachment.Attached) {
+        if (interactable is AttachmentItem attachment && attachment.Attached) {
             interactable = attachment.GetParent();
         }
 
