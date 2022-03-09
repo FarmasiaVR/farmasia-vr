@@ -155,10 +155,14 @@ public class Hand : MonoBehaviour {
 
     public void InteractWith(Interactable interactable, bool setOffset = true) {
         if (setOffset) SetOffset(interactable.transform.position, interactable.transform.rotation);
-
+        
         HandCollider.Enable(false);
         ExtendedHandCollider.Enable(false);
         interactable.Highlight.Unhighlight();
+
+        if (interactable is AttachItem attachment && attachment.Attached) {
+            interactable = attachment.GetParent();
+        }
 
         if (interactable.Type == InteractableType.Grabbable) {
             Smooth.StartGrab();
