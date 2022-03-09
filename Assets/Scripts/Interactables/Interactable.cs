@@ -6,6 +6,8 @@ public class Interactable : MonoBehaviour {
 
     #region fields
     public static string iTag = "Interactable";
+    
+    protected Hand grabbingHand;
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
@@ -53,10 +55,12 @@ public class Interactable : MonoBehaviour {
     public virtual void OnGrab(Hand hand) { }
     public virtual void OnGrabStart(Hand hand) {
         IsInteracting = true;
+        grabbingHand = hand;
     }
     public virtual void Uninteract(Hand hand) { }
     public virtual void OnGrabEnd(Hand hand) {
         IsInteracting = false;
+        grabbingHand = null;
     }
 
     public static Interactable GetInteractable(Transform t) {

@@ -23,5 +23,9 @@
     Tweezers,
     Scalpel,
     Pipette,
-    PumpFilter
+    PumpFilter,
+    PipetteContainer,
+    RedLego,
+    YellowLego,
+    GreenLego
 }
