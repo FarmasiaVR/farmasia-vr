@@ -58,6 +58,8 @@ public static class TaskFactory {
                     return new AssemblePump();
                 case TaskType.OpenAgarplates:
                     return new OpenAgarplates();
+                case TaskType.WetFilter:
+                    return new WetFilter();
                 default:
                     return null;
             }
