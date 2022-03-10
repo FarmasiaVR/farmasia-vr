@@ -15,20 +15,7 @@ public class ItemDisplay : MonoBehaviour {
 
     private bool isDisplayOn = false;
 
-    private TextMeshPro text;
-
-    public string Text
-    {
-        get { return text.GetParsedText(); }
-    }
-
     void Start() {
-        TextMeshPro text = gameObject.GetComponent(typeof(TextMeshPro)) as TextMeshPro;
-        if (text == null)
-        {
-            Logger.Warning("Writable '" + gameObject.ToString() + "' does not have a valid textObject attached");
-        }
-
         if (isInitiallyOn) {
             EnableDisplay();
         } else {

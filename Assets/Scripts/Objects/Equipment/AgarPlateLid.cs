@@ -8,6 +8,7 @@ public class AgarPlateLid : ConnectableItem {
     [SerializeField]
     private GameObject BottomObject;
 
+    [SerializeField]
     private string variant;
 
     public string Variant
@@ -18,9 +19,6 @@ public class AgarPlateLid : ConnectableItem {
     protected override void Start() {
         base.Start();
         Type.On(InteractableType.Interactable);
-
-        ItemDisplay display = gameObject.GetComponent(typeof(ItemDisplay)) as ItemDisplay;
-        variant = display.Text;
 
         Connector = new SimpleAttachmentConnector(this, transform.Find("Bottom Collider").gameObject) {
             CanConnect = (interactable) => {
