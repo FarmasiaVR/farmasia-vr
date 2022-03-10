@@ -104,18 +104,18 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/heidihas">
-            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
-            <br />
-            <sub><b>Heidi Hassinen</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/Veikkosuhonen">
             <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
             <br />
             <sub><b>Veikmaster</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/heidihas">
+            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+            <br />
+            <sub><b>Heidi Hassinen</b></sub>
         </a>
     </td>
     <td align="center">
