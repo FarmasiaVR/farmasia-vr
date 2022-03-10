@@ -22,5 +22,6 @@ public enum TaskType {
     FillBottles,
     AssemblePump,
     OpenAgarplates,
-    WetFilter
+    WetFilter,
+    CorrectItemsInLaminarCabinetMembrane,
 }

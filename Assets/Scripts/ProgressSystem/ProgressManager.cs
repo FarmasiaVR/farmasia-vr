@@ -136,6 +136,7 @@ public class ProgressManager {
             TaskType.CorrectItemsInThroughputMembrane
         };
         TaskType[] workSpaceTasks = {
+            TaskType.CorrectItemsInLaminarCabinetMembrane,
             TaskType.WriteTextsToItems,
             TaskType.OpenAgarplates,
             TaskType.FillBottles,
