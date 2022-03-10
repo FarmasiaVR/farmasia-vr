@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class MedicineToSyringe : TaskBase {
+public class MedicineToSyringe : Task {
 
     #region Constants
     private const int RIGHT_SYRINGE_CAPACITY = 20000;

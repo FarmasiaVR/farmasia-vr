@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-public class SelectMedicine : TaskBase {
+public class SelectMedicine : Task {
 
     #region Constants
     private const string DESCRIPTION = "Valitse sopiva lääkepullo.";

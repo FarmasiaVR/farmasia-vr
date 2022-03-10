@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-public class SelectToolsMembrane : TaskBase
+public class SelectToolsMembrane : Task
 {
 
     #region Constants

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Disinfect bottle cork. If not done, object will be contaminated.
 /// </summary>
-public class DisinfectBottles : TaskBase {
+public class DisinfectBottles : Task {
 
     #region Constructor
     ///  <summary>

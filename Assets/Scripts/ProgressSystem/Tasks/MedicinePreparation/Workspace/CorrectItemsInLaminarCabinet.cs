@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Correct amount of items inserted into Fume Cupboard.
 /// </summary>
-public class CorrectItemsInLaminarCabinet : TaskBase {
+public class CorrectItemsInLaminarCabinet : Task {
 
     #region Constants
     private const string DESCRIPTION = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";

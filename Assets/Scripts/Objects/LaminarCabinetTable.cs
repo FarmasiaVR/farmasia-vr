@@ -40,7 +40,7 @@ public class LaminarCabinetTable : MonoBehaviour {
 
             if (item.IsClean || !contaminatedItems.Contains(item.GetInstanceID())) {
                 contaminatedItems.Add(item.GetInstanceID());
-                TaskBase.CreateGeneralMistake("Esine koski laminaarikaapin pintaa");
+                Task.CreateGeneralMistake("Esine koski laminaarikaapin pintaa");
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
         }

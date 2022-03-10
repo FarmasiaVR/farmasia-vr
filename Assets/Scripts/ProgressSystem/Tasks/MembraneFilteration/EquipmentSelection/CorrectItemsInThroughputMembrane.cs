@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class CorrectItemsInThroughputMembrane : TaskBase {
+public class CorrectItemsInThroughputMembrane : Task {
     #region Constants
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +

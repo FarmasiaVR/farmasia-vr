@@ -7,7 +7,7 @@ public static class TaskFactory {
     /// </summary>
     /// <param name="type">Type given to turn into a Task.</param>
     /// <returns>Returns a new Task based on TaskType.</returns>
-    public static ITask GetTask(TaskType type, SceneTypes scene) {
+    public static Task GetTask(TaskType type, SceneTypes scene) {
         if (scene == SceneTypes.MedicinePreparation)
         {
             switch (type)

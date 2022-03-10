@@ -19,7 +19,7 @@ public class ScoreCalculator {
     /// <summary>
     /// Initializes ScoreCalculator for point calculation.
     /// </summary>
-    public ScoreCalculator(HashSet<ITask> allTasks) {
+    public ScoreCalculator(HashSet<Task> allTasks) {
         points = new Dictionary<TaskType, int>();
         beforeTime = new HashSet<string>();
         TaskMistakes = new Dictionary<TaskType, HashSet<string>>();
@@ -46,9 +46,9 @@ public class ScoreCalculator {
     /// <summary>
     /// Adds all tasks into the list of zero points.
     /// </summary>
-    private void AddTasks(HashSet<ITask> tasks) {
+    private void AddTasks(HashSet<Task> tasks) {
         maxPoints = new Dictionary<TaskType, int>();
-        foreach (ITask task in tasks) {
+        foreach (Task task in tasks) {
             points.Add(task.GetTaskType(), task.GetPoints());
             maxScore += task.GetPoints();
             maxPoints.Add(task.GetTaskType(), task.GetPoints());

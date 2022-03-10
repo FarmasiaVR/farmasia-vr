@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Class is deprecated
-public class CorrectLayoutInLaminarCabinet : TaskBase {
+public class CorrectLayoutInLaminarCabinet : Task {
     #region Fields
     private CabinetBase laminarCabinet;
     #endregion

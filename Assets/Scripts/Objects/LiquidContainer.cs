@@ -179,7 +179,7 @@ public class LiquidContainer : MonoBehaviour {
 
             if (G.Instance.Scene is MedicinePreparationScene) {
                 if ((G.Instance.Scene as MedicinePreparationScene).NeedleUsed) {
-                    TaskBase.CreateGeneralMistake("L��kett� yritettiin ottaa uudestaan");
+                    Task.CreateGeneralMistake("L��kett� yritettiin ottaa uudestaan");
                 }
             }
 

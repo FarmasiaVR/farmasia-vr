@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Correct amount of medicine pulled into smaller SmallSyringes through LuerLock.
 /// </summary>
-public class CorrectAmountOfMedicineSelected : TaskBase {
+public class CorrectAmountOfMedicineSelected : Task {
 
     #region Constants
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;

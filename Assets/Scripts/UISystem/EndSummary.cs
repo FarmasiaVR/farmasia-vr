@@ -45,7 +45,7 @@ public class EndSummary : MonoBehaviour {
 
         close.SafeDestroy();
 
-        await Task.Delay(2000);
+        await System.Threading.Tasks.Task.Delay(2000);
 
         try {
             SnapScreenshot();

@@ -18,10 +18,10 @@ public class TrashBin : MonoBehaviour {
         
         if (item != null) {
             if (trashType == TrashType.Sharp && item.ObjectType != ObjectType.Needle) {
-                TaskBase.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
+                Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
                 Events.FireEvent(EventType.ItemDroppedInWrongTrash);
             } else if (trashType == TrashType.Nonsharp && item.ObjectType == ObjectType.Needle) {
-                TaskBase.CreateGeneralMistake("Neula laitettiin normaaliin roskikseen", 1, true);
+                Task.CreateGeneralMistake("Neula laitettiin normaaliin roskikseen", 1, true);
                 Events.FireEvent(EventType.ItemDroppedInWrongTrash);
             }
 

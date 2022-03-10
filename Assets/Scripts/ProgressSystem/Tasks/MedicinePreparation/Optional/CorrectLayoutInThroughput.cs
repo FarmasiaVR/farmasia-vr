@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 
     // Class is deprecated
-public class CorrectLayoutInThroughput : TaskBase {
+public class CorrectLayoutInThroughput : Task {
     #region Fields
     private CabinetBase cabinet;
     #endregion

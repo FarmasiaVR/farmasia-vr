@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-class AssemblePump: TaskBase {
+class AssemblePump: Task {
 
     public enum Conditions { FilterAttached, PipeAttached }
     

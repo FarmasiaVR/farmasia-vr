@@ -55,7 +55,7 @@ namespace Tests {
         }*/
     }
 
-    public class TestTask : TaskBase {
+    public class TestTask : Task {
 
         public TestTask() : base(TaskType.SelectTools, true, true) { }
 
@@ -63,7 +63,7 @@ namespace Tests {
         }
     }
 
-    public class TestTask2 : TaskBase {
+    public class TestTask2 : Task {
 
         public TestTask2() : base(TaskType.SelectMedicine, false, true) { }
 

@@ -8,11 +8,11 @@ public class ProgressManager {
     private bool testMode;
 
     // Actual list of every task. No task is ever removed from this list
-    private List<TaskBase> trueAllTasksThatAreNeverRemoved;
+    private List<Task> trueAllTasksThatAreNeverRemoved;
     private Dictionary<TaskType, int> taskMaxPoints;
 
     // Oot actually all tasks
-    private HashSet<ITask> allTasks;
+    private HashSet<Task> allTasks;
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
@@ -27,15 +27,15 @@ public class ProgressManager {
     /// </summary>
     public ProgressManager(bool testMode) {
         this.testMode = testMode;
-        allTasks = new HashSet<ITask>();
+        allTasks = new HashSet<Task>();
         packages = new List<Package>();
     }
 
-    public void ForceCloseTasks(ITask calledTask) {
+    public void ForceCloseTasks(Task calledTask) {
 
         Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
 
-        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
+        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
             if (calledTask.GetTaskType() == task.GetTaskType()) {
                 continue;
             }
@@ -51,7 +51,7 @@ public class ProgressManager {
         }
     }
     public void ForceCloseTask(TaskType type, bool killPoints = true) {
-        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
+        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
             if (task.GetTaskType() == type && !task.IsCompleted()) {
                 if (killPoints) {
                     task.ForceClose(taskMaxPoints[type] > 0);
@@ -182,21 +182,21 @@ public class ProgressManager {
     /// Adds tasks into currently activeTasks.
     /// </summary>
     public void AddTasks(SceneTypes scene) {
-        allTasks = new HashSet<ITask>(Enum.GetValues(typeof(TaskType))
+        allTasks = new HashSet<Task>(Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
             .Select(v => TaskFactory.GetTask(v, scene))
             .Where(v => v != null)
             .ToList());
 
-        trueAllTasksThatAreNeverRemoved = new List<TaskBase>();
+        trueAllTasksThatAreNeverRemoved = new List<Task>();
         taskMaxPoints = new Dictionary<TaskType, int>();
-        foreach (ITask task in allTasks) {
-            trueAllTasksThatAreNeverRemoved.Add(task as TaskBase);
+        foreach (Task task in allTasks) {
+            trueAllTasksThatAreNeverRemoved.Add(task as Task);
             taskMaxPoints.Add(task.GetTaskType(), task.GetPoints());
         }
     }
 
-    public void AddTask(ITask task) {
+    public void AddTask(Task task) {
         if (!allTasks.Contains(task)) {
             allTasks.Add(task);
         }
@@ -210,7 +210,7 @@ public class ProgressManager {
     /// <param name="package">Package to move task to.</param>
     /// <param name="taskType">Type of task to move.</param>
     public void MoveToPackage(Package package, TaskType taskType) {
-        ITask foundTask = FindTaskWithType(taskType);
+        Task foundTask = FindTaskWithType(taskType);
         if (foundTask != null) {
             package.AddTask(foundTask);
             allTasks.Remove(foundTask);
@@ -222,9 +222,9 @@ public class ProgressManager {
     /// </summary>
     /// <param name="taskType">Type of task to find.</param>
     /// <returns></returns>
-    public ITask FindTaskWithType(TaskType taskType) {
-        ITask foundTask = null;
-        foreach (ITask task in allTasks) {
+    public Task FindTaskWithType(TaskType taskType) {
+        Task foundTask = null;
+        foreach (Task task in allTasks) {
             if (task.GetTaskType() == taskType) {
                 foundTask = task;
                 break;
@@ -236,11 +236,11 @@ public class ProgressManager {
 
     #region Task Methods
 
-    public HashSet<ITask> GetAllTasks() {
+    public HashSet<Task> GetAllTasks() {
         return allTasks;
     }
     public void ListAllTasksInManager() {
-        foreach (ITask task in allTasks) {
+        foreach (Task task in allTasks) {
             Logger.Print(task.GetType());
         }
     }
@@ -265,7 +265,7 @@ public class ProgressManager {
     /// Calls every task inside allTasks Set and finishes them.
     /// </summary>
     public void FinishProgress() {
-        foreach (ITask task in allTasks) {
+        foreach (Task task in allTasks) {
             if (task.GetTaskType() == TaskType.Finish) {
                 RemoveTask(task);
                 string scoreString;
@@ -283,7 +283,7 @@ public class ProgressManager {
     /// Called when task is finished and set to remove itself.
     /// </summary>
     /// <param name="task">Reference to the task that will be removed.</param>
-    public void RemoveTask(ITask task) {
+    public void RemoveTask(Task task) {
         if (allTasks.Contains(task)) {
             allTasks.Remove(task);
         }

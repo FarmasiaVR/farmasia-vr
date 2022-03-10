@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsToSterileBag : TaskBase {
+public class ItemsToSterileBag : Task {
 
     #region Constants
     private const string DESCRIPTION = "Viimeistele ruiskujen kanssa työskentely.";

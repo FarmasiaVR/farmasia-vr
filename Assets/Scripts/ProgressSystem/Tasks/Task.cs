@@ -6,7 +6,7 @@ using System.Linq;
 /// Inherited by every task. 
 /// Handles everything related to the given task and also has useful methods.
 /// </summary>
-public abstract class TaskBase : ITask {
+public abstract class Task {
 
     #region Fields
     protected bool completed = false;
@@ -27,11 +27,10 @@ public abstract class TaskBase : ITask {
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
     #endregion
 
-    public TaskBase(TaskType type, bool remove, bool previous) {
+    public Task(TaskType type, bool remove, bool previous) {
         taskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
-
     }
 
     #region Task Progression
@@ -45,7 +44,7 @@ public abstract class TaskBase : ITask {
         if (removePoints) {
             Logger.Print(string.Format("Task still has points left: {0}, points: {1}", taskType.ToString(), points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-            TaskBase.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
+            Task.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
@@ -86,12 +85,12 @@ public abstract class TaskBase : ITask {
     public virtual void RemoveFromPackage() {
         if (package != null) {
             if (removeWhenFinished) {
-                package.RemoveTask((ITask)this);
+                package.RemoveTask((Task)this);
                 if (unsubscribeAllEvents) {
                     UnsubscribeAllEvents();
                 }
             } else {
-                package.MoveTaskToManager((ITask)this);
+                package.MoveTaskToManager((Task)this);
             }
         }
     }
@@ -211,13 +210,6 @@ public abstract class TaskBase : ITask {
     #endregion
 
     #region Task Specific Methods
-    protected bool IsNotStarted() {
-        return !started;
-    }
-
-    protected bool CheckIsCurrent() {
-        return (package?.activeTasks.IndexOf((ITask)this) ?? 0) == 0;
-    }
 
     protected bool IsPreviousTasksCompleted(List<TaskType> tasks) {
         List<TaskType> completed = package.doneTypes;
@@ -237,8 +229,6 @@ public abstract class TaskBase : ITask {
             UISystem.Instance.CreatePopup(message, type);
         }
     }
-
-
 
     public override string ToString() {
         System.Text.StringBuilder strBuilder = new System.Text.StringBuilder();

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class LuerlockAttach : TaskBase {
+public class LuerlockAttach : Task {
 
     #region Constants
     private const string DESCRIPTION = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";

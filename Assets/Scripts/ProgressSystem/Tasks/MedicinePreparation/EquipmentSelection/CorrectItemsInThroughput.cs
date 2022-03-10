@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class CorrectItemsInThroughput : TaskBase {
+public class CorrectItemsInThroughput : Task {
 
     private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
 

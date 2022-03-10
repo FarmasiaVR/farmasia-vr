@@ -70,7 +70,7 @@ public class InfoBox : MonoBehaviour {
     }
 
     private async void GrabbedRoomDoor(CallbackData data) {
-        await Task.Delay(10);
+        await System.Threading.Tasks.Task.Delay(10);
 
         if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             ShowInfoBox(WORKSPACE_ROOM_MESSAGE);

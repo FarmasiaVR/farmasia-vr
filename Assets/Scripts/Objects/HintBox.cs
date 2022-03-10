@@ -88,7 +88,7 @@ public class HintBox : DragAcceptable {
     }
 
     protected override void Activate() {
-        TaskBase.CreateGeneralMistake("Vinkkilaatikko avattiin", 1, false);
+        Task.CreateGeneralMistake("Vinkkilaatikko avattiin", 1, false);
 
         if (ActivateCount > 0) {
             return;

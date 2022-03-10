@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class WetFilter : TaskBase {
+class WetFilter : Task {
 
     public enum Conditions { FilterIsWet }
 

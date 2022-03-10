@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Finish : TaskBase {
+public class Finish : Task {
 
     #region Constants
     private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
@@ -92,7 +92,7 @@ public class Finish : TaskBase {
                     if (G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp) != null) {
                         G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp).FinishTask();
                     } else {
-                        foreach (ITask task in p.activeTasks) {
+                        foreach (Task task in p.activeTasks) {
                             if (task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
                                 task.FinishTask();
                                 break;
@@ -106,24 +106,24 @@ public class Finish : TaskBase {
     }
 
     private void LayoutInThroughPut() {
-        ITask layoutThroughPut = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInThroughput);
+        Task layoutThroughPut = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInThroughput);
         layoutThroughPut.FinishTask();
     }
 
     private void LayoutInLaminarCabinet() {
-        ITask layoutLaminarCabinet = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInLaminarCabinet);
+        Task layoutLaminarCabinet = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInLaminarCabinet);
         layoutLaminarCabinet.FinishTask();
     }
 
     private void BottlesDisinfected() {
-        ITask disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
+        Task disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
         disinfect.FinishTask();
     }
     #endregion
 
     #region Overridden Methods
     public override void StartTask() {
-        if (IsNotStarted()) {
+        if (!Started) {
             FinishTask();
         }
         base.StartTask();
@@ -140,7 +140,7 @@ public class Finish : TaskBase {
         LayoutInThroughPut();
         LayoutInLaminarCabinet();
         BottlesDisinfected();
-        await Task.Delay(1000);
+        await System.Threading.Tasks.Task.Delay(1000);
         CompleteTask();
         base.FinishTask();
     }

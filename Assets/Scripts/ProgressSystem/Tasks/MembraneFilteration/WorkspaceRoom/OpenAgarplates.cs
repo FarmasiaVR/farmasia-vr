@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class OpenAgarplates : TaskBase {
+public class OpenAgarplates : Task {
 
     #region Constants
     private const string DESCRIPTION = "Avaa laskeumamaljat";

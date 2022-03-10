@@ -35,7 +35,7 @@ public class IntroUI : MonoBehaviour {
         infoLabel.gameObject.SetActive(false);
         notification.gameObject.SetActive(true);
 
-        await Task.Delay(5000);
+        await System.Threading.Tasks.Task.Delay(5000);
 
         Destroy(gameObject);
     }

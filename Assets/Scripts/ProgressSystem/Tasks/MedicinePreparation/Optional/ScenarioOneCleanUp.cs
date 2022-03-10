@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// </summary>
 
 //Responsibility from this class was removed, check out CleanupObject.cs which is attached to WorkspaceRoom in the scene
-public class ScenarioOneCleanUp : TaskBase {
+public class ScenarioOneCleanUp : Task {
     #region Fields
     private string description = "Siivoa lopuksi työtila.";
     private string hint = "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";

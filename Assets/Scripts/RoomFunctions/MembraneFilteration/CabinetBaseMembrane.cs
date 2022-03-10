@@ -78,7 +78,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
         if (this.type == CabinetType.Laminar) {
             if (FirstEnterObjects.ContainsKey(item)) {
                 if (!FirstEnterObjects[item]) {
-                    TaskBase.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                    Task.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
                     FirstEnterObjects[item] = true;
                 }
             } else {
@@ -88,7 +88,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
             Logger.Print("Item was on floor: " + item.name);
-            TaskBase.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+            Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
 
             // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
             item.Contamination = GeneralItem.ContaminateState.Clean;

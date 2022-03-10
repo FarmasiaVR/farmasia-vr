@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class FillBottles: TaskBase {
+class FillBottles: Task {
 
     public enum Conditions { BottlesFilled }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-public class WriteTextsToItems : TaskBase
+public class WriteTextsToItems : Task
 {
     // Instead, use WritingSpecifications.GetInitialRequiredWritings()
 

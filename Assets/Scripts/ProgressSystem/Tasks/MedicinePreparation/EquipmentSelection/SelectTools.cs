@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-public class SelectTools : TaskBase {
+public class SelectTools : Task {
 
     #region Constants
     private const string DESCRIPTION = "Valitse sopivat työvälineet.";
