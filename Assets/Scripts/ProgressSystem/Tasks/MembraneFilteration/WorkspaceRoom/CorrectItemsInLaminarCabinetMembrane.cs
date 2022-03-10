@@ -12,7 +12,7 @@ public class CorrectItemsInLaminarCabinetMembrane : TaskBase
     #endregion
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle}
     private int objectCount;
     private int correctItemCount = 19;
     private CabinetBase laminarCabinet;
@@ -103,6 +103,7 @@ public class CorrectItemsInLaminarCabinetMembrane : TaskBase
         int sterileBag = 0;
         int pump = 0;
         int filter = 0;
+        int cleaningBottle = 0;
 
 
         int uncleanCount = 0;
@@ -175,7 +176,7 @@ public class CorrectItemsInLaminarCabinetMembrane : TaskBase
                     EnableCondition(Conditions.Scalpel);
                     scalpel++;
                 }
-                else if (g is Pipette)
+                else if (g is Pipette || g is BigPipette)
                 {
                     EnableCondition(Conditions.Pipette);
                     pipette++;
@@ -195,6 +196,11 @@ public class CorrectItemsInLaminarCabinetMembrane : TaskBase
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
                 }
+                else if (g is CleaningBottle)
+                {
+                    EnableCondition(Conditions.CleaningBottle);
+                    cleaningBottle++;
+                }
                 if (g is GeneralItem generalItem && !generalItem.IsClean)
                 {
                     uncleanCount++;
@@ -203,7 +209,7 @@ public class CorrectItemsInLaminarCabinetMembrane : TaskBase
             }
         }
 
-        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 1 && pump == 1 && filter == 1 & sterileBag ==1)
+        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 1 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)
         {
             Logger.Print("All done");
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
