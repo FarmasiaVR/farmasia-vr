@@ -21,5 +21,6 @@ public enum TaskType {
     WriteTextsToItems,
     FillBottles,
     AssemblePump,
-    OpenAgarplates
+    OpenAgarplates,
+    WetFilter
 }
