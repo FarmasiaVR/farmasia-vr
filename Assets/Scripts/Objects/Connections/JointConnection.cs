@@ -5,10 +5,10 @@ public class JointConnection : ItemConnection {
 
     #region Fields
     protected override ItemConnector Connector { get; set; }
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Rigidbody target;
     private Transform transformTarget;
-    private Interactable interactable;
+    public Interactable interactable;
     private Joint joint;
 
     #endregion

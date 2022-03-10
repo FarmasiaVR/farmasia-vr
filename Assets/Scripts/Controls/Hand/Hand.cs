@@ -161,7 +161,8 @@ public class Hand : MonoBehaviour {
         interactable.Highlight.Unhighlight();
 
         if (interactable is AttachmentItem attachment && attachment.Attached) {
-            interactable = attachment.GetParent();
+            //interactable = attachment.GetParent();
+            interactable = HandleAttachedItem(attachment);
         }
 
         if (interactable.Type == InteractableType.Grabbable) {
@@ -174,6 +175,18 @@ public class Hand : MonoBehaviour {
             interactedInteractable = interactable;
             interactedInteractable.Interact(this);
             Events.FireEvent(EventType.InteractWithObject, CallbackData.Object(this));
+        }
+    }
+
+    private AttachmentItem HandleAttachedItem(AttachmentItem attachment) {
+        AttachmentItem parent = attachment.GetParent();
+        if (parent == other.interactedInteractable) {
+            attachment.StartCoroutine(attachment.WaitForDistance(this));
+            GameObject placeHolder = new GameObject();
+            placeHolder.AddComponent<Rigidbody>();
+            return placeHolder.AddComponent<AttachmentItem>();
+        } else {
+            return attachment.GetParent();
         }
     }
 

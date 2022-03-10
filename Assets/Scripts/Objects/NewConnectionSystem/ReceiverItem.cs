@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ReceiverItem : AttachmentItem
@@ -11,30 +8,26 @@ public class ReceiverItem : AttachmentItem
     protected LineRenderer LineEffect;
     protected bool SlotOccupied = false;
 
-    protected List<GameObject> PossibleItems;
+    public HashSet<GameObject> PossibleItems;
     protected GameObject NearestItem = null;
 
     protected override void Awake() {
         base.Awake();
 
-        PossibleItems = new List<GameObject>();
+        PossibleItems = new HashSet<GameObject>();
         LineEffect = transform.GetChild(1).GetComponent<LineRenderer>();
     }
 
     protected GameObject GetNearestItem() {
-        if (PossibleItems.Count == 1) return PossibleItems[0];
-
-        GameObject nearestItem = PossibleItems[0];
-        float nearestDistance = Vector3.Distance(transform.position, nearestItem.transform.position);
-
-        for (int i = 1; i < PossibleItems.Count; i++) {
-            float newDistance = Vector3.Distance(transform.position, PossibleItems[i].transform.position);
+        float nearestDistance = float.MaxValue;
+        GameObject nearestItem = null;
+        foreach (GameObject item in PossibleItems) {
+            float newDistance = Vector3.Distance(transform.position, item.transform.position);
             if (newDistance < nearestDistance) {
                 nearestDistance = newDistance;
-                nearestItem = PossibleItems[i];
+                nearestItem = item;
             }
         }
-
         return nearestItem;
     }
 
@@ -82,18 +75,36 @@ public class ReceiverItem : AttachmentItem
         if (NearestItem != null) {
             SlotOccupied = true;
 
-            Destroy(NearestItem.GetComponent<Rigidbody>());
+            NearestItem.GetComponent<AttachmentItem>().RigidbodyContainer.Disable();
 
             NearestItem.transform.SetParent(transform);
             NearestItem.transform.position = transform.position + GetComponent<SphereCollider>().center;
             NearestItem.transform.rotation = transform.rotation;
 
-            AttachmentItem nearestItemAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
-            nearestItemAttachmentItem.Attached = true;
-            nearestItemAttachmentItem.AttachedInteractable = this;
+            AttachmentItem nearestAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
+            nearestAttachmentItem.Attached = true;
+            nearestAttachmentItem.AttachedInteractable = this;
             
             PossibleItems.Clear();
             NearestItem = null;
         }
+    }
+
+    public override void ResetItem() {
+        base.ResetItem();
+        PossibleItems.Clear();
+        NearestItem = null;
+    }
+
+    public void PrepareForDisconnect(Hand hand, AttachmentItem itemToDisconnect) {
+        itemToDisconnect.transform.SetParent(null);
+        itemToDisconnect.transform.position = hand.transform.position;
+
+        itemToDisconnect.RigidbodyContainer.Enable();
+        itemToDisconnect.ResetItem();
+        ResetItem();
+        
+        hand.GrabUninteract();
+        SlotOccupied = false;
     }
 }
