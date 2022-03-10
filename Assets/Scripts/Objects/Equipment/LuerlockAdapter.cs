@@ -84,13 +84,6 @@ public class LuerlockAdapter : GeneralItem {
             { Side.Left, new LuerlockConnector(Side.Left, this, transform.Find("Left collider").gameObject) },
             { Side.Right, new LuerlockConnector(Side.Right, this, transform.Find("Right collider").gameObject) }
         };
-
-        SubscribeCollisions();
-    }
-
-    private void SubscribeCollisions() {
-        LeftConnector.Subscribe();
-        RightConnector.Subscribe();
     }
 
     public LuerlockConnector GetConnector(Side side) {

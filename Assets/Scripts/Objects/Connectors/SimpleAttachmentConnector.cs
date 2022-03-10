@@ -14,6 +14,7 @@ class SimpleAttachmentConnector : AttachmentConnector {
         GeneralItem = item;
         attached = new AttachedObject();
         this.Collider = collider;
+        Subscribe();
     }
 
     public override void ConnectItem(Interactable interactable) {

@@ -17,7 +17,6 @@ public class BottleCap : ConnectableItem {
                 return interactable is Bottle;
             }
         };
-        Connector.Subscribe();
 
         var Bottom = BottomObject.GetComponent<Interactable>();
 

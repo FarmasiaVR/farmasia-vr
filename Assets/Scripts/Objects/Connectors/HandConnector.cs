@@ -127,7 +127,6 @@ public class HandConnector : ItemConnector {
     }
 
     private void SafeRelease() {
-        Logger.Print("Something is being released");
         if (GrabbedInteractable.State == InteractState.LuerlockAttached) {
 
             LuerlockAdapter l = GrabbedInteractable.Interactors.LuerlockPair.Value;
