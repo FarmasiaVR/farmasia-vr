@@ -36,7 +36,13 @@ public class ReceiverItem : AttachmentItem
             NearestItem = GetNearestItem();
         }
 
-        UpdateLineEffect(PossibleItems.Count > 0);
+        if (NearestItem != null && !SlotOccupied) {
+            if (Vector3.Distance(transform.position, NearestItem.transform.position) <= SnapDistance) {
+                ConnectAttachment();
+            }
+        }
+
+        //UpdateLineEffect(PossibleItems.Count > 0);
     }
 
     protected void UpdateLineEffect(bool possibleConnectionExists) {
@@ -67,27 +73,20 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
-    public override void OnGrabEnd(Hand hand) {
-        base.OnGrabEnd(hand);
+    private void ConnectAttachment() {
+        SlotOccupied = true;
 
-        if (SlotOccupied) return;
+        NearestItem.GetComponent<AttachmentItem>().RigidbodyContainer.Disable();
 
-        if (NearestItem != null) {
-            SlotOccupied = true;
+        NearestItem.transform.SetParent(transform);
+        NearestItem.transform.position = transform.position + GetComponent<SphereCollider>().center;
+        NearestItem.transform.rotation = transform.rotation;
 
-            NearestItem.GetComponent<AttachmentItem>().RigidbodyContainer.Disable();
-
-            NearestItem.transform.SetParent(transform);
-            NearestItem.transform.position = transform.position + GetComponent<SphereCollider>().center;
-            NearestItem.transform.rotation = transform.rotation;
-
-            AttachmentItem nearestAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
-            nearestAttachmentItem.Attached = true;
-            nearestAttachmentItem.AttachedInteractable = this;
-            
-            PossibleItems.Clear();
-            NearestItem = null;
-        }
+        AttachmentItem nearestAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
+        nearestAttachmentItem.Attached = true;
+        nearestAttachmentItem.AttachedInteractable = this;
+        
+        ResetItem();
     }
 
     public override void ResetItem() {

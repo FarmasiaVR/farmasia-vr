@@ -7,6 +7,8 @@ using Valve.VR;
 public class Hand : MonoBehaviour {
 
     #region Fields
+
+    public GameObject placeholderPrefab;
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
     public bool IsClean { get; set; }
@@ -182,9 +184,8 @@ public class Hand : MonoBehaviour {
         AttachmentItem parent = attachment.GetParent();
         if (parent == other.interactedInteractable) {
             attachment.StartCoroutine(attachment.WaitForDistance(this));
-            GameObject placeHolder = new GameObject();
-            placeHolder.AddComponent<Rigidbody>();
-            return placeHolder.AddComponent<AttachmentItem>();
+            GameObject placeHolder = Instantiate(placeholderPrefab);
+            return placeHolder.GetComponent<AttachmentItem>();
         } else {
             return attachment.GetParent();
         }
