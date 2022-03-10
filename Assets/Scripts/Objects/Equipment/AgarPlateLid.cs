@@ -20,7 +20,6 @@ public class AgarPlateLid : ConnectableItem {
                 Events.FireEvent(EventType.PlateOpened, CallbackData.Object(interactable));
             }
         };
-        Connector.Subscribe();
 
         var Bottom = BottomObject.GetComponent<Interactable>();
 

@@ -35,7 +35,7 @@ public abstract class AttachmentConnector : ItemConnector {
 
     protected virtual InteractState AttachState { get => InteractState.ConnectableAttached; }
 
-    public void Subscribe() {
+    protected void Subscribe() {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
     }
 

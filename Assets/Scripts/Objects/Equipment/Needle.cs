@@ -20,9 +20,8 @@ public class Needle : ConnectableItem {
                 }
             }
         };
-
-        Connector.Subscribe();
     }
+
     public void ReleaseItem() {
         Connector.Connection?.Remove();
     }

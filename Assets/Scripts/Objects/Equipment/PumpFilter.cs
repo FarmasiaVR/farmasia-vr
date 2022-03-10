@@ -20,7 +20,6 @@ public class PumpFilter : ConnectableItem {
                 Events.FireEvent(EventType.AttachFilter, CallbackData.Object(interactable));
             }
         };
-        Connector.Subscribe();
     }
 
     public void ReleaseItem() {
