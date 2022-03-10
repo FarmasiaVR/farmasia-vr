@@ -8,13 +8,9 @@ class WetFilter : TaskBase {
 
     public enum Conditions { FilterIsWet }
 
-    private int soycaseineBottlesDone = 0;
-    private int tioglygolateBottlesDone = 0;
     private PumpFilter pumpFilter;
 
     private readonly int REQUIRED_AMOUNT = 10000;
-
-    private HashSet<PumpFilter> bottles = new HashSet<PumpFilter>();
 
     public WetFilter() : base(TaskType.WetFilter, true, false) {
         SetCheckAll(true);
