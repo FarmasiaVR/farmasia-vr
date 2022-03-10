@@ -172,7 +172,6 @@ public class CabinetBase : MonoBehaviour {
         }
         folded = true;
         if (sterileDrape == null) {
-            Logger.Warning("Sterile drape not set in laminar cabinet, not performing animation.");
             return;
         }
         sterileDrape.SetBool("ItemPlaced", true);

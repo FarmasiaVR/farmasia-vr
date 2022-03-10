@@ -39,8 +39,6 @@ public abstract class Task {
             return;
         }
 
-        Logger.PrintVariables("Force closing", taskType.ToString());
-
         if (removePoints) {
             Logger.Print(string.Format("Task still has points left: {0}, points: {1}", taskType.ToString(), points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(taskType);
@@ -51,7 +49,6 @@ public abstract class Task {
         FinishTask();
         isFinished = true;
         completed = true;
-        Logger.Warning($"{taskType.ToString()} is now finished for good");
     }
 
     public virtual void StartTask() {
