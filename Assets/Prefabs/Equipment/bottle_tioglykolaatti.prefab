@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &4017501519995005124
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310697756550965748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2164161841526410549, guid: f2c13ea591352094490376d9a8fa6dbf, type: 3}
+--- !u!114 &5055947719286349635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310697756550965748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a8a1ee5a2cf6f45998fb659661b82c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 10
+  isClean: 1
+  BottomObject: {fileID: 4122899700393683823}
 --- !u!54 &6705374208445423682
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -46,37 +77,6 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 18
   isClean: 0
---- !u!64 &4017501519995005124
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3310697756550965748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2164161841526410549, guid: f2c13ea591352094490376d9a8fa6dbf, type: 3}
---- !u!114 &5055947719286349635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3310697756550965748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7a8a1ee5a2cf6f45998fb659661b82c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInteracting: 0
-  DisableHighlighting: 0
-  objectType: 10
-  isClean: 1
-  BottomObject: {fileID: 4122899700393683823}
 --- !u!1 &6446367161104391389
 GameObject:
   m_ObjectHideFlags: 0

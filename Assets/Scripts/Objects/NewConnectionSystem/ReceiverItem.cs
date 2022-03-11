@@ -73,7 +73,7 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
-    private void ConnectAttachment() {
+    protected virtual void ConnectAttachment() {
         SlotOccupied = true;
 
         AttachmentItem nearestItemAttachmentComponent = NearestItem.GetComponent<AttachmentItem>();

@@ -27,5 +27,10 @@
     PipetteContainer,
     RedLego,
     YellowLego,
-    GreenLego
+    GreenLego,
+    PumpFilterBase,
+    PumpFilterFilter,
+    PumpFilterTank,
+    PumpFilterLid,
+    NotApplicable
 }
