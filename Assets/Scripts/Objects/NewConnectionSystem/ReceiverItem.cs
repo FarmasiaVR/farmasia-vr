@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An item that can take an attachment.
+/// Requires <c>RigidBody</c> and <c>SphereCollider</c> at GameObject root and <c>LineRenderer</c> at child-index 1
+/// </summary>
 public class ReceiverItem : AttachmentItem
 {
     public ObjectType ReceivedObjectType;
@@ -18,6 +22,10 @@ public class ReceiverItem : AttachmentItem
         LineEffect = transform.GetChild(1).GetComponent<LineRenderer>();
     }
 
+    /// <summary>
+    /// Calculates distances from <value>PossibleItems</value> and returns the smallest item
+    /// </summary>
+    /// <returns><c>GameObject</c> with the smallest distance</returns>
     protected GameObject GetNearestItem() {
         float nearestDistance = float.MaxValue;
         GameObject nearestItem = null;
@@ -31,6 +39,9 @@ public class ReceiverItem : AttachmentItem
         return nearestItem;
     }
 
+    /// <summary>
+    /// Calls <c>ConnectAttachment</c> if any valid object gets close enough (defined by <value>SnapDistance</value>)
+    /// </summary>
     protected void LateUpdate() {
         if (PossibleItems.Count > 0) {
             NearestItem = GetNearestItem();
@@ -45,6 +56,10 @@ public class ReceiverItem : AttachmentItem
         //UpdateLineEffect(PossibleItems.Count > 0);
     }
 
+    /// <summary>
+    /// Updates the <c>LineRenderer</c> endpoint positions between nearest valid object and this GameObject
+    /// </summary>
+    /// <param name="possibleConnectionExists">Is there a possible item?</param>
     protected void UpdateLineEffect(bool possibleConnectionExists) {
         if (possibleConnectionExists) {
             LineEffect.positionCount = 2;
@@ -55,6 +70,11 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
+    /// <summary>
+    /// Adds <c>GameObjects</c> to <value>PossibleItems</value> when they enter trigger volume if their <value>ObjectType</value>
+    /// equals <value>ReceivedObjectType</value>
+    /// </summary>
+    /// <param name="other">The entering collider</param>
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.transform.IsChildOf(transform)) {
             return;
@@ -70,6 +90,10 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
+    /// <summary>
+    /// Removes item from <value>PossibleItems</value> when they exit trigger volume
+    /// </summary>
+    /// <param name="other">The exiting collider</param>
     private void OnTriggerExit(Collider other) {
         PossibleItems.Remove(other.gameObject);
         if (PossibleItems.Count == 0) {
@@ -77,21 +101,29 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
+    /// <summary>
+    /// Marks this GameObject's attachment slot occupied and begins the attachment sequence for the AttachItem
+    /// </summary>
     protected virtual void ConnectAttachment() {
         SlotOccupied = true;
 
         AttachmentItem nearestItemAttachmentComponent = NearestItem.GetComponent<AttachmentItem>();
-        nearestItemAttachmentComponent.StartCoroutine(nearestItemAttachmentComponent.WaitForHandDisconnect(this));
+        nearestItemAttachmentComponent.StartCoroutine(nearestItemAttachmentComponent.WaitForHandDisconnectAndConnectItems(this));
 
     }
 
-    public void PrepareForDisconnect(Hand hand, AttachmentItem itemToDisconnect) {
+    /// <summary>
+    /// Disconnects the item in parameter from this item and places it to the scene root.
+    /// Releases the grabbing of an empty item the Hand has during the <c>WaitForDistance</c> co-routine 
+    /// </summary>
+    /// <param name="hand"></param>
+    /// <param name="itemToDisconnect"></param>
+    public void Disconnect(Hand hand, AttachmentItem itemToDisconnect) {
         itemToDisconnect.transform.SetParent(null);
         itemToDisconnect.transform.position = hand.transform.position;
 
         itemToDisconnect.RigidbodyContainer.Enable();
-        itemToDisconnect.ResetItem();
-        
+
         hand.GrabUninteract();
     }
 }
