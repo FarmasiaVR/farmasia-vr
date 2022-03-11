@@ -46,13 +46,6 @@ public class AttachmentItem : GeneralItem
     }
 
     public IEnumerator WaitForHandDisconnect(ReceiverItem receiver) {
-        Vector3 offset = Vector3.zero;
-        Vector3 target = receiver.transform.position;
-
-        if (receiver.IsGrabbed) {
-            target = receiver.grabbingHand.interactedInteractable.transform.position;
-        }
-
         if (IsGrabbed) {
             grabbingHand.Uninteract();
         }
@@ -64,7 +57,7 @@ public class AttachmentItem : GeneralItem
         yield return null;
 
         transform.SetParent(receiver.transform);
-        transform.position = target + receiver.GetComponent<SphereCollider>().center + offset;
+        transform.position = receiver.transform.TransformPoint(receiver.GetComponent<SphereCollider>().center);
         transform.rotation = receiver.transform.rotation;
 
         AfterConnect(receiver);
