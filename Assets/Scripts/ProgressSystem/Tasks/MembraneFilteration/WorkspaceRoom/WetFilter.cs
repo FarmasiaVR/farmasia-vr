@@ -8,6 +8,8 @@ class WetFilter : Task {
 
     public enum Conditions { FilterIsWet }
 
+    public new string Description = "Kostuta filtteri :D";
+
     private PumpFilter pumpFilter;
 
     private readonly int REQUIRED_AMOUNT = 10000;
@@ -32,7 +34,7 @@ class WetFilter : Task {
 
     private void CheckMistakes() {
         if (pumpFilter.Container.Amount > REQUIRED_AMOUNT) {
-            CreateTaskMistake("Filtterissä on liikaa nestettä", 1);
+            CreateTaskMistake("Filtterissï¿½ on liikaa nestettï¿½", 1);
         }
         if (pumpFilter.Container.Impure) {
             CreateTaskMistake("Filtterin neste on sekoittunut", 1);
@@ -45,16 +47,12 @@ class WetFilter : Task {
 
     public override void CompleteTask() {
         base.CompleteTask();
-        if (IsCompleted()) {
+        if (Completed) {
             Popup("Hienosti kostutettu!", MsgType.Done);
         }
     }
 
-    public override string GetDescription() {
-        return "Kostuta filtteri:D";
-    }
-
     public override string GetHint() {
-        return "Caman kyl sä osaat";
+        return "Caman kyl sï¿½ osaat";
     }
 }

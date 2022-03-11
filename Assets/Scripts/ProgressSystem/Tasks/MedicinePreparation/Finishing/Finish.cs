@@ -9,7 +9,6 @@ public class Finish : Task {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
 
-    private const string DESCRIPTION = "";
     private const string HINT = "";
     #endregion
 
@@ -93,7 +92,7 @@ public class Finish : Task {
                         G.Instance.Progress.FindTaskWithType(TaskType.ScenarioOneCleanUp).FinishTask();
                     } else {
                         foreach (Task task in p.activeTasks) {
-                            if (task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
+                            if (task.TaskType == TaskType.ScenarioOneCleanUp) {
                                 task.FinishTask();
                                 break;
                             }
@@ -143,10 +142,6 @@ public class Finish : Task {
         await System.Threading.Tasks.Task.Delay(1000);
         CompleteTask();
         base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class OpenAgarplates : Task {
 
     #region Constants
-    private const string DESCRIPTION = "Avaa laskeumamaljat";
-    private const string HINT = "Avaa yksi soijakaseiinimalja sekä yksi sabouradekstrosimalja";
+    public new string Description = "Avaa laskeumamaljat";
+    private const string HINT = "Avaa yksi soijakaseiinimalja sekï¿½ yksi sabouradekstrosimalja";
     #endregion
 
     #region Fields
@@ -23,7 +23,7 @@ public class OpenAgarplates : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        Points = 2;
     }
 
     public override void Subscribe() {
@@ -75,13 +75,9 @@ public class OpenAgarplates : Task {
 
     public override void CompleteTask() {
         base.CompleteTask();
-        if (IsCompleted()) {
+        if (Completed) {
             Popup("Hienosti avattu!", MsgType.Done);
         }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {

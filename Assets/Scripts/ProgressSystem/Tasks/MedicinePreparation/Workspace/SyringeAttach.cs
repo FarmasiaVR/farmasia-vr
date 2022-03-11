@@ -6,7 +6,7 @@ public class SyringeAttach : Task {
     #region Constants
     private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
 
-    private const string DESCRIPTION = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
+    public new string Description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
     private const string HINT = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
     #endregion
 
@@ -25,7 +25,7 @@ public class SyringeAttach : Task {
     public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
         Subscribe();
         usedSyringes = new HashSet<Syringe>();
-        points = 3;
+        Points = 3;
     }
     #endregion
 
@@ -80,10 +80,6 @@ public class SyringeAttach : Task {
             int minus = (int)Mathf.Round(Math.Abs(usedSyringes.Count - 6));
             CreateTaskMistake("Yksi tai useampi ruiskuista ei ollut oikean kokoinen", minus);
         }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {

@@ -49,9 +49,9 @@ public class ScoreCalculator {
     private void AddTasks(HashSet<Task> tasks) {
         maxPoints = new Dictionary<TaskType, int>();
         foreach (Task task in tasks) {
-            points.Add(task.GetTaskType(), task.GetPoints());
-            maxScore += task.GetPoints();
-            maxPoints.Add(task.GetTaskType(), task.GetPoints());
+            points.Add(task.TaskType, task.Points);
+            maxScore += task.Points;
+            maxPoints.Add(task.TaskType, task.Points);
         }
     }
     #endregion

@@ -7,7 +7,7 @@ using UnityEngine;
 public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     #region Constants
-    private const string DESCRIPTION = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    public new string Description = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
     #endregion
 
     #region Fields
@@ -24,7 +24,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        Points = 2;
     }
     #endregion
 
@@ -64,10 +64,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     #endregion
 
     #region Public Methods
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
 
     public override string GetHint() {
         string missingItemsHint = laminarCabinet.GetMissingItems();

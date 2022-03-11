@@ -4,8 +4,8 @@ public class SelectToolsMembrane : Task
 {
 
     #region Constants
-    private const string DESCRIPTION = "Valitse sopivat työvälineet.";
-    private const string HINT = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
+    public new string Description = "Valitse sopivat tyï¿½vï¿½lineet.";
+    private const string HINT = "Huoneessa on lï¿½ï¿½kkeen valmistukseen tarvittavia tyï¿½vï¿½lineitï¿½. Valitse oikea mï¿½ï¿½rï¿½ ruiskuja, neuloja ja luerlockeja.";
     #endregion
 
     #region Fields
@@ -68,7 +68,7 @@ public class SelectToolsMembrane : Task
 
     protected override void OnTaskComplete()
     {
-        Popup("Työväline valittu.", MsgType.Done);
+        Popup("Tyï¿½vï¿½line valittu.", MsgType.Done);
     }
 
     #region Public Methods
@@ -77,11 +77,6 @@ public class SelectToolsMembrane : Task
     {
         base.FinishTask();
 
-    }
-
-    public override string GetDescription()
-    {
-        return DESCRIPTION;
     }
 
     public override string GetHint()

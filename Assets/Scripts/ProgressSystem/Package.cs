@@ -49,7 +49,7 @@ public class Package {
     /// <param name="task">Reference to given task.</param>
     public void RemoveTask(Task task) {
         if (activeTasks.Contains(task)) {
-            doneTypes.Add(task.GetTaskType());
+            doneTypes.Add(task.TaskType);
             activeTasks.Remove(task);
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();

@@ -6,8 +6,8 @@ public class WriteTextsToItems : Task
     // Instead, use WritingSpecifications.GetInitialRequiredWritings()
 
     #region Constants
-    private const string DESCRIPTION = "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
-    private const string HINT = "Kosketa kynällä esinettä, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niitä. Voit perua kirjoituksen painamalla tekstiä uudestaan ennen kuin painat vihreää nappia";
+    public new string Description = "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
+    private const string HINT = "Kosketa kynï¿½llï¿½ esinettï¿½, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niitï¿½. Voit perua kirjoituksen painamalla tekstiï¿½ uudestaan ennen kuin painat vihreï¿½ï¿½ nappia";
     #endregion
 
     #region Fields
@@ -25,7 +25,7 @@ public class WriteTextsToItems : Task
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         writtenObjects = new List<GameObject>();
-        points = 2;
+        Points = 2;
     }
 
     #region Event Subscriptions
@@ -141,7 +141,7 @@ public class WriteTextsToItems : Task
         }
         if (correctObjectType == false && checkForMistakes)
         {
-            CreateTaskMistake("Kirjoitit ylimääräiseen esineseen", 1);
+            CreateTaskMistake("Kirjoitit ylimï¿½ï¿½rï¿½iseen esineseen", 1);
         }
         return false;
     }
@@ -155,15 +155,10 @@ public class WriteTextsToItems : Task
     public override void CompleteTask()
     {
         base.CompleteTask();
-        if (IsCompleted())
+        if (Completed)
         {
             Popup("Hyvin kirjoitettu.", MsgType.Done);
         }
-    }
-
-    public override string GetDescription()
-    {
-        return DESCRIPTION;
     }
 
     public override string GetHint()

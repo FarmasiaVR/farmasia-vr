@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemsToSterileBag : Task {
 
     #region Constants
-    private const string DESCRIPTION = "Viimeistele ruiskujen kanssa työskentely.";
+    public new string Description = "Viimeistele ruiskujen kanssa työskentely.";
     private const string HINT = "Laita täyttämäsi ruiskut steriiliin pussiin.";
     #endregion
 
@@ -30,7 +30,7 @@ public class ItemsToSterileBag : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        Points = 2;
     }
     #endregion
 
@@ -113,10 +113,6 @@ public class ItemsToSterileBag : Task {
             mistakes++;
             mistakesList.Add(SterileBagMistake.ContaminatedSyringe);
         }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {
