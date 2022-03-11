@@ -8,7 +8,7 @@ using System.Collections.Generic;
 //Responsibility from this class was removed, check out CleanupObject.cs which is attached to WorkspaceRoom in the scene
 public class ScenarioOneCleanUp : Task {
     #region Fields
-    private string description = "Siivoa lopuksi työtila.";
+    public new string Description = "Siivoa lopuksi työtila.";
     private string hint = "Vie pelin aikana lattialle pudonneet esineet roskakoriin.";
     private List<GeneralItem> itemsToBeCleaned;
     #endregion
@@ -20,7 +20,7 @@ public class ScenarioOneCleanUp : Task {
     ///  </summary>
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
         Subscribe();
-        points = 1;
+        Points = 1;
         itemsToBeCleaned = new List<GeneralItem>();
     }
     #endregion
@@ -36,10 +36,6 @@ public class ScenarioOneCleanUp : Task {
             //G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
         }
         base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return description;
     }
 
     public override string GetHint() {

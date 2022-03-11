@@ -36,23 +36,23 @@ public class ProgressManager {
         Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
 
         foreach (Task task in trueAllTasksThatAreNeverRemoved) {
-            if (calledTask.GetTaskType() == task.GetTaskType()) {
+            if (calledTask.TaskType == task.TaskType) {
                 continue;
             }
-            if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
+            if (task.TaskType == TaskType.Finish || task.TaskType == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
             Logger.Print(string.Format(
                 "max points: {0}, points: {1}",
-                task.GetTaskType().ToString(),
-                taskMaxPoints[task.GetTaskType()].ToString()
+                task.TaskType.ToString(),
+                taskMaxPoints[task.TaskType].ToString()
             ));
-            task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
+            task.ForceClose(taskMaxPoints[task.TaskType] > 0);
         }
     }
     public void ForceCloseTask(TaskType type, bool killPoints = true) {
         foreach (Task task in trueAllTasksThatAreNeverRemoved) {
-            if (task.GetTaskType() == type && !task.IsCompleted()) {
+            if (task.TaskType == type && !task.Completed) {
                 if (killPoints) {
                     task.ForceClose(taskMaxPoints[type] > 0);
                 } else {
@@ -192,7 +192,7 @@ public class ProgressManager {
         taskMaxPoints = new Dictionary<TaskType, int>();
         foreach (Task task in allTasks) {
             trueAllTasksThatAreNeverRemoved.Add(task as Task);
-            taskMaxPoints.Add(task.GetTaskType(), task.GetPoints());
+            taskMaxPoints.Add(task.TaskType, task.Points);
         }
     }
 
@@ -225,7 +225,7 @@ public class ProgressManager {
     public Task FindTaskWithType(TaskType taskType) {
         Task foundTask = null;
         foreach (Task task in allTasks) {
-            if (task.GetTaskType() == taskType) {
+            if (task.TaskType == taskType) {
                 foundTask = task;
                 break;
             }
@@ -266,7 +266,7 @@ public class ProgressManager {
     /// </summary>
     public void FinishProgress() {
         foreach (Task task in allTasks) {
-            if (task.GetTaskType() == TaskType.Finish) {
+            if (task.TaskType == TaskType.Finish) {
                 RemoveTask(task);
                 string scoreString;
                 int score;
@@ -294,7 +294,7 @@ public class ProgressManager {
     public void UpdateDescription() {
         if (!testMode) {
             if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
-                UISystem.Instance.Descript = CurrentPackage.CurrentTask.GetDescription();
+                UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
 #if UNITY_NONVRCOMPUTER
 #else
 

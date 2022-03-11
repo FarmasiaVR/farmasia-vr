@@ -5,6 +5,8 @@ using System.Collections.Generic;
 class AssemblePump: Task {
 
     public enum Conditions { FilterAttached, PipeAttached }
+
+    public new string Description = "Kokoa pumppu!";
     
     private CabinetBase laminarCabinet;
     // private bool fail = false;
@@ -13,7 +15,7 @@ class AssemblePump: Task {
     public AssemblePump() : base(TaskType.AssemblePump, true, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        points = 1;
+        Points = 1;
         Subscribe();
     }
 
@@ -69,13 +71,9 @@ class AssemblePump: Task {
 
     public override void CompleteTask() {
         base.CompleteTask();
-        if (IsCompleted()) {
+        if (Completed) {
             Popup("Hienoa, pumppu on koossa", MsgType.Done);
         }
-    }
-
-    public override string GetDescription() {
-        return "Kokoa pumppu!";
     }
 
     public override string GetHint() {

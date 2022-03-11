@@ -13,7 +13,7 @@ public class DisinfectBottles : Task {
     ///  </summary>
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
-        points = 1;
+        Points = 1;
     }
     #endregion
 
@@ -28,15 +28,11 @@ public class DisinfectBottles : Task {
     /// </summary>
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        G.Instance.Progress.ForceCloseTask(taskType, false);
+        G.Instance.Progress.ForceCloseTask(TaskType, false);
     }
     #endregion
 
     #region Public Methods
-
-    public override string GetDescription() {
-        return base.GetDescription();
-    }
 
     public override string GetHint() {
         return "";

@@ -7,7 +7,7 @@ public class MedicineToSyringe : Task {
     private const int RIGHT_SYRINGE_CAPACITY = 20000;
     private const int MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE = 900;
 
-    private const string DESCRIPTION = "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.";
+    public new string Description = "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.";
     private const string HINT = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
 
     private Syringe syringe;
@@ -29,7 +29,7 @@ public class MedicineToSyringe : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        Points = 2;
     }
     #endregion
 
@@ -88,10 +88,6 @@ public class MedicineToSyringe : Task {
     #endregion
 
     #region Public Methods
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
 
     public override string GetHint() {
         return HINT;

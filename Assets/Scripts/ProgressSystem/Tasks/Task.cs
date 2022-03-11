@@ -9,13 +9,13 @@ using System.Linq;
 public abstract class Task {
 
     #region Fields
-    protected bool completed = false;
-    protected int points = 0;
+    public bool Completed = false;
+    public int Points = 0;
     protected Package package;
     private bool InPackage => (package != null);
     private bool started = false;
     public bool Started { get => started; }
-    protected TaskType taskType;
+    public TaskType TaskType { get; protected set; }
     protected bool checkAllClearConditions = true;
     protected bool eventsUnsubscribed = true;
     protected bool isFinished = false;
@@ -25,41 +25,43 @@ public abstract class Task {
     protected bool unsubscribeAllEvents = true;
     protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
+
+    public string Description = "No description";
     #endregion
 
     public Task(TaskType type, bool remove, bool previous) {
-        taskType = type;
+        TaskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
     }
 
     #region Task Progression
     public virtual void ForceClose(bool removePoints) {
-        if (IsCompleted()) {
+        if (Completed) {
             return;
         }
 
         if (removePoints) {
-            Logger.Print(string.Format("Task still has points left: {0}, points: {1}", taskType.ToString(), points.ToString()));
-            G.Instance.Progress.Calculator.SetScoreToZero(taskType);
-            Task.CreateTaskMistakeGlobal(taskType, "Tehtävää ei suoritettu", 2);
+            Logger.Print(string.Format("Task still has points left: {0}, points: {1}", TaskType.ToString(), Points.ToString()));
+            G.Instance.Progress.Calculator.SetScoreToZero(TaskType);
+            Task.CreateTaskMistakeGlobal(TaskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
         FinishTask();
         isFinished = true;
-        completed = true;
+        Completed = true;
     }
 
     public virtual void StartTask() {
-        Logger.Print("PROGRESS: started " + taskType.ToString());
+        Logger.Print("PROGRESS: started " + TaskType.ToString());
         started = true;
     }
 
     public virtual void CompleteTask() {
-        completed = CheckClearConditions();
+        Completed = CheckClearConditions();
         //Logger.Print("Clear conditions: " + completed);
-        if (completed) {
+        if (Completed) {
             CloseTask();
         }
     }
@@ -94,21 +96,9 @@ public abstract class Task {
     #endregion
 
     #region Getters
-    public bool IsCompleted() => completed;
-    public virtual string GetDescription() {
-        return "No Description";
-    }
 
     public virtual string GetHint() {
         return "No Hints";
-    }
-
-    public TaskType GetTaskType() {
-        return taskType;
-    }
-
-    public int GetPoints() {
-        return points;
     }
     #endregion
 
@@ -148,7 +138,7 @@ public abstract class Task {
     #region Condition Methods
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
-            Logger.Print(this.taskType.ToString() +  " Enabled Condition: " + condition.ToString());
+            Logger.Print(this.TaskType.ToString() +  " Enabled Condition: " + condition.ToString());
             clearConditions[condition.GetHashCode()] = true;
         }
     }
@@ -232,7 +222,7 @@ public abstract class Task {
 
         string s = string.Format(
             "TaskType: {0}, finished: {1}",
-            taskType.ToString(),
+            TaskType.ToString(),
             isFinished.ToString()
         );
 
@@ -240,7 +230,7 @@ public abstract class Task {
             s,
             "\nstrted: ", Started.ToString(),
             "\ncheck cond: ", checkAllClearConditions.ToString(),
-            "\nis completed: ", completed.ToString(),
+            "\nis completed: ", Completed.ToString(),
             "\nremove when finished: ", removeWhenFinished.ToString(),
             "\nrequires previous: ", requiresPreviousTaskCompletion.ToString(),
             "\nprevious completed: ", previousTasksCompleted.ToString()
@@ -255,7 +245,7 @@ public abstract class Task {
 
     #region Mistakes
     public void CreateTaskMistake(string mistake, int minus) {
-        CreateTaskMistakeGlobal(taskType, mistake, minus);
+        CreateTaskMistakeGlobal(TaskType, mistake, minus);
     }
     public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true) {
         if (showMessage) {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CorrectItemsInThroughputMembrane : Task {
     #region Constants
-    private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    public new string Description = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
     private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
         "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
         "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
@@ -24,7 +24,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        Points = 2;
     }
     #endregion
 
@@ -78,7 +78,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         if (door.IsClosed) {
 
             CompleteTask();
-            if (!IsCompleted()) {
+            if (!Completed) {
                 MissingItems();
             }
         } else {
@@ -234,17 +234,13 @@ public class CorrectItemsInThroughputMembrane : Task {
     public override void CompleteTask() {
         base.CompleteTask();
 
-        if (IsCompleted()) {
+        if (Completed) {
             if (correctItems) {
                 Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {

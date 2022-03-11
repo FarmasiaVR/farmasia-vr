@@ -10,7 +10,7 @@ public class CorrectAmountOfMedicineSelected : Task {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
 
-    private const string DESCRIPTION = "Vedä ruiskuun lääkettä.";
+    public new string Description = "Vedä ruiskuun lääkettä.";
     private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
     #endregion
 
@@ -25,7 +25,7 @@ public class CorrectAmountOfMedicineSelected : Task {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         usedSmallSyringes = new Dictionary<SmallSyringe, int>();
-        points = 6;
+        Points = 6;
     }
     #endregion
 
@@ -87,7 +87,7 @@ public class CorrectAmountOfMedicineSelected : Task {
         if (usedSmallSyringes.Count >= 6) {
             Logger.Print("CLOSED SmallSyringe ATTACH AND CORRECT AMOUNT");
             CreateTaskMistake(null, GetTotalMinus());
-            G.Instance.Progress.ForceCloseTask(taskType, false);
+            G.Instance.Progress.ForceCloseTask(TaskType, false);
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);
         }
     }
@@ -106,10 +106,6 @@ public class CorrectAmountOfMedicineSelected : Task {
     #endregion
 
     #region Public Methods
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
 
     public override string GetHint() {
         return HINT;

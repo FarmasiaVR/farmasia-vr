@@ -17,7 +17,7 @@ public class CorrectLayoutInThroughput : Task {
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
         Subscribe();
-        points = 0;
+        Points = 0;
     }
     #endregion
 
@@ -38,10 +38,6 @@ public class CorrectLayoutInThroughput : Task {
     #region Public Methods
     public override void FinishTask() {
         base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return "";
     }
 
     public override string GetHint() {

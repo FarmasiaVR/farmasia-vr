@@ -4,7 +4,7 @@ using UnityEngine;
 public class LuerlockAttach : Task {
 
     #region Constants
-    private const string DESCRIPTION = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
+    public new string Description = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
     private const string HINT = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
     #endregion
 
@@ -21,7 +21,7 @@ public class LuerlockAttach : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 1;
+        Points = 1;
     }
     #endregion
 
@@ -78,7 +78,7 @@ public class LuerlockAttach : Task {
 
         CompleteTask();
 
-        if (!IsCompleted()) {
+        if (!Completed) {
             if (!firstCheckDone) {
                 CreateTaskMistake("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun", 1);
                 Popup("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake, -1);
@@ -103,10 +103,6 @@ public class LuerlockAttach : Task {
     #endregion
 
     #region Public Methods
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
 
     public override string GetHint() {
         return HINT;

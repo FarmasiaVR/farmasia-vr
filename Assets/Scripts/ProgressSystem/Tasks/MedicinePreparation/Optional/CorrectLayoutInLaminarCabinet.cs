@@ -16,7 +16,7 @@ public class CorrectLayoutInLaminarCabinet : Task {
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false, false) {
         base.unsubscribeAllEvents = false;
         Subscribe();
-        points = 0;
+        Points = 0;
     }
     #endregion
 
@@ -60,10 +60,6 @@ public class CorrectLayoutInLaminarCabinet : Task {
     #region Public Methods
     public override void FinishTask() {
         base.FinishTask();
-    }
-
-    public override string GetDescription() {
-        return "";
     }
 
     public override string GetHint() {

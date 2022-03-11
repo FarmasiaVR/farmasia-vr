@@ -3,7 +3,7 @@ using System;
 public class SelectMedicine : Task {
 
     #region Constants
-    private const string DESCRIPTION = "Valitse sopiva lääkepullo.";
+    public new string Description = "Valitse sopiva lääkepullo.";
     private const string HINT = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
     #endregion
 
@@ -49,10 +49,6 @@ public class SelectMedicine : Task {
     #region Public Methods
     protected override void OnTaskComplete() {
         Popup("Lääkepullo valittu.", MsgType.Done);
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
     }
 
     public override string GetHint() {
