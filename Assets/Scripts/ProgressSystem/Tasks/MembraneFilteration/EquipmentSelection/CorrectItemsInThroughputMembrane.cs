@@ -72,11 +72,8 @@ public class CorrectItemsInThroughputMembrane : Task {
             return;
         }
 
-        int gCount = 0;
-
-        foreach (Interactable obj in containedObjects) {
-            
-            gCount++;
+        foreach (Interactable obj in containedObjects) {            
+  
             GeneralItem g = obj as GeneralItem;
             if ( g == null) {
                 continue;
@@ -90,10 +87,9 @@ public class CorrectItemsInThroughputMembrane : Task {
             }
         }
 
-        if (gCount - correctItemCount > 0) { 
-            int minus = gCount - correctItemCount;
-            CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", minus);
-        }
+        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)) {
+            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
+        } 
 
         objectCount = containedObjects.Count;
         CheckConditions(containedObjects);
@@ -135,7 +131,7 @@ public class CorrectItemsInThroughputMembrane : Task {
                     if (capacity == 100000)
                     {
                         bottles100ml++;
-                        if (bottles100ml == 6)
+                        if (bottles100ml == 4)
                         {
                             EnableCondition(Conditions.Bottles100ml);
                         }
@@ -144,17 +140,17 @@ public class CorrectItemsInThroughputMembrane : Task {
                     else if (type == LiquidType.Peptonwater)
                     {
                         peptonWaterBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.PeptoniWaterBottle);
                     }
                     else if (type == LiquidType.Soycaseine)
                     {
                         soycaseineBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.SoycaseineBottle);
                     }
                     else if (type == LiquidType.Tioglygolate)
                     {
                         tioglycolateBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.TioglycolateBottle);
                     }
                     else
                     {
@@ -164,15 +160,19 @@ public class CorrectItemsInThroughputMembrane : Task {
                 else if (g is AgarPlateLid lid)
                 {
                     string variant = lid.Variant;
+                    //Logger.Print(variant);
                     if (variant == "Soija-kaseiini")
                     {
                         soycaseinePlate++;
-                        EnableCondition(Conditions.SoycaseinePlate);
+                        if (soycaseinePlate == 3)
+                        {
+                            EnableCondition(Conditions.SoycaseinePlate);
+                        }                        
                     }
                     else if (variant == "Sabourad-dekstrosi")
                     {
                         sabouradDextrosiPlate++;
-                        EnableCondition(Conditions.SoycaseinePlate);
+                        EnableCondition(Conditions.SabouradDextrosiPlate);
                     }
                     else
                     {
@@ -192,8 +192,11 @@ public class CorrectItemsInThroughputMembrane : Task {
                 }
                 else if (g is Pipette || g is BigPipette)
                 {
-                    EnableCondition(Conditions.Pipette);
                     pipette++;
+                    if (pipette == 3)
+                    {
+                        EnableCondition(Conditions.Pipette);
+                    }                  
                 }
                 else if (g is Pump)
                 {

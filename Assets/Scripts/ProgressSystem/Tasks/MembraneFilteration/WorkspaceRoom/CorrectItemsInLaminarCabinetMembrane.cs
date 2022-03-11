@@ -102,19 +102,19 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     LiquidType type = bottle.Container.LiquidType;
                     if (capacity == 100000) {
                         bottles100ml++;
-                        if (bottles100ml == 6) {
+                        if (bottles100ml == 4) {
                             EnableCondition(Conditions.Bottles100ml);
                         }
 
                     } else if (type == LiquidType.Peptonwater) {
                         peptonWaterBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.PeptoniWaterBottle);
                     } else if (type == LiquidType.Soycaseine) {
                         soycaseineBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.SoycaseineBottle);
                     } else if (type == LiquidType.Tioglygolate) {
                         tioglycolateBottle++;
-                        EnableCondition(Conditions.Bottles100ml);
+                        EnableCondition(Conditions.TioglycolateBottle);
                     } else {
                         CreateTaskMistake("Väärä pullo laminaarikaapissa", 5);
                     }
@@ -122,10 +122,13 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     string variant = lid.Variant;
                     if (variant == "Soija-kaseiini") {
                         soycaseinePlate++;
-                        EnableCondition(Conditions.SoycaseinePlate);
+                        if (soycaseinePlate == 3)
+                        {
+                            EnableCondition(Conditions.SoycaseinePlate);
+                        }
                     } else if (variant == "Sabourad-dekstrosi") {
                         sabouradDextrosiPlate++;
-                        EnableCondition(Conditions.SoycaseinePlate);
+                        EnableCondition(Conditions.SabouradDextrosiPlate);
                     } else {
                         CreateTaskMistake("Väärä agarmalja laminaarikaapissa", 5);
                     }
@@ -137,8 +140,11 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     EnableCondition(Conditions.Scalpel);
                     scalpel++;
                 } else if (g is Pipette || g is BigPipette) {
-                    EnableCondition(Conditions.Pipette);
                     pipette++;
+                    if (pipette == 3)
+                    {
+                        EnableCondition(Conditions.Pipette);
+                    }
                 } else if (g is Pump) {
                     EnableCondition(Conditions.Pump);
                     pump++;
@@ -159,7 +165,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
             }
         }
 
-        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 1 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1) {
+        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1) {
             Logger.Print("All done");
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
         } else {
