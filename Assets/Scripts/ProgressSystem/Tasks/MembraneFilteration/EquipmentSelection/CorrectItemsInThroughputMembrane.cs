@@ -12,12 +12,22 @@ public class CorrectItemsInThroughputMembrane : Task {
     #endregion
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, }
-    private int bottles100ml = 0;
-    private int soycaseinePlate = 0;
-    private int pipette = 0;
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle}
+    int bottles100ml = 0;
+    int peptonWaterBottle = 0;
+    int soycaseineBottle = 0;
+    int tioglycolateBottle = 0;
+    int soycaseinePlate = 0;
+    int sabouradDextrosiPlate = 0;
+    int tweezers = 0;
+    int scalpel = 0;
+    int pipette = 0;
+    int sterileBag = 0;
+    int pump = 0;
+    int filter = 0;
+    int cleaningBottle = 0;
     private int objectCount;
-    private int correctItemCount = 19;
+    private int correctItemCount = 22;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -73,7 +83,7 @@ public class CorrectItemsInThroughputMembrane : Task {
             }
 
             if (!g.IsClean) {
-                if ((g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                if (g is Bottle) {
                     continue;
                 }
                 CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
@@ -111,64 +121,103 @@ public class CorrectItemsInThroughputMembrane : Task {
     }
 
     #region Private Methods
-    private void CheckConditions(List<Interactable> containedObjects) {
-        foreach (Interactable value in containedObjects) {
-            GeneralItem item = value as GeneralItem;
-            ObjectType type = item.ObjectType;
-            //Logger.Print("Condition: " + type);
-            switch (type) {
-                case ObjectType.Bottle:
-                case ObjectType.Medicine:
-                    bottles100ml++;
-                    if (bottles100ml == 4) {
+    private void CheckConditions(List<Interactable> containedObjects)
+    {
+
+        foreach (var item in containedObjects)
+        {
+            if (Interactable.GetInteractable(item.transform) is var g && g != null)
+            {
+                if (g is Bottle bottle)
+                {
+                    int capacity = bottle.Container.Capacity;
+                    LiquidType type = bottle.Container.LiquidType;
+                    if (capacity == 100000)
+                    {
+                        bottles100ml++;
+                        if (bottles100ml == 6)
+                        {
+                            EnableCondition(Conditions.Bottles100ml);
+                        }
+
+                    }
+                    else if (type == LiquidType.Peptonwater)
+                    {
+                        peptonWaterBottle++;
                         EnableCondition(Conditions.Bottles100ml);
                     }
-                    break;
-                case ObjectType.SoycaseinePlate:
-                    soycaseinePlate++;
-                    if (soycaseinePlate == 3)
+                    else if (type == LiquidType.Soycaseine)
                     {
+                        soycaseineBottle++;
+                        EnableCondition(Conditions.Bottles100ml);
+                    }
+                    else if (type == LiquidType.Tioglygolate)
+                    {
+                        tioglycolateBottle++;
+                        EnableCondition(Conditions.Bottles100ml);
+                    }
+                    else
+                    {
+                        CreateTaskMistake("Väärä pullo laminaarikaapissa", 5);
+                    }
+                }
+                else if (g is AgarPlateLid lid)
+                {
+                    string variant = lid.Variant;
+                    if (variant == "Soija-kaseiini")
+                    {
+                        soycaseinePlate++;
                         EnableCondition(Conditions.SoycaseinePlate);
                     }
-                    break;
-                case ObjectType.SabouradDextrosiPlate:
-                    EnableCondition(Conditions.SabouradDextrosiPlate);
-                    break;
-                case ObjectType.PeptoniWaterBottle:
-                    EnableCondition(Conditions.PeptoniWaterBottle);
-                    break;
-                case ObjectType.SoycaseineBottle:
-                    EnableCondition(Conditions.SoycaseineBottle);
-                    break;
-                case ObjectType.TioglycolateBottle:
-                    EnableCondition(Conditions.TioglycolateBottle);
-                    break;
-                case ObjectType.Tweezers:
-                    EnableCondition(Conditions.Tweezers);
-                    break;
-                case ObjectType.Scalpel:
-                    EnableCondition(Conditions.Scalpel);
-                    break;
-                case ObjectType.Pipette:
-                    pipette++;
-                    if (pipette == 3) 
-                    { 
-                        EnableCondition(Conditions.Pipette);
+                    else if (variant == "Sabourad-dekstrosi")
+                    {
+                        sabouradDextrosiPlate++;
+                        EnableCondition(Conditions.SoycaseinePlate);
                     }
-                    break;
-                case ObjectType.Pump:
+                    else
+                    {
+                        CreateTaskMistake("Väärä agarmalja laminaarikaapissa", 5);
+                    }
+
+                }
+                else if (g is Tweezers)
+                {
+                    EnableCondition(Conditions.Tweezers);
+                    tweezers++;
+                }
+                else if (g is Scalpel)
+                {
+                    EnableCondition(Conditions.Scalpel);
+                    scalpel++;
+                }
+                else if (g is Pipette || g is BigPipette)
+                {
+                    EnableCondition(Conditions.Pipette);
+                    pipette++;
+                }
+                else if (g is Pump)
+                {
                     EnableCondition(Conditions.Pump);
-                    break;
-                case ObjectType.PumpFilter:
+                    pump++;
+                }
+                else if (g is PumpFilter)
+                {
                     EnableCondition(Conditions.PumpFilter);
-                    break;
-                case ObjectType.SterileBag:
+                    filter++;
+                }
+                else if (g is SterileBag)
+                {
                     EnableCondition(Conditions.SterileBag);
-                    break;
+                    sterileBag++;
+                }
+                else if (g is CleaningBottle)
+                {
+                    EnableCondition(Conditions.CleaningBottle);
+                    cleaningBottle++;
+                }
             }
         }
     }
-
     
 
     protected override void OnTaskComplete() {

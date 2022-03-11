@@ -12,8 +12,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     #region Fields
     public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle }
-    private int objectCount;
-    private int correctItemCount = 19;
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -154,7 +152,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     EnableCondition(Conditions.CleaningBottle);
                     cleaningBottle++;
                 }
-                if (g is GeneralItem generalItem && !generalItem.IsClean) {
+                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
                     uncleanCount++;
                     Logger.Warning(g.name + " in laminar cabinet was not clean");
                 }
