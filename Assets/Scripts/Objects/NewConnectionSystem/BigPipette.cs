@@ -5,6 +5,6 @@ using UnityEngine;
 public class BigPipette : ReceiverItem
 {
     public BigPipette() {
-        AfterRelease = (interactable) => { Logger.Print("Pipette container released") };
+        AfterRelease = (interactable) => { Logger.Print("Pipette container released"); };
     }
 }
