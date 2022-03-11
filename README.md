@@ -119,17 +119,17 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/Reksa97">
-            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
-            <br />
-            <sub><b>Reko Kälkäjä</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/vrfarmasia">
             <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
             <br />
             <sub><b>Vrfarmasia</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Reksa97">
+            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+            <br />
+            <sub><b>Reko Kälkäjä</b></sub>
         </a>
     </td>
     <td align="center">
