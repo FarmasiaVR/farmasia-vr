@@ -7,7 +7,7 @@ public class FilterPart : ReceiverItem
     private Dictionary<ObjectType, bool> partsAttached;
     public Dictionary<ObjectType, bool> PartsAttached { get { return partsAttached; } }
 
-    public bool IsAssembled => new List<bool>(partsAttached.Values).TrueForAll(x => x == true);
+    public bool IsAssembled => new List<bool>(partsAttached.Values).TrueForAll(x => x);
 
     protected override void Awake() {
         base.Awake();

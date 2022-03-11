@@ -60,6 +60,10 @@ public class ReceiverItem : AttachmentItem
             return;
         }
 
+        if (!CanConnect(other.GetComponent<Interactable>())) {
+            return;
+        }
+
         GeneralItem colliderItem = other.gameObject.GetComponentInParent<GeneralItem>();
         if (!SlotOccupied && !(colliderItem == null) && colliderItem.ObjectType == ReceivedObjectType) {
             PossibleItems.Add(colliderItem.gameObject);

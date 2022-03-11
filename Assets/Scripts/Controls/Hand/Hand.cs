@@ -29,7 +29,7 @@ public class Hand : MonoBehaviour {
     public HandCollider ExtendedHandCollider { get; private set; }
 
     public HandConnector Connector { get; private set; }
-    private Interactable interactedInteractable;
+    public Interactable interactedInteractable;
 
     [SerializeField]
     private Hand other;

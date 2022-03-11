@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AttachmentItem : GeneralItem
 {
     public bool Attached = false;
     public ReceiverItem ParentReceiver = null;
     public float SnapDistance;
+
+    public Func<Interactable, bool> CanConnect = (interactable) => true;
+    public Action<Interactable> AfterConnect = (interactable) => { };
+    public Action<Interactable> AfterRelease = (interactable) => { };
 
     public AttachmentItem GetParent() {
         if (!Attached) return this;
@@ -23,12 +28,16 @@ public class AttachmentItem : GeneralItem
             float currentDistance = Vector3.Distance(startPositionDelta, currentPositionDelta);
             
             if (currentDistance > SnapDistance) {
-                (GetParent() as ReceiverItem)?.PrepareForDisconnect(hand, this);
+                var receiver = GetParent() as ReceiverItem;
+                receiver?.PrepareForDisconnect(hand, this);
 
                 yield return null;
                 yield return null;
 
                 hand.InteractWith(this);
+
+                AfterRelease(receiver);
+
                 break;
             }
 
@@ -37,7 +46,16 @@ public class AttachmentItem : GeneralItem
     }
 
     public IEnumerator WaitForHandDisconnect(ReceiverItem receiver) {
-        if (IsGrabbed) grabbingHand.Uninteract();
+        Vector3 offset = Vector3.zero;
+        Vector3 target = receiver.transform.position;
+
+        if (receiver.IsGrabbed) {
+            target = receiver.grabbingHand.interactedInteractable.transform.position;
+        }
+
+        if (IsGrabbed) {
+            grabbingHand.Uninteract();
+        }
 
         yield return null;
 
@@ -46,8 +64,10 @@ public class AttachmentItem : GeneralItem
         yield return null;
 
         transform.SetParent(receiver.transform);
-        transform.position = receiver.transform.position + receiver.GetComponent<SphereCollider>().center;
+        transform.position = target + receiver.GetComponent<SphereCollider>().center + offset;
         transform.rotation = receiver.transform.rotation;
+
+        AfterConnect(receiver);
 
         Attached = true;
         ParentReceiver = receiver;
