@@ -48,7 +48,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         }
 
         if (cabinet == null) {
-            Logger.Error("cabinet was null in CorrectItemsThroughputMembrane! That is weird.");
+            Logger.Error("cabinet was null in CorrectItemsThroughputMembrane. Items not placed for reference");
             return;
         }
 
@@ -56,6 +56,10 @@ public class CorrectItemsInThroughputMembrane : Task {
         if (containedObjects.Count == 0) {
             Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
             return;
+        }
+
+        if (containedObjects.Count > 31) {
+            CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
         }
 
         foreach (Interactable obj in containedObjects) {            
@@ -69,7 +73,9 @@ public class CorrectItemsInThroughputMembrane : Task {
                 if (g is Bottle) {
                     continue;
                 }
-                CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
+                else {
+                    CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
+                }                
             }
         }
    
@@ -82,7 +88,7 @@ public class CorrectItemsInThroughputMembrane : Task {
                 MissingItems();
             }
         } else {
-            Popup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
+            Popup("Sulje läpiantokaapin ovi.", MsgType.Notify);
         }
     }
     #endregion
@@ -147,7 +153,7 @@ public class CorrectItemsInThroughputMembrane : Task {
                     }
                     else
                     {
-                        CreateTaskMistake("Väärä pullo laminaarikaapissa", 5);
+                        CreateTaskMistake("Väärä pullo läpiantokaapissa", 5);
                     }
                 }
                 else if (g is AgarPlateLid lid)
@@ -168,7 +174,7 @@ public class CorrectItemsInThroughputMembrane : Task {
                     }
                     else
                     {
-                        CreateTaskMistake("Väärä agarmalja laminaarikaapissa", 5);
+                        CreateTaskMistake("Väärä agarmalja läpiantokaapissa", 5);
                     }
 
                 }
@@ -214,7 +220,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         }
         if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1))
         {
-            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
+            CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
         }        
     }
     
