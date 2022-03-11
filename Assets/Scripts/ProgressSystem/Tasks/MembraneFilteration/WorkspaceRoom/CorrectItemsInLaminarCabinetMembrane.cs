@@ -47,7 +47,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     /// </summary>
     private void CheckLaminarCabinet(CallbackData data) {
         if (laminarCabinet == null) {
-            Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
+            Logger.Error("laminarCabinet was null in CorrectItemsInLaminarCabinetMembrane!");
             return;
         }
         List<Interactable> objects = laminarCabinet.GetContainedItems();
@@ -58,8 +58,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
         CheckItems();
         CompleteTask();
-
-        //G.Instance.Progress.ForceCloseTask(taskType, false);
     }
     #endregion
 
@@ -149,7 +147,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 }
                 if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
                     uncleanCount++;
-                    Logger.Warning(g.name + " laminaarikaapissa oli saastainen.");
+                    Logger.Warning(g.name + " in laminar cabinet was filthy.");
                 }
             }
         }

@@ -13,7 +13,6 @@ public class CorrectItemsInThroughputMembrane : Task {
 
     #region Fields
     public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle}
-    private bool correctItems = false;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -50,6 +49,7 @@ public class CorrectItemsInThroughputMembrane : Task {
 
         if (cabinet == null) {
             Logger.Error("cabinet was null in CorrectItemsThroughputMembrane! That is weird.");
+            return;
         }
 
         List<Interactable> containedObjects = cabinet.GetContainedItems();
@@ -94,7 +94,6 @@ public class CorrectItemsInThroughputMembrane : Task {
         } else {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
         }
-        //Logger.Print(cabinet.GetMissingItems());
         DisableConditions();
     }
 
@@ -216,11 +215,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1))
         {
             CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
-        }
-        else
-        {
-            correctItems = true;
-        }
+        }        
     }
     
 
@@ -235,9 +230,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         base.CompleteTask();
 
         if (Completed) {
-            if (correctItems) {
-                Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);
-            }
+            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);            
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }
