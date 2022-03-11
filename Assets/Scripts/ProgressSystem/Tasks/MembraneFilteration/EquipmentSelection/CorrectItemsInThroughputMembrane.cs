@@ -236,7 +236,7 @@ public class CorrectItemsInThroughputMembrane : Task {
 
         if (Completed) {
             if (correctItems) {
-                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
+                Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;

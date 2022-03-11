@@ -7,7 +7,7 @@ using UnityEngine;
 public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     #region Constants
-    public new string Description = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    public new string Description = "Siirrä valitsemasi työvälineet laminaarikaappiin";
     #endregion
 
     #region Fields
@@ -31,7 +31,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     #region Event Subscriptions
     public override void Subscribe() {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        base.SubscribeEvent(CheckLaminarCabientButton, EventType.CheckLaminarCabinetItems);
+        base.SubscribeEvent(CheckLaminarCabinet, EventType.CheckLaminarCabinetItems);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -45,7 +45,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     /// <summary>
     /// Once fired by an event, checks which item was picked and sets the corresponding condition to be true.
     /// </summary>
-    private void CheckLaminarCabientButton(CallbackData data) {
+    private void CheckLaminarCabinet(CallbackData data) {
         if (laminarCabinet == null) {
             Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
             return;
@@ -67,7 +67,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     public override string GetHint() {
         string missingItemsHint = laminarCabinet.GetMissingItems();
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint;
+        return "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet. " + missingItemsHint;
     }
 
     protected override void OnTaskComplete() { /* Nothing */ }
@@ -87,7 +87,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         int pump = 0;
         int filter = 0;
         int cleaningBottle = 0;
-
 
         int uncleanCount = 0;
 
@@ -111,8 +110,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     } else if (type == LiquidType.Tioglygolate) {
                         tioglycolateBottle++;
                         EnableCondition(Conditions.TioglycolateBottle);
-                    } else {
-                        CreateTaskMistake("Väärä pullo laminaarikaapissa", 5);
                     }
                 } else if (g is AgarPlateLid lid) {
                     string variant = lid.Variant;
@@ -125,10 +122,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     } else if (variant == "Sabourad-dekstrosi") {
                         sabouradDextrosiPlate++;
                         EnableCondition(Conditions.SabouradDextrosiPlate);
-                    } else {
-                        CreateTaskMistake("Väärä agarmalja laminaarikaapissa", 5);
                     }
-
                 } else if (g is Tweezers) {
                     EnableCondition(Conditions.Tweezers);
                     tweezers++;
@@ -137,8 +131,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     scalpel++;
                 } else if (g is Pipette || g is BigPipette) {
                     pipette++;
-                    if (pipette == 3)
-                    {
+                    if (pipette == 3) {
                         EnableCondition(Conditions.Pipette);
                     }
                 } else if (g is Pump) {
@@ -156,7 +149,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 }
                 if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
                     uncleanCount++;
-                    Logger.Warning(g.name + " in laminar cabinet was not clean");
+                    Logger.Warning(g.name + " laminaarikaapissa oli saastainen.");
                 }
             }
         }
@@ -164,9 +157,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1) {
             Logger.Print("All done");
             Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
-        } else {
-            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
-
         }
 
         if (uncleanCount > 0) {

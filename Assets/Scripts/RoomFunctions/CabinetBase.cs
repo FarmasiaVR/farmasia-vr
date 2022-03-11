@@ -109,6 +109,7 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void EnterCabinet(Interactable other) {
+        Events.FireEvent(EventType.CheckLaminarCabinetItems);
         GeneralItem item = other as GeneralItem;
         if (item == null) {
             return;
