@@ -109,13 +109,13 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void EnterCabinet(Interactable other) {
-        Events.FireEvent(EventType.CheckLaminarCabinetItems);
         GeneralItem item = other as GeneralItem;
         if (item == null) {
             return;
         }
 
         if (this.type == CabinetType.Laminar) {
+            Events.FireEvent(EventType.CheckLaminarCabinetItems);
             if (FirstEnterObjects.ContainsKey(item)) {
                 if (!FirstEnterObjects[item]) {
                     Task.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
