@@ -6,7 +6,7 @@ public class ReceiverItem : AttachmentItem
     public ObjectType ReceivedObjectType;
 
     protected LineRenderer LineEffect;
-    protected bool SlotOccupied = false;
+    public bool SlotOccupied = false;
 
     public HashSet<GameObject> PossibleItems;
     protected GameObject NearestItem = null;
@@ -76,23 +76,9 @@ public class ReceiverItem : AttachmentItem
     private void ConnectAttachment() {
         SlotOccupied = true;
 
-        NearestItem.GetComponent<AttachmentItem>().RigidbodyContainer.Disable();
+        AttachmentItem nearestItemAttachmentComponent = NearestItem.GetComponent<AttachmentItem>();
+        nearestItemAttachmentComponent.StartCoroutine(nearestItemAttachmentComponent.WaitForHandDisconnect(this));
 
-        NearestItem.transform.SetParent(transform);
-        NearestItem.transform.position = transform.position + GetComponent<SphereCollider>().center;
-        NearestItem.transform.rotation = transform.rotation;
-
-        AttachmentItem nearestAttachmentItem = NearestItem.GetComponent<AttachmentItem>();
-        nearestAttachmentItem.Attached = true;
-        nearestAttachmentItem.AttachedInteractable = this;
-        
-        ResetItem();
-    }
-
-    public override void ResetItem() {
-        base.ResetItem();
-        PossibleItems.Clear();
-        NearestItem = null;
     }
 
     public void PrepareForDisconnect(Hand hand, AttachmentItem itemToDisconnect) {
@@ -101,9 +87,7 @@ public class ReceiverItem : AttachmentItem
 
         itemToDisconnect.RigidbodyContainer.Enable();
         itemToDisconnect.ResetItem();
-        ResetItem();
         
         hand.GrabUninteract();
-        SlotOccupied = false;
     }
 }

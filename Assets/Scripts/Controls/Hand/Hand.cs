@@ -163,8 +163,8 @@ public class Hand : MonoBehaviour {
         interactable.Highlight.Unhighlight();
 
         if (interactable is AttachmentItem attachment && attachment.Attached) {
-            //interactable = attachment.GetParent();
             interactable = HandleAttachedItem(attachment);
+            Logger.Print($"Grabbed {interactable.name}");
         }
 
         if (interactable.Type == InteractableType.Grabbable) {

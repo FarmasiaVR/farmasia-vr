@@ -5,18 +5,23 @@ using UnityEngine;
 public class AttachmentItem : GeneralItem
 {
     public bool Attached = false;
-    public AttachmentItem AttachedInteractable = null;
+    public ReceiverItem ParentReceiver = null;
     public float SnapDistance;
 
     public AttachmentItem GetParent() {
         if (!Attached) return this;
-        return AttachedInteractable.GetParent();
+        return ParentReceiver.GetParent();
     }
 
     public IEnumerator WaitForDistance(Hand hand) {
+        Vector3 startPositionDelta = hand.transform.position - hand.Other.transform.position;
+        
         while (true) {
             if (VRInput.GetControlUp(hand.HandType, Controls.Grab)) break;
-            float currentDistance = Vector3.Distance(hand.transform.position, hand.Other.transform.position);
+
+            Vector3 currentPositionDelta = hand.transform.position - hand.Other.transform.position;
+            float currentDistance = Vector3.Distance(startPositionDelta, currentPositionDelta);
+            
             if (currentDistance > SnapDistance) {
                 (GetParent() as ReceiverItem)?.PrepareForDisconnect(hand, this);
 
@@ -31,8 +36,28 @@ public class AttachmentItem : GeneralItem
         }
     }
 
+    public IEnumerator WaitForHandDisconnect(ReceiverItem receiver) {
+        if (IsGrabbed) grabbingHand.Uninteract();
+
+        yield return null;
+
+        RigidbodyContainer.Disable();
+
+        yield return null;
+
+        transform.SetParent(receiver.transform);
+        transform.position = receiver.transform.position + receiver.GetComponent<SphereCollider>().center;
+        transform.rotation = receiver.transform.rotation;
+
+        Attached = true;
+        ParentReceiver = receiver;
+
+        GetComponent<ObjectHighlight>().Unhighlight();
+    }
+
     public virtual void ResetItem() {
+        ParentReceiver.SlotOccupied = false;
         Attached = false;
-        AttachedInteractable = null;
+        ParentReceiver = null;
     }
 }
