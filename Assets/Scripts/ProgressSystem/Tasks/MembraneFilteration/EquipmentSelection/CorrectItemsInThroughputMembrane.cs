@@ -13,21 +13,7 @@ public class CorrectItemsInThroughputMembrane : Task {
 
     #region Fields
     public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle}
-    int bottles100ml = 0;
-    int peptonWaterBottle = 0;
-    int soycaseineBottle = 0;
-    int tioglycolateBottle = 0;
-    int soycaseinePlate = 0;
-    int sabouradDextrosiPlate = 0;
-    int tweezers = 0;
-    int scalpel = 0;
-    int pipette = 0;
-    int sterileBag = 0;
-    int pump = 0;
-    int filter = 0;
-    int cleaningBottle = 0;
-    private int objectCount;
-    private int correctItemCount = 22;
+    private bool correctItems = false;
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -86,13 +72,9 @@ public class CorrectItemsInThroughputMembrane : Task {
                 CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
             }
         }
-
-        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)) {
-            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
-        } 
-
-        objectCount = containedObjects.Count;
+   
         CheckConditions(containedObjects);
+
         if (door.IsClosed) {
 
             CompleteTask();
@@ -117,8 +99,20 @@ public class CorrectItemsInThroughputMembrane : Task {
     }
 
     #region Private Methods
-    private void CheckConditions(List<Interactable> containedObjects)
-    {
+    private void CheckConditions(List<Interactable> containedObjects) {
+        int bottles100ml = 0;
+        int peptonWaterBottle = 0;
+        int soycaseineBottle = 0;
+        int tioglycolateBottle = 0;
+        int soycaseinePlate = 0;
+        int sabouradDextrosiPlate = 0;
+        int tweezers = 0;
+        int scalpel = 0;
+        int pipette = 0;
+        int sterileBag = 0;
+        int pump = 0;
+        int filter = 0;
+        int cleaningBottle = 0;
 
         foreach (var item in containedObjects)
         {
@@ -160,7 +154,6 @@ public class CorrectItemsInThroughputMembrane : Task {
                 else if (g is AgarPlateLid lid)
                 {
                     string variant = lid.Variant;
-                    //Logger.Print(variant);
                     if (variant == "Soija-kaseiini")
                     {
                         soycaseinePlate++;
@@ -220,6 +213,14 @@ public class CorrectItemsInThroughputMembrane : Task {
                 }
             }
         }
+        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1))
+        {
+            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
+        }
+        else
+        {
+            correctItems = true;
+        }
     }
     
 
@@ -234,7 +235,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         base.CompleteTask();
 
         if (IsCompleted()) {
-            if (objectCount == correctItemCount) {
+            if (correctItems) {
                 Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
