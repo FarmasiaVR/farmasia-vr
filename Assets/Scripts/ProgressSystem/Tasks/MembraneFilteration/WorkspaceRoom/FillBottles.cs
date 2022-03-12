@@ -8,7 +8,7 @@ class FillBottles: Task {
 
     public enum Conditions { BottlesFilled }
 
-    public new string Description = "Täytä pullot";
+    public override string Description { get => "Täytä pullot"; }
 
     private int soycaseineBottlesDone = 0;
     private int tioglygolateBottlesDone = 0;

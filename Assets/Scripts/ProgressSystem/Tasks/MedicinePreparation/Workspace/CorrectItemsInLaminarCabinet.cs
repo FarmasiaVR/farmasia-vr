@@ -7,7 +7,7 @@ using UnityEngine;
 public class CorrectItemsInLaminarCabinet : Task {
 
     #region Constants
-    public new string Description = "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.";
+    public override string Description { get => "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia."; }
     #endregion
 
     #region Fields

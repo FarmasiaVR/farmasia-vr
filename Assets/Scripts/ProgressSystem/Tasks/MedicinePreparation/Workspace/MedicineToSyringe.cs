@@ -7,7 +7,7 @@ public class MedicineToSyringe : Task {
     private const int RIGHT_SYRINGE_CAPACITY = 20000;
     private const int MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE = 900;
 
-    public new string Description = "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.";
+    public override string Description { get => "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta."; }
     private const string HINT = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
 
     private Syringe syringe;

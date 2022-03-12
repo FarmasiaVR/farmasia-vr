@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemsToSterileBag : Task {
 
     #region Constants
-    public new string Description = "Viimeistele ruiskujen kanssa työskentely.";
+    public override string Description { get => "Viimeistele ruiskujen kanssa työskentely."; }
     private const string HINT = "Laita täyttämäsi ruiskut steriiliin pussiin.";
     #endregion
 

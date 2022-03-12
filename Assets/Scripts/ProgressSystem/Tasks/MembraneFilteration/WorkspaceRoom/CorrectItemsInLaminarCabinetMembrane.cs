@@ -6,9 +6,7 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinetMembrane: Task {
 
-    #region Constants
-    public new string Description = "Siirrä valitsemasi työvälineet laminaarikaappiin";
-    #endregion
+    public override string Description { get => "Siirrä valitsemasi työvälineet laminaarikaappiin"; }
 
     #region Fields
     public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle }

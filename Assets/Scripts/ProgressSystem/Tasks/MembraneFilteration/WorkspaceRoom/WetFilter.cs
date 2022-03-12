@@ -8,7 +8,7 @@ class WetFilter : Task {
 
     public enum Conditions { FilterIsWet }
 
-    public new string Description = "Kostuta filtteri :D";
+    public override string Description { get => "Kostuta filtteri :D"; }
 
     private PumpFilter pumpFilter;
 

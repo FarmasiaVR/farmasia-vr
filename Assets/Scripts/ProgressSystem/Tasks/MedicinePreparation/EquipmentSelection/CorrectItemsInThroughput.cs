@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CorrectItemsInThroughput : Task {
 
-    public new string Description = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    public override string Description { get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen."; }
 
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
     private int smallSyringes = 0;

@@ -8,7 +8,7 @@ class LiquidToFilter : Task {
 
     public enum Conditions { AddedLiquid }
 
-    public new string Description;
+    public override string Description { get => "Täytä filtteri lääkkeellä"; protected set { Description = value; } }
 
     private PumpFilter pumpFilter;
     LiquidType liquidType;

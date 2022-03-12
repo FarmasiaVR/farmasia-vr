@@ -6,7 +6,7 @@ class AssemblePump: Task {
 
     public enum Conditions { FilterAttached, PipeAttached }
 
-    public new string Description = "Kokoa pumppu!";
+    public override string Description { get => "Kokoa pumppu!"; }
     
     private CabinetBase laminarCabinet;
     // private bool fail = false;

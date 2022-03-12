@@ -6,7 +6,7 @@ public class WriteTextsToItems : Task
     // Instead, use WritingSpecifications.GetInitialRequiredWritings()
 
     #region Constants
-    public new string Description = "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
+    public override string Description { get => "Kirjoita tarvittavat tiedot pulloihin ja maljoihin"; }
     private const string HINT = "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia";
     #endregion
 

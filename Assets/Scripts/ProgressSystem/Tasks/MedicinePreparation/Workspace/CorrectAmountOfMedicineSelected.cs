@@ -10,7 +10,7 @@ public class CorrectAmountOfMedicineSelected : Task {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
 
-    public new string Description = "Vedä ruiskuun lääkettä.";
+    public override string Description { get => "Vedä ruiskuun lääkettä."; }
     private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
     #endregion
 

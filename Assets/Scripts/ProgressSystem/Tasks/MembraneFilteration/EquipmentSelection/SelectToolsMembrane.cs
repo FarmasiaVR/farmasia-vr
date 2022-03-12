@@ -4,7 +4,7 @@ public class SelectToolsMembrane : Task
 {
 
     #region Constants
-    public new string Description = "Valitse sopivat ty�v�lineet.";
+    public override string Description { get => "Valitse sopivat ty�v�lineet."; }
     private const string HINT = "Huoneessa on l��kkeen valmistukseen tarvittavia ty�v�lineit�. Valitse oikea m��r� ruiskuja, neuloja ja luerlockeja.";
     #endregion
 

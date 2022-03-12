@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CorrectItemsInThroughputMembrane : Task {
     #region Constants
-    public new string Description = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    public override string Description { get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen."; }
     private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
         "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
         "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +

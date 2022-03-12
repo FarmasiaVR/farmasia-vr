@@ -6,7 +6,7 @@ public class SyringeAttach : Task {
     #region Constants
     private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
 
-    public new string Description = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
+    public override string Description { get => "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku."; }
     private const string HINT = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
     #endregion
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class OpenAgarplates : Task {
 
     #region Constants
-    public new string Description = "Avaa laskeumamaljat";
+    public override string Description { get => "Avaa laskeumamaljat"; }
     private const string HINT = "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja";
     #endregion
 

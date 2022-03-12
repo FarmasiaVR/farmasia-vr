@@ -3,7 +3,7 @@ using System;
 public class SelectTools : Task {
 
     #region Constants
-    public new string Description = "Valitse sopivat työvälineet.";
+    public override string Description { get => "Valitse sopivat työvälineet."; }
     private const string HINT = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
     #endregion
 

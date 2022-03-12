@@ -3,7 +3,7 @@ using System;
 public class SelectMedicine : Task {
 
     #region Constants
-    public new string Description = "Valitse sopiva lääkepullo.";
+    public override string Description { get => "Valitse sopiva lääkepullo."; }
     private const string HINT = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
     #endregion
 

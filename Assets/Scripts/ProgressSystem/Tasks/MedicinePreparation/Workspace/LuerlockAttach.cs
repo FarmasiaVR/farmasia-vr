@@ -4,7 +4,7 @@ using UnityEngine;
 public class LuerlockAttach : Task {
 
     #region Constants
-    public new string Description = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
+    public override string Description { get => "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen."; }
     private const string HINT = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
     #endregion
 
