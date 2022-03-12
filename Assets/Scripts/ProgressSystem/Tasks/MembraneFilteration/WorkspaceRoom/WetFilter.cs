@@ -21,13 +21,15 @@ class WetFilter : Task {
     }
 
     private void OnFilterWet(CallbackData data) {
-        LiquidContainer container = data.DataObject as LiquidContainer;
-        if (container.GeneralItem is PumpFilter filter && filter.ObjectType == ObjectType.PumpFilter) {
-            pumpFilter = filter;
-            if (filter.Container.Amount >= REQUIRED_AMOUNT) {
-                EnableCondition(Conditions.FilterIsWet);
-                CheckMistakes();
-                CompleteTask();
+        if (Started) {
+            LiquidContainer container = data.DataObject as LiquidContainer;
+            if (container.GeneralItem is PumpFilter filter && filter.ObjectType == ObjectType.PumpFilter) {
+                pumpFilter = filter;
+                if (filter.Container.Amount >= REQUIRED_AMOUNT) {
+                    EnableCondition(Conditions.FilterIsWet);
+                    CheckMistakes();
+                    CompleteTask();
+                }
             }
         }
     }

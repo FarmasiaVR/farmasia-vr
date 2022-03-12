@@ -141,7 +141,8 @@ public class ProgressManager {
             TaskType.OpenAgarplates,
             TaskType.FillBottles,
             TaskType.AssemblePump,
-            TaskType.WetFilter
+            TaskType.WetFilter,
+            TaskType.MedicineToFilter
             
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
