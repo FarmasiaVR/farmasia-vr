@@ -10,6 +10,7 @@ public class ReceiverItem : AttachmentItem
     public ObjectType ReceivedObjectType;
 
     protected LineRenderer LineEffect;
+    protected SphereCollider TriggerCollider;
     public bool SlotOccupied = false;
 
     public HashSet<GameObject> PossibleItems;
@@ -20,6 +21,7 @@ public class ReceiverItem : AttachmentItem
 
         PossibleItems = new HashSet<GameObject>();
         LineEffect = transform.GetChild(1).GetComponent<LineRenderer>();
+        TriggerCollider = gameObject.GetComponent<SphereCollider>();
     }
 
     /// <summary>
@@ -48,7 +50,7 @@ public class ReceiverItem : AttachmentItem
         }
 
         if (NearestItem != null && !SlotOccupied) {
-            if (Vector3.Distance(transform.position, NearestItem.transform.position) <= SnapDistance) {
+            if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) <= SnapDistance) {
                 ConnectAttachment();
             }
         }
