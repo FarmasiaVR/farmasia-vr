@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 class LiquidToFilter : Task {
 
     public enum Conditions { AddedLiquid }
-
-    public override string Description { get => "Täytä filtteri lääkkeellä"; protected set { Description = value; } }
-
+    
     private PumpFilter pumpFilter;
     LiquidType liquidType;
 

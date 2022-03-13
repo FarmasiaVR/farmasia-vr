@@ -26,7 +26,8 @@ public abstract class Task {
     protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
 
-    public virtual string Description { get; protected set; }
+    private string description;
+    public virtual string Description { get => description; protected set { description = value; } }
     #endregion
 
     public Task(TaskType type, bool remove, bool previous) {
