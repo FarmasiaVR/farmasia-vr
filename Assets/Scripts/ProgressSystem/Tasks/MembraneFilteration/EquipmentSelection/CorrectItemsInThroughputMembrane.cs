@@ -201,8 +201,9 @@ public class CorrectItemsInThroughputMembrane : Task {
                     EnableCondition(Conditions.Pump);
                     pump++;
                 }
-                else if (g is PumpFilter)
+                else if (g is ReceiverItem ri && ri.ObjectType == ObjectType.PumpFilter)
                 {
+                    // TODO: Better conditions
                     EnableCondition(Conditions.PumpFilter);
                     filter++;
                 }

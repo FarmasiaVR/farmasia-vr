@@ -137,8 +137,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1990725678140084190}
   - component: {fileID: 1990725678140084189}
-  - component: {fileID: 1990725678140084188}
   - component: {fileID: 1990725678140084191}
+  - component: {fileID: 5147581027494466340}
   m_Layer: 0
   m_Name: Lid
   m_TagString: Untagged
@@ -178,27 +178,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1990725678140084188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990725678140084185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7820b7f3733f3214e891ee3203af2753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInteracting: 0
-  DisableHighlighting: 0
-  objectType: 32
-  isClean: 1
-  Attached: 0
-  ParentReceiver: {fileID: 0}
-  SnapDistance: 0.1
-  ReceivedObjectType: 33
-  SlotOccupied: 0
 --- !u!135 &1990725678140084191
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -212,6 +191,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5147581027494466340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990725678140084185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7d50c3e91153b428ce62eaaea0a5ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 32
+  isClean: 1
+  Attached: 0
+  ParentReceiver: {fileID: 0}
+  SnapDistance: 0
 --- !u!1 &8678104840582376146
 GameObject:
   m_ObjectHideFlags: 0

@@ -182,6 +182,7 @@ public class Hand : MonoBehaviour {
 
     private AttachmentItem HandleAttachedItem(AttachmentItem attachment) {
         AttachmentItem parent = attachment.GetParent();
+
         if (parent == other.interactedInteractable) {
             attachment.StartCoroutine(attachment.WaitForDistance(this));
             GameObject placeHolder = Instantiate(placeholderPrefab);

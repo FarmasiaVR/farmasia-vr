@@ -20,7 +20,7 @@ public class AttachmentItem : GeneralItem
     /// <summary>
     /// Returns this item or it's attachment root if it has one
     /// </summary>
-    public AttachmentItem GetParent() {
+    public virtual AttachmentItem GetParent() {
         if (!Attached) return this;
         return ParentReceiver.GetParent();
     }
