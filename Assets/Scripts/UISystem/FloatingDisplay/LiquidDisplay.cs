@@ -32,6 +32,12 @@ public class LiquidDisplay : Display {
             return;
         }
 
+        PipetteContainer pipetteContainer = follow.GetComponent<PipetteContainer>();
+        if (pipetteContainer != null) {
+            container = pipetteContainer.Container;
+            liquidPresent = true;
+            return;
+        }
     }
 
     new void Start() {

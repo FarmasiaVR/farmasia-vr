@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ReceiverItem : AttachmentItem
 {
+    protected AttachmentItem ConnectedItem = null;
+
     public ObjectType ReceivedObjectType;
 
     protected LineRenderer LineEffect;
@@ -107,10 +109,11 @@ public class ReceiverItem : AttachmentItem
     /// Marks this GameObject's attachment slot occupied and begins the attachment sequence for the AttachItem
     /// </summary>
     protected virtual void ConnectAttachment() {
+        Logger.Print("connected parts");
         SlotOccupied = true;
+        ConnectedItem = NearestItem.GetComponent<AttachmentItem>();
 
-        AttachmentItem nearestItemAttachmentComponent = NearestItem.GetComponent<AttachmentItem>();
-        nearestItemAttachmentComponent.StartCoroutine(nearestItemAttachmentComponent.WaitForHandDisconnectAndConnectItems(this));
+        ConnectedItem.StartCoroutine(ConnectedItem.WaitForHandDisconnectAndConnectItems(this));
 
     }
 
@@ -121,6 +124,7 @@ public class ReceiverItem : AttachmentItem
     /// <param name="hand"></param>
     /// <param name="itemToDisconnect"></param>
     public void Disconnect(Hand hand, AttachmentItem itemToDisconnect) {
+        ConnectedItem = null;
         itemToDisconnect.transform.SetParent(null);
         itemToDisconnect.transform.position = hand.transform.position;
 
