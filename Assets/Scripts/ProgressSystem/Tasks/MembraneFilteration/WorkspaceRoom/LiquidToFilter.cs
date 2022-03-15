@@ -18,17 +18,14 @@ class LiquidToFilter : Task {
         liquidType = liquid;
         REQUIRED_AMOUNT = amount;
         TaskType = taskType;
-        Logger.Print("TASK TYPE 1: " + taskType);
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);
     }
 
     private void OnFilterWet(CallbackData data) {
-        Logger.Print("TASK TYPE 2: " + TaskType);
         LiquidContainer container = data.DataObject as LiquidContainer;
         if (Started) {
-            Logger.Print("TASK ALOITETTU");
             if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
                 pumpFilter = filter;
                 if (filter.Container.Amount >= REQUIRED_AMOUNT) {
