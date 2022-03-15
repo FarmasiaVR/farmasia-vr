@@ -28,14 +28,8 @@ public class RoomTeleport : MonoBehaviour {
             return;
         }
 
-        CabinetBase cabinet = passthroughSrc.GetComponent<CabinetBase>();
-        List<Transform> items = cabinet.GetContainedItems().ConvertAll(obj => obj.transform);
-        foreach (Transform item in items) {
-            float rotDelta = Quaternion.Angle(passthroughSrc.rotation, passthroughDst.rotation);
-            item.position = passthroughDst.position + (item.position - passthroughSrc.position);
-            item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
-            CreateSpawner(item);
-        }
+        if (G.Instance.CurrentSceneType != SceneTypes.MembraneFilteration)
+            TeleportItems();
 
         foreach (VRActionsMapper h in VRInput.Hands) {
             h.Hand.GrabUninteract();
@@ -48,6 +42,17 @@ public class RoomTeleport : MonoBehaviour {
 
         if (!m.Restarted || MedicinePreparationScene.SavedScoreState == null) {
             m.SaveProgress();
+        }
+    }
+
+    private void TeleportItems() {
+        CabinetBase cabinet = passthroughSrc.GetComponent<CabinetBase>();
+        List<Transform> items = cabinet.GetContainedItems().ConvertAll(obj => obj.transform);
+        foreach (Transform item in items) {
+            float rotDelta = Quaternion.Angle(passthroughSrc.rotation, passthroughDst.rotation);
+            item.position = passthroughDst.position + (item.position - passthroughSrc.position);
+            item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
+            CreateSpawner(item);
         }
     }
 

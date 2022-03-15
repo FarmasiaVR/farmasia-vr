@@ -12,24 +12,7 @@ public class CorrectItemsInThroughputMembrane : Task {
     #endregion
 
     #region Fields
-    public enum Conditions {
-        // Bottles100ml,
-        // PeptoniWaterBottle,
-        // SoycaseineBottle,
-        // TioglycolateBottle,
-        // Tweezers,
-        // Scalpel,
-        // Pipette,
-        // SoycaseinePlate,
-        // SabouradDextrosiPlate,
-        // Pump,
-        PumpFilterBase,
-        PumpFilterFilter,
-        PumpFilterTank,
-        PumpFilterLid,
-        // SterileBag,
-        // CleaningBottle
-    }
+    public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, */CleaningBottle}
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -51,7 +34,7 @@ public class CorrectItemsInThroughputMembrane : Task {
     }
 
     private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
+        CabinetBase cabinet = (CabinetBase) data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
@@ -79,22 +62,23 @@ public class CorrectItemsInThroughputMembrane : Task {
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
         }
 
-        foreach (Interactable obj in containedObjects) {
-
+        foreach (Interactable obj in containedObjects) {            
+  
             GeneralItem g = obj as GeneralItem;
-            if (g == null) {
+            if ( g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
                 if (g is Bottle) {
                     continue;
-                } else {
-                    CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
                 }
+                else {
+                    CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
+                }                
             }
         }
-
+   
         CheckConditions(containedObjects);
 
         if (door.IsClosed) {
@@ -132,85 +116,131 @@ public class CorrectItemsInThroughputMembrane : Task {
         int pipette = 0;
         int sterileBag = 0;
         int pump = 0;
+        int filterLid = 0;
+        int filterTank = 0;
+        int filterBase = 0;
         int filter = 0;
         int cleaningBottle = 0;
 
-        foreach (var item in containedObjects) {
-            if (Interactable.GetInteractable(item.transform) is var g && g != null) {
-                if (g is Bottle bottle) {
+        foreach (var item in containedObjects)
+        {
+            if (Interactable.GetInteractable(item.transform) is var g && g != null)
+            {
+                /*if (g is Bottle bottle)
+                {
                     int capacity = bottle.Container.Capacity;
                     LiquidType type = bottle.Container.LiquidType;
-                    if (capacity == 100000) {
+                    if (capacity == 100000)
+                    {
                         bottles100ml++;
-                        if (bottles100ml == 4) {
-                            // EnableCondition(Conditions.Bottles100ml);
+                        if (bottles100ml == 4)
+                        {
+                            EnableCondition(Conditions.Bottles100ml);
                         }
 
-                    } else if (type == LiquidType.Peptonwater) {
+                    }
+                    else if (type == LiquidType.Peptonwater)
+                    {
                         peptonWaterBottle++;
-                        // EnableCondition(Conditions.PeptoniWaterBottle);
-                    } else if (type == LiquidType.Soycaseine) {
+                        EnableCondition(Conditions.PeptoniWaterBottle);
+                    }
+                    else if (type == LiquidType.Soycaseine)
+                    {
                         soycaseineBottle++;
-                        // EnableCondition(Conditions.SoycaseineBottle);
-                    } else if (type == LiquidType.Tioglygolate) {
+                        EnableCondition(Conditions.SoycaseineBottle);
+                    }
+                    else if (type == LiquidType.Tioglygolate)
+                    {
                         tioglycolateBottle++;
-                        // EnableCondition(Conditions.TioglycolateBottle);
-                    } else {
+                        EnableCondition(Conditions.TioglycolateBottle);
+                    }
+                    else
+                    {
                         CreateTaskMistake("Väärä pullo läpiantokaapissa", 5);
                     }
-                } else if (g is AgarPlateLid lid) {
+                }
+                else if (g is AgarPlateLid lid)
+                {
                     string variant = lid.Variant;
-                    if (variant == "Soija-kaseiini") {
+                    if (variant == "Soija-kaseiini")
+                    {
                         soycaseinePlate++;
-                        if (soycaseinePlate == 3) {
-                            // EnableCondition(Conditions.SoycaseinePlate);
-                        }
-                    } else if (variant == "Sabourad-dekstrosi") {
+                        if (soycaseinePlate == 3)
+                        {
+                            EnableCondition(Conditions.SoycaseinePlate);
+                        }                        
+                    }
+                    else if (variant == "Sabourad-dekstrosi")
+                    {
                         sabouradDextrosiPlate++;
-                        // EnableCondition(Conditions.SabouradDextrosiPlate);
-                    } else {
+                        EnableCondition(Conditions.SabouradDextrosiPlate);
+                    }
+                    else
+                    {
                         CreateTaskMistake("Väärä agarmalja läpiantokaapissa", 5);
                     }
 
-                } else if (g is Tweezers) {
-                    // EnableCondition(Conditions.Tweezers);
+                }
+                else if (g is Tweezers)
+                {
+                    EnableCondition(Conditions.Tweezers);
                     tweezers++;
-                } else if (g is Scalpel) {
-                    // EnableCondition(Conditions.Scalpel);
+                }
+                else if (g is Scalpel)
+                {
+                    EnableCondition(Conditions.Scalpel);
                     scalpel++;
-                } else if (g is Pipette || g is BigPipette) {
+                }
+                else if (g is Pipette || g is BigPipette)
+                {
                     pipette++;
-                    if (pipette == 3) {
-                        // EnableCondition(Conditions.Pipette);
-                    }
-                } else if (g is Pump) {
-                    // EnableCondition(Conditions.Pump);
+                    if (pipette == 3)
+                    {
+                        EnableCondition(Conditions.Pipette);
+                    }                  
+                }
+                else if (g is Pump)
+                {
+                    EnableCondition(Conditions.Pump);
                     pump++;
-                } else if (g is AttachmentItem ri) {
-                    if (ri.ObjectType == ObjectType.PumpFilterBase) {
-                        EnableCondition(Conditions.PumpFilterBase);
-                    } else if (ri.ObjectType == ObjectType.PumpFilterFilter) {
-                        EnableCondition(Conditions.PumpFilterFilter);
-                    } else if (ri.ObjectType == ObjectType.PumpFilterTank) {
-                        EnableCondition(Conditions.PumpFilterTank);
-                    } else if (ri.ObjectType == ObjectType.PumpFilterLid) {
-                        EnableCondition(Conditions.PumpFilterLid);
+                }
+                else if (g is FilterPart filterParts)
+                {
+                    if (filterParts.ObjectType == ObjectType.PumpFilterTank) {
+                        filterTank++;
                     }
-                } else if (g is SterileBag) {
-                    // EnableCondition(Conditions.SterileBag);
+                    if (filterParts.ObjectType == ObjectType.PumpFilterBase) {
+                        filterBase++;
+                    }
+                    if (filterParts.ObjectType == ObjectType.PumpFilterFilter) {
+                        filter++;
+                    }
+                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
+                        EnableCondition(Conditions.PumpFilter);
+                    }
+                } else if (g is PumpFilterLid) {
+                    filterLid++;
+                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
+                        EnableCondition(Conditions.PumpFilter);
+                    }
+                } else if (g is SterileBag)
+                {
+                    EnableCondition(Conditions.SterileBag);
                     sterileBag++;
-                } else if (g is CleaningBottle) {
-                    // EnableCondition(Conditions.CleaningBottle);
+                }
+                else if (g is CleaningBottle)*/
+                {
+                    EnableCondition(Conditions.CleaningBottle);
                     cleaningBottle++;
                 }
             }
         }
-        // TODO: wtf is this line xD
-        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)) {
+        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1))
+        {
             CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
-        }
+        }        
     }
-
+    
 
     protected override void OnTaskComplete() {
     }
@@ -223,7 +253,7 @@ public class CorrectItemsInThroughputMembrane : Task {
         base.CompleteTask();
 
         if (Completed) {
-            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);
+            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);            
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }

@@ -89,6 +89,7 @@ public class ProgressManager {
             CurrentPackage = packages.First();
             UpdateDescription();
             UpdateHint();
+            CurrentPackage.StartTask();
         }
     }
 
