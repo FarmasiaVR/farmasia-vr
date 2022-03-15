@@ -79,6 +79,7 @@ public class Package {
             activeTasks.Remove(task);
             CheckChangePackage();
             manager.UpdateDescription();
+            Logger.Print("MoveTaskToManager");
             StartTask();
         }
     }
