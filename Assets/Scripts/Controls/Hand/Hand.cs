@@ -182,12 +182,6 @@ public class Hand : MonoBehaviour {
 
     private AttachmentItem HandleAttachedItem(AttachmentItem attachment) {
         AttachmentItem parent = attachment.GetParent();
-
-        if (parent is PumpFilterLid lid) {
-            lid.MakeGrabbable(transform.position);
-            return lid;
-        }
-
         if (parent == other.interactedInteractable) {
             attachment.StartCoroutine(attachment.WaitForDistance(this));
             GameObject placeHolder = Instantiate(placeholderPrefab);
