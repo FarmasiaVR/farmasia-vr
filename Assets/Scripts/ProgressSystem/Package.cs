@@ -37,6 +37,7 @@ public class Package {
     /// </summary>
     /// <param name="task">Given task to add.</param>
     public void AddTask(Task task) {
+        Logger.Print("Package 40: AddTask");
         task.SetPackage(this);
         activeTasks.Add(task);
         manager.UpdateDescription();
@@ -48,18 +49,21 @@ public class Package {
     /// </summary>
     /// <param name="task">Reference to given task.</param>
     public void RemoveTask(Task task) {
+        Logger.Print("Package 52: RemoveTask");
         if (activeTasks.Contains(task)) {
             doneTypes.Add(task.TaskType);
             activeTasks.Remove(task);
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();
             manager.UpdateDescription();
+            Logger.Print("RemoveTask");
             StartTask();
         }
     }
     #endregion
 
     private void CheckChangePackage() {
+        Logger.Print("Package 66: CheckChangePackage");
         if (activeTasks.Count == 0) {
             packageCompleted = true;
             manager.ChangePackage();
@@ -73,12 +77,14 @@ public class Package {
     /// </summary>
     /// <param name="task">Reference to the task that will be moved</param>
     public void MoveTaskToManager(Task task) {
+        Logger.Print("Package 80: MoveTaskToManager");
         if (activeTasks.Contains(task)) {
             Logger.Print("Moving task back to manager.");
             manager.AddTask(task);
             activeTasks.Remove(task);
             CheckChangePackage();
             manager.UpdateDescription();
+            Logger.Print("MoveTaskToManager");
             StartTask();
         }
     }
@@ -94,6 +100,7 @@ public class Package {
 
     public void StartTask() {
         if (CurrentTask != null) {
+            Logger.Print("Package 103 Starting task: " + CurrentTask);
             CurrentTask.StartTask();
         }
     }

@@ -129,7 +129,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
-        if (target.GeneralItem is Bottle || target.GeneralItem is PumpFilter) {
+        if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
         }
     }
@@ -247,20 +247,20 @@ public class LiquidContainer : MonoBehaviour {
             return;
         }
 
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             syringe.State.Off(InteractState.InBottle);
             syringe.BottleContainer = null;
         }
     }
 
     private void OnPipetteExit(Pipette pipette) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipette.State.Off(InteractState.InBottle);
             pipette.BottleContainer = null;
         }
     }
     private void OnPipetteContainerExit(PipetteContainer pipetteContainer) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipetteContainer.State.Off(InteractState.InBottle);
             pipetteContainer.BottleContainer = null;
         }

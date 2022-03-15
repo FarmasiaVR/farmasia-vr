@@ -8,7 +8,7 @@ class LiquidToFilter : Task {
 
     public enum Conditions { AddedLiquid }
     
-    private PumpFilter pumpFilter;
+    private FilterPart pumpFilter;
     LiquidType liquidType;
 
     private readonly int REQUIRED_AMOUNT;
@@ -27,12 +27,15 @@ class LiquidToFilter : Task {
     private void OnFilterWet(CallbackData data) {
         Logger.Print("TASK TYPE 2: " + TaskType);
         LiquidContainer container = data.DataObject as LiquidContainer;
-        if (container.GeneralItem is PumpFilter filter && filter.ObjectType == ObjectType.PumpFilter) {
-            pumpFilter = filter;
-            if (filter.Container.Amount >= REQUIRED_AMOUNT) {
-                EnableCondition(Conditions.AddedLiquid);
-                CheckMistakes();
-                CompleteTask();
+        if (Started) {
+            Logger.Print("TASK ALOITETTU");
+            if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
+                pumpFilter = filter;
+                if (filter.Container.Amount >= REQUIRED_AMOUNT) {
+                    EnableCondition(Conditions.AddedLiquid);
+                    CheckMistakes();
+                    CompleteTask();
+                }
             }
         }
     }

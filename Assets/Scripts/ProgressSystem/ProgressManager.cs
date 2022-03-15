@@ -89,6 +89,7 @@ public class ProgressManager {
             CurrentPackage = packages.First();
             UpdateDescription();
             UpdateHint();
+            CurrentPackage.StartTask();
         }
     }
 
@@ -133,6 +134,7 @@ public class ProgressManager {
     private void GenerateScenarioTwo()
     {
         TaskType[] selectTasks = {
+            TaskType.WetFilter,
             TaskType.CorrectItemsInThroughputMembrane
         };
         TaskType[] workSpaceTasks = {
@@ -159,6 +161,7 @@ public class ProgressManager {
     /// <param name="tasks">List of predefined tasks.</param>
     /// <returns></returns>
     private Package CreatePackageWithList(PackageName name, List<TaskType> tasks) {
+        Logger.Print("PM 163: CreatePackageWithList");
         Package package = new Package(name, this);
         TakeTasksToPackage(package, tasks);
         return package;
@@ -170,6 +173,7 @@ public class ProgressManager {
     /// <param name="package">Package to move tasks to.</param>
     /// <param name="types">List of types to move.</param>
     private void TakeTasksToPackage(Package package, List<TaskType> types) {
+        Logger.Print("PM 175: TakeTasksToPackage");
         foreach (TaskType type in types) {
             MoveToPackage(package, type);
         }
@@ -183,6 +187,7 @@ public class ProgressManager {
     /// Adds tasks into currently activeTasks.
     /// </summary>
     public void AddTasks(SceneTypes scene) {
+        Logger.Print("PM 189: AddTasks");
         allTasks = new HashSet<Task>(Enum.GetValues(typeof(TaskType))
             .Cast<TaskType>()
             .Select(v => TaskFactory.GetTask(v, scene))
@@ -198,6 +203,7 @@ public class ProgressManager {
     }
 
     public void AddTask(Task task) {
+        Logger.Print("PM 205: AddTask");
         if (!allTasks.Contains(task)) {
             allTasks.Add(task);
         }
@@ -211,6 +217,7 @@ public class ProgressManager {
     /// <param name="package">Package to move task to.</param>
     /// <param name="taskType">Type of task to move.</param>
     public void MoveToPackage(Package package, TaskType taskType) {
+        Logger.Print("PM 219: MoveToPackage");
         Task foundTask = FindTaskWithType(taskType);
         if (foundTask != null) {
             package.AddTask(foundTask);
@@ -224,6 +231,7 @@ public class ProgressManager {
     /// <param name="taskType">Type of task to find.</param>
     /// <returns></returns>
     public Task FindTaskWithType(TaskType taskType) {
+        Logger.Print("PM 233: FindTaskWithType");
         Task foundTask = null;
         foreach (Task task in allTasks) {
             if (task.TaskType == taskType) {
@@ -252,6 +260,7 @@ public class ProgressManager {
     #region Finishing Packages and Manager
 
     public void ChangePackage() {
+        Logger.Print("PM 262: ChangePackage");
         int index = packages.IndexOf(CurrentPackage);
         if ((index + 1) >= packages.Count) {
             FinishProgress();
