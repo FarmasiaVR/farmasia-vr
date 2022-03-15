@@ -125,11 +125,11 @@ public class ReceiverItem : AttachmentItem
     /// <param name="itemToDisconnect"></param>
     public void Disconnect(Hand hand, AttachmentItem itemToDisconnect) {
         ConnectedItem = null;
-        itemToDisconnect.transform.SetParent(null);
-        itemToDisconnect.transform.position = hand.transform.position;
 
-        itemToDisconnect.RigidbodyContainer.Enable();
+        itemToDisconnect.MakeGrabbable(hand.transform.position);
 
-        hand.GrabUninteract();
+        if (hand.interactedInteractable != null) {
+           hand.GrabUninteract();
+        }
     }
 }

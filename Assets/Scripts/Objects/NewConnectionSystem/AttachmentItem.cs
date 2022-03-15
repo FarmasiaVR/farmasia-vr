@@ -97,4 +97,11 @@ public class AttachmentItem : GeneralItem
         Attached = false;
         ParentReceiver = null;
     }
+
+    public void MakeGrabbable(Vector3 itemPosition) {
+        transform.SetParent(null);
+        transform.position = itemPosition;
+
+        RigidbodyContainer.Enable();
+    }
 }
