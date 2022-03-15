@@ -13,6 +13,7 @@ public class TrashBinCollider : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (other.isTrigger) return;
         mainScript.EnterTrashbin(other);
     }
 }
