@@ -52,9 +52,9 @@ public class ReceiverItem : AttachmentItem
         }
 
         if (NearestItem != null && !SlotOccupied) {
-            if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) <= SnapDistance) {
-                ConnectAttachment();
-            }
+            if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) > SnapDistance) return;
+            if (Vector3.Angle(transform.up, NearestItem.transform.up) > SnapAngle) return;
+            ConnectAttachment();
         }
 
         //UpdateLineEffect(PossibleItems.Count > 0);

@@ -12,6 +12,7 @@ public class AttachmentItem : GeneralItem
     public bool Attached = false;
     public ReceiverItem ParentReceiver = null;
     public float SnapDistance;
+    public float SnapAngle = 30;
 
     public Func<Interactable, bool> CanConnect = (interactable) => true;
     public Action<Interactable> AfterConnect = (interactable) => { };
@@ -26,7 +27,7 @@ public class AttachmentItem : GeneralItem
     }
 
     /// <summary>
-    /// A co-routine that scans if the <c>Hands</c> move far enough from each other
+    /// A coroutine that scans if the <c>Hands</c> move far enough from each other
     /// while Grabbing button is held down. If so, disconnects this item from it's hierarchy
     /// and places it into the grabbing <c>Hand</c> given as parameter.
     /// </summary>
@@ -60,7 +61,7 @@ public class AttachmentItem : GeneralItem
     }
 
     /// <summary>
-    /// A co-routine that removes this item's <c>Hand</c> - item connection and places the item onto a
+    /// A coroutine that removes this item's <c>Hand</c> - item connection and places the item onto a
     /// ReceiverItem's hierarchy as a child. The placement of the item will be
     /// to the center of <c>ReceiverItem's</c> <c>SphereCollider</c>
     /// </summary>
