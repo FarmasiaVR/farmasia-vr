@@ -81,6 +81,9 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         int pipette = 0;
         int sterileBag = 0;
         int pump = 0;
+        int filterLid = 0;
+        int filterTank = 0;
+        int filterBase = 0;
         int filter = 0;
         int cleaningBottle = 0;
 
@@ -133,9 +136,24 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 } else if (g is Pump) {
                     EnableCondition(Conditions.Pump);
                     pump++;
-                } else if (g is PumpFilter) {
-                    EnableCondition(Conditions.PumpFilter);
-                    filter++;
+                } else if (g is FilterPart filterParts) {
+                    if (filterParts.ObjectType == ObjectType.PumpFilterTank) {
+                        filterTank++;
+                    }
+                    if (filterParts.ObjectType == ObjectType.PumpFilterBase) {
+                        filterBase++;
+                    }
+                    if (filterParts.ObjectType == ObjectType.PumpFilterFilter) {
+                        filter++;
+                    }
+                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
+                        EnableCondition(Conditions.PumpFilter);
+                    }
+                } else if (g is PumpFilterLid) {
+                    filterLid++;
+                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
+                        EnableCondition(Conditions.PumpFilter);
+                    }
                 } else if (g is SterileBag) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
