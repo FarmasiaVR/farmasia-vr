@@ -24,27 +24,27 @@ public class CurvingText : MonoBehaviour
     private Texture2D tex;
     private Mutex mutex = new Mutex();
 
-    protected void Start() {
-        StartCoroutine(Corr());
-    }
+    //protected void Start() {
+    //    StartCoroutine(Corr());
+    //}
 
-    protected IEnumerator Corr() {
-        while (true) {
-            var thread = new System.Threading.Thread(new ThreadStart(MutexCheck));
-            thread.Start();
-            //TextToImage.CreateImage(Text, Material.name);
-            //Material.SetTexture("_MainTex", tex);
-            Text += "A";
-            yield return new WaitForSeconds(1);
-        }
-    }
+    //protected IEnumerator Corr() {
+    //    while (true) {
+    //        var thread = new System.Threading.Thread(new ThreadStart(MutexCheck));
+    //        thread.Start();
+    //        //TextToImage.CreateImage(Text, Material.name);
+    //        //Material.SetTexture("_MainTex", tex);
+    //        Text += "A";
+    //        yield return new WaitForSeconds(1);
+    //    }
+    //}
 
-    private void MutexCheck() {
-        if (mutex.WaitOne()) {
-            TextToImage.CreateImage(Text, Material.name);
-            mutex.ReleaseMutex();
-        }
-    }
+    //private void MutexCheck() {
+    //    if (mutex.WaitOne()) {
+    //        TextToImage.CreateImage(Text, Material.name);
+    //        mutex.ReleaseMutex();
+    //    }
+    //}
 }
 
 static class TextToImage
