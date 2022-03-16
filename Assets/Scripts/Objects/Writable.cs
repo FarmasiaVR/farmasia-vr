@@ -9,7 +9,7 @@ public class Writable : MonoBehaviour {
     [SerializeField]
     private GameObject textObject;
 
-    public CurvingText curvingText;
+    //public CurvingText curvingText;
 
     [SerializeField]
     public int MaxLines = 4;
@@ -33,7 +33,7 @@ public class Writable : MonoBehaviour {
             resultText += line + '\n';
         }
         textField.SetText(resultText);
-        curvingText.Text = resultText;
+        //curvingText.Text = resultText;
     }
 
 
