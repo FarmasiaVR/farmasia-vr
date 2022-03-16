@@ -37,5 +37,6 @@
     TransferLiquidToBottle,
     AttachFilter,
     PlateOpened,
-    AttachPipe
+    AttachPipe,
+    OpenTweezersPackage
 }
