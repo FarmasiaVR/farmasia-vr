@@ -16,66 +16,84 @@ using Vector2 = System.Numerics.Vector2;
 using IOPath = System.IO.Path;
 using IODirectory = System.IO.Directory;
 using Object = System.Object;
+using System.Diagnostics;
 
 public class CurvingText : MonoBehaviour
 {
     public Material Material;
-    public String Text;
+    public string Text;
+
+    private static readonly int w = 512;
+    private static readonly int h = 512;
+    private Image<Rgb24> image = new Image<Rgb24>(w, h);
+    private byte[] pixelData = new byte[w * h * 3];
+
     private Texture2D tex;
 
     protected void Start() {
+        tex = new Texture2D(w, h, TextureFormat.RGB24, false);
         StartCoroutine(Corr());
     }
 
     protected IEnumerator Corr() {
         while (true) {
-            var newTex = new Texture2D(1024, 1024);
-            ApplyText(Text, newTex);
-            Material newMat = new Material(Material);
-            newMat.SetTexture("_MainTex", newTex);
-            GetComponent<Renderer>().sharedMaterial = newMat;
-            Text += "A";
+            
+            RunTask();
 
             yield return new WaitForSeconds(2);
         }
     }
 
-    private void ApplyText(String text, Texture2D newTex) {
-        Image<Rgba32> image = new Image<Rgba32>(1024, 1024);
-        TextToImage.CreateImage(text, image);
-        int size = image.Width;
+    private async void RunTask() {
+        var start = DateTime.UtcNow;
 
-        image.ProcessPixelRows(accessor => {
-            for (int y = 0; y < accessor.Height; y++) {
-                Span<Rgba32> pixelRow = accessor.GetRowSpan(y);
+        await TextToImage.GenerateTextData(Text, image, pixelData);
 
-                for (int x = 0; x < pixelRow.Length; x++) {
-                    ref Rgba32 pixel = ref pixelRow[x];
-                    newTex.SetPixel(x, y, pixel.B == 0 ? UnityEngine.Color.black : UnityEngine.Color.white);
-                }
-            }
-        });
+        tex.SetPixelData(pixelData, 0, 0);
+        tex.Apply();
 
-        newTex.Apply();
+        Material newMat = new Material(Material);
+        newMat.SetTexture("_MainTex", tex);
+        GetComponent<Renderer>().sharedMaterial = newMat;
+        Text += "A";
+
+        Logger.Print("Total: " + (DateTime.UtcNow - start).Milliseconds + " ms");
     }
-
 }
 
-static class TextToImage
-{
-    public static void CreateImage(string text, Image<Rgba32> image) {
-        FontFamily fontFamily = SystemFonts.Get("Arial");
-        var font = new Font(fontFamily, 32);
-        TextOptions textOptions = new TextOptions(font);
-        IPathCollection glyphs = TextBuilder.GenerateGlyphs(text, textOptions);
+static class TextToImage {
 
-        glyphs.GetImage(image);
+    static FontFamily fontFamily = SystemFonts.Get("Arial");
+    static Font font = new Font(fontFamily, 16);
+    static TextOptions textOptions = new TextOptions(font);
+
+    public static System.Threading.Tasks.Task GenerateTextData(string text, Image<Rgb24> image, byte[] pixelData) {
+        return System.Threading.Tasks.Task.Factory.StartNew(() => {
+
+            CreateImage(text, image, pixelData);
+
+        });
     }
 
-    public static void GetImage(this IPathCollection shape, Image<Rgba32> image) {
-        shape = shape.Translate(-shape.Bounds.Location).Translate(new Vector2(300, 400));
+    private static void CreateImage(string text, Image<Rgb24> image, in byte[] pixelData) {    
+        IPathCollection glyphs = TextBuilder.GenerateGlyphs(text, textOptions);
+        glyphs.Draw(image);
 
-        image.Mutate(i => i.Fill(Color.White));
+        Span<byte> pixelDataSpan = new Span<byte>(pixelData);
+
+        image.CopyPixelDataTo(pixelDataSpan);
+
+        System.Threading.Tasks.Task.Factory.StartNew(() => {
+            Clear(image);
+        });
+    }
+
+    private static void Clear(Image<Rgb24> image) {
+        image.Mutate(img => img.Clear(Color.White));
+    }
+
+    private static void Draw(this IPathCollection shape, Image<Rgb24> image) {
+        shape = shape.Translate(-shape.Bounds.Location).Translate(new Vector2(100, 200));
 
         foreach (IPath s in shape) {
             image.Mutate(i => i.Fill(Color.Black, s));
