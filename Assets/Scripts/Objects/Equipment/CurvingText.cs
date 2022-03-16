@@ -22,58 +22,63 @@ public class CurvingText : MonoBehaviour
     public Material Material;
     public String Text;
     private Texture2D tex;
-    private Mutex mutex = new Mutex();
 
-    //protected void Start() {
-    //    StartCoroutine(Corr());
-    //}
+    protected void Start() {
+        StartCoroutine(Corr());
+    }
 
-    //protected IEnumerator Corr() {
-    //    while (true) {
-    //        var thread = new System.Threading.Thread(new ThreadStart(MutexCheck));
-    //        thread.Start();
-    //        //TextToImage.CreateImage(Text, Material.name);
-    //        //Material.SetTexture("_MainTex", tex);
-    //        Text += "A";
-    //        yield return new WaitForSeconds(1);
-    //    }
-    //}
+    protected IEnumerator Corr() {
+        while (true) {
+            var newTex = new Texture2D(1024, 1024);
+            ApplyText(Text, newTex);
+            Material newMat = new Material(Material);
+            newMat.SetTexture("_MainTex", newTex);
+            GetComponent<Renderer>().sharedMaterial = newMat;
+            Text += "A";
 
-    //private void MutexCheck() {
-    //    if (mutex.WaitOne()) {
-    //        TextToImage.CreateImage(Text, Material.name);
-    //        mutex.ReleaseMutex();
-    //    }
-    //}
+            yield return new WaitForSeconds(2);
+        }
+    }
+
+    private void ApplyText(String text, Texture2D newTex) {
+        Image<Rgba32> image = new Image<Rgba32>(1024, 1024);
+        TextToImage.CreateImage(text, image);
+        int size = image.Width;
+
+        image.ProcessPixelRows(accessor => {
+            for (int y = 0; y < accessor.Height; y++) {
+                Span<Rgba32> pixelRow = accessor.GetRowSpan(y);
+
+                for (int x = 0; x < pixelRow.Length; x++) {
+                    ref Rgba32 pixel = ref pixelRow[x];
+                    newTex.SetPixel(x, y, pixel.B == 0 ? UnityEngine.Color.black : UnityEngine.Color.white);
+                }
+            }
+        });
+
+        newTex.Apply();
+    }
+
 }
 
 static class TextToImage
 {
-    public static void CreateImage(string text, string name) {
+    public static void CreateImage(string text, Image<Rgba32> image) {
         FontFamily fontFamily = SystemFonts.Get("Arial");
         var font = new Font(fontFamily, 32);
         TextOptions textOptions = new TextOptions(font);
         IPathCollection glyphs = TextBuilder.GenerateGlyphs(text, textOptions);
 
-        glyphs.SaveImage(name);
+        glyphs.GetImage(image);
     }
 
-    public static void SaveImage(this IPathCollection shape, string name) {
+    public static void GetImage(this IPathCollection shape, Image<Rgba32> image) {
         shape = shape.Translate(-shape.Bounds.Location).Translate(new Vector2(300, 400));
 
-        string path = IOPath.GetFullPath(IOPath.Combine(
-            "Assets", IOPath.Combine("Resources", IOPath.Combine("Textures", $"{name}.png")))
-        );
+        image.Mutate(i => i.Fill(Color.White));
 
-        using (var img = new Image<Rgba32>(1024, 1024)) {
-            img.Mutate(i => i.Fill(Color.White));
-
-            foreach (IPath s in shape) {
-                img.Mutate(i => i.Fill(Color.Black, s));
-            }
-            IODirectory.CreateDirectory(IOPath.GetDirectoryName(path));
-
-            img.Save(path);
+        foreach (IPath s in shape) {
+            image.Mutate(i => i.Fill(Color.Black, s));
         }
     }
 }
