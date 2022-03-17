@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using System.Collections.Generic;
 
-public class Writable : MonoBehaviour {
+public class Writable : WritingTarget {
 
     // Displays the text, must have a TextMeshPro component
     [SerializeField]
@@ -39,5 +39,9 @@ public class Writable : MonoBehaviour {
         if (textField == null) {
             Logger.Warning("Writable '" + gameObject.ToString() + "' does not have a valid textObject attached");
         }
+    }
+
+    public override Writable GetWritable() {
+        return this;
     }
 }

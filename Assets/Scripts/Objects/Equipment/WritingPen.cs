@@ -17,7 +17,7 @@ public class WritingPen : GeneralItem {
 
         // Get the Writable component of the collided item
         GameObject foundObject = GetInteractableObject(other.transform);
-        Writable writable = foundObject?.GetComponent<Writable>();
+        Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
         if (writable == null) {
             return;
         }
