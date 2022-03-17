@@ -30,10 +30,10 @@ public class BottleCap : ConnectableItem {
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
-        EasilyRemoveCap();
+        RemoveCap();
     }
 
-    public void EasilyRemoveCap() {
+    public void RemoveCap() {
         if (Connector.HasAttachedObject && !tightened) {
             var bottle = Connector.AttachedInteractable;
             Connector.Connection?.Remove();

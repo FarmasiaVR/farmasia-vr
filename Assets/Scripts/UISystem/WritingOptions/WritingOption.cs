@@ -32,7 +32,7 @@ public class WritingOption : DragAcceptable {
         else
             onDeselect(this);
 
-        UpdateMaterial();
+        // UpdateMaterial();
     }
 
     public void Reset() {

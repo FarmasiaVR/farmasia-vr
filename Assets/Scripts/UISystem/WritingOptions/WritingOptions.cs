@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class WritingOptions : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class WritingOptions : MonoBehaviour {
 
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
     private Dictionary<WritingType, string> alreadySelectedOptions = new Dictionary<WritingType, string>();
+    private WritingType? lastLine = null;
     private string alreadyWrittenText;
     private string resultText;
 
@@ -58,7 +60,7 @@ public class WritingOptions : MonoBehaviour {
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach(WritingOption option in options) {
             option.onSelect = AddOption;
-            option.onDeselect = RemoveOption;
+            option.onDeselect = (o) => RemoveOption(o.WritingType);
         }
         // Then the cancel button
         WritingCancel cancel = toggle.transform.GetComponentInChildren<WritingCancel>(true);
@@ -69,17 +71,25 @@ public class WritingOptions : MonoBehaviour {
         WritingSubmit submit = toggle.transform.GetComponentInChildren<WritingSubmit>(true);
         if (cancel == null) Logger.Warning("WritingOptions did not find WritingSubmit component!");
         submit.onSelect = Submit;
+
+        // Then the remove button
+        WritingRemove remove = toggle.transform.GetComponentInChildren<WritingRemove>(true);
+        if (cancel == null) Logger.Warning("WritingOptions did not find WritingRemove component!");
+        remove.onSelect = RemoveLine;
     }
 
     private void AddOption(WritingOption option) {
         if (selectedOptions.Count == maxLines) return;
         selectedOptions.Add(option.WritingType, option.OptionText);
+        lastLine = option.WritingType;
         UpdateResultingText();
         UpdateErrorMessage();
     }
 
-    private void RemoveOption(WritingOption option) {
-        selectedOptions.Remove(option.WritingType);
+    private void RemoveOption(WritingType type) {
+        selectedOptions.Remove(type);
+        if (selectedOptions.Count != 0) lastLine = selectedOptions.Keys.Last();
+        else lastLine = null;
         UpdateResultingText();
         UpdateErrorMessage();
     }
@@ -108,6 +118,11 @@ public class WritingOptions : MonoBehaviour {
     private void Submit() {
         onSubmit(selectedOptions);
         ResetOptions();
+    }
+
+    private void RemoveLine() {
+        if (!lastLine.HasValue) return;
+        RemoveOption(lastLine.Value);
     }
 
     private void ResetOptions() {
