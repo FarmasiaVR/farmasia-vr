@@ -12,7 +12,7 @@ public class CorrectItemsInThroughputMembrane : Task {
     #endregion
 
     #region Fields
-    public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, */CleaningBottle}
+    public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,*/ SterileBag, }
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -223,15 +223,10 @@ public class CorrectItemsInThroughputMembrane : Task {
                     if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
                         EnableCondition(Conditions.PumpFilter);
                     }
-                } else if (g is SterileBag)
+                } else*/ if (g is SterileBag)
                 {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
-                }
-                else if (g is CleaningBottle)*/
-                {
-                    EnableCondition(Conditions.CleaningBottle);
-                    cleaningBottle++;
                 }
             }
         }
