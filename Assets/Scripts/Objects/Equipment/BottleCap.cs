@@ -7,6 +7,8 @@ public class BottleCap : ConnectableItem {
 
     [SerializeField]
     private GameObject BottomObject;
+    
+    private bool tightened = true;
 
     protected override void Start() {
         base.Start();
@@ -15,6 +17,9 @@ public class BottleCap : ConnectableItem {
         Connector = new SimpleAttachmentConnector(this, transform.Find("Bottom Collider").gameObject) {
             CanConnect = (interactable) => {
                 return interactable is Bottle;
+            },
+            AfterRelease = (interactable) => {
+                tightened = false;
             }
         };
 
@@ -25,11 +30,11 @@ public class BottleCap : ConnectableItem {
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
-        RemoveCap();
+        EasilyRemoveCap();
     }
 
-    public void RemoveCap() {
-        if (Connector.HasAttachedObject) {
+    public void EasilyRemoveCap() {
+        if (Connector.HasAttachedObject && !tightened) {
             var bottle = Connector.AttachedInteractable;
             Connector.Connection?.Remove();
             CoroutineUtils.StartThrowingCoroutine(this, DisableAttachingForAWhile(bottle));
