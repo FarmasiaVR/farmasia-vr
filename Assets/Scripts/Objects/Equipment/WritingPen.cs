@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class WritingPen : GeneralItem {
 
+    private bool isWriting;
+
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Pen;
@@ -20,6 +22,9 @@ public class WritingPen : GeneralItem {
             return;
         }
         if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
+            return;
+        }
+        if (isWriting) { // must submit or cancel before selecting another item
             return;
         }
 
@@ -50,6 +55,10 @@ public class WritingPen : GeneralItem {
         // Set the callback so that it writes to the writable when it is submitted
         writingOptions.onSubmit = (selectedOptions) => {
             SubmitWriting(writable, foundObject, selectedOptions);
+            isWriting = false;
+        };
+        writingOptions.onCancel = () => {
+            isWriting = false;
         };
     }
 

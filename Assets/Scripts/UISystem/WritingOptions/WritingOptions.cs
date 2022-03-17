@@ -33,6 +33,8 @@ public class WritingOptions : MonoBehaviour {
     // Callback that is invoked when the submit button is clicked. The WritingPen will set this.
     public Action<Dictionary<WritingType, string>> onSubmit;
 
+    public Action onCancel = () => { };
+
     void Start() {
         resultTextField = resultTextObject.GetComponent<TextMeshPro>();
         resultTextField.SetText("");
@@ -99,6 +101,7 @@ public class WritingOptions : MonoBehaviour {
     }
 
     private void Cancel() {
+        onCancel();
         ResetOptions();
     }
 
