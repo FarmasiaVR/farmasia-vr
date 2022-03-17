@@ -9,11 +9,10 @@ public class Writable : MonoBehaviour {
     [SerializeField]
     private GameObject textObject;
 
-    //public CurvingText curvingText;
-
     [SerializeField]
     public int MaxLines = 4;
-
+    
+    [SerializeField]
     private TextMeshPro textField;
 
     public string Text {
@@ -33,12 +32,10 @@ public class Writable : MonoBehaviour {
             resultText += line + '\n';
         }
         textField.SetText(resultText);
-        //curvingText.Text = resultText;
     }
 
 
     void Start() {
-        textField = textObject.GetComponent<TextMeshPro>();
         if (textField == null) {
             Logger.Warning("Writable '" + gameObject.ToString() + "' does not have a valid textObject attached");
         }
