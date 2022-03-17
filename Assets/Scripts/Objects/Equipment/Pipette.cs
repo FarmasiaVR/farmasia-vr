@@ -72,13 +72,7 @@ public class Pipette : GeneralItem {
         if (State == InteractState.InBottle) {
             TransferToBottle(true);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
-        } else {
-            Eject();
         }
-    }
-
-    private void Eject() {
-        Container.SetAmount(0);
     }
 
     private void TransferToBottle(bool into) {
