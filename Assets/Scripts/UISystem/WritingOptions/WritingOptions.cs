@@ -131,11 +131,19 @@ public class WritingOptions : MonoBehaviour {
     }
 
     public void SetWritable(Writable writable) {
+
+        
+
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
         int currentLines = alreadyWrittenText.Split('\n').Length - 1; // Why -1? Just trust me.
         maxLines = writable.MaxLines - currentLines;
         UpdateResultingText();
         UpdateErrorMessage();
+        UpdatePosition(writable.transform);
+    }
+
+    private void UpdatePosition(Transform writableTransform) {
+        // TODO
     }
 }
