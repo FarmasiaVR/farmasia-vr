@@ -7,6 +7,7 @@ public class ObjectHighlight : MonoBehaviour {
     #region fields
     private List<Material> materials;
     private Color highlightColor;
+    private Color openingSpotHighlightColor;
     private Color normalColor;
 
     private bool highlighted;
@@ -16,6 +17,7 @@ public class ObjectHighlight : MonoBehaviour {
     private void Awake() {
         InitializeMaterials();
         highlightColor = new Color32(100, 120, 100, 1);
+        openingSpotHighlightColor = new Color32(255, 0, 0, 1);
         normalColor = new Color32(0, 0, 0, 0);
     }
 
@@ -28,8 +30,15 @@ public class ObjectHighlight : MonoBehaviour {
             return;
         }
         highlighted = true;
-        for (int i = 0; i < materials.Count; i++) {
-            materials[i].SetColor("_EmissionColor", highlightColor);
+        if (this.transform.gameObject.name == "Right opening spot" || this.transform.gameObject.name == "Wrong opening spot") {
+            for (int i = 0; i < materials.Count; i++) {
+                materials[i].SetColor("_EmissionColor", openingSpotHighlightColor);
+            }
+        }
+        else {
+            for (int i = 0; i < materials.Count; i++) {
+                materials[i].SetColor("_EmissionColor", highlightColor);
+            }
         }
     }
 
