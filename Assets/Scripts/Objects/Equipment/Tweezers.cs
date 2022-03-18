@@ -22,14 +22,12 @@ public class Tweezers : GeneralItem {
         DisableOpeningSpots();
         Type.On(InteractableType.Interactable);
     }
-    public override void OnGrabStart(Hand hand)
-    {
+    public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
         EnableOpeningSpots();
     }
 
-    public override void OnGrabEnd(Hand hand)
-    {
+    public override void OnGrabEnd(Hand hand) {
         base.OnGrabEnd(hand);
         DisableOpeningSpots();
     }
@@ -38,7 +36,8 @@ public class Tweezers : GeneralItem {
         other = hand.Other;        
         otherCollider = other.HandCollider;  
         bool openCover = VRInput.GetControlDown(other.HandType, Controls.TakeMedicine);
-        
+        //Logger.Print(openCover)
+
         if (openCover && coverOn && (GameObject.ReferenceEquals(rightOpeningSpot, otherCollider.GetClosestInteractable()) || GameObject.ReferenceEquals(wrongOpeningSpot, otherCollider.GetClosestInteractable()))) {
             OpenCover();
         }
@@ -52,8 +51,7 @@ public class Tweezers : GeneralItem {
         rightOpeningSpot.transform.gameObject.SetActive(false);
         wrongOpeningSpot.transform.gameObject.SetActive(false);
     }
-    public void EnableOpeningSpots()
-    {
+    public void EnableOpeningSpots() {
         rightOpeningSpot.transform.gameObject.SetActive(true);
         wrongOpeningSpot.transform.gameObject.SetActive(true);
     }
