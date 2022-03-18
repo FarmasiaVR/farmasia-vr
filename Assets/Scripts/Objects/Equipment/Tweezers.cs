@@ -19,22 +19,19 @@ public class Tweezers : GeneralItem {
         base.Start();
         objectType = ObjectType.Tweezers;        
         coverOn = true;
-        rightOpeningSpot.transform.gameObject.SetActive(false);
-        wrongOpeningSpot.transform.gameObject.SetActive(false);
+        DisableOpeningSpots();
         Type.On(InteractableType.Interactable);
     }
     public override void OnGrabStart(Hand hand)
     {
         base.OnGrabStart(hand);
-        rightOpeningSpot.transform.gameObject.SetActive(true);
-        wrongOpeningSpot.transform.gameObject.SetActive(true);
+        EnableOpeningSpots();
     }
 
     public override void OnGrabEnd(Hand hand)
     {
         base.OnGrabEnd(hand);
-        rightOpeningSpot.transform.gameObject.SetActive(false);
-        wrongOpeningSpot.transform.gameObject.SetActive(false);
+        DisableOpeningSpots();
     }
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
@@ -50,6 +47,15 @@ public class Tweezers : GeneralItem {
     public void OpenCover() {
         coverOn = false;
         cover.SetActive(false);
+    }
+    public void DisableOpeningSpots() {
+        rightOpeningSpot.transform.gameObject.SetActive(false);
+        wrongOpeningSpot.transform.gameObject.SetActive(false);
+    }
+    public void EnableOpeningSpots()
+    {
+        rightOpeningSpot.transform.gameObject.SetActive(true);
+        wrongOpeningSpot.transform.gameObject.SetActive(true);
     }
 
 }
