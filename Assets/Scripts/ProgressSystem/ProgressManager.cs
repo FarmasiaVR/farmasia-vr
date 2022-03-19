@@ -14,11 +14,15 @@ public class ProgressManager {
     // Oot actually all tasks
     private HashSet<Task> allTasks;
     public List<Package> packages;
-    public Package CurrentPackage { get; private set; }
-    public ScoreCalculator Calculator { get; private set; }
+    public Package CurrentPackage {
+        get; private set;
+    }
+    public ScoreCalculator Calculator {
+        get; private set;
+    }
 
 
-   // public byte[] SavedScoreState { get; private set; }
+    // public byte[] SavedScoreState { get; private set; }
     #endregion
 
     #region Constructor
@@ -58,7 +62,7 @@ public class ProgressManager {
                 } else {
                     task.ForceClose(false);
                 }
-                
+
                 return;
             }
         }
@@ -131,8 +135,7 @@ public class ProgressManager {
         packages.Add(cleanUp);
     }
 
-    private void GenerateScenarioTwo()
-    {
+    private void GenerateScenarioTwo() {
         TaskType[] selectTasks = {
             TaskType.CorrectItemsInThroughputMembrane
         };
@@ -144,7 +147,7 @@ public class ProgressManager {
             TaskType.AssemblePump,
             TaskType.WetFilter,
             TaskType.MedicineToFilter
-            
+
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
@@ -247,7 +250,7 @@ public class ProgressManager {
         }
     }
 
-    
+
     #endregion
 
     #region Finishing Packages and Manager
@@ -317,7 +320,7 @@ public class ProgressManager {
     }
     #endregion
 
-    
+
 
     public bool IsCurrentPackage(PackageName name) {
         return CurrentPackage.name == name;

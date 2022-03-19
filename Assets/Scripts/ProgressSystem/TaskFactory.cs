@@ -8,10 +8,8 @@ public static class TaskFactory {
     /// <param name="type">Type given to turn into a Task.</param>
     /// <returns>Returns a new Task based on TaskType.</returns>
     public static Task GetTask(TaskType type, SceneTypes scene) {
-        if (scene == SceneTypes.MedicinePreparation)
-        {
-            switch (type)
-            {
+        if (scene == SceneTypes.MedicinePreparation) {
+            switch (type) {
                 case TaskType.SelectTools:
                     return new SelectTools();
                 case TaskType.SelectMedicine:
@@ -44,10 +42,8 @@ public static class TaskFactory {
                     return null;
             }
         }
-        if (scene == SceneTypes.MembraneFilteration)
-        {
-            switch (type)
-            {
+        if (scene == SceneTypes.MembraneFilteration) {
+            switch (type) {
                 case TaskType.CorrectItemsInThroughputMembrane:
                     return new CorrectItemsInThroughputMembrane();
                 case TaskType.CorrectItemsInLaminarCabinetMembrane:

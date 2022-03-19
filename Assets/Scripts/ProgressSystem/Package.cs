@@ -5,10 +5,18 @@ using UnityEngine;
 public class Package {
 
     private ProgressManager manager;
-    public PackageName name { get; private set; }
-    public bool packageCompleted { get; private set; }
-    public List<Task> activeTasks { get; private set; }
-    public List<TaskType> doneTypes { get; private set; }
+    public PackageName name {
+        get; private set;
+    }
+    public bool packageCompleted {
+        get; private set;
+    }
+    public List<Task> activeTasks {
+        get; private set;
+    }
+    public List<TaskType> doneTypes {
+        get; private set;
+    }
 
     public Task CurrentTask {
         get {

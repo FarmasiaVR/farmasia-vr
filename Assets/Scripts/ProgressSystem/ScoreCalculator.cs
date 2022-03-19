@@ -11,8 +11,12 @@ public class ScoreCalculator {
     HashSet<string> beforeTime;
     private int maxScore = 0;
 
-    public Dictionary<string, int> Mistakes { get; private set; }
-    public Dictionary<TaskType, HashSet<string>> TaskMistakes { get; private set; }
+    public Dictionary<string, int> Mistakes {
+        get; private set;
+    }
+    public Dictionary<TaskType, HashSet<string>> TaskMistakes {
+        get; private set;
+    }
     #endregion
 
     #region Constructor
