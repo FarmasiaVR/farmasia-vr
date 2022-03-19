@@ -36,6 +36,7 @@
     WriteToObject,
     TransferLiquidToBottle,
     AttachFilter,
+    FilterDissassembled,
     PlateOpened,
     AttachPipe,
     OpenTweezersPackage

@@ -9,6 +9,11 @@ public class FilterPart : ReceiverItem
     protected override void Start() {
         base.Start();
         Container = LiquidContainer.FindLiquidContainer(transform);
+
+        AfterRelease = (interactable) => {
+            Logger.Print("Filter dissassembled!");
+            Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
+        };
     }
 
 }

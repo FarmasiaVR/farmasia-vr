@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class ReceiverItem : AttachmentItem
 {
-    protected AttachmentItem ConnectedItem = null;
+    public AttachmentItem ConnectedItem = null;
 
     public ObjectType ReceivedObjectType;
 
