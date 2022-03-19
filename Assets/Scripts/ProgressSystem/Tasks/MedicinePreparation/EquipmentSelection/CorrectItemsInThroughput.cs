@@ -152,8 +152,10 @@ public class CorrectItemsInThroughput : Task {
         }
     }
 
-    public override string GetHint() {
+    public override string Hint { 
+        get {
         string missingItemsHint = cabinet?.GetMissingItems() ?? "Kaikki";
         return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: " + missingItemsHint;
+        }
     }
 }

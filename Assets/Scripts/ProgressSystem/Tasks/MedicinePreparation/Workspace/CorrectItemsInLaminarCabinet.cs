@@ -65,9 +65,7 @@ public class CorrectItemsInLaminarCabinet : Task {
 
     #region Public Methods
 
-    public override string GetHint() {
-        string missingItemsHint = laminarCabinet.GetMissingItems();
-        return "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + missingItemsHint; 
+    public override string Hint { get => "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + laminarCabinet.GetMissingItems(); 
     }
 
     protected override void OnTaskComplete() { /* Nothing */ }

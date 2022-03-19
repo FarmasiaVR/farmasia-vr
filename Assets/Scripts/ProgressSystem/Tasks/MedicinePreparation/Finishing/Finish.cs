@@ -144,8 +144,8 @@ public class Finish : Task {
         base.FinishTask();
     }
 
-    public override string GetHint() {
-        return HINT;
+    public override string Hint {
+        get => HINT;
     }
 
     protected override void OnTaskComplete() {

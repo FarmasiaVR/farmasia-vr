@@ -40,8 +40,8 @@ public class CorrectLayoutInThroughput : Task {
         base.FinishTask();
     }
 
-    public override string GetHint() {
-        return "";
+    public override string Hint {
+        get => "";
     }
 
     protected override void OnTaskComplete() {

@@ -38,8 +38,8 @@ public class ScenarioOneCleanUp : Task {
         base.FinishTask();
     }
 
-    public override string GetHint() {
-        return hint;
+    public override string Hint {
+        get => hint;
     }
 
     protected override void OnTaskComplete() {

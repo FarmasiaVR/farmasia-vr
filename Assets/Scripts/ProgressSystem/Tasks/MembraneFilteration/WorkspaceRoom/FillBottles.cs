@@ -8,8 +8,6 @@ class FillBottles: Task {
 
     public enum Conditions { BottlesFilled }
 
-    public override string Description { get => "Täytä pullot"; }
-
     private int soycaseineBottlesDone = 0;
     private int tioglygolateBottlesDone = 0;
 
@@ -86,9 +84,5 @@ class FillBottles: Task {
         if (Completed) {
             Popup("Hienoa, pullot täytetty", MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return "Just do it";
     }
 }

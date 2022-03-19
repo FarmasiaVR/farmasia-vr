@@ -14,7 +14,7 @@ class LiquidToFilter : Task {
     private readonly int REQUIRED_AMOUNT;
 
     public LiquidToFilter(string description, int amount, LiquidType liquid, TaskType taskType) : base(TaskType.WetFilter, true, true) {
-        Description = description;
+        this.description = description;
         liquidType = liquid;
         REQUIRED_AMOUNT = amount;
         TaskType = taskType;
@@ -61,9 +61,5 @@ class LiquidToFilter : Task {
         if (Completed) {
             Popup("Hienosti kostutettu!", MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return "Caman kyl sä osaat";
     }
 }

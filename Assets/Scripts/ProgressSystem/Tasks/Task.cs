@@ -26,14 +26,18 @@ public abstract class Task {
     protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
 
-    private string description;
-    public virtual string Description { get => description; protected set { description = value; } }
+    protected string description;
+    public virtual string Description { get => description; }
+    protected string hint;
+    public virtual string Hint { get => hint; }
     #endregion
 
     public Task(TaskType type, bool remove, bool previous) {
         TaskType = type;
         removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
+        description = TaskConfig.For(TaskType).Description;
+        hint = TaskConfig.For(type).Description;
     }
 
     #region Task Progression
@@ -93,13 +97,6 @@ public abstract class Task {
                 package.MoveTaskToManager((Task)this);
             }
         }
-    }
-    #endregion
-
-    #region Getters
-
-    public virtual string GetHint() {
-        return "No Hints";
     }
     #endregion
 

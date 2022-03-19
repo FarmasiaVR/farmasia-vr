@@ -5,8 +5,6 @@ using System.Collections.Generic;
 class AssemblePump: Task {
 
     public enum Conditions { FilterAttached, PipeAttached }
-
-    public override string Description { get => "Kokoa pumppu!"; }
     
     private CabinetBase laminarCabinet;
     // private bool fail = false;
@@ -74,9 +72,5 @@ class AssemblePump: Task {
         if (Completed) {
             Popup("Hienoa, pumppu on koossa", MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return "Kiinnitä filtteri ja letku pumppuun.";
     }
 }

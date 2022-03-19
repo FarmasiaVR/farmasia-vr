@@ -315,7 +315,7 @@ public class ProgressManager {
     #region Hint Methods
     public void UpdateHint() {
         if (!testMode && CurrentPackage != null && CurrentPackage.CurrentTask != null) {
-            HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
+            HintBox.CreateHint(CurrentPackage.activeTasks[0].Hint);
         }
     }
     #endregion

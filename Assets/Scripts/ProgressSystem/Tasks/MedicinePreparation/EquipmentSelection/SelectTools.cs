@@ -71,8 +71,8 @@ public class SelectTools : Task {
         
     }
 
-    public override string GetHint() {
-        return HINT;
+    public override string Hint {
+        get => HINT;
     }
     #endregion
 }

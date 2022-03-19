@@ -51,8 +51,8 @@ public class SelectMedicine : Task {
         Popup("Lääkepullo valittu.", MsgType.Done);
     }
 
-    public override string GetHint() {
-        return HINT;
+    public override string Hint {
+        get => HINT;
     }
     #endregion
 }

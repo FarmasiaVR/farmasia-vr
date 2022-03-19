@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class OpenAgarplates : Task {
 
-    #region Constants
+    /*#region Constants
     public override string Description { get => "Avaa laskeumamaljat"; }
     private const string HINT = "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja";
-    #endregion
+    #endregion*/
 
     #region Fields
     /// <summary>
@@ -78,9 +78,5 @@ public class OpenAgarplates : Task {
         if (Completed) {
             Popup("Hienosti avattu!", MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return HINT;
     }
 }

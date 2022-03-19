@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class CorrectItemsInThroughputMembrane : Task {
     #region Constants
-    public override string Description { get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen."; }
+    public override string Description {
+        get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
+    }
     private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
         "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
         "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
@@ -12,7 +14,9 @@ public class CorrectItemsInThroughputMembrane : Task {
     #endregion
 
     #region Fields
-    public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,*/ SterileBag, }
+    public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,*/
+        SterileBag,
+    }
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
@@ -34,7 +38,7 @@ public class CorrectItemsInThroughputMembrane : Task {
     }
 
     private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase) data.DataObject;
+        CabinetBase cabinet = (CabinetBase)data.DataObject;
         if (cabinet.type == CabinetBase.CabinetType.PassThrough) {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
@@ -62,23 +66,22 @@ public class CorrectItemsInThroughputMembrane : Task {
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
         }
 
-        foreach (Interactable obj in containedObjects) {            
-  
+        foreach (Interactable obj in containedObjects) {
+
             GeneralItem g = obj as GeneralItem;
-            if ( g == null) {
+            if (g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
                 if (g is Bottle) {
                     continue;
-                }
-                else {
+                } else {
                     CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
-                }                
+                }
             }
         }
-   
+
         CheckConditions(containedObjects);
 
         if (door.IsClosed) {
@@ -122,10 +125,8 @@ public class CorrectItemsInThroughputMembrane : Task {
         int filter = 0;
         int cleaningBottle = 0;
 
-        foreach (var item in containedObjects)
-        {
-            if (Interactable.GetInteractable(item.transform) is var g && g != null)
-            {
+        foreach (var item in containedObjects) {
+            if (Interactable.GetInteractable(item.transform) is var g && g != null) {
                 /*if (g is Bottle bottle)
                 {
                     int capacity = bottle.Container.Capacity;
@@ -223,19 +224,18 @@ public class CorrectItemsInThroughputMembrane : Task {
                     if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
                         EnableCondition(Conditions.PumpFilter);
                     }
-                } else*/ if (g is SterileBag)
-                {
+                } else*/
+                if (g is SterileBag) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
                 }
             }
         }
-        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1))
-        {
+        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)) {
             CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
-        }        
+        }
     }
-    
+
 
     protected override void OnTaskComplete() {
     }
@@ -248,14 +248,14 @@ public class CorrectItemsInThroughputMembrane : Task {
         base.CompleteTask();
 
         if (Completed) {
-            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);            
+            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }
     }
 
-    public override string GetHint() {
-        return HINT;
+    public override string Hint {
+        get => HINT;
     }
     #endregion
 }

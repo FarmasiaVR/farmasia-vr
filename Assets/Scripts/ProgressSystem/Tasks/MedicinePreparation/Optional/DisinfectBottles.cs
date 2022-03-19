@@ -34,8 +34,8 @@ public class DisinfectBottles : Task {
 
     #region Public Methods
 
-    public override string GetHint() {
-        return "";
+    public override string Hint {
+        get => "";
     }
 
     protected override void OnTaskComplete() {

@@ -2,14 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 public class WriteTextsToItems : Task {
-    // Instead, use WritingSpecifications.GetInitialRequiredWritings()
-
-    #region Constants
-    public override string Description {
-        get => "Kirjoita tarvittavat tiedot pulloihin ja maljoihin";
-    }
-    private const string HINT = "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia";
-    #endregion
 
     #region Fields
     /// <summary>
@@ -140,12 +132,8 @@ public class WriteTextsToItems : Task {
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {
-            Popup("Hyvin kirjoitettu.", MsgType.Done);
+            Popup(TaskConfig.For(TaskType).Success, MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return HINT;
     }
     #endregion
 }

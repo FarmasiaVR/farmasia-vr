@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 class WetFilter : Task {
 
     public enum Conditions { FilterIsWet }
-
-    public override string Description { get => "Kostuta filtteri :D"; }
 
     private PumpFilter pumpFilter;
 
@@ -69,12 +66,9 @@ class WetFilter : Task {
 
     public override void CompleteTask() {
         base.CompleteTask();
-        if (Completed) {
-            Popup("Hienosti kostutettu!", MsgType.Done);
+        var successText = TaskConfig.For(TaskType).Success;
+        if (Completed && successText != null) {
+            Popup(successText, MsgType.Done);
         }
-    }
-
-    public override string GetHint() {
-        return "Caman kyl s� osaat";
     }
 }

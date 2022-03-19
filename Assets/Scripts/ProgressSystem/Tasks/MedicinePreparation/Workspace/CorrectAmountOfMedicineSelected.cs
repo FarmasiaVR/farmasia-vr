@@ -107,8 +107,8 @@ public class CorrectAmountOfMedicineSelected : Task {
 
     #region Public Methods
 
-    public override string GetHint() {
-        return HINT;
+    public override string Hint {
+        get => HINT;
     }
 
     protected override void OnTaskComplete() {
