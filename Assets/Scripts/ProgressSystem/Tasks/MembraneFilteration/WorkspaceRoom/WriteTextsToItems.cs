@@ -19,7 +19,6 @@ public class WriteTextsToItems : Task {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         writtenObjects = new List<GameObject>();
-        Points = 2;
     }
 
     #region Event Subscriptions
@@ -132,7 +131,7 @@ public class WriteTextsToItems : Task {
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {
-            Popup(TaskConfig.For(TaskType).Success, MsgType.Done);
+            Popup(base.success, MsgType.Done, base.Points);
         }
     }
     #endregion

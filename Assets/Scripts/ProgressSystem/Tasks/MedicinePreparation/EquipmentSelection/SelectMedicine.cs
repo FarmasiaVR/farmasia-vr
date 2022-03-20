@@ -2,11 +2,6 @@
 using System;
 public class SelectMedicine : Task {
 
-    #region Constants
-    public override string Description { get => "Valitse sopiva lääkepullo."; }
-    private const string HINT = "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.";
-    #endregion
-
     #region Fields
     public enum Conditions { BottlePickup }
     #endregion
@@ -48,11 +43,7 @@ public class SelectMedicine : Task {
 
     #region Public Methods
     protected override void OnTaskComplete() {
-        Popup("Lääkepullo valittu.", MsgType.Done);
-    }
-
-    public override string Hint {
-        get => HINT;
+        Popup(base.success, MsgType.Done);
     }
     #endregion
 }

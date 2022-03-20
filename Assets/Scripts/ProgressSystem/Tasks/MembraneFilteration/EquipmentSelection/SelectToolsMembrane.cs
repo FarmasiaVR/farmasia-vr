@@ -2,13 +2,6 @@ using UnityEngine;
 using System;
 public class SelectToolsMembrane : Task {
 
-    #region Constants
-    public override string Description {
-        get => "Valitse sopivat ty�v�lineet.";
-    }
-    private const string HINT = "Huoneessa on l��kkeen valmistukseen tarvittavia ty�v�lineit�. Valitse oikea m��r� ruiskuja, neuloja ja luerlockeja.";
-    #endregion
-
     #region Fields
     public enum Conditions {
         SmallBottlePickedUp, PeptoniWaterPickedUp, SoycaseineBottlePickedUp, TioglycolateBottlePickedUp, TweezersPickedUp, ScalpelPickedUp, PipettePickedUp
@@ -66,7 +59,7 @@ public class SelectToolsMembrane : Task {
     #endregion
 
     protected override void OnTaskComplete() {
-        Popup("Ty�v�line valittu.", MsgType.Done);
+        Popup(base.success, MsgType.Done);
     }
 
     #region Public Methods
@@ -76,8 +69,5 @@ public class SelectToolsMembrane : Task {
 
     }
 
-    public override string Hint {
-        get => HINT;
-    }
     #endregion
 }

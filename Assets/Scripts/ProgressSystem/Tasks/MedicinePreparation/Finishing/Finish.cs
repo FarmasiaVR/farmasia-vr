@@ -9,7 +9,6 @@ public class Finish : Task {
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
 
-    private const string HINT = "";
     #endregion
 
     #region Fields
@@ -142,10 +141,6 @@ public class Finish : Task {
         await System.Threading.Tasks.Task.Delay(1000);
         CompleteTask();
         base.FinishTask();
-    }
-
-    public override string Hint {
-        get => HINT;
     }
 
     protected override void OnTaskComplete() {

@@ -7,9 +7,6 @@ public class MedicineToSyringe : Task {
     private const int RIGHT_SYRINGE_CAPACITY = 20000;
     private const int MINIMUM_AMOUNT_OF_MEDICINE_IN_BIG_SYRINGE = 900;
 
-    public override string Description { get => "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta."; }
-    private const string HINT = "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.";
-
     private Syringe syringe;
     #endregion
 
@@ -29,7 +26,6 @@ public class MedicineToSyringe : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
     #endregion
 
@@ -89,10 +85,6 @@ public class MedicineToSyringe : Task {
 
     #region Public Methods
 
-    public override string Hint {
-        get => HINT;
-    }
-
     protected override void OnTaskComplete() {
         (G.Instance.Scene as MedicinePreparationScene).NeedleUsed = true;
 
@@ -115,7 +107,7 @@ public class MedicineToSyringe : Task {
         }
 
         if (!fail) {
-            Popup("Lääkkeen ottaminen onnistui.", MsgType.Done, 2);
+            Popup(base.success, MsgType.Done, base.Points);
         }
     }
     #endregion

@@ -22,7 +22,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
     #endregion
 
@@ -167,7 +166,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
         if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1) {
             Logger.Print("All done");
-            Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
+            Popup(base.success, MsgType.Done, base.Points);
         }
 
         if (uncleanCount > 0) {

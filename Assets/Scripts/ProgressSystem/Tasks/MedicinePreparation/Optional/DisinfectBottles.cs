@@ -13,7 +13,6 @@ public class DisinfectBottles : Task {
     ///  </summary>
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
         Subscribe();
-        Points = 1;
     }
     #endregion
 
@@ -33,10 +32,6 @@ public class DisinfectBottles : Task {
     #endregion
 
     #region Public Methods
-
-    public override string Hint {
-        get => "";
-    }
 
     protected override void OnTaskComplete() {
 
