@@ -30,6 +30,7 @@ public abstract class Task {
     public virtual string Description { get => description; }
     protected string hint;
     public virtual string Hint { get => hint; }
+    protected string success;
     #endregion
 
     public Task(TaskType type, bool remove, bool previous) {
@@ -38,6 +39,7 @@ public abstract class Task {
         requiresPreviousTaskCompletion = previous;
         description = TaskConfig.For(TaskType).Description;
         hint = TaskConfig.For(type).Description;
+        success = TaskConfig.For(type).Success;
     }
 
     #region Task Progression

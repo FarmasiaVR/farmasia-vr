@@ -9,9 +9,7 @@ public class CorrectAmountOfMedicineSelected : Task {
     #region Constants
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SmallSyringe = 150;
-
-    public override string Description { get => "Vedä ruiskuun lääkettä."; }
-    private const string HINT = "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.";
+    
     #endregion
 
     #region Fields
@@ -25,7 +23,6 @@ public class CorrectAmountOfMedicineSelected : Task {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         usedSmallSyringes = new Dictionary<SmallSyringe, int>();
-        Points = 6;
     }
     #endregion
 
@@ -77,7 +74,7 @@ public class CorrectAmountOfMedicineSelected : Task {
             minus++;
             CreateTaskMistake("Ruisku tai luerlock oli likainen", 0);
         } else {
-            Popup("Ruiskuun otettiin oikea määrä lääkettä.", MsgType.Done);
+            Popup(base.success, MsgType.Done);
         }
 
         if (minus > oldMinus) {
@@ -106,10 +103,6 @@ public class CorrectAmountOfMedicineSelected : Task {
     #endregion
 
     #region Public Methods
-
-    public override string Hint {
-        get => HINT;
-    }
 
     protected override void OnTaskComplete() {
     }

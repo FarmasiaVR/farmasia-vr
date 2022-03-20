@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class CorrectItemsInThroughput : Task {
 
-    public override string Description { get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen."; }
-
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, SyringeCapBag, RightBottle }
     private int smallSyringes = 0;
     private int objectCount;
@@ -17,7 +15,6 @@ public class CorrectItemsInThroughput : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
 
 
@@ -145,7 +142,7 @@ public class CorrectItemsInThroughput : Task {
 
         if (Completed) {
             if (objectCount == 11) {
-                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
+                Popup(base.success, MsgType.Done);
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
@@ -155,7 +152,7 @@ public class CorrectItemsInThroughput : Task {
     public override string Hint { 
         get {
         string missingItemsHint = cabinet?.GetMissingItems() ?? "Kaikki";
-        return "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: " + missingItemsHint;
+        return base.hint + missingItemsHint;
         }
     }
 }

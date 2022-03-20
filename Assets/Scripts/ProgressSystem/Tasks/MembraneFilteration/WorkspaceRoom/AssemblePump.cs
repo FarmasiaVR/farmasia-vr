@@ -13,7 +13,6 @@ class AssemblePump: Task {
     public AssemblePump() : base(TaskType.AssemblePump, true, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        Points = 1;
         Subscribe();
     }
 
@@ -70,7 +69,7 @@ class AssemblePump: Task {
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {
-            Popup("Hienoa, pumppu on koossa", MsgType.Done);
+            Popup(base.success, MsgType.Done, base.Points);
         }
     }
 }

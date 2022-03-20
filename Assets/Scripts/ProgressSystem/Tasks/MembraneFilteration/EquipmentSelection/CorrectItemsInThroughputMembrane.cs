@@ -3,15 +3,6 @@ using System;
 using System.Collections.Generic;
 
 public class CorrectItemsInThroughputMembrane : Task {
-    #region Constants
-    public override string Description {
-        get => "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
-    }
-    private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
-        "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
-        "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
-        "Toinen laskeumamalja on sabourad-dekstroosimalja.";
-    #endregion
 
     #region Fields
     public enum Conditions { /*Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,*/
@@ -27,7 +18,6 @@ public class CorrectItemsInThroughputMembrane : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
     #endregion
 
@@ -248,14 +238,10 @@ public class CorrectItemsInThroughputMembrane : Task {
         base.CompleteTask();
 
         if (Completed) {
-            Popup("Oikeat työvälineet läpiantokaapissa.", MsgType.Done);
+            Popup(base.success, MsgType.Done);
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
         }
-    }
-
-    public override string Hint {
-        get => HINT;
     }
     #endregion
 }

@@ -2,11 +2,6 @@
 using System;
 public class SelectTools : Task {
 
-    #region Constants
-    public override string Description { get => "Valitse sopivat työvälineet."; }
-    private const string HINT = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
-    #endregion
-
     #region Fields
     public enum Conditions { SyringePickedUp, NeedlePickedUp, LuerlockPickedUp, SyringeCapBagPickedUp, Pen }
     #endregion
@@ -61,7 +56,7 @@ public class SelectTools : Task {
     #endregion
 
     protected override void OnTaskComplete() {
-        Popup("Työväline valittu.", MsgType.Done);
+        Popup(base.success, MsgType.Done);
     }
 
     #region Public Methods
@@ -69,10 +64,6 @@ public class SelectTools : Task {
     public override void FinishTask() {
         base.FinishTask();
         
-    }
-
-    public override string Hint {
-        get => HINT;
     }
     #endregion
 }

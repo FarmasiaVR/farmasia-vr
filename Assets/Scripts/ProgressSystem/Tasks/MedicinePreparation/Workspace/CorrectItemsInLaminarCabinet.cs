@@ -6,10 +6,6 @@ using UnityEngine;
 /// </summary>
 public class CorrectItemsInLaminarCabinet : Task {
 
-    #region Constants
-    public override string Description { get => "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia."; }
-    #endregion
-
     #region Fields
     public enum Conditions { BigSyringe, SmallSyringes, Needle, Luerlock, MedicineBottle, SyringeCap }
     private CabinetBase laminarCabinet;
@@ -24,7 +20,6 @@ public class CorrectItemsInLaminarCabinet : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
     #endregion
 
@@ -65,8 +60,7 @@ public class CorrectItemsInLaminarCabinet : Task {
 
     #region Public Methods
 
-    public override string Hint { get => "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. " + laminarCabinet.GetMissingItems(); 
-    }
+    public override string Hint { get => base.hint + laminarCabinet.GetMissingItems(); }
 
     protected override void OnTaskComplete() { /* Nothing */ }
 
@@ -119,7 +113,7 @@ public class CorrectItemsInLaminarCabinet : Task {
 
         if (syringeCount == 6 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
             Logger.Print("All done");
-            Popup("Oikea määrä työvälineitä laminaarikaapissa.", MsgType.Done, 2);
+            Popup(base.success, MsgType.Done, 2);
         } else {
             CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
 

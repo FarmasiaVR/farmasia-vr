@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ItemsToSterileBag : Task {
 
-    #region Constants
-    public override string Description { get => "Viimeistele ruiskujen kanssa työskentely."; }
-    private const string HINT = "Laita täyttämäsi ruiskut steriiliin pussiin.";
-    #endregion
-
     #region Fields
     public enum Conditions { }
     private CabinetBase laminarCabinet;
@@ -30,7 +25,6 @@ public class ItemsToSterileBag : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
     #endregion
 
@@ -73,7 +67,7 @@ public class ItemsToSterileBag : Task {
             if (mistakes > 0) {
                 CreateTaskMistake(errorString, mistakes);
             } else {
-                Popup("Ruiskut laitettiin steriiliin pussiin.", MsgType.Done);
+                Popup(base.success, MsgType.Done);
             }
 
             base.FinishTask();
@@ -115,11 +109,36 @@ public class ItemsToSterileBag : Task {
         }
     }
 
-    public override string Hint {
-        get => HINT;
+    public override bool Equals(object obj) {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode() {
+        return base.GetHashCode();
+    }
+
+    public override void ForceClose(bool removePoints) {
+        base.ForceClose(removePoints);
+    }
+
+    public override void StartTask() {
+        base.StartTask();
+    }
+
+    public override void CompleteTask() {
+        base.CompleteTask();
     }
 
     protected override void OnTaskComplete() {
+        throw new NotImplementedException();
+    }
+
+    public override void RemoveFromPackage() {
+        base.RemoveFromPackage();
+    }
+
+    public override string ToString() {
+        return base.ToString();
     }
     #endregion
 }

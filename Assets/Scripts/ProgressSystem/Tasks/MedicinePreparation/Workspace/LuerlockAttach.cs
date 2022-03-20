@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class LuerlockAttach : Task {
 
-    #region Constants
-    public override string Description { get => "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen."; }
-    private const string HINT = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
-    #endregion
-
     #region Fields
     public enum Conditions { SyringeWithMedicineAttached }
     private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe };
@@ -21,7 +16,6 @@ public class LuerlockAttach : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 1;
     }
     #endregion
 
@@ -104,13 +98,9 @@ public class LuerlockAttach : Task {
 
     #region Public Methods
 
-    public override string Hint {
-        get => HINT;
-    }
-
     protected override void OnTaskComplete() {
         if (!fail) {
-            Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Done);
+            Popup(base.success, MsgType.Done);
         }
     }
     #endregion

@@ -68,7 +68,7 @@ class WetFilter : Task {
         base.CompleteTask();
         var successText = TaskConfig.For(TaskType).Success;
         if (Completed && successText != null) {
-            Popup(successText, MsgType.Done);
+            Popup(successText, MsgType.Done, base.Points);
         }
     }
 }

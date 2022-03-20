@@ -23,7 +23,6 @@ public class OpenAgarplates : Task {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        Points = 2;
     }
 
     public override void Subscribe() {
@@ -76,7 +75,7 @@ public class OpenAgarplates : Task {
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {
-            Popup("Hienosti avattu!", MsgType.Done);
+            Popup(base.success, MsgType.Done, base.Points);
         }
     }
 }
