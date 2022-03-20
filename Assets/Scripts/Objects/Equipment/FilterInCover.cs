@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tweezers : GeneralItem {
-
+public class FilterInCover : GeneralItem {
     [SerializeField]
     private Cover cover;
+    [SerializeField]
+    private GameObject assemblyFilterParts;
+    [SerializeField]
+    private GameObject filterAndCoverModel;
+
     private bool coverOn;
 
     // Start is called before the first frame update
     protected override void Start() {
-        base.Start();
-        objectType = ObjectType.Tweezers;     
+        base.Start();        
+        objectType = ObjectType.FilterInCover;
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
     }
@@ -27,5 +31,16 @@ public class Tweezers : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithButtonPress(hand);
+        coverOn = cover.CoverOn;
+        if (coverOn == false) {
+            EnableAssemblyFilterParts();
+        }
     }
+    public void EnableAssemblyFilterParts() {
+        assemblyFilterParts.SetActive(true);
+        filterAndCoverModel.SetActive(false);
+    }
+
 }
+
+
