@@ -28,5 +28,8 @@ public class CleaningBottleCollider : MonoBehaviour
         foreach (GeneralItem item in Items) {
             item.Contamination = GeneralItem.ContaminateState.Clean;
         }
+        if (Items.Count > 0) {
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+        }
     }
 }
