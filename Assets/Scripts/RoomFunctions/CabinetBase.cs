@@ -118,12 +118,16 @@ public class CabinetBase : MonoBehaviour {
             Events.FireEvent(EventType.CheckLaminarCabinetItems);
             if (FirstEnterObjects.ContainsKey(item)) {
                 if (!FirstEnterObjects[item]) {
-                    Task.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                    // Task.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
                     FirstEnterObjects[item] = true;
                 }
             } else {
                 FirstEnterObjects.Add(item, false);
             }
+        }
+
+        if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
+            Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas", 1);
         }
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
