@@ -288,7 +288,7 @@ MonoBehaviour:
   IsInteracting: 0
   DisableHighlighting: 0
   objectType: 22
-  isClean: 1
+  isClean: 0
   cover: {fileID: 1494890966546382096}
 --- !u!114 &7879621653035228968
 MonoBehaviour:
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63db7353137e63b46b1ff9374bf33a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cover: {fileID: 9053722480275302364}
+  coverGameObject: {fileID: 9053722480275302364}
   rightOpeningSpot: {fileID: 2121444912839649285}
   wrongOpeningSpot: {fileID: 3699585670801254319}
 --- !u!1 &4098584356190537569
@@ -407,8 +407,8 @@ GameObject:
   - component: {fileID: 8223743652195763734}
   - component: {fileID: 6591941199665958759}
   - component: {fileID: 348563640559558258}
-  - component: {fileID: 5255005087451748357}
   - component: {fileID: 3699585670801254319}
+  - component: {fileID: 4816854535142485735}
   m_Layer: 0
   m_Name: Wrong opening spot
   m_TagString: Untagged
@@ -477,19 +477,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5255005087451748357
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4370120700813808603}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3699585670801254319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +491,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsInteracting: 0
   DisableHighlighting: 0
+--- !u!65 &4816854535142485735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370120700813808603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+  m_Center: {x: 0, y: 0.0000019073486, z: 0.000061035156}
 --- !u!1 &6254332037567843058
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,8 +515,8 @@ GameObject:
   - component: {fileID: 115184279637324275}
   - component: {fileID: 9183116530538658514}
   - component: {fileID: 5020623842805437927}
-  - component: {fileID: 2706869809781150986}
   - component: {fileID: 2121444912839649285}
+  - component: {fileID: 6424098622893437101}
   m_Layer: 0
   m_Name: Right opening spot
   m_TagString: Untagged
@@ -585,19 +585,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2706869809781150986
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6254332037567843058}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2121444912839649285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +599,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsInteracting: 0
   DisableHighlighting: 0
+--- !u!65 &6424098622893437101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6254332037567843058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: -0.000061035156}
 --- !u!1 &9053722480275302364
 GameObject:
   m_ObjectHideFlags: 0

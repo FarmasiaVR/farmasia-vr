@@ -11,15 +11,14 @@ public class Cover : MonoBehaviour
         get { return coverOn; }
     }
     [SerializeField]
-    private GameObject cover;
+    private GameObject coverGameObject;
     [SerializeField]
     private Interactable rightOpeningSpot;
     [SerializeField]
     private Interactable wrongOpeningSpot;
 
     // Start is called before the first frame update
-    protected void Start()
-    {
+    protected void Start() {
         coverOn = true;        
     }
     public void OpenCoverWithButtonPress(Hand hand) {
@@ -29,9 +28,8 @@ public class Cover : MonoBehaviour
 
         if (openCover && coverOn && (GameObject.ReferenceEquals(rightOpeningSpot, otherCollider.GetClosestInteractable()) || GameObject.ReferenceEquals(wrongOpeningSpot, otherCollider.GetClosestInteractable()))) {
             coverOn = false;
-            cover.SetActive(false);
+            coverGameObject.SetActive(false);            
         }
-
     }
     public void DisableOpeningSpots() {
         rightOpeningSpot.transform.gameObject.SetActive(false);
