@@ -39,5 +39,6 @@
     FilterDissassembled,
     PlateOpened,
     AttachPipe,
-    OpenTweezersPackage
+    OpenTweezersPackage,
+    SyringeDisassembled
 }

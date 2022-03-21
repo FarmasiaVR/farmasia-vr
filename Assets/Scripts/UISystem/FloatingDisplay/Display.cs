@@ -11,6 +11,7 @@ public class Display : MonoBehaviour {
 
     public virtual void SetFollowedObject(GameObject follow) {
         followedObject = follow;
+        Logger.Print("FOLLOWED OBJECT: " + followedObject);
     }
 
     protected void Start() {

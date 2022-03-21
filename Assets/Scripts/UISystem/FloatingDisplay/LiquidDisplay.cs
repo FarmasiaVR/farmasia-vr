@@ -38,6 +38,13 @@ public class LiquidDisplay : Display {
             liquidPresent = true;
             return;
         }
+
+        SyringeNew newSyringe = follow.GetComponent<SyringeNew>();
+        if (newSyringe != null) {
+            container = newSyringe.Container;
+            liquidPresent = true;
+            return;
+        }
     }
 
     new void Start() {
