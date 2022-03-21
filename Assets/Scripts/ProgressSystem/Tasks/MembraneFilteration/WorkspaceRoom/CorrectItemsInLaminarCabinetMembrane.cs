@@ -9,7 +9,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     public override string Description { get => "Siirrä valitsemasi työvälineet laminaarikaappiin"; }
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, CleaningBottle }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag }
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -81,7 +81,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         int filterTank = 0;
         int filterBase = 0;
         int filter = 0;
-        int cleaningBottle = 0;
 
         int uncleanCount = 0;
 
@@ -153,10 +152,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 } else if (g is SterileBag) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
-                } else if (g is CleaningBottle) {
-                    EnableCondition(Conditions.CleaningBottle);
-                    cleaningBottle++;
-                }
+                } 
                 if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
                     uncleanCount++;
                     Logger.Warning(g.name + " in laminar cabinet was filthy.");
@@ -164,7 +160,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
             }
         }
 
-        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1) {
+        if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1) {
             Logger.Print("All done");
             Popup(base.success, MsgType.Done, base.Points);
         }
@@ -174,4 +170,11 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         }
     }
     #endregion
+
+    public override void CompleteTask() {
+        base.CompleteTask();
+        if (Completed) {
+            Popup("Tavarat kaapissa!", MsgType.Done, base.Points);
+        }
+    }
 }
