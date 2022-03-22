@@ -8,6 +8,8 @@ public class Hand : MonoBehaviour {
 
     #region Fields
 
+    public bool NearestObjectFeature;
+
     public GameObject placeholderPrefab;
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
@@ -164,7 +166,7 @@ public class Hand : MonoBehaviour {
 
         if (interactable is AttachmentItem attachment && attachment.Attached) {
             interactable = HandleAttachedItem(attachment);
-            Logger.Print($"Grabbed {interactable.name}");
+            //Logger.Print($"Grabbed {interactable.name}");
         }
 
         if (interactable.Type == InteractableType.Grabbable) {
@@ -182,7 +184,7 @@ public class Hand : MonoBehaviour {
 
     private AttachmentItem HandleAttachedItem(AttachmentItem attachment) {
         AttachmentItem parent = attachment.GetParent();
-        if (parent == other.interactedInteractable) {
+        if (parent == other.interactedInteractable || attachment is PumpFilterLid) {
             attachment.StartCoroutine(attachment.WaitForDistance(this));
             GameObject placeHolder = Instantiate(placeholderPrefab);
             return placeHolder.GetComponent<AttachmentItem>();
