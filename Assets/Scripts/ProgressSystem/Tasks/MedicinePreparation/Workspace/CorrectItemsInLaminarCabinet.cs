@@ -73,8 +73,6 @@ public class CorrectItemsInLaminarCabinet : Task {
         int bottleCount = 0;
         bool correctBottle = false;
 
-        int uncleanCount = 0;
-
         foreach (var item in laminarCabinet.GetContainedItems()) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
                 if (g is SmallSyringe) {
@@ -103,24 +101,12 @@ public class CorrectItemsInLaminarCabinet : Task {
                 } else if (g is SyringeCapBag) {
                     EnableCondition(Conditions.SyringeCap);
                 }
-
-                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
-                    uncleanCount++;
-                    Logger.Warning(g.name + " in laminar cabinet was not clean");
-                }
             }
         }
 
         if (syringeCount == 6 && luerlockCount == 1 && bottleCount == 1 && correctBottle && needleCount == 1) {
             Logger.Print("All done");
             Popup(base.success, MsgType.Done, 2);
-        } else {
-            CreateTaskMistake("Väärä määrä työvälineitä laminaarikaapissa.", 2);
-
-        }
-
-        if (uncleanCount > 0) {
-            CreateTaskMistake("Likainen esine laminaarikaapissa", uncleanCount);
         }
     }
     #endregion
