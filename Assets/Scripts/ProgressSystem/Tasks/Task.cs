@@ -8,11 +8,9 @@ using System.Linq;
 /// </summary>
 public abstract class Task {
 
-    #region Fields
     public bool Completed = false;
-    public int Points = 0;
+    public readonly int Points = 0;
     protected Package package;
-    private bool InPackage => (package != null);
     private bool started = false;
     public bool Started { get => started; }
     public TaskType TaskType { get; protected set; }
@@ -31,7 +29,7 @@ public abstract class Task {
     protected string hint;
     public virtual string Hint { get => hint; }
     protected string success;
-    #endregion
+    
 
     public Task(TaskType type, bool remove, bool previous) {
         TaskType = type;
@@ -40,6 +38,7 @@ public abstract class Task {
         description = TaskConfig.For(TaskType).Description;
         hint = TaskConfig.For(type).Description;
         success = TaskConfig.For(type).Success;
+        Points = TaskConfig.For(type).Points;
     }
 
     #region Task Progression
@@ -138,7 +137,7 @@ public abstract class Task {
     #region Condition Methods
     public void EnableCondition(Enum condition) {
         if (clearConditions.ContainsKey(condition.GetHashCode())) {
-            Logger.Print(this.TaskType.ToString() +  " Enabled Condition: " + condition.ToString());
+            // Logger.Print(this.TaskType.ToString() +  " Enabled Condition: " + condition.ToString());
             clearConditions[condition.GetHashCode()] = true;
         }
     }

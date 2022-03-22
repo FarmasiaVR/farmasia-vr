@@ -82,7 +82,6 @@ public class CorrectAmountOfMedicineSelected : Task {
         }
 
         if (usedSmallSyringes.Count >= 6) {
-            Logger.Print("CLOSED SmallSyringe ATTACH AND CORRECT AMOUNT");
             CreateTaskMistake(null, GetTotalMinus());
             G.Instance.Progress.ForceCloseTask(TaskType, false);
             G.Instance.Progress.ForceCloseTask(TaskType.SyringeAttach, false);

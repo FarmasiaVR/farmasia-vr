@@ -245,9 +245,6 @@ public class CabinetBase : MonoBehaviour {
     private void DestroyCapBagAndInitFactory() {
         if (trueCapBag != null && itemContainer.Contains(trueCapBag)) {
 
-            Logger.Print("Syringe cap bag still inside cabinet, destroying bag and setting factory active...");
-
-            Logger.Print("Setting IsClean of caps inside laminar cabinet to " + trueCapBag.IsClean);
             syringeCapFactory.GetComponent<GeneralItem>().Contamination = trueCapBag.Contamination;
             foreach (Interactable obj in itemContainer.Objects) {
                 GeneralItem item = obj as GeneralItem;

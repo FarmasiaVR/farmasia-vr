@@ -49,7 +49,6 @@ public class SterileBag : GeneralItem {
         CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => OnBagEnter(collider)));
 
         if (closeButton != null) {
-            Logger.Print("Initializing bag");
             closeButton.ActivateCountLimit = 1;
             closeButton.OnAccept = CloseSterileBagFinal;
             closeButton.Hide(true);

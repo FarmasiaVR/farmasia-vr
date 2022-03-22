@@ -1,122 +1,164 @@
 using System.Collections.Generic;
+using System.Linq;
 
-public class TaskConfig {
+public static class TaskConfig {
 
     /// 
-    /// Define description, hint, success-text and points, in this order, here.
+    /// Define task information here.
     /// Note that task classes may override these values (for example, cabinet tasks may show in the hint what items are missing).
     /// As this is a dictionary, order of the tasks is not significant, but they are supposed to be approximately in the correct order for clarity
     /// 
-    private static Dictionary<TaskType, Info> dict = new Dictionary<TaskType, Info>{
+    /// Format:
+    /// TaskType,
+    /// Name - shown on scoreboard
+    /// Description - shown on the info board for current task
+    /// Hint - can be shown by pressing the hint button
+    /// Success - text in the popup when task completed
+    /// Points
+    /// 
 
-        { TaskType.SelectTools, info(
+    private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{ 
+
+        info(
+            TaskType.SelectTools,
+            "Työvälineiden valinta",
             "Valitse sopivat työvälineet.",
             "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.",
             "Työväline valittu.",
             0
-        )},
+        ),
 
-        { TaskType.SelectMedicine, info(
+        info(
+            TaskType.SelectMedicine,
+            "Lääkepullon valinta",
             "Valitse sopiva lääkepullo.",
             "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.",
             "Lääkepullo valittu.",
             0
-        )},
+        ),
 
-        { TaskType.CorrectItemsInThroughput, info(
+        info(
+            TaskType.CorrectItemsInThroughput,
+            "Oikeat välineet läpiantokaapissa",
             "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
             "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: ",
             "Oikea määrä työvälineitä läpiantokaapissa.",
             2
-        )},
+        ),
 
-        { TaskType.CorrectLayoutInThroughput, info(
+        info(
+            TaskType.CorrectLayoutInThroughput,
+            "Esineiden asettelu läpiantokaapissa",
             "",
             "",
             "",
             0
-        )},
+        ),
 
-        { TaskType.CorrectItemsInLaminarCabinet, info(
+        info(
+            TaskType.CorrectItemsInLaminarCabinet,
+            "Oikeat välineet laminaarikaapissa",
             "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.",
             "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. ",
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
-        )},
+        ),
 
-        { TaskType.CorrectLayoutInLaminarCabinet, info(
+        info(
+            TaskType.CorrectLayoutInLaminarCabinet,
+            "Esineiden asettelu laminaarikaapissa",
             "",
             "",
             "",
             0
-        )},
+        ),
 
-        { TaskType.DisinfectBottles, info(
+        info(
+            TaskType.DisinfectBottles,
+            "Pullon desinfiointi",
             "",
             "",
             "",
             1
-        )},
+        ),
 
-        { TaskType.SyringeAttach, info(
+        info(
+            TaskType.SyringeAttach,
+            "Ruiskun kiinnittäminen",
             "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.",
             "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.",
             "",
             3
-        )},
+        ),
 
-        { TaskType.LuerlockAttach, info(
+        info(
+             TaskType.LuerlockAttach,
+             "Luerlockin kiinnittäminen",
             "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.",
             "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.",
             "Luerlockin kiinnittäminen onnistui.",
             1
-        )},
+        ),
 
-        { TaskType.CorrectAmountOfMedicineSelected, info(
+        info(
+            TaskType.CorrectAmountOfMedicineSelected,
+            "Lääkkeen mittaaminen",
             "Vedä ruiskuun lääkettä.",
             "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.",
             "Ruiskuun otettiin oikea määrä lääkettä.",
             6
-        )},
+        ),
 
-        { TaskType.MedicineToSyringe, info(
+        info(
+            TaskType.MedicineToSyringe,
+            "Lääkkeen otto pullosta",
             "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.",
             "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.",
             "Lääkkeen ottaminen onnistui.",
             2
-        )},
+        ),
 
-        { TaskType.ItemsToSterileBag, info(
+        info(
+            TaskType.ItemsToSterileBag,
+            "Ruiskujen siirto steriilipussiin",
             "Viimeistele ruiskujen kanssa työskentely.",
             "Laita täyttämäsi ruiskut steriiliin pussiin.",
             "Ruiskut laitettiin steriiliin pussiin.",
             2
-        )},
+        ),
 
-        { TaskType.ScenarioOneCleanUp, info(
+        info(
+            TaskType.ScenarioOneCleanUp,
+            "Siivoaminen",
             "Siivoa lopuksi työtila.",
             "Vie pelin aikana lattialle pudonneet esineet roskakoriin.",
             "",
             1
-        )},
+        ),
 
-        { TaskType.Finish, info(
+        info(
+            TaskType.Finish,
+            "Lopetus",
             "",
             "",
             "",
             0
-        )},
+        ),
 
         // Membrane filtration scene starts here
 
-        { TaskType.SelectToolsMembrane, info(
+        info(
+            TaskType.SelectToolsMembrane,
+            "Työvälineiden valinta",
             "Valitse sopivat ty�v�lineet.",
             "Huoneessa on l��kkeen valmistukseen tarvittavia ty�v�lineit�. Valitse oikea m��r� ruiskuja, neuloja ja luerlockeja.",
             "Ty�v�line valittu.",
             0
-        )},
+        ),
 
-        { TaskType.CorrectItemsInThroughputMembrane, info(
+        info(
+            TaskType.CorrectItemsInThroughputMembrane,
+            "Oikeat välineet läpiantokaapissa",
             "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
             "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
                 "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
@@ -124,59 +166,73 @@ public class TaskConfig {
                 "Toinen laskeumamalja on sabourad-dekstroosimalja.",
             "Oikeat työvälineet läpiantokaapissa.",
             2
-        )},
+        ),
 
-        { TaskType.CorrectItemsInLaminarCabinetMembrane, info(
+        info(
+            TaskType.CorrectItemsInLaminarCabinetMembrane,
+            "Oikeat välineet laminaarikaapissa",
             "Siirrä valitsemasi työvälineet laminaarikaappiin",
             "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet.",
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
-        )},
+        ),
         
-        { TaskType.WriteTextsToItems, info(
+        info(
+            TaskType.WriteTextsToItems,
+            "Tietojen kirjoitus esineisiin",
             "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
             "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia",
             "Hyvin kirjoitettu.",
             2
-        )},
+        ),
 
-        { TaskType.OpenAgarplates, info(
+        info(
+            TaskType.OpenAgarplates,
+            "Laskeumamaljojen avaus",
             "Avaa laskeumamaljat",
             "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja",
             "Hienosti avattu!",
             2
-        )},
+        ),
 
-        { TaskType.FillBottles, info(
+        info(
+            TaskType.FillBottles,
+            "100ml pullojen täyttö",
             "Täytä pullot",
             "Just do it",
             "Hienoa, pullot täytetty",
             4
-        )},
+        ),
 
-        { TaskType.AssemblePump, info(
+        info(
+            TaskType.AssemblePump,
+            "Pumpun kokoaminen",
             "Kokoa pumppu!",
             "Kiinnitä filtteri ja letku pumppuun.",
             "Hienoa, pumppu on koossa",
             2
-        )},
+        ),
 
-        { TaskType.WetFilter, info(
+        info(
+            TaskType.WetFilter,
+            "Filtterin kostutus",
             "Kostuta filtteri :D",
             "Caman kyl s� osaat",
             "Hienosti kostutettu!",
             2
-        )}
-    };
+        )
+
+    }.ToDictionary(pair => pair.Key, pair => pair.Value);
 
     public static Info For(TaskType type) {
         return dict[type];
     }
 
-    private static Info info(string desc, string hint, string success = null, int points = 1) => 
-        new Info() { Description = desc, Hint = hint, Success = success, Points = points };
+    private static KeyValuePair<TaskType, Info> info(TaskType type, string name, string desc, string hint, string success, int points) => 
+        new KeyValuePair<TaskType, Info>(type, new Info() { Name = name, Description = desc, Hint = hint, Success = success, Points = points });
 
     public class Info {
+        public string Name;
         public string Description;
         public string Hint;
         public string Success;

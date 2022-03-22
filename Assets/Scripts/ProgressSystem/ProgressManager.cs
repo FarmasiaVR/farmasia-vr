@@ -22,7 +22,6 @@ public class ProgressManager {
     }
 
 
-    // public byte[] SavedScoreState { get; private set; }
     #endregion
 
     #region Constructor
@@ -54,6 +53,7 @@ public class ProgressManager {
             task.ForceClose(taskMaxPoints[task.TaskType] > 0);
         }
     }
+
     public void ForceCloseTask(TaskType type, bool killPoints = true) {
         foreach (Task task in trueAllTasksThatAreNeverRemoved) {
             if (task.TaskType == type && !task.Completed) {
@@ -77,12 +77,12 @@ public class ProgressManager {
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
                 AddTasks(scene);
-                Calculator = new ScoreCalculator(allTasks);
+                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 GenerateScenarioOne();
                 break;
             case SceneTypes.MembraneFilteration:
                 AddTasks(scene);
-                Calculator = new ScoreCalculator(allTasks);
+                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 GenerateScenarioTwo();
                 break;
             case SceneTypes.Tutorial:
@@ -196,7 +196,7 @@ public class ProgressManager {
         trueAllTasksThatAreNeverRemoved = new List<Task>();
         taskMaxPoints = new Dictionary<TaskType, int>();
         foreach (Task task in allTasks) {
-            trueAllTasksThatAreNeverRemoved.Add(task as Task);
+            trueAllTasksThatAreNeverRemoved.Add(task);
             taskMaxPoints.Add(task.TaskType, task.Points);
         }
     }
@@ -239,19 +239,11 @@ public class ProgressManager {
     }
     #endregion
 
-    #region Task Methods
 
     public HashSet<Task> GetAllTasks() {
         return allTasks;
     }
-    public void ListAllTasksInManager() {
-        foreach (Task task in allTasks) {
-            Logger.Print(task.GetType());
-        }
-    }
 
-
-    #endregion
 
     #region Finishing Packages and Manager
 
@@ -266,17 +258,12 @@ public class ProgressManager {
         }
     }
 
-    /// <summary>
-    /// Calls every task inside allTasks Set and finishes them.
-    /// </summary>
     public void FinishProgress() {
         foreach (Task task in allTasks) {
             if (task.TaskType == TaskType.Finish) {
                 RemoveTask(task);
-                string scoreString;
-                int score;
                 MedicinePreparationScene.SavedScoreState = null;
-                Calculator.GetScoreString(out score, out scoreString, this);
+                (int score, string scoreString) = Calculator.GetScoreString();
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);
                 break;
