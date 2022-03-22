@@ -155,6 +155,7 @@ public class LiquidContainer : MonoBehaviour {
         Needle needle = enteringInteractable as Needle;
         Pipette pipette = enteringInteractable as Pipette;
         PipetteContainer pipetteContainer = enteringInteractable as PipetteContainer;
+        SyringeNew syringeNew = enteringInteractable as SyringeNew;
         if (needle!=null && needle.Connector.HasAttachedObject) {
             OnSyringeEnter(needle);
         }
@@ -165,6 +166,10 @@ public class LiquidContainer : MonoBehaviour {
 
         if (pipetteContainer != null) {
             OnPipetteContainerEnter(pipetteContainer);
+        }
+
+        if (syringeNew != null) {
+            OnSyringeNewEnter(syringeNew);
         }
     }
 
@@ -224,6 +229,21 @@ public class LiquidContainer : MonoBehaviour {
         pipette.BottleContainer = this;
     }
 
+    private void OnSyringeNewEnter(SyringeNew syringe) {
+        if (GeneralItem is Bottle) {
+            syringe.State.On(InteractState.InBottle);
+            syringe.hasBeenInBottle = true;
+
+            if (!GeneralItem.IsClean) {
+                syringe.Contamination = GeneralItem.ContaminateState.Contaminated;
+            }
+
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
+        }
+
+        syringe.BottleContainer = this;
+    }
+
     private void OnTrueExit(Interactable enteringInteractable) {
         Needle needle = enteringInteractable as Needle;
         if (needle != null) {
@@ -238,6 +258,11 @@ public class LiquidContainer : MonoBehaviour {
         PipetteContainer pipetteContainer = enteringInteractable as PipetteContainer;
         if (pipetteContainer != null) {
             OnPipetteContainerExit(pipetteContainer);
+        }
+
+        SyringeNew syringeNew = enteringInteractable as SyringeNew;
+        if (syringeNew != null) {
+            OnSyringeNewExit(syringeNew);
         }
     }
 
@@ -263,6 +288,13 @@ public class LiquidContainer : MonoBehaviour {
         if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipetteContainer.State.Off(InteractState.InBottle);
             pipetteContainer.BottleContainer = null;
+        }
+    }
+
+    private void OnSyringeNewExit(SyringeNew syringe) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+            syringe.State.Off(InteractState.InBottle);
+            syringe.BottleContainer = null;
         }
     }
 }

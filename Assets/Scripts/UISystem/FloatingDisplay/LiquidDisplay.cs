@@ -39,9 +39,9 @@ public class LiquidDisplay : Display {
             return;
         }
 
-        SyringeNew newSyringe = follow.GetComponent<SyringeNew>();
-        if (newSyringe != null) {
-            container = newSyringe.Container;
+        SyringeNew syringeNew = follow.GetComponent<SyringeNew>();
+        if (syringeNew != null) {
+            container = syringeNew.Container;
             liquidPresent = true;
             return;
         }

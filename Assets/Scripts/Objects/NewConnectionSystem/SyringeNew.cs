@@ -3,37 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SyringeNew : ReceiverItem {
-    public LiquidContainer Container { get; private set; }
 
+    public LiquidContainer Container;
+
+    // How much liquid is moved per click
     public int LiquidTransferStep = 50;
 
     public float defaultPosition, maxPosition;
 
     public Transform handle;
 
+    // The LiquidContainer this Pipette is interacting with
     public LiquidContainer BottleContainer { get; set; }
 
     public bool hasBeenInBottle;
 
     [SerializeField]
     private ItemDisplay display;
-
     protected override void Start() {
-        objectType = ObjectType.Syringe;
         base.Start();
+
         Container = LiquidContainer.FindLiquidContainer(transform);
 
         Type.On(InteractableType.Interactable);
 
-        //Container.OnAmountChange += SetSyringeHandlePosition;
-        //SetSyringeHandlePosition();
+        Container.OnAmountChange += SetSyringeHandlePosition;
+        SetSyringeHandlePosition();
 
         AfterRelease = (interactable) => {
             Logger.Print("Syringe disassembled!");
             Events.FireEvent(EventType.SyringeDisassembled, CallbackData.Object((this, interactable)));
         };
-
-        Logger.Print("GAME OBJECT: " + gameObject);
     }
 
     public override void OnGrabStart(Hand hand) {
@@ -56,35 +56,54 @@ public class SyringeNew : ReceiverItem {
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
 
+        int liquidAmount = 0;
+
+        if (takeMedicine) liquidAmount -= LiquidTransferStep;
+        if (sendMedicine) liquidAmount += LiquidTransferStep;
+        if (liquidAmount == 0) return;
+
+        if (SlotOccupied) {
+            Logger.Print("Cap is on");
+            return;
+        }
+
         if (takeMedicine) {
-            TakeMedicine();
+            TakeMedicine(liquidAmount);
         } else if (sendMedicine) {
-            SendMedicine();
+            SendMedicine(liquidAmount);
         }
 
     }
 
-    public void TakeMedicine() {
+    public void TakeMedicine(int amount) {
+        Logger.Print("INTERACT STATE: " + State);
         if (State == InteractState.InBottle) {
-            TransferToBottle(false);
+            TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
-            Logger.Print("Pipette not in bottle");
+            Logger.Print("PipetteContainer not in bottle");
         }
     }
 
-    public void SendMedicine() {
+    public void SendMedicine(int amount) {
+        Logger.Print("INTERACT STATE: " + State);
         if (State == InteractState.InBottle) {
-            TransferToBottle(true);
+            TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+        } else {
+            Eject();
         }
     }
 
-    private void TransferToBottle(bool into) {
-        if (BottleContainer == null) return;
-        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+    private void Eject() {
+        Container.SetAmount(0);
+    }
 
-        Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
+    private void TransferToBottle(int amount) {
+        if (BottleContainer == null) return;
+        //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+
+        Container.TransferTo(BottleContainer, amount);
     }
 
     public void SetSyringeHandlePosition() {

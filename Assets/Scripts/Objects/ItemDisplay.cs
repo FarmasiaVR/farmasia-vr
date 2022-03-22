@@ -32,8 +32,6 @@ public class ItemDisplay : MonoBehaviour {
         }
         isDisplayOn = true;
         // Make the display visible
-        Logger.Print("set active");
-        Logger.Print(displayObject);
         displayObject.SetActive(true);
     }
 

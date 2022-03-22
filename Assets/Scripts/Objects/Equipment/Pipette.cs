@@ -29,7 +29,6 @@ public class Pipette : GeneralItem {
 
         
         Type.On(InteractableType.Interactable);
-        Logger.Print("GAME OBJECT: " + gameObject);
     }
 
     public override void OnGrabStart(Hand hand) {
