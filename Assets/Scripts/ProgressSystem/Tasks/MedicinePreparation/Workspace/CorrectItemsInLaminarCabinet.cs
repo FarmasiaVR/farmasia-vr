@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Correct amount of items inserted into Fume Cupboard.
+/// Correct amount of items inserted into Fume Cupboard. // what the fuck is a fume cupboard
 /// </summary>
 public class CorrectItemsInLaminarCabinet : Task {
 
@@ -13,7 +13,7 @@ public class CorrectItemsInLaminarCabinet : Task {
 
     #region Constructor
     ///  <summary>
-    ///  Constructor for CorrectItemsInLaminarCabinet task.
+    ///  Constructor for CorrectItemsInLaminarCabinet task. // no shit
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, true, false) {

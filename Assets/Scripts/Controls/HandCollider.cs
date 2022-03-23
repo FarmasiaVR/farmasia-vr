@@ -5,7 +5,7 @@ using Valve.VR;
 
 public class HandCollider : MonoBehaviour {
 
-    public ObjectHighlight PreviousHighlight { get; private set; }
+    private ObjectHighlight PreviousHighlight;
 
     private TriggerInteractableContainer container;
     private Collider handColl;

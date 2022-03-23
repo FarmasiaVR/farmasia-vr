@@ -8,8 +8,6 @@ public class Hand : MonoBehaviour {
 
     #region Fields
 
-    public bool NearestObjectFeature;
-
     public GameObject placeholderPrefab;
     public bool IsInteracting { get => interactedInteractable != null; }
     public bool IsGrabbed { get => Connector.IsGrabbed; }
@@ -143,7 +141,6 @@ public class Hand : MonoBehaviour {
     }
 
 
-    #region Interaction
     public void Interact() {
         if (IsGrabbed) {
             return;
@@ -229,9 +226,7 @@ public class Hand : MonoBehaviour {
             InteractableType.Grabbable, InteractableType.Interactable
         );
     }
-    #endregion
 
-    #region Remote grab
     private void RemoteGrab(Interactable i) {
         if (ItemIsPartOfGrabbedLuerlockSystem(i)) {
             return;
@@ -292,7 +287,6 @@ public class Hand : MonoBehaviour {
         hitInt = null;
         return false;
     }
-    #endregion
 
     public static Hand GrabbingHand(Interactable interactable) {
         foreach (VRActionsMapper controls in VRInput.Hands) {
