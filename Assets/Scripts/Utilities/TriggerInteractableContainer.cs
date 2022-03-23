@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerInteractableContainer : MonoBehaviour {
-    public bool IsExtendedCollider;
+    public bool IsHandCollider;
     public Dictionary<Interactable, int> EnteredObjects { get; private set; }
     public Dictionary<Interactable, Dictionary<Collider, Vector3>> EnteredObjectPoints { get; private set; }
 
@@ -40,7 +40,7 @@ public class TriggerInteractableContainer : MonoBehaviour {
                 OnEnter?.Invoke(i);
             }
 
-            if (other.isTrigger || IsExtendedCollider) return;
+            if (other.isTrigger || !IsHandCollider) return;
 
             if (!(EnteredObjectPoints.ContainsKey(i))) {
                 EnteredObjectPoints.Add(i, new Dictionary<Collider, Vector3>());
@@ -55,7 +55,7 @@ public class TriggerInteractableContainer : MonoBehaviour {
     }
 
     private void OnTriggerStay(Collider other) {
-        if (other.isTrigger || IsExtendedCollider) return;
+        if (other.isTrigger || !IsHandCollider) return;
 
         if (Interactable.GetInteractable(other.transform) is var i && i != null && EnteredObjectPoints.ContainsKey(i) && EnteredObjectPoints[i].ContainsKey(other)) {
             if (other is MeshCollider mesh && !mesh.convex) Debug.Log(other.transform.parent.name);
@@ -69,7 +69,7 @@ public class TriggerInteractableContainer : MonoBehaviour {
                 OnExit?.Invoke(i);
             }
 
-            if (other.isTrigger || IsExtendedCollider) return;
+            if (other.isTrigger || !IsHandCollider) return;
 
             if (!EnteredObjectPoints.ContainsKey(i)) return;
             EnteredObjectPoints[i]?.Remove(other);

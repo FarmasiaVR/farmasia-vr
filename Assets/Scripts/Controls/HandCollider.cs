@@ -5,7 +5,7 @@ using Valve.VR;
 
 public class HandCollider : MonoBehaviour {
     [SerializeField]
-    private bool IsExtendedHandCollider;
+    private bool IsHandCollider;
     
     private ObjectHighlight PreviousHighlight;
 
@@ -17,7 +17,7 @@ public class HandCollider : MonoBehaviour {
     private void Start() {
         closestPoint = Vector3.zero;
         container = gameObject.AddComponent<TriggerInteractableContainer>();
-        container.IsExtendedCollider = IsExtendedHandCollider;
+        container.IsHandCollider = IsHandCollider;
         container.OnExit = OnInteractableExit;
 
         handColl = GetComponent<Collider>();
@@ -101,7 +101,7 @@ public class HandCollider : MonoBehaviour {
         Interactable closest = null;
 
         foreach (Interactable rb in container.Objects) {
-            if (IsExtendedHandCollider) {
+            if (!IsHandCollider) {
                 float distance = Vector3.Distance(transform.position, rb.transform.position);
                 if (distance < closestDistance) {
                     closestDistance = distance;
