@@ -70,6 +70,8 @@ MonoBehaviour:
   Attached: 0
   ParentReceiver: {fileID: 0}
   SnapDistance: 0.1
+  SnapAngle: 30
+  ConnectedItem: {fileID: 0}
   ReceivedObjectType: 31
   SlotOccupied: 0
 --- !u!135 &2474369789728153916
@@ -223,7 +225,7 @@ GameObject:
   - component: {fileID: 3370936235987086015}
   - component: {fileID: 2058449371289097994}
   - component: {fileID: 8111495783303397544}
-  - component: {fileID: 4224492554560200652}
+  - component: {fileID: 307830256961360814}
   m_Layer: 0
   m_Name: membrane_filtration_pump_filter
   m_TagString: Untagged
@@ -292,8 +294,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4224492554560200652
-MeshCollider:
+--- !u!65 &307830256961360814
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -302,7 +304,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1107771876453389320, guid: 7298b229d1aa30048ab594e1dd428d5b, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.04, y: 0.0025, z: 0.04}
+  m_Center: {x: 0.0000001592562, y: 0.11095808, z: -0.0000000046566138}
