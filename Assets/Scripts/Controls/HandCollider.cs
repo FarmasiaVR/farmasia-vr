@@ -4,15 +4,20 @@ using UnityEngine;
 using Valve.VR;
 
 public class HandCollider : MonoBehaviour {
-
+    [SerializeField]
+    private bool IsExtendedHandCollider;
+    
     private ObjectHighlight PreviousHighlight;
 
     private TriggerInteractableContainer container;
     private Collider handColl;
 
+    private Vector3 closestPoint;
 
     private void Start() {
+        closestPoint = Vector3.zero;
         container = gameObject.AddComponent<TriggerInteractableContainer>();
+        container.IsExtendedCollider = IsExtendedHandCollider;
         container.OnExit = OnInteractableExit;
 
         handColl = GetComponent<Collider>();
@@ -96,14 +101,31 @@ public class HandCollider : MonoBehaviour {
         Interactable closest = null;
 
         foreach (Interactable rb in container.Objects) {
-            float distance = Vector3.Distance(transform.position, rb.transform.position);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closest = rb;
+            if (IsExtendedHandCollider) {
+                float distance = Vector3.Distance(transform.position, rb.transform.position);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closest = rb;
+                }
+            } else {
+                if (!container.EnteredObjectPoints.ContainsKey(rb)) continue;
+                foreach (Vector3 colPos in container.EnteredObjectPoints[rb].Values) {
+                    float distance = Vector3.Distance(transform.position, colPos);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closest = rb;
+                        closestPoint = colPos;
+                    }
+                }
             }
         }
-
+        
         return closest;
+    }
+
+    public void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(closestPoint, 0.01f);
     }
 
     public Interactable GetPointedObject(float maxAngle) {
