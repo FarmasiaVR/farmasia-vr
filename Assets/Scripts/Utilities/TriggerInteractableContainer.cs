@@ -40,7 +40,8 @@ public class TriggerInteractableContainer : MonoBehaviour {
                 OnEnter?.Invoke(i);
             }
 
-            if (other.isTrigger || !IsHandCollider) return;
+            if (other.isTrigger && !(other.gameObject.layer == 5)) return;
+            if (!IsHandCollider) return;
 
             if (!(EnteredObjectPoints.ContainsKey(i))) {
                 EnteredObjectPoints.Add(i, new Dictionary<Collider, Vector3>());
@@ -55,7 +56,9 @@ public class TriggerInteractableContainer : MonoBehaviour {
     }
 
     private void OnTriggerStay(Collider other) {
-        if (other.isTrigger || !IsHandCollider) return;
+        if (other.isTrigger && !(other.gameObject.layer == 5)) return;
+
+        if (!IsHandCollider) return;
 
         if (Interactable.GetInteractable(other.transform) is var i && i != null && EnteredObjectPoints.ContainsKey(i) && EnteredObjectPoints[i].ContainsKey(other)) {
             if (other is MeshCollider mesh && !mesh.convex) Debug.Log(other.transform.parent.name);
@@ -69,7 +72,10 @@ public class TriggerInteractableContainer : MonoBehaviour {
                 OnExit?.Invoke(i);
             }
 
-            if (other.isTrigger || !IsHandCollider) return;
+            if (other.isTrigger && !(other.gameObject.layer == 5)) return;
+
+            if (!IsHandCollider) return;
+
 
             if (!EnteredObjectPoints.ContainsKey(i)) return;
             EnteredObjectPoints[i]?.Remove(other);
