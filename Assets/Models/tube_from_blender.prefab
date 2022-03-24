@@ -42,8 +42,8 @@ Rigidbody:
   m_GameObject: {fileID: 306711633019515942}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -58,12 +58,12 @@ HingeJoint:
   m_GameObject: {fileID: 306711633019515942}
   m_ConnectedBody: {fileID: 4379743134349528163}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0, y: 0.0056382045, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -71,10 +71,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -139,8 +139,8 @@ Rigidbody:
   m_GameObject: {fileID: 348579890357639331}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -155,12 +155,12 @@ HingeJoint:
   m_GameObject: {fileID: 348579890357639331}
   m_ConnectedBody: {fileID: 7006321712720399423}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.005574502, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -168,10 +168,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -236,8 +236,8 @@ Rigidbody:
   m_GameObject: {fileID: 880960164575454066}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -252,12 +252,12 @@ HingeJoint:
   m_GameObject: {fileID: 880960164575454066}
   m_ConnectedBody: {fileID: 7959912043484759335}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.005578397, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -265,10 +265,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -333,12 +333,12 @@ Rigidbody:
   m_GameObject: {fileID: 2103803385658004275}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
-  m_UseGravity: 1
+  m_Drag: 100
+  m_AngularDrag: 100
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!59 &1710694992678229322
 HingeJoint:
@@ -349,12 +349,12 @@ HingeJoint:
   m_GameObject: {fileID: 2103803385658004275}
   m_ConnectedBody: {fileID: 918007829475018106}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0.0000000014551915, y: 0.0067690522, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -362,10 +362,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -430,8 +430,8 @@ Rigidbody:
   m_GameObject: {fileID: 2144082202983263736}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -446,12 +446,12 @@ HingeJoint:
   m_GameObject: {fileID: 2144082202983263736}
   m_ConnectedBody: {fileID: 3694118688393646516}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.005538821, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005538821, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -459,10 +459,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -660,8 +660,8 @@ Rigidbody:
   m_GameObject: {fileID: 2774969630097501625}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -676,12 +676,12 @@ HingeJoint:
   m_GameObject: {fileID: 2774969630097501625}
   m_ConnectedBody: {fileID: 1693978676212238394}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0, y: 0.005516477, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -689,10 +689,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -757,8 +757,8 @@ Rigidbody:
   m_GameObject: {fileID: 3001976923849549750}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -773,12 +773,12 @@ HingeJoint:
   m_GameObject: {fileID: 3001976923849549750}
   m_ConnectedBody: {fileID: 520736476072717440}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -786,10 +786,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -904,8 +904,8 @@ Rigidbody:
   m_GameObject: {fileID: 3823242332550482724}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -920,12 +920,12 @@ HingeJoint:
   m_GameObject: {fileID: 3823242332550482724}
   m_ConnectedBody: {fileID: 8883772303595840288}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.0055151675, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -933,10 +933,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1001,8 +1001,8 @@ Rigidbody:
   m_GameObject: {fileID: 4736061171333522766}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1017,12 +1017,12 @@ HingeJoint:
   m_GameObject: {fileID: 4736061171333522766}
   m_ConnectedBody: {fileID: 1314320178388545907}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.0000000014901158, y: 0.00548483, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1030,10 +1030,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1098,8 +1098,8 @@ Rigidbody:
   m_GameObject: {fileID: 5829995527936932338}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1114,12 +1114,12 @@ HingeJoint:
   m_GameObject: {fileID: 5829995527936932338}
   m_ConnectedBody: {fileID: 2487201724144373521}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1127,10 +1127,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1195,8 +1195,8 @@ Rigidbody:
   m_GameObject: {fileID: 6224098457316274684}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1211,12 +1211,12 @@ HingeJoint:
   m_GameObject: {fileID: 6224098457316274684}
   m_ConnectedBody: {fileID: 2862072692776574046}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.0055783987, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055783987, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1224,10 +1224,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1292,8 +1292,8 @@ Rigidbody:
   m_GameObject: {fileID: 6275252587153106147}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1308,12 +1308,12 @@ HingeJoint:
   m_GameObject: {fileID: 6275252587153106147}
   m_ConnectedBody: {fileID: 7180505467924837819}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.000000014726538, y: 0.0066381907, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1321,10 +1321,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1389,8 +1389,8 @@ Rigidbody:
   m_GameObject: {fileID: 6395662204720524115}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1405,12 +1405,12 @@ HingeJoint:
   m_GameObject: {fileID: 6395662204720524115}
   m_ConnectedBody: {fileID: 1590415001349066100}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1418,10 +1418,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1486,8 +1486,8 @@ Rigidbody:
   m_GameObject: {fileID: 6698137450756169074}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1502,12 +1502,12 @@ HingeJoint:
   m_GameObject: {fileID: 6698137450756169074}
   m_ConnectedBody: {fileID: 8278520960468574325}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.005590223, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1515,10 +1515,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1583,8 +1583,8 @@ Rigidbody:
   m_GameObject: {fileID: 6893650996730969098}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1599,12 +1599,12 @@ HingeJoint:
   m_GameObject: {fileID: 6893650996730969098}
   m_ConnectedBody: {fileID: 3186200071434830934}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.0055362433, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055362433, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1612,10 +1612,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1680,8 +1680,8 @@ Rigidbody:
   m_GameObject: {fileID: 7191816884059432226}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1696,12 +1696,12 @@ HingeJoint:
   m_GameObject: {fileID: 7191816884059432226}
   m_ConnectedBody: {fileID: 6576172670035864610}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -0.0000000014901158, y: 0.0056323865, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1709,10 +1709,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1777,8 +1777,8 @@ Rigidbody:
   m_GameObject: {fileID: 7412100066299924393}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1793,12 +1793,12 @@ HingeJoint:
   m_GameObject: {fileID: 7412100066299924393}
   m_ConnectedBody: {fileID: 1706951630165240959}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1806,10 +1806,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1874,8 +1874,8 @@ Rigidbody:
   m_GameObject: {fileID: 7877006054720162408}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1890,12 +1890,12 @@ HingeJoint:
   m_GameObject: {fileID: 7877006054720162408}
   m_ConnectedBody: {fileID: 7179912036121174033}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -3.7252895e-10, y: 0.004549663, z: 9.313226e-10}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1903,10 +1903,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -1970,12 +1970,12 @@ Rigidbody:
   m_GameObject: {fileID: 8729016665176064288}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!135 &3242593127761362989
 SphereCollider:
@@ -2032,8 +2032,8 @@ Rigidbody:
   m_GameObject: {fileID: 8865655690738628418}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3.01
-  m_AngularDrag: 4.79
+  m_Drag: 100
+  m_AngularDrag: 100
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2048,12 +2048,12 @@ HingeJoint:
   m_GameObject: {fileID: 8865655690738628418}
   m_ConnectedBody: {fileID: 2362610375094032}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000059604632, y: 0.005483493, z: 0.0000000013969839}
+  m_Axis: {x: 0, y: -1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005483493, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 1
+    spring: 20
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -2061,10 +2061,10 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 0
+    max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0

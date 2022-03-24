@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class TriggerInteractableContainer : MonoBehaviour {
     public bool IsHandCollider;
     public Dictionary<Interactable, int> EnteredObjects { get; private set; }
-    public Dictionary<Interactable, Dictionary<Collider, Vector3>> EnteredObjectPoints { get; private set; }
+    public Dictionary<Interactable, (Vector3, float, Collider)> EnteredObjectPoints { get; private set; }
 
     public delegate void InteractableContainerCallback(Interactable interactable);
 
@@ -18,7 +19,7 @@ public class TriggerInteractableContainer : MonoBehaviour {
 
     public void ResetContainer() {
         EnteredObjects = new Dictionary<Interactable, int>();
-        EnteredObjectPoints = new Dictionary<Interactable, Dictionary<Collider, Vector3>>();
+        EnteredObjectPoints = new Dictionary<Interactable, (Vector3, float, Collider)>();
     }
 
     public Dictionary<Interactable, int>.KeyCollection Objects {
@@ -43,14 +44,13 @@ public class TriggerInteractableContainer : MonoBehaviour {
             if (other.isTrigger && !(other.gameObject.layer == 5)) return;
             if (!IsHandCollider) return;
 
-            if (!(EnteredObjectPoints.ContainsKey(i))) {
-                EnteredObjectPoints.Add(i, new Dictionary<Collider, Vector3>());
-            }
 
-            if (EnteredObjectPoints[i].ContainsKey(other)) {
-                EnteredObjectPoints[i][other] = other.ClosestPoint(transform.position);
-            } else {
-                EnteredObjectPoints[i].Add(other, other.ClosestPoint(transform.position));
+            Vector3 newPosition = other.ClosestPoint(transform.position);
+            float newDistance = Vector3.Distance(transform.position, newPosition);
+            if (!(EnteredObjectPoints.ContainsKey(i))) {
+                EnteredObjectPoints.Add(i, (newPosition, newDistance, other));
+            } else if (EnteredObjectPoints[i].Item2 > newDistance) {
+                EnteredObjectPoints[i] = (newPosition, newDistance, other);
             }
         }
     }
@@ -60,9 +60,10 @@ public class TriggerInteractableContainer : MonoBehaviour {
 
         if (!IsHandCollider) return;
 
-        if (Interactable.GetInteractable(other.transform) is var i && i != null && EnteredObjectPoints.ContainsKey(i) && EnteredObjectPoints[i].ContainsKey(other)) {
-            if (other is MeshCollider mesh && !mesh.convex) Debug.Log(other.transform.parent.name);
-            EnteredObjectPoints[i][other] = other.ClosestPoint(transform.position);
+        Vector3 newPosition = other.ClosestPoint(transform.position);
+        float newDistance = Vector3.Distance(transform.position, newPosition);
+        if (Interactable.GetInteractable(other.transform) is var i && i != null && EnteredObjectPoints.ContainsKey(i) && EnteredObjectPoints[i].Item2 > newDistance) {
+            EnteredObjectPoints[i] = (newPosition, newDistance, other);
         }
     }
 
@@ -76,12 +77,12 @@ public class TriggerInteractableContainer : MonoBehaviour {
 
             if (!IsHandCollider) return;
 
-
+            //TODO: Fix edge cases!
             if (!EnteredObjectPoints.ContainsKey(i)) return;
-            EnteredObjectPoints[i]?.Remove(other);
-            if (EnteredObjectPoints[i].Count == 0) {
+            if (EnteredObjectPoints[i].Item3 == other) {
                 EnteredObjectPoints.Remove(i);
             }
+
         }
     }
 

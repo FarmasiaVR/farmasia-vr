@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using System.Linq;
 
 public class HandCollider : MonoBehaviour {
     [SerializeField]
@@ -100,23 +101,13 @@ public class HandCollider : MonoBehaviour {
         float closestDistance = float.MaxValue;
         Interactable closest = null;
 
-        foreach (Interactable rb in container.Objects) {
-            if (!IsHandCollider) {
-                float distance = Vector3.Distance(transform.position, rb.transform.position);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closest = rb;
-                }
-            } else {
-                if (!container.EnteredObjectPoints.ContainsKey(rb)) continue;
-                foreach (Vector3 colPos in container.EnteredObjectPoints[rb].Values) {
-                    float distance = Vector3.Distance(transform.position, colPos);
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        closest = rb;
-                        closestPoint = colPos;
-                    }
-                }
+        Interactable[] keys = IsHandCollider ? container.EnteredObjectPoints.Keys.ToArray() : container.Objects.ToArray();
+        foreach (Interactable i in keys) {
+            float distance = IsHandCollider ? container.EnteredObjectPoints[i].Item2 : Vector3.Distance(transform.position, i.transform.position);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closest = i;
+                if (IsHandCollider) closestPoint = container.EnteredObjectPoints[i].Item1;
             }
         }
         
