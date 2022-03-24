@@ -17,8 +17,8 @@ public class HandCollider : MonoBehaviour {
 
     private void Start() {
         closestPoint = Vector3.zero;
-        container = gameObject.AddComponent<TriggerInteractableContainer>();
-        container.IsHandCollider = IsHandCollider;
+        container = IsHandCollider ? gameObject.AddComponent<HandTriggerInteractableContainer>() : gameObject.AddComponent<TriggerInteractableContainer>();
+
         container.OnExit = OnInteractableExit;
 
         handColl = GetComponent<Collider>();
@@ -101,13 +101,13 @@ public class HandCollider : MonoBehaviour {
         float closestDistance = float.MaxValue;
         Interactable closest = null;
 
-        Interactable[] keys = IsHandCollider ? container.EnteredObjectPoints.Keys.ToArray() : container.Objects.ToArray();
+        Interactable[] keys = IsHandCollider ? (container as HandTriggerInteractableContainer).EnteredObjectPoints.Keys.ToArray() : container.Objects.ToArray();
         foreach (Interactable i in keys) {
-            float distance = IsHandCollider ? container.EnteredObjectPoints[i].Item2 : Vector3.Distance(transform.position, i.transform.position);
+            float distance = IsHandCollider ? (container as HandTriggerInteractableContainer).EnteredObjectPoints[i].Item2 : Vector3.Distance(transform.position, i.transform.position);
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closest = i;
-                if (IsHandCollider) closestPoint = container.EnteredObjectPoints[i].Item1;
+                if (IsHandCollider) closestPoint = (container as HandTriggerInteractableContainer).EnteredObjectPoints[i].Item1;
             }
         }
         
