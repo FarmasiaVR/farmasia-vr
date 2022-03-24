@@ -112,17 +112,17 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/heidihas">
-            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
-            <br />
-            <sub><b>Heidi Hassinen</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/vrfarmasia">
             <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
             <br />
             <sub><b>Vrfarmasia</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/heidihas">
+            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+            <br />
+            <sub><b>Heidi Hassinen</b></sub>
         </a>
     </td>
     <td align="center">
