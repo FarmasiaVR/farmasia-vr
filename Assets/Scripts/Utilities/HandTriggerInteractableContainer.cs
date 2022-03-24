@@ -19,6 +19,7 @@ public class HandTriggerInteractableContainer : TriggerInteractableContainer
 
             if (other.isTrigger && !(other.gameObject.layer == 5)) return;
 
+
             Vector3 newPosition = other.ClosestPoint(transform.position);
             float newDistance = Vector3.Distance(transform.position, newPosition);
             if (!(EnteredObjectPoints.ContainsKey(i))) {
@@ -31,6 +32,7 @@ public class HandTriggerInteractableContainer : TriggerInteractableContainer
 
     private void OnTriggerStay(Collider other) {
         if (other.isTrigger && !(other.gameObject.layer == 5)) return;
+        if (other is MeshCollider mesh && !mesh.convex) Debug.Log(other.transform.parent.name);
 
         Vector3 newPosition = other.ClosestPoint(transform.position);
         float newDistance = Vector3.Distance(transform.position, newPosition);

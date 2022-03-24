@@ -29,7 +29,7 @@ public class CleaningBottleCollider : MonoBehaviour
             item.Contamination = GeneralItem.ContaminateState.Clean;
         }
         if (Items.Count > 0) {
-            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+            transform.parent.GetComponentInChildren<AudioSource>().Play();
         }
     }
 }
