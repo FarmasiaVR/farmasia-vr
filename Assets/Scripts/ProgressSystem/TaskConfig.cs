@@ -199,7 +199,7 @@ public static class TaskConfig {
             TaskType.FillBottles,
             "100ml pullojen täyttö",
             "Täytä pullot",
-            "Just do it",
+            "Lisää pieniin pulloihin 80 ml elatusaineita, 2 pulloa kutakin",
             "Hienoa, pullot täytetty",
             4
         ),
@@ -208,16 +208,16 @@ public static class TaskConfig {
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
             "Kokoa pumppu!",
-            "Kiinnitä filtteri ja letku pumppuun.",
+            "Kiinnitä suodatin ja jäteletku pumppuun.",
             "Hienoa, pumppu on koossa",
             2
         ),
 
         info(
             TaskType.WetFilter,
-            "Filtterin kostutus",
-            "Kostuta filtteri :D",
-            "Caman kyl s� osaat",
+            "Suodattimen kostutus",
+            "Kostuta suodatin",
+            "Kostuta suodatin lisäämällä 1ml peptonivettä",
             "Hienosti kostutettu!",
             2
         )
