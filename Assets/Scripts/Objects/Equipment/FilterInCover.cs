@@ -9,6 +9,8 @@ public class FilterInCover : GeneralItem {
     private GameObject assemblyFilterParts;
     [SerializeField]
     private GameObject filterAndCoverModel;
+    [SerializeField]
+    private Interactable filterBase;
 
     private bool coverOn;
 
@@ -33,12 +35,15 @@ public class FilterInCover : GeneralItem {
         cover.OpenCoverWithButtonPress(hand);
         coverOn = cover.CoverOn;
         if (coverOn == false) {
-            EnableAssemblyFilterParts();
+            EnableAssemblyFilterParts(hand);
         }
     }
-    public void EnableAssemblyFilterParts() {
+    public void EnableAssemblyFilterParts(Hand hand) {
         assemblyFilterParts.SetActive(true);
         filterAndCoverModel.SetActive(false);
+        hand.Uninteract();
+        hand.Connector.ConnectItem(filterBase);
+        filterBase.OnGrabStart(hand);
     }
 
 }
