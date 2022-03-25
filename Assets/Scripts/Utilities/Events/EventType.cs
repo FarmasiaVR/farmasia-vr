@@ -40,5 +40,6 @@
     PlateOpened,
     AttachPipe,
     OpenTweezersPackage,
-    SyringeDisassembled
+    SyringeDisassembled,
+    FilterLiquid
 }
