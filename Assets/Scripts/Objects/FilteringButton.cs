@@ -43,7 +43,6 @@ public class FilteringButton : Interactable {
 
         // find tanks liquid container
         FilterTank = Pump.transform.GetChild(3);
-        Logger.Print("heipäehi" + FilterTank);
     }
 
     void RemoveLiquid() {
