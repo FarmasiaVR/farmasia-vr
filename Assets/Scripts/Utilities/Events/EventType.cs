@@ -41,5 +41,5 @@
     AttachPipe,
     OpenTweezersPackage,
     SyringeDisassembled,
-    FilterLiquid
+    FilterIsEmpty
 }

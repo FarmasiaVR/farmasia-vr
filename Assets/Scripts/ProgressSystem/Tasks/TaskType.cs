@@ -24,5 +24,6 @@ public enum TaskType {
     OpenAgarplates,
     WetFilter,
     CorrectItemsInLaminarCabinetMembrane,
-    MedicineToFilter
+    MedicineToFilter,
+    StartPump,
 }

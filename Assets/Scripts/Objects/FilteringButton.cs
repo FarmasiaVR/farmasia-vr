@@ -72,7 +72,9 @@ public class FilteringButton : Interactable {
         running = false;
         Logger.Print("Pump OFF");
 
-        Events.FireEvent(EventType.FilterLiquid);
+        Container.SetAmount(0);
+        Events.FireEvent(EventType.FilterIsEmpty);
+        
     }
 
 

@@ -146,6 +146,7 @@ public class ProgressManager {
             TaskType.FillBottles,
             TaskType.AssemblePump,
             TaskType.WetFilter,
+            //TaskType.StartPump,
             TaskType.MedicineToFilter
 
         };

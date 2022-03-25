@@ -57,9 +57,11 @@ public static class TaskFactory {
                 case TaskType.OpenAgarplates:
                     return new OpenAgarplates();
                 case TaskType.WetFilter:
-                    return new LiquidToFilter("Lisää peptonivesi filteriin", 10000, LiquidType.Peptonwater, TaskType.WetFilter);
+                    return new LiquidToFilter("Lisää peptonivesi suodattimeen", 10000, LiquidType.Peptonwater, TaskType.WetFilter);
+                //case TaskType.StartPump:
+                //    return new StartPump();
                 case TaskType.MedicineToFilter:
-                    return new LiquidToFilter("Lisää lääke filteriin", 1500, LiquidType.Medicine, TaskType.MedicineToFilter);
+                    return new LiquidToFilter("Lisää lääke suodattimeen", 1500, LiquidType.Medicine, TaskType.MedicineToFilter);
                 default:
                     return null;
             }
