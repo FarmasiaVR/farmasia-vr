@@ -1,5 +1,287 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &752961957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752961958}
+  - component: {fileID: 752961964}
+  - component: {fileID: 752961963}
+  - component: {fileID: 752961962}
+  - component: {fileID: 752961961}
+  - component: {fileID: 752961960}
+  - component: {fileID: 752961959}
+  m_Layer: 12
+  m_Name: Sphere (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &752961958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.961, z: 0}
+  m_LocalScale: {x: 0.064717, y: 0.064717, z: 0.064717}
+  m_Children: []
+  m_Father: {fileID: 3379289945866135573}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &752961964
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &752961963
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!135 &752961962
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &752961961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b75bcf047a30ce44be5adc664d5aa48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 0
+  isClean: 1
+--- !u!54 &752961960
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 10000
+  m_AngularDrag: 10000
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &752961959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752961957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25971107b0f3bba499c5ee66ffb8662b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlPoint: {fileID: 8364071049849555442}
+--- !u!1 &1869209276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869209277}
+  - component: {fileID: 1869209283}
+  - component: {fileID: 1869209282}
+  - component: {fileID: 1869209281}
+  - component: {fileID: 1869209280}
+  - component: {fileID: 1869209279}
+  - component: {fileID: 1869209278}
+  m_Layer: 12
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1869209277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalScale: {x: 0.064717, y: 0.064717, z: 0.064717}
+  m_Children: []
+  m_Father: {fileID: 3379289945866135573}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1869209283
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1869209282
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!135 &1869209281
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1869209280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b75bcf047a30ce44be5adc664d5aa48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 0
+  isClean: 1
+--- !u!54 &1869209279
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 10000
+  m_AngularDrag: 10000
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1869209278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869209276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25971107b0f3bba499c5ee66ffb8662b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlPoint: {fileID: 2723067050084898085}
 --- !u!1 &306711633019515942
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +345,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0, y: 0.0056382045, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -74,8 +356,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -160,7 +442,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -171,8 +453,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -257,7 +539,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.005578397, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -268,8 +550,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -354,7 +636,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0.0000000014551915, y: 0.0067690522, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -365,8 +647,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -451,7 +733,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005538821, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -462,8 +744,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -611,10 +893,12 @@ Transform:
   m_GameObject: {fileID: 2715238336956871343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.715, z: 1.99}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.11957, y: 0.11957, z: 0.11957}
   m_Children:
   - {fileID: 2055677804072239255}
   - {fileID: 4859008957740502277}
+  - {fileID: 1869209277}
+  - {fileID: 752961958}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -681,7 +965,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0, y: 0.005516477, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -692,8 +976,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -778,7 +1062,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -789,8 +1073,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -925,7 +1209,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.0055151675, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -936,8 +1220,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1022,7 +1306,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000014901158, y: 0.00548483, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1033,8 +1317,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1119,7 +1403,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1130,8 +1414,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1216,7 +1500,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055783987, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1227,8 +1511,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1313,7 +1597,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.000000014726538, y: 0.0066381907, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1324,8 +1608,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1410,7 +1694,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055551603, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1421,8 +1705,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1507,7 +1791,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000029802316, y: 0.005590223, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1518,8 +1802,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1604,7 +1888,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.0055362433, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1615,8 +1899,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1701,7 +1985,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000014901158, y: 0.0056323865, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1712,8 +1996,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1798,7 +2082,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: 0, y: 0.005574502, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1809,8 +2093,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -1895,7 +2179,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -3.7252895e-10, y: 0.004549663, z: 9.313226e-10}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -1906,8 +2190,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
@@ -2053,7 +2337,7 @@ HingeJoint:
   m_ConnectedAnchor: {x: -0.0000000059604632, y: 0.005483493, z: 0.0000000013969839}
   m_UseSpring: 1
   m_Spring:
-    spring: 20
+    spring: 1
     damper: 20
     targetPosition: 0
   m_UseMotor: 0
@@ -2064,8 +2348,8 @@ HingeJoint:
   m_UseLimits: 1
   m_Limits:
     min: 0
-    max: 90
-    bounciness: 0
+    max: 45
+    bounciness: 0.1
     bounceMinVelocity: 0.2
     contactDistance: 0
   m_BreakForce: Infinity
