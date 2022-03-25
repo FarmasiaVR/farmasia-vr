@@ -19,8 +19,13 @@ class StartPump: Task {
 
     private void OnFilterEmpty(CallbackData data) {
         if (!Started) return;
-        
+
+        EnableCondition(Conditions.FilterIsEmpty);
+        CompleteTask();
+        /*
+        Logger.Print("dataobjekti on "+ data);
         LiquidContainer container = data.DataObject as LiquidContainer;
+        
         if (container.GeneralItem is PumpFilter filter && filter.ObjectType == ObjectType.PumpFilter) {
             pumpFilter = filter;
             if (filter.Container.Amount == 0) {
@@ -29,6 +34,9 @@ class StartPump: Task {
                 CompleteTask();
             }
         }
+
+        */
+        
     }
 
     private void CheckMistakes() {
