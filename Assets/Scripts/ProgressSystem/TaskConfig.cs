@@ -220,6 +220,15 @@ public static class TaskConfig {
             "Kostuta suodatin lisäämällä 1ml peptonivettä",
             "Hienosti kostutettu!",
             2
+        ),
+
+        info(
+            TaskType.StartPump,
+            "Kostutusliuoksen suodatus",
+            "Käynnistä pumppu",
+            "Käynnistä pumppu painamalla käynnistysnappulaa",
+            "Kostutettu!",
+            2
         )
 
     }.ToDictionary(pair => pair.Key, pair => pair.Value);

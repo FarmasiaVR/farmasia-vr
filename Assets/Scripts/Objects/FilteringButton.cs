@@ -74,7 +74,6 @@ public class FilteringButton : Interactable {
 
         Container.SetAmount(0);
         Events.FireEvent(EventType.FilterIsEmpty);
-        
     }
 
 
