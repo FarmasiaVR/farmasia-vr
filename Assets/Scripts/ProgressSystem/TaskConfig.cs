@@ -229,6 +229,15 @@ public static class TaskConfig {
             "Käynnistä pumppu painamalla käynnistysnappulaa",
             "Kostutettu!",
             2
+        ),
+
+        info(
+            TaskType.StartPumpAgain,
+            "Lääkevalmisteen suodatus",
+            "Käynnistä pumppu",
+            "Käynnistä pumppu painamalla käynnistysnappulaa",
+            "Suodatettu!",
+            2
         )
 
     }.ToDictionary(pair => pair.Key, pair => pair.Value);

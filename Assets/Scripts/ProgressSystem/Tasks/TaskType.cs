@@ -26,4 +26,5 @@ public enum TaskType {
     CorrectItemsInLaminarCabinetMembrane,
     MedicineToFilter,
     StartPump,
+    StartPumpAgain
 }
