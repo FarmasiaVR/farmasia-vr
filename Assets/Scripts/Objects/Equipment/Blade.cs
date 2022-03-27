@@ -10,12 +10,10 @@ public class Blade : MonoBehaviour {
         cover = transform.parent.GetComponentInChildren<Cover>();
     }
 
-    void onTriggerEnter(Collider collider) {
-        Logger.Print("Watafaaak");
+    void OnTriggerEnter(Collider collider) {
         var filter = collider.gameObject.GetComponent<PumpFilterFilter>();
-        Logger.Print("Blade hit " + filter + " and cover is " + cover.CoverOn);
-        if (cover.CoverOn) return;
-        if (filter == null) return;
-        Logger.Print("Cutting Filter");
+        if (cover.CoverOn || filter == null) return;
+        if (filter.CanBeCut)
+            filter.Cut();
     }
 }

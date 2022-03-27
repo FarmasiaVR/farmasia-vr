@@ -23,7 +23,7 @@ public class Cover : MonoBehaviour
     // Start is called before the first frame update
     protected void Start() {
         coverOn = true;     
-        OpenCover = OpenCoverWithPull;
+        OpenCover = OpenCoverWithButtonPress;
     }
 
     private void OpenCoverWithButtonPress(Hand hand) {

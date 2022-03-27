@@ -238,6 +238,15 @@ public static class TaskConfig {
             "Käynnistä pumppu painamalla käynnistysnappulaa",
             "Suodatettu!",
             2
+        ),
+
+        info(
+            TaskType.CutFilter,
+            "Kalvosuodattimen leikkaus",
+            "Leikkaa suodatin",
+            "Avaa suodattimen tankki ja leikkaa kalvosuodatin varovasti skalpellilla",
+            "Hienoa, suodatin leikattu",
+            2000
         )
 
     }.ToDictionary(pair => pair.Key, pair => pair.Value);

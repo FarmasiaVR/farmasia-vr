@@ -64,6 +64,8 @@ public static class TaskFactory {
                     return new LiquidToFilter("Lisää lääke suodattimeen", 1500, LiquidType.Medicine, TaskType.MedicineToFilter);
                 case TaskType.StartPumpAgain:
                     return new StartPump(TaskType.StartPumpAgain);
+                case TaskType.CutFilter:
+                    return new CutFilter();
                 default:
                     return null;
             }

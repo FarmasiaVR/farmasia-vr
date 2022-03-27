@@ -11,7 +11,6 @@ public class FilterPart : ReceiverItem
         Container = LiquidContainer.FindLiquidContainer(transform);
 
         AfterRelease = (interactable) => {
-            Logger.Print("Filter dissassembled!");
             Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
         };
     }

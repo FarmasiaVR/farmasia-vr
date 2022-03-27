@@ -14,7 +14,7 @@ class StartPump: Task {
 
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        SubscribeEvent(OnFilterEmpty, EventType.FilterIsEmpty);
+        SubscribeEvent(OnFilterEmpty, EventType.FilterEmptied);
     }
 
     private void OnFilterEmpty(CallbackData data) {
