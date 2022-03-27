@@ -10,7 +10,7 @@ class StartPump: Task {
 
     private PumpFilter pumpFilter;
     
-    public StartPump() : base(TaskType.StartPump, true, false) {
+    public StartPump(TaskType type) : base(type, true, false) {
 
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

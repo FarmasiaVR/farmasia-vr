@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PumpFilterLid : AttachmentItem
-{
+public class PumpFilterLid : AttachmentItem {
 
 }

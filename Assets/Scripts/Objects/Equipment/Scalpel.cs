@@ -7,12 +7,16 @@ public class Scalpel : GeneralItem {
     [SerializeField]
     private Cover cover;
 
+    [SerializeField]
+    private Collider blade;
+
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Scalpel;
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
+        
     }
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
@@ -25,6 +29,6 @@ public class Scalpel : GeneralItem {
     }
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
-        cover.OpenCoverWithButtonPress(hand);
+        cover.OpenCover(hand);
     }
 }

@@ -26,6 +26,6 @@ public class Tweezers : GeneralItem {
     }
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
-        cover.OpenCoverWithButtonPress(hand);
+        cover.OpenCover(hand);
     }
 }
