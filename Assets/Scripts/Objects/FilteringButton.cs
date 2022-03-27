@@ -6,8 +6,6 @@ public class FilteringButton : Interactable {
 
     private bool running = false;
 
-    private UnityEvent onActivate;
-
     private Transform FilterTank;
     private LiquidContainer Container;
 

@@ -33,6 +33,8 @@ public class CorrectItemsInThroughputMembrane : Task {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
+        } else {
+            throw new Exception("Pass through cabinet not found for correct items task!");
         }
     }
 
@@ -222,7 +224,7 @@ public class CorrectItemsInThroughputMembrane : Task {
             }
         }
         if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1 && cleaningBottle == 1)) {
-            CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
+            // CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
         }
     }
 

@@ -60,7 +60,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     #region Public Methods
 
-    public override string Hint { get => base.hint + laminarCabinet.GetMissingItems(); }
+    public override string Hint { get => base.hint + laminarCabinet?.GetMissingItems(); }
 
     protected override void OnTaskComplete() { /* Nothing */ }
 
