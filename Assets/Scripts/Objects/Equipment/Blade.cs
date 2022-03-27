@@ -10,10 +10,14 @@ public class Blade : MonoBehaviour {
         cover = transform.parent.GetComponentInChildren<Cover>();
     }
 
-    void OnTriggerEnter(Collider collider) {
-        var filter = collider.gameObject.GetComponent<PumpFilterFilter>();
+    private void OnTriggerEnter(Collider other) {
+        if (other.isTrigger) return;
+        var filter = other.gameObject.transform.parent?.GetComponent<PumpFilterFilter>();
         if (cover.CoverOn || filter == null) return;
-        if (filter.CanBeCut)
-            filter.Cut();
+        if (filter.CanBeCut) { 
+            filter.Cut(transform);
+        }
     }
+
+
 }

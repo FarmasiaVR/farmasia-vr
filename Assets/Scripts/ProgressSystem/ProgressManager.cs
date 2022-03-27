@@ -147,8 +147,9 @@ public class ProgressManager {
             TaskType.AssemblePump,
             TaskType.WetFilter,
             TaskType.StartPump,
-            TaskType.MedicineToFilter
-
+            TaskType.MedicineToFilter,
+            TaskType.StartPumpAgain,
+            TaskType.CutFilter
         };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));

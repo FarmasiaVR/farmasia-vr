@@ -24,7 +24,6 @@ public class ScoreCalculator {
         TaskMistakes = new Dictionary<TaskType, HashSet<string>>();
         Mistakes = new Dictionary<string, int>();
         AddTasks(allTasks);
-        Logger.Warning("ScoreCalculator has " + allTasks.Count);
     }
 
     public void CreateMistake(string mistake, int minusPoints = 1) {
