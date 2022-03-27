@@ -194,13 +194,14 @@ public class Hand : MonoBehaviour {
 
         HandCollider.Enable(true);
         ExtendedHandCollider.Enable(true);
+        if (interactedInteractable == null) return;
 
         if (IsGrabbed) {
             Connector.Connection.Remove();
             interactedInteractable.OnGrabEnd(this);
             interactedInteractable = null;
             Events.FireEvent(EventType.ReleaseObject, CallbackData.Object(this));
-        } else if (interactedInteractable != null) {
+        } else {
             interactedInteractable.Uninteract(this);
             interactedInteractable = null;
             Events.FireEvent(EventType.UninteractWithObject, CallbackData.Object(this));
