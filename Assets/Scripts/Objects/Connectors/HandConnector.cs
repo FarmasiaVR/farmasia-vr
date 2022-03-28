@@ -8,7 +8,7 @@ public class HandConnector : ItemConnector {
 
     public bool IsGrabbed { get => GrabbedInteractable != null; }
 
-    public Interactable GrabbedInteractable { get; private set; }
+    public Interactable GrabbedInteractable { get; set; }
 
     public override ItemConnection Connection { get; set; }
     #endregion

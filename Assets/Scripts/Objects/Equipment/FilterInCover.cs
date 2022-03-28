@@ -43,7 +43,10 @@ public class FilterInCover : GeneralItem {
         filterAndCoverModel.SetActive(false);
         hand.Uninteract();
         hand.Connector.ConnectItem(filterBase);
-        filterBase.OnGrabStart(hand);
+        hand.Connector.GrabbedInteractable = filterBase;
+        hand.interactedInteractable = filterBase;
+        filterBase.State.On(InteractState.Grabbed);
+        filterBase.OnGrabStart(hand);      
     }
 
 }
