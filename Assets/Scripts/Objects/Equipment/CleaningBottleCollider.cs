@@ -25,10 +25,12 @@ public class CleaningBottleCollider : MonoBehaviour
 
     public void Clean() {
         particleSystem.Play();
+        bool cleaned = false;
         foreach (GeneralItem item in Items) {
+            cleaned |= item.Contamination == GeneralItem.ContaminateState.Contaminated || item.Contamination == GeneralItem.ContaminateState.FloorContaminated;
             item.Contamination = GeneralItem.ContaminateState.Clean;
         }
-        if (Items.Count > 0) {
+        if (cleaned) {
             transform.parent.GetComponentInChildren<AudioSource>().Play();
         }
     }
