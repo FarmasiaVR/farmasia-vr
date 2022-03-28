@@ -30,7 +30,8 @@ public class ObjectHighlight : MonoBehaviour {
             return;
         }
         highlighted = true;
-        if (this.transform.gameObject.name == "Right opening spot" || this.transform.gameObject.name == "Wrong opening spot") {
+        if (this.transform.gameObject.name == "Right opening spot" || this.transform.gameObject.name == "Wrong opening spot"
+            || this.transform.gameObject.name == "Push") {
             for (int i = 0; i < materials.Count; i++) {
                 materials[i].SetColor("_EmissionColor", openingSpotHighlightColor);
             }

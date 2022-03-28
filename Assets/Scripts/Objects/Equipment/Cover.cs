@@ -22,7 +22,7 @@ public class Cover : MonoBehaviour
 
     // Start is called before the first frame update
     protected void Start() {
-        coverOn = true;     
+        coverOn = true;
         OpenCover = OpenCoverWithButtonPress;
     }
 
@@ -46,7 +46,7 @@ public class Cover : MonoBehaviour
 
         if (openCover && ClosestEqualsOpeningSpot()) {
             coverOn = false;
-            coverGameObject.SetActive(false);  
+            coverGameObject.SetActive(false);
         }
     }
 
