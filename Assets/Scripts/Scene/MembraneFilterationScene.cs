@@ -19,6 +19,9 @@ class MembraneFilterationScene : SceneScript {
     }
 
     [SerializeField]
+    private bool CleanEquipment = true;
+
+    [SerializeField]
     public AutoPlayStrength autoPlayStrength;
 
     [SerializeField]
@@ -29,7 +32,8 @@ class MembraneFilterationScene : SceneScript {
         tweezers, scalpel,
         pumpFilter, pump,
         sterileBag,
-        cleaningBottle
+        cleaningBottle,
+        writingPen
         ;
 
     [SerializeField]
@@ -97,9 +101,11 @@ class MembraneFilterationScene : SceneScript {
 
         for (int i = 0; i < transforms.Count; i++) { // -1 because no pen
             yield return Wait();
-            DropAt(transforms[i], cleaningPosition);
-            yield return Wait();
-            cleaningBottle.GetComponent<CleaningBottle>().Clean();
+            if (CleanEquipment) { 
+                DropAt(transforms[i], cleaningPosition);
+                yield return Wait();
+                cleaningBottle.GetComponent<CleaningBottle>().Clean();
+            }
             DropAt(transforms[i], correctPositions.GetChild(i).transform);
         }
 
@@ -116,10 +122,6 @@ class MembraneFilterationScene : SceneScript {
         hand.InteractWith(teleportDoorKnob);
 
         yield return Wait();
-
-        yield break;
-
-        /*
 
         hand.Uninteract();
 
@@ -141,6 +143,9 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
+
+        yield break;
+        /*
 
         WritingPen pen = ToInteractable(gameObjects[19]) as WritingPen;
         AgarPlateLid plateS1Lid = gameObjects[3].GetComponentInChildren<AgarPlateLid>();

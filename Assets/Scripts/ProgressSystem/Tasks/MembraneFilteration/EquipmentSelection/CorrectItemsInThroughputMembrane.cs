@@ -34,8 +34,6 @@ public class CorrectItemsInThroughputMembrane: Task {
             this.cabinet = cabinet;
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        } else {
-            throw new Exception("Pass through cabinet not found for correct items task!");
         }
     }
 
@@ -198,7 +196,6 @@ public class CorrectItemsInThroughputMembrane: Task {
         if (Completed) {
             Popup(base.success, MsgType.Done);
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
-            ((MedicinePreparationScene) G.Instance.Scene).InSecondRoom = true;
         }
     }
     #endregion

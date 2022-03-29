@@ -69,6 +69,7 @@ public abstract class Task {
         //Logger.Print("Clear conditions: " + completed);
         if (Completed) {
             CloseTask();
+            Popup(success, MsgType.Done, Points);
         }
     }
 

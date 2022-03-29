@@ -38,6 +38,8 @@ public class RoomTeleport : MonoBehaviour {
 
         player.position = playerDst.position;
 
+        if (G.Instance.CurrentSceneType != SceneTypes.MedicinePreparation) return;
+
         MedicinePreparationScene m = G.Instance.Scene as MedicinePreparationScene;
 
         if (!m.Restarted || MedicinePreparationScene.SavedScoreState == null) {

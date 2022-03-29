@@ -33,7 +33,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase) data.DataObject;
-        Logger.Print("Cabinet: " + cabinet.type);
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
@@ -78,9 +77,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         int pipette = 0;
         int sterileBag = 0;
         int pump = 0;
-        int filterLid = 0;
-        int filterTank = 0;
-        int filterBase = 0;
         int filter = 0;
 
         int uncleanCount = 0;
@@ -132,24 +128,10 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 } else if (g is Pump) {
                     EnableCondition(Conditions.Pump);
                     pump++;
-                } else if (g is FilterPart filterParts) {
-                    if (filterParts.ObjectType == ObjectType.PumpFilterTank) {
-                        filterTank++;
-                    }
-                    if (filterParts.ObjectType == ObjectType.PumpFilterBase) {
-                        filterBase++;
-                    }
-                    if (filterParts.ObjectType == ObjectType.PumpFilterFilter) {
-                        filter++;
-                    }
-                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
-                        EnableCondition(Conditions.PumpFilter);
-                    }
-                } else if (g is PumpFilterLid) {
-                    filterLid++;
-                    if (filterBase == 1 && filterLid == 1 && filterTank == 1 && filter == 1) {
-                        EnableCondition(Conditions.PumpFilter);
-                    }
+                } else if (g is FilterInCover) {
+                    EnableCondition(Conditions.PumpFilter);
+                    filter++;
+                
                 } else if (g is SterileBag) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
@@ -171,11 +153,4 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         }
     }
     #endregion
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            Popup("Tavarat kaapissa!", MsgType.Done, base.Points);
-        }
-    }
 }
