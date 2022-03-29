@@ -21,10 +21,15 @@ class MembraneFilterationScene : SceneScript {
     [SerializeField]
     public AutoPlayStrength autoPlayStrength;
 
-    [Tooltip("Prefabs")]
     [SerializeField]
-    private GameObject p_pipette, p_tweezers, p_scalpel, p_soyCaseinePlate, p_sabouradDextrosiPlate, p_bottle100ml, 
-        p_soyCaseineBottle, p_peptonWaterBottle, p_tioglykolateBottle, p_pump, p_pump_filter, p_filledSterileBag, p_writingPen;
+    private GameObject pipette0, pipette1, pipette2,
+        bottle0, bottle1, bottle2, bottle3,
+        plate0, plate1, plate2, plate3,
+        soycaseine, tioglykolate, peptonwater,
+        tweezers, scalpel,
+        pumpFilter, pump,
+        sterileBag
+        ;
 
     [Tooltip("Scene items")]
     [SerializeField]
@@ -69,39 +74,16 @@ class MembraneFilterationScene : SceneScript {
         
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> gameObjects = new List<GameObject>() {
-            p_pipette,
-            p_scalpel,
-            p_tweezers,
-
-            p_soyCaseinePlate, // 3
-            p_soyCaseinePlate, // 4
-            p_soyCaseinePlate, // 5
-            p_sabouradDextrosiPlate, // 6
-
-            p_bottle100ml,
-            p_bottle100ml,
-            p_bottle100ml,
-            p_bottle100ml,
-
-            p_soyCaseineBottle,
-            p_peptonWaterBottle,
-            p_tioglykolateBottle,
-
-            p_pump, // 14
-            p_pump_filter, // 15
-
-            p_filledSterileBag, // 16
-
-            p_pipette,
-            p_pipette,
-
-            p_writingPen, // 19
-
-        }.Select(InstantiateObject).ToList();
+            pipette0, pipette1, pipette2,
+            bottle0, bottle1, bottle2, bottle3,
+            plate0, plate1, plate2, plate3,
+            soycaseine, tioglykolate, peptonwater,
+            tweezers, scalpel,
+            pumpFilter, pump,
+            sterileBag
+        };
 
         List<Transform> transforms = gameObjects.Select(SelectTransform).ToList();
-
-        Logger.Print(transforms[5]);
 
         yield return Wait();
 
@@ -109,7 +91,7 @@ class MembraneFilterationScene : SceneScript {
 
         // --- Set to correct positions in throughput cabinet ---
 
-        for (int i = 0; i < transforms.Count - 1; i++) { // -1 because no pen
+        for (int i = 0; i < transforms.Count; i++) { // -1 because no pen
             yield return Wait();
             DropAt(transforms[i], correctPositions.GetChild(i).transform);
         }
@@ -127,6 +109,10 @@ class MembraneFilterationScene : SceneScript {
         hand.InteractWith(teleportDoorKnob);
 
         yield return Wait();
+
+        yield break;
+
+        /*
 
         hand.Uninteract();
 
@@ -352,8 +338,10 @@ class MembraneFilterationScene : SceneScript {
         if (autoPlay == AutoPlayStrength.PreparePump) {
             yield break;
         }
+        
 
         yield break;
+        */
     }
 
     private GameObject InstantiateObject(GameObject prefab) {
