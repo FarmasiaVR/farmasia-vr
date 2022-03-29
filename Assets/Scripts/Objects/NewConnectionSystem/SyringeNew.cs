@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SyringeNew : ReceiverItem {
 
-    public LiquidContainer Container;
+    public LiquidContainer Container { get; private set; }
 
     // How much liquid is moved per click
     public int LiquidTransferStep = 50;
@@ -18,8 +18,12 @@ public class SyringeNew : ReceiverItem {
 
     public bool hasBeenInBottle;
 
-    [SerializeField]
-    private ItemDisplay display;
+    /*[SerializeField]
+    private ItemDisplay display;*/
+
+    private GameObject liquidDisplay;
+    private GameObject currentDisplay;
+    private bool displayState;
     protected override void Start() {
         base.Start();
 
@@ -34,19 +38,40 @@ public class SyringeNew : ReceiverItem {
             Logger.Print("Syringe disassembled!");
             Events.FireEvent(EventType.SyringeDisassembled, CallbackData.Object((this, interactable)));
         };
+
+        liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
+        displayState = false;
+    }
+
+    public void EnableDisplay() {
+        if (displayState) {
+            return;
+        }
+
+        displayState = true;
+        currentDisplay = Instantiate(liquidDisplay);
+        LiquidDisplay display = currentDisplay.GetComponent<LiquidDisplay>();
+        display.SetFollowedObject(gameObject);
+    }
+
+    public void DisableDisplay() {
+        if (currentDisplay != null) {
+            Destroy(currentDisplay);
+        }
+
+        displayState = false;
     }
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
-
-        display.EnableDisplay();
+        EnableDisplay();
     }
 
     public override void OnGrabEnd(Hand hand) {
         base.OnGrabEnd(hand);
 
-        if (State != InteractState.LuerlockAttached && State != InteractState.Grabbed) {
-            display.DisableDisplay();
+        if (State != InteractState.Grabbed) {
+            DisableDisplay();
         }
     }
 
