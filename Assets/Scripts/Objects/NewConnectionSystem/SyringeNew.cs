@@ -80,8 +80,9 @@ public class SyringeNew : ReceiverItem {
         if (State == InteractState.InBottle) {
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+            SetSyringeHandlePosition();
         } else {
-            Logger.Print("PipetteContainer not in bottle");
+            Logger.Print("Syringe not in bottle");
         }
     }
 
@@ -93,6 +94,7 @@ public class SyringeNew : ReceiverItem {
         } else {
             Eject();
         }
+        SetSyringeHandlePosition();
     }
 
     private void Eject() {

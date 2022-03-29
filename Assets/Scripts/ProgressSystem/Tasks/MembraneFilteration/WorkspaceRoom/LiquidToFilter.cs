@@ -25,7 +25,16 @@ class LiquidToFilter : Task {
 
     private void OnFilterWet(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
-        if (Started) {
+        if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
+            pumpFilter = filter;
+            if (filter.Container.Amount >= REQUIRED_AMOUNT) {
+                Logger.Print("Enabling condotions");
+                EnableCondition(Conditions.AddedLiquid);
+                CheckMistakes();
+                CompleteTask();
+            }
+        }
+        /*if (Started) {
             if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
                 pumpFilter = filter;
                 if (filter.Container.Amount >= REQUIRED_AMOUNT) {
@@ -35,7 +44,7 @@ class LiquidToFilter : Task {
                     CompleteTask();
                 }
             }
-        }
+        }*/
     }
 
     private void CheckMistakes() {
