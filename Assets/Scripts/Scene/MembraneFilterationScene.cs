@@ -28,8 +28,12 @@ class MembraneFilterationScene : SceneScript {
         soycaseine, tioglykolate, peptonwater,
         tweezers, scalpel,
         pumpFilter, pump,
-        sterileBag
+        sterileBag,
+        cleaningBottle
         ;
+
+    [SerializeField]
+    private Transform cleaningPosition;
 
     [Tooltip("Scene items")]
     [SerializeField]
@@ -93,6 +97,9 @@ class MembraneFilterationScene : SceneScript {
 
         for (int i = 0; i < transforms.Count; i++) { // -1 because no pen
             yield return Wait();
+            DropAt(transforms[i], cleaningPosition);
+            yield return Wait();
+            cleaningBottle.GetComponent<CleaningBottle>().Clean();
             DropAt(transforms[i], correctPositions.GetChild(i).transform);
         }
 
@@ -342,13 +349,6 @@ class MembraneFilterationScene : SceneScript {
 
         yield break;
         */
-    }
-
-    private GameObject InstantiateObject(GameObject prefab) {
-        GameObject g = Instantiate(prefab, spawnPos, Quaternion.Euler(Vector3.zero));
-        spawnPos += Vector3.one;
-        if (g == null) Logger.Error("Failed instantiating " + prefab);
-        return g;
     }
 
     private Transform SelectTransform(GameObject gameObject) {

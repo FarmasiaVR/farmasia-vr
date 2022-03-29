@@ -18,7 +18,11 @@ public class CleaningBottle : GeneralItem
         bool dPadWestDown = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
 
         if (dPadWestDown) {
-            cleaningCollider.Clean();
+            Clean();
         }
+    }
+
+    public void Clean() {
+        cleaningCollider.Clean();
     }
 }
