@@ -25,7 +25,7 @@ public class AgarPlateLid : ConnectableItem {
                 return interactable is AgarPlateBottom;
             },
             AfterRelease = (interactable) => {
-                Events.FireEvent(EventType.PlateOpened, CallbackData.Object(interactable));
+                Events.FireEvent(EventType.PlateOpened, CallbackData.Object(this));
             }
         };
 

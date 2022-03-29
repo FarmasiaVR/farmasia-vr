@@ -43,21 +43,19 @@ public class OpenAgarplates : Task {
     /// </summary>
     /// <param name="data"></param>
     private void TrackOpenedPlates(CallbackData data) {
-        GeneralItem interactable = data.DataObject as AgarPlateBottom;
-        ObjectType plateType = interactable.ObjectType;
+        Logger.Print("Agar plate opened");
+        var lid = (data.DataObject as AgarPlateLid);
+        if (lid == null) return;
 
-        if (laminarCabinet == null) {
-            CreateTaskMistake("Avasit laskeumamaljan liian aikaisin", 1);
-            return;
-        } else if (!laminarCabinet.GetContainedItems().Contains(interactable)) {
+        if (laminarCabinet == null || !laminarCabinet.GetContainedItems().Contains(lid)) {
             CreateTaskMistake("Avasit maljan laminaarikaapin ulkopuolella!!!", 1);
             return;
         }
 
-        if (plateType == ObjectType.SabouradDextrosiPlate) {
+        if (lid.Variant == "Soija-kaseiini") {
             sabouradPlates++;
         }
-        if (plateType == ObjectType.SoycaseinePlate) {
+        if (lid.Variant == "Sabourad-dekstrosi") {
             soycaseinePlates++;
         }
 
