@@ -143,88 +143,88 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
+        
 
-        yield break;
-        /*
-
-        WritingPen pen = ToInteractable(gameObjects[19]) as WritingPen;
-        AgarPlateLid plateS1Lid = gameObjects[3].GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateS2Lid = gameObjects[4].GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateS3Lid = gameObjects[5].GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateSDLid = gameObjects[6].GetComponentInChildren<AgarPlateLid>();
-        Pipette pipette = ToInteractable(gameObjects[0]) as Pipette;
-        Pipette pipette2 = ToInteractable(gameObjects[17]) as Pipette;
-        Pipette pipette3 = ToInteractable(gameObjects[18]) as Pipette;
-        Bottle bottleT1 = ToInteractable(gameObjects[7]) as Bottle;
-        Bottle bottleT2 = ToInteractable(gameObjects[8]) as Bottle;
-        Bottle bottleS1 = ToInteractable(gameObjects[9]) as Bottle;
-        Bottle bottleS2 = ToInteractable(gameObjects[10]) as Bottle;
-        Bottle soycaseine = ToInteractable(gameObjects[11]) as Bottle;
-        Bottle tioglygolate = ToInteractable(gameObjects[13]) as Bottle;
+        WritingPen pen = ToInteractable(writingPen) as WritingPen;
+        AgarPlateLid plateS1Lid = plate0.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateS2Lid = plate1.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateS3Lid = plate2.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid plateSDLid = plate3.GetComponentInChildren<AgarPlateLid>();
+        Pipette pipetteS = ToInteractable(pipette0) as Pipette;
+        Pipette pipetteT = ToInteractable(pipette1) as Pipette;
+        Pipette pipetteP = ToInteractable(pipette2) as Pipette;
+        Bottle bottleT1 = bottle0.GetComponentInChildren<Bottle>();
+        Bottle bottleT2 = bottle1.GetComponentInChildren<Bottle>();
+        Bottle bottleS1 = bottle2.GetComponentInChildren<Bottle>();
+        Bottle bottleS2 = bottle3.GetComponentInChildren<Bottle>();
+        Bottle soycaseineB = soycaseine.GetComponentInChildren<Bottle>();
+        Bottle tioglygolateB = tioglykolate.GetComponentInChildren<Bottle>();
 
         // Write
         var writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Time, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.Time, "klonaika"},
         };
         pen.SubmitWriting(plateS1Lid.GetComponent<Writable>(), plateS1Lid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Time, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.Time, "klonaika"},
         };
         pen.SubmitWriting(plateSDLid.GetComponent<Writable>(), plateSDLid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Time, ""},
-            {WritingType.RightHand, ""}
+            {WritingType.Date, "pvm"},
+            {WritingType.RightHand, "oikea"},
+            {WritingType.Time, "klonaika"}
         };
         pen.SubmitWriting(plateS2Lid.GetComponent<Writable>(), plateS2Lid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Time, ""},
-            {WritingType.LeftHand, ""}
+            {WritingType.Date, "pvm"},
+            {WritingType.LeftHand, "vasen"},
+            {WritingType.Time, "klonaika"}
         };
         pen.SubmitWriting(plateS3Lid.GetComponent<Writable>(), plateS3Lid.gameObject, writing);
 
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.SoyCaseine, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.SoyCaseine, "soijakaseiini"},
         };
         pen.SubmitWriting(bottleS1.GetComponent<Writable>(), bottleS1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.SoyCaseine, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.SoyCaseine, "soijakaseiini"},
         };
         pen.SubmitWriting(bottleS2.GetComponent<Writable>(), bottleS2.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Tioglygolate, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.Tioglygolate, "tioglykolaatti"},
         };
         pen.SubmitWriting(bottleT1.GetComponent<Writable>(), bottleT1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, ""},
-            {WritingType.Tioglygolate, ""},
+            {WritingType.Date, "pvm"},
+            {WritingType.Tioglygolate, "tioglykolaatti"},
         };
         pen.SubmitWriting(bottleT2.GetComponent<Writable>(), bottleT2.gameObject, writing);
 
         if (autoPlay == AutoPlayStrength.WriteItems) {
             yield break;
         }
+        yield break;
+        /*
 
         // Fill bottles
         // tioglygolate 1
