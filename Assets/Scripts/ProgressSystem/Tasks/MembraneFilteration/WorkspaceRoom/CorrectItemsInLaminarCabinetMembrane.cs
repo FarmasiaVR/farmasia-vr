@@ -33,6 +33,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase) data.DataObject;
+        Logger.Print("Cabinet: " + cabinet.type);
         if (cabinet.type == CabinetBase.CabinetType.Laminar) {
             laminarCabinet = cabinet;
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);

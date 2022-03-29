@@ -26,7 +26,7 @@ public class LiquidContainer : MonoBehaviour {
     public int Amount {
         get { return amount; }
     }
-
+   
     public void SetAmountPercentage(float percentage) {
         int amount = (int)(percentage * Capacity);
         SetAmount(amount);
@@ -229,19 +229,17 @@ public class LiquidContainer : MonoBehaviour {
         pipette.BottleContainer = this;
     }
 
-    private void OnSyringeNewEnter(SyringeNew syringe) {
-        if (GeneralItem is Bottle) {
-            syringe.State.On(InteractState.InBottle);
-            syringe.hasBeenInBottle = true;
+    private void OnSyringeNewEnter(SyringeNew syringeNew) {
+        if (GeneralItem is Bottle || GeneralItem is FilterPart) {
+            syringeNew.State.On(InteractState.InBottle);
+            syringeNew.hasBeenInBottle = true;
 
             if (!GeneralItem.IsClean) {
-                syringe.Contamination = GeneralItem.ContaminateState.Contaminated;
+                syringeNew.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-
-            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
         }
 
-        syringe.BottleContainer = this;
+        syringeNew.BottleContainer = this;
     }
 
     private void OnTrueExit(Interactable enteringInteractable) {

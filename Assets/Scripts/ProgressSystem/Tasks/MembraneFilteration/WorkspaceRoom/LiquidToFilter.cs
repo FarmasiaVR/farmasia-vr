@@ -25,16 +25,7 @@ class LiquidToFilter : Task {
 
     private void OnFilterWet(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
-        if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
-            pumpFilter = filter;
-            if (filter.Container.Amount >= REQUIRED_AMOUNT) {
-                Logger.Print("Enabling condotions");
-                EnableCondition(Conditions.AddedLiquid);
-                CheckMistakes();
-                CompleteTask();
-            }
-        }
-        /*if (Started) {
+        if (Started) {
             if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
                 pumpFilter = filter;
                 if (filter.Container.Amount >= REQUIRED_AMOUNT) {
@@ -44,6 +35,10 @@ class LiquidToFilter : Task {
                     CompleteTask();
                 }
             }
+        }/* else if(!package.doneTypes.Contains(TaskType.AssemblePump)){
+            CreateGeneralMistake("Kiinnitä ensin pumppu filtteriin", 1);
+        } else if (!package.doneTypes.Contains(TaskType.WetFilter) && !package.doneTypes.Contains(TaskType.StartPump)) {
+            CreateGeneralMistake("Filtteröi ensin peptonivesi", 1);
         }*/
     }
 

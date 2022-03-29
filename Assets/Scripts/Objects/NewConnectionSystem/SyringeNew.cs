@@ -101,7 +101,6 @@ public class SyringeNew : ReceiverItem {
     }
 
     public void TakeMedicine(int amount) {
-        Logger.Print("INTERACT STATE: " + State);
         if (State == InteractState.InBottle) {
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
@@ -112,7 +111,6 @@ public class SyringeNew : ReceiverItem {
     }
 
     public void SendMedicine(int amount) {
-        Logger.Print("INTERACT STATE: " + State);
         if (State == InteractState.InBottle) {
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
