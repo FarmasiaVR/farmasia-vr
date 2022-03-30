@@ -28,6 +28,7 @@ public class LiquidDisplay : Display {
         Pipette pipette = follow.GetComponent<Pipette>();
         if (pipette != null) {
             container = pipette.Container;
+            if (container == null) Logger.Warning(pipette);
             liquidPresent = true;
             return;
         }
@@ -45,6 +46,8 @@ public class LiquidDisplay : Display {
             liquidPresent = true;
             return;
         }
+
+        Logger.Warning(gameObject + " did not have a container");
     }
 
     new void Start() {

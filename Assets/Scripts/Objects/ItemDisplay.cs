@@ -23,6 +23,7 @@ public class ItemDisplay : MonoBehaviour {
         }
         // Set the Display script to follow this gameObject.
         Display display = displayObject.GetComponent<Display>();
+        Logger.Print("Pipette liquid display following " + gameObject);
         display.SetFollowedObject(gameObject);
     }
 

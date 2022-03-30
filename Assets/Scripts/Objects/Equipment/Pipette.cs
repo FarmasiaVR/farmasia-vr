@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pipette : GeneralItem {
-    
-    public LiquidContainer Container { get; private set; }
+
+    public LiquidContainer Container;
     
     // How much liquid is moved per click
     public int LiquidTransferStep = 50;
@@ -25,9 +25,6 @@ public class Pipette : GeneralItem {
         objectType = ObjectType.Pipette;
         base.Start();
 
-        Container = LiquidContainer.FindLiquidContainer(transform);
-
-        
         Type.On(InteractableType.Interactable);
     }
 
