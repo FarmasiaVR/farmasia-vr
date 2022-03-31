@@ -27,5 +27,6 @@ public enum TaskType {
     MedicineToFilter,
     StartPump,
     StartPumpAgain,
-    CutFilter
+    CutFilter,
+    FilterHalvesToBottles
 }
