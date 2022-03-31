@@ -46,7 +46,7 @@ class SimpleAttachmentConnector : AttachmentConnector {
     }
 
     protected override void AttachEvents(GameObject intObject) {
-        G.Instance.Audio.Play(AudioClipType.LockedItem);
+        
     }
 
     protected override void SnapObjectPosition() {

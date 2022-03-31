@@ -14,6 +14,7 @@ class MembraneFilterationScene : SceneScript {
         WorkspaceRoom,
         ItemsToWorkspace,
         WriteItems,
+        OpenAgarPlates,
         FillBottles,
         PreparePump,
     }
@@ -52,7 +53,6 @@ class MembraneFilterationScene : SceneScript {
     private bool played;
     public bool IsAutoPlaying { get; private set; }
 
-    private Vector3 spawnPos = new Vector3(1000, 1000, 1000);
 
     protected override void Start() {
         base.Start();
@@ -223,6 +223,23 @@ class MembraneFilterationScene : SceneScript {
         if (autoPlay == AutoPlayStrength.WriteItems) {
             yield break;
         }
+
+        yield return Wait();
+
+        plateS1Lid.ReleaseItem();
+        plateSDLid.ReleaseItem();
+
+        yield return Wait();
+
+        DropAt(plateS1Lid.transform, plateS1Lid.transform.position + Vector3.up * 0.5f);
+        DropAt(plateSDLid.transform, plateS1Lid.transform.position + Vector3.up * 0.5f);
+        plateS1Lid.transform.Rotate(new Vector3(180, 0, 0));
+        plateSDLid.transform.Rotate(new Vector3(180, 0, 0));
+
+        if (autoPlay == AutoPlayStrength.OpenAgarPlates) {
+            yield break;
+        }
+
         yield break;
         /*
 

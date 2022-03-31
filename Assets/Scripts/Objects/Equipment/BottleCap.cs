@@ -18,7 +18,12 @@ public class BottleCap : ConnectableItem {
             CanConnect = (interactable) => {
                 return interactable is Bottle;
             },
+            AfterConnect = (interactable) => {
+
+            },
             AfterRelease = (interactable) => {
+                if (tightened)
+                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep, gameObject);
                 tightened = false;
             }
         };
