@@ -42,5 +42,6 @@
     OpenTweezersPackage,
     SyringeDisassembled,
     FilterEmptied,
-    FilterCutted
+    FilterCutted,
+    FilterHalfEnteredBottle
 }

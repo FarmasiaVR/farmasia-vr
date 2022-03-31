@@ -156,6 +156,8 @@ public class LiquidContainer : MonoBehaviour {
         Pipette pipette = enteringInteractable as Pipette;
         PipetteContainer pipetteContainer = enteringInteractable as PipetteContainer;
         SyringeNew syringeNew = enteringInteractable as SyringeNew;
+        GeneralItem genItem = enteringInteractable as GeneralItem;
+
         if (needle!=null && needle.Connector.HasAttachedObject) {
             OnSyringeEnter(needle);
         }
@@ -170,6 +172,10 @@ public class LiquidContainer : MonoBehaviour {
 
         if (syringeNew != null) {
             OnSyringeNewEnter(syringeNew);
+        }
+
+        if (genItem != null) {
+            OnFilterHalfEnter(genItem);
         }
     }
 
@@ -237,9 +243,22 @@ public class LiquidContainer : MonoBehaviour {
             if (!GeneralItem.IsClean) {
                 syringeNew.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
+
+            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringeNew));
         }
 
         syringeNew.BottleContainer = this;
+    }
+
+    private void OnFilterHalfEnter(GeneralItem genItem) {
+        if (GeneralItem is Bottle && genItem.ObjectType == ObjectType.FilterHalf) {
+            genItem.State.On(InteractState.InBottle);
+
+            if (!GeneralItem.IsClean) {
+                genItem.Contamination = GeneralItem.ContaminateState.Contaminated;
+            }
+            Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
+        }
     }
 
     private void OnTrueExit(Interactable enteringInteractable) {

@@ -66,6 +66,8 @@ public static class TaskFactory {
                     return new StartPump(TaskType.StartPumpAgain);
                 case TaskType.CutFilter:
                     return new CutFilter();
+                case TaskType.FilterHalvesToBottles:
+                    return new FilterHalvesToBottles();
                 default:
                     return null;
             }

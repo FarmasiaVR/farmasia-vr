@@ -247,7 +247,16 @@ public static class TaskConfig {
             "Avaa suodattimen tankki ja leikkaa kalvosuodatin varovasti skalpellilla",
             "Hienoa, suodatin leikattu",
             2000
-        )
+        ),
+
+        info(
+            TaskType.FilterHalvesToBottles,
+            "Filtterin puolikkaiden siirtäminen pulloihin",
+            "Siirrä puolikkaat pulloihin",
+            "Siirrä puolikkaat eri liuoksiin",
+            "Puolikkaat pulloissa!",
+            2
+        ),
 
     }.ToDictionary(pair => pair.Key, pair => pair.Value);
 

@@ -33,5 +33,6 @@
     PumpFilterTank,
     PumpFilterLid,
     NotApplicable,
-    FilterInCover
+    FilterInCover,
+    FilterHalf
 }
