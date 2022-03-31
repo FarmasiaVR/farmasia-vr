@@ -43,7 +43,6 @@ public class OpenAgarplates : Task {
     /// </summary>
     /// <param name="data"></param>
     private void TrackOpenedPlates(CallbackData data) {
-        Logger.Print("Agar plate opened");
         var lid = (data.DataObject as AgarPlateLid);
         if (lid == null) return;
 

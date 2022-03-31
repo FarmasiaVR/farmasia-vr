@@ -68,6 +68,8 @@ public static class TaskFactory {
                     return new CutFilter();
                 case TaskType.FilterHalvesToBottles:
                     return new FilterHalvesToBottles();
+                case TaskType.CloseAgarplates:
+                    return new CloseAgarplates();
                 default:
                     return null;
             }

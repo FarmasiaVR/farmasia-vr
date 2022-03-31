@@ -43,5 +43,6 @@
     SyringeDisassembled,
     FilterEmptied,
     FilterCutted,
-    FilterHalfEnteredBottle
+    FilterHalfEnteredBottle,
+    AgarPlateClosed
 }

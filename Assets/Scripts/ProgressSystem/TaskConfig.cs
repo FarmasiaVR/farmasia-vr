@@ -258,6 +258,15 @@ public static class TaskConfig {
             2
         ),
 
+        info(
+            TaskType.CloseAgarplates,
+            "Laskeumamaljojen sulkeminen",
+            "Sulje laskeumamaljat",
+            "Sulje laskeumamaljat",
+            "Maljat suljettu!",
+            2
+        ),
+
     }.ToDictionary(pair => pair.Key, pair => pair.Value);
 
     public static Info For(TaskType type) {
