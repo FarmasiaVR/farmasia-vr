@@ -245,7 +245,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 38401727e3da230449ebfa2039ab5ebb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHandCollider: 0
 --- !u!114 &1491183136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +366,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3a0cd139fcf0bf45bf6e90abe4dda7d, type: 2}
+  - {fileID: 2100000, guid: 38401727e3da230449ebfa2039ab5ebb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -936,6 +937,7 @@ MonoBehaviour:
   placeholderPrefab: {fileID: 7278165903428078666, guid: 83b955e4bde7dd5449938cbdaee93d74,
     type: 3}
   useHighlighting: 1
+  interactedInteractable: {fileID: 0}
   other: {fileID: 5741388092164080240}
 --- !u!114 &7825122742935436867
 MonoBehaviour:
@@ -1205,6 +1207,7 @@ MonoBehaviour:
   placeholderPrefab: {fileID: 7278165903428078666, guid: 83b955e4bde7dd5449938cbdaee93d74,
     type: 3}
   useHighlighting: 1
+  interactedInteractable: {fileID: 0}
   other: {fileID: 3627287239068377857}
 --- !u!114 &7825122742348451931
 MonoBehaviour:
@@ -1582,7 +1585,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 38401727e3da230449ebfa2039ab5ebb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1628,6 +1631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHandCollider: 0
 --- !u!114 &1473489560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1655,6 +1659,7 @@ GameObject:
   - component: {fileID: 7824545105380693504}
   - component: {fileID: 7845101521402756698}
   - component: {fileID: 7892468984612064820}
+  - component: {fileID: 8408569746721109203}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1728,6 +1733,37 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7826101858830852638}
   m_Enabled: 1
+--- !u!114 &8408569746721109203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826101858830852638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &8425768118217036459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHandCollider: 0
 --- !u!114 &1016502204222632981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,6 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f590b748aa1aaa24ea8a49e50b35e861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsHandCollider: 0
 --- !u!114 &3320247191860390889
 MonoBehaviour:
   m_ObjectHideFlags: 0

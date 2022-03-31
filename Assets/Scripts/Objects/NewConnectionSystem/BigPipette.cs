@@ -29,10 +29,10 @@ public class BigPipette : ReceiverItem
         if (SlotOccupied) {
             bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
             bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
-
-            if (takeMedicine) {
+            bool grabInteract = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
+            if (takeMedicine || grabInteract) {
                 (ConnectedItem as PipetteContainer).TakeMedicine();
-            } else if (sendMedicine) {
+            } else if (sendMedicine || grabInteract) {
                 (ConnectedItem as PipetteContainer).SendMedicine();
             }
         }

@@ -1,11 +1,21 @@
 fileFormatVersion: 2
 guid: d5bf60e731a5f9445ab39890b439af76
 ModelImporter:
-  serializedVersion: 26
+  serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn_needle
+    second: {fileID: 2100000, guid: 2a35c7f1db58d8d4eb86e09dbe5aa6fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn_needle_cap
+    second: {fileID: 2100000, guid: 56deffc88084567498e3e5d99a9ecbf4, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -43,6 +53,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -69,7 +80,6 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -87,8 +97,10 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
