@@ -29,15 +29,17 @@ public class LiquidObject : MonoBehaviour {
     }
 
     private void UpdateObject() {
-        // localScale scales around pivot (default is center of object)
-        // Therefore, translation needed
-        
+        //// localScale scales around pivot (default is center of object)
+        //// Therefore, translation needed
 
-        transform.localScale = new Vector3(1, percentage, 1);
 
-        // Translate by scale delta amount
-        float newY = percentage - 1;
-        transform.localPosition = new Vector3(0, newY, 0);
+        //transform.localScale = new Vector3(1, percentage, 1);
+
+        //// Translate by scale delta amount
+        //float newY = percentage - 1;
+        //transform.localPosition = new Vector3(0, newY, 0);
+
+        mesh.material.SetFloat("_Fill", percentage);
 
         if (mesh != null) {
             mesh.enabled = percentage > 0;

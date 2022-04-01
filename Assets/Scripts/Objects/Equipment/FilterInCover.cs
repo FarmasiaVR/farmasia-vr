@@ -39,6 +39,7 @@ public class FilterInCover : GeneralItem {
         }
     }
     public void EnableAssemblyFilterParts(Hand hand) {
+        assemblyFilterParts.transform.SetParent(null);
         assemblyFilterParts.SetActive(true);
         filterAndCoverModel.SetActive(false);
         hand.Uninteract();
@@ -46,7 +47,8 @@ public class FilterInCover : GeneralItem {
         hand.Connector.GrabbedInteractable = filterBase;
         hand.interactedInteractable = filterBase;
         filterBase.State.On(InteractState.Grabbed);
-        filterBase.OnGrabStart(hand);      
+        filterBase.OnGrabStart(hand);
+        gameObject.SetActive(false);
     }
 
 }
