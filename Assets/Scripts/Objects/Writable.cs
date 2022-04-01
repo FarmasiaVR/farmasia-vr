@@ -15,6 +15,9 @@ public class Writable : WritingTarget {
     [SerializeField]
     private TextMeshPro textField;
 
+    [SerializeField]
+    private bool isAgarPlate;
+
     public string Text {
         get { return textField.GetParsedText(); }
     }
@@ -27,9 +30,14 @@ public class Writable : WritingTarget {
             WrittenLines.Add(option.Key, option.Value);
         }
         string resultText = "";
+        int lines = 0;
         foreach(string line in WrittenLines.Values)
         {
             resultText += line + '\n';
+            lines++;
+            if(lines == 2 && isAgarPlate) {
+                resultText += '\n'+ '\n'+ '\n'+ '\n'+ '\n';
+            }
         }
         textField.SetText(resultText);
     }
