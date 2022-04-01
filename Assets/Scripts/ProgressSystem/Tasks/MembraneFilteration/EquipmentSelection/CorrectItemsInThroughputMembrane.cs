@@ -183,10 +183,6 @@ public class CorrectItemsInThroughputMembrane: Task {
     }
 
 
-    protected override void OnTaskComplete() {
-    }
-
-
     #endregion
 
     #region Public Methods

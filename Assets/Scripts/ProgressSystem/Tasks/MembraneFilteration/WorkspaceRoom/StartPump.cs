@@ -45,10 +45,6 @@ class StartPump: Task {
         }
     }
 
-    protected override void OnTaskComplete() {
-
-    }
-
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {

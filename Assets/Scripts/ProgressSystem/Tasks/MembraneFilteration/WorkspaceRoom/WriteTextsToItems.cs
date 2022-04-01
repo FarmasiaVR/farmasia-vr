@@ -123,9 +123,6 @@ public class WriteTextsToItems : Task {
         return false;
     }
 
-    protected override void OnTaskComplete() {
-    }
-
     #region Public Methods
 
     public override void CompleteTask() {

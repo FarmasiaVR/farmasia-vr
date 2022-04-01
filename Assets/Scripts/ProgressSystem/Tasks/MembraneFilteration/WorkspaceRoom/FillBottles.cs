@@ -75,10 +75,6 @@ class FillBottles: Task {
         }
     }
 
-    protected override void OnTaskComplete() {
-        // juu
-    }
-
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {

@@ -81,7 +81,9 @@ public abstract class Task {
         }
     }
 
-    protected abstract void OnTaskComplete();
+    protected virtual void OnTaskComplete() { 
+    
+    }
 
     public virtual void FinishTask() {
         UnsubscribeAllEvents();

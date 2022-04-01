@@ -58,10 +58,6 @@ public class SelectToolsMembrane : Task {
     }
     #endregion
 
-    protected override void OnTaskComplete() {
-        Popup(base.success, MsgType.Done);
-    }
-
     #region Public Methods
 
     public override void FinishTask() {

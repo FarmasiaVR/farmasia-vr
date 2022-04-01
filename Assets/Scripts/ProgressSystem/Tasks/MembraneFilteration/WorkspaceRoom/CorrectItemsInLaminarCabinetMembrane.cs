@@ -62,8 +62,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
     public override string Hint { get => base.hint + laminarCabinet?.GetMissingItems(); }
 
-    protected override void OnTaskComplete() { /* Nothing */ }
-
     private void CheckItems() {
         Logger.Print("Checking cabinet items if they are correct");
         int bottles100ml = 0;

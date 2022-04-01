@@ -17,8 +17,4 @@ public class CutFilter: Task {
             Popup(success, MsgType.Done, Points);
         }, EventType.FilterCutted);
     }
-
-    protected override void OnTaskComplete() {
-        
-    }
 }
