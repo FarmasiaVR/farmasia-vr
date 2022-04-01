@@ -47,11 +47,17 @@ public class LiquidObject : MonoBehaviour {
     public void SetMaterialFromType(LiquidType type) {
         switch (type) {
             case LiquidType.Peptonwater:
-                mesh.material = Resources.Load<Material>("Liquids/PeptonWater");
+                mesh.material.SetColor("_SideColor", new Color(0.3722854f, 0.8229616f, 0.8867924f, 1));
+                mesh.material.SetColor("_TopColor", new Color(0.2722854f, 0.8229616f, 0.8867924f, 1));
+
+                //mesh.material = Resources.Load<Material>("Liquids/PeptonWater");
                 break;
                 
             case LiquidType.Tioglygolate:
-                mesh.material = Resources.Load<Material>("Liquids/Tioglygolate");
+                mesh.material.SetColor("_SideColor", new Color(0.3722854f, 0.3229616f, 0.8867924f, 1));
+                mesh.material.SetColor("_TopColor", new Color(0.2722854f, 0.3229616f, 0.8867924f, 1));
+
+                //mesh.material = Resources.Load<Material>("Liquids/Tioglygolate");
                 break;
                 
             case LiquidType.Soycaseine:
