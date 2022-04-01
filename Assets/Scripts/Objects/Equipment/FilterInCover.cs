@@ -32,7 +32,7 @@ public class FilterInCover : GeneralItem {
     }
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
-        cover.OpenCover(hand);
+        cover.OpenCoverWithHand(hand);
         coverOn = cover.CoverOn;
         if (coverOn == false) {
             EnableAssemblyFilterParts(hand);

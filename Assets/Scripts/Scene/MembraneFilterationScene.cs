@@ -286,40 +286,21 @@ class MembraneFilterationScene : SceneScript {
             yield break;
         }
 
-        /*
 
         // --- Try to connect pump filter ---
 
-        Pump pump = ToInteractable(gameObjects[14]) as Pump;
-        PumpFilter filter = ToInteractable(gameObjects[15]) as PumpFilter;
+        Pump pumpBody = pump.GetComponent<Pump>();
+        pumpFilter.GetComponent<Cover>().OpenCover();
 
         yield return Wait();
 
-        DropAt(filter.transform, pump.transform.position + Vector3.up * 0.12f);
 
-        yield return Wait();
-
-        hand.InteractWith(filter);
-
-        yield return Wait();
-
-        hand.transform.position -= Vector3.up * 0.04f;
-
-        yield return Wait();
-
-        hand.Uninteract();
-
-        yield return Wait();
-
-        if (filter.Connector.AttachedInteractable == null) {
-            filter.Connector.ConnectItem(pump);
-            Logger.Print("Autoplay forced pump filter connection");
-        }
 
         if (autoPlay == AutoPlayStrength.PreparePump) {
             yield break;
         }
         
+        /*
         */
 
         yield break;

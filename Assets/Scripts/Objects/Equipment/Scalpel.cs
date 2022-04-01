@@ -29,6 +29,6 @@ public class Scalpel : GeneralItem {
     }
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
-        cover.OpenCover(hand);
+        cover.OpenCoverWithHand(hand);
     }
 }

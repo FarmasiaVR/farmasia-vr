@@ -18,12 +18,12 @@ public class Cover : MonoBehaviour
     [SerializeField]
     private Interactable wrongOpeningSpot;
 
-    public Action<Hand> OpenCover;
+    public Action<Hand> OpenCoverWithHand;
 
     // Start is called before the first frame update
     protected void Start() {
         coverOn = true;
-        OpenCover = OpenCoverWithButtonPress;
+        OpenCoverWithHand = OpenCoverWithButtonPress;
     }
 
     private void OpenCoverWithButtonPress(Hand hand) {
@@ -33,8 +33,7 @@ public class Cover : MonoBehaviour
         bool openCover = VRInput.GetControlDown(other.HandType, Controls.TakeMedicine);
 
         if (openCover && ClosestEqualsOpeningSpot()) {
-            coverOn = false;
-            coverGameObject.SetActive(false);            
+            OpenCover();
         }
     }
 
@@ -45,9 +44,13 @@ public class Cover : MonoBehaviour
         bool openCover = Vector3.Distance(other.transform.position, transform.position) > 0.1f;
 
         if (openCover && ClosestEqualsOpeningSpot()) {
-            coverOn = false;
-            coverGameObject.SetActive(false);
+            OpenCover();
         }
+    }
+
+    public void OpenCover() {
+        coverOn = false;
+        coverGameObject.SetActive(false);
     }
 
     private bool ClosestEqualsOpeningSpot() {
