@@ -240,101 +240,53 @@ class MembraneFilterationScene : SceneScript {
             yield break;
         }
 
-        yield break;
-        /*
+        yield return Wait();
+
+        // Unbottle everything
+        new List<GameObject> { bottle0, bottle1, bottle2, bottle3, soycaseine, tioglykolate, peptonwater }.ForEach(g => {
+            var cap = g.transform.GetComponentInChildren<BottleCap>();
+            cap.Connector.Connection.Remove();
+            DropAt(cap.transform, cap.transform.position + Vector3.forward * 0.2f);
+        });
 
         // Fill bottles
-        // tioglygolate 1
-        yield return Wait();
-        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
-        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-        yield return Wait();
-        hand.transform.position = pipette.transform.position;
-        yield return Wait();
-        hand.InteractWith(pipette);
-        yield return Wait();
-        hand.transform.eulerAngles = Vector3.down;
-        pipette.TakeMedicine();
-        yield return Wait();
-        hand.Uninteract();
-        yield return Wait();
-        DropAt(pipette.transform, bottleT1.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-        yield return Wait();
-        hand.InteractWith(pipette);
-        yield return Wait();
-        pipette.SendMedicine();
-        hand.Uninteract();
+        var things = new List<(Bottle, Bottle, Pipette)>() {
+            (tioglygolateB, bottleT1, pipetteT),
+            (tioglygolateB, bottleT2, pipetteT),
+            (soycaseineB, bottleS1, pipetteS),
+            (soycaseineB, bottleS2, pipetteS),
+        };
+        foreach(var stuff in things) {
+            var (bigBottle, bottle, pipette) = stuff;
 
-        // tioglygolate 2
-        yield return Wait(0.5f);
-        tioglygolate.transform.eulerAngles *= 0f;
-        DropAt(pipette.transform, tioglygolate.transform.position + Vector3.up * 0.12f);
-        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-        hand.transform.position = pipette.transform.position;
-        hand.transform.eulerAngles = Vector3.down;
-        hand.InteractWith(pipette);
-        yield return Wait(0.5f);
-        pipette.TakeMedicine();
-        yield return Wait();
-        hand.Uninteract();
-        yield return Wait();
-        DropAt(pipette.transform, bottleT2.transform.position + Vector3.up * 0.1f);
-        pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-        yield return Wait();
-        hand.InteractWith(pipette);
-        yield return Wait();
-        pipette.SendMedicine();
-        hand.Uninteract();
-
-        // soycaseine 1
-        yield return Wait(0.5f);
-        tioglygolate.transform.eulerAngles *= 0f;
-        yield return Wait();
-        DropAt(pipette2.transform, soycaseine.transform.position + Vector3.up * 0.2f);
-        yield return Wait();
-        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
-        hand.transform.position = pipette2.transform.position;
-        yield return Wait();
-        hand.transform.eulerAngles = Vector3.down;;
-        hand.InteractWith(pipette2);
-        yield return Wait(0.5f);
-        pipette2.TakeMedicine();
-        yield return Wait();
-        hand.Uninteract();
-        yield return Wait();
-        DropAt(pipette2.transform, bottleS1.transform.position + Vector3.up * 0.1f);
-        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
-        yield return Wait();
-        hand.InteractWith(pipette2);
-        yield return Wait();
-        pipette2.SendMedicine();
-        hand.Uninteract();
-
-        // soycaseine 2
-        yield return Wait(0.5f);
-        tioglygolate.transform.eulerAngles *= 0f;
-        DropAt(pipette2.transform, soycaseine.transform.position + Vector3.up * 0.2f);
-        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
-        hand.transform.position = pipette2.transform.position;
-        hand.transform.eulerAngles = Vector3.down;
-        hand.InteractWith(pipette2);
-        yield return Wait(0.5f);
-        pipette2.TakeMedicine();
-        yield return Wait();
-        hand.Uninteract();
-        yield return Wait();
-        DropAt(pipette2.transform, bottleS2.transform.position + Vector3.up * 0.1f);
-        pipette2.transform.eulerAngles = new Vector3(-180,0,0);
-        yield return Wait();
-        hand.InteractWith(pipette2);
-        yield return Wait();
-        pipette2.SendMedicine();
-        hand.Uninteract();
-
+            yield return Wait();
+            DropAt(pipette.transform, bigBottle.transform.position + Vector3.up * 0.10f);
+            pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
+            yield return Wait();
+            hand.transform.position = pipette.transform.position;
+            yield return Wait();
+            hand.InteractWith(pipette);
+            yield return Wait();
+            hand.transform.eulerAngles = Vector3.down;
+            pipette.TakeMedicine();
+            yield return Wait();
+            hand.Uninteract();
+            yield return Wait();
+            DropAt(pipette.transform, bottle.transform.position + Vector3.up * 0.10f);
+            pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
+            yield return Wait();
+            hand.InteractWith(pipette);
+            yield return Wait();
+            pipette.SendMedicine();
+            hand.Uninteract();
+            yield return Wait();
+        };
+        
         if (autoPlay == AutoPlayStrength.FillBottles) {
             yield break;
         }
+
+        /*
 
         // --- Try to connect pump filter ---
 
@@ -368,9 +320,9 @@ class MembraneFilterationScene : SceneScript {
             yield break;
         }
         
+        */
 
         yield break;
-        */
     }
 
     private Transform SelectTransform(GameObject gameObject) {
