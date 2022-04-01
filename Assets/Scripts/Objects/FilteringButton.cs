@@ -6,13 +6,13 @@ public class FilteringButton : Interactable {
 
     private bool running = false;
 
+    [SerializeField]
     private Transform FilterTank;
     private LiquidContainer Container;
 
     protected override void Start() {
         base.Start();
 
-        FindTank();
         Container = LiquidContainer.FindLiquidContainer(FilterTank);
 
 
@@ -40,7 +40,7 @@ public class FilteringButton : Interactable {
         Transform Pump = PumpBottom.transform.parent;
 
         // find tanks liquid container
-        FilterTank = Pump.transform.GetChild(3);
+        //FilterTank = Pump.transform.GetChild(3);
     }
 
     void RemoveLiquid() {
