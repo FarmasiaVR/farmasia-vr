@@ -54,14 +54,17 @@ public class LiquidObject : MonoBehaviour {
                 break;
                 
             case LiquidType.Tioglygolate:
-                mesh.material.SetColor("_SideColor", new Color(0.3722854f, 0.3229616f, 0.8867924f, 1));
-                mesh.material.SetColor("_TopColor", new Color(0.2722854f, 0.3229616f, 0.8867924f, 1));
+                mesh.material.SetColor("_SideColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
+                mesh.material.SetColor("_TopColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
 
                 //mesh.material = Resources.Load<Material>("Liquids/Tioglygolate");
                 break;
                 
             case LiquidType.Soycaseine:
-                mesh.material = Resources.Load<Material>("Liquids/Soycaseine"); ;
+                mesh.material.SetColor("_SideColor", new Color(0.9528301f, 0.5856799f, 0.215735f, 1));
+                mesh.material.SetColor("_TopColor", new Color(0.9528301f, 0.5856799f, 0.215735f, 1));
+
+                //mesh.material = Resources.Load<Material>("Liquids/Soycaseine"); ;
                 break;
         }
     }
