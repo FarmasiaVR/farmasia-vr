@@ -39,7 +39,7 @@ public class LiquidObject : MonoBehaviour {
         //float newY = percentage - 1;
         //transform.localPosition = new Vector3(0, newY, 0);
 
-        mesh.material.SetFloat("_Fill", percentage);
+        mesh.sharedMaterial.SetFloat("_Fill", percentage);
 
         if (mesh != null) {
             mesh.enabled = percentage > 0;
