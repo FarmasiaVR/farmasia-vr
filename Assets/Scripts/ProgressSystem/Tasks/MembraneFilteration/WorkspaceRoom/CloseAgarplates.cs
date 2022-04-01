@@ -36,8 +36,6 @@ public class CloseAgarplates : Task {
     private void TrackOpenedPlates(CallbackData data) {
         openedPlates++;
     }
-    protected override void OnTaskComplete() {
-    }
 
     public override void CompleteTask() {
         base.CompleteTask();
