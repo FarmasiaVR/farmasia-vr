@@ -13,6 +13,7 @@ public class FilterInCover : GeneralItem {
     private Interactable filterBase;
 
     private bool coverOn;
+    private bool firstCheck = false;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -34,8 +35,10 @@ public class FilterInCover : GeneralItem {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
         coverOn = cover.CoverOn;
-        if (coverOn == false) {
+        if (coverOn == false && firstCheck == false) {
             EnableAssemblyFilterParts(hand);
+            Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
+            firstCheck = true;
         }
     }
     public void EnableAssemblyFilterParts(Hand hand) {

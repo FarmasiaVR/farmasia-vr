@@ -10,6 +10,9 @@ public class Scalpel : GeneralItem {
     [SerializeField]
     private Collider blade;
 
+    private bool coverOn;
+    private bool firstCheck;
+
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -30,5 +33,10 @@ public class Scalpel : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
+        coverOn = cover.CoverOn;
+        if (coverOn == false && firstCheck == false) {
+            Events.FireEvent(EventType.ScalpelCoverOpened, CallbackData.Object(this));
+            firstCheck = true;
+        }
     }
 }

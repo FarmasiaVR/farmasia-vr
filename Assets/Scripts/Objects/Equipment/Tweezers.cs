@@ -6,7 +6,9 @@ public class Tweezers : GeneralItem {
 
     [SerializeField]
     private Cover cover;
+
     private bool coverOn;
+    private bool firstCheck;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -27,5 +29,10 @@ public class Tweezers : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
+        coverOn = cover.CoverOn;
+        if (coverOn == false && firstCheck == false) {
+            Events.FireEvent(EventType.TweezersCoverOpened, CallbackData.Object(this));
+            firstCheck = true;
+        }
     }
 }

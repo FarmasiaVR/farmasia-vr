@@ -30,9 +30,13 @@ public class Cover : MonoBehaviour
         if (!coverOn) return;
         other = hand.Other;
         otherCollider = other.HandCollider;
-        bool openCover = VRInput.GetControlDown(other.HandType, Controls.TakeMedicine);
+        bool openCover = VRInput.GetControlDown(other.HandType, Controls.GrabInteract);
 
-        if (openCover && ClosestEqualsOpeningSpot()) {
+        if (openCover && ClosestEqualsWrongOpeningSpot()) {
+            Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
+            OpenCover();
+        } 
+        if (openCover && ClosestEqualsRightOpeningSpot()) {
             OpenCover();
         }
     }
@@ -43,7 +47,11 @@ public class Cover : MonoBehaviour
         otherCollider = other.HandCollider;
         bool openCover = Vector3.Distance(other.transform.position, transform.position) > 0.1f;
 
-        if (openCover && ClosestEqualsOpeningSpot()) {
+        if (openCover && ClosestEqualsWrongOpeningSpot()) {
+            Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
+            OpenCover();
+        }
+        if (openCover && ClosestEqualsRightOpeningSpot()) {
             OpenCover();
         }
     }
@@ -53,10 +61,13 @@ public class Cover : MonoBehaviour
         coverGameObject.SetActive(false);
     }
 
-    private bool ClosestEqualsOpeningSpot() {
+    private bool ClosestEqualsWrongOpeningSpot() {
         var closest = otherCollider.GetClosestInteractable();
-        return (GameObject.ReferenceEquals(rightOpeningSpot, closest) 
-            || GameObject.ReferenceEquals(wrongOpeningSpot, closest));
+        return (GameObject.ReferenceEquals(wrongOpeningSpot, closest));
+    }
+    private bool ClosestEqualsRightOpeningSpot() {
+        var closest = otherCollider.GetClosestInteractable();
+        return (GameObject.ReferenceEquals(rightOpeningSpot, closest));
     }
 
     public void DisableOpeningSpots() {

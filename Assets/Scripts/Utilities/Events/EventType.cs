@@ -44,5 +44,9 @@
     FilterEmptied,
     FilterCutted,
     FilterHalfEnteredBottle,
-    AgarPlateClosed
+    AgarPlateClosed,
+    ScalpelCoverOpened,
+    TweezersCoverOpened,
+    FilterCoverOpened,
+    WrongSpotOpened
 }

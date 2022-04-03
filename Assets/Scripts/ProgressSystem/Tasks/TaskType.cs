@@ -29,5 +29,6 @@ public enum TaskType {
     StartPumpAgain,
     CutFilter,
     FilterHalvesToBottles,
-    CloseAgarplates
+    CloseAgarplates,
+    OpenCovers
 }

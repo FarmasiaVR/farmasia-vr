@@ -191,9 +191,9 @@ public static class TaskConfig {
             "Laskeumamaljojen avaus",
             "Avaa laskeumamaljat",
             "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja",
-            "Hienosti avattu!",
+            "Hienoa, agarmaljat avattu!",
             2
-        ),
+        ),     
 
         info(
             TaskType.FillBottles,
@@ -202,6 +202,15 @@ public static class TaskConfig {
             "Lisää pieniin pulloihin 80 ml elatusaineita, 2 pulloa kutakin",
             "Hienoa, pullot täytetty",
             4
+        ),
+
+        info(
+            TaskType.OpenCovers,
+            "Suojamuovien avaus",
+            "Avaa suojamuovit",
+            "Avaa suojamuovit oikeasta päästä",
+            "Hienoa, suojamuovit avattu!",
+            2
         ),
 
         info(
