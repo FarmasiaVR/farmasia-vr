@@ -51,11 +51,7 @@ public class ReceiverItem : AttachmentItem
             NearestItem = GetNearestItem();
         }
 
-        if (NearestItem != null && !SlotOccupied) {
-            if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) > SnapDistance) return;
-            if (Vector3.Angle(transform.up, NearestItem.transform.up) > SnapAngle) return;
-            ConnectAttachment();
-        }
+        CheckDistanceAndConnect();
 
         //UpdateLineEffect(PossibleItems.Count > 0);
     }
@@ -105,6 +101,17 @@ public class ReceiverItem : AttachmentItem
         }
     }
 
+    protected virtual bool WillConnect() {
+        return NearestItem != null && !SlotOccupied;
+    }
+
+    public void CheckDistanceAndConnect() {
+        if (WillConnect()) {
+            if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) > SnapDistance) return;
+            if (Vector3.Angle(transform.up, NearestItem.transform.up) > SnapAngle) return;
+            ConnectAttachment();
+        }
+    }
     /// <summary>
     /// Marks this GameObject's attachment slot occupied and begins the attachment sequence for the AttachItem
     /// </summary>
@@ -124,9 +131,8 @@ public class ReceiverItem : AttachmentItem
     /// <param name="hand"></param>
     /// <param name="itemToDisconnect"></param>
     public void Disconnect(Hand hand, AttachmentItem itemToDisconnect) {
-        ConnectedItem = null;
-
         itemToDisconnect.MakeGrabbable(hand.transform.position);
+        ConnectedItem = null;
 
         if (hand.interactedInteractable != null) {
            hand.GrabUninteract();

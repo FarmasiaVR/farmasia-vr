@@ -29,7 +29,6 @@ class LiquidToFilter : Task {
             if (container.GeneralItem is FilterPart filter && filter.ObjectType == ObjectType.PumpFilterTank) {
                 pumpFilter = filter;
                 if (filter.Container.Amount >= REQUIRED_AMOUNT) {
-                    Logger.Print("Enabling condotions");
                     EnableCondition(Conditions.AddedLiquid);
                     CheckMistakes();
                     CompleteTask();

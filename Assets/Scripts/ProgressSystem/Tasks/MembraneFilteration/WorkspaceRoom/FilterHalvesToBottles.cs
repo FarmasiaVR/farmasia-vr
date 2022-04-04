@@ -14,6 +14,7 @@ public class FilterHalvesToBottles : Task {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(HalfToBottle, EventType.FilterHalfEnteredBottle);
+        SubscribeEvent(TouchedFilter, EventType.TouchedFilterWithHand);
     }
 
     private void HalfToBottle(CallbackData data) {
@@ -34,6 +35,9 @@ public class FilterHalvesToBottles : Task {
         }
     }
 
+    private void TouchedFilter(CallbackData data) {
+        CreateTaskMistake("Koskit filteriin kädellä", 1);
+    }
     private void CheckMistakes() {
         if (filterHalvesInSoycaseine >= 1 || filterHalvesInTioglycolate >= 1) {
             CreateTaskMistake("Kaksi puolikasta samassa liuoksessa", 1);

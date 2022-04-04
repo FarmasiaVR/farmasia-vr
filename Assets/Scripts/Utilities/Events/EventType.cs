@@ -48,5 +48,6 @@
     ScalpelCoverOpened,
     TweezersCoverOpened,
     FilterCoverOpened,
-    WrongSpotOpened
+    WrongSpotOpened,
+    TouchedFilterWithHand
 }

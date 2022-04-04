@@ -115,7 +115,7 @@ public class SyringeNew : ReceiverItem {
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
-            Eject();
+            //Eject();
         }
         SetSyringeHandlePosition();
     }
