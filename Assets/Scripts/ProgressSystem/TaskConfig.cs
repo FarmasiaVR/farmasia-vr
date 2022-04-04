@@ -275,6 +275,15 @@ public static class TaskConfig {
             "Maljat suljettu!",
             2
         ),
+        
+        info(
+            TaskType.FinishMembrane,
+            "Lopetus",
+            "",
+            "",
+            "",
+            0
+        ),
 
     }.ToDictionary(pair => pair.Key, pair => pair.Value);
 

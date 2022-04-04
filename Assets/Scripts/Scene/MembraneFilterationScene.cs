@@ -53,10 +53,17 @@ class MembraneFilterationScene : SceneScript {
     private bool played;
     public bool IsAutoPlaying { get; private set; }
 
+    public static byte[] SavedScoreState;
 
     protected override void Start() {
         base.Start();
         PlayFirstRoom(autoPlayStrength);
+    }
+
+    public void SaveProgress(bool overwrite = false) {
+        if (SavedScoreState != null || overwrite) {
+            SavedScoreState = DataSerializer.Serializer(G.Instance.Progress.Calculator);
+        }
     }
 
     public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
