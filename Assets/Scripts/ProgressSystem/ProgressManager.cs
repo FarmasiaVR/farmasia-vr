@@ -154,10 +154,15 @@ public class ProgressManager {
             TaskType.FilterHalvesToBottles,
             TaskType.CloseAgarplates
         };
+        TaskType[] cleanUpTasks = {
+            TaskType.FinishMembrane
+        };
         Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
         Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
+        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
         packages.Add(equipmentSelection);
         packages.Add(workSpace);
+        packages.Add(cleanUp);
     }
 
     #region Package Init Functions
@@ -268,6 +273,14 @@ public class ProgressManager {
             if (task.TaskType == TaskType.Finish) {
                 RemoveTask(task);
                 MedicinePreparationScene.SavedScoreState = null;
+                (int score, string scoreString) = Calculator.GetScoreString();
+                EndSummary.EnableEndSummary(scoreString);
+                Player.SavePlayerData(score, scoreString);
+                break;
+            }
+            if (task.TaskType == TaskType.FinishMembrane) {
+                RemoveTask(task);
+                MembraneFilterationScene.SavedScoreState = null;
                 (int score, string scoreString) = Calculator.GetScoreString();
                 EndSummary.EnableEndSummary(scoreString);
                 Player.SavePlayerData(score, scoreString);
