@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class LiquidObject : MonoBehaviour {
@@ -44,11 +45,34 @@ public class LiquidObject : MonoBehaviour {
         //transform.localPosition = new Vector3(0, newY, 0);
 
 //#if !UNITY_EDITOR //Material instancing don't work in editor. Maybe move out from OnValidate?
-        mesh.material.SetFloat("_Fill", percentage);
+        //mesh.material.SetFloat("_Fill", percentage);
 //#endif
+        StartCoroutine(LerpLiquid(percentage, 0.5f));
 
-        if (mesh != null) {
-            mesh.enabled = percentage > 0;
+    }
+
+    private IEnumerator LerpLiquid(float targetAmount, float lerpTimeInSeconds) {
+        if (lerpTimeInSeconds == 0) yield break;
+        
+        float t = 0;
+        float startAmount = mesh.material.GetFloat("_Fill");
+        float currentAmount;
+
+        if (mesh != null && targetAmount != 0) {
+            mesh.enabled = true;
+        }
+
+        while (t < lerpTimeInSeconds) {
+            currentAmount = Mathf.Lerp(startAmount, targetAmount, t / lerpTimeInSeconds);
+            t += Time.deltaTime;
+
+            mesh.material.SetFloat("_Fill", currentAmount);
+
+            yield return null;
+        }
+
+        if (mesh != null && targetAmount == 0) {
+            mesh.enabled = false;
         }
     }
 
