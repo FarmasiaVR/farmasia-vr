@@ -55,6 +55,8 @@ public class LiquidContainer : MonoBehaviour {
 
     private void Awake() {
         Assert.IsNotNull(liquid);
+        Capacity = capacity;
+        SetAmount(amount);
     }
 
 
@@ -75,11 +77,6 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         liquid.SetMaterialFromType(LiquidType);
-    }
-
-    private void OnValidate() {
-        Capacity = capacity;
-        SetAmount(amount);
     }
 
     public int GetReceiveCapacity() {
