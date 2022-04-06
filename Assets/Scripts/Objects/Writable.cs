@@ -15,6 +15,9 @@ public class Writable : WritingTarget {
     [SerializeField]
     private TextMeshPro textField;
 
+    [SerializeField]
+    public bool isAgar = false;
+
     public string Text {
         get { return textField.GetParsedText(); }
     }
@@ -27,9 +30,18 @@ public class Writable : WritingTarget {
             WrittenLines.Add(option.Key, option.Value);
         }
         string resultText = "";
+        int n = 0;
         foreach(string line in WrittenLines.Values)
         {
             resultText += line + '\n';
+            n++;
+            if (n == 2 && isAgar) {
+                resultText += '\n';
+                resultText += '\n';
+                resultText += '\n';
+                resultText += '\n';
+                resultText += '\n';
+            }
         }
         textField.SetText(resultText);
     }
