@@ -47,10 +47,11 @@ public class Pipette : GeneralItem {
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
-        
-        if (takeMedicine) {
+        bool grabInteract = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
+
+        if (grabInteract && Container.Amount == 0) {
             TakeMedicine();
-        } else if (sendMedicine) {
+        } else if (grabInteract) {
             SendMedicine();
         }
 

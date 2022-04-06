@@ -10,9 +10,13 @@ public class LiquidObject : MonoBehaviour {
     private float percentage;
     #endregion
 
-    private void OnValidate() {
+    void Awake() {
         UpdateObject();
     }
+
+    //private void OnValidate() {
+    //    UpdateObject();
+    //}
 
     public void SetFillPercentage(float percentage) {
 
@@ -39,7 +43,9 @@ public class LiquidObject : MonoBehaviour {
         //float newY = percentage - 1;
         //transform.localPosition = new Vector3(0, newY, 0);
 
-        mesh.sharedMaterial.SetFloat("_Fill", percentage);
+//#if !UNITY_EDITOR //Material instancing don't work in editor. Maybe move out from OnValidate?
+        mesh.material.SetFloat("_Fill", percentage);
+//#endif
 
         if (mesh != null) {
             mesh.enabled = percentage > 0;
