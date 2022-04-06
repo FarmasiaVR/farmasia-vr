@@ -216,7 +216,7 @@ public static class TaskConfig {
         info(
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
-            "Kokoa pumppu!",
+            "Kokoa pumppu",
             "Kiinnitä suodatin ja jäteletku pumppuun.",
             "Hienoa, pumppu on koossa",
             2
@@ -255,12 +255,12 @@ public static class TaskConfig {
             "Leikkaa suodatin",
             "Avaa suodattimen tankki ja leikkaa kalvosuodatin varovasti skalpellilla",
             "Hienoa, suodatin leikattu",
-            2000
+            2
         ),
 
         info(
             TaskType.FilterHalvesToBottles,
-            "Filtterin puolikkaiden siirtäminen pulloihin",
+            "Suodattimen puolikkaiden siirtäminen pulloihin",
             "Siirrä puolikkaat pulloihin",
             "Siirrä puolikkaat eri liuoksiin",
             "Puolikkaat pulloissa!",
