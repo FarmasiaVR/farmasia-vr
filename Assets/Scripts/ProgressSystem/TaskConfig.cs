@@ -275,6 +275,15 @@ public static class TaskConfig {
             "Maljat suljettu!",
             2
         ),
+
+        info(
+            TaskType.Fingerprints,
+            "Sormenpäämaljat",
+            "Valmistele sormenpäämaljat",
+            "Avaa sormenpäämaljat ja koske ainetta",
+            "Sormenpäämaljat valmistettu!",
+            2
+        ),
         
         info(
             TaskType.FinishMembrane,

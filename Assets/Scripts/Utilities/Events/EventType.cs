@@ -49,5 +49,6 @@
     TweezersCoverOpened,
     FilterCoverOpened,
     WrongSpotOpened,
-    TouchedFilterWithHand
+    TouchedFilterWithHand,
+    FingerprintsGiven
 }
