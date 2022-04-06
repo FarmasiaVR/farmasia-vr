@@ -49,9 +49,9 @@ public class Pipette : GeneralItem {
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
         bool grabInteract = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
 
-        if (grabInteract && Container.Amount == 0) {
+        if (takeMedicine) {
             TakeMedicine();
-        } else if (grabInteract) {
+        } else if (sendMedicine) {
             SendMedicine();
         }
 
