@@ -203,7 +203,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (GeneralItem is Bottle) {
+        if (GeneralItem is Bottle || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 

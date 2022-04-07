@@ -12,7 +12,7 @@ public class LiquidObject : MonoBehaviour {
     #endregion
 
     void Awake() {
-        UpdateObject();
+        InitObject();
     }
 
     //private void OnValidate() {
@@ -30,7 +30,11 @@ public class LiquidObject : MonoBehaviour {
         }
 
         this.percentage = percentage;
-        UpdateObject();
+        StartCoroutine(LerpLiquid(percentage, 0.5f));
+    }
+
+    private void InitObject() {
+        mesh.material.SetFloat("_Fill", percentage);
     }
 
     private void UpdateObject() {
@@ -47,7 +51,6 @@ public class LiquidObject : MonoBehaviour {
 //#if !UNITY_EDITOR //Material instancing don't work in editor. Maybe move out from OnValidate?
         //mesh.material.SetFloat("_Fill", percentage);
 //#endif
-        StartCoroutine(LerpLiquid(percentage, 0.5f));
 
     }
 
