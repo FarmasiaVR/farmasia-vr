@@ -80,7 +80,6 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void Remove() {
-        UISystem.Instance.DeleteCurrent();
         Destroy(transform.gameObject);
     }
 
