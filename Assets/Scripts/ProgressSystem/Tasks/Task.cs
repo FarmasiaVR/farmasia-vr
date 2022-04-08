@@ -50,7 +50,7 @@ public abstract class Task {
         if (removePoints) {
             Logger.Print(string.Format("Task still has points left: {0}, points: {1}", TaskType.ToString(), Points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(TaskType);
-            Task.CreateTaskMistakeGlobal(TaskType, "Tehtävää ei suoritettu", 2);
+            Task.CreateTaskMistake(TaskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
@@ -247,7 +247,7 @@ public abstract class Task {
 
     #region Mistakes
     public void CreateTaskMistake(string mistake, int minus) {
-        CreateTaskMistakeGlobal(TaskType, mistake, minus);
+        CreateTaskMistake(TaskType, mistake, minus);
     }
     public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true) {
         if (showMessage) {
@@ -255,7 +255,7 @@ public abstract class Task {
         }
         G.Instance.Progress.Calculator.CreateMistake(mistake, minus);
     }
-    public static void CreateTaskMistakeGlobal(TaskType type, string mistake, int minus) {
+    public static void CreateTaskMistake(TaskType type, string mistake, int minus) {
         if (mistake != null) {
             UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
             G.Instance.Progress.Calculator.CreateTaskMistake(type, mistake);

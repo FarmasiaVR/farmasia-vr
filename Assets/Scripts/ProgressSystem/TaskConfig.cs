@@ -241,6 +241,15 @@ public static class TaskConfig {
         ),
 
         info(
+            TaskType.MedicineToFilter,
+            "Lääkkeen lisääminen",
+            "Lisää lääke suodattimeen",
+            "Irrota ruiskun korkki ja lisää ruiskun neste suodattimeen",
+            "Lääke lisätty",
+            2
+        ),
+
+        info(
             TaskType.StartPumpAgain,
             "Lääkevalmisteen suodatus",
             "Käynnistä pumppu",
@@ -297,7 +306,12 @@ public static class TaskConfig {
     }.ToDictionary(pair => pair.Key, pair => pair.Value);
 
     public static Info For(TaskType type) {
-        return dict[type];
+        try {
+            return dict[type];
+        } catch (KeyNotFoundException e) {
+            Logger.Error(type);
+            throw e;
+        }
     }
 
     private static KeyValuePair<TaskType, Info> info(TaskType type, string name, string desc, string hint, string success, int points) => 

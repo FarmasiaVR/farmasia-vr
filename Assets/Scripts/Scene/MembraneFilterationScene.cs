@@ -86,6 +86,10 @@ class MembraneFilterationScene : SceneScript {
     }
 
     private IEnumerator PlayCoroutine(AutoPlayStrength autoPlay) {
+
+        Task.CreateGeneralMistake("Yleinen testivirhe", 2);
+
+        Task.CreateTaskMistake(TaskType.MedicineToFilter, "Testivirhe lääkkeen lisäämisessä", 1);
         
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> gameObjects = new List<GameObject>() {
@@ -316,6 +320,8 @@ class MembraneFilterationScene : SceneScript {
         hand.Uninteract();
 
         yield return Wait();
+
+        
 
 
         /*yield return Wait(1f);

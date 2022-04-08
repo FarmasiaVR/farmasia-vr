@@ -143,7 +143,7 @@ public class ProgressManager {
             TaskType.CorrectItemsInLaminarCabinetMembrane,
             TaskType.WriteTextsToItems,
             TaskType.OpenAgarplates,
-            TaskType.FillBottles,
+            /*TaskType.FillBottles,
             TaskType.OpenCovers,
             TaskType.AssemblePump,
             TaskType.WetFilter,
@@ -152,7 +152,7 @@ public class ProgressManager {
             TaskType.StartPumpAgain,
             TaskType.CutFilter,
             TaskType.FilterHalvesToBottles,
-            TaskType.CloseAgarplates
+            TaskType.CloseAgarplates*/
         };
         TaskType[] cleanUpTasks = {
             TaskType.FinishMembrane
