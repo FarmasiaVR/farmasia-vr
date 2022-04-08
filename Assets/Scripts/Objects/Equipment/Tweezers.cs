@@ -24,7 +24,7 @@ public class Tweezers : ReceiverItem {
             interactable.transform.position = transform.TransformPoint(pos);
         };
 
-        cover.OnCoverOpen = () => {
+        cover.OnCoverOpen = (hand) => {
             Events.FireEvent(EventType.TweezersCoverOpened, CallbackData.Object(this));
         };
     }

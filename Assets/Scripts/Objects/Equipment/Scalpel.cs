@@ -19,7 +19,7 @@ public class Scalpel : GeneralItem {
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
 
-        cover.OnCoverOpen = () => {
+        cover.OnCoverOpen = (hand) => {
             Events.FireEvent(EventType.ScalpelCoverOpened, CallbackData.Object(this));
         };
         

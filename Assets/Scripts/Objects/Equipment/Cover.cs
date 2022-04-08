@@ -20,7 +20,7 @@ public class Cover : MonoBehaviour
 
     public Action<Hand> OpenCoverWithHand;
 
-    public Action OnCoverOpen = () => { };
+    public Action<Hand> OnCoverOpen = (hand) => { };
 
     // Start is called before the first frame update
     protected void Start() {
@@ -36,10 +36,10 @@ public class Cover : MonoBehaviour
 
         if (openCover && ClosestEqualsWrongOpeningSpot()) {
             Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
-            OpenCover();
+            OpenCover(hand);
         } 
         if (openCover && ClosestEqualsRightOpeningSpot()) {
-            OpenCover();
+            OpenCover(hand);
         }
     }
 
@@ -51,17 +51,17 @@ public class Cover : MonoBehaviour
 
         if (openCover && ClosestEqualsWrongOpeningSpot()) {
             Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
-            OpenCover();
+            OpenCover(hand);
         }
         if (openCover && ClosestEqualsRightOpeningSpot()) {
-            OpenCover();
+            OpenCover(hand);
         }
     }
 
-    public void OpenCover() {
+    public void OpenCover(Hand hand) {
         coverOn = false;
         coverGameObject.SetActive(false);
-        OnCoverOpen();
+        OnCoverOpen(hand);
     }
 
     private bool ClosestEqualsWrongOpeningSpot() {

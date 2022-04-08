@@ -12,9 +12,6 @@ public class FilterInCover : GeneralItem {
     [SerializeField]
     private Interactable filterBase;
 
-    private bool coverOn;
-    private bool firstCheck = false;
-
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();        
@@ -22,8 +19,9 @@ public class FilterInCover : GeneralItem {
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
 
-        cover.OnCoverOpen = () => {
+        cover.OnCoverOpen = (hand) => {
             Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
+            EnableAssemblyFilterParts(hand);
         };
     }
     public override void OnGrabStart(Hand hand) {
@@ -38,11 +36,6 @@ public class FilterInCover : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
-        coverOn = cover.CoverOn;
-        if (coverOn == false && firstCheck == false) {
-            EnableAssemblyFilterParts(hand);
-            firstCheck = true;
-        }
     }
     public void EnableAssemblyFilterParts(Hand hand) {
         assemblyFilterParts.transform.SetParent(null);

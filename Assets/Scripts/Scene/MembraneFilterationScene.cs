@@ -263,7 +263,7 @@ class MembraneFilterationScene : SceneScript {
             (soycaseineB, bottleS1, pipetteS),
             (soycaseineB, bottleS2, pipetteS),
         };
-        float fillSpeed = 0.5f;
+        float fillSpeed = 0.4f;
         foreach(var stuff in things) {
             var (bigBottle, bottle, pipette) = stuff;
 
@@ -298,14 +298,36 @@ class MembraneFilterationScene : SceneScript {
         // --- Try to connect pump filter ---
 
         Pump pumpBody = pump.GetComponent<Pump>();
-        pumpFilter.GetComponent<Cover>().OpenCover();
+        DropAt(pumpFilter.transform, pump.transform.position + Vector3.up * 0.3f);
 
-        scalpel.GetComponent<Cover>().OpenCover();
-        tweezers.GetComponent<Cover>().OpenCover();
+        hand.transform.position = pumpFilter.transform.position;
+        
+        yield return Wait();
+
+        pumpFilter.GetComponent<Cover>().OpenCover(hand);
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        scalpel.GetComponent<Cover>().OpenCover(hand);
+        yield return Wait();
+        hand.Uninteract();
+        tweezers.GetComponent<Cover>().OpenCover(hand);
+        yield return Wait();
+        hand.Uninteract();
 
         yield return Wait();
 
 
+        /*yield return Wait(1f);
+
+        var assemblyFilterParts = GameObject.Find("Assembly filter parts");
+        var filterBase = assemblyFilterParts.transform.GetChild(1);
+        hand.transform.position = filterBase.transform.position;
+        hand.InteractWith(filterBase.GetComponent<Interactable>());
+
+        yield return Wait(1f);
+
+        hand.Uninteract();
 
         if (autoPlay == AutoPlayStrength.PreparePump) {
             yield break;
