@@ -20,6 +20,8 @@ public class Cover : MonoBehaviour
 
     public Action<Hand> OpenCoverWithHand;
 
+    public Action OnCoverOpen = () => { };
+
     // Start is called before the first frame update
     protected void Start() {
         coverOn = true;
@@ -59,6 +61,7 @@ public class Cover : MonoBehaviour
     public void OpenCover() {
         coverOn = false;
         coverGameObject.SetActive(false);
+        OnCoverOpen();
     }
 
     private bool ClosestEqualsWrongOpeningSpot() {

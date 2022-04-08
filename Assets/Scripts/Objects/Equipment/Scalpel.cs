@@ -11,7 +11,6 @@ public class Scalpel : GeneralItem {
     private Collider blade;
 
     private bool coverOn;
-    private bool firstCheck;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -19,6 +18,10 @@ public class Scalpel : GeneralItem {
         objectType = ObjectType.Scalpel;
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
+
+        cover.OnCoverOpen = () => {
+            Events.FireEvent(EventType.ScalpelCoverOpened, CallbackData.Object(this));
+        };
         
     }
     public override void OnGrabStart(Hand hand) {
@@ -34,9 +37,5 @@ public class Scalpel : GeneralItem {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
         coverOn = cover.CoverOn;
-        if (coverOn == false && firstCheck == false) {
-            Events.FireEvent(EventType.ScalpelCoverOpened, CallbackData.Object(this));
-            firstCheck = true;
-        }
     }
 }

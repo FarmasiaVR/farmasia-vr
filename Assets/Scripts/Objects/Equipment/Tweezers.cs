@@ -9,8 +9,6 @@ public class Tweezers : ReceiverItem {
     public HandCollider TweezerCollider { get; private set; }
 
     private bool coverOn;
-    private bool firstCheck;
-
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -24,6 +22,10 @@ public class Tweezers : ReceiverItem {
 
         AfterRelease = (interactable) => {
             interactable.transform.position = transform.TransformPoint(pos);
+        };
+
+        cover.OnCoverOpen = () => {
+            Events.FireEvent(EventType.TweezersCoverOpened, CallbackData.Object(this));
         };
     }
     public override void OnGrabStart(Hand hand) {
@@ -39,10 +41,6 @@ public class Tweezers : ReceiverItem {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
         coverOn = cover.CoverOn;
-        if (coverOn == false && firstCheck == false) {
-            Events.FireEvent(EventType.TweezersCoverOpened, CallbackData.Object(this));
-            firstCheck = true;
-        }
         if(VRInput.GetControlUp(base.grabbingHand.HandType, Controls.GrabInteract)) {
             Interactable obj = ConnectedItem;
             ConnectedItem.ResetItem();

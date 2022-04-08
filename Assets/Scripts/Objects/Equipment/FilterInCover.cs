@@ -21,6 +21,10 @@ public class FilterInCover : GeneralItem {
         objectType = ObjectType.FilterInCover;
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
+
+        cover.OnCoverOpen = () => {
+            Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
+        };
     }
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
@@ -37,7 +41,6 @@ public class FilterInCover : GeneralItem {
         coverOn = cover.CoverOn;
         if (coverOn == false && firstCheck == false) {
             EnableAssemblyFilterParts(hand);
-            Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
             firstCheck = true;
         }
     }

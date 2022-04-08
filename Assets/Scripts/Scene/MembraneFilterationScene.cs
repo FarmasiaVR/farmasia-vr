@@ -263,27 +263,28 @@ class MembraneFilterationScene : SceneScript {
             (soycaseineB, bottleS1, pipetteS),
             (soycaseineB, bottleS2, pipetteS),
         };
+        float fillSpeed = 0.5f;
         foreach(var stuff in things) {
             var (bigBottle, bottle, pipette) = stuff;
 
-            yield return Wait();
+            yield return Wait(fillSpeed);
             DropAt(pipette.transform, bigBottle.transform.position + Vector3.up * 0.10f);
             pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-            yield return Wait();
+            yield return Wait(fillSpeed);
             hand.transform.position = pipette.transform.position;
-            yield return Wait();
+            yield return Wait(fillSpeed);
             hand.InteractWith(pipette);
-            yield return Wait();
+            yield return Wait(fillSpeed);
             hand.transform.eulerAngles = Vector3.down;
             pipette.TakeMedicine();
-            yield return Wait();
+            yield return Wait(fillSpeed);
             hand.Uninteract();
-            yield return Wait();
+            yield return Wait(fillSpeed);
             DropAt(pipette.transform, bottle.transform.position + Vector3.up * 0.10f);
             pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-            yield return Wait();
+            yield return Wait(fillSpeed);
             hand.InteractWith(pipette);
-            yield return Wait();
+            yield return Wait(fillSpeed);
             pipette.SendMedicine();
             hand.Uninteract();
             yield return Wait();
@@ -298,6 +299,9 @@ class MembraneFilterationScene : SceneScript {
 
         Pump pumpBody = pump.GetComponent<Pump>();
         pumpFilter.GetComponent<Cover>().OpenCover();
+
+        scalpel.GetComponent<Cover>().OpenCover();
+        tweezers.GetComponent<Cover>().OpenCover();
 
         yield return Wait();
 
