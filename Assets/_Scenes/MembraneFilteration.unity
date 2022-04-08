@@ -793,42 +793,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1904372386}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &37680761
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0.8235294, g: 0, b: 0.25832778, a: 1}
-    - _TopColor: {r: 0.822786, g: 0, b: 0.2581829, a: 1}
 --- !u!4 &48415780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2474369789728153917, guid: 6873bd02e1fc0744f9211fd7654f9d92,
@@ -1440,42 +1404,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 82126537}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &84077043
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid_BigBottle (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0, g: 0.4393737, b: 0.8207547, a: 1}
-    - _TopColor: {r: 0.4392132, g: 0.5647926, b: 0.8867924, a: 1}
 --- !u!1 &100141207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,11 +2666,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 535028018}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -2752,6 +2675,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 1024252298046460501, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -3734,169 +3662,6 @@ MonoBehaviour:
   handle: {fileID: 0}
   hasBeenInBottle: 0
   display: {fileID: 0}
---- !u!43 &316188952
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 10
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 8
-    localAABB:
-      m_Center: {x: 0, y: 0.01, z: 0}
-      m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 8
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 288
-    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.01, z: 0}
-    m_Extent: {x: 1.65, y: 0, z: 1.275}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &316430254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,7 +4081,7 @@ PrefabInstance:
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.044
+      value: 1.4086
       objectReference: {fileID: 0}
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
@@ -5955,42 +5720,6 @@ Transform:
   m_Father: {fileID: 395330619}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &535028018
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid_BigBottle (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0, g: 0.4393737, b: 0.8207547, a: 1}
-    - _TopColor: {r: 0.4392132, g: 0.5647926, b: 0.8867924, a: 1}
 --- !u!4 &539345337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7824545105380693504, guid: 94c40fc46ee756747ae44eaa1583de96,
@@ -6123,6 +5852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
+      propertyPath: amount
+      value: 1000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
       propertyPath: LiquidType
       value: 1
       objectReference: {fileID: 0}
@@ -6240,6 +5974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: isClean
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -6755,42 +6494,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2610642298855098802}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &653294769
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid_BigBottle (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0, g: 0.4393737, b: 0.8207547, a: 1}
-    - _TopColor: {r: 0.4392132, g: 0.5647926, b: 0.8867924, a: 1}
 --- !u!1 &659288888
 GameObject:
   m_ObjectHideFlags: 0
@@ -8915,42 +8618,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!21 &796069463
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0.5943396, g: 0.81172705, b: 1, a: 0.12156863}
-    - _TopColor: {r: 0.5943396, g: 0.81172705, b: 1, a: 0.12156863}
 --- !u!1 &801415636
 GameObject:
   m_ObjectHideFlags: 0
@@ -9323,6 +8990,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
+      objectReference: {fileID: 0}
     - target: {fileID: 1024252298046460501, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: m_Layer
@@ -9432,6 +9104,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: isClean
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7963166870639796779, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -10099,11 +9776,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 934598257}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -10113,6 +9785,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -10252,42 +9929,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1988936011}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &934598257
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0, g: 0.4393737, b: 0.8207547, a: 1}
-    - _TopColor: {r: 0.4392132, g: 0.5647926, b: 0.8867924, a: 1}
 --- !u!4 &935968316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 837966981178140090, guid: 410e049512342ee4791a8d8e3b2b0da7,
@@ -10829,6 +10470,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1525134788}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &977700162
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1002054069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3826732657948386177, guid: ca643c8794b4b2937ab52a8e5a779e03,
@@ -11133,7 +10808,7 @@ PrefabInstance:
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.044
+      value: 1.4086
       objectReference: {fileID: 0}
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
@@ -11529,42 +11204,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f23fd0a6032674286d28c2fdc44bbc, type: 3}
---- !u!21 &1045027848
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: RealLiquid (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: b069544d18a38e64989900a6725eb650,
-    type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _Texture2DAsset_C283C535_Out_0:
-        m_Texture: {fileID: 2800000, guid: 0f09256f7da973b45a660eefd832b56b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_1CDC032: 1
-    - Vector1_5560FC95: 1
-    - Vector1_D0A68475: -1
-    - _Fill: 1
-    - _WobbleX: 0
-    - _WobbleZ: 0
-    m_Colors:
-    - Color_C8D50017: {r: 0.43921316, g: 0.5647925, b: 0.8867924, a: 1}
-    - Color_DC64E254: {r: 0, g: 0.43937367, b: 0.8207547, a: 0}
-    - _SideColor: {r: 0.5943396, g: 0.81172705, b: 1, a: 0.12156863}
-    - _TopColor: {r: 0.5943396, g: 0.81172705, b: 1, a: 0.12156863}
 --- !u!1 &1049327408
 GameObject:
   m_ObjectHideFlags: 0
@@ -11810,6 +11449,169 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b91cb6228419ea6f9b42a4fa5f3e4386, type: 3}
+--- !u!43 &1055199292
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 10
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 24
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 8
+    localAABB:
+      m_Center: {x: 0, y: 0.01, z: 0}
+      m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 000004000100010004000500010005000200020005000600020006000300030006000700030007000000000007000400
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 8
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 288
+    _typelessdata: 0000c03f0ad7233c000090bf000000000000803f0000803f0000803f00000000000000000000c0bf0ad7233c000090bf000000000000803f0000803f0000803f0000803f000000000000c0bf0ad7233c0000903f000000000000803f0000803f0000803f00000000000000000000c03f0ad7233c0000903f000000000000803f0000803f0000803f0000803f000000003333d33f0ad7233c3333a3bf000000000000803f0000803f00000000000000000000803f3333d3bf0ad7233c3333a3bf000000000000803f0000803f000000000000803f0000803f3333d3bf0ad7233c3333a33f000000000000803f0000803f00000000000000000000803f3333d33f0ad7233c3333a33f000000000000803f0000803f000000000000803f0000803f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.01, z: 0}
+    m_Extent: {x: 1.65, y: 0, z: 1.275}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    offset: 0
+    size: 0
+    path: 
 --- !u!4 &1062159603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6266821552404049394, guid: 2f0d2027af421c34bbf38ec365dbc98f,
@@ -12436,12 +12238,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1806524269}
+      objectReference: {fileID: 977700162}
     - target: {fileID: 7825122742825631936, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 316188952}
+      objectReference: {fileID: 1055199292}
     - target: {fileID: 7825122742938366627, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Layer
@@ -14543,7 +14345,7 @@ PrefabInstance:
     - target: {fileID: 2984438247856575067, guid: df7c8bf474245b346967a680da850c30,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4233144453198495354, guid: df7c8bf474245b346967a680da850c30,
         type: 3}
@@ -16988,6 +16790,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1173837675278690580, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1435620256725260011, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
       propertyPath: m_Layer
@@ -17605,11 +17412,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 37680761}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -17619,6 +17421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -18731,11 +18538,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1045027848}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -18745,6 +18547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -18890,11 +18697,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 796069463}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -18904,6 +18706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -20158,11 +19965,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 84077043}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -20172,6 +19974,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -20295,6 +20102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
+      propertyPath: isClean
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
       propertyPath: objectType
       value: 17
       objectReference: {fileID: 0}
@@ -20323,40 +20135,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1855769681}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1806524269
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!21 &1811877965
 Material:
   serializedVersion: 6
@@ -21377,11 +21155,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 10609832865091358, guid: 311825be653da8a4c809ee639439f205,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 653294769}
     - target: {fileID: 10609832865091359, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
       propertyPath: HasRealLiquidMaterial
@@ -21391,6 +21164,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: amount
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -23360,6 +23138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
+      propertyPath: amount
+      value: 1000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 10609833412465111, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
       propertyPath: LiquidType
       value: 2
       objectReference: {fileID: 0}
@@ -23477,6 +23260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
+        type: 3}
+      propertyPath: isClean
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7881009421157229741, guid: 311825be653da8a4c809ee639439f205,
         type: 3}
@@ -23703,7 +23491,7 @@ PrefabInstance:
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.044
+      value: 1.4086
       objectReference: {fileID: 0}
     - target: {fileID: 2791633700910705541, guid: 816a05bfa6f2bee47a9b9f7aa06ac4aa,
         type: 3}

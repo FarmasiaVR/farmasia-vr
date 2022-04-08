@@ -11,6 +11,7 @@ public class LiquidObject : MonoBehaviour {
     [SerializeField]
     private bool HasRealLiquidMaterial;
 
+    [SerializeField]
     private float percentage;
     #endregion
 

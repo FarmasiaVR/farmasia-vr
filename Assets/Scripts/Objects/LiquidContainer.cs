@@ -61,8 +61,6 @@ public class LiquidContainer : MonoBehaviour {
 
 
     private void Start() {
-        GetComponent<MeshRenderer>().enabled = false;
-
         itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
         itemContainer.OnEnter = OnTrueEnter;
         itemContainer.OnExit = OnTrueExit;
@@ -149,6 +147,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnTrueEnter(Interactable enteringInteractable) {
+        if (GeneralItem is null) return;
         Needle needle = enteringInteractable as Needle;
         Pipette pipette = enteringInteractable as Pipette;
         PipetteContainer pipetteContainer = enteringInteractable as PipetteContainer;
