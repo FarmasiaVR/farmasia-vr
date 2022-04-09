@@ -241,9 +241,8 @@ public class LiquidContainer : MonoBehaviour {
             }
 
             Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringeNew));
+            syringeNew.BottleContainer = this;
         }
-
-        syringeNew.BottleContainer = this;
     }
 
     private void OnFilterHalfEnter(GeneralItem genItem) {

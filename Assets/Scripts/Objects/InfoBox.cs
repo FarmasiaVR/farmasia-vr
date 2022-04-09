@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using TMPro;
@@ -44,7 +45,9 @@ public class InfoBox : MonoBehaviour {
 
     private void Update() {
         if (textField.enabled) {
-            textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
+            try { 
+                textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
+            } catch (Exception e) { }
             textField.transform.LookAt(CameraCenter);
         }
     }

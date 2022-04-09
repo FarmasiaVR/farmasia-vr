@@ -88,7 +88,6 @@ public class SyringeNew : ReceiverItem {
         if (liquidAmount == 0) return;
 
         if (SlotOccupied) {
-            Logger.Print("Cap is on");
             return;
         }
 
@@ -102,9 +101,11 @@ public class SyringeNew : ReceiverItem {
 
     public void TakeMedicine(int amount) {
         if (State == InteractState.InBottle) {
+            Logger.Print("Take medicine: " + amount);
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
             SetSyringeHandlePosition();
+            Logger.Print("Nestettä ruiskussa: " + Container.Amount);
         } else {
             Logger.Print("Syringe not in bottle");
         }
@@ -112,8 +113,10 @@ public class SyringeNew : ReceiverItem {
 
     public void SendMedicine(int amount) {
         if (State == InteractState.InBottle) {
+            Logger.Print("Sending medicine: " + amount);
             TransferToBottle(amount);
             Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
+            Logger.Print("Nestettä ruiskussa: " + Container.Amount);
         } else {
             //Eject();
         }
@@ -127,8 +130,9 @@ public class SyringeNew : ReceiverItem {
     private void TransferToBottle(int amount) {
         if (BottleContainer == null) return;
         //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        Logger.Print("Transfer to: " + BottleContainer.transform.parent);
         Container.TransferTo(BottleContainer, amount);
+        Logger.Print("Amount in bottle container: " + BottleContainer.Amount);
     }
 
     public void SetSyringeHandlePosition() {
