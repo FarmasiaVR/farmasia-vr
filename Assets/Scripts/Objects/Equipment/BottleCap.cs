@@ -48,7 +48,7 @@ public class BottleCap : ConnectableItem {
 
     IEnumerator DisableAttachingForAWhile(Interactable bottle) {
         bottle.Type.Off(InteractableType.Attachable);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         bottle.Type.On(InteractableType.Attachable);
         yield break;
     }

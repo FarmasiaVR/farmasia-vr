@@ -46,6 +46,7 @@ public class WritingPen : GeneralItem {
             Logger.Print("Did not found gameObject writing options");
             return;
         }
+        isWriting = true;
 
         // Now show it
         writingOptions.SetVisible(true);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using TMPro;
 
 public class WritingOption : DragAcceptable {
 
@@ -22,6 +23,11 @@ public class WritingOption : DragAcceptable {
 
     public Action<WritingOption> onSelect;
     public Action<WritingOption> onDeselect;
+
+    public void UpdateText(string text) {
+        OptionText = text;
+        GetComponentInChildren<TextMeshPro>().text = OptionText;
+    }
 
     public override void Interact(Hand hand) {
         base.Interact(hand);

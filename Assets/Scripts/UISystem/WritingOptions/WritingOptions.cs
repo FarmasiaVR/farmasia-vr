@@ -156,6 +156,19 @@ public class WritingOptions : MonoBehaviour {
         UpdateResultingText();
         UpdateErrorMessage();
         UpdatePosition(writable.transform);
+
+        WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
+        foreach (WritingOption option in options) {
+            if (option.WritingType == WritingType.Time) {
+                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortTimeString());
+            } else if (option.WritingType == WritingType.Date) {
+                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortDateString());
+            } else if (option.WritingType == WritingType.Name) {
+                option.UpdateText(Player.Info.Name ?? "Pelaaja");
+            }
+                
+           
+        }
     }
 
     private void UpdatePosition(Transform writableTransform) {
