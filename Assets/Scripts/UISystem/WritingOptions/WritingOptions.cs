@@ -6,6 +6,7 @@ using System.Linq;
 
 public class WritingOptions : MonoBehaviour {
 
+    private static System.Random rand = new System.Random();
 
     [SerializeField]
     private GameObject resultTextObject;
@@ -136,6 +137,9 @@ public class WritingOptions : MonoBehaviour {
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
             option.Reset();
+            if (option.WritingType == WritingType.FakeTime) {
+                option.WritingType = WritingType.Time;
+            }
         }
 
         SetVisible(false);
@@ -147,7 +151,7 @@ public class WritingOptions : MonoBehaviour {
 
     public void SetWritable(Writable writable) {
 
-        
+        int fakeTimeSet = rand.Next(0, 2);
 
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
@@ -159,8 +163,20 @@ public class WritingOptions : MonoBehaviour {
 
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
+            
             if (option.WritingType == WritingType.Time) {
-                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortTimeString());
+                Logger.Print("Writing type: " + option.WritingType);
+                Logger.Print("Writing option: " + option);
+                Logger.Print("Fake time: " + fakeTimeSet);
+                if (fakeTimeSet == 0) {
+                    option.WritingType = WritingType.FakeTime;
+                    var time = DateTime.UtcNow.ToLocalTime();
+                    time = time.AddMinutes(rand.Next(120) - 60);
+                    option.UpdateText(time.ToShortTimeString());
+                } else {
+                    option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortTimeString());
+                }
+                fakeTimeSet--;
             } else if (option.WritingType == WritingType.Date) {
                 option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortDateString());
             } else if (option.WritingType == WritingType.Name) {
