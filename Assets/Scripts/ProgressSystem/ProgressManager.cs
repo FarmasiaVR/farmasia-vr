@@ -144,13 +144,15 @@ public class ProgressManager {
             TaskType.WriteTextsToItems,
             TaskType.OpenAgarplates,
             TaskType.FillBottles,
-            TaskType.OpenCovers,
+            TaskType.OpenFilterCover,
             TaskType.AssemblePump,
             TaskType.WetFilter,
             TaskType.StartPump,
             TaskType.MedicineToFilter,
             TaskType.StartPumpAgain,
+            TaskType.OpenScalpelCover,
             TaskType.CutFilter,
+            TaskType.OpenTweezersCover,
             TaskType.FilterHalvesToBottles,
             TaskType.CloseAgarplates
         };

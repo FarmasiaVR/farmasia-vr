@@ -30,7 +30,9 @@ public enum TaskType {
     CutFilter,
     FilterHalvesToBottles,
     CloseAgarplates,
-    OpenCovers,
     FinishMembrane,
-    Fingerprints
+    Fingerprints,
+    OpenTweezersCover,
+    OpenScalpelCover,
+    OpenFilterCover
 }

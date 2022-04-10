@@ -52,8 +52,8 @@ public static class TaskFactory {
                     return new WriteTextsToItems();
                 case TaskType.FillBottles:
                     return new FillBottles();
-                case TaskType.OpenCovers:
-                    return new OpenCovers();
+                case TaskType.OpenFilterCover:
+                    return new OpenFilterCover();
                 case TaskType.AssemblePump:
                     return new AssemblePump();
                 case TaskType.OpenAgarplates:
@@ -66,8 +66,12 @@ public static class TaskFactory {
                     return new LiquidToFilter("Lisää lääke suodattimeen", 150, LiquidType.Medicine, TaskType.MedicineToFilter);
                 case TaskType.StartPumpAgain:
                     return new StartPump(TaskType.StartPumpAgain);
+                case TaskType.OpenScalpelCover:
+                    return new OpenScalpelCover();
                 case TaskType.CutFilter:
                     return new CutFilter();
+                case TaskType.OpenTweezersCover:
+                    return new OpenTweezersCover();
                 case TaskType.FilterHalvesToBottles:
                     return new FilterHalvesToBottles();
                 case TaskType.CloseAgarplates:

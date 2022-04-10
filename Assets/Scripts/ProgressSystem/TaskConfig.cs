@@ -204,12 +204,12 @@ public static class TaskConfig {
             4
         ),
 
-        info(
-            TaskType.OpenCovers,
-            "Suojamuovien avaus",
-            "Avaa suojamuovit",
-            "Avaa suojamuovit oikeasta päästä",
-            "Hienoa, suojamuovit avattu!",
+       info(
+            TaskType.OpenFilterCover,
+            "Suodattimen suojamuovin avaus",
+            "Avaa suojamuovi",
+            "Avaa suojamuovi",
+            "Hienoa, suojamuovi avattu!",
             2
         ),
 
@@ -257,6 +257,15 @@ public static class TaskConfig {
             "Suodatettu!",
             2
         ),
+        
+        info(
+            TaskType.OpenScalpelCover,
+            "Skalpellin suojamuovin avaus",
+            "Avaa suojamuovi",
+            "Avaa suojamuovi oikeasta päästä",
+            "Hienoa, suojamuovi avattu!",
+            2
+        ),
 
         info(
             TaskType.CutFilter,
@@ -264,6 +273,15 @@ public static class TaskConfig {
             "Leikkaa suodatin",
             "Avaa suodattimen tankki ja leikkaa kalvosuodatin varovasti skalpellilla",
             "Hienoa, suodatin leikattu",
+            2
+        ),
+
+        info(
+            TaskType.OpenTweezersCover,
+            "Pinsettien suojamuovin avaus",
+            "Avaa suojamuovi",
+            "Avaa suojamuovi oikeasta päästä",
+            "Hienoa, suojamuovi avattu!",
             2
         ),
 

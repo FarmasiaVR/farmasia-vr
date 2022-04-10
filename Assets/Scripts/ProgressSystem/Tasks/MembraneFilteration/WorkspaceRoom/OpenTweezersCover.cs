@@ -1,24 +1,19 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class OpenCovers : Task {
-    public enum Conditions { OpenedAllCovers }
-    private bool openedFilterCover;
-    private bool openedScalpelCover;
-    private bool openedTweezersCover;
+public class OpenTweezersCover : Task {
+    public enum Conditions { OpenedTweezersCover }
     private CabinetBase laminarCabinet;
 
-    public OpenCovers() : base(TaskType.OpenCovers, true, false) {
+    public OpenTweezersCover() : base(TaskType.OpenTweezersCover, true, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 
     public override void Subscribe() {
-        base.SubscribeEvent(ScalpelCoverOpened, EventType.ScalpelCoverOpened);
         base.SubscribeEvent(TweezersCoverOpened, EventType.TweezersCoverOpened);
-        base.SubscribeEvent(FilterCoverOpened, EventType.FilterCoverOpened);
         base.SubscribeEvent(WrongSpotOpened, EventType.WrongSpotOpened);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
     }
@@ -30,25 +25,10 @@ public class OpenCovers : Task {
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
-
-    private void ScalpelCoverOpened(CallbackData data) {
-        var scalpel = (data.DataObject as Scalpel);
-        openedScalpelCover = true;
-        CheckIfInsideLaminarCabinet(scalpel);
-        CheckAllConditions();
-    }
-
     private void TweezersCoverOpened(CallbackData data) {
         var tweezers = (data.DataObject as Tweezers);
-        openedTweezersCover = true;
         CheckIfInsideLaminarCabinet(tweezers);
-        CheckAllConditions();
-    }
-    private void FilterCoverOpened(CallbackData data) {
-        var filter = (data.DataObject as FilterInCover);
-        openedFilterCover = true;
-        CheckIfInsideLaminarCabinet(filter);
-        CheckAllConditions();
+        EnableCondition(Conditions.OpenedTweezersCover);
     }
 
     private void CheckIfInsideLaminarCabinet(Interactable interactable) {
@@ -57,15 +37,9 @@ public class OpenCovers : Task {
         } else {
             CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
         }
-        
+
         if (laminarCabinet.GetContainedItems() == null) {
             CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
-        }
-    }
-    private void CheckAllConditions() {
-        if (openedFilterCover && openedScalpelCover && openedTweezersCover) {
-            EnableCondition(Conditions.OpenedAllCovers);
-            CompleteTask();
         }
     }
 
