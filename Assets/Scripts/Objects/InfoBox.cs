@@ -44,10 +44,8 @@ public class InfoBox : MonoBehaviour {
     }
 
     private void Update() {
-        if (textField.enabled) {
-            try { 
-                textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
-            } catch (Exception e) { }
+        if (textField.enabled && activeLerpAmount > 0.01f) {
+            textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
             textField.transform.LookAt(CameraCenter);
         }
     }

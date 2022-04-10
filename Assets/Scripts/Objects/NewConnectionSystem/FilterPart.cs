@@ -13,6 +13,9 @@ public class FilterPart : ReceiverItem
         AfterRelease = (interactable) => {
             Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
         };
+        AfterConnect = (interactable) => {
+            Events.FireEvent(EventType.FilterAssembled, CallbackData.Object((this, interactable)));
+        };
     }
 
 }

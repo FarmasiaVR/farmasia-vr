@@ -50,5 +50,6 @@
     FilterCoverOpened,
     WrongSpotOpened,
     TouchedFilterWithHand,
-    FingerprintsGiven
+    FingerprintsGiven,
+    FilterAssembled
 }
