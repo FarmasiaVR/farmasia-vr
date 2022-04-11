@@ -53,7 +53,8 @@ public class CorrectItemsInThroughputMembrane: Task {
             return;
         }
 
-        if (containedObjects.Count > 31) {
+        if (containedObjects.Count > 35) {
+            Logger.Print("ESINEIDEN MÄÄRÄ LÄPIANTOKAAPISSA: " + containedObjects.Count);
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
         }
 

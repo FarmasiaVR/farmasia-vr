@@ -46,6 +46,10 @@ public class LiquidContainer : MonoBehaviour {
         OnAmountChange?.Invoke();
     }
 
+    public void SetLiquidTypeNone() {
+        LiquidType = LiquidType.None;
+    }
+
     [SerializeField]
     private int capacity;
     public int Capacity {

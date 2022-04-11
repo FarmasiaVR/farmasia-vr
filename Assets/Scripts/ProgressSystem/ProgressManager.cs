@@ -144,7 +144,7 @@ public class ProgressManager {
             TaskType.WriteTextsToItems,
             TaskType.OpenAgarplates,
             TaskType.FillBottles,
-            TaskType.OpenFilterCover,
+            //TaskType.OpenFilterCover,
             TaskType.AssemblePump,
             TaskType.WetFilter,
             TaskType.StartPump,

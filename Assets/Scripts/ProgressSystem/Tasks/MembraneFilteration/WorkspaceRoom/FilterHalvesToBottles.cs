@@ -20,7 +20,6 @@ public class FilterHalvesToBottles : Task {
     private void HalfToBottle(CallbackData data) {
         Bottle bottle = data.DataObject as Bottle;
         LiquidContainer container = bottle.Container;
-        Logger.Print("CONTAINERIN LIQUID TYPE: " + container.LiquidType);
         if (container.LiquidType == LiquidType.Soycaseine) {
             filterHalvesInSoycaseine++;
         }
