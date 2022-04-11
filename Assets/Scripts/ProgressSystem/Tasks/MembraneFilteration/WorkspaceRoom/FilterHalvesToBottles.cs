@@ -20,6 +20,7 @@ public class FilterHalvesToBottles : Task {
     private void HalfToBottle(CallbackData data) {
         Bottle bottle = data.DataObject as Bottle;
         LiquidContainer container = bottle.Container;
+        Logger.Print("CONTAINERIN LIQUID TYPE: " + container.LiquidType);
         if (container.LiquidType == LiquidType.Soycaseine) {
             filterHalvesInSoycaseine++;
         }
@@ -39,7 +40,7 @@ public class FilterHalvesToBottles : Task {
         CreateTaskMistake("Koskit filteriin kädellä", 1);
     }
     private void CheckMistakes() {
-        if (filterHalvesInSoycaseine >= 1 || filterHalvesInTioglycolate >= 1) {
+        if (filterHalvesInSoycaseine > 1 || filterHalvesInTioglycolate > 1) {
             CreateTaskMistake("Kaksi puolikasta samassa liuoksessa", 1);
         }
     }
