@@ -31,14 +31,14 @@ public class Agar : Interactable {
             if (handIs.Equals("LeftHand")) {
                 Events.FireEvent(EventType.FingerprintsGivenL);
                 if (!isLeft){
-                    Logger.Print("mokasit");
+                    Task.CreateTaskMistake(TaskType.Fingerprints, "Älä sekoita sormia! Tässä on nyt vasemman käden jäljet.", 2);
                 } else {
                     Logger.Print("oikein meni");
                 }
             } else {
                 Events.FireEvent(EventType.FingerprintsGivenR);
                 if (isLeft){
-                    Logger.Print("mokasit");
+                    Task.CreateTaskMistake(TaskType.Fingerprints, "Älä sekoita sormia! Tässä on nyt oikean käden jäljet.", 2);
                 } else {
                     Logger.Print("oikein meni");
                 }
@@ -46,7 +46,7 @@ public class Agar : Interactable {
             thumb = true;
         } else {
             Logger.Print("excess touch");
-            // Events.FireEvent(EventType.FingerprintsGiven);
+            Task.CreateGeneralMistake("Älä koske aineeseen", 1);
         }
     }
 }
