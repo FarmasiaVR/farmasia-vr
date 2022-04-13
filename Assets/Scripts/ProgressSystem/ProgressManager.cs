@@ -154,7 +154,8 @@ public class ProgressManager {
             TaskType.CutFilter,
             TaskType.OpenTweezersCover,
             TaskType.FilterHalvesToBottles,
-            TaskType.CloseAgarplates
+            TaskType.CloseAgarplates,
+            TaskType.Fingerprints
         };
         TaskType[] cleanUpTasks = {
             TaskType.FinishMembrane

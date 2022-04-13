@@ -21,22 +21,7 @@ class StartPump: Task {
         if (!Started) return;
 
         EnableCondition(Conditions.FilterIsEmpty);
-        CompleteTask();
-        /*
-        Logger.Print("dataobjekti on "+ data);
-        LiquidContainer container = data.DataObject as LiquidContainer;
-        
-        if (container.GeneralItem is PumpFilter filter && filter.ObjectType == ObjectType.PumpFilter) {
-            pumpFilter = filter;
-            if (filter.Container.Amount == 0) {
-                EnableCondition(Conditions.FilterIsEmpty);
-                CheckMistakes();
-                CompleteTask();
-            }
-        }
-
-        */
-        
+        CompleteTask();        
     }
 
     private void CheckMistakes() {

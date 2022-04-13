@@ -3,18 +3,30 @@ using System;
 using System.Collections.Generic;
 public class Fingerprints: Task {
 
-    public enum Conditions {
-        AgarIsTouched
+    public enum Conditions { AgarIsTouchedL, AgarIsTouchedR }
+
+    public Fingerprints (TaskType type) : base(type, true, false) {
+        SetCheckAll(true);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+        SubscribeEvent(OnLeftTouch, EventType.FingerprintsGivenL);
+        SubscribeEvent(OnRightTouch, EventType.FingerprintsGivenR);
     }
 
+    private void OnLeftTouch(CallbackData data) {
+        EnableCondition(Conditions.AgarIsTouchedL);
+        CompleteTask();        
+    }
 
-    public Fingerprints() : base(TaskType.Fingerprints, true, false) {
+    private void OnRightTouch(CallbackData data) {
+        EnableCondition(Conditions.AgarIsTouchedR);
+        CompleteTask();        
+    }
 
-        SubscribeEvent((Event) => {
-            Logger.Print("Nice touch");
-            EnableCondition(Conditions.AgarIsTouched);
-            CompleteTask();
-            Popup(success, MsgType.Done, Points);
-        }, EventType.FingerprintsGiven);
+    public override void CompleteTask() {
+        base.CompleteTask();
+        if (Completed) {
+            Popup(base.success, MsgType.Done, base.Points);
+        }
     }
 }
+
