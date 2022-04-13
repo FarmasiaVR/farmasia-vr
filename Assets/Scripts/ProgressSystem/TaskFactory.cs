@@ -76,6 +76,8 @@ public static class TaskFactory {
                     return new FilterHalvesToBottles();
                 case TaskType.CloseAgarplates:
                     return new CloseAgarplates();
+                case TaskType.Fingerprints:
+                    return new Fingerprints();
                 case TaskType.FinishMembrane:
                     return new FinishMembrane();
                 default:

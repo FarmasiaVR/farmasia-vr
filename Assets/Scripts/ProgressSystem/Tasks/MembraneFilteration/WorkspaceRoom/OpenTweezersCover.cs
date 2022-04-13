@@ -29,6 +29,7 @@ public class OpenTweezersCover : Task {
         var tweezers = (data.DataObject as Tweezers);
         CheckIfInsideLaminarCabinet(tweezers);
         EnableCondition(Conditions.OpenedTweezersCover);
+        CompleteTask();
     }
 
     private void CheckIfInsideLaminarCabinet(Interactable interactable) {

@@ -29,6 +29,7 @@ public class OpenFilterCover : Task {
         var filter = (data.DataObject as FilterInCover);
         CheckIfInsideLaminarCabinet(filter);
         EnableCondition(Conditions.OpenedFilterCover);
+        CompleteTask();
     }
 
     private void CheckIfInsideLaminarCabinet(Interactable interactable) {

@@ -29,6 +29,7 @@ public class OpenScalpelCover : Task {
         var scalpel = (data.DataObject as Scalpel);
         CheckIfInsideLaminarCabinet(scalpel);
         EnableCondition(Conditions.OpenedScalpelCover);
+        CompleteTask();
     }
 
     private void CheckIfInsideLaminarCabinet(Interactable interactable) {

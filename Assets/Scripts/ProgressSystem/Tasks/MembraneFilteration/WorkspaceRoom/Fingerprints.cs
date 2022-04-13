@@ -5,7 +5,7 @@ public class Fingerprints: Task {
 
     public enum Conditions { AgarIsTouchedL, AgarIsTouchedR }
 
-    public Fingerprints (TaskType type) : base(type, true, false) {
+    public Fingerprints () : base(TaskType.Fingerprints, true, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnLeftTouch, EventType.FingerprintsGivenL);
