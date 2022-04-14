@@ -26,7 +26,7 @@ public class SyringeNew : ReceiverItem {
     private bool displayState;
     protected override void Start() {
         base.Start();
-
+        GameObject cap = gameObject.transform.parent.GetChild(1).gameObject;
         Container = LiquidContainer.FindLiquidContainer(transform);
 
         Type.On(InteractableType.Interactable);

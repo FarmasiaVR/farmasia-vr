@@ -172,7 +172,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                     EnableCondition(Conditions.PumpFilter);
                     filter++;
                 
-                } else if (g is SterileBag) {
+                } else if (g is SterileBag2) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
                 }

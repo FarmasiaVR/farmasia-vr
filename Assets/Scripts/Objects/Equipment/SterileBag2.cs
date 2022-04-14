@@ -7,13 +7,9 @@ public class SterileBag2 : GeneralItem {
 
     #region fields
     public SyringeNew syringe1;
-    public SyringeNew syringe2;
-    public SyringeNew syringe3;
-    public SyringeNew syringe4;
-    public SyringeNew syringe5;
-    public SyringeNew syringe6;
 
-    public List<SyringeNew> Syringes { get; private set; }
+    public SyringeCapConnect cap1;
+
     public bool IsClosed { get; private set; }
     public bool IsSterile { get; private set; }
     [SerializeField]
@@ -31,13 +27,7 @@ public class SterileBag2 : GeneralItem {
     protected override void Start() {
         base.Start();
 
-        Syringes = new List<SyringeNew>();
-        if (syringe1 != null) SetSyringe(syringe1);
-        if (syringe2 != null) SetSyringe(syringe2);
-        if (syringe3 != null) SetSyringe(syringe3);
-        if (syringe4 != null) SetSyringe(syringe4);
-        if (syringe5 != null) SetSyringe(syringe5);
-        if (syringe6 != null) SetSyringe(syringe6);
+        if (syringe1 != null && cap1 != null) SetSyringe(syringe1, cap1);
 
         ObjectType = ObjectType.SterileBag;
 
@@ -45,50 +35,6 @@ public class SterileBag2 : GeneralItem {
         IsSterile = true;
 
         Type.On(InteractableType.Interactable);
-
-        CollisionSubscription.SubscribeToTrigger(childCollider, new TriggerListener().OnEnter(collider => OnBagEnter(collider)));
-
-        if (closeButton != null) {
-            closeButton.ActivateCountLimit = 1;
-            closeButton.OnAccept = CloseSterileBagFinal;
-            closeButton.Hide(true);
-        }
-    }
-
-    private void OnBagEnter(Collider other) {
-
-        SyringeNew syringe = Interactable.GetInteractable(other.transform) as SyringeNew;
-
-        if (syringe == null) {
-            return;
-        }
-
-        if (syringe.IsAttached) {
-            return;
-        }
-
-        if (Syringes.Count == 6) {
-            return;
-        }
-
-        if (syringe.State == InteractState.Grabbed) {
-            Hand.GrabbingHand(syringe).Connector.Connection.Remove();
-        }
-
-        VRInput.Hands[0].Hand.HandCollider.RemoveInteractable(syringe);
-        VRInput.Hands[0].Hand.ExtendedHandCollider.RemoveInteractable(syringe);
-        VRInput.Hands[1].Hand.HandCollider.RemoveInteractable(syringe);
-        VRInput.Hands[1].Hand.ExtendedHandCollider.RemoveInteractable(syringe);
-
-        SetSyringe(syringe);
-
-        if (syringe.IsClean) {
-            IsSterile = false;
-        }
-
-        if (Syringes.Count == 6) {
-            EnableClosing();
-        }
     }
 
     public override void Interact(Hand hand) {
@@ -98,8 +44,6 @@ public class SterileBag2 : GeneralItem {
             return;
         }
 
-        DisableClosing();
-
         float angle = Vector3.Angle(Vector3.down, transform.up);
 
         if (angle < 45) {
@@ -107,24 +51,25 @@ public class SterileBag2 : GeneralItem {
         }
 
         Logger.Print("Release syringes");
-
-        foreach (SyringeNew s in Syringes) {
-            ReleaseSyringe(s);
-        }
-        Syringes.Clear();
+        
+        ReleaseSyringe();
         IsClosed = false;
     }
 
-    private void SetSyringe(SyringeNew syringe) {
+    private void SetSyringe(SyringeNew syringe, SyringeCapConnect cap) {
 
         syringe.RigidbodyContainer.Disable();
+        cap.RigidbodyContainer.Disable();
         SetColliders(syringe.transform, false);
+        SetColliders(cap.transform, false);
 
         syringe.transform.SetParent(transform);
+        cap.transform.SetParent(transform);
 
-        syringe.transform.localPosition = ObjectPosition(Syringes.Count);
+        syringe.transform.localPosition = ObjectPosition(1, false);
+        cap.transform.localPosition = ObjectPosition(1, true);
         syringe.transform.localEulerAngles = new Vector3(180, 180, 0);
-        Syringes.Add(syringe);
+        cap.transform.localEulerAngles = new Vector3(180, 180, 0);
     }
     private void SetColliders(Transform t, bool enabled) {
 
@@ -139,63 +84,39 @@ public class SterileBag2 : GeneralItem {
         }
     }
 
-    private void ReleaseSyringe(SyringeNew syringe) {
-        StartCoroutine(MoveSyringe(syringe));
+    private void ReleaseSyringe() {
+        StartCoroutine(MoveSyringe());
     }
 
-    private IEnumerator MoveSyringe(SyringeNew syringe) {
+    private IEnumerator MoveSyringe() {
         float totalDistance = 0;
 
         while (totalDistance < ejectDistance) {
             float distance = Time.deltaTime * ejectSpeed;
             totalDistance += distance;
-            syringe.transform.localPosition += Vector3.up * distance;
+            syringe1.transform.localPosition += Vector3.up * distance;
+            cap1.transform.localPosition += Vector3.up * distance;
             yield return null;
         }
 
-        syringe.transform.SetParent(null);
-        SetColliders(syringe.transform, true);
-        syringe.RigidbodyContainer.Enable();
+        syringe1.transform.SetParent(null);
+        cap1.transform.SetParent(null);
+        SetColliders(syringe1.transform, true);
+        SetColliders(cap1.transform, true);
+        syringe1.RigidbodyContainer.Enable();
+        cap1.RigidbodyContainer.Enable();
+
+        syringe1.CheckDistanceAndConnect();
     }
 
-    private void EnableClosing() {
-
-        if (closeButton == null) {
-            return;
-        }
-
-        System.Console.WriteLine("Opening sterilebag");
-
-        if (closeButton.IsGrabbed) {
-            Hand.GrabbingHand(closeButton).Uninteract();
-        }
-
-        closeButton.Hide(false);
-        closeButton.gameObject.SetActive(true);
-    }
-    private void DisableClosing() {
-
-        if (closeButton == null) {
-            return;
-        }
-
-        IsClosed = true;
-        closeButton.Hide(true);
-    }
-
-    public void CloseSterileBagFinal() {
-        finalClose = true;
-        closeButton.SafeDestroy();
-        Logger.Print("Close Sterile bag Final!");
-        Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
-        CleanupObject.GetCleanup().EnableCleanup();
-    }
-
-    private Vector3 ObjectPosition(int index) {
+    private Vector3 ObjectPosition(int index, bool isCap) {
 
         Vector3 pos = new Vector3(0, 0.172f, 0);
         pos.x = (0.2f / 5) * index - 0.1f;
 
+        if (isCap) {
+            pos.y = 0.06f;
+        }
         return pos;
     }
 }
