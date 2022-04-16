@@ -167,17 +167,6 @@ public abstract class Task {
         return false;
     }
 
-
-    //Check for certain conditions.
-    protected bool CheckClearConditions(List<int> conditions) {
-        foreach (int condition in conditions) {
-            if (clearConditions[condition] == false) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     protected List<int> GetNonClearedConditions() {
         List<int> nonCleared = new List<int>();
         foreach (KeyValuePair<int, bool> condition in clearConditions) {

@@ -24,10 +24,6 @@ public class ProgressManager {
 
     #endregion
 
-    #region Constructor
-    /// <summary>
-    /// Initiates ProgressManager fields.
-    /// </summary>
     public ProgressManager(bool testMode) {
         this.testMode = testMode;
         allTasks = new HashSet<Task>();
@@ -103,7 +99,6 @@ public class ProgressManager {
             Calculator = c;
         }
     }
-    #endregion
 
     #region Initialization
     /// <summary>
@@ -127,12 +122,10 @@ public class ProgressManager {
             TaskType.ScenarioOneCleanUp,
             TaskType.Finish
         };
-        Package equipmentSelection = CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
-        packages.Add(equipmentSelection);
-        packages.Add(workSpace);
-        packages.Add(cleanUp);
+
+        packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
 
     private void GenerateScenarioTwo() {
@@ -254,11 +247,10 @@ public class ProgressManager {
         if (!testMode) {
             if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
                 UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
-#if UNITY_NONVRCOMPUTER
-#else
-
+                #if UNITY_NONVRCOMPUTER
+                #else
                 VRVibrationManager.Vibrate();
-#endif
+                #endif
             } else {
                 UISystem.Instance.Descript = "";
             }
