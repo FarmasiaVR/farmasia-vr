@@ -75,14 +75,6 @@ public class Package {
             Debug.Log(string.Format("Still {0} left in package: {1}", activeTasks.Count.ToString(), name.ToString()));
         }
     }
-    
-    public void PrintAllTasks() {
-
-        Logger.Print(string.Format("Package name: {0}\nThese tasks are inside currently\n", name.ToString()));
-        foreach (Task task in activeTasks) {
-            Logger.Print(task.GetType());
-        }
-    }
 
     public void StartTask() {
         if (CurrentTask != null) {
