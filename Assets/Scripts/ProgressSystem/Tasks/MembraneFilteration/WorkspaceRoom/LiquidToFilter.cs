@@ -19,6 +19,7 @@ class LiquidToFilter : Task {
 
     public override void Subscribe() {
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);
+        SubscribeEvent(OnFilterDissassemble, EventType.FilterDissassembled);
     }
 
     private void OnFilterWet(CallbackData data) {
@@ -37,6 +38,25 @@ class LiquidToFilter : Task {
         } else if (!package.doneTypes.Contains(TaskType.WetFilter) && !package.doneTypes.Contains(TaskType.StartPump)) {
             CreateGeneralMistake("Filtteröi ensin peptonivesi", 1);
         }*/
+    }
+
+    private void OnFilterDissassemble(CallbackData data) {
+        // The data of the event 'FilterDissassembled' holds both parts that are disconnected
+        var (bottom, top) = data.DataObject as Tuple<FilterPart, FilterPart>;
+        // We're interested in these cases:
+        // PumpFilterBase <-> PumpFilterFilter
+        // PumpFilterFilter <-> PumpFilterTank
+        LiquidContainer container = null;
+        if (bottom.ObjectType == ObjectType.PumpFilterBase) {
+            container = (top.ConnectedItem as FilterPart)?.Container;
+        } else if (bottom.ObjectType == ObjectType.PumpFilterFilter) {
+            container = (top as FilterPart)?.Container;
+        }
+        if (container == null) return;
+
+        if (container.Amount != 0) {
+            CreateGeneralMistake("Avasit pumpun filtterin kun siinä oli vielä nestettä!");
+        }
     }
 
     private void CheckMistakes() {
