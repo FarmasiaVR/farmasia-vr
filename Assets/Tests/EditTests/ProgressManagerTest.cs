@@ -57,7 +57,7 @@ namespace Tests {
 
     public class TestTask : Task {
 
-        public TestTask() : base(TaskType.SelectTools, true, true) { }
+        public TestTask() : base(TaskType.SelectTools, true) { }
 
         protected override void OnTaskComplete() {
         }
@@ -65,7 +65,7 @@ namespace Tests {
 
     public class TestTask2 : Task {
 
-        public TestTask2() : base(TaskType.SelectMedicine, false, true) { }
+        public TestTask2() : base(TaskType.SelectMedicine, true) { }
 
         protected override void OnTaskComplete() {
         }

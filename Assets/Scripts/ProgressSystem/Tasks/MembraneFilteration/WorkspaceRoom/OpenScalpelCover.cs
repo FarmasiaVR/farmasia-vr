@@ -6,7 +6,7 @@ public class OpenScalpelCover : Task {
     public enum Conditions { OpenedScalpelCover }
     private CabinetBase laminarCabinet;
 
-    public OpenScalpelCover() : base(TaskType.OpenScalpelCover, true, false) {
+    public OpenScalpelCover() : base(TaskType.OpenScalpelCover, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

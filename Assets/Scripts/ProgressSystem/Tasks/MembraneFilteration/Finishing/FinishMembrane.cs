@@ -10,7 +10,7 @@ public class FinishMembrane : Task {
     ///  Constructor for Finish task.
     ///  Is not removed when finished and requires previous task completion.
     ///  </summary>
-    public FinishMembrane() : base(TaskType.FinishMembrane, false, true) {
+    public FinishMembrane() : base(TaskType.FinishMembrane, true) {
         Subscribe();
     }
 

@@ -7,7 +7,7 @@ public class Fingerprints: Task {
 
     private int donePlates = 0;
 
-    public Fingerprints () : base(TaskType.Fingerprints, true, false) {
+    public Fingerprints () : base(TaskType.Fingerprints, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnLeftTouch, EventType.FingerprintsGivenL);

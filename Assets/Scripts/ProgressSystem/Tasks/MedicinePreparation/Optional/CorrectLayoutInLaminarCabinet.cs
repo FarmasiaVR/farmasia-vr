@@ -13,7 +13,7 @@ public class CorrectLayoutInLaminarCabinet : Task {
     ///  Constructor for CorrectLayoutInLaminarCabinet task.
     ///  Is moved to manager when finished and doesn't require previous task completion.
     ///  </summary>
-    public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false, false) {
+    public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false) {
         base.unsubscribeAllEvents = false;
         Subscribe();
     }

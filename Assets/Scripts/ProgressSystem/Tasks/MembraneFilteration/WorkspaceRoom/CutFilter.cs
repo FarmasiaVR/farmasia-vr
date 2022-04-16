@@ -8,7 +8,7 @@ public class CutFilter: Task {
     }
 
 
-    public CutFilter() : base(TaskType.CutFilter, true, false) {
+    public CutFilter() : base(TaskType.CutFilter, false) {
 
         SubscribeEvent((Event) => {
             Logger.Print("Filter cutted, nice");

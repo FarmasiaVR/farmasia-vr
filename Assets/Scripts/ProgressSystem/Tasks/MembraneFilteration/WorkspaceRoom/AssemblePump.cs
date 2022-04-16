@@ -10,7 +10,7 @@ class AssemblePump: Task {
     // private bool fail = false;
     // private bool firstCheckDone = false;
 
-    public AssemblePump() : base(TaskType.AssemblePump, true, false) {
+    public AssemblePump() : base(TaskType.AssemblePump, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         Subscribe();

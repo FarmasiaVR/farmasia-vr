@@ -13,7 +13,7 @@ class LiquidToFilter : Task {
 
     private readonly int REQUIRED_AMOUNT;
 
-    public LiquidToFilter(string description, int amount, LiquidType liquid, TaskType taskType) : base(TaskType.WetFilter, true, true) {
+    public LiquidToFilter(string description, int amount, LiquidType liquid, TaskType taskType) : base(TaskType.WetFilter, true) {
         this.description = description;
         liquidType = liquid;
         REQUIRED_AMOUNT = amount;

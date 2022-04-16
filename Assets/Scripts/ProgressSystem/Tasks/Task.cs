@@ -17,7 +17,6 @@ public abstract class Task {
     protected bool checkAllClearConditions = true;
     protected bool eventsUnsubscribed = true;
     protected bool isFinished = false;
-    protected bool removeWhenFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
     protected bool previousTasksCompleted = false;
     protected bool unsubscribeAllEvents = true;
@@ -31,9 +30,8 @@ public abstract class Task {
     protected string success;
     
 
-    public Task(TaskType type, bool remove, bool previous) {
+    public Task(TaskType type, bool previous) {
         TaskType = type;
-        removeWhenFinished = remove;
         requiresPreviousTaskCompletion = previous;
         description = TaskConfig.For(TaskType).Description;
         hint = TaskConfig.For(type).Description;
@@ -92,13 +90,9 @@ public abstract class Task {
 
     public virtual void RemoveFromPackage() {
         if (package != null) {
-            if (removeWhenFinished) {
-                package.RemoveTask((Task)this);
-                if (unsubscribeAllEvents) {
-                    UnsubscribeAllEvents();
-                }
-            } else {
-                package.MoveTaskToManager((Task)this);
+            package.RemoveTask((Task)this);
+            if (unsubscribeAllEvents) {
+                UnsubscribeAllEvents();
             }
         }
     }
@@ -233,7 +227,6 @@ public abstract class Task {
             "\nstrted: ", Started.ToString(),
             "\ncheck cond: ", checkAllClearConditions.ToString(),
             "\nis completed: ", Completed.ToString(),
-            "\nremove when finished: ", removeWhenFinished.ToString(),
             "\nrequires previous: ", requiresPreviousTaskCompletion.ToString(),
             "\nprevious completed: ", previousTasksCompleted.ToString()
         };

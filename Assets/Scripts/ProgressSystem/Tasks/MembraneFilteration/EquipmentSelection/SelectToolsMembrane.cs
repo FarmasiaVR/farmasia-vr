@@ -13,7 +13,7 @@ public class SelectToolsMembrane : Task {
     /// Constructor for SelectTools task. 
     /// Is removed when finished and doesn't require previous task completion.
     /// </summary>
-    public SelectToolsMembrane() : base(TaskType.SelectToolsMembrane, true, false) {
+    public SelectToolsMembrane() : base(TaskType.SelectToolsMembrane, false) {
         SetCheckAll(false);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

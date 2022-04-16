@@ -6,7 +6,7 @@ public class OpenTweezersCover : Task {
     public enum Conditions { OpenedTweezersCover }
     private CabinetBase laminarCabinet;
 
-    public OpenTweezersCover() : base(TaskType.OpenTweezersCover, true, false) {
+    public OpenTweezersCover() : base(TaskType.OpenTweezersCover, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

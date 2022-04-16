@@ -11,7 +11,7 @@ public class DisinfectBottles : Task {
     ///  Constructor for Disinfect task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public DisinfectBottles() : base(TaskType.DisinfectBottles, true, true) {
+    public DisinfectBottles() : base(TaskType.DisinfectBottles, true) {
         Subscribe();
     }
     #endregion

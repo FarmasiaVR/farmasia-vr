@@ -19,7 +19,7 @@ public class SyringeAttach : Task {
     ///  Constructor for SyringeAttach task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
+    public SyringeAttach() : base(TaskType.SyringeAttach, true) {
         Subscribe();
         usedSyringes = new HashSet<Syringe>();
     }
@@ -59,7 +59,7 @@ public class SyringeAttach : Task {
             CreateTaskMistake("Ruisku kiinnitettiin laminaarikaapin ulkopuolella", 1);
             attachedSyringes.Remove(s.GetInstanceID());
         } else {
-            base.package.MoveTaskToManager(this);
+            // base.package.MoveTaskToManager(this);
         }
     }
     #endregion

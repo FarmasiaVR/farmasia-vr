@@ -18,7 +18,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     ///  Constructor for CorrectItemsInLaminarCabinetMembrane task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public CorrectItemsInLaminarCabinetMembrane() : base(TaskType.CorrectItemsInLaminarCabinetMembrane, true, false) {
+    public CorrectItemsInLaminarCabinetMembrane() : base(TaskType.CorrectItemsInLaminarCabinetMembrane, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));

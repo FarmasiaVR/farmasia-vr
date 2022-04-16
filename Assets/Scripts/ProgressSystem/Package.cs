@@ -75,24 +75,7 @@ public class Package {
             Debug.Log(string.Format("Still {0} left in package: {1}", activeTasks.Count.ToString(), name.ToString()));
         }
     }
-
-    /// <summary>
-    /// Moves task back to ProgressManager
-    /// </summary>
-    /// <param name="task">Reference to the task that will be moved</param>
-    public void MoveTaskToManager(Task task) {
-        if (activeTasks.Contains(task)) {
-            Logger.Print("Moving task back to manager.");
-            manager.AddTask(task);
-            activeTasks.Remove(task);
-            CheckChangePackage();
-            manager.UpdateDescription();
-            Logger.Print("MoveTaskToManager");
-            StartTask();
-        }
-    }
-
-
+    
     public void PrintAllTasks() {
 
         Logger.Print(string.Format("Package name: {0}\nThese tasks are inside currently\n", name.ToString()));

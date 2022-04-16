@@ -11,7 +11,7 @@ public class CorrectItemsInThroughput : Task {
     private CabinetBase cabinet;
     private OpenableDoor door;
 
-    public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, true, false) {
+    public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

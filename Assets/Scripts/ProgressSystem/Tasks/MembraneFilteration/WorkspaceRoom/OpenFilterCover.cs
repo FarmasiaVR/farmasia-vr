@@ -6,7 +6,7 @@ public class OpenFilterCover : Task {
     public enum Conditions { OpenedFilterCover }
     private CabinetBase laminarCabinet;
 
-    public OpenFilterCover() : base(TaskType.OpenFilterCover, true, false) {
+    public OpenFilterCover() : base(TaskType.OpenFilterCover, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

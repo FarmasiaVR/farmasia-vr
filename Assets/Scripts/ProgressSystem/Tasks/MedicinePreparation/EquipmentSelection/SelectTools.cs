@@ -11,7 +11,7 @@ public class SelectTools : Task {
     /// Constructor for SelectTools task. 
     /// Is removed when finished and doesn't require previous task completion.
     /// </summary>
-    public SelectTools() : base(TaskType.SelectTools, true, false) {
+    public SelectTools() : base(TaskType.SelectTools, false) {
         SetCheckAll(false);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

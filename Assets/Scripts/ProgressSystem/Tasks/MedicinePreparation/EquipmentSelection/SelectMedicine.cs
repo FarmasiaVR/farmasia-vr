@@ -11,7 +11,7 @@ public class SelectMedicine : Task {
     /// Constructor for SelectMedicine task. 
     ///  Is removed when finished and doesn't require previous task completion.
     /// </summary>
-    public SelectMedicine() : base(TaskType.SelectMedicine, true, false) {
+    public SelectMedicine() : base(TaskType.SelectMedicine, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

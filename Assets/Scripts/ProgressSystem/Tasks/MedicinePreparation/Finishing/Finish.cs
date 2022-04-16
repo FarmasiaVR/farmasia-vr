@@ -20,7 +20,7 @@ public class Finish : Task {
     ///  Constructor for Finish task.
     ///  Is not removed when finished and requires previous task completion.
     ///  </summary>
-    public Finish() : base(TaskType.Finish, false, true) {
+    public Finish() : base(TaskType.Finish, true) {
         Subscribe();
     }
     #endregion

@@ -11,7 +11,7 @@ class WetFilter : Task {
 
     private readonly int REQUIRED_AMOUNT = 10000;
 
-    public WetFilter() : base(TaskType.WetFilter, true, false) {
+    public WetFilter() : base(TaskType.WetFilter, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);

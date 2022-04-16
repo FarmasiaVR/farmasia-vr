@@ -21,7 +21,7 @@ public class ItemsToSterileBag : Task {
     #endregion
 
     #region Constructor
-    public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, true, false) {
+    public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

@@ -22,7 +22,7 @@ public class MedicineToSyringe : Task {
     #endregion
 
     #region Constructor
-    public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true, true) {
+    public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

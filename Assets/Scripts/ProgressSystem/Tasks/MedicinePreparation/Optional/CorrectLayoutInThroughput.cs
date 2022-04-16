@@ -15,7 +15,7 @@ public class CorrectLayoutInThroughput : Task {
     ///  Constructor for CorrectLayoutInThroughput task.
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
-    public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, true, false) {
+    public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, false) {
         Subscribe();
     }
     #endregion

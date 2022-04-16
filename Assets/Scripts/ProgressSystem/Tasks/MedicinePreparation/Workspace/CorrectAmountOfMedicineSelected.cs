@@ -19,7 +19,7 @@ public class CorrectAmountOfMedicineSelected : Task {
     #endregion
 
     #region Constructor
-    public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true, true) {
+    public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true) {
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         usedSmallSyringes = new Dictionary<SmallSyringe, int>();

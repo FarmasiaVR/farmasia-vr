@@ -15,7 +15,7 @@ class FillBottles: Task {
 
     private HashSet<Bottle> bottles = new HashSet<Bottle>();
 
-    public FillBottles() : base(TaskType.FillBottles, true, false) {
+    public FillBottles() : base(TaskType.FillBottles, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnBottleFill, EventType.TransferLiquidToBottle);

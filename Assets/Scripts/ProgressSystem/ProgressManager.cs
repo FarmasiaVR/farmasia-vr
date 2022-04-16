@@ -276,20 +276,17 @@ public class ProgressManager {
             if (task.TaskType == TaskType.Finish) {
                 RemoveTask(task);
                 MedicinePreparationScene.SavedScoreState = null;
-                (int score, string scoreString) = Calculator.GetScoreString();
-                EndSummary.EnableEndSummary(scoreString);
-                Player.SavePlayerData(score, scoreString);
                 break;
             }
             if (task.TaskType == TaskType.FinishMembrane) {
                 RemoveTask(task);
                 MembraneFilterationScene.SavedScoreState = null;
-                (int score, string scoreString) = Calculator.GetScoreString();
-                EndSummary.EnableEndSummary(scoreString);
-                Player.SavePlayerData(score, scoreString);
                 break;
             }
         }
+        (int score, string scoreString) = Calculator.GetScoreString();
+        EndSummary.EnableEndSummary(scoreString);
+        Player.SavePlayerData(score, scoreString);
     }
 
     /// <summary>

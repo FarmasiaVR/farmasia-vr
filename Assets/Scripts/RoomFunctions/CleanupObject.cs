@@ -56,7 +56,6 @@ public class CleanupObject : MonoBehaviour {
         if (startedCleanup && !finished) {
             if (RoomGeneralItemCount() <= 1) {
                 finished = true;
-                Logger.Warning("Finishing cleanup");
                 G.Instance.Progress.ForceCloseTask(TaskType.ScenarioOneCleanUp, false);
             }
         }

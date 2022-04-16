@@ -15,7 +15,7 @@ public class CorrectItemsInThroughputMembrane: Task {
     #endregion
 
     #region Constructor
-    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughputMembrane, true, false) {
+    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughputMembrane, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));

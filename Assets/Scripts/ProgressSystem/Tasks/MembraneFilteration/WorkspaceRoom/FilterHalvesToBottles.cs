@@ -10,7 +10,7 @@ public class FilterHalvesToBottles : Task {
     private int filterHalvesInSoycaseine = 0;
     private int filterHalvesInTioglycolate = 0;
 
-    public FilterHalvesToBottles() : base(TaskType.FilterHalvesToBottles, true, true) {
+    public FilterHalvesToBottles() : base(TaskType.FilterHalvesToBottles, true) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(HalfToBottle, EventType.FilterHalfEnteredBottle);

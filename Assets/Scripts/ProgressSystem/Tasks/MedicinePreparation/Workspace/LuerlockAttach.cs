@@ -12,7 +12,7 @@ public class LuerlockAttach : Task {
     #endregion
 
     #region Constructor
-    public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
+    public LuerlockAttach() : base(TaskType.LuerlockAttach, true) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

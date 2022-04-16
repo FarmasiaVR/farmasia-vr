@@ -12,7 +12,7 @@ public class CloseAgarplates : Task {
     private int openedPlates = 0;
     #endregion
 
-    public CloseAgarplates() : base(TaskType.CloseAgarplates, true, true) {
+    public CloseAgarplates() : base(TaskType.CloseAgarplates, true) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

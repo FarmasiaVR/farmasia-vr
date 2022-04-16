@@ -16,7 +16,7 @@ public class ScenarioOneCleanUp : Task {
     ///  Constructor for ScenarioOneCleanUp task.
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
-    public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true, true) {
+    public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true) {
         Subscribe();
         itemsToBeCleaned = new List<GeneralItem>();
     }

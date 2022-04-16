@@ -14,7 +14,7 @@ public class WriteTextsToItems : Task {
     private List<GameObject> writtenObjects;
     #endregion
 
-    public WriteTextsToItems() : base(TaskType.WriteTextsToItems, true, false) {
+    public WriteTextsToItems() : base(TaskType.WriteTextsToItems, false) {
         SetCheckAll(true);
         Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
