@@ -33,11 +33,4 @@ class StartPump: Task {
             CreateTaskMistake("Suodattimessa on vielä nestett�", 1);
         }
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }

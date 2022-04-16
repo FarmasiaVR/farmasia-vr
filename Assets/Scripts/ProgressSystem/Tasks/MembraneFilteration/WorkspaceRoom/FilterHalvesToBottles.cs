@@ -46,11 +46,4 @@ public class FilterHalvesToBottles : Task {
             CreateTaskMistake("Kaksi puolikasta samassa liuoksessa", 1);
         }
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }

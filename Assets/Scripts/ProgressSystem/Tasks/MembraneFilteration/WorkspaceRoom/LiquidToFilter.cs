@@ -73,11 +73,4 @@ class LiquidToFilter : Task {
             CreateTaskMistake("Filtterin neste on sekoittunut", 1);
         }
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            Popup("Hienosti kostutettu!", MsgType.Done);
-        }
-    }
 }

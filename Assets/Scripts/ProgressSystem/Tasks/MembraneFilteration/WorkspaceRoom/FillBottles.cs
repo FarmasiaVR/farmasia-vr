@@ -77,11 +77,4 @@ class FillBottles: Task {
             
         }
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }

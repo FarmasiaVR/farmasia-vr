@@ -54,10 +54,4 @@ public class CorrectLayoutInLaminarCabinet : Task {
         return true;
     }
     #endregion
-
-    #region Public Methods
-    public override void FinishTask() {
-        base.FinishTask();
-    }
-    #endregion
 }

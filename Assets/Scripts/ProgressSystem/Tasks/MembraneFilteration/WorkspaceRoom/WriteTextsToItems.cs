@@ -122,14 +122,4 @@ public class WriteTextsToItems : Task {
         }
         return false;
     }
-
-    #region Public Methods
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
-    #endregion
 }

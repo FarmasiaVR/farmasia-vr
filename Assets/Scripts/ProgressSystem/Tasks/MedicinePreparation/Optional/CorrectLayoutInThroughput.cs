@@ -33,11 +33,4 @@ public class CorrectLayoutInThroughput : Task {
         }
     }
     #endregion
-
-    #region Public Methods
-    public override void FinishTask() {
-        base.FinishTask();
-    }
-
-    #endregion
 }

@@ -47,11 +47,4 @@ public class OpenTweezersCover : Task {
     public void WrongSpotOpened(CallbackData data) {
         CreateTaskMistake("Avasit suojamuovin väärästä päästä!", 1);
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }

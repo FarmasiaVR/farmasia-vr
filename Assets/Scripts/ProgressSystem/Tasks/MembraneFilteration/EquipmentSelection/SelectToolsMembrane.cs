@@ -57,13 +57,4 @@ public class SelectToolsMembrane : Task {
         CompleteTask();
     }
     #endregion
-
-    #region Public Methods
-
-    public override void FinishTask() {
-        base.FinishTask();
-
-    }
-
-    #endregion
 }

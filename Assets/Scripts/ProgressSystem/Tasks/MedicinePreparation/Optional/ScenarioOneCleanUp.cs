@@ -27,9 +27,6 @@ public class ScenarioOneCleanUp : Task {
     }
 
     #region Public Methods
-    public override void CompleteTask() {
-        base.CompleteTask();
-    }
 
     public override void FinishTask() {
         if (itemsToBeCleaned.Count != 0) {

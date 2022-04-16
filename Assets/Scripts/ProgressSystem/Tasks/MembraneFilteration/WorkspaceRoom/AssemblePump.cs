@@ -57,15 +57,4 @@ class AssemblePump: Task {
         EnableCondition(Conditions.PipeAttached);
         CompleteTask();
     }
-
-    private void CheckMistakes() {
-        
-    }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }

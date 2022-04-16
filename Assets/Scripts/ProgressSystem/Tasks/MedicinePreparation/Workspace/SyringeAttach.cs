@@ -66,10 +66,6 @@ public class SyringeAttach : Task {
 
     #region Public Methods
 
-    public override void CompleteTask() {
-        base.CompleteTask();
-    }
-
     public override void FinishTask() {
         base.FinishTask();
         if (usedSyringes.Count < 6) {

@@ -38,12 +38,5 @@ public class Fingerprints: Task {
     public void twoSameGiven(){
         CreateTaskMistake("Annoit saman käden jäljet kahdesti!", 2);
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }
 

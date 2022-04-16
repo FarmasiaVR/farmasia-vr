@@ -66,11 +66,4 @@ public class OpenAgarplates : Task {
             CompleteTask();
         }
     }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (Completed) {
-            
-        }
-    }
 }
