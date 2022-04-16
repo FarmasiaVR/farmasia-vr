@@ -13,7 +13,7 @@ public class SelectTools : Task {
     /// </summary>
     public SelectTools() : base(TaskType.SelectTools, false) {
         SetCheckAll(false);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -55,15 +55,12 @@ public class SelectTools : Task {
     }
     #endregion
 
-    protected override void OnTaskComplete() {
-        Popup(base.success, MsgType.Done);
-    }
 
     #region Public Methods
 
     public override void FinishTask() {
         base.FinishTask();
-        
+        Popup(base.success, MsgType.Done);
     }
     #endregion
 }

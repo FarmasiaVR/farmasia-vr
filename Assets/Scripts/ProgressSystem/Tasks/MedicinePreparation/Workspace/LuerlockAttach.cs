@@ -14,7 +14,7 @@ public class LuerlockAttach : Task {
     #region Constructor
     public LuerlockAttach() : base(TaskType.LuerlockAttach, true) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -98,10 +98,9 @@ public class LuerlockAttach : Task {
 
     #region Public Methods
 
-    protected override void OnTaskComplete() {
-        if (!fail) {
-            Popup(base.success, MsgType.Done);
-        }
+    public override void FinishTask() {
+        base.FinishTask();
+        Popup(base.success, MsgType.Done);
     }
     #endregion
 }

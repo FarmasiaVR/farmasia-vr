@@ -21,7 +21,7 @@ public class OpenAgarplates : Task {
 
     public OpenAgarplates() : base(TaskType.OpenAgarplates, true) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

@@ -17,7 +17,7 @@ public class ScenarioOneCleanUp : Task {
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
     public ScenarioOneCleanUp() : base(TaskType.ScenarioOneCleanUp, true) {
-        Subscribe();
+        
         itemsToBeCleaned = new List<GeneralItem>();
     }
     #endregion
@@ -33,9 +33,6 @@ public class ScenarioOneCleanUp : Task {
             //G.Instance.Progress.Calculator.Subtract(TaskType.ScenarioOneCleanUp);
         }
         base.FinishTask();
-    }
-
-    protected override void OnTaskComplete() {
     }
     #endregion
 }

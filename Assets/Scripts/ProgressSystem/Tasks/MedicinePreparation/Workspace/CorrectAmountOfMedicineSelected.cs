@@ -20,7 +20,7 @@ public class CorrectAmountOfMedicineSelected : Task {
 
     #region Constructor
     public CorrectAmountOfMedicineSelected() : base(TaskType.CorrectAmountOfMedicineSelected, true) {
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         usedSmallSyringes = new Dictionary<SmallSyringe, int>();
     }
@@ -98,12 +98,6 @@ public class CorrectAmountOfMedicineSelected : Task {
 
     private void InvalidSmallSyringePush(CallbackData data) {
         CreateTaskMistake("Älä työnnä isosta ruiskusta pieneen. Vedä pienellä.", 1);
-    }
-    #endregion
-
-    #region Public Methods
-
-    protected override void OnTaskComplete() {
     }
     #endregion
 }

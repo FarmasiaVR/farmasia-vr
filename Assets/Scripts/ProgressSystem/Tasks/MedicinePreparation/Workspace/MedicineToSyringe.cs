@@ -24,7 +24,7 @@ public class MedicineToSyringe : Task {
     #region Constructor
     public MedicineToSyringe() : base(TaskType.MedicineToSyringe, true) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -85,7 +85,8 @@ public class MedicineToSyringe : Task {
 
     #region Public Methods
 
-    protected override void OnTaskComplete() {
+    public override void FinishTask() {
+        base.FinishTask();
         (G.Instance.Scene as MedicinePreparationScene).NeedleUsed = true;
 
         if (syringe == null) {

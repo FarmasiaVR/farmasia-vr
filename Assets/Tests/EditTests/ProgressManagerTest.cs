@@ -59,15 +59,13 @@ namespace Tests {
 
         public TestTask() : base(TaskType.SelectTools, true) { }
 
-        protected override void OnTaskComplete() {
-        }
+        
     }
 
     public class TestTask2 : Task {
 
         public TestTask2() : base(TaskType.SelectMedicine, true) { }
 
-        protected override void OnTaskComplete() {
-        }
+        
     }
 }

@@ -1,89 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
+
 public static class TaskFactory {
-    /// <summary>
-    /// Static class for creating a new task based on given type.
+    /// <summary>Get a task by type and call subscribe on it, effectively activating it
     /// </summary>
-    /// <param name="type">Type given to turn into a Task.</param>
-    /// <returns>Returns a new Task based on TaskType.</returns>
-    public static Task GetTask(TaskType type, SceneTypes scene) {
-        if (scene == SceneTypes.MedicinePreparation) {
-            switch (type) {
-                case TaskType.SelectTools:
-                    return new SelectTools();
-                case TaskType.SelectMedicine:
-                    return new SelectMedicine();
-                case TaskType.CorrectItemsInThroughput:
-                    return new CorrectItemsInThroughput();
-                case TaskType.CorrectLayoutInThroughput:
-                    return new CorrectLayoutInThroughput();
-                case TaskType.CorrectItemsInLaminarCabinet:
-                    return new CorrectItemsInLaminarCabinet();
-                case TaskType.CorrectLayoutInLaminarCabinet:
-                    return new CorrectLayoutInLaminarCabinet();
-                case TaskType.DisinfectBottles:
-                    return new DisinfectBottles();
-                case TaskType.MedicineToSyringe:
-                    return new MedicineToSyringe();
-                case TaskType.LuerlockAttach:
-                    return new LuerlockAttach();
-                case TaskType.SyringeAttach:
-                    return new SyringeAttach();
-                case TaskType.CorrectAmountOfMedicineSelected:
-                    return new CorrectAmountOfMedicineSelected();
-                case TaskType.ItemsToSterileBag:
-                    return new ItemsToSterileBag();
-                case TaskType.ScenarioOneCleanUp:
-                    return new ScenarioOneCleanUp();
-                case TaskType.Finish:
-                    return new Finish();
-                default:
-                    return null;
-            }
+    public static Task GetTask(TaskType type) {
+        if (tasks.ContainsKey(type)) {
+            var task = tasks[type];
+            task.Subscribe();
+            return task;
+        } else {
+            Logger.Error("Unknown TaskType " + type);
+            return null;
         }
-        if (scene == SceneTypes.MembraneFilteration) {
-            switch (type) {
-                case TaskType.CorrectItemsInThroughputMembrane:
-                    return new CorrectItemsInThroughputMembrane();
-                case TaskType.CorrectItemsInLaminarCabinetMembrane:
-                    return new CorrectItemsInLaminarCabinetMembrane();
-                case TaskType.WriteTextsToItems:
-                    return new WriteTextsToItems();
-                case TaskType.FillBottles:
-                    return new FillBottles();
-                case TaskType.OpenFilterCover:
-                    return new OpenFilterCover();
-                case TaskType.AssemblePump:
-                    return new AssemblePump();
-                case TaskType.OpenAgarplates:
-                    return new OpenAgarplates();
-                case TaskType.WetFilter:
-                    return new LiquidToFilter("Lisää peptonivesi suodattimeen", 10000, LiquidType.Peptonwater, TaskType.WetFilter);
-                case TaskType.StartPump:
-                    return new StartPump(TaskType.StartPump);
-                case TaskType.MedicineToFilter:
-                    return new LiquidToFilter("Lisää lääke suodattimeen", 150, LiquidType.Medicine, TaskType.MedicineToFilter);
-                case TaskType.StartPumpAgain:
-                    return new StartPump(TaskType.StartPumpAgain);
-                case TaskType.OpenScalpelCover:
-                    return new OpenScalpelCover();
-                case TaskType.CutFilter:
-                    return new CutFilter();
-                case TaskType.OpenTweezersCover:
-                    return new OpenTweezersCover();
-                case TaskType.FilterHalvesToBottles:
-                    return new FilterHalvesToBottles();
-                case TaskType.CloseAgarplates:
-                    return new CloseAgarplates();
-                case TaskType.Fingerprints:
-                    return new Fingerprints();
-                case TaskType.FinishMembrane:
-                    return new FinishMembrane();
-                default:
-                    return null;
-            }
-        }
-        return null;
     }
+
+    private static Dictionary<TaskType, Task> tasks = new List<Task>() {
+        // Medicine preparation
+        new SelectTools(),
+        new SelectMedicine(),
+        new CorrectItemsInThroughput(),
+        new CorrectLayoutInThroughput(),
+        new CorrectItemsInLaminarCabinet(),
+        new CorrectLayoutInLaminarCabinet(),
+        new DisinfectBottles(),
+        new MedicineToSyringe(),
+        new LuerlockAttach(),
+        new SyringeAttach(),
+        new CorrectAmountOfMedicineSelected(),
+        new ItemsToSterileBag(),
+        new ScenarioOneCleanUp(),
+        new Finish(),
+
+        // Membrane filtration
+        new SelectToolsMembrane(),
+        new CorrectItemsInThroughputMembrane(),
+        new CorrectItemsInLaminarCabinetMembrane(),
+        new WriteTextsToItems(),
+        new OpenAgarplates(),
+        new FillBottles(),
+        new OpenFilterCover(),
+        new AssemblePump(),
+        new LiquidToFilter("Lisää peptonivesi suodattimeen", 10000, LiquidType.Peptonwater, TaskType.WetFilter),
+        new StartPump(TaskType.StartPump),
+        new LiquidToFilter("Lisää lääke suodattimeen", 150, LiquidType.Medicine, TaskType.MedicineToFilter),
+        new StartPump(TaskType.StartPumpAgain),
+        new OpenScalpelCover(),
+        new CutFilter(),
+        new OpenTweezersCover(),
+        new FilterHalvesToBottles(),
+        new CloseAgarplates(),
+        new Fingerprints(),
+        new FinishMembrane(),
+    }.ToDictionary(task => task.TaskType, task => task);
 }

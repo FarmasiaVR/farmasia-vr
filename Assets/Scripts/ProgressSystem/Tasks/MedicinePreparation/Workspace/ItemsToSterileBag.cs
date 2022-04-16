@@ -23,7 +23,7 @@ public class ItemsToSterileBag : Task {
     #region Constructor
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -107,38 +107,6 @@ public class ItemsToSterileBag : Task {
             mistakes++;
             mistakesList.Add(SterileBagMistake.ContaminatedSyringe);
         }
-    }
-
-    public override bool Equals(object obj) {
-        return base.Equals(obj);
-    }
-
-    public override int GetHashCode() {
-        return base.GetHashCode();
-    }
-
-    public override void ForceClose(bool removePoints) {
-        base.ForceClose(removePoints);
-    }
-
-    public override void StartTask() {
-        base.StartTask();
-    }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-    }
-
-    protected override void OnTaskComplete() {
-        throw new NotImplementedException();
-    }
-
-    public override void RemoveFromPackage() {
-        base.RemoveFromPackage();
-    }
-
-    public override string ToString() {
-        return base.ToString();
     }
     #endregion
 }

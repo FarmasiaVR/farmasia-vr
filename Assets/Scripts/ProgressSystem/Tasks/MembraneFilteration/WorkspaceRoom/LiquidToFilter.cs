@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 class LiquidToFilter : Task {
 
@@ -13,11 +9,10 @@ class LiquidToFilter : Task {
 
     private readonly int REQUIRED_AMOUNT;
 
-    public LiquidToFilter(string description, int amount, LiquidType liquid, TaskType taskType) : base(TaskType.WetFilter, true) {
+    public LiquidToFilter(string description, int amount, LiquidType liquid, TaskType taskType) : base(taskType, true) {
         this.description = description;
         liquidType = liquid;
         REQUIRED_AMOUNT = amount;
-        TaskType = taskType;
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);

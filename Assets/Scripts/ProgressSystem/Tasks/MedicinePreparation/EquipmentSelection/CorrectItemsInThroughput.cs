@@ -13,7 +13,7 @@ public class CorrectItemsInThroughput : Task {
 
     public CorrectItemsInThroughput() : base(TaskType.CorrectItemsInThroughput, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 
@@ -128,11 +128,6 @@ public class CorrectItemsInThroughput : Task {
                     break;
             }
         }
-    }
-
-    
-
-    protected override void OnTaskComplete() {
     }
 
 

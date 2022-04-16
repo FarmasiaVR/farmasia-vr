@@ -12,7 +12,7 @@ public class DisinfectBottles : Task {
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
     public DisinfectBottles() : base(TaskType.DisinfectBottles, true) {
-        Subscribe();
+        
     }
     #endregion
 
@@ -28,14 +28,6 @@ public class DisinfectBottles : Task {
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
         G.Instance.Progress.ForceCloseTask(TaskType, false);
-    }
-    #endregion
-
-    #region Public Methods
-
-    protected override void OnTaskComplete() {
-
-        return;
     }
     #endregion
 }

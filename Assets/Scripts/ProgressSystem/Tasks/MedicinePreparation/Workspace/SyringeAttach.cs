@@ -20,7 +20,7 @@ public class SyringeAttach : Task {
     ///  Is removed when finished and requires previous task completion.
     ///  </summary>
     public SyringeAttach() : base(TaskType.SyringeAttach, true) {
-        Subscribe();
+        
         usedSyringes = new HashSet<Syringe>();
     }
     #endregion
@@ -76,10 +76,6 @@ public class SyringeAttach : Task {
             int minus = (int)Mathf.Round(Math.Abs(usedSyringes.Count - 6));
             CreateTaskMistake("Yksi tai useampi ruiskuista ei ollut oikean kokoinen", minus);
         }
-    }
-
-    protected override void OnTaskComplete() {
-
     }
     #endregion
 }

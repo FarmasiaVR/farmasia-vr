@@ -18,7 +18,7 @@ public class CorrectItemsInLaminarCabinet : Task {
     ///  </summary>
     public CorrectItemsInLaminarCabinet() : base(TaskType.CorrectItemsInLaminarCabinet, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -61,8 +61,6 @@ public class CorrectItemsInLaminarCabinet : Task {
     #region Public Methods
 
     public override string Hint { get => base.hint + laminarCabinet.GetMissingItems(); }
-
-    protected override void OnTaskComplete() { /* Nothing */ }
 
     private void CheckItems() {
         Logger.Print("Checking cabinet items if they are correct");

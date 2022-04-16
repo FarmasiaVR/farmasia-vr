@@ -13,7 +13,7 @@ public class SelectMedicine : Task {
     /// </summary>
     public SelectMedicine() : base(TaskType.SelectMedicine, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
@@ -42,7 +42,9 @@ public class SelectMedicine : Task {
     #endregion
 
     #region Public Methods
-    protected override void OnTaskComplete() {
+    
+    public override void FinishTask() {
+        base.FinishTask();
         Popup(base.success, MsgType.Done);
     }
     #endregion

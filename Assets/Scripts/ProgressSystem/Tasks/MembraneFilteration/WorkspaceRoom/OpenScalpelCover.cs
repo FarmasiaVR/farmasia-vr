@@ -8,7 +8,7 @@ public class OpenScalpelCover : Task {
 
     public OpenScalpelCover() : base(TaskType.OpenScalpelCover, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

@@ -11,7 +11,7 @@ public class FinishMembrane : Task {
     ///  Is not removed when finished and requires previous task completion.
     ///  </summary>
     public FinishMembrane() : base(TaskType.FinishMembrane, true) {
-        Subscribe();
+        
     }
 
     public override void Subscribe() {

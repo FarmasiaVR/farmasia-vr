@@ -32,6 +32,8 @@ public class ProgressManager {
         this.testMode = testMode;
         allTasks = new HashSet<Task>();
         packages = new List<Package>();
+        trueAllTasksThatAreNeverRemoved = new List<Task>();
+        taskMaxPoints = new Dictionary<TaskType, int>();
     }
 
     public void ForceCloseTasks(Task calledTask) {
@@ -76,14 +78,12 @@ public class ProgressManager {
                 return;
             case SceneTypes.MedicinePreparation:
                 /*Need Support for multiple Scenarios.*/
-                AddTasks(scene);
-                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 GenerateScenarioOne();
+                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 break;
             case SceneTypes.MembraneFilteration:
-                AddTasks(scene);
-                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 GenerateScenarioTwo();
+                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 break;
             case SceneTypes.Tutorial:
                 return;
@@ -127,9 +127,9 @@ public class ProgressManager {
             TaskType.ScenarioOneCleanUp,
             TaskType.Finish
         };
-        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
+        Package equipmentSelection = CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
+        Package workSpace = CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
+        Package cleanUp = CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
         packages.Add(equipmentSelection);
         packages.Add(workSpace);
         packages.Add(cleanUp);
@@ -144,7 +144,7 @@ public class ProgressManager {
             TaskType.WriteTextsToItems,
             TaskType.OpenAgarplates,
             TaskType.FillBottles,
-            //TaskType.OpenFilterCover,
+            TaskType.OpenFilterCover,
             TaskType.AssemblePump,
             TaskType.WetFilter,
             TaskType.StartPump,
@@ -160,80 +160,27 @@ public class ProgressManager {
         TaskType[] cleanUpTasks = {
             TaskType.FinishMembrane
         };
-        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
-        packages.Add(equipmentSelection);
-        packages.Add(workSpace);
-        packages.Add(cleanUp);
-    }
 
-    #region Package Init Functions
-    /// <summary>
-    /// Creates a new package.
-    /// </summary>
-    /// <param name="name">Name of the new package.</param>
-    /// <param name="tasks">List of predefined tasks.</param>
-    /// <returns></returns>
-    private Package CreatePackageWithList(PackageName name, List<TaskType> tasks) {
+        packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+    }
+    
+    private Package CreatePackage(PackageName name, List<TaskType> tasks) {
         Package package = new Package(name, this);
-        TakeTasksToPackage(package, tasks);
-        return package;
-    }
+        foreach (TaskType type in tasks) {
+            Task task = TaskFactory.GetTask(type);
+            package.AddTask(task);
 
-    /// <summary>
-    /// Takes tasks from ProgressManager to designated package.
-    /// </summary>
-    /// <param name="package">Package to move tasks to.</param>
-    /// <param name="types">List of types to move.</param>
-    private void TakeTasksToPackage(Package package, List<TaskType> types) {
-        foreach (TaskType type in types) {
-            MoveToPackage(package, type);
-        }
-    }
-    #endregion
-    #endregion
-
-    #region Task Addition
-    /// <summary>
-    /// Creates a single task from every enum TaskType object.
-    /// Adds tasks into currently activeTasks.
-    /// </summary>
-    public void AddTasks(SceneTypes scene) {
-        allTasks = new HashSet<Task>(Enum.GetValues(typeof(TaskType))
-            .Cast<TaskType>()
-            .Select(v => TaskFactory.GetTask(v, scene))
-            .Where(v => v != null)
-            .ToList());
-
-        trueAllTasksThatAreNeverRemoved = new List<Task>();
-        taskMaxPoints = new Dictionary<TaskType, int>();
-        foreach (Task task in allTasks) {
             trueAllTasksThatAreNeverRemoved.Add(task);
             taskMaxPoints.Add(task.TaskType, task.Points);
         }
+        return package;
     }
 
-    public void AddTask(Task task) {
-        if (!allTasks.Contains(task)) {
-            allTasks.Add(task);
-        }
-    }
     #endregion
 
     #region Task Movement
-    /// <summary>
-    /// Moves task to package with given TaskType.
-    /// </summary>
-    /// <param name="package">Package to move task to.</param>
-    /// <param name="taskType">Type of task to move.</param>
-    public void MoveToPackage(Package package, TaskType taskType) {
-        Task foundTask = FindTaskWithType(taskType);
-        if (foundTask != null) {
-            package.AddTask(foundTask);
-            allTasks.Remove(foundTask);
-        }
-    }
 
     /// <summary>
     /// Finds task with given type.
@@ -242,7 +189,9 @@ public class ProgressManager {
     /// <returns></returns>
     public Task FindTaskWithType(TaskType taskType) {
         Task foundTask = null;
-        foreach (Task task in allTasks) {
+        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
+            if (task.Completed) continue;
+            if (!task.Started) continue;
             if (task.TaskType == taskType) {
                 foundTask = task;
                 break;
@@ -324,10 +273,4 @@ public class ProgressManager {
         }
     }
     #endregion
-
-
-
-    public bool IsCurrentPackage(PackageName name) {
-        return CurrentPackage.name == name;
-    }
 }

@@ -8,7 +8,7 @@ public class OpenTweezersCover : Task {
 
     public OpenTweezersCover() : base(TaskType.OpenTweezersCover, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

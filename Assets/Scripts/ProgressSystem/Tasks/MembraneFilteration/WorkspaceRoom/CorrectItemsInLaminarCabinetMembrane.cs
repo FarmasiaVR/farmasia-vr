@@ -20,7 +20,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     ///  </summary>
     public CorrectItemsInLaminarCabinetMembrane() : base(TaskType.CorrectItemsInLaminarCabinetMembrane, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
     }
     #endregion

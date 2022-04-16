@@ -15,7 +15,7 @@ public class LuerlockConnector : AttachmentConnector {
         attached = new AttachedObject();
         this.side = side;
         this.Collider = collider;
-        Subscribe();
+        
     }
 
     #region Attaching

@@ -14,7 +14,7 @@ public class CloseAgarplates : Task {
 
     public CloseAgarplates() : base(TaskType.CloseAgarplates, true) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

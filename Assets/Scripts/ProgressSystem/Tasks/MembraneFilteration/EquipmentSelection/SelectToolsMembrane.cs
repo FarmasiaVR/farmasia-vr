@@ -15,7 +15,7 @@ public class SelectToolsMembrane : Task {
     /// </summary>
     public SelectToolsMembrane() : base(TaskType.SelectToolsMembrane, false) {
         SetCheckAll(false);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion

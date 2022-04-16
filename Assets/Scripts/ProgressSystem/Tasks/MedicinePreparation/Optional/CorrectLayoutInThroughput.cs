@@ -16,7 +16,7 @@ public class CorrectLayoutInThroughput : Task {
     ///  Is removed when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInThroughput() : base(TaskType.CorrectLayoutInThroughput, false) {
-        Subscribe();
+        
     }
     #endregion
 
@@ -39,8 +39,5 @@ public class CorrectLayoutInThroughput : Task {
         base.FinishTask();
     }
 
-    protected override void OnTaskComplete() {
-        //throw new NotImplementedException();
-    }
     #endregion
 }

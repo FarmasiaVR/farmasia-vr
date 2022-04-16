@@ -8,7 +8,7 @@ public class OpenFilterCover : Task {
 
     public OpenFilterCover() : base(TaskType.OpenFilterCover, false) {
         SetCheckAll(true);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

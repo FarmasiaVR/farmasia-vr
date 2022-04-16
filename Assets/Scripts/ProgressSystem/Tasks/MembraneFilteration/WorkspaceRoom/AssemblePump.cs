@@ -13,7 +13,7 @@ class AssemblePump: Task {
     public AssemblePump() : base(TaskType.AssemblePump, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
-        Subscribe();
+        
     }
 
     public override void Subscribe() {

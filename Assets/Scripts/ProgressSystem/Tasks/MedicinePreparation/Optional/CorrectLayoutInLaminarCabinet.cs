@@ -14,8 +14,7 @@ public class CorrectLayoutInLaminarCabinet : Task {
     ///  Is moved to manager when finished and doesn't require previous task completion.
     ///  </summary>
     public CorrectLayoutInLaminarCabinet() : base(TaskType.CorrectLayoutInLaminarCabinet, false) {
-        base.unsubscribeAllEvents = false;
-        Subscribe();
+        
     }
     #endregion
 
@@ -59,10 +58,6 @@ public class CorrectLayoutInLaminarCabinet : Task {
     #region Public Methods
     public override void FinishTask() {
         base.FinishTask();
-    }
-
-    protected override void OnTaskComplete() {
-        //throw new NotImplementedException();
     }
     #endregion
 }

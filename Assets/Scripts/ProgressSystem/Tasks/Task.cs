@@ -19,7 +19,6 @@ public abstract class Task {
     protected bool isFinished = false;
     protected bool requiresPreviousTaskCompletion = false;
     protected bool previousTasksCompleted = false;
-    protected bool unsubscribeAllEvents = true;
     protected Dictionary<int, bool> clearConditions = new Dictionary<int, bool>();
     protected Dictionary<Events.EventDataCallback, EventType> subscribedEvents = new Dictionary<Events.EventDataCallback, EventType>();
 
@@ -73,14 +72,7 @@ public abstract class Task {
 
     protected void CloseTask() {
         RemoveFromPackage();
-        OnTaskComplete();
-        if (unsubscribeAllEvents) {
-            UnsubscribeAllEvents();
-        }
-    }
-
-    protected virtual void OnTaskComplete() { 
-    
+        UnsubscribeAllEvents();
     }
 
     public virtual void FinishTask() {
@@ -91,9 +83,7 @@ public abstract class Task {
     public virtual void RemoveFromPackage() {
         if (package != null) {
             package.RemoveTask((Task)this);
-            if (unsubscribeAllEvents) {
-                UnsubscribeAllEvents();
-            }
+            UnsubscribeAllEvents();
         }
     }
     #endregion
@@ -109,6 +99,12 @@ public abstract class Task {
     #endregion
 
     #region Subscribtion
+    /// <summary>
+    /// Subscribe is called in task factory when the task is added to progress manager.
+    /// A task should override it and put all it's event subscriptions there.
+    /// Never subscribe to events in a Task constructor, because all Tasks are initialized in the task factory,
+    /// even if they are never added to progress manager.
+    /// </summary>
     public virtual void Subscribe() {
     }
 

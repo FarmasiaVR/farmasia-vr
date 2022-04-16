@@ -21,7 +21,7 @@ public class Finish : Task {
     ///  Is not removed when finished and requires previous task completion.
     ///  </summary>
     public Finish() : base(TaskType.Finish, true) {
-        Subscribe();
+        
     }
     #endregion
 
@@ -104,18 +104,19 @@ public class Finish : Task {
     }
 
     private void LayoutInThroughPut() {
-        Task layoutThroughPut = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInThroughput);
-        layoutThroughPut.FinishTask();
+        // TODO: fix optional tasks
+        // Task layoutThroughPut = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInThroughput);
+        // layoutThroughPut.FinishTask();
     }
 
     private void LayoutInLaminarCabinet() {
-        Task layoutLaminarCabinet = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInLaminarCabinet);
-        layoutLaminarCabinet.FinishTask();
+        // Task layoutLaminarCabinet = G.Instance.Progress.FindTaskWithType(TaskType.CorrectLayoutInLaminarCabinet);
+        // layoutLaminarCabinet.FinishTask();
     }
 
     private void BottlesDisinfected() {
-        Task disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
-        disinfect.FinishTask();
+        // Task disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
+        // disinfect.FinishTask();
     }
     #endregion
 
@@ -143,7 +144,6 @@ public class Finish : Task {
         base.FinishTask();
     }
 
-    protected override void OnTaskComplete() {
-    }
+    
     #endregion
 }
