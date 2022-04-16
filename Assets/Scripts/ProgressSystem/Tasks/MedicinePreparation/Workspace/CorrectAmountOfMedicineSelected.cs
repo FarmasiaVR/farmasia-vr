@@ -74,7 +74,7 @@ public class CorrectAmountOfMedicineSelected : Task {
             minus++;
             CreateTaskMistake("Ruisku tai luerlock oli likainen", 0);
         } else {
-            Popup(base.success, MsgType.Done);
+            
         }
 
         if (minus > oldMinus) {

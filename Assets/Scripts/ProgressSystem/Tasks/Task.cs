@@ -61,9 +61,12 @@ public abstract class Task {
         started = true;
     }
 
+    /// <summary>
+    /// If all conditions are true, completes the task, 
+    /// calls CloseTask and creates a success Popup
+    /// </summary>
     public virtual void CompleteTask() {
         Completed = CheckClearConditions();
-        //Logger.Print("Clear conditions: " + completed);
         if (Completed) {
             CloseTask();
             Popup(success, MsgType.Done, Points);
@@ -237,12 +240,14 @@ public abstract class Task {
     public void CreateTaskMistake(string mistake, int minus) {
         CreateTaskMistake(TaskType, mistake, minus);
     }
+
     public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true) {
         if (showMessage) {
             UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
         }
         G.Instance.Progress.Calculator.CreateMistake(mistake, minus);
     }
+
     public static void CreateTaskMistake(TaskType type, string mistake, int minus) {
         if (mistake != null) {
             UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
@@ -250,6 +255,7 @@ public abstract class Task {
         }
         G.Instance.Progress.Calculator.SubtractPoints(type, minus);
     }
+
     #endregion
     #endregion
 }

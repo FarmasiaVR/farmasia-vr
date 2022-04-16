@@ -100,7 +100,7 @@ public class LuerlockAttach : Task {
 
     public override void FinishTask() {
         base.FinishTask();
-        Popup(base.success, MsgType.Done);
+        
     }
     #endregion
 }

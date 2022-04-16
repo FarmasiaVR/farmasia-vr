@@ -108,7 +108,7 @@ public class MedicineToSyringe : Task {
         }
 
         if (!fail) {
-            Popup(base.success, MsgType.Done, base.Points);
+            
         }
     }
     #endregion

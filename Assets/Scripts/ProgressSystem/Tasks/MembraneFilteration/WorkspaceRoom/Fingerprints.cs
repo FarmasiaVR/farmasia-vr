@@ -42,7 +42,7 @@ public class Fingerprints: Task {
     public override void CompleteTask() {
         base.CompleteTask();
         if (Completed) {
-            Popup(base.success, MsgType.Done, base.Points);
+            
         }
     }
 }

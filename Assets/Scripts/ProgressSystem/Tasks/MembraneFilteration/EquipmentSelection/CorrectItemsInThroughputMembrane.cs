@@ -191,7 +191,7 @@ public class CorrectItemsInThroughputMembrane: Task {
         base.CompleteTask();
 
         if (Completed) {
-            Popup(base.success, MsgType.Done);
+            
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
         }
     }

@@ -45,7 +45,7 @@ public class SelectMedicine : Task {
     
     public override void FinishTask() {
         base.FinishTask();
-        Popup(base.success, MsgType.Done);
+        
     }
     #endregion
 }

@@ -67,7 +67,7 @@ public class ItemsToSterileBag : Task {
             if (mistakes > 0) {
                 CreateTaskMistake(errorString, mistakes);
             } else {
-                Popup(base.success, MsgType.Done);
+                
             }
 
             base.FinishTask();

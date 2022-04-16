@@ -143,7 +143,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
 
         if (bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1) {
             Logger.Print("All done");
-            Popup(base.success, MsgType.Done, base.Points);
+            
         }
 
         if (uncleanCount > 0) {

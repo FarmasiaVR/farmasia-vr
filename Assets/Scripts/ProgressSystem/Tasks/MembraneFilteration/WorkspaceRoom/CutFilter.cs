@@ -18,7 +18,7 @@ public class CutFilter: Task {
             Logger.Print("Filter cutted, nice");
             EnableCondition(Conditions.FilterIsCut);
             CompleteTask();
-            Popup(success, MsgType.Done, Points);
+            
         }, EventType.FilterCutted);
     }
 }

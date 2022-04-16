@@ -137,7 +137,7 @@ public class CorrectItemsInThroughput : Task {
 
         if (Completed) {
             if (objectCount == 11) {
-                Popup(base.success, MsgType.Done);
+                
             }
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
