@@ -14,6 +14,9 @@ class WetFilter : Task {
     public WetFilter() : base(TaskType.WetFilter, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);
         SubscribeEvent(OnFilterDissassemble, EventType.FilterDissassembled);
     }

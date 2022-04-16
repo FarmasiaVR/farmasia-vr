@@ -10,6 +10,9 @@ public class Fingerprints: Task {
     public Fingerprints () : base(TaskType.Fingerprints, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnLeftTouch, EventType.FingerprintsGivenL);
         SubscribeEvent(OnRightTouch, EventType.FingerprintsGivenR);
     }

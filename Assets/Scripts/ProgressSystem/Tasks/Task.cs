@@ -98,16 +98,15 @@ public abstract class Task {
     }
     #endregion
 
-    #region Subscribtion
+    #region Subscription
     /// <summary>
     /// Subscribe is called in task factory when the task is added to progress manager.
     /// A task should override it and put all it's event subscriptions there.
     /// Never subscribe to events in a Task constructor, because all Tasks are initialized in the task factory,
     /// even if they are never added to progress manager.
     /// </summary>
-    public virtual void Subscribe() {
-    }
-
+    public abstract void Subscribe();
+    
     public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
         Events.SubscribeToEvent(action, Event);
         eventsUnsubscribed = false;

@@ -18,6 +18,9 @@ class FillBottles: Task {
     public FillBottles() : base(TaskType.FillBottles, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnBottleFill, EventType.TransferLiquidToBottle);
     }
 

@@ -10,6 +10,10 @@ public class CutFilter: Task {
 
     public CutFilter() : base(TaskType.CutFilter, false) {
 
+        
+    }
+
+    public override void Subscribe() {
         SubscribeEvent((Event) => {
             Logger.Print("Filter cutted, nice");
             EnableCondition(Conditions.FilterIsCut);

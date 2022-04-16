@@ -59,6 +59,7 @@ namespace Tests {
 
         public TestTask() : base(TaskType.SelectTools, true) { }
 
+        public override void Subscribe() {}
         
     }
 
@@ -66,6 +67,7 @@ namespace Tests {
 
         public TestTask2() : base(TaskType.SelectMedicine, true) { }
 
+        public override void Subscribe() {}
         
     }
 }

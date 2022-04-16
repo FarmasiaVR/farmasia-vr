@@ -22,6 +22,10 @@ public class ScenarioOneCleanUp : Task {
     }
     #endregion
 
+    public override void Subscribe() {
+        /* Subscribes to nothing */
+    }
+
     #region Public Methods
     public override void CompleteTask() {
         base.CompleteTask();

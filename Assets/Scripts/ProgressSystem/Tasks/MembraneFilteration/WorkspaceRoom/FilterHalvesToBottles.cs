@@ -13,6 +13,9 @@ public class FilterHalvesToBottles : Task {
     public FilterHalvesToBottles() : base(TaskType.FilterHalvesToBottles, true) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(HalfToBottle, EventType.FilterHalfEnteredBottle);
         SubscribeEvent(TouchedFilter, EventType.TouchedFilterWithHand);
     }

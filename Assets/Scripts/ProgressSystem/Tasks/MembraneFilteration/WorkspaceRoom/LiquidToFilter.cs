@@ -15,6 +15,9 @@ class LiquidToFilter : Task {
         REQUIRED_AMOUNT = amount;
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);
     }
 

@@ -14,6 +14,10 @@ class StartPump: Task {
 
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+        
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnFilterEmpty, EventType.FilterEmptied);
     }
 
