@@ -52,5 +52,6 @@
     TouchedFilterWithHand,
     FingerprintsGivenL,
     FingerprintsGivenR,
-    FilterAssembled
+    FilterAssembled,
+    FilterDisconnected
 }

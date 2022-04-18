@@ -204,22 +204,13 @@ public static class TaskConfig {
             4
         ),
 
-       info(
-            TaskType.OpenFilterCover,
-            "Suodattimen suojamuovin avaus",
-            "Avaa suojamuovi",
-            "Avaa suojamuovi",
-            "Hienoa, suojamuovi avattu!",
-            2
-        ),
-
         info(
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
             "Kokoa pumppu",
             "Kiinnitä suodatin ja jäteletku pumppuun.",
             "Hienoa, pumppu on koossa",
-            2
+            3
         ),
 
         info(
@@ -257,38 +248,20 @@ public static class TaskConfig {
             "Suodatettu!",
             2
         ),
-        
-        info(
-            TaskType.OpenScalpelCover,
-            "Skalpellin suojamuovin avaus",
-            "Avaa suojamuovi",
-            "Avaa suojamuovi oikeasta päästä",
-            "Hienoa, suojamuovi avattu!",
-            2
-        ),
 
         info(
             TaskType.CutFilter,
             "Kalvosuodattimen leikkaus",
-            "Leikkaa suodatin",
-            "Avaa suodattimen tankki ja leikkaa kalvosuodatin varovasti skalpellilla",
+            "Pura pumppu ja leikkaa suodatin",
+            "Irrota filtteri pumpusta ja leikkaa kalvosuodatin varovasti skalpellilla",
             "Hienoa, suodatin leikattu",
-            2
-        ),
-
-        info(
-            TaskType.OpenTweezersCover,
-            "Pinsettien suojamuovin avaus",
-            "Avaa suojamuovi",
-            "Avaa suojamuovi oikeasta päästä",
-            "Hienoa, suojamuovi avattu!",
             2
         ),
 
         info(
             TaskType.FilterHalvesToBottles,
             "Suodattimen puolikkaiden siirtäminen pulloihin",
-            "Siirrä puolikkaat pulloihin",
+            "Siirrä puolikkaat pulloihin pinseteillä",
             "Siirrä puolikkaat eri liuoksiin",
             "Puolikkaat pulloissa!",
             2

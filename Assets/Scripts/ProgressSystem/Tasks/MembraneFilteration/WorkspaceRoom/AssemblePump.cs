@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 class AssemblePump: Task {
 
-    public enum Conditions { FilterAttached, PipeAttached }
+    public enum Conditions { FilterPackagingOpened, FilterAttached, PipeAttached }
     
     private CabinetBase laminarCabinet;
     // private bool fail = false;
@@ -20,6 +20,8 @@ class AssemblePump: Task {
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AttachFilter, EventType.AttachFilter);
         base.SubscribeEvent(AttachPipe, EventType.AttachPipe);
+        base.SubscribeEvent(FilterCoverOpened, EventType.FilterCoverOpened);
+        base.SubscribeEvent(WrongSpotOpened, EventType.WrongSpotOpened);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -46,6 +48,28 @@ class AssemblePump: Task {
     
         EnableCondition(Conditions.FilterAttached);
         CompleteTask();
+    }
+
+    private void FilterCoverOpened(CallbackData data) {
+        var filter = (data.DataObject as FilterInCover);
+        CheckIfInsideLaminarCabinet(filter);
+        EnableCondition(Conditions.FilterPackagingOpened);
+    }
+
+    private void CheckIfInsideLaminarCabinet(Interactable interactable) {
+        if (laminarCabinet.GetContainedItems().Contains(interactable)) {
+            return;
+        } else {
+            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+        }
+
+        if (laminarCabinet.GetContainedItems() == null) {
+            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+        }
+    }
+
+    public void WrongSpotOpened(CallbackData data) {
+        CreateTaskMistake("Avasit suojamuovin v‰‰r‰st‰ p‰‰st‰!", 1);
     }
 
     /// <summary>

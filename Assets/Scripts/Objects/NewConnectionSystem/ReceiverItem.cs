@@ -133,6 +133,7 @@ public class ReceiverItem : AttachmentItem
     public void Disconnect(Hand hand, AttachmentItem itemToDisconnect) {
         itemToDisconnect.MakeGrabbable(hand.transform.position);
         ConnectedItem = null;
+        SlotOccupied = false;
 
         if (hand.interactedInteractable != null) {
            hand.GrabUninteract();
