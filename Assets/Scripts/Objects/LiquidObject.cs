@@ -2,9 +2,25 @@
 using System.Collections;
 using UnityEngine;
 
+public struct LiquidScale {
+    public int minLinearAmount;
+    public int maxLinearAmount;
+    public float minLinearFloatValue;
+}
+
 public class LiquidObject : MonoBehaviour {
+    private enum Capacity {
+        None,
+        _50ml,
+        _25ml
+    }
 
     #region fields
+    private LiquidScale liquidScale;
+
+    [SerializeField]
+    private Capacity capacity;
+
     [SerializeField]
     private MeshRenderer mesh;
 
@@ -13,6 +29,7 @@ public class LiquidObject : MonoBehaviour {
 
     [SerializeField]
     private float percentage;
+
     #endregion
 
     void Awake() {
@@ -21,6 +38,21 @@ public class LiquidObject : MonoBehaviour {
         } else {
             UpdateObject();
         }
+
+        if (capacity == Capacity._50ml) {
+            liquidScale = new LiquidScale {
+                minLinearAmount = 4000,
+                maxLinearAmount = 50000,
+                minLinearFloatValue = 0.144f
+            };
+        }
+        else if (capacity == Capacity._25ml) {
+            liquidScale = new LiquidScale {
+                minLinearAmount = 4000,
+                maxLinearAmount = 25000,
+                minLinearFloatValue = 0.2f
+            };
+        }
     }
 
     // OnValidate sucks, don't use it
@@ -28,7 +60,7 @@ public class LiquidObject : MonoBehaviour {
     //    UpdateObject();
     //}
 
-    public void SetFillPercentage(float percentage) {
+    public void SetFillPercentage(float percentage, LiquidContainer container) {
 
         if (float.IsNaN(percentage)) {
             throw new Exception("Value was NaN");
@@ -39,14 +71,15 @@ public class LiquidObject : MonoBehaviour {
         }
 
         this.percentage = percentage;
-        UpdateObject();
+
+        UpdateObject(container.Amount);
     }
 
     private void InitObject() {
         mesh.material.SetFloat("_Fill", percentage);
     }
 
-    private void UpdateObject() {
+    private void UpdateObject(int? amount = null) {
         if (!HasRealLiquidMaterial) {
             // localScale scales around pivot (default is center of object)
             // Therefore, translation needed
@@ -58,7 +91,17 @@ public class LiquidObject : MonoBehaviour {
             float newY = percentage - 1;
             transform.localPosition = new Vector3(0, newY, 0);
         } else {
-            StartCoroutine(LerpLiquid(percentage, 0.5f));
+            float updateAmount = percentage;
+            if (capacity != Capacity.None && amount != null && percentage != amount) {
+                if (amount < liquidScale.minLinearAmount) {
+                    updateAmount = (float) amount / liquidScale.minLinearAmount * liquidScale.minLinearFloatValue;
+                } else {
+                    updateAmount = liquidScale.minLinearFloatValue +
+                                   (float) (amount - liquidScale.minLinearAmount) / (liquidScale.maxLinearAmount - liquidScale.minLinearAmount) *
+                                   (1 - liquidScale.minLinearFloatValue);
+                }
+            }
+            StartCoroutine(LerpLiquid(updateAmount, 0.5f));
         }
     }
 

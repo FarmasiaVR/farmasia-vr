@@ -34,14 +34,14 @@ public class LiquidContainer : MonoBehaviour {
     public void SetAmount(int value) {
         if (Capacity == 0) {
             amount = 0;
-            liquid?.SetFillPercentage(0);
+            liquid?.SetFillPercentage(0, this);
         } else {
             amount = Math.Max(Math.Min(value, Capacity), 0);
             // liquid is null when OnValidate is called twice before Awake
             // when playing in Editor Mode
             // See: https://forum.unity.com/threads/onvalidate-called-twice-when-pressing-play-in-the-editor.430250/
             float percentage = (float)amount / capacity;
-            liquid?.SetFillPercentage(percentage);
+            liquid?.SetFillPercentage(percentage, this);
         }
         OnAmountChange?.Invoke();
     }
