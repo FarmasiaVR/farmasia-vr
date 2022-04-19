@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class PipetteContainer : AttachmentItem
@@ -7,7 +8,7 @@ public class PipetteContainer : AttachmentItem
     public LiquidContainer Container;
 
     // How much liquid is moved per click
-    public int LiquidTransferStep = 50;
+    public int LiquidTransferStep = 10000;
 
     public float defaultPosition, maxPosition;
 
@@ -54,6 +55,6 @@ public class PipetteContainer : AttachmentItem
         if (BottleContainer == null) return;
         //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
 
-        Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
+        Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
 }

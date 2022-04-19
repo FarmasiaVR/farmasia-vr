@@ -30,9 +30,9 @@ public class BigPipette : ReceiverItem
             bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
             bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
             bool grabInteract = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
-            if (takeMedicine) {
+            if (grabInteract && (ConnectedItem as PipetteContainer).Container.Amount != 50000) {
                 (ConnectedItem as PipetteContainer).TakeMedicine();
-            } else if (sendMedicine) {
+            } else if (grabInteract) {
                 (ConnectedItem as PipetteContainer).SendMedicine();
             }
         }
