@@ -72,6 +72,9 @@ public class WriteTextsToItems : Task {
             if (Matches(gameObject, writingSpecs, false)) {
                 writtenObjects.RemoveAt(i);
             }
+            if (gameObject.GetComponent<GeneralItem>().ObjectType == ObjectType.SoycaseinePlate || gameObject.GetComponent<GeneralItem>().ObjectType == ObjectType.SabouradDextrosiPlate) {
+                gameObject.GetComponent<Writable>().MaxLines += 1;
+            }
         }
 
         if (writtenObjects.Count > 0) {
