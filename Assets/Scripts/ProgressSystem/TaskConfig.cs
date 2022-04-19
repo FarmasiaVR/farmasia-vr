@@ -277,6 +277,15 @@ public static class TaskConfig {
         ),
 
         info(
+            TaskType.WriteSecondTime,
+            "Lopetusaikojen kirjoitus",
+            "Ota ajat ylös",
+            "Kirjoita lopetusaika laskeumamaljoihin",
+            "Hyvin kirjoitettu",
+            2
+        ),
+
+        info(
             TaskType.Fingerprints,
             "Sormenpäämaljat",
             "Valmistele sormenpäämaljat",

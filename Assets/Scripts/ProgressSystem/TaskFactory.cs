@@ -52,5 +52,6 @@ public static class TaskFactory {
         new CloseAgarplates(),
         new Fingerprints(),
         new FinishMembrane(),
+        new WriteSecondTime(),
     }.ToDictionary(task => task.TaskType, task => task);
 }

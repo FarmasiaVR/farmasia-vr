@@ -145,6 +145,7 @@ public class ProgressManager {
             TaskType.CutFilter,
             TaskType.FilterHalvesToBottles,
             TaskType.CloseAgarplates,
+            TaskType.WriteSecondTime,
             TaskType.Fingerprints
         };
         TaskType[] cleanUpTasks = {
@@ -166,6 +167,13 @@ public class ProgressManager {
             taskMaxPoints.Add(task.TaskType, task.Points);
         }
         return package;
+    }
+
+    public bool IsTaskCompleted(TaskType task) {
+        if (CurrentPackage.doneTypes.Contains(task)) {
+            return true;
+        }
+        return false;
     }
 
     #endregion

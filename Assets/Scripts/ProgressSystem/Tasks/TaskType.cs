@@ -34,5 +34,6 @@ public enum TaskType {
     Fingerprints,
     OpenTweezersCover,
     OpenScalpelCover,
-    OpenFilterCover
+    OpenFilterCover,
+    WriteSecondTime
 }

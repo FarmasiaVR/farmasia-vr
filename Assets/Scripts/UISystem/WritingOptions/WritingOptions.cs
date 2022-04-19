@@ -151,8 +151,7 @@ public class WritingOptions : MonoBehaviour {
 
     public void SetWritable(Writable writable) {
 
-        int fakeTimeSet = rand.Next(0, 2);
-
+        int fakeTimeSet = rand.Next(0, 2);     
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
         int currentLines = alreadyWrittenText.Split('\n').Length - 1; // Why -1? Just trust me.
@@ -160,11 +159,13 @@ public class WritingOptions : MonoBehaviour {
         UpdateResultingText();
         UpdateErrorMessage();
         UpdatePosition(writable.transform);
-
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
             
-            if (option.WritingType == WritingType.Time) {
+            if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime) {
+                if (G.Instance.Progress.IsTaskCompleted(TaskType.WriteTextsToItems)) {
+                    option.WritingType = WritingType.SecondTime;
+                }
                 Logger.Print("Writing type: " + option.WritingType);
                 Logger.Print("Writing option: " + option);
                 Logger.Print("Fake time: " + fakeTimeSet);
