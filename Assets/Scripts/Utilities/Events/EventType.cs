@@ -53,5 +53,6 @@
     FingerprintsGivenL,
     FingerprintsGivenR,
     FilterAssembled,
-    FilterDisconnected
+    FilterDisconnected,
+    PipetteCoverOpened
 }

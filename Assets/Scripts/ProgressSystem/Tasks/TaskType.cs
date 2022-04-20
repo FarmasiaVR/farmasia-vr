@@ -35,5 +35,6 @@ public enum TaskType {
     OpenTweezersCover,
     OpenScalpelCover,
     OpenFilterCover,
+    OpenPipetteCover,
     WriteSecondTime
 }
