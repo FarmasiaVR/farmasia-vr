@@ -150,8 +150,11 @@ public static class TaskConfig {
         info(
             TaskType.SelectToolsMembrane,
             "Työvälineiden valinta",
-            "Valitse sopivat ty�v�lineet.",
-            "Huoneessa on l��kkeen valmistukseen tarvittavia ty�v�lineit�. Valitse oikea m��r� ruiskuja, neuloja ja luerlockeja.",
+            "Valitse pöydän välinelistassa olevat ty�v�lineet.",
+            "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
+                "Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
+                "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
+                "Toinen laskeumamalja on sabourad-dekstroosimalja.",
             "Ty�v�line valittu.",
             0
         ),
@@ -161,7 +164,7 @@ public static class TaskConfig {
             "Oikeat välineet läpiantokaapissa",
             "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
             "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
-                "Mediumit = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
+                "Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
                 "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
                 "Toinen laskeumamalja on sabourad-dekstroosimalja.",
             "Oikeat työvälineet läpiantokaapissa.",
@@ -181,7 +184,7 @@ public static class TaskConfig {
             TaskType.WriteTextsToItems,
             "Tietojen kirjoitus esineisiin",
             "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
-            "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia",
+            "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia. Muista katsoa oikea kellonaika kellosta.",
             "Hyvin kirjoitettu.",
             2
         ),
@@ -198,7 +201,7 @@ public static class TaskConfig {
         info(
             TaskType.FillBottles,
             "100ml pullojen täyttö",
-            "Täytä pullot",
+            "Täytä pullot elatusaineilla",
             "Lisää pieniin pulloihin 80 ml elatusaineita, 2 pulloa kutakin",
             "Hienoa, pullot täytetty",
             4
@@ -207,7 +210,7 @@ public static class TaskConfig {
         info(
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
-            "Kokoa pumppu",
+            "Kokoa pumppu ja kiinnitä jäteletku",
             "Kiinnitä suodatin ja jäteletku pumppuun.",
             "Hienoa, pumppu on koossa",
             3
@@ -216,8 +219,8 @@ public static class TaskConfig {
         info(
             TaskType.WetFilter,
             "Suodattimen kostutus",
-            "Kostuta suodatin",
-            "Kostuta suodatin lisäämällä 1ml peptonivettä",
+            "Kostuta kalvosuodatin",
+            "Kostuta suodatin lisäämällä 1ml peptonivettä Finnpipettilla",
             "Hienosti kostutettu!",
             2
         ),
@@ -253,7 +256,7 @@ public static class TaskConfig {
             TaskType.CutFilter,
             "Kalvosuodattimen leikkaus",
             "Pura pumppu ja leikkaa suodatin",
-            "Irrota filtteri pumpusta ja leikkaa kalvosuodatin varovasti skalpellilla",
+            "Irrota filtteri pumpusta ja leikkaa kalvosuodatin varovasti skalpellilla. Muista avata pakkaus oikeasta päästä!",
             "Hienoa, suodatin leikattu",
             2
         ),
@@ -262,7 +265,7 @@ public static class TaskConfig {
             TaskType.FilterHalvesToBottles,
             "Suodattimen puolikkaiden siirtäminen pulloihin",
             "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat eri liuoksiin",
+            "Siirrä puolikkaat eri liuoksiin. Siirrä yksi puolikas soija-kaseiiniliuokseen ja toinen tioglykolaattiin.",
             "Puolikkaat pulloissa!",
             2
         ),
@@ -280,7 +283,7 @@ public static class TaskConfig {
             TaskType.WriteSecondTime,
             "Lopetusaikojen kirjoitus",
             "Ota ajat ylös",
-            "Kirjoita lopetusaika laskeumamaljoihin",
+            "Kirjoita lopetusaika laskeumamaljoihin. Katso oikea aika kellosta.",
             "Hyvin kirjoitettu",
             2
         ),
@@ -289,11 +292,13 @@ public static class TaskConfig {
             TaskType.Fingerprints,
             "Sormenpäämaljat",
             "Valmistele sormenpäämaljat",
-            "Avaa sormenpäämaljat ja koske ainetta",
+            "Avaa sormenpäämaljat ja koske agaria kaksi kertaa (kerran peukalolla ja kerran muilla sormilla). Toista toisella kädellä.",
             "Sormenpäämaljat valmistettu!",
             2
         ),
         
+        //TODO: Siivousinfo
+
         info(
             TaskType.FinishMembrane,
             "Lopetus",
