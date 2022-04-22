@@ -10,5 +10,6 @@ public enum LiquidType {
     Tioglygolate,
     Peptonwater,
     Medicine,
-    MeatSoup
+    MeatSoup,
+    Virkon
 }

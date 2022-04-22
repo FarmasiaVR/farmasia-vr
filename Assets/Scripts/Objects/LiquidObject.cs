@@ -168,6 +168,26 @@ public class LiquidObject : MonoBehaviour {
                     mesh.material = Resources.Load<Material>("Liquids/MeatSoup");
                 }
                 break;
+                
+            case LiquidType.Virkon:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.1607f, 0.5749f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.1607f, 0.5749f, 1));
+                }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/MeatSoup");
+                }
+                break;
+
+            case LiquidType.None:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.6818f, 0.8617f, 0.8867f, 0.3882f));
+                    mesh.material.SetColor("_TopColor", new Color(0.6818f, 0.8617f, 0.8867f, 0.3882f));
+                }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/ClearLiquid");
+                }
+                break;
         }
     }
 }        
