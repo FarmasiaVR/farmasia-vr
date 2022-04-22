@@ -5,7 +5,8 @@ using UnityEngine;
 public class PipetteHeadCover : GeneralItem {
     private Cover cover;
 
-    private bool coverOn;
+    [SerializeField] 
+    private GameObject pipette;
 
     protected void Awake() {
         cover = gameObject.GetComponent<Cover>();
@@ -19,6 +20,7 @@ public class PipetteHeadCover : GeneralItem {
 
         cover.OnCoverOpen = (hand) => {
             Events.FireEvent(EventType.PipetteCoverOpened, CallbackData.Object(this));
+            EnablePipette(hand);
         };
 
     }
@@ -34,6 +36,12 @@ public class PipetteHeadCover : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
-        coverOn = cover.CoverOn;
+    }
+
+    public void EnablePipette(Hand hand) {
+        pipette.transform.SetParent(null);
+        pipette.SetActive(true);
+        hand.Uninteract();
+        hand.Connector.ConnectItem(pipette.GetComponent<PipetteContainer>());
     }
 }
