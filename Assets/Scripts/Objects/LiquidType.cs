@@ -9,5 +9,6 @@ public enum LiquidType {
     Soycaseine,
     Tioglygolate,
     Peptonwater,
-    Medicine
+    Medicine,
+    MeatSoup
 }

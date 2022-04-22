@@ -143,8 +143,8 @@ public class LiquidObject : MonoBehaviour {
                 
             case LiquidType.Tioglygolate:
                 if (HasRealLiquidMaterial) {
-                    mesh.material.SetColor("_SideColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
-                    mesh.material.SetColor("_TopColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
+                    mesh.material.SetColor("_SideColor", new Color(0.802083f, 0.382115f, 0.170352f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(0.802083f, 0.382115f, 0.170352f, 1));
                 } else {
                     mesh.material = Resources.Load<Material>("Liquids/Tioglygolate");
                 }
@@ -156,6 +156,16 @@ public class LiquidObject : MonoBehaviour {
                     mesh.material.SetColor("_TopColor", new Color(0.9528301f, 0.5856799f, 0.215735f, 1));
                 } else {
                     mesh.material = Resources.Load<Material>("Liquids/Soycaseine"); ;
+                }
+                break;
+
+            case LiquidType.MeatSoup:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.7570499f, 0.1603773f, 1));
+                }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/Tioglygolate"); ;
                 }
                 break;
         }
