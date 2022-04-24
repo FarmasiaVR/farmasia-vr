@@ -30,7 +30,7 @@ class StartPump: Task {
 
     private void CheckMistakes() {
         if (pumpFilter.Container.Amount > 0) {
-            CreateTaskMistake("Suodattimessa on vielä nestett�", 1);
+            CreateTaskMistake("Suodattimessa on vielä nestettä", 1);
         }
     }
 }

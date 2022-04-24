@@ -109,7 +109,7 @@ public class WriteTextsToItems : Task {
                     if (!writable.WrittenLines.ContainsKey(requiredWriting)) {
                         foundAllRequiredWritings = false;
                         if (checkForMistakes)
-                            CreateTaskMistake("You have not written " + requiredWriting + " on " + item.ObjectType, 1);
+                            CreateTaskMistake("Et kirjoittanut " + requiredWriting + " esineeseen " + item.ObjectType, 1);
                     }
                 }
                 if (foundAllRequiredWritings) {
@@ -121,7 +121,7 @@ public class WriteTextsToItems : Task {
             }
         }
         if (correctObjectType == false && checkForMistakes) {
-            CreateTaskMistake("Kirjoitit ylim��r�iseen esineseen", 1);
+            CreateTaskMistake("Kirjoitit ylimääräiseen esineseen", 1);
         }
         return false;
     }
