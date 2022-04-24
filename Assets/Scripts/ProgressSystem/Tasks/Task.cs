@@ -47,7 +47,7 @@ public abstract class Task {
         if (removePoints) {
             Logger.Print(string.Format("Task still has points left: {0}, points: {1}", TaskType.ToString(), Points.ToString()));
             G.Instance.Progress.Calculator.SetScoreToZero(TaskType);
-            CreateTaskMistake, "Tehtävää ei suoritettu", 2);
+            CreateTaskMistake(TaskType, "Tehtävää ei suoritettu", 2);
         }
         // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();

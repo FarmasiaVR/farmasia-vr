@@ -89,7 +89,7 @@ class MembraneFilterationScene : SceneScript {
 
         Task.CreateGeneralMistake("Yleinen testivirhe", 2);
 
-        CreateTaskMistake.MedicineToFilter, "Testivirhe lääkkeen lisäämisessä", 1);
+        Task.CreateTaskMistake(TaskType.MedicineToFilter, "Testivirhe lääkkeen lisäämisessä", 1);
         
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> gameObjects = new List<GameObject>() {
