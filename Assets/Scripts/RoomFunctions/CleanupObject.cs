@@ -34,7 +34,7 @@ public class CleanupObject : MonoBehaviour {
         }
 
         if (!startedCleanup && !item.IsClean) {
-            Task.CreateTaskMistake(TaskType.ScenarioOneCleanUp, "Siivoa lattialla olevat esineet vasta lopuksi", 1);
+            CreateTaskMistake.ScenarioOneCleanUp, "Siivoa lattialla olevat esineet vasta lopuksi", 1);
         }
     }
     private void ItemDroppedInTrash(CallbackData data) {
@@ -45,10 +45,10 @@ public class CleanupObject : MonoBehaviour {
         }
 
         if (g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) {
-            Task.CreateTaskMistake(TaskType.ScenarioOneCleanUp, "Pulloa ei saa heittää roskikseen", 1);
+            CreateTaskMistake.ScenarioOneCleanUp, "Pulloa ei saa heittää roskikseen", 1);
         }
         if (g.ObjectType == ObjectType.SterileBag) {
-            Task.CreateTaskMistake(TaskType.ScenarioOneCleanUp, "Steriilipussia ei saa heittää roskikseen", 1);
+            CreateTaskMistake.ScenarioOneCleanUp, "Steriilipussia ei saa heittää roskikseen", 1);
         }
     }
 

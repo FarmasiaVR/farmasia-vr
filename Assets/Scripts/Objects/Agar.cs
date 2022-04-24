@@ -31,14 +31,14 @@ public class Agar : Interactable {
             if (handIs.Equals("LeftHand")) {
                 Events.FireEvent(EventType.FingerprintsGivenL);
                 if (!isLeft){
-                    Task.CreateTaskMistake(TaskType.Fingerprints, "Älä sekoita sormia! Tässä on nyt vasemman käden jäljet.", 2);
+                    CreateTaskMistake.Fingerprints, "Älä sekoita sormia! Tässä on nyt vasemman käden jäljet.", 2);
                 } else {
                     Logger.Print("oikein meni");
                 }
             } else {
                 Events.FireEvent(EventType.FingerprintsGivenR);
                 if (isLeft){
-                    Task.CreateTaskMistake(TaskType.Fingerprints, "Älä sekoita sormia! Tässä on nyt oikean käden jäljet.", 2);
+                    CreateTaskMistake.Fingerprints, "Älä sekoita sormia! Tässä on nyt oikean käden jäljet.", 2);
                 } else {
                     Logger.Print("oikein meni");
                 }

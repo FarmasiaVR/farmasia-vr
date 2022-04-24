@@ -181,7 +181,7 @@ public class ProgressManager {
     #region Task Movement
 
     /// <summary>
-    /// Finds task with given type.
+    /// Finds task with given type that is started and not completed
     /// </summary>
     /// <param name="taskType">Type of task to find.</param>
     /// <returns></returns>
