@@ -175,7 +175,7 @@ public class LiquidObject : MonoBehaviour {
                     mesh.material.SetColor("_TopColor", new Color(1f, 0.1607f, 0.5749f, 1));
                 }
                 else {
-                    mesh.material = Resources.Load<Material>("Liquids/MeatSoup");
+                    mesh.material = Resources.Load<Material>("Liquids/Virkon1%");
                 }
                 break;
 

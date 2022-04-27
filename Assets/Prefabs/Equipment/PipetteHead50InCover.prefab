@@ -125,8 +125,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.027170774, y: 0.21388404, z: 0.01}
-  m_Center: {x: 0.00009007305, y: -0.08764453, z: -0.0000000016591525}
+  m_Size: {x: 0.027170774, y: 0.21388404, z: 0.00858819}
+  m_Center: {x: 0.00009007305, y: -0.08764453, z: 0.00023529516}
 --- !u!1 &1214814994356779029
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +558,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9184425567971483119}
-  - component: {fileID: 569286372986617494}
   - component: {fileID: 2224942509196565257}
   - component: {fileID: 7767106100300715336}
   - component: {fileID: 8103514088809116836}
@@ -586,19 +585,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!65 &569286372986617494
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5273429000639901692}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.11764188, y: 0.0031284892, z: 0.013589491}
-  m_Center: {x: -0.0084108785, y: -0.00020777166, z: 0}
 --- !u!54 &2224942509196565257
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -646,7 +632,7 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 25
   isClean: 1
-  pipette: {fileID: 0}
+  pipette: {fileID: 2245955663517065679}
 --- !u!1 &5468803420173548702
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,8 +800,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3514729624980597891}
-  - component: {fileID: 2383835147282292342}
-  - component: {fileID: 1975452084435232481}
   m_Layer: 10
   m_Name: PipetteHead50ml
   m_TagString: Untagged
@@ -838,47 +822,6 @@ Transform:
   m_Father: {fileID: 9184425567971483119}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 90.00001, z: 0}
---- !u!114 &2383835147282292342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9107464031806220397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f71dd119da23fe245b12219892b6ec34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInteracting: 0
-  DisableHighlighting: 0
-  objectType: 25
-  isClean: 1
-  Attached: 0
-  ParentReceiver: {fileID: 0}
-  SnapDistance: 0
-  SnapAngle: 30
-  Container: {fileID: 0}
-  LiquidTransferStep: 10000
-  defaultPosition: 0
-  maxPosition: 0
-  handle: {fileID: 0}
-  hasBeenInBottle: 0
-  display: {fileID: 1975452084435232481}
---- !u!114 &1975452084435232481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9107464031806220397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b5d0c672f09dd44d9e41dabb561e709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayObject: {fileID: 0}
-  isInitiallyOn: 0
 --- !u!1001 &8256998367228267810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,11 +904,6 @@ PrefabInstance:
       propertyPath: HasRealLiquidMaterial
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6632172765094323992, guid: 45b42bf46a383104385ab13834cd0f0d,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7907754159173610733, guid: 45b42bf46a383104385ab13834cd0f0d,
         type: 3}
       propertyPath: m_Name
@@ -978,6 +916,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45b42bf46a383104385ab13834cd0f0d, type: 3}
+--- !u!1 &2245955663517065679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7907754159173610733, guid: 45b42bf46a383104385ab13834cd0f0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8256998367228267810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5875466292122641697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2530769222210906115, guid: 45b42bf46a383104385ab13834cd0f0d,

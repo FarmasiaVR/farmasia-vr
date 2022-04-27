@@ -8,18 +8,14 @@ public class PipetteHeadCover : GeneralItem {
     [SerializeField] 
     private GameObject pipette;
 
-    protected void Awake() {
-        cover = gameObject.GetComponent<Cover>();
-    }
-
-    // Start is called before the first frame update
     protected override void Start() {
         base.Start();
+        cover = gameObject.GetComponent<Cover>();
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
 
         cover.OnCoverOpen = (hand) => {
-            Events.FireEvent(EventType.PipetteCoverOpened, CallbackData.Object(this));
+            //Events.FireEvent(EventType.PipetteCoverOpened, CallbackData.Object(this));
             EnablePipette(hand);
         };
 
@@ -41,7 +37,13 @@ public class PipetteHeadCover : GeneralItem {
     public void EnablePipette(Hand hand) {
         pipette.transform.SetParent(null);
         pipette.SetActive(true);
+        gameObject.SetActive(false);
         hand.Uninteract();
-        hand.Connector.ConnectItem(pipette.GetComponent<PipetteContainer>());
+
+        var pipetteComponent = pipette.GetComponent<PipetteContainer>();
+        hand.Connector.ConnectItem(pipetteComponent);
+        hand.interactedInteractable = pipetteComponent;
+        pipetteComponent.State.On(InteractState.Grabbed);
+        pipetteComponent.OnGrabStart(hand);
     }
 }
