@@ -39,10 +39,10 @@ class AssemblePump: Task {
         Pump pump = data.DataObject as Pump;
 
         if (laminarCabinet == null) {
-            CreateTaskMistake("Filtteri kiinnitettiin liian aikaisin.", 1);
+            CreateTaskMistake("Suodatin kiinnitettiin liian aikaisin.", 1);
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(pump)) {
-            CreateTaskMistake("Filtteri kiinnitettiin laminaarikaapin ulkopuolella", 1);
+            CreateTaskMistake("Suodatin kiinnitettiin laminaarikaapin ulkopuolella", 1);
             return;
         }
     
@@ -60,16 +60,16 @@ class AssemblePump: Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suodattimen suojamuovin laminaarikaapin ulkopuolella!!!", 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suodattimen suojamuovin laminaarikaapin ulkopuolella!!!", 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin väärästä päästä!", 1);
+        CreateTaskMistake("Avasit suojamuovin vï¿½ï¿½rï¿½stï¿½ pï¿½ï¿½stï¿½!", 1);
     }
 
     /// <summary>

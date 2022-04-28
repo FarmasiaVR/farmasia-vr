@@ -43,7 +43,7 @@ public class FilterHalvesToBottles : Task {
     }
 
     private void TouchedFilter(CallbackData data) {
-        CreateTaskMistake("Koskit filteriin kädellä", 1);
+        CreateTaskMistake("Koskit kalvosuodattimeen kädellä", 1);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -63,16 +63,16 @@ public class FilterHalvesToBottles : Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin väärästä päästä!", 1);
+        CreateTaskMistake("Avasit suojapakkauksen väärästä päästä!", 1);
     }
     private void CheckMistakes() {
         if (filterHalvesInSoycaseine > 1 || filterHalvesInTioglycolate > 1) {
