@@ -27,10 +27,10 @@ public class CutFilter: Task {
 
     private void FilterCut(CallbackData data) {
         if (!package.doneTypes.Contains(TaskType.AssemblePump) && !package.doneTypes.Contains(TaskType.WetFilter) && !package.doneTypes.Contains(TaskType.MedicineToFilter)) {
-            CreateTaskMistake("Leikkasit filtterin ennen tarvittavia toimenpiteit‰", 3);
+            CreateTaskMistake("Leikkasit suodattimen ennen tarvittavia toimenpiteit√§", 3);
         }
         if (pump.SlotOccupied) { 
-            CreateTaskMistake("Leikkasit filterin sen ollessa kiinni pumpussa", 1);
+            CreateTaskMistake("Leikkasit suodattimen sen ollessa kiinni pumpussa", 1);
         }
         EnableCondition(Conditions.FilterIsCut);
         CompleteTask();
@@ -56,15 +56,15 @@ public class CutFilter: Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin v‰‰r‰st‰ p‰‰st‰!", 1);
+        CreateTaskMistake("Avasit suojapakkauksen v√§√§r√§st√§ p√§√§st√§!", 1);
     }
 }

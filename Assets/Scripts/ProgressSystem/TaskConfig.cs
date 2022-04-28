@@ -23,7 +23,7 @@ public static class TaskConfig {
             TaskType.SelectTools,
             "Työvälineiden valinta",
             "Valitse sopivat työvälineet.",
-            "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.",
+            "Valitse pöydällä olevan listan perusteella oikeat välineet sekä oikea määrä välineitä.",
             "Työväline valittu.",
             0
         ),
@@ -59,7 +59,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInLaminarCabinet,
             "Oikeat välineet laminaarikaapissa",
             "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.",
-            "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. ",
+            "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla tarkistusnappia laminaarikaapin yläosassa.",
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
         ),
@@ -113,7 +113,7 @@ public static class TaskConfig {
             TaskType.MedicineToSyringe,
             "Lääkkeen otto pullosta",
             "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.",
-            "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.",
+            "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula. Puhdista lääkepullon korkki desinfiointiliinalla.",
             "Lääkkeen ottaminen onnistui.",
             2
         ),
@@ -122,7 +122,7 @@ public static class TaskConfig {
             TaskType.ItemsToSterileBag,
             "Ruiskujen siirto steriilipussiin",
             "Viimeistele ruiskujen kanssa työskentely.",
-            "Laita täyttämäsi ruiskut steriiliin pussiin.",
+            "Sulje ruiskut korkeilla. Laita täyttämäsi ruiskut steriiliin pussiin.",
             "Ruiskut laitettiin steriiliin pussiin.",
             2
         ),
@@ -151,11 +151,9 @@ public static class TaskConfig {
             TaskType.SelectToolsMembrane,
             "Työvälineiden valinta",
             "Valitse pöydän välinelistassa olevat ty�v�lineet.",
-            "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
-                "Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
-                "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
-                "Toinen laskeumamalja on sabourad-dekstroosimalja.",
-            "Ty�v�line valittu.",
+            "Huoneessa on tarvittavat työvälineet. \n" +
+            "Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. Laskeumamaljat = soijakaseiinimalja ja sabourad-dekstrosimalja. Sormenpäämaljat = soijakaseiinimaljat 2 kpl. Kostutusliuos = peptonivesi",
+            "Työväline valittu.",
             0
         ),
 
@@ -163,10 +161,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInThroughputMembrane,
             "Oikeat välineet läpiantokaapissa",
             "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
-            "Huoneessa on tarvittavat työvälineet pullot ja pipetti. \n" +
-                "Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. \n\n" +
-                "Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. \n" +
-                "Toinen laskeumamalja on sabourad-dekstroosimalja.",
+            "Puhdista työvälineet 70% etanoliliuoksella. Huoneessa on tarvittavat työvälineet. Laskeumamaljat = soijakaseiinimalja ja sabourad-dekstrosimalja. Sormenpäämaljat = soijakaseiinimaljat 2 kpl. Kostutusliuos = peptonivesi.",
             "Oikeat työvälineet läpiantokaapissa.",
             2
         ),
@@ -175,7 +170,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInLaminarCabinetMembrane,
             "Oikeat välineet laminaarikaapissa",
             "Siirrä valitsemasi työvälineet laminaarikaappiin",
-            "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet.",
+            "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet. Puhdista työvälineet 70% etanoliliuoksella.",
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
         ),
@@ -256,7 +251,7 @@ public static class TaskConfig {
             TaskType.CutFilter,
             "Kalvosuodattimen leikkaus",
             "Pura pumppu ja leikkaa suodatin",
-            "Irrota filtteri pumpusta ja leikkaa kalvosuodatin varovasti skalpellilla. Muista avata pakkaus oikeasta päästä!",
+            "Irrota kalvosuodatin pumpusta ja leikkaa varovasti skalpellilla. Muista avata skalpellin pakkaus oikeasta päästä!",
             "Hienoa, suodatin leikattu",
             2
         ),
@@ -265,7 +260,7 @@ public static class TaskConfig {
             TaskType.FilterHalvesToBottles,
             "Suodattimen puolikkaiden siirtäminen pulloihin",
             "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat eri liuoksiin. Siirrä yksi puolikas soija-kaseiiniliuokseen ja toinen tioglykolaattiin.",
+            "Siirrä puolikkaat eri liuoksiin. Siirrä yksi puolikas soija-kaseiiniliuokseen ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä!",
             "Puolikkaat pulloissa!",
             2
         ),
