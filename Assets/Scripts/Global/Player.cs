@@ -86,11 +86,15 @@ public class Player : MonoBehaviour {
         string json = JsonUtility.ToJson(new DataWrapper(toSave), true);
 
         File.WriteAllText(path, json);
+
+        Logger.Print("Stats file saved to " + path);
     }
 
     private static PlayerData[] LoadPlayerData(string path) {
 
         if (File.Exists(path)) {
+            Logger.Print("Loading stats file from " + path);
+
             string json = File.ReadAllText(path);
             try {
                 DataWrapper w = JsonUtility.FromJson<DataWrapper>(json);
