@@ -22,7 +22,7 @@ public class ReceiverItem : AttachmentItem
         base.Awake();
 
         PossibleItems = new HashSet<GameObject>();
-        LineEffect = transform.GetChild(1).GetComponent<LineRenderer>();
+        //LineEffect = transform.GetChild(1).GetComponent<LineRenderer>();
         TriggerCollider = gameObject.GetComponent<SphereCollider>();
     }
 

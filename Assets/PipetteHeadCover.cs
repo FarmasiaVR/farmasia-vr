@@ -6,7 +6,7 @@ public class PipetteHeadCover : GeneralItem {
     private Cover cover;
 
     [SerializeField] 
-    private GameObject pipette;
+    private PipetteContainer pipette;
 
     protected override void Start() {
         base.Start();
@@ -16,7 +16,7 @@ public class PipetteHeadCover : GeneralItem {
 
         cover.OnCoverOpen = (hand) => {
             //Events.FireEvent(EventType.PipetteCoverOpened, CallbackData.Object(this));
-            EnablePipette(hand);
+            base.StartCoroutine(EnablePipette(hand));
         };
 
     }
@@ -34,16 +34,20 @@ public class PipetteHeadCover : GeneralItem {
         cover.OpenCoverWithHand(hand);
     }
 
-    public void EnablePipette(Hand hand) {
+    IEnumerator EnablePipette(Hand hand) {
         pipette.transform.SetParent(null);
-        pipette.SetActive(true);
+        pipette.gameObject.SetActive(true);
+
         gameObject.SetActive(false);
+
+        yield return null;
+        
         hand.Uninteract();
 
-        var pipetteComponent = pipette.GetComponent<PipetteContainer>();
-        hand.Connector.ConnectItem(pipetteComponent);
-        hand.interactedInteractable = pipetteComponent;
-        pipetteComponent.State.On(InteractState.Grabbed);
-        pipetteComponent.OnGrabStart(hand);
+        Logger.Print("Hand grabbing " + pipette);
+
+        hand.InteractWith(pipette);
+
+        yield break;
     }
 }

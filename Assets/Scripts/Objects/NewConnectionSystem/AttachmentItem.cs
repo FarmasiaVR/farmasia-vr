@@ -49,6 +49,7 @@ public class AttachmentItem : GeneralItem
                 yield return null;
 
                 ResetItem();
+
                 hand.InteractWith(this);
 
                 AfterRelease(receiver);

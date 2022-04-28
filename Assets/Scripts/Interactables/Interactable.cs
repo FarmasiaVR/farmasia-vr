@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour {
 
     public EnumBitField<InteractState> State { get; set; } = new EnumBitField<InteractState>();
 
-    public RigidbodyContainer RigidbodyContainer { get; private set; }
+    public RigidbodyContainer RigidbodyContainer { get; protected set; }
     public Rigidbody Rigidbody {
         get {
             if (RigidbodyContainer.Enabled) {

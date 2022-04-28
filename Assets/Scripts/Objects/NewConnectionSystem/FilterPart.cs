@@ -14,8 +14,15 @@ public class FilterPart : ReceiverItem
             Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
         };
         AfterConnect = (interactable) => {
-            Events.FireEvent(EventType.FilterAssembled, CallbackData.Object((this, interactable)));
+            Events.FireEvent(EventType.FilterAssembled, CallbackData.Object(new List<GeneralItem>() { this, interactable as GeneralItem }));
         };
+    }
+
+    public override void ResetItem() {
+        base.ResetItem();
+
+        gameObject.AddComponent<Rigidbody>();
+        RigidbodyContainer = new RigidbodyContainer(this);
     }
 
 }

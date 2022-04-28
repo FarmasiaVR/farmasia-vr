@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class FilteringButton : Interactable {
 
@@ -35,7 +36,10 @@ public class FilteringButton : Interactable {
 
     private void OnFilterAssemble(CallbackData data) {
         // Check if this is filter connected to base or tank connected to filter
-        var (bottom, top) = data.DataObject as Tuple<FilterPart, FilterPart>;
+        var dataObjectList = data.DataObject as List<GeneralItem>;
+        if (dataObjectList == null || dataObjectList.Count != 2) return;
+
+        var (bottom, top) = (dataObjectList[0], dataObjectList[1]);
         Logger.Print(data.DataObject);
    
         if (bottom.ObjectType != ObjectType.PumpFilterBase && bottom.ObjectType != ObjectType.PumpFilterFilter) return;

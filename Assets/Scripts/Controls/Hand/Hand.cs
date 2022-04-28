@@ -159,7 +159,7 @@ public class Hand : MonoBehaviour {
         
         HandCollider.Enable(false);
         ExtendedHandCollider.Enable(false);
-        interactable.Highlight.Unhighlight();
+        interactable.Highlight?.Unhighlight();
 
         if (interactable is AttachmentItem attachment && attachment.Attached) {
             interactable = HandleAttachedItem(attachment);
@@ -181,7 +181,7 @@ public class Hand : MonoBehaviour {
 
     private AttachmentItem HandleAttachedItem(AttachmentItem attachment) {
         AttachmentItem parent = attachment.GetParent();
-        if (parent == other.interactedInteractable || attachment is PumpFilterLid) {
+        if (parent == other.interactedInteractable || attachment.ObjectType == ObjectType.PumpFilterLid) {
             attachment.StartCoroutine(attachment.WaitForDistance(this));
             GameObject placeHolder = Instantiate(placeholderPrefab);
             return placeHolder.GetComponent<AttachmentItem>();

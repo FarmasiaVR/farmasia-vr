@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FilterInCover : GeneralItem {
+public class FilterInCover : ReceiverItem {
+    public LiquidContainer Container { get; private set; }
+
     [SerializeField]
     private Cover cover;
+
     [SerializeField]
-    private GameObject assemblyFilterParts;
-    [SerializeField]
-    private GameObject filterAndCoverModel;
-    [SerializeField]
-    private Interactable filterBase;
+    private List<FilterPart> FilterParts;
+
+    private bool coverOn;
 
     // Start is called before the first frame update
     protected override void Start() {
-        base.Start();        
+        base.Start();
+        Container = LiquidContainer.FindLiquidContainer(transform);
         objectType = ObjectType.FilterInCover;
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();
 
         cover.OnCoverOpen = (hand) => {
             Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
-            EnableAssemblyFilterParts(hand);
+            EnableAssemblyFilterParts();
         };
     }
     public override void OnGrabStart(Hand hand) {
@@ -36,18 +38,19 @@ public class FilterInCover : GeneralItem {
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
+
     }
-    public void EnableAssemblyFilterParts(Hand hand) {
-        assemblyFilterParts.transform.SetParent(null);
-        assemblyFilterParts.SetActive(true);
-        filterAndCoverModel.SetActive(false);
-        hand.Uninteract();
-        hand.Connector.ConnectItem(filterBase);
-        hand.Connector.GrabbedInteractable = filterBase;
-        hand.interactedInteractable = filterBase;
-        filterBase.State.On(InteractState.Grabbed);
-        filterBase.OnGrabStart(hand);
-        gameObject.SetActive(false);
+    public void EnableAssemblyFilterParts() {
+        foreach (FilterPart part in FilterParts) {
+            part.enabled = true;
+        }
+
+        AfterRelease = (interactable) => {
+            Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
+        };
+        AfterConnect = (interactable) => {
+            Events.FireEvent(EventType.FilterAssembled, CallbackData.Object(new List<GeneralItem>() { this, interactable as GeneralItem }));
+        };
     }
 
 }
