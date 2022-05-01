@@ -19,6 +19,10 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Development
 
+<img src=/Docs/architecture.jpg width="600" />
+
+
+
 The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2019.4.35f1` .
 
 - Wiki
