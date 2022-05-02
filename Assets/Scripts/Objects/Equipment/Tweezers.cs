@@ -42,6 +42,7 @@ public class Tweezers : ReceiverItem {
         cover.OpenCoverWithHand(hand);
         coverOn = cover.CoverOn;
         if(VRInput.GetControlUp(base.grabbingHand.HandType, Controls.GrabInteract)) {
+            if (!SlotOccupied) return;
             Interactable obj = ConnectedItem;
             ConnectedItem.ResetItem();
             Disconnect(hand, ConnectedItem);

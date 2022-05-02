@@ -120,7 +120,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     scalpel++;
                 } else if (g is Pipette || g is BigPipette) {
                     pipette++;
-                    if (pipette >= 3) {
+                    if (pipette >= 1) {
                         EnableCondition(Conditions.Pipette);
                     }
                 } else if (g is Pump) {

@@ -12,8 +12,6 @@ public class FilteringButton : Interactable {
     private GameObject pump;
     private LiquidContainer Container;
 
-    private FilterPart basePart;
-
     protected override void Start() {
         base.Start();
 
@@ -24,19 +22,12 @@ public class FilteringButton : Interactable {
     }
 
     private void OnPumpFilterAttach(CallbackData data) {
-        // check if base got attached to this pump
-        if (pump.GetComponent<Pump>().ConnectedItem?.ObjectType != ObjectType.PumpFilterBase) return;
-        basePart = pump.GetComponent<Pump>().ConnectedItem as FilterPart;
-        // check if the base has a filter and the filter has a tank
-        if ((basePart?.ConnectedItem as FilterPart)?.ConnectedItem?.ObjectType != ObjectType.PumpFilterTank) return;
-        var tank = (basePart.ConnectedItem as FilterPart).ConnectedItem as FilterPart;
-        // Now we can get the liquidContainer :D
-        Container = tank.GetComponentInChildren<LiquidContainer>();
+        Container = transform.parent.parent.GetComponentInChildren<LiquidContainer>();
     }
 
     private void OnFilterAssemble(CallbackData data) {
         // Check if this is filter connected to base or tank connected to filter
-        var dataObjectList = data.DataObject as List<GeneralItem>;
+        /*var dataObjectList = data.DataObject as List<GeneralItem>;
         if (dataObjectList == null || dataObjectList.Count != 2) return;
 
         var (bottom, top) = (dataObjectList[0], dataObjectList[1]);
@@ -44,7 +35,7 @@ public class FilteringButton : Interactable {
    
         if (bottom.ObjectType != ObjectType.PumpFilterBase && bottom.ObjectType != ObjectType.PumpFilterFilter) return;
         // Now we can reuse the attach callback
-        OnPumpFilterAttach(CallbackData.NoData());
+        OnPumpFilterAttach(CallbackData.NoData());*/
     }
 
     public override void Interact(Hand hand) {

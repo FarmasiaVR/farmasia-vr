@@ -6,8 +6,8 @@ public class CorrectItemsInThroughputMembrane: Task {
 
     #region Fields
     public enum Conditions {
-        Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,
-        SterileBag, PipetteHeads, BigPipette
+        // Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,
+        SterileBag // PipetteHeads, // BigPipette
     }
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
@@ -121,7 +121,7 @@ public class CorrectItemsInThroughputMembrane: Task {
 
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
-                if (g is Bottle bottle) {
+                /*if (g is Bottle bottle) {
                     int capacity = bottle.Container.Capacity;
                     LiquidType type = bottle.Container.LiquidType;
                     if (capacity == 100000) {
@@ -174,18 +174,18 @@ public class CorrectItemsInThroughputMembrane: Task {
                     EnableCondition(Conditions.PumpFilter);
                     filter++;
                 
-                } else if (g is SterileBag2) {
+                } else*/ if (g is SterileBag2) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
-                } else if (g is PipetteHeadCover) {
+                } /*else if (g is PipetteHeadCover) {
                     pipetteHeads++;
                     if (pipetteHeads == 2) {
                         EnableCondition(Conditions.PipetteHeads);
                     }
                 } else if (g is BigPipette) {
-                    EnableCondition(Conditions.BigPipette);
+                    // EnableCondition(Conditions.BigPipette);
                     bigPipette++;
-                }
+                }*/
             }
         }
         if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1)) {
