@@ -43,7 +43,7 @@ public static class TaskFactory {
         new OpenAgarplates(),
         new FillBottles(),
         new AssemblePump(),
-        new LiquidToFilter("Lisää peptonivesi suodattimeen", 10000, LiquidType.Peptonwater, TaskType.WetFilter),
+        new LiquidToFilter("Lisää peptonivesi suodattimeen", 1000, LiquidType.Peptonwater, TaskType.WetFilter),
         new StartPump(TaskType.StartPump),
         new LiquidToFilter("Lisää lääke suodattimeen", 150, LiquidType.Medicine, TaskType.MedicineToFilter),
         new StartPump(TaskType.StartPumpAgain),
