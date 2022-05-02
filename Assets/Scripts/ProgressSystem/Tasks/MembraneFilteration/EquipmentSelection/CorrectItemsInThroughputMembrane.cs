@@ -7,7 +7,7 @@ public class CorrectItemsInThroughputMembrane: Task {
     #region Fields
     public enum Conditions {
         Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,
-        SterileBag,
+        SterileBag, PipetteHeads, BigPipette
     }
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
@@ -116,6 +116,8 @@ public class CorrectItemsInThroughputMembrane: Task {
         int sterileBag = 0;
         int pump = 0;
         int filter = 0;
+        int pipetteHeads = 0;
+        int bigPipette = 0;
 
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
@@ -162,7 +164,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                     scalpel++;
                 } else if (g is Pipette || g is BigPipette) {
                     pipette++;
-                    if (pipette == 3) {
+                    if (pipette == 1) {
                         EnableCondition(Conditions.Pipette);
                     }
                 } else if (g is Pump) {
@@ -175,6 +177,14 @@ public class CorrectItemsInThroughputMembrane: Task {
                 } else if (g is SterileBag2) {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
+                } else if (g is PipetteHeadCover) {
+                    pipetteHeads++;
+                    if (pipetteHeads == 2) {
+                        EnableCondition(Conditions.PipetteHeads);
+                    }
+                } else if (g is BigPipette) {
+                    EnableCondition(Conditions.BigPipette);
+                    bigPipette++;
                 }
             }
         }

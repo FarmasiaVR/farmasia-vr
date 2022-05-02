@@ -68,7 +68,8 @@ public class RigidbodyContainer {
     public void Disable() {
 
         if (Rigidbody == null) {
-            throw new System.Exception("Rigidbody was null");
+            return;
+            //throw new System.Exception("Rigidbody was null");
         }
 
         Enabled = false;
