@@ -53,7 +53,7 @@ public class CorrectItemsInThroughputMembrane: Task {
             return;
         }
 
-        if (containedObjects.Count > 35) {
+        if (containedObjects.Count > 44) {
             Logger.Print("ESINEIDEN MÄÄRÄ LÄPIANTOKAAPISSA: " + containedObjects.Count);
             CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
         }
@@ -162,7 +162,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                 } else if (g is Scalpel) {
                     EnableCondition(Conditions.Scalpel);
                     scalpel++;
-                } else if (g is Pipette || g is BigPipette) {
+                } else if (g is Pipette) {
                     pipette++;
                     if (pipette == 1) {
                         EnableCondition(Conditions.Pipette);
@@ -183,7 +183,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                         EnableCondition(Conditions.PipetteHeads);
                     }
                 } else if (g is BigPipette) {
-                    // EnableCondition(Conditions.BigPipette);
+                    EnableCondition(Conditions.BigPipette);
                     bigPipette++;
                 }
             }

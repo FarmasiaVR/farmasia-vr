@@ -128,7 +128,7 @@ public class CabinetBase : MonoBehaviour {
 
         if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
             String name = item.transform?.parent?.parent?.name;
-            Task.CreateGeneralMistake($"Kaappiin tuotu esine ({name}) ei ollut puhdas", 1);
+            Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas", 1);
         }
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
