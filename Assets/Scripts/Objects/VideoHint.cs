@@ -61,7 +61,7 @@ public class VideoHint : MonoBehaviour {
         player.frame = 0;
         player.renderMode = VideoRenderMode.MaterialOverride;
         player.targetMaterialRenderer = targetRenderer;
-        player.targetMaterialProperty = "_MainTex";
+        player.targetMaterialProperty = "_BaseMap";
         player.audioOutputMode = VideoAudioOutputMode.AudioSource;
         player.SetTargetAudioSource(0, audioSource);
         player.isLooping = false;
