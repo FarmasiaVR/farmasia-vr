@@ -1,45 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Valve.VR;
 
 public class MovementControls : MonoBehaviour {
 
-    #region fields
-    private Hand hand;
+    private SteamVR_Action_Boolean menuAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
+    private Hand rightHand;
     private Transform player;
-
+    private Bounds[] bounds;
     private float movementStep = 0.05f;
 
-    private Bounds[] bounds;
-    #endregion
-
     private void Start() {
-        hand = GetComponent<Hand>();
+        rightHand = GetComponent<Hand>();
         player = Player.Transform;
-        GetPlayArea();
-    }
-
-    private void GetPlayArea() {
-
-        GameObject area = GameObject.FindGameObjectWithTag("PlayArea");
-
-        if (area == null || area.transform.childCount == 0) {
-            return;
-        }
-
-        bounds = new Bounds[area.transform.childCount];
-
-        for (int i = 0; i < bounds.Length; i++) {
-            bounds[i] = area.transform.GetChild(i).GetComponent<Collider>().bounds;
-        }
-
-        Destroy(area);
+        GetPlayAreas();
     }
 
     private void Update() {
-        if (VRInput.GetControlDown(hand.HandType, Controls.Menu)) {
+        if (menuAction != null && menuAction.GetStateDown(rightHand.HandType)) {
             Move();
         }
+    }
+
+    private void GetPlayAreas() {
+        GameObject playAreas = GameObject.FindGameObjectWithTag("PlayArea");
+        if (playAreas == null || playAreas.transform.childCount == 0) {
+            Logger.Warning("Play areas missing");
+            return;
+        }
+        bounds = new Bounds[playAreas.transform.childCount];
+        for (int i = 0; i < bounds.Length; i++) {
+            bounds[i] = playAreas.transform.GetChild(i).GetComponent<Collider>().bounds;
+        }
+        Destroy(playAreas);
     }
 
     private void Move() {
@@ -48,6 +40,7 @@ public class MovementControls : MonoBehaviour {
             player.position = newPos;
         }
     }
+
     private bool ValidPosition(Vector3 pos) {
         if (bounds == null) {
             return true;
@@ -57,14 +50,12 @@ public class MovementControls : MonoBehaviour {
                 return true;
             }
         }
-
         return false;
     }
 
     private Vector3 GetPointedDirection() {
         Vector3 forward = transform.forward;
         forward.y = 0;
-
         return forward.normalized;
     }
 }
