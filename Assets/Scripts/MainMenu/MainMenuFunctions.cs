@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainMenuFunctions : MonoBehaviour {
 
-    private SceneLoader changer;
+    private SceneLoader levelChanger;
 
     private void Start() {
-        changer = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
     public void LoadScene(int scene) {
-        changer.SwapScene((SceneTypes)scene);
+        levelChanger.SwapScene((SceneTypes)scene);
     }
 
     public void ExitGame() {

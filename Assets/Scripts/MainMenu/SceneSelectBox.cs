@@ -2,20 +2,15 @@
 using UnityEngine.Events;
 
 public class SceneSelectBox : Interactable {
-    [SerializeField]
-    private bool isInstant;
-    [SerializeField]
-    GameObject liquid;
-    ProgressBar bar;
+
+    private ProgressBar bar;
     private bool activated;
 
     public delegate void OnAcceptCallback();
-
-    [SerializeField]
-    private OnAcceptCallback OnAccept;
-
-    [SerializeField]
-    private UnityEvent onActivate;
+    public OnAcceptCallback onAccept;
+    public UnityEvent onActivate;
+    public GameObject liquid;
+    public bool isInstant;
 
     private void OnValidate() {
         bar = liquid.GetComponent<ProgressBar>();
@@ -28,8 +23,6 @@ public class SceneSelectBox : Interactable {
 
     protected override void Start() {
         base.Start();
-        if (isInstant) {
-        }
         Type.Set(InteractableType.Interactable);
         bar = liquid.GetComponent<ProgressBar>();
     }

@@ -2,8 +2,11 @@
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
-    public Animator animator;
+
     private string scene;
+
+    public Animator animator;
+
     public void SwapScene(SceneTypes type) {
         switch (type) {
             case SceneTypes.Restart:
@@ -21,12 +24,15 @@ public class SceneLoader : MonoBehaviour {
             case SceneTypes.MembraneFilteration:
                 ChangeScene("MembraneFilteration");
                 return;
+            case SceneTypes.ChangingRoom:
+                ChangeScene("ChangingRoom");
+                return;
         }
     }
+
     private void ChangeScene(string name) {
         scene = name;
         FadeOutScene();
-
     }
 
     public void FadeOutScene() {
@@ -34,9 +40,6 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void OnFadeComplete() {
-        if (scene == null) {
-            return;
-        }
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         LoadScene();
@@ -47,11 +50,9 @@ public class SceneLoader : MonoBehaviour {
         if (scene.Equals("Restart")) {
             Logger.PrintVariables("Restarting current scene", scene);
             G.Instance.Scene.Restart();
-            return;
+        } else {
+            Logger.PrintVariables("Loading scene", scene);
+            SceneManager.LoadScene(scene);
         }
-        Logger.PrintVariables("Loading scene", scene);
-        SceneManager.LoadScene(scene);
     }
-
-
 }

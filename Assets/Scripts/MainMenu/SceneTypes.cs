@@ -3,5 +3,6 @@
     Tutorial,
     MedicinePreparation,
     MembraneFilteration,
+    ChangingRoom,
     Restart
 }
