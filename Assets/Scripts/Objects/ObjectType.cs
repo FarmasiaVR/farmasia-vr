@@ -34,5 +34,6 @@
     PumpFilterLid,
     NotApplicable,
     FilterInCover,
-    FilterHalf
+    FilterHalf,
+    SoapDispencer
 }

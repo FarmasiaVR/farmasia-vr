@@ -53,5 +53,9 @@ public static class TaskFactory {
         new Fingerprints(),
         new FinishMembrane(),
         new WriteSecondTime(),
+
+        // ChangingRoom
+        new WashHands(),
+
     }.ToDictionary(task => task.TaskType, task => task);
 }

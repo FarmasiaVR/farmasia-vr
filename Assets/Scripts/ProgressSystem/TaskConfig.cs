@@ -303,6 +303,17 @@ public static class TaskConfig {
             0
         ),
 
+        // WashHands
+
+        info(
+            TaskType.WashHands,
+            "Käsienpesu",
+            "Suorita käsienpesu oikeassa järjestyksessä",
+            "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
+            "Kädet ovat puhtaat.",
+            0
+        ),
+
     }.ToDictionary(pair => pair.Key, pair => pair.Value);
 
     public static Info For(TaskType type) {

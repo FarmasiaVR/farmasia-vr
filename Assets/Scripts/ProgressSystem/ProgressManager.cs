@@ -83,6 +83,8 @@ public class ProgressManager {
                 break;
             case SceneTypes.Tutorial:
                 return;
+            case SceneTypes.ChangingRoom:
+                return;
         }
         if (scene != SceneTypes.MainMenu) {
 

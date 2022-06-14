@@ -54,5 +54,6 @@
     FingerprintsGivenR,
     FilterAssembled,
     FilterDisconnected,
-    PipetteCoverOpened
+    PipetteCoverOpened,
+    WashHandsSoapUsed,
 }
