@@ -35,5 +35,8 @@
     NotApplicable,
     FilterInCover,
     FilterHalf,
-    SoapDispencer
+    SoapDispencer,
+    AutomaticPipette,
+    DisinfectantBottle,
+    AgarPlate
 }

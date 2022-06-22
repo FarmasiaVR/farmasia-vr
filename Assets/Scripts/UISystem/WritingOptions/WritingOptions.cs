@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using System.Linq;
 
 public class WritingOptions : MonoBehaviour {
 
     private static System.Random rand = new System.Random();
 
-    [SerializeField]
-    private GameObject resultTextObject;
+    public GameObject resultTextObject;
+    public GameObject errorTextObject;
     private TextMeshPro resultTextField;
-
-    [SerializeField]
-    private GameObject errorTextObject;
     private TextMeshPro errorTextField;
 
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
-    private Dictionary<WritingType, string> alreadySelectedOptions = new Dictionary<WritingType, string>();
     private WritingType? lastLine = null;
     private string alreadyWrittenText;
     private string resultText;
 
+    // The visibility of the options are controlled with the toggle gameObject
+    private GameObject toggle;
+
     // How many lines can be selected, in addition to the already existing text
     private int maxLines;
 
+    // Ignore ProgressSystem if in tutorial
+    public bool inTutorial;
 
     // Whether the options are initially visible
-    [SerializeField]
-    private bool visible;
-
-    // The visibility of the options are controlled with the toggle gameObject
-    private GameObject toggle;
+    public bool visible;
 
     // Callback that is invoked when the submit button is clicked. The WritingPen will set this.
     public Action<Dictionary<WritingType, string>> onSubmit;
@@ -59,7 +56,7 @@ public class WritingOptions : MonoBehaviour {
     private void SetButtonCallbacks() {
         // First get the actual options and set the callbacks. true is passed to the method so inactive objects are searched as well.
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
-        foreach(WritingOption option in options) {
+        foreach (WritingOption option in options) {
             option.onSelect = AddOption;
             option.onDeselect = (o) => RemoveOption(o.WritingType);
         }
@@ -102,7 +99,7 @@ public class WritingOptions : MonoBehaviour {
         }
         resultTextField.SetText(resultText);
     }
-    
+
     private void UpdateErrorMessage() {
         if (selectedOptions.Count == maxLines) {
             errorTextField.SetText("Maksimimäärä rivejä!");
@@ -150,8 +147,7 @@ public class WritingOptions : MonoBehaviour {
     }
 
     public void SetWritable(Writable writable) {
-
-        int fakeTimeSet = rand.Next(0, 2);     
+        int fakeTimeSet = rand.Next(0, 2);
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
         int currentLines = alreadyWrittenText.Split('\n').Length - 1; // Why -1? Just trust me.
@@ -161,9 +157,8 @@ public class WritingOptions : MonoBehaviour {
         UpdatePosition(writable.transform);
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
-            
             if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime) {
-                if (G.Instance.Progress.IsTaskCompleted(TaskType.WriteTextsToItems)) {
+                if (!inTutorial && G.Instance.Progress.IsTaskCompleted(TaskType.WriteTextsToItems)) {
                     option.WritingType = WritingType.SecondTime;
                 }
                 Logger.Print("Writing type: " + option.WritingType);
@@ -183,8 +178,8 @@ public class WritingOptions : MonoBehaviour {
             } else if (option.WritingType == WritingType.Name) {
                 option.UpdateText(Player.Info.Name ?? "Pelaaja");
             }
-                
-           
+
+
         }
     }
 
