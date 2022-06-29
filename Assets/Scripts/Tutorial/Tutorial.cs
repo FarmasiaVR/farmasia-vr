@@ -90,34 +90,54 @@ public class Tutorial : MonoBehaviour {
         tutorials.SetActive(false);
     }
 
-    private string GetHintString(ObjectType type, string hint) {
-        return TypeToString(type) + "\n\n" + hint;
-    }
-
-    private string TypeToString(ObjectType type) {
-        switch (type) {
-            case ObjectType.Syringe:
-                return "Ruisku";
-            case ObjectType.Needle:
-                return "Neula";
-            case ObjectType.Bottle:
-                return "Lääkepullo";
-            case ObjectType.DisinfectingCloth:
-                return "Steriili puhdistusliina";
-            case ObjectType.SterileBag:
-                return "Steriili pussi";
-            case ObjectType.SyringeCap:
-                return "Ruiskun korkki";
-            default:
-                return type.ToString();
-        }
-    }
-
     private void CreateHint(string hint) {
         HintBox.CreateHint(hint, true);
     }
 
     private void CreateVideoHint(Video video) {
         VideoHint.CreateVideoHint(video.clip, video.title, videoHintSpawn.position);
+    }
+
+    private string GetHintString(ObjectType type, string hint) {
+        return TypeToString(type) + "\n\n" + hint;
+    }
+
+    private string TypeToString(ObjectType type) {
+        switch (type) {
+            case ObjectType.Luerlock:
+                return "Luer-lock";
+            case ObjectType.Needle:
+                return "Neula";
+            case ObjectType.Syringe:
+                return "Ruisku";
+            case ObjectType.Pipette:
+                return "Pipetti";
+            case ObjectType.AutomaticPipette:
+                return "Pipetintäyttäjä";
+            case ObjectType.Medicine:
+                return "Lääkepullo";
+            case ObjectType.SterileBag:
+                return "Sterilointipussi";
+            case ObjectType.SyringeCap:
+                return "Ruiskun korkki";
+            case ObjectType.DisinfectingCloth:
+                return "Steriili puhdistusliina";
+            case ObjectType.DisinfectantBottle:
+                return "Etanolipullo";
+            case ObjectType.AgarPlate:
+                return "Agarmalja";
+            case ObjectType.Pen:
+                return "Kynä";
+            case ObjectType.PumpFilterBase:
+                return "Kalvosuodatin";
+            case ObjectType.Pump:
+                return "Pumppu";
+            case ObjectType.Scalpel:
+                return "Skalpelli";
+            case ObjectType.Tweezers:
+                return "Pinsetit";
+            default:
+                return type.ToString();
+        }
     }
 }
