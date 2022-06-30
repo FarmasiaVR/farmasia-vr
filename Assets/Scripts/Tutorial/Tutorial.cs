@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -61,7 +60,6 @@ public class Tutorial : MonoBehaviour {
     }
 
     public void SpawnTutorial(GameObject tutorial) {
-        // Instantiate(tutorial);
         tutorial.SetActive(true);
         currentTutorial = tutorial;
         HideTutorialMenu();
@@ -73,15 +71,8 @@ public class Tutorial : MonoBehaviour {
     public void ShowTutorialMenu() {
         returnButton.SetActive(false);
         tutorials.SetActive(true);
-        // temp solution
-        Destroy(GameObject.Find("VideoHint(Clone)"));
-        Destroy(GameObject.Find("PlayButton"));
-        Destroy(GameObject.Find("FloatingHint(Clone)"));
-        var objects = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "CloseButton");
-        foreach (var o in objects) {
-            Destroy(o);
-        }
-        // Destroy(currentTutorial);
+        HintBox.DestroyCurrentHint();
+        VideoHint.DestroyCurrentVideo();
         currentTutorial.SetActive(false);
     }
 
@@ -128,7 +119,7 @@ public class Tutorial : MonoBehaviour {
                 return "Agarmalja";
             case ObjectType.Pen:
                 return "Kynä";
-            case ObjectType.PumpFilterBase:
+            case ObjectType.FilterInCover:
                 return "Kalvosuodatin";
             case ObjectType.Pump:
                 return "Pumppu";
