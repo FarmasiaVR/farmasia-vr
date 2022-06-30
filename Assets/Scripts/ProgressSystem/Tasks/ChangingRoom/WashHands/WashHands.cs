@@ -43,11 +43,14 @@ public class WashHands : Task {
         }
         
 
-        ObjectType type = item.ObjectType;
+        /*
+        Interactable has no object type?
+        ObjectType type = item..;
         if (type == ObjectType.SoapDispencer) {
             EnableCondition(Conditions.SoapUsed);
         }
         CompleteTask();
+        */
     }
     #endregion
 

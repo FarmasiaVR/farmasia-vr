@@ -1,39 +1,39 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-// no rigidbody, Object must not be grabbable. Only collision with hand
+public class SoapDispencer : Interactable {
 
-public class SoapDispencer : GeneralItem {
+    private bool running = false;
+
+    [SerializeField]
+    private GameObject soapDispencer;
+
     public GameObject Effect;
     private new ParticleSystem particleSystem;
 
-    protected override void Awake() {
-        base.Awake();
-        particleSystem = Effect.GetComponent<ParticleSystem>();
-    }
-    
-    public void OnCollisionEnter(Collider other) {
-        // on collision with hands, apply soap.
-        ApplySoap();
-        Debug.Log("Testing Collision with hand");
 
+    protected override void Start() {
+        base.Start();
+        particleSystem = Effect.GetComponent<ParticleSystem>();
+        Type.Set(InteractableType.Interactable);
+    }
+
+    public override void Interact(Hand hand) {
+        base.Interact(hand);
+
+        if (!running) {
+            running = true;
+            Logger.Print("Soap ON!");
+            ApplySoap();
+
+        }
+        running = false;
     }
 
     public void ApplySoap() {
         particleSystem.Play();
-
-        bool soaped = false;
-        /*
-        foreach (GeneralItem item in Items) {
-            cleaned |= item.Contamination == GeneralItem.ContaminateState.Contaminated || item.Contamination == GeneralItem.ContaminateState.FloorContaminated;
-            item.Contamination = GeneralItem.ContaminateState.Clean;
-        }
-
-        */
-        if (soaped) {
-            // Play audio
-            // transform.parent.GetComponentInChildren<AudioSource>().Play();
-        }
     }
 }
