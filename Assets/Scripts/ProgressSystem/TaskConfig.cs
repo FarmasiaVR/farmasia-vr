@@ -17,7 +17,7 @@ public static class TaskConfig {
     /// Points
     /// 
 
-    private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{ 
+    private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{
 
         info(
             TaskType.SelectTools,
@@ -174,7 +174,7 @@ public static class TaskConfig {
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
         ),
-        
+
         info(
             TaskType.WriteTextsToItems,
             "Tietojen kirjoitus esineisiin",
@@ -191,7 +191,7 @@ public static class TaskConfig {
             "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja",
             "Hienoa, agarmaljat avattu!",
             2
-        ),     
+        ),
 
         info(
             TaskType.FillBottles,
@@ -303,14 +303,21 @@ public static class TaskConfig {
             0
         ),
 
-        // WashHands
-
         info(
             TaskType.WashHands,
             "Käsienpesu",
             "Suorita käsienpesu oikeassa järjestyksessä",
             "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
             "Kädet ovat puhtaat.",
+            0
+        ),
+
+        info(
+            TaskType.PutOnProtectiveClothing,
+            "Suojavarusteiden pukeminen",
+            "Pue suojavarusteet päälle oikeassa järjestyksessä",
+            "",
+            "",
             0
         ),
 
@@ -325,7 +332,7 @@ public static class TaskConfig {
         }
     }
 
-    private static KeyValuePair<TaskType, Info> info(TaskType type, string name, string desc, string hint, string success, int points) => 
+    private static KeyValuePair<TaskType, Info> info(TaskType type, string name, string desc, string hint, string success, int points) =>
         new KeyValuePair<TaskType, Info>(type, new Info() { Name = name, Description = desc, Hint = hint, Success = success, Points = points });
 
     public class Info {

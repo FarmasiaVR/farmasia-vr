@@ -37,5 +37,6 @@ public enum TaskType {
     OpenFilterCover,
     OpenPipetteCover,
     WriteSecondTime,
-    WashHands
+    WashHands,
+    PutOnProtectiveClothing
 }

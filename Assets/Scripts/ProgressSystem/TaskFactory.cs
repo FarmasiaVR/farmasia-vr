@@ -54,8 +54,9 @@ public static class TaskFactory {
         new FinishMembrane(),
         new WriteSecondTime(),
 
-        // ChangingRoom
+        // Changing room
         new WashHands(),
+        new PutOnProtectiveClothing(),
 
     }.ToDictionary(task => task.TaskType, task => task);
 }

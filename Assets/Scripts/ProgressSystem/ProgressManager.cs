@@ -81,9 +81,11 @@ public class ProgressManager {
                 GenerateScenarioTwo();
                 Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 break;
-            case SceneTypes.Tutorial:
-                return;
             case SceneTypes.ChangingRoom:
+                GenerateScenarioThree();
+                // Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
+                return;
+            case SceneTypes.Tutorial:
                 return;
         }
         if (scene != SceneTypes.MainMenu) {
@@ -157,6 +159,14 @@ public class ProgressManager {
         packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
         packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
         packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+    }
+
+    private void GenerateScenarioThree() {
+        TaskType[] tasks = {
+            TaskType.PutOnProtectiveClothing
+        };
+
+        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(tasks)));
     }
     
     private Package CreatePackage(PackageName name, List<TaskType> tasks) {

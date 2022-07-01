@@ -56,4 +56,5 @@
     FilterDisconnected,
     PipetteCoverOpened,
     WashHandsSoapUsed,
+    ProtectiveClothingEquipped,
 }
