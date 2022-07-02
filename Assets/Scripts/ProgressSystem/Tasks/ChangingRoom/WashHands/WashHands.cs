@@ -11,9 +11,8 @@ public class WashHands : Task {
     /// Constructor for WashHands task. 
     /// x.
     /// </summary>
-    public WashHands() : base(TaskType.WashHands, false) {
+    public WashHands(TaskType taskType) : base(taskType, true) {
         SetCheckAll(false);
-
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion

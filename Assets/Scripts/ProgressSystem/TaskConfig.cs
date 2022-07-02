@@ -292,7 +292,7 @@ public static class TaskConfig {
             2
         ),
         
-        //TODO: Siivousinfo
+        // TODO: Siivousinfo
 
         info(
             TaskType.FinishMembrane,
@@ -303,8 +303,28 @@ public static class TaskConfig {
             0
         ),
 
+        // Changing room scene starts here
+
         info(
-            TaskType.WashHands,
+            TaskType.WearShoeCoversAndLabCoat,
+            "",
+            "",
+            "",
+            "",
+            0
+        ),
+
+        info(
+            TaskType.WashGlasses,
+            "",
+            "",
+            "",
+            "",
+            0
+        ),
+
+        info(
+            TaskType.WashHandsInChangingRoom,
             "Käsienpesu",
             "Suorita käsienpesu oikeassa järjestyksessä",
             "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
@@ -313,9 +333,36 @@ public static class TaskConfig {
         ),
 
         info(
-            TaskType.PutOnProtectiveClothing,
-            "Suojavarusteiden pukeminen",
-            "Pue suojavarusteet päälle oikeassa järjestyksessä",
+            TaskType.WearHeadCoverAndFaceMask,
+            "",
+            "",
+            "",
+            "",
+            0
+        ),
+
+        info(
+            TaskType.WashHandsInPreperationRoom,
+            "Käsienpesu",
+            "Suorita käsienpesu oikeassa järjestyksessä",
+            "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
+            "Kädet ovat puhtaat.",
+            0
+        ),
+
+        info(
+            TaskType.WearSleeveCoversAndProtectiveGloves,
+            "",
+            "",
+            "",
+            "",
+            0
+        ),
+
+        info(
+            TaskType.FinishChangingRoom,
+            "",
+            "",
             "",
             "",
             0

@@ -162,11 +162,25 @@ public class ProgressManager {
     }
 
     private void GenerateScenarioThree() {
-        TaskType[] tasks = {
-            TaskType.PutOnProtectiveClothing
+        // TODO: Update task list names
+        TaskType[] selectTasks = {
+            TaskType.WearShoeCoversAndLabCoat,
+            TaskType.WashGlasses,
+            TaskType.WashHandsInChangingRoom,
+        };
+        TaskType[] workSpaceTasks = {
+            TaskType.WearHeadCoverAndFaceMask,
+            TaskType.WashHandsInPreperationRoom,
+            TaskType.WearSleeveCoversAndProtectiveGloves
+        };
+        TaskType[] cleanUpTasks = {
+            TaskType.FinishChangingRoom
         };
 
-        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(tasks)));
+        // TODO: Add new package names
+        packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
     
     private Package CreatePackage(PackageName name, List<TaskType> tasks) {

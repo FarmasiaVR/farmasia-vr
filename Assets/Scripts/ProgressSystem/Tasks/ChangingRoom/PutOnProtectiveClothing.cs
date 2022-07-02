@@ -7,7 +7,7 @@ public class PutOnProtectiveClothing : Task {
     private bool faceMask;
     private bool labCoat;
     private bool sleeveCovers;
-    private bool sterileGloves;
+    private bool protectiveGloves;
     private bool shoeCovers;
 
     public PutOnProtectiveClothing() : base(TaskType.PutOnProtectiveClothing, false) {
@@ -27,10 +27,10 @@ public class PutOnProtectiveClothing : Task {
         if (clothing.type == "Kasvomaski") faceMask = true;
         if (clothing.type == "Laboratoriotakki") labCoat = true;
         if (clothing.type == "Hihasuojat") sleeveCovers = true;
-        if (clothing.type == "Suojakäsineet") sterileGloves = true;
+        if (clothing.type == "Suojakäsineet") protectiveGloves = true;
         if (clothing.type == "Kengänsuojat") shoeCovers = true;
 
-        if (headCover && faceMask && labCoat && sleeveCovers && sterileGloves && shoeCovers) {
+        if (headCover && faceMask && labCoat && sleeveCovers && protectiveGloves && shoeCovers) {
             Logger.Print("Task completed!");
             CompleteTask();
         }

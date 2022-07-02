@@ -37,6 +37,12 @@ public enum TaskType {
     OpenFilterCover,
     OpenPipetteCover,
     WriteSecondTime,
-    WashHands,
+    WearShoeCoversAndLabCoat,
+    WashGlasses,
+    WashHandsInChangingRoom,
+    WearHeadCoverAndFaceMask,
+    WashHandsInPreperationRoom,
+    WearSleeveCoversAndProtectiveGloves,
+    FinishChangingRoom,
     PutOnProtectiveClothing
 }

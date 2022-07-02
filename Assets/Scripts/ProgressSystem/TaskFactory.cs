@@ -1,8 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using System;
 
 public static class TaskFactory {
     /// <summary>Get a task by type and call subscribe on it, effectively activating it
@@ -55,8 +53,13 @@ public static class TaskFactory {
         new WriteSecondTime(),
 
         // Changing room
-        new WashHands(),
-        new PutOnProtectiveClothing(),
+        new WearShoeCoversAndLabCoat(),
+        new WashGlasses(),
+        new WashHands(TaskType.WashHandsInChangingRoom),
+        new WearHeadCoverAndFaceMask(),
+        new WashHands(TaskType.WashHandsInPreperationRoom),
+        new WearSleeveCoversAndProtectiveGloves(),
+        new FinishChangingRoom(),
 
     }.ToDictionary(task => task.TaskType, task => task);
 }
