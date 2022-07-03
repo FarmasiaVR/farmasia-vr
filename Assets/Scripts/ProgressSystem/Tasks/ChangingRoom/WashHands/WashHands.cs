@@ -1,64 +1,59 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 public class WashHands : Task {
 
-    #region Fields
-    public enum Conditions { SoapUsed }
-    #endregion
+    public enum Conditions { HandsWashed }
 
-    #region Constructor
-    /// <summary>
-    /// Constructor for WashHands task. 
-    /// x.
-    /// </summary>
-    public WashHands(TaskType taskType) : base(taskType, true) {
+    public enum HandsState { dirty, soapy, wet, clean, cleanest };
+    public HandsState handState = HandsState.dirty;
+
+    public WashHands(TaskType taskType) : base(taskType, false) {
         SetCheckAll(false);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
-    #endregion
 
-    #region Event Subscriptions
+
     public override void Subscribe() {
-        base.SubscribeEvent(HandsTouched, EventType.WashHandsSoapUsed);
+
+
+        base.SubscribeEvent(HandsTouched, EventType.WashingHands);
     }
 
-    // At Start hands = Dirty, If Soap touched --> hands = Soapy,
-    // if Water touched when hands == Soapy --> Hands = wet, if Disinfectant touched when hands == Soapy --> hands = clean
-
-
-    // From SelectMedicine
-
-    /// <summary>
-    /// Once fired by an event, checks if the touched item is SoapDispencer(Collider) and sets the corresponding condition to be true.
-    /// </summary>
-    /// <param name="data">Refers to the data returned by the trigger.</param>
     private void HandsTouched(CallbackData data) {
 
-        
-        GameObject g = data.DataObject as GameObject;
-        SoapDispencer item = g.GetComponent<SoapDispencer>();
-        if (item == null) {
-            return;
+        var liquidUsed = (data.DataObject as HandWashingLiquids);
+        if (liquidUsed == null) return;
+
+        if (liquidUsed.type == "Soap") {
+            handState = HandsState.soapy;
+            // ok
         }
-        
 
-        /*
-        Interactable has no object type?
-        ObjectType type = item..;
-        if (type == ObjectType.SoapDispencer) {
-            EnableCondition(Conditions.SoapUsed);
+        if (liquidUsed.type == "Water" && handState != HandsState.soapy) {
+            handState = HandsState.wet;
+            // mistake, minus points?
         }
-        CompleteTask();
-        */
+            
+        if (liquidUsed.type == "Water" && handState == HandsState.soapy) {
+            handState = HandsState.clean;
+            // ok
+        }
+
+        if (liquidUsed.type == "HandSanitizer" && handState != HandsState.clean) {
+            handState = HandsState.dirty;
+            // mistake, minus points?
+        }
+
+        // Conditions for completting the washing hands
+        if (liquidUsed.type == "HandSanitizer" && handState == HandsState.clean) {
+            EnableCondition(Conditions.HandsWashed);
+            handState = HandsState.cleanest;
+            CompleteTask();
+        }
     }
-    #endregion
 
-
-    #region Public Methods
-
-    public override void FinishTask() {
-        base.FinishTask();
-
-    }
-    #endregion
 }
