@@ -3,7 +3,6 @@ using System.Linq;
 
 public static class TaskConfig {
 
-    /// 
     /// Define task information here.
     /// Note that task classes may override these values (for example, cabinet tasks may show in the hint what items are missing).
     /// As this is a dictionary, order of the tasks is not significant, but they are supposed to be approximately in the correct order for clarity
@@ -15,7 +14,6 @@ public static class TaskConfig {
     /// Hint - can be shown by pressing the hint button
     /// Success - text in the popup when task completed
     /// Points
-    /// 
 
     private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{
 
@@ -307,20 +305,20 @@ public static class TaskConfig {
 
         info(
             TaskType.WearShoeCoversAndLabCoat,
-            "",
-            "",
-            "",
-            "",
-            0
+            "Kengänsuojien ja laboratoriotakin pukeminen",
+            "Pue kengänsuojat ja laboratoriotakki",
+            "Vedä kengänsuojat ja laboratoriotakki itseesi pukeaksesi ne päällesi.",
+            "Kengänsuojat ja laboratoriotakki puettu!",
+            2
         ),
 
         info(
             TaskType.WashGlasses,
-            "",
-            "",
-            "",
-            "",
-            0
+            "Silmälasien puhdistus",
+            "Huuhtele silmälasit vedellä",
+            "Huuhtele silmälasit juoksevan veden alla.",
+            "Silmälasit puhdistettu!",
+            2
         ),
 
         info(
@@ -334,11 +332,11 @@ public static class TaskConfig {
 
         info(
             TaskType.WearHeadCoverAndFaceMask,
-            "",
-            "",
-            "",
-            "",
-            0
+            "Suojapäähineen ja kasvomaskin pukeminen",
+            "Pue suojapäähine ja kasvomaski",
+            "Vedä suojapäähine ja kasvomaski itseesi pukeaksesi ne päällesi.",
+            "Suojapäähine ja kasvomaski puettu!",
+            2
         ),
 
         info(
@@ -352,16 +350,16 @@ public static class TaskConfig {
 
         info(
             TaskType.WearSleeveCoversAndProtectiveGloves,
-            "",
-            "",
-            "",
-            "",
-            0
+            "Hihasuojien ja suojakäsineiden pukeminen",
+            "Pue hihasuojat ja suojakäsineet",
+            "Vedä hihasuojat ja suojakäsineet itseesi pukeaksesi ne päällesi.",
+            "Hihasuojat ja suojakäsineet puettu!",
+            2
         ),
 
         info(
             TaskType.FinishChangingRoom,
-            "",
+            "Lopetus",
             "",
             "",
             "",
