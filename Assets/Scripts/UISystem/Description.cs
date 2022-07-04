@@ -2,9 +2,8 @@
 using UnityEngine;
 
 public class Description : MonoBehaviour {
-    #region Fields
+
     private TextMeshPro currentTextField;
-    #endregion
 
     void Start() {
         currentTextField = gameObject.GetComponent<TextMeshPro>();
@@ -21,20 +20,17 @@ public class Description : MonoBehaviour {
             return;
         }
 
-
         switch (G.Instance.Progress.CurrentPackage.name) {
             case PackageName.EquipmentSelection:
                 packageName = "Työvälineiden valinta";
                 break;
             case PackageName.Workspace:
-                packageName = "Työskentely Tila";
+                packageName = "Työskentely tila";
                 break;
             case PackageName.CleanUp:
-                packageName = "Tilan Siivoaminen";
+                packageName = "Tilan siivoaminen";
                 break;
         }
-        
-
 
         string text = string.Format("<color=#000000> {0} </color> \n{1}", packageName, UISystem.Instance.Descript);
         currentTextField.text = text;

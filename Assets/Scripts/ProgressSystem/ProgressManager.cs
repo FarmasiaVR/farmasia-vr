@@ -14,14 +14,8 @@ public class ProgressManager {
     // Oot actually all tasks
     private HashSet<Task> allTasks;
     public List<Package> packages;
-    public Package CurrentPackage {
-        get; private set;
-    }
-    public ScoreCalculator Calculator {
-        get; private set;
-    }
-
-
+    public Package CurrentPackage { get; private set; }
+    public ScoreCalculator Calculator { get; private set; }
     #endregion
 
     public ProgressManager(bool testMode) {
@@ -67,13 +61,13 @@ public class ProgressManager {
     }
 
     public void SetSceneType(SceneTypes scene) {
-
-
         switch (scene) {
             case SceneTypes.MainMenu:
                 return;
+            case SceneTypes.Tutorial:
+                return;
             case SceneTypes.MedicinePreparation:
-                /*Need Support for multiple Scenarios.*/
+                // Need support for multiple scenarios
                 GenerateScenarioOne();
                 Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 break;
@@ -83,18 +77,14 @@ public class ProgressManager {
                 break;
             case SceneTypes.ChangingRoom:
                 GenerateScenarioThree();
-                // Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
-                return;
-            case SceneTypes.Tutorial:
-                return;
+                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
+                break;
         }
-        if (scene != SceneTypes.MainMenu) {
 
-            CurrentPackage = packages.First();
-            UpdateDescription();
-            UpdateHint();
-            CurrentPackage.StartTask();
-        }
+        CurrentPackage = packages.First();
+        CurrentPackage.StartTask();
+        UpdateDescription();
+        UpdateHint();
     }
 
     public void SetProgress(byte[] state) {
@@ -182,7 +172,7 @@ public class ProgressManager {
         packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
         packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
-    
+
     private Package CreatePackage(PackageName name, List<TaskType> tasks) {
         Package package = new Package(name, this);
         foreach (TaskType type in tasks) {
@@ -278,10 +268,10 @@ public class ProgressManager {
         if (!testMode) {
             if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
                 UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
-                #if UNITY_NONVRCOMPUTER
-                #else
+#if UNITY_NONVRCOMPUTER
+#else
                 VRVibrationManager.Vibrate();
-                #endif
+#endif
             } else {
                 UISystem.Instance.Descript = "";
             }
