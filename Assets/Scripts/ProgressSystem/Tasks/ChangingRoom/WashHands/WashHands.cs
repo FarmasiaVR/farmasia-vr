@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class WashHands : Task {
 
@@ -23,6 +24,13 @@ public class WashHands : Task {
         base.SubscribeEvent(HandsTouched, EventType.WashingHands);
     }
 
+    /*
+    private void ChangeHandState(HandsState handState) {
+        this.handState = handState;
+        Debug.Log("HansState : " + handState);
+    }
+    */
+
     private void HandsTouched(CallbackData data) {
 
         var liquidUsed = (data.DataObject as HandWashingLiquids);
@@ -30,21 +38,25 @@ public class WashHands : Task {
 
         if (liquidUsed.type == "Soap") {
             handState = HandsState.soapy;
+            Debug.Log("HansState : " + handState);
             // ok
         }
 
         if (liquidUsed.type == "Water" && handState != HandsState.soapy) {
             handState = HandsState.wet;
+            Debug.Log("HansState : " + handState);
             // mistake, minus points?
         }
             
         if (liquidUsed.type == "Water" && handState == HandsState.soapy) {
             handState = HandsState.clean;
+            Debug.Log("HansState : " + handState);
             // ok
         }
 
         if (liquidUsed.type == "HandSanitizer" && handState != HandsState.clean) {
             handState = HandsState.dirty;
+            Debug.Log("HansState : " + handState);
             // mistake, minus points?
         }
 
@@ -52,6 +64,7 @@ public class WashHands : Task {
         if (liquidUsed.type == "HandSanitizer" && handState == HandsState.clean) {
             EnableCondition(Conditions.HandsWashed);
             handState = HandsState.cleanest;
+            Debug.Log("HansState : " + handState);
             CompleteTask();
         }
     }
