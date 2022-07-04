@@ -2,7 +2,7 @@
 
 public class WashGlasses : Task {
 
-    public enum Conditions { };
+    public enum Conditions { GlassesCleaned };
 
     public WashGlasses() : base(TaskType.WashGlasses, true) {
         SetCheckAll(true);
@@ -10,10 +10,12 @@ public class WashGlasses : Task {
     }
 
     public override void Subscribe() {
-        // base.SubscribeEvent(DoStuffWhenThatEventHappens, EventType.YourEventType);
+        base.SubscribeEvent(DoStuff, EventType.CleaningGlasses);
     }
 
-    private void DoStuffWhenThatEventHappens(CallbackData data) {
-
+    // Temporary
+    private void DoStuff(CallbackData data) {
+        EnableCondition(Conditions.GlassesCleaned);
+        CompleteTask();
     }
 }

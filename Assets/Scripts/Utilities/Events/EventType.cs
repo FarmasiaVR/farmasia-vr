@@ -57,4 +57,5 @@
     PipetteCoverOpened,
     WashingHands,
     ProtectiveClothingEquipped,
+    CleaningGlasses,
 }

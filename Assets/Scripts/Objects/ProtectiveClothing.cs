@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ProtectiveClothing : GeneralItem {
+public class ProtectiveClothing : Grabbable {
 
     private AsepticClothingPoster poster;
     public string type;

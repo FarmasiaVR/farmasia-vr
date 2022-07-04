@@ -2,18 +2,22 @@
 
 public class FinishChangingRoom : Task {
 
-    public enum Conditions { };
-
     public FinishChangingRoom() : base(TaskType.FinishChangingRoom, true) {
-        SetCheckAll(true);
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
+
     }
 
     public override void Subscribe() {
-        // base.SubscribeEvent(DoStuffWhenThatEventHappens, EventType.YourEventType);
+
     }
 
-    private void DoStuffWhenThatEventHappens(CallbackData data) {
+    public override void StartTask() {
+        if (!Started) FinishTask();
+        base.StartTask();
+    }
 
+    public override async void FinishTask() {
+        await System.Threading.Tasks.Task.Delay(1000);
+        CompleteTask();
+        base.FinishTask();
     }
 }
