@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
-using System;
-using System.Collections.Generic;
 
-public class SoapDispencer : Interactable {
+public class HandWashingLiquid : Interactable {
+
+    public string type;
 
     private bool running = false;
-
-    [SerializeField]
-    private GameObject soapDispencer;
 
     public GameObject Effect;
     private new ParticleSystem particleSystem;
@@ -17,16 +12,19 @@ public class SoapDispencer : Interactable {
 
     protected override void Start() {
         base.Start();
-        particleSystem = Effect.GetComponent<ParticleSystem>();
+        // Type.On(InteractableType.Interactable);
         Type.Set(InteractableType.Interactable);
+
+        particleSystem = Effect.GetComponent<ParticleSystem>();
     }
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
+        Events.FireEvent(EventType.WashingHands, CallbackData.Object(this));
 
         if (!running) {
             running = true;
-            Logger.Print("Soap ON!");
+            // Logger.Print("Soap ON!");
             ApplySoap();
 
         }
