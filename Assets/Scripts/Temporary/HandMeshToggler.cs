@@ -4,46 +4,49 @@ using UnityEngine;
 
 public class HandMeshToggler : MonoBehaviour {
 
-    // private Renderer[] renderers;
-    private List<Renderer> renderers;
     private Hand hand;
-    public bool Status { get; private set; }
+    private List<Renderer> renderers;
+
+    public bool Status { get; set; }
 
     void Start() {
         hand = GetComponent<Hand>();
+        renderers = new List<Renderer>();
         Status = enabled;
 
-        renderers = new List<Renderer>();
-
         IEnumerator FindRenderersLate() {
-
+            // Keep looping until controller is turned on
             while (transform.Find("Model").childCount == 0) {
                 yield return null;
             }
 
-            SearhRenderers(transform);
+            SearchRenderers(transform);
         }
 
         StartCoroutine(FindRenderersLate());
     }
 
-    private void SearhRenderers(Transform t) {
-        if (t.GetComponent<RemoteGrabLine>() == null) {
-            if (t.GetComponent<Renderer>() is var r && r != null) {
-                renderers.Add(r);
+    private void SearchRenderers(Transform transform) {
+        if (transform.GetComponent<RemoteGrabLine>() == null) {
+            if (transform.GetComponent<Renderer>() is var renderer && renderer != null) {
+                if (transform.name.Equals("body")) {
+                    if (hand.tag.Equals("Controller (Left)")) transform.gameObject.layer = 14;
+                    else if (hand.tag.Equals("Controller (Right)")) transform.gameObject.layer = 15;
+                    MeshCollider meshCollider = transform.gameObject.AddComponent<MeshCollider>();
+                    meshCollider.convex = true;
+                    meshCollider.isTrigger = true;
+                }
+
+                renderers.Add(renderer);
             }
         }
 
-        foreach (Transform child in t) {
-            SearhRenderers(child);
+        foreach (Transform child in transform) {
+            SearchRenderers(child);
         }
     }
 
     private void Update() {
-        UpdateMesh();
-    }
-
-    private void UpdateMesh() {
         if (hand.IsGrabbed) {
             Show(false);
         } else {
@@ -57,18 +60,16 @@ public class HandMeshToggler : MonoBehaviour {
         }
 
         Status = hide;
-
         SetRenderers();
     }
 
     private void SetRenderers() {
-#if UNITY_VRCOMPUTER
-        foreach (Renderer r in renderers) {
-            if (r != null) {
-                r.enabled = Status;
+        #if UNITY_VRCOMPUTER
+        foreach (Renderer renderer in renderers) {
+            if (renderer != null) {
+                renderer.enabled = Status;
             }
         }
-#endif
+        #endif
     }
-
 }
