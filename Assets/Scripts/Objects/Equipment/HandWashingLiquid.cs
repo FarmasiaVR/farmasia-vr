@@ -4,6 +4,8 @@ public class HandWashingLiquid : Interactable {
 
     public string type;
 
+    public AudioSource handWashingSound;
+
     private bool running = false;
 
     public GameObject Effect;
@@ -32,6 +34,7 @@ public class HandWashingLiquid : Interactable {
     }
 
     public void ApplySoap() {
-        particleSystem.Play();
+        if (particleSystem != null) particleSystem.Play();
+        if (handWashingSound != null) handWashingSound.Play();
     }
 }
