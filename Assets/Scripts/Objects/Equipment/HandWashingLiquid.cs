@@ -4,12 +4,12 @@ public class HandWashingLiquid : Interactable {
 
     public string type;
 
-    public AudioSource handWashingSound;
+    AudioSource handWashingSound;
 
     private bool running = false;
 
-    public GameObject Effect;
-    private new ParticleSystem particleSystem;
+    // public GameObject Effect;
+    new ParticleSystem particleSystem;
 
 
     protected override void Start() {
@@ -17,7 +17,8 @@ public class HandWashingLiquid : Interactable {
         // Type.On(InteractableType.Interactable);
         Type.Set(InteractableType.Interactable);
 
-        particleSystem = Effect.GetComponent<ParticleSystem>();
+        handWashingSound = gameObject.GetComponent<AudioSource>();
+        particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
     }
 
     public override void Interact(Hand hand) {
@@ -27,13 +28,13 @@ public class HandWashingLiquid : Interactable {
         if (!running) {
             running = true;
             // Logger.Print("Soap ON!");
-            ApplySoap();
+            PlayFX();
 
         }
         running = false;
     }
 
-    public void ApplySoap() {
+    public void PlayFX() {
         if (particleSystem != null) particleSystem.Play();
         if (handWashingSound != null) handWashingSound.Play();
     }
