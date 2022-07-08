@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 2151088098467013483}
   - component: {fileID: 2151088098467013482}
   - component: {fileID: 2151088098467013481}
+  - component: {fileID: 1465508038}
   m_Layer: 0
   m_Name: Sink
   m_TagString: Untagged
@@ -226,6 +227,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &1465508038
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088098467013484}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2151088098575430198
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 2151088098575430198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.08, y: 0.1, z: 0.08}
   m_Children: []
   m_Father: {fileID: 2151088098998086852}
   m_RootOrder: 1
@@ -381,10 +398,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!82 &2151088098638687543
 AudioSource:
@@ -548,7 +565,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!82 &2151088098998086849
 AudioSource:
@@ -675,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 2151088099579352887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.08, y: 0.1, z: 0.08}
   m_Children: []
   m_Father: {fileID: 2151088098638687498}
   m_RootOrder: 1
@@ -768,7 +785,7 @@ Transform:
   m_GameObject: {fileID: 2151088099729122604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.3, z: 0.1}
+  m_LocalScale: {x: 0.08, y: 0.25, z: 0.08}
   m_Children: []
   m_Father: {fileID: 2151088098467013483}
   m_RootOrder: 1
