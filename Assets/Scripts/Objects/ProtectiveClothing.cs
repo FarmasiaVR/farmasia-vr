@@ -17,5 +17,6 @@ public class ProtectiveClothing : Grabbable {
         base.OnGrab(hand);
         Events.FireEvent(EventType.ProtectiveClothingEquipped, CallbackData.Object(this));
         foreach (GameObject poster in posters) poster.GetComponent<AsepticClothingPoster>().HighlightText(type);
+        Destroy(gameObject);
     }
 }
