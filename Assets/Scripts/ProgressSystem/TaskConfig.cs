@@ -322,6 +322,15 @@ public static class TaskConfig {
         ),
 
         info(
+            TaskType.GoToPreperationRoom,
+            "",
+            "Siirry valmistelutilaan",
+            "",
+            "",
+            0
+        ),
+
+        info(
             TaskType.WashHandsInChangingRoom,
             "Käsienpesu",
             "Suorita käsienpesu oikeassa järjestyksessä",

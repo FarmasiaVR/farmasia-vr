@@ -157,6 +157,7 @@ public class ProgressManager {
             TaskType.WearShoeCoversAndLabCoat,
             TaskType.WashGlasses,
             TaskType.WashHandsInChangingRoom,
+            TaskType.GoToPreperationRoom
         };
         TaskType[] workSpaceTasks = {
             TaskType.WearHeadCoverAndFaceMask,

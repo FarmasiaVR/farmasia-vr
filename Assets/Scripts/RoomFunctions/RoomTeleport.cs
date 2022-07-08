@@ -3,24 +3,13 @@ using UnityEngine;
 
 public class RoomTeleport : MonoBehaviour {
 
-    #region Fields
-    [Tooltip("VRPlayer instance")]
-    [SerializeField]
-    private Transform player;
-    [Tooltip("Player teleportation destination")]
-    [SerializeField]
+    public Transform player;
     public Transform playerDst;
-
-    [Tooltip("Passthrough teleportation source")]
-    [SerializeField]
     public Transform passthroughSrc;
-    [Tooltip("Passthrough teleportation destination")]
-    [SerializeField]
     public Transform passthroughDst;
-    #endregion
 
     /// <summary>
-    /// Teleports player and Contents of Pass-Through cabinet to the next room.
+    /// Teleports player and contents of pass-through cabinet to the next room
     /// </summary>
     public void TeleportPlayerAndPassthroughCabinet() {
         if (playerDst == null || passthroughDst == null) {
@@ -28,15 +17,9 @@ public class RoomTeleport : MonoBehaviour {
             return;
         }
 
-        if (G.Instance.CurrentSceneType != SceneTypes.MembraneFilteration)
-            TeleportItems();
+        if (G.Instance.CurrentSceneType != SceneTypes.MembraneFilteration) TeleportItems();
 
-        foreach (VRActionsMapper h in VRInput.Hands) {
-            h.Hand.GrabUninteract();
-            h.Hand.Uninteract();
-        }
-
-        player.position = playerDst.position;
+        TeleportPlayer();
 
         if (G.Instance.CurrentSceneType != SceneTypes.MedicinePreparation) return;
 
@@ -45,6 +28,15 @@ public class RoomTeleport : MonoBehaviour {
         if (!m.Restarted || MedicinePreparationScene.SavedScoreState == null) {
             m.SaveProgress();
         }
+    }
+
+    public void TeleportPlayer() {
+        foreach (VRActionsMapper h in VRInput.Hands) {
+            h.Hand.GrabUninteract();
+            h.Hand.Uninteract();
+        }
+
+        player.position = playerDst.position;
     }
 
     private void TeleportItems() {

@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class AsepticClothingPoster : MonoBehaviour {
 
-    private Color highlightedColor;
-
     public TextMeshPro headCoverText;
     public TextMeshPro faceMaskText;
     public TextMeshPro labCoatText;
     public TextMeshPro sleeveCoversText;
     public TextMeshPro protectiveGlovesText;
     public TextMeshPro shoeCoversText;
-
-    public void Start() {
-        highlightedColor = new Color(37, 170, 225);
-    }
+    public Color highlightedColor;
 
     public void HighlightText(string text) {
         if (text.Equals("Suojapäähine")) headCoverText.color = highlightedColor;

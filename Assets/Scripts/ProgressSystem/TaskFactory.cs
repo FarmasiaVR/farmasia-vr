@@ -56,6 +56,7 @@ public static class TaskFactory {
         new WearShoeCoversAndLabCoat(),
         new WashGlasses(),
         new WashHands(TaskType.WashHandsInChangingRoom),
+        new GoToPreperationRoom(),
         new WearHeadCoverAndFaceMask(),
         new WashHands(TaskType.WashHandsInPreperationRoom),
         new WearSleeveCoversAndProtectiveGloves(),

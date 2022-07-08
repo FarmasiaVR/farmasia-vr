@@ -40,9 +40,9 @@ public enum TaskType {
     WearShoeCoversAndLabCoat,
     WashGlasses,
     WashHandsInChangingRoom,
+    GoToPreperationRoom,
     WearHeadCoverAndFaceMask,
     WashHandsInPreperationRoom,
     WearSleeveCoversAndProtectiveGloves,
-    FinishChangingRoom,
-    PutOnProtectiveClothing
+    FinishChangingRoom
 }
