@@ -3,7 +3,7 @@
 public class ProtectiveClothing : Grabbable {
 
     private GameObject[] posters;
-    public string type;
+    public ClothingType type;
 
     protected override void Start() {
         base.Start();

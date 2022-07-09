@@ -6,7 +6,7 @@ public class WearHeadCoverAndFaceMask : Task {
     private bool headCover;
     private bool faceMask;
 
-    public WearHeadCoverAndFaceMask() : base(TaskType.WearHeadCoverAndFaceMask, true) {
+    public WearHeadCoverAndFaceMask() : base(TaskType.WearHeadCoverAndFaceMask, false) {
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
@@ -17,11 +17,8 @@ public class WearHeadCoverAndFaceMask : Task {
 
     private void TrackEquippedClothing(CallbackData data) {
         var clothing = (data.DataObject as ProtectiveClothing);
-        if (clothing == null) return;
-
-        if (clothing.type == "Suojapäähine") headCover = true;
-        if (clothing.type == "Kasvomaski") faceMask = true;
-
+        if (clothing.type == ClothingType.HeadCover) headCover = true;
+        if (clothing.type == ClothingType.FaceMask) faceMask = true;
         if (headCover && faceMask) {
             EnableCondition(Conditions.WearingHeadCoverAndFaceMask);
             CompleteTask();

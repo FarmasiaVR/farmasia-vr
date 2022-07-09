@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GoToPreperationRoom : Task {
 
-    public enum Conditions { Temp };
+    public enum Conditions { PreviousTasksCompleted };
+    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.WearShoeCoversAndLabCoat, TaskType.WashHandsInChangingRoom };
 
     public GoToPreperationRoom() : base(TaskType.GoToPreperationRoom, false) {
         SetCheckAll(true);
@@ -13,27 +13,17 @@ public class GoToPreperationRoom : Task {
     }
 
     public override void Subscribe() {
-        base.SubscribeEvent(PreviousTasksCompleted, EventType.RoomDoor);
+        base.SubscribeEvent(TrackCompletedTasks, EventType.RoomDoor);
     }
 
-    private void PreviousTasksCompleted(CallbackData data) {
+    private void TrackCompletedTasks(CallbackData data) {
         if ((DoorGoTo)data.DataObject != DoorGoTo.EnterPreparation) return;
-
-        /* if (!wearingShoeCoversAndLabCoat) {
-            Popup("Pue ensin suojavarusteet ennen valmistelutilaan siirtymistä.", MsgType.Notify);
+        if (!IsPreviousTasksCompleted(requiredTasks)) {
+            Popup("Suorita ensin tarvittavat toimenpiteet ennen valmistelutilaan siirtymistä.", MsgType.Notify);
             return;
         }
-        if (!handsWashed) {
-            Popup("Pese ensin kädet ennen valmistelutilaan siirtymistä.", MsgType.Notify);
-            return;
-        } */
-
-        EnableCondition(Conditions.Temp);
+        EnableCondition(Conditions.PreviousTasksCompleted);
         CompleteTask();
-    }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
         GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
     }
 }

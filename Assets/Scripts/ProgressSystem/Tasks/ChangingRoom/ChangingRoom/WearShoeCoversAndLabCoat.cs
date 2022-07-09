@@ -3,6 +3,7 @@
 public class WearShoeCoversAndLabCoat : Task {
 
     public enum Conditions { WearingShoeCoversAndLabCoat };
+    private bool taskCompleted;
     private bool shoeCovers;
     private bool labCoat;
 
@@ -16,15 +17,15 @@ public class WearShoeCoversAndLabCoat : Task {
     }
 
     private void TrackEquippedClothing(CallbackData data) {
+        if (taskCompleted) return;
         var clothing = (data.DataObject as ProtectiveClothing);
-        if (clothing == null) return;
-
-        if (clothing.type == "Kengänsuojat") shoeCovers = true;
-        if (clothing.type == "Laboratoriotakki") labCoat = true;
-
+        if (!shoeCovers && !labCoat && clothing.type == ClothingType.LabCoat) CreateTaskMistake("Kengänsuojat tulee laittaa päälle ennen laboratoriotakkia", 1);
+        if (clothing.type == ClothingType.ShoeCovers) shoeCovers = true;
+        if (clothing.type == ClothingType.LabCoat) labCoat = true;
         if (shoeCovers && labCoat) {
             EnableCondition(Conditions.WearingShoeCoversAndLabCoat);
             CompleteTask();
+            taskCompleted = true;
         }
     }
 }

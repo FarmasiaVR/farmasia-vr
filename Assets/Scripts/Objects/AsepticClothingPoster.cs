@@ -11,12 +11,12 @@ public class AsepticClothingPoster : MonoBehaviour {
     public TextMeshPro shoeCoversText;
     public Color highlightedColor;
 
-    public void HighlightText(string text) {
-        if (text.Equals("Suojapäähine")) headCoverText.color = highlightedColor;
-        else if (text.Equals("Kasvomaski")) faceMaskText.color = highlightedColor;
-        else if (text.Equals("Laboratoriotakki")) labCoatText.color = highlightedColor;
-        else if (text.Equals("Hihasuojat")) sleeveCoversText.color = highlightedColor;
-        else if (text.Equals("Suojakäsineet")) protectiveGlovesText.color = highlightedColor;
-        else if (text.Equals("Kengänsuojat")) shoeCoversText.color = highlightedColor;
+    public void HighlightText(ClothingType type) {
+        if (type == ClothingType.HeadCover) headCoverText.color = highlightedColor;
+        else if (type == ClothingType.FaceMask) faceMaskText.color = highlightedColor;
+        else if (type == ClothingType.LabCoat) labCoatText.color = highlightedColor;
+        else if (type == ClothingType.SleeveCovers) sleeveCoversText.color = highlightedColor;
+        else if (type == ClothingType.ProtectiveGloves) protectiveGlovesText.color = highlightedColor;
+        else if (type == ClothingType.ShoeCovers) shoeCoversText.color = highlightedColor;
     }
 }
