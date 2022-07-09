@@ -902,6 +902,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaf707998a0dd148ba19d76d80f97bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7223785458220341524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7357861331790325245}
+  - component: {fileID: 3387035502716683669}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: PlayerCollider
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7357861331790325245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223785458220341524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7824545105380693504}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3387035502716683669
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223785458220341524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7825122742822351540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,6 +1566,7 @@ GameObject:
   - component: {fileID: 7825122742825631936}
   - component: {fileID: 7825122742816938400}
   - component: {fileID: 614041563}
+  - component: {fileID: 5667978475390509810}
   m_Layer: 0
   m_Name: VRPlayer
   m_TagString: Player
@@ -1645,6 +1691,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correctPassthroughCabinetItems: {fileID: 0}
+--- !u!114 &5667978475390509810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825122742822398946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525d6beda167a147b365e16e13ed8ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 370e93876c8724bc1877b021fef179da, type: 2}
 --- !u!1 &7825122742822414214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,6 +1908,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 791825219741477662}
+  - {fileID: 7357861331790325245}
   m_Father: {fileID: 7825122742822648346}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -10,11 +10,10 @@ public class WashGlasses : Task {
     }
 
     public override void Subscribe() {
-        base.SubscribeEvent(DoStuff, EventType.CleaningGlasses);
+        base.SubscribeEvent(OnGlassesWet, EventType.CleaningGlasses);
     }
 
-    // Temporary
-    private void DoStuff(CallbackData data) {
+    private void OnGlassesWet(CallbackData data) {
         EnableCondition(Conditions.GlassesCleaned);
         CompleteTask();
     }
