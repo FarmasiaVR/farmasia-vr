@@ -332,11 +332,11 @@ public static class TaskConfig {
 
         info(
             TaskType.WashHandsInChangingRoom,
-            "Käsienpesu",
+            "Käsienpesu pukuhuoneessa",
             "Suorita käsienpesu oikeassa järjestyksessä",
             "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
             "Kädet ovat puhtaat.",
-            0
+            2
         ),
 
         info(
@@ -350,11 +350,11 @@ public static class TaskConfig {
 
         info(
             TaskType.WashHandsInPreperationRoom,
-            "Käsienpesu",
+            "Käsienpesu valmistelutilassa",
             "Suorita käsienpesu oikeassa järjestyksessä",
             "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
             "Kädet ovat puhtaat.",
-            0
+            2
         ),
 
         info(

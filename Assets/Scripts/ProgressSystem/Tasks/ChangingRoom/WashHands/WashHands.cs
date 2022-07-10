@@ -27,6 +27,8 @@ public class WashHands : Task {
 
     // Track progress of washing hands
     private void HandsTouched(CallbackData data) {
+        // Don't track if previous tasks haven't been completed yet
+        if (!Started) return;
 
         var liquidUsed = (data.DataObject as HandWashingLiquid);
         if (liquidUsed == null) return;

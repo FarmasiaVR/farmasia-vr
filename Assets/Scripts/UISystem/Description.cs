@@ -25,10 +25,19 @@ public class Description : MonoBehaviour {
                 packageName = "Työvälineiden valinta";
                 break;
             case PackageName.Workspace:
-                packageName = "Työskentely tila";
+                packageName = "Työskentelytila";
                 break;
             case PackageName.CleanUp:
                 packageName = "Tilan siivoaminen";
+                break;
+            case PackageName.ChangingRoom:
+                packageName = "Pukuhuone";
+                break;
+            case PackageName.PreperationRoom:
+                packageName = "Valmistelutila";
+                break;
+            case PackageName.FinishUp:
+                packageName = "Viimeistely";
                 break;
         }
 
