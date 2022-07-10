@@ -1,41 +1,29 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class InfoBox : MonoBehaviour {
 
-    #region Constants
     private const string PREPARATION_ROOM_MESSAGE = "Puhdastilaan vietävät ruiskut, neulat ja muut tarvikkeet ovat steriilejä ja pakattu suojapusseihin. VR-pelissä suojapussi puuttuu.";
     private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella, ja kaappi pyyhitään steriilillä liinalla. Voit olettaa ne jo tehdyksi.";
-    #endregion
+    private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
 
-    #region Fields
     [Header("Children")]
-    [SerializeField]
-    private GameObject text;
-    [SerializeField]
-    private RectTransform planeContainer;
+    public GameObject text;
+    public RectTransform planeContainer;
 
     [Header("Configuration")]
-    [SerializeField]
-    private Transform cam;
-    [SerializeField]
-    private Vector3 offset;
-    [SerializeField]
-    private float centerOffset = 0.06f;
-    [SerializeField]
-    private float defaultLerpAmount;
-    [SerializeField]
-    private float padding;
+    public Transform cam;
+    public Vector3 offset = new Vector3(0.0f, 0.2f, 0.5f);
+    public float centerOffset = 0.06f;
+    public float defaultLerpAmount = 0.3f;
+    public float padding = 0.1f;
 
-    private float activeLerpAmount;
     private TextMeshPro textField;
-    // CameraCenter is where the center of your head is, not the headset (eyes) is.
+    // CameraCenter is where the center of your head is, not the headset (eyes) is
     private Vector3 CameraCenter { get => cam.position - cam.forward * centerOffset; }
-
-    #endregion
+    private float activeLerpAmount;
 
     private void Start() {
         Subscribe();
@@ -50,12 +38,11 @@ public class InfoBox : MonoBehaviour {
         }
     }
 
-    #region Event Subscriptions
     public void Subscribe() {
         Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
         Events.SubscribeToEvent(GrabbedRoomDoor, EventType.RoomDoor);
+        Events.SubscribeToEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
     }
-    #endregion
 
     private void ObjectPickedUp(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
@@ -63,7 +50,7 @@ public class InfoBox : MonoBehaviour {
         if (item == null) {
             return;
         }
-        
+
         if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
             ShowInfoBox(PREPARATION_ROOM_MESSAGE);
             Events.UnsubscribeFromEvent(ObjectPickedUp, EventType.PickupObject);
@@ -76,6 +63,15 @@ public class InfoBox : MonoBehaviour {
         if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
             ShowInfoBox(WORKSPACE_ROOM_MESSAGE);
             Events.UnsubscribeFromEvent(GrabbedRoomDoor, EventType.RoomDoor);
+        }
+    }
+
+    private async void TrackProgress(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
+        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WearHeadCoverAndFaceMask)) {
+            ShowInfoBox(CHANGING_ROOM_MESSAGE);
+            Events.UnsubscribeFromEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
         }
     }
 
@@ -99,7 +95,6 @@ public class InfoBox : MonoBehaviour {
     private Vector3 GetTargetPosition() {
         Vector3 forward = new Vector3(cam.forward.x, 0, cam.forward.z).normalized;
         Vector3 right = new Vector3(cam.right.x, 0, cam.right.z).normalized;
-
         Vector3 targetPosition = CameraCenter + forward * offset.z + right * offset.x;
         targetPosition = new Vector3(targetPosition.x, CameraCenter.y + offset.y, targetPosition.z);
         return targetPosition;
