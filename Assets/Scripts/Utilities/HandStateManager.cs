@@ -10,6 +10,7 @@ public class HandStateManager : MonoBehaviour {
     public void Start() {
         spawners = FindObjectsOfType<HandEffectSpawner>();
         Subscribe();
+        SetDirty();
     }
 
     public void Subscribe() {
@@ -30,6 +31,8 @@ public class HandStateManager : MonoBehaviour {
 
     public void SetDirty() {
         material.SetFloat("_StepEdge", 0.05f);
+        material.SetInt("_Shiny", 0);
+        material.SetFloat("_FresnelEffectPower", 10.0f);
     }
 
     public void SetClean() {
