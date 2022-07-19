@@ -315,8 +315,8 @@ public static class TaskConfig {
         info(
             TaskType.WashGlasses,
             "Silmälasien puhdistus",
-            "Huuhtele silmälasit vedellä",
-            "Huuhtele silmälasit juoksevan veden alla.",
+            "Puhdista silmälasit",
+            "Vedä silmalaist juoksevan veden alla puhdistaaksesi ne.",
             "Silmälasit puhdistettu!",
             2
         ),
