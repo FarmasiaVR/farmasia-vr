@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HandStateManager : MonoBehaviour {
 
-    private HandEffectSpawner[] spawners;
+    public HandEffectSpawner leftHandEffectSpawner;
+    public HandEffectSpawner rightHandEffectSpawner;
     public Material material;
 
     public void Start() {
-        spawners = FindObjectsOfType<HandEffectSpawner>();
         Subscribe();
         SetDirty();
     }
@@ -27,6 +27,7 @@ public class HandStateManager : MonoBehaviour {
 
     private void OpenedDoor(CallbackData data) {
         SetDefault();
+        Events.UnsubscribeFromEvent(OpenedDoor, EventType.RoomDoor);
     }
 
     public void SetDirty() {
@@ -36,14 +37,14 @@ public class HandStateManager : MonoBehaviour {
     }
 
     public void SetClean() {
-        spawners[0].StartSpawning("SoapBubble", 0.01f);
-        spawners[1].StartSpawning("SoapBubble", 0.01f);
+        StartCoroutine(leftHandEffectSpawner.SpawnSoapBubbles());
+        StartCoroutine(rightHandEffectSpawner.SpawnSoapBubbles());
         StartCoroutine(Lerp(0.05f, 0.6f, 6.0f, "_StepEdge"));
     }
 
     public void SetShiny() {
-        spawners[0].StartSpawning("LensFlare", 1.2f);
-        spawners[1].StartSpawning("LensFlare", 1.2f);
+        StartCoroutine(leftHandEffectSpawner.SpawnLensFlares());
+        StartCoroutine(rightHandEffectSpawner.SpawnLensFlares());
         material.SetInt("_Shiny", 1);
         StartCoroutine(Lerp(10.0f, 2.0f, 1.0f, "_FresnelEffectPower"));
     }
