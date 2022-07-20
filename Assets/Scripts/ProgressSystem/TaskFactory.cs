@@ -55,10 +55,10 @@ public static class TaskFactory {
         // Changing room
         new WearShoeCoversAndLabCoat(),
         new WashGlasses(),
-        new WashHands(TaskType.WashHandsInChangingRoom),
+        new WashHands(PackageName.ChangingRoom, TaskType.WashHandsInChangingRoom),
         new GoToPreperationRoom(),
         new WearHeadCoverAndFaceMask(),
-        new WashHands(TaskType.WashHandsInPreperationRoom),
+        new WashHands(PackageName.PreperationRoom, TaskType.WashHandsInPreperationRoom),
         new WearSleeveCoversAndProtectiveGloves(),
         new FinishChangingRoom(),
 

@@ -8,7 +8,10 @@ public class WashHands : Task {
     public enum HandsState { dirty, soapy, wet, clean, cleanest };
     public HandsState handState = HandsState.dirty;
 
-    public WashHands(TaskType taskType) : base(taskType, false) {
+    private PackageName packageName;
+
+    public WashHands(PackageName packageName, TaskType taskType) : base(taskType, false) {
+        this.packageName = packageName;
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
@@ -28,7 +31,14 @@ public class WashHands : Task {
     // Track progress of washing hands
     private void HandsTouched(CallbackData data) {
         // Don't track if previous tasks haven't been completed yet
-        if (!Started) return;
+        if (!Started) {
+            if (packageName == PackageName.ChangingRoom) {
+                CreateTaskMistake("Pue laboratoriotakki ja kengänsuojat sekä puhdista silmälasit ennen käsienpesua", 1);
+            } else if (packageName == G.Instance.Progress.CurrentPackage.name) {
+                CreateTaskMistake("Pue suojapäähine ja kasvomaski ennen käsienpesua", 1);
+            }
+            return;
+        }
 
         var liquidUsed = (data.DataObject as HandWashingLiquid);
         if (liquidUsed == null) return;
@@ -45,7 +55,7 @@ public class WashHands : Task {
             Debug.Log("HandsState : " + handState);
             // mistake, minus points?
         }
-            
+
         if (liquidUsed.type == "Water" && handState == HandsState.soapy) {
             handState = HandsState.clean;
             Debug.Log("HandsState : " + handState);
