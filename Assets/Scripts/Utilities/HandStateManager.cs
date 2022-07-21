@@ -7,6 +7,8 @@ public class HandStateManager : MonoBehaviour {
     private bool cleanAnimationPlayed;
     private bool shinyAnimationPlayed;
 
+    private HandSparkleAudioFX handSparkleAudioFX;
+
     public HandEffectSpawner leftHandEffectSpawner;
     public HandEffectSpawner rightHandEffectSpawner;
     public Material material;
@@ -14,6 +16,7 @@ public class HandStateManager : MonoBehaviour {
     public void Start() {
         SetDirty();
         Subscribe();
+        handSparkleAudioFX = FindObjectOfType<HandSparkleAudioFX>();
     }
 
     public void Subscribe() {
@@ -77,6 +80,8 @@ public class HandStateManager : MonoBehaviour {
             StartCoroutine(Lerp(10.0f, 2.0f, 1.0f, "_FresnelEffectPower"));
             shinyAnimationPlayed = true;
         }
+
+        handSparkleAudioFX.PlayAudioFX();
     }
 
     private IEnumerator Lerp(float a, float b, float duration, string property) {

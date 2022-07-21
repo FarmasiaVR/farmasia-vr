@@ -11,12 +11,10 @@ public class HandWashingLiquid : Interactable {
 
     private bool running = false;
 
-    // public GameObject Effect;
     new ParticleSystem particleSystem;
 
     protected override void Start() {
         base.Start();
-        // Type.On(InteractableType.Interactable);
         Type.Set(InteractableType.Interactable);
 
         handWashingSound = gameObject.GetComponent<AudioSource>();
@@ -34,11 +32,8 @@ public class HandWashingLiquid : Interactable {
         if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom)) {
             if (!running) {
                 running = true;
-                // Logger.Print("Soap ON!");
                 PlayFX();
-
             }
-            // running = false;
         }
     }
 

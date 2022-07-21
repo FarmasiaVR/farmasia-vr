@@ -8,20 +8,9 @@ public class HandSparkleAudioFX : MonoBehaviour {
 
     public void Start() {
         audioFX = GetComponent<AudioSource>();
-        Subscribe();
     }
 
-    public void Subscribe() {
-        Events.SubscribeToEvent(WashingHands, EventType.WashingHands);
-    }
-
-    private void WashingHands(CallbackData data) {
-        var liquid = (data.DataObject as HandWashingLiquid);
-        if (liquid.type.Equals("HandSanitizer"))
-            PlayAudioFX();
-    }
-
-    private void PlayAudioFX() {
+    public void PlayAudioFX() {
         audioFX.Play();
     }
 }
