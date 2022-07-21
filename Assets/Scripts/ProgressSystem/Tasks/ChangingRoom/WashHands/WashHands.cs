@@ -4,77 +4,49 @@ using UnityEngine;
 public class WashHands : Task {
 
     public enum Conditions { HandsWashed }
-
-    public enum HandsState { dirty, soapy, wet, clean, cleanest };
-    public HandsState handState = HandsState.dirty;
-
+    private HandStateManager handStateManager;
+    private HandState handState = HandState.Dirty;
     private PackageName packageName;
 
     public WashHands(PackageName packageName, TaskType taskType) : base(taskType, false) {
+        handStateManager = GameObject.Find("VRPlayer").GetComponent<HandStateManager>();
         this.packageName = packageName;
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 
-
     public override void Subscribe() {
         base.SubscribeEvent(HandsTouched, EventType.WashingHands);
     }
 
-    /*
-    private void ChangeHandState(HandsState handState) {
-        this.handState = handState;
-        Debug.Log("HansState : " + handState);
-    }
-    */
-
     // Track progress of washing hands
     private void HandsTouched(CallbackData data) {
+        handStateManager.WashingHands(data);
+
+        var liquid = (data.DataObject as HandWashingLiquid);
+
         // Don't track if previous tasks haven't been completed yet
         if (!Started) {
+            // Punish the player if they try to wash hands before completing previous tasks
             if (packageName == PackageName.ChangingRoom) {
-                CreateTaskMistake("Pue laboratoriotakki ja kengänsuojat sekä puhdista silmälasit ennen käsienpesua", 1);
+                // Ignoring water since it is used to wash glasses
+                if (!liquid.type.Equals("Water")) CreateTaskMistake("Pue laboratoriotakki ja kengänsuojat sekä puhdista silmälasit ennen käsienpesua", 1);
             } else if (packageName == G.Instance.Progress.CurrentPackage.name) {
                 CreateTaskMistake("Pue suojapäähine ja kasvomaski ennen käsienpesua", 1);
             }
             return;
         }
 
-        var liquidUsed = (data.DataObject as HandWashingLiquid);
-        if (liquidUsed == null) return;
-        Debug.Log("Liquid: " + liquidUsed.type);
+        // Maybe checking for mistakes could be done in HandStateManager to avoid code duplication?
+        if (liquid.type.Equals("Water") && handState != HandState.Soapy) CreateTaskMistake("Mistake!", 1);
+        if (liquid.type.Equals("HandSanitizer") && handState != HandState.Clean) CreateTaskMistake("Another mistake!", 1);
 
-        if (liquidUsed.type == "Soap") {
-            handState = HandsState.soapy;
-            Debug.Log("HandsState : " + handState);
-            // ok
-        }
-
-        if (liquidUsed.type == "Water" && handState != HandsState.soapy) {
-            handState = HandsState.wet;
-            Debug.Log("HandsState : " + handState);
-            // mistake, minus points?
-        }
-
-        if (liquidUsed.type == "Water" && handState == HandsState.soapy) {
-            handState = HandsState.clean;
-            Debug.Log("HandsState : " + handState);
-            // ok
-        }
-
-        if (liquidUsed.type == "HandSanitizer" && handState != HandsState.clean) {
-            handState = HandsState.dirty;
-            Debug.Log("HandsState : " + handState);
-            // mistake, minus points?
-        }
-
-        // Conditions for completting the washing hands
-        if (liquidUsed.type == "HandSanitizer" && handState == HandsState.clean) {
+        if (liquid.type.Equals("HandSanitizer") && handState == HandState.Clean) {
             EnableCondition(Conditions.HandsWashed);
-            handState = HandsState.cleanest;
-            Debug.Log("HansdState : " + handState);
             CompleteTask();
         }
-    }
 
+        handState = handStateManager.GetHandState();
+        Logger.Print("Liquid: " + liquid.type + " | HandState: " + handState);
+    }
 }
