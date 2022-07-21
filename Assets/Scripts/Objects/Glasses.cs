@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Glasses : Grabbable {
 
-    private bool clean;
+    private bool insideCollider;
+
+    public HandWashingLiquid sink;
     public GameObject tapCollider;
 
     protected override void Start() {
@@ -13,12 +15,16 @@ public class Glasses : Grabbable {
     }
 
     public override void OnGrab(Hand hand) {
-        if (!clean) return;
+        if (!insideCollider || !sink.IsRunning()) return;
         base.OnGrab(hand);
         Events.FireEvent(EventType.CleaningGlasses, CallbackData.Object(this));
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.transform == tapCollider.transform) clean = true;
+        if (other.gameObject.transform == tapCollider.transform) insideCollider = true;
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.transform == tapCollider.transform) insideCollider = false;
     }
 }
