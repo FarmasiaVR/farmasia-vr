@@ -14,7 +14,6 @@ public class HandWashingLiquid : Interactable {
     // public GameObject Effect;
     new ParticleSystem particleSystem;
 
-
     protected override void Start() {
         base.Start();
         // Type.On(InteractableType.Interactable);
@@ -31,16 +30,17 @@ public class HandWashingLiquid : Interactable {
 
         Events.FireEvent(EventType.WashingHands, CallbackData.Object(this));
 
-        if (!running) {
-            running = true;
-            // Logger.Print("Soap ON!");
-            PlayFX();
+        TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
+        if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom)) {
+            if (!running) {
+                running = true;
+                // Logger.Print("Soap ON!");
+                PlayFX();
 
+            }
+            // running = false;
         }
-        // running = false;
-
     }
-
 
     public void PlayFX() {
         if (particleSystem != null) particleSystem.Play();
