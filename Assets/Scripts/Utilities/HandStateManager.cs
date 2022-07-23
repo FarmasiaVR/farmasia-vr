@@ -13,6 +13,8 @@ public class HandStateManager : MonoBehaviour {
     public HandEffectSpawner rightHandEffectSpawner;
     public Material material;
 
+    private bool isMistake;
+
     public void Start() {
         SetDirty();
         Subscribe();
@@ -27,12 +29,46 @@ public class HandStateManager : MonoBehaviour {
         TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
         if (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom) {
             var liquid = (data.DataObject as HandWashingLiquid);
-            if (liquid.type.Equals("Soap") && handState != HandState.Cleanest) SetSoapy(); // OK
-            else if (liquid.type.Equals("Water") && handState != HandState.Soapy) SetWet(); // MISTAKE
-            else if (liquid.type.Equals("Water") && handState == HandState.Soapy) SetClean(); // OK
-            else if (liquid.type.Equals("HandSanitizer") && handState != HandState.Clean) SetDirty(); // MISTAKE
-            else if (liquid.type.Equals("HandSanitizer") && handState == HandState.Clean) SetCleanest(); // OK
+            // MISTAKE
+            if (liquid.type.Equals("Soap") && handState != HandState.Dirty) {
+                SetSoapy();
+                SetIsMistake(true);
+            }
+            // OK
+            else if (liquid.type.Equals("Soap") && handState == HandState.Dirty) {
+                SetSoapy();
+                SetIsMistake(false);
+            }
+            // MISTAKE
+            else if (liquid.type.Equals("Water") && handState != HandState.Soapy) {
+                SetWet();
+                SetIsMistake(true);
+            }
+            // OK
+            else if (liquid.type.Equals("Water") && handState == HandState.Soapy) {
+                SetClean();
+                SetIsMistake(false);
+            }
+            // MISTAKE
+            else if (liquid.type.Equals("HandSanitizer") && handState != HandState.Clean) {
+                SetDirty();
+                SetIsMistake(true);
+            }
+            // OK
+            else if (liquid.type.Equals("HandSanitizer") && handState == HandState.Clean) {
+                SetCleanest();
+                SetIsMistake(false);
+            }
+
         }
+    }
+
+    public bool GetIsMistake() {
+        return isMistake;
+    }
+
+    private void SetIsMistake(bool m) {
+        isMistake = m;
     }
 
     private void OpenedDoor(CallbackData data) {
