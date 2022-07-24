@@ -18,7 +18,7 @@ public class AudioManager {
     public AudioManager() {
         audioClips = new Dictionary<AudioClipType, AudioClipData>();
         audioClips.Add(AudioClipType.LockedItem, new AudioClipData("LockedItemAudioSource", "Item_locked", 1));
-        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Mistake_message", 1));
+        audioClips.Add(AudioClipType.MistakeMessage, new AudioClipData("MistakeAudioSource", "Aseptic Work Sounds - MistakeSoundFX01_Short", 1));
         audioClips.Add(AudioClipType.TaskCompletedBeep, new AudioClipData("TaskCompletedAudioSource", "Task_completed_beep1", 1));
         audioClips.Add(AudioClipType.MinusPoint, new AudioClipData("MinusPointAudioSource", "Minus_point", 1));
     }
