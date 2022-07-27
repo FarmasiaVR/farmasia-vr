@@ -44,5 +44,8 @@ public enum TaskType {
     WearHeadCoverAndFaceMask,
     WashHandsInPreperationRoom,
     WearSleeveCoversAndProtectiveGloves,
-    FinishChangingRoom
+    FinishChangingRoom,
+    CleanTrashMembrane,
+    CorrectItemsInBasketMembrane,
+    CleanLaminarCabinetMembrane
 }

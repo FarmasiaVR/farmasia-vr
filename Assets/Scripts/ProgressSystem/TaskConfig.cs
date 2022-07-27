@@ -289,8 +289,33 @@ public static class TaskConfig {
             "Sormenpäämaljat valmistettu!",
             2
         ),
-        
-        // TODO: Siivousinfo
+
+        info(
+            TaskType.CleanTrashMembrane,
+            "",
+            "",
+            "",
+            "",
+            2
+        ),
+
+        info(
+            TaskType.CorrectItemsInBasketMembrane,
+            "",
+            "",
+            "",
+            "",
+            2
+        ),
+
+        info(
+            TaskType.CleanLaminarCabinetMembrane,
+            "",
+            "",
+            "",
+            "",
+            2
+        ),
 
         info(
             TaskType.FinishMembrane,

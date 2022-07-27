@@ -48,9 +48,12 @@ public static class TaskFactory {
         new CutFilter(),
         new FilterHalvesToBottles(),
         new CloseAgarplates(),
-        new Fingerprints(),
-        new FinishMembrane(),
         new WriteSecondTime(),
+        new Fingerprints(),
+        new CleanTrashMembrane(),
+        new CorrectItemsInBasketMembrane(),
+        new CleanLaminarCabinetMembrane(),
+        new FinishMembrane(),
 
         // Changing room
         new WearShoeCoversAndLabCoat(),

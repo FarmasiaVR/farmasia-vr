@@ -143,6 +143,9 @@ public class ProgressManager {
             TaskType.Fingerprints
         };
         TaskType[] cleanUpTasks = {
+            /*TaskType.CleanTrashMembrane,
+            TaskType.CorrectItemsInBasketMembrane,
+            TaskType.CleanLaminarCabinetMembrane,*/
             TaskType.FinishMembrane
         };
 
