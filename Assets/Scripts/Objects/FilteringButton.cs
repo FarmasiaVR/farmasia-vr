@@ -59,7 +59,7 @@ public class FilteringButton : Interactable {
         //FilterTank = Pump.transform.GetChild(3);
     }
 
-    void RunPump() {
+    public void RunPump() {
         
         transform.parent.GetComponentInChildren<AudioSource>().Play();
 

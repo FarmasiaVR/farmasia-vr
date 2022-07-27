@@ -84,7 +84,7 @@ public class SterileBag2 : GeneralItem {
         }
     }
 
-    private void ReleaseSyringe() {
+    public void ReleaseSyringe() {
         StartCoroutine(MoveSyringe());
     }
 

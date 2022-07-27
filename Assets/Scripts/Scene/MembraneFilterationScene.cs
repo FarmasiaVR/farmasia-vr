@@ -1,10 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Linq;
-
+using UnityEngine;
 
 class MembraneFilterationScene : SceneScript {
 
@@ -16,42 +13,36 @@ class MembraneFilterationScene : SceneScript {
         WriteItems,
         OpenAgarPlates,
         FillBottles,
-        PreparePump,
+        AssemblePump,
+        PeptoneToFilter,
+        MedicineToFilter,
+        DisassemblePump,
+        CutFilter,
+        FilterHalvesToBottles,
+        CloseAgarPlates,
+        WriteSecondTime,
+        Fingerprints
     }
 
-    [SerializeField]
-    private bool CleanEquipment = true;
-
-    [SerializeField]
     public AutoPlayStrength autoPlayStrength;
-
-    [SerializeField]
-    private GameObject pipette0, pipette1, pipette2,
+    public bool cleanEquipment = true;
+    public List<GameObject> preperationRoomObjects;
+    public GameObject automaticPipette, pipette, serologicalPipet1, serologicalPipet2,
         bottle0, bottle1, bottle2, bottle3,
         plate0, plate1, plate2, plate3,
-        soycaseine, tioglykolate, peptonwater,
+        soycaseine, thioglycolate, peptoneWater,
         tweezers, scalpel,
         pumpFilter, pump,
         sterileBag,
-        cleaningBottle,
-        writingPen
-        ;
+        cleaningBottle, writingPen;
+    public Transform cleaningPosition;
+    public GameObject syringe, syringeCap;
 
-    [SerializeField]
-    private Transform cleaningPosition;
-
-    [Tooltip("Scene items")]
-    [SerializeField]
-    private Transform correctPositions;
-
-    [SerializeField]
-    private Transform correctPositionsWorkspace;
-
-    [SerializeField]
-    private Interactable teleportDoorKnob;
-
-    private bool played;
-    public bool IsAutoPlaying { get; private set; }
+    [Header("Scene items")]
+    public Transform correctPositions;
+    public Transform correctPositionsWorkspace;
+    public Interactable teleportDoorKnob;
+    public Interactable pipeConnectorButton;
 
     public static byte[] SavedScoreState;
 
@@ -67,52 +58,37 @@ class MembraneFilterationScene : SceneScript {
     }
 
     public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
+        if (strength == 0) return;
 
-        if (IsAutoPlaying || played || strength == 0) {
-            return;
-        }
-        played = true;
-        IsAutoPlaying = true;
-
-        CoroutineUtils.StartThrowingCoroutine(
-            this,
-            PlayCoroutine(strength),
-            e => {
-                if (e != null)
-                    Logger.Error(e);
+        CoroutineUtils.StartThrowingCoroutine(this, PlayCoroutine(strength),
+            exception => {
+                if (exception != null)
+                    Logger.Error(exception);
                 Logger.Print("Autoplay finished");
             }
         );
     }
 
     private IEnumerator PlayCoroutine(AutoPlayStrength autoPlay) {
-
-        Task.CreateGeneralMistake("Yleinen testivirhe", 2);
-
-        Task.CreateTaskMistake(TaskType.MedicineToFilter, "Testivirhe lääkkeen lisäämisessä", 1);
-        
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> gameObjects = new List<GameObject>() {
-            pipette0, pipette1, pipette2,
+            automaticPipette, pipette, serologicalPipet1, serologicalPipet2,
             bottle0, bottle1, bottle2, bottle3,
             plate0, plate1, plate2, plate3,
-            soycaseine, tioglykolate, peptonwater,
+            soycaseine, thioglycolate, peptoneWater,
             tweezers, scalpel,
             pumpFilter, pump,
             sterileBag
         };
-
-        List<Transform> transforms = gameObjects.Select(SelectTransform).ToList();
-
+        List<Transform> transforms = preperationRoomObjects.Select(SelectTransform).ToList();
         yield return Wait();
-
         Hand hand = VRInput.Hands[0].Hand;
 
         // --- Set to correct positions in throughput cabinet ---
 
-        for (int i = 0; i < transforms.Count; i++) { // -1 because no pen
+        for (int i = 0; i < transforms.Count; i++) {
             yield return Wait();
-            if (CleanEquipment) { 
+            if (cleanEquipment) {
                 DropAt(transforms[i], cleaningPosition);
                 yield return Wait();
                 cleaningBottle.GetComponent<CleaningBottle>().Clean();
@@ -121,70 +97,58 @@ class MembraneFilterationScene : SceneScript {
         }
 
         yield return Wait();
-
-        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
-            yield break;
-        }
-
+        if (autoPlay == AutoPlayStrength.ItemsToPassThrough) yield break;
         yield return Wait();
 
         // --- Go to workspace ---
 
         hand.InteractWith(teleportDoorKnob);
-
         yield return Wait();
-
         hand.Uninteract();
-
-        if (autoPlay == AutoPlayStrength.WorkspaceRoom) {
-            yield break;
-        }
-
+        if (autoPlay == AutoPlayStrength.WorkspaceRoom) yield break;
         yield return Wait();
 
         // --- Set to correct positions in workspace ---
 
-        for (int i = 0; i < transforms.Count; i++) {
+        for (int i = 0; i < gameObjects.Count; i++) {
             yield return Wait();
-            DropAt(transforms[i], correctPositionsWorkspace.GetChild(i).transform);
+            if (cleanEquipment) {
+                DropAt(gameObjects[i].transform, cleaningPosition);
+                yield return Wait();
+                cleaningBottle.GetComponent<CleaningBottle>().Clean();
+            }
+            DropAt(gameObjects[i].transform, correctPositionsWorkspace.GetChild(i).transform);
         }
 
-        if (autoPlay == AutoPlayStrength.ItemsToWorkspace) {
-            yield break;
-        }
-
+        if (autoPlay == AutoPlayStrength.ItemsToWorkspace) yield break;
         yield return Wait();
-        
+
+        // --- Add markings to correct items ---
 
         WritingPen pen = ToInteractable(writingPen) as WritingPen;
-        AgarPlateLid plateS1Lid = plate0.GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateS2Lid = plate1.GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateS3Lid = plate2.GetComponentInChildren<AgarPlateLid>();
-        AgarPlateLid plateSDLid = plate3.GetComponentInChildren<AgarPlateLid>();
-        Pipette pipetteS = ToInteractable(pipette0) as Pipette;
-        Pipette pipetteT = ToInteractable(pipette1) as Pipette;
-        Pipette pipetteP = ToInteractable(pipette2) as Pipette;
-        Bottle bottleT1 = bottle0.GetComponentInChildren<Bottle>();
-        Bottle bottleT2 = bottle1.GetComponentInChildren<Bottle>();
-        Bottle bottleS1 = bottle2.GetComponentInChildren<Bottle>();
-        Bottle bottleS2 = bottle3.GetComponentInChildren<Bottle>();
-        Bottle soycaseineB = soycaseine.GetComponentInChildren<Bottle>();
-        Bottle tioglygolateB = tioglykolate.GetComponentInChildren<Bottle>();
+        AgarPlateLid soycaseinePlateLid1 = plate0.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid soycaseinePlateLid2 = plate1.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid soycaseinePlateLid3 = plate2.GetComponentInChildren<AgarPlateLid>();
+        AgarPlateLid thioglycolatePlateLid = plate3.GetComponentInChildren<AgarPlateLid>();
+        Bottle bottleSoycaseine1 = bottle2.GetComponentInChildren<Bottle>();
+        Bottle bottleSoycaseine2 = bottle3.GetComponentInChildren<Bottle>();
+        Bottle bottleThioglycolate1 = bottle0.GetComponentInChildren<Bottle>();
+        Bottle bottleThioglycolate2 = bottle1.GetComponentInChildren<Bottle>();
 
-        // Write
+        // Marking plates
         var writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, "pvm"},
             {WritingType.Time, "klonaika"},
         };
-        pen.SubmitWriting(plateS1Lid.GetComponent<Writable>(), plateS1Lid.gameObject, writing);
+        pen.SubmitWriting(soycaseinePlateLid1.GetComponent<Writable>(), soycaseinePlateLid1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, "pvm"},
             {WritingType.Time, "klonaika"},
         };
-        pen.SubmitWriting(plateSDLid.GetComponent<Writable>(), plateSDLid.gameObject, writing);
+        pen.SubmitWriting(thioglycolatePlateLid.GetComponent<Writable>(), thioglycolatePlateLid.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
@@ -192,7 +156,7 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.RightHand, "oikea"},
             {WritingType.Time, "klonaika"}
         };
-        pen.SubmitWriting(plateS2Lid.GetComponent<Writable>(), plateS2Lid.gameObject, writing);
+        pen.SubmitWriting(soycaseinePlateLid2.GetComponent<Writable>(), soycaseinePlateLid2.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
@@ -200,148 +164,302 @@ class MembraneFilterationScene : SceneScript {
             {WritingType.LeftHand, "vasen"},
             {WritingType.Time, "klonaika"}
         };
-        pen.SubmitWriting(plateS3Lid.GetComponent<Writable>(), plateS3Lid.gameObject, writing);
+        pen.SubmitWriting(soycaseinePlateLid3.GetComponent<Writable>(), soycaseinePlateLid3.gameObject, writing);
 
+        // Marking bottles
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.Name, "Oma nimi"},
+            {WritingType.Date, "pvm"},
+            {WritingType.SoyCaseine, "soijakaseiini"},
+        };
+        pen.SubmitWriting(bottleSoycaseine1.GetComponent<Writable>(), bottleSoycaseine1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, "pvm"},
             {WritingType.SoyCaseine, "soijakaseiini"},
         };
-        pen.SubmitWriting(bottleS1.GetComponent<Writable>(), bottleS1.gameObject, writing);
-
-        writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, "Oma nimi"},
-            {WritingType.Date, "pvm"},
-            {WritingType.SoyCaseine, "soijakaseiini"},
-        };
-        pen.SubmitWriting(bottleS2.GetComponent<Writable>(), bottleS2.gameObject, writing);
+        pen.SubmitWriting(bottleSoycaseine2.GetComponent<Writable>(), bottleSoycaseine2.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, "pvm"},
             {WritingType.Tioglygolate, "tioglykolaatti"},
         };
-        pen.SubmitWriting(bottleT1.GetComponent<Writable>(), bottleT1.gameObject, writing);
+        pen.SubmitWriting(bottleThioglycolate1.GetComponent<Writable>(), bottleThioglycolate1.gameObject, writing);
 
         writing = new Dictionary<WritingType, string>() {
             {WritingType.Name, "Oma nimi"},
             {WritingType.Date, "pvm"},
             {WritingType.Tioglygolate, "tioglykolaatti"},
         };
-        pen.SubmitWriting(bottleT2.GetComponent<Writable>(), bottleT2.gameObject, writing);
+        pen.SubmitWriting(bottleThioglycolate2.GetComponent<Writable>(), bottleThioglycolate2.gameObject, writing);
 
-        if (autoPlay == AutoPlayStrength.WriteItems) {
-            yield break;
-        }
-
+        if (autoPlay == AutoPlayStrength.WriteItems) yield break;
         yield return Wait();
 
-        plateS1Lid.ReleaseItem();
-        plateSDLid.ReleaseItem();
+        // --- Open agar plate lids ---
 
+        soycaseinePlateLid1.ReleaseItem();
+        thioglycolatePlateLid.ReleaseItem();
+        yield return Wait();
+        DropAt(soycaseinePlateLid1.transform, soycaseinePlateLid1.transform.position + new Vector3(0.06f, 0.1f, 0));
+        DropAt(thioglycolatePlateLid.transform, thioglycolatePlateLid.transform.position + new Vector3(0.06f, 0.1f, 0));
+        yield return Wait();
+        soycaseinePlateLid1.transform.Rotate(new Vector3(180, 0, 0));
+        thioglycolatePlateLid.transform.Rotate(new Vector3(180, 0, 0));
+        if (autoPlay == AutoPlayStrength.OpenAgarPlates) yield break;
         yield return Wait();
 
-        DropAt(plateS1Lid.transform, plateS1Lid.transform.position + Vector3.up * 0.5f);
-        DropAt(plateSDLid.transform, plateS1Lid.transform.position + Vector3.up * 0.5f);
-        plateS1Lid.transform.Rotate(new Vector3(180, 0, 0));
-        plateSDLid.transform.Rotate(new Vector3(180, 0, 0));
+        // --- Fill all bottles with correct liquids ---
 
-        if (autoPlay == AutoPlayStrength.OpenAgarPlates) {
-            yield break;
-        }
-
-        yield return Wait();
+        Bottle soycaseineBottle = soycaseine.GetComponentInChildren<Bottle>();
+        Bottle thioglycolateBottle = thioglycolate.GetComponentInChildren<Bottle>();
+        BigPipette bigPipette = ToInteractable(automaticPipette) as BigPipette;
 
         // Unbottle everything
-        new List<GameObject> { bottle0, bottle1, bottle2, bottle3, soycaseine, tioglykolate, peptonwater }.ForEach(g => {
+        new List<GameObject> { bottle0, bottle1, bottle2, bottle3, soycaseine, thioglycolate, peptoneWater }.ForEach(g => {
             var cap = g.transform.GetComponentInChildren<BottleCap>();
             cap.Connector.Connection.Remove();
             DropAt(cap.transform, cap.transform.position + Vector3.forward * 0.2f);
         });
 
-        // Fill bottles
-        var things = new List<(Bottle, Bottle, Pipette)>() {
-            (tioglygolateB, bottleT1, pipetteT),
-            (tioglygolateB, bottleT2, pipetteT),
-            (soycaseineB, bottleS1, pipetteS),
-            (soycaseineB, bottleS2, pipetteS),
-        };
-        float fillSpeed = 0.4f;
-        foreach(var stuff in things) {
-            var (bigBottle, bottle, pipette) = stuff;
+        serologicalPipet1.GetComponent<Cover>().OpenCover(hand);
+        yield return Wait();
+        DropAt(bigPipette.transform, new Vector3(-18.57f, 1.3f, 2.0f));
+        yield return Wait();
+        GameObject pipetteContainer = GameObject.Find("PipetteHead50ml");
+        DropAt(pipetteContainer.transform, bigPipette.transform.position + Vector3.down * 0.07f);
+        yield return Wait();
 
-            yield return Wait(fillSpeed);
-            DropAt(pipette.transform, bigBottle.transform.position + Vector3.up * 0.10f);
-            pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-            yield return Wait(fillSpeed);
+        // Fill bottles
+        var list = new List<(Bottle, Bottle, BigPipette)>() {
+            (thioglycolateBottle, bottleThioglycolate1, bigPipette),
+            (thioglycolateBottle, bottleThioglycolate2, bigPipette),
+            (soycaseineBottle, bottleSoycaseine1, bigPipette),
+            (soycaseineBottle, bottleSoycaseine2, bigPipette),
+        };
+        foreach (var stuff in list) {
+            var (bigBottle, bottle, pipette) = stuff;
+            FreezeAt(pipette.transform, bigBottle.transform.position + Vector3.up * 0.34f);
+            yield return Wait();
             hand.transform.position = pipette.transform.position;
-            yield return Wait(fillSpeed);
+            yield return Wait();
             hand.InteractWith(pipette);
-            yield return Wait(fillSpeed);
-            hand.transform.eulerAngles = Vector3.down;
-            pipette.TakeMedicine();
-            yield return Wait(fillSpeed);
-            hand.Uninteract();
-            yield return Wait(fillSpeed);
-            DropAt(pipette.transform, bottle.transform.position + Vector3.up * 0.10f);
-            pipette.transform.eulerAngles = new Vector3(-180, 0, 0);
-            yield return Wait(fillSpeed);
-            hand.InteractWith(pipette);
-            yield return Wait(fillSpeed);
-            pipette.SendMedicine();
+            for (int i = 0; i < 4; i++) {
+                pipette.TakeMedicine();
+                yield return Wait();
+            }
+            FreezeAt(pipette.transform, bottle.transform.position + Vector3.up * 0.25f);
+            for (int i = 0; i < 4; i++) {
+                pipette.SendMedicine();
+                yield return Wait();
+            }
+            FreezeAt(pipette.transform, new Vector3(-18.57f, 1.3f, 2.0f));
+            yield return Wait();
             hand.Uninteract();
             yield return Wait();
         };
-        
-        if (autoPlay == AutoPlayStrength.FillBottles) {
-            yield break;
-        }
 
-
-        // --- Try to connect pump filter ---
-
-        Pump pumpBody = pump.GetComponent<Pump>();
-        DropAt(pumpFilter.transform, pump.transform.position + Vector3.up * 0.3f);
-
-        hand.transform.position = pumpFilter.transform.position;
-        
+        bigPipette.GetComponent<Rigidbody>().isKinematic = false;
+        DropAt(bigPipette.transform, bigPipette.transform.position + Vector3.left * 0.5f);
+        hand.Uninteract();
         yield return Wait();
+        if (autoPlay == AutoPlayStrength.FillBottles) yield break;
+        yield return Wait();
+
+        // --- Assemble pump ---
 
         pumpFilter.GetComponent<Cover>().OpenCover(hand);
         yield return Wait();
+        DropAt(pumpFilter.transform, pump.transform.position + Vector3.up * 0.14f);
+        hand.InteractWith(pipeConnectorButton);
+        yield return Wait();
         hand.Uninteract();
         yield return Wait();
+        if (autoPlay == AutoPlayStrength.AssemblePump) yield break;
+        yield return Wait();
+
+        // --- Add peptone water to filter ---
+
+        Pipette smallPipette = ToInteractable(pipette) as Pipette;
+        GameObject lidObject = pumpFilter.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Lid")?.gameObject;
+        FilterPart lid = ToInteractable(lidObject) as FilterPart;
+        StartCoroutine(lid.WaitForDistance(hand));
+        yield return Wait();
+        lid.SnapDistance = -1.0f;
+        yield return Wait();
+        hand.Uninteract();
+        DropAt(lid.transform, lid.transform.position + Vector3.forward * 0.35f);
+        lid.SnapDistance = 0.03f;
+        yield return Wait();
+        FreezeAt(smallPipette.transform, peptoneWater.transform.position + Vector3.up * 0.02f);
+        smallPipette.transform.eulerAngles = new Vector3(-180, 0, 0);
+        yield return Wait();
+        hand.transform.position = smallPipette.transform.position;
+        yield return Wait();
+        hand.InteractWith(smallPipette);
+        smallPipette.TakeMedicine();
+        yield return Wait();
+        smallPipette.TakeMedicine();
+        yield return Wait();
+        smallPipette.TakeMedicine();
+        yield return Wait();
+        FreezeAt(smallPipette.transform, pump.transform.position + Vector3.up * 0.5f);
+        yield return Wait();
+        FreezeAt(smallPipette.transform, pump.transform.position + Vector3.up * 0.24f);
+        smallPipette.transform.eulerAngles = new Vector3(-180, 0, 0);
+        hand.transform.position = smallPipette.transform.position;
+        yield return Wait();
+        smallPipette.SendMedicine();
+        yield return Wait();
+        smallPipette.SendMedicine();
+        yield return Wait();
+        FreezeAt(smallPipette.transform, pump.transform.position + Vector3.up * 0.5f);
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        smallPipette.GetComponent<Rigidbody>().isKinematic = false;
+        DropAt(smallPipette.transform, smallPipette.transform.position + Vector3.left * 0.5f);
+        yield return Wait();
+        GameObject pumpButton = pump.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Push")?.gameObject;
+        hand.transform.position = pumpButton.transform.position;
+        yield return Wait();
+        pumpButton.GetComponent<FilteringButton>().RunPump();
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.PeptoneToFilter) yield break;
+        yield return Wait();
+
+        // --- MedicineToFilter ---
+
+        sterileBag.GetComponent<SterileBag2>().ReleaseSyringe();
+        yield return Wait(2.0f);
+        syringeCap.active = false;
+        yield return Wait();
+        FreezeAt(syringe.transform, pump.transform.position + Vector3.up * 0.24f);
+        yield return Wait();
+        SyringeNew syringeN = ToInteractable(syringe) as SyringeNew;
+        yield return Wait();
+        syringeN.SendMedicine(150);
+        yield return Wait();
+        pumpButton.GetComponent<FilteringButton>().RunPump();
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.MedicineToFilter) yield break;
+        yield return Wait();
+
+        // --- DisassemblePump ---
+
+        yield return Wait(1.0f);
+        GameObject tankObject = pumpFilter.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Tank")?.gameObject;
+        FilterPart tank = ToInteractable(tankObject) as FilterPart;
+        yield return Wait();
+        StartCoroutine(tank.WaitForDistance(hand));
+        yield return Wait();
+        tank.SnapDistance = -1.0f;
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(tank.transform, tank.transform.position + Vector3.forward * 0.3f);
+        yield return Wait();
+        tank.SnapDistance = 0.03f;
+        yield return Wait();
+        GameObject filterBaseObject = pumpFilter.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "FilterInCover")?.gameObject;
+        FilterInCover filterBase = ToInteractable(filterBaseObject) as FilterInCover;
+        yield return Wait();
+        StartCoroutine(filterBase.WaitForDistance(hand));
+        yield return Wait();
+        filterBase.SnapDistance = -1.0f;
+        yield return Wait();
+        hand.Uninteract();
+        yield return Wait();
+        DropAt(filterBase.transform, pump.transform.position + Vector3.forward * 0.2f);
+        yield return Wait();
+        filterBase.SnapDistance = 0.03f;
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.DisassemblePump) yield break;
+        yield return Wait();
+
+        // --- CutFilter ---
+
         scalpel.GetComponent<Cover>().OpenCover(hand);
         yield return Wait();
-        hand.Uninteract();
+        DropAt(scalpel.transform, filterBase.transform.position + Vector3.up * 0.06f);
+        scalpel.transform.eulerAngles = new Vector3(0, 0, -90);
+        yield return Wait();
+        DropAt(scalpel.transform, scalpel.transform.position + Vector3.forward * 0.1f);
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.CutFilter) yield break;
+        yield return Wait();
+
+        // --- FilterHalvesToBottles ---
+
         tweezers.GetComponent<Cover>().OpenCover(hand);
         yield return Wait();
-        hand.Uninteract();
-
+        GameObject leftHalf = GameObject.Find("FilterHalfL");
+        GameObject rightHalf = GameObject.Find("FilterHalfR");
+        DropAt(leftHalf.transform, bottle1.transform.position + Vector3.up * 0.1f);
+        yield return Wait();
+        leftHalf.transform.eulerAngles = new Vector3(90, 0, 0);
+        yield return Wait();
+        DropAt(rightHalf.transform, bottle3.transform.position + Vector3.up * 0.1f);
+        yield return Wait();
+        rightHalf.transform.eulerAngles = new Vector3(90, 0, 0);
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.FilterHalvesToBottles) yield break;
         yield return Wait();
 
-        
+        // --- CloseAgarPlates ---
 
+        Transform soyBottom = plate0.transform.GetChild(1);
+        soyBottom.parent = soycaseinePlateLid1.transform;
+        soyBottom.localPosition = Vector3.zero;
+        soycaseinePlateLid1.Connector.ConnectItem(soyBottom.gameObject.GetComponent<Interactable>());
+        yield return Wait();
+        Transform thioBottom = plate3.transform.GetChild(1);
+        thioBottom.parent = thioglycolatePlateLid.transform;
+        thioBottom.localPosition = Vector3.zero;
+        thioglycolatePlateLid.Connector.ConnectItem(thioBottom.gameObject.GetComponent<Interactable>());
+        yield return Wait();
+        if (autoPlay == AutoPlayStrength.CloseAgarPlates) yield break;
+        yield return Wait();
 
-        /*yield return Wait(1f);
+        // --- WriteSecondTime ---
 
-        var assemblyFilterParts = GameObject.Find("Assembly filter parts");
-        var filterBase = assemblyFilterParts.transform.GetChild(1);
-        hand.transform.position = filterBase.transform.position;
-        hand.InteractWith(filterBase.GetComponent<Interactable>());
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.SecondTime, "lopetusaika"},
+        };
+        pen.SubmitWriting(soycaseinePlateLid1.GetComponent<Writable>(), soycaseinePlateLid1.gameObject, writing);
+        writing = new Dictionary<WritingType, string>() {
+            {WritingType.SecondTime, "lopetusaika"},
+        };
+        pen.SubmitWriting(thioglycolatePlateLid.GetComponent<Writable>(), thioglycolatePlateLid.gameObject, writing);
+        if (autoPlay == AutoPlayStrength.WriteSecondTime) yield break;
+        yield return Wait();
 
-        yield return Wait(1f);
+        // --- Fingerprints ---
 
-        hand.Uninteract();
-
-        if (autoPlay == AutoPlayStrength.PreparePump) {
-            yield break;
-        }
-        
-        /*
-        */
-
+        soycaseinePlateLid2.ReleaseItem();
+        soycaseinePlateLid3.ReleaseItem();
+        yield return Wait();
+        DropAt(soycaseinePlateLid2.transform, soycaseinePlateLid2.transform.position + new Vector3(0.06f, 0.1f, 0));
+        DropAt(soycaseinePlateLid3.transform, soycaseinePlateLid3.transform.position + new Vector3(0.06f, 0.1f, 0));
+        yield return Wait();
+        soycaseinePlateLid2.transform.Rotate(new Vector3(180, 0, 0));
+        soycaseinePlateLid3.transform.Rotate(new Vector3(180, 0, 0));
+        Agar agar1 = plate2.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
+        Agar agar2 = plate3.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
+        agar1.Interact(hand);
+        agar2.Interact(VRInput.Hands[1].Hand);
+        yield return Wait(4.5f);
+        agar1.Uninteract(hand);
+        agar2.Uninteract(VRInput.Hands[1].Hand);
+        agar1.Interact(hand);
+        agar2.Interact(VRInput.Hands[1].Hand);
+        yield return Wait(4.5f);
+        agar1.Uninteract(hand);
+        agar2.Uninteract(VRInput.Hands[1].Hand);
+        if (autoPlay == AutoPlayStrength.Fingerprints) yield break;
+        yield return Wait();
         yield break;
     }
 
@@ -360,11 +478,16 @@ class MembraneFilterationScene : SceneScript {
     private void DropAt(Transform theObject, Vector3 position) {
         theObject.position = position;
         theObject.eulerAngles = Vector3.up;
-        var rigidBody = theObject.gameObject.GetComponent<Rigidbody>();
+    }
+
+    private void FreezeAt(Transform item, Vector3 position) {
+        item.position = position;
+        item.eulerAngles = Vector3.up;
+        Rigidbody rigidBody = item.GetComponent<Rigidbody>();
         if (rigidBody == null) {
-            rigidBody = theObject.gameObject.GetComponentInChildren<Rigidbody>();
+            rigidBody = item.GetComponentInChildren<Rigidbody>();
         }
-        // rigidBody.velocity *= 0f;
+        rigidBody.isKinematic = true;
     }
 
     private WaitForSeconds Wait() {

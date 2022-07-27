@@ -19,7 +19,7 @@ class LiquidToFilter : Task {
 
     public override void Subscribe() {
         SubscribeEvent(OnFilterWet, EventType.TransferLiquidToBottle);
-        SubscribeEvent(OnFilterDissassemble, EventType.FilterDissassembled);
+        // SubscribeEvent(OnFilterDissassemble, EventType.FilterDissassembled);
     }
 
     private void OnFilterWet(CallbackData data) {
@@ -40,7 +40,7 @@ class LiquidToFilter : Task {
         }*/
     }
 
-    private void OnFilterDissassemble(CallbackData data) {
+    /* private void OnFilterDissassemble(CallbackData data) {
         // The data of the event 'FilterDissassembled' holds both parts that are disconnected
         var (bottom, top) = data.DataObject as Tuple<FilterPart, FilterPart>;
         // We're interested in these cases:
@@ -57,7 +57,7 @@ class LiquidToFilter : Task {
         if (container.Amount != 0) {
             CreateGeneralMistake("Avasit pumpun filtterin kun siinä oli vielä nestettä!");
         }
-    }
+    } */
 
     private void CheckMistakes() {
         if (pumpFilter.Container.LiquidType != liquidType && liquidType == LiquidType.Peptonwater) {
