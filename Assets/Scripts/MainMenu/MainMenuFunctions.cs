@@ -3,13 +3,30 @@
 public class MainMenuFunctions : MonoBehaviour {
 
     private SceneLoader levelChanger;
+    private int sceneType;
+
+    public GameObject mainMenuButtons;
+    public GameObject submenuButtons;
+    public static bool startFromBeginning = true;
 
     private void Start() {
         levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
-    public void LoadScene(int scene) {
-        levelChanger.SwapScene((SceneTypes)scene);
+    public void ShowSubmenu(int type) {
+        mainMenuButtons.SetActive(false);
+        submenuButtons.SetActive(true);
+        sceneType = type;
+    }
+
+    public void LoadScene(int type) {
+        levelChanger.SwapScene((SceneTypes)type);
+    }
+
+    public void SetStartingPoint(string startingPoint) {
+        if (startingPoint.Equals("PreperationRoom")) startFromBeginning = true;
+        else if (startingPoint.Equals("WorkspaceRoom")) startFromBeginning = false;
+        LoadScene(sceneType);
     }
 
     public void ExitGame() {

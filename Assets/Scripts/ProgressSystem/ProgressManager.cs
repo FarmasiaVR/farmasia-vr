@@ -67,7 +67,6 @@ public class ProgressManager {
             case SceneTypes.Tutorial:
                 return;
             case SceneTypes.MedicinePreparation:
-                // Need support for multiple scenarios
                 GenerateScenarioOne();
                 Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
                 break;
@@ -117,7 +116,7 @@ public class ProgressManager {
             TaskType.Finish
         };
 
-        packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        if (MainMenuFunctions.startFromBeginning) packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
         packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
         packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
@@ -149,7 +148,7 @@ public class ProgressManager {
             TaskType.FinishMembrane
         };
 
-        packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        if (MainMenuFunctions.startFromBeginning) packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
         packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
         packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }

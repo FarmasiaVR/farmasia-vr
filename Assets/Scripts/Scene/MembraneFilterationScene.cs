@@ -48,6 +48,7 @@ class MembraneFilterationScene : SceneScript {
 
     protected override void Start() {
         base.Start();
+        if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
         PlayFirstRoom(autoPlayStrength);
     }
 

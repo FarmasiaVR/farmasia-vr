@@ -63,6 +63,7 @@ public class MedicinePreparationScene : SceneScript {
         base.Start();
         //NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth);
         //NullCheck.Check(correctPositions, teleportDoorKnob, laminarCabinetCheckButton, sterileBag, regularTrash, sharpTrash);
+        if (!MainMenuFunctions.startFromBeginning) autoPlayStrength = AutoPlayStrength.ItemsToPassThrough;
         PlayFirstRoom(autoPlayStrength);
     }
 
@@ -223,6 +224,7 @@ public class MedicinePreparationScene : SceneScript {
         bigSyringe.transform.up = correctPositions.right;
         bigSyringe.Rigidbody.velocity = Vector3.zero;
         yield return null;
+        bottle.Contamination = GeneralItem.ContaminateState.Clean;
         bottle.transform.position = correctPositions.GetChild(4).position;
         bottle.transform.up = correctPositions.right;
         bottle.Rigidbody.velocity = Vector3.zero;
@@ -236,6 +238,7 @@ public class MedicinePreparationScene : SceneScript {
 
         if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
             IgnoreCollisions(all, false);
+            if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
             yield break;
         }
 
