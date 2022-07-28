@@ -41,15 +41,14 @@ public class WashHands : Task {
         // if (liquid.type.Equals("Water") && handState != HandState.Soapy) CreateTaskMistake("Mistake!", 1);
         // if (liquid.type.Equals("HandSanitizer") && handState != HandState.Clean) CreateTaskMistake("Another mistake!", 1);
 
-
-
         if (liquid.type.Equals("HandSanitizer") && handState == HandState.Clean) {
             EnableCondition(Conditions.HandsWashed);
             CompleteTask();
         }
 
-        if (handStateManager.GetIsMistake() == true)
+        if (handStateManager.GetIsMistake() == true) {
             CreateTaskMistake("Väärä järjestys!", 1);
+        }
 
         handState = handStateManager.GetHandState();
         Logger.Print("Liquid: " + liquid.type + " | HandState: " + handState + " | IsMistake: " + handStateManager.GetIsMistake());

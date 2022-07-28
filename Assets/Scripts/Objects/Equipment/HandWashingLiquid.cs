@@ -23,11 +23,11 @@ public class HandWashingLiquid : Interactable {
     }
 
     public override void Interact(Hand hand) {
-
         base.Interact(hand);
 
+        // Should not run if the game is completed.   
+        
         Events.FireEvent(EventType.WashingHands, CallbackData.Object(this));
-
         TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
         if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom)) {
             if (!running) {
