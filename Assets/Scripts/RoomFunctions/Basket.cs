@@ -18,6 +18,8 @@ public class BasketRequiredItems
 public class Basket : MonoBehaviour
 {
     private Dictionary<Type, int> missingObjects;
+    private bool itemPlaced = false;
+    [SerializeField]
     private GameObject childCollider;
     [SerializeField]
     private TriggerInteractableContainer itemContainer;
@@ -43,11 +45,19 @@ public class Basket : MonoBehaviour
     private void EnterBasket(Interactable other)
     {
         GeneralItem item = other as GeneralItem;
-        if (item == null) {
+        if (item == null)
+        {
             return;
-                }
+        }
+        if (!itemPlaced)
+        {
+            Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
+            itemPlaced = true;
+        }
+        Events.FireEvent(EventType.ItemPlacedInBasket, CallbackData.Object(item));
+        if (missingObjects.ContainsKey(item.GetType()))
+            missingObjects[item.GetType()]--;
     }
-
     public List<Interactable> GetBasketItems()
     {
         return itemContainer.Objects.ToList();

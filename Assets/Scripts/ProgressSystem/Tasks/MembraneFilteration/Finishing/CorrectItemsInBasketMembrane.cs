@@ -8,19 +8,24 @@ public class CorrectItemsInBasketMembrane : Task {
         Bottles100ml, SoycaseinePlate, SabouradDextrosiPlate, Pump
     }
     private Basket basket;
-    private bool firstCheckDone = false;
+    private GameObject metaltable;
 
-    public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, true) {
+    public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, false) {
         SetCheckAll(true);
 
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 
     public override void Subscribe() {
+        //base.SubscribeEvent(BringCartIn, EventType.);
         base.SubscribeEvent(SetBasketReference, EventType.ItemPlacedForReference);
-        base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
+        base.SubscribeEvent(CorrectItems, EventType.ItemPlacedInBasket);
     }
 
+    private void BringCartIn(CallbackData data)
+    {
+        metaltable.transform.Translate(Vector3.forward * 2 * Time.deltaTime);
+    }
     private void SetBasketReference(CallbackData data)
     {
         Basket basket = (Basket)data.DataObject;
@@ -47,6 +52,10 @@ public class CorrectItemsInBasketMembrane : Task {
             Logger.Print("ESINEIDEN MÄÄRÄ KORISSA: " + containedObjects.Count);
             CreateTaskMistake("Korissa oli liikaa esineitä", 1);
         }
+        if (containedObjects.Count < 9) { 
+            return; 
+        }
+        
         CheckConditions(containedObjects);
 
         CompleteTask();
@@ -59,15 +68,8 @@ public class CorrectItemsInBasketMembrane : Task {
 
     private void MissingItems()
     {
-        if (!firstCheckDone)
-        {
-            CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
-            firstCheckDone = true;
-        }
-        else
-        {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
-        }
+        Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
+        
         base.GetNonClearedConditions().ForEach(c =>
         {
             Logger.Print((Conditions)c);
@@ -92,6 +94,7 @@ public class CorrectItemsInBasketMembrane : Task {
                     if (bottles100ml == 4)
                     {
                         EnableCondition(Conditions.Bottles100ml);
+                        Popup("Pullot lisätty koriin", MsgType.Done);
                     }
                 }
                 else if (g is AgarPlateLid lid)
@@ -103,17 +106,20 @@ public class CorrectItemsInBasketMembrane : Task {
                         if (soycaseinePlate == 3)
                         {
                             EnableCondition(Conditions.SoycaseinePlate);
+                            Popup("Soija-kaseiinit lisätty koriin", MsgType.Done);
                         }
                     }
                     else if (variant == "Sabourad-dekstrosi")
                     {
                         sabouradDextrosiPlate++;
                         EnableCondition(Conditions.SabouradDextrosiPlate);
+                        Popup("Sabourad-dekstrosi lisätty koriin", MsgType.Done);
                     }
                     else if (g is Pump)
                     {
                         pump++;
                         EnableCondition(Conditions.Pump);
+                        Popup("Pumppu lisätty koriin", MsgType.Done);
                     }
                     else
                     {
