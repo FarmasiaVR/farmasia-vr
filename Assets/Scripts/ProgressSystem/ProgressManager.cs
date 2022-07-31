@@ -144,9 +144,9 @@ public class ProgressManager {
         };
         TaskType[] cleanUpTasks = {
             TaskType.CloseBottles,
+            TaskType.CleanTrashMembrane,
             TaskType.CorrectItemsInBasketMembrane,
-            /*TaskType.CleanTrashMembrane,
-            TaskType.CleanLaminarCabinetMembrane,*/
+            // TaskType.CleanLaminarCabinetMembrane,
             TaskType.FinishMembrane
         };
 

@@ -310,10 +310,10 @@ public static class TaskConfig {
 
         info(
             TaskType.CleanTrashMembrane,
-            "",
-            "",
-            "",
-            "",
+            "Jätteiden lajittelu",
+            "Lajittle jätteet",
+            "Lajittle jätteet",
+            "Jätteet lajiteltu!",
             2
         ),
 

@@ -1,31 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TrashBin : MonoBehaviour {
 
+    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
+        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Tweezers };
+    private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel };
+
     public enum TrashType {
-        Sharp,
-        Nonsharp,
-        Any
+        Normal,
+        Sharp
     }
 
-    #region fields
-    [SerializeField]
-    private TrashType trashType;
-    #endregion
+    public TrashType trashType;
 
     public void EnterTrashbin(Collider other) {
         GeneralItem item = GeneralItem.Find(other.transform);
-        
         if (item != null) {
-            if (trashType == TrashType.Sharp && item.ObjectType != ObjectType.Needle) {
-                Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
-                Events.FireEvent(EventType.ItemDroppedInWrongTrash);
-            } else if (trashType == TrashType.Nonsharp && item.ObjectType == ObjectType.Needle) {
+            if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType)) Logger.Print("CORRECT: NORAML TRASH IN NORMAL");
+            if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Logger.Print("WRONG: NORMAL TRASH IN SHARP");
+            if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Logger.Print("WRONG: SHARP TRASH IN NORMAL");
+            if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType)) Logger.Print("CORRECT: SHARP TRASH IN SHARP");
+            Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+            /*
+            if (trashType == TrashType.Normal && item.ObjectType == ObjectType.Needle) {
                 Task.CreateGeneralMistake("Neula laitettiin normaaliin roskikseen", 1, true);
                 Events.FireEvent(EventType.ItemDroppedInWrongTrash);
+            } else if (trashType == TrashType.Sharp && item.ObjectType != ObjectType.Needle) {
+                Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
+                Events.FireEvent(EventType.ItemDroppedInWrongTrash);
             }
-
-            //PrepareObjectForRemoving(item);
 
             if (item.ObjectType == ObjectType.Luerlock) {
                 Logger.Print("Trash bin luerlock count: " + ((LuerlockAdapter)item).AttachedInteractables.Count.ToString());
@@ -35,6 +39,7 @@ public class TrashBin : MonoBehaviour {
 
             Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             item.DestroyInteractable();
+            */
         }
     }
 
