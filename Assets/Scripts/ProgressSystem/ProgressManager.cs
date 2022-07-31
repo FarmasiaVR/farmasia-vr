@@ -137,11 +137,13 @@ public class ProgressManager {
             TaskType.StartPumpAgain,
             TaskType.CutFilter,
             TaskType.FilterHalvesToBottles,
-            TaskType.CloseAgarplates,
+            TaskType.CloseSettlePlates,
             TaskType.WriteSecondTime,
-            TaskType.Fingerprints
+            TaskType.Fingerprints,
+            TaskType.CloseFingertipPlates
         };
         TaskType[] cleanUpTasks = {
+            TaskType.CloseBottles,
             TaskType.CorrectItemsInBasketMembrane,
             /*TaskType.CleanTrashMembrane,
             TaskType.CleanLaminarCabinetMembrane,*/

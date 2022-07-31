@@ -1,20 +1,12 @@
-﻿using UnityEngine;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
-public class CloseAgarplates : Task {
+public class CloseAgarPlates : Task {
 
-    #region Fields
-    /// <summary>
-    /// Conditions must be met to render task complete
-    /// </summary>
     public enum Conditions { PlatesClosed }
     private int openedPlates = 0;
-    #endregion
 
-    public CloseAgarplates() : base(TaskType.CloseAgarplates, true) {
+    public CloseAgarPlates(TaskType taskType) : base(taskType, true) {
         SetCheckAll(true);
-        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 

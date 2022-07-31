@@ -58,5 +58,7 @@
     WashingHands,
     ProtectiveClothingEquipped,
     CleaningGlasses,
-    ItemPlacedInBasket
+    ItemPlacedInBasket,
+    BottleClosed,
+    BottleOpened
 }

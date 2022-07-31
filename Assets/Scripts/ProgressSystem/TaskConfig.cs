@@ -264,11 +264,11 @@ public static class TaskConfig {
         ),
 
         info(
-            TaskType.CloseAgarplates,
+            TaskType.CloseSettlePlates,
             "Laskeumamaljojen sulkeminen",
             "Sulje laskeumamaljat",
             "Sulje laskeumamaljat",
-            "Maljat suljettu!",
+            "Laskeumamaljat suljettu!",
             2
         ),
 
@@ -287,6 +287,24 @@ public static class TaskConfig {
             "Valmistele sormenpäämaljat",
             "Avaa sormenpäämaljat ja koske agaria kaksi kertaa (kerran peukalolla ja kerran muilla sormilla). Toista toisella kädellä.",
             "Sormenpäämaljat valmistettu!",
+            2
+        ),
+
+        info(
+            TaskType.CloseFingertipPlates,
+            "Sormenpäämaljojen sulkeminen",
+            "Sulje sormenpäämaljat",
+            "Sulje sormenpäämaljat",
+            "Sormenpäämaljat suljettu!",
+            2
+        ),
+
+        info(
+            TaskType.CloseBottles,
+            "Pullojen sulkeminen",
+            "Sulje pullot",
+            "Sulje pullot",
+            "Pullot suljettu!",
             2
         ),
 

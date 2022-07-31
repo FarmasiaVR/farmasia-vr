@@ -29,7 +29,6 @@ public enum TaskType {
     StartPumpAgain,
     CutFilter,
     FilterHalvesToBottles,
-    CloseAgarplates,
     FinishMembrane,
     Fingerprints,
     OpenTweezersCover,
@@ -47,5 +46,8 @@ public enum TaskType {
     FinishChangingRoom,
     CleanTrashMembrane,
     CorrectItemsInBasketMembrane,
-    CleanLaminarCabinetMembrane
+    CleanLaminarCabinetMembrane,
+    CloseSettlePlates,
+    CloseFingertipPlates,
+    CloseBottles
 }

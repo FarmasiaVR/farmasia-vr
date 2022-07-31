@@ -16,6 +16,7 @@ public class BottleCap : ConnectableItem {
 
         Connector = new SimpleAttachmentConnector(this, transform.Find("Bottom Collider").gameObject) {
             CanConnect = (interactable) => {
+                Events.FireEvent(EventType.BottleClosed, CallbackData.Object(this));
                 return interactable is Bottle;
             },
             AfterConnect = (interactable) => {
@@ -25,17 +26,21 @@ public class BottleCap : ConnectableItem {
                 if (tightened)
                     G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep, gameObject);
                 tightened = false;
+                Events.FireEvent(EventType.BottleOpened, CallbackData.Object(this));
             }
         };
 
-        var Bottom = BottomObject.GetComponent<Interactable>();
-
-        Connector.ConnectItem(Bottom);
+        AttachCap();
     }
 
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
         RemoveCap();
+    }
+
+    public void AttachCap() {
+        var Bottom = BottomObject.GetComponent<Interactable>();
+        Connector.ConnectItem(Bottom);
     }
 
     public void RemoveCap() {
