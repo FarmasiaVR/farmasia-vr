@@ -37,17 +37,15 @@ public class WashHands : Task {
             return;
         }
 
-        // Maybe checking for mistakes could be done in HandStateManager to avoid code duplication?
-        // if (liquid.type.Equals("Water") && handState != HandState.Soapy) CreateTaskMistake("Mistake!", 1);
-        // if (liquid.type.Equals("HandSanitizer") && handState != HandState.Clean) CreateTaskMistake("Another mistake!", 1);
 
         if (liquid.type.Equals("HandSanitizer") && handState == HandState.Clean) {
             EnableCondition(Conditions.HandsWashed);
             CompleteTask();
         }
 
+        // Checking for mistakes is done in HandStateManager
         if (handStateManager.GetIsMistake() == true) {
-            CreateTaskMistake("Väärä järjestys!", 1);
+            CreateTaskMistake("Käsienpesu tulee tehdä oikeassa järjestyksessä", 1);
         }
 
         handState = handStateManager.GetHandState();

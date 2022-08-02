@@ -11,6 +11,8 @@ public class EndSummary : MonoBehaviour {
 
     private Camera cam;
     private DragAcceptable close;
+    public string gamePartName;
+    
     #endregion
 
     private void Start() {
@@ -20,6 +22,8 @@ public class EndSummary : MonoBehaviour {
 
         close = transform.Find("CloseButton").GetComponent<DragAcceptable>();
         close.OnAccept = CloseGame;
+
+        
     }
 
     private void SetChildStatuses(bool status) {
@@ -32,6 +36,16 @@ public class EndSummary : MonoBehaviour {
         SetChildStatuses(true);
 
         TextMeshPro text = transform.Find("Text").GetComponent<TextMeshPro>();
+
+        if (text == null) {
+            Logger.Error("Text mesh pro was null in end summary");
+            return;
+        }
+
+        text.text = summary;
+
+        // text for the screenshot
+        text = GameObject.Find("TextOnBoard").GetComponent<TextMeshPro>();
 
         if (text == null) {
             Logger.Error("Text mesh pro was null in end summary");
@@ -57,6 +71,8 @@ public class EndSummary : MonoBehaviour {
 
     private void SnapScreenshot() {
 
+        // Debug.Log("Screenshot!");
+
         HandMeshToggler[] handMeshes = GameObject.FindObjectsOfType<HandMeshToggler>();
         bool[] statuses = new bool[2] { handMeshes[0].Status, handMeshes[1].Status };
 
@@ -68,8 +84,9 @@ public class EndSummary : MonoBehaviour {
 
         string filePath = GetPath();
 
-        int width = 1920;
-        int height = 1080;
+        // A4 paper size 2970mm x 2100mm
+        int width = 2970;
+        int height = 2100;
 
         RenderTexture tex = new RenderTexture(width, height, 24);
 
@@ -89,11 +106,15 @@ public class EndSummary : MonoBehaviour {
         handMeshes[0].Show(statuses[0]);
         handMeshes[1].Show(statuses[1]);
     }
+
     private static string GetPath() {
+
+        string playerName = Player.Info.Name;
+
         if (Application.isEditor) {
-            return Application.dataPath + "/score_screenshot.jpg";
+            return Application.dataPath + "/" + playerName + "-score_screenshot.jpg";
         } else {
-            return Application.dataPath + "/../../score_screenshot.jpg";
+            return Application.dataPath + "/../../" + playerName + "-score_screenshot.jpg";
         }
     }
 
