@@ -71,7 +71,7 @@ public class EndSummary : MonoBehaviour {
 
     private void SnapScreenshot() {
 
-        // Debug.Log("Screenshot!");
+        
 
         HandMeshToggler[] handMeshes = GameObject.FindObjectsOfType<HandMeshToggler>();
         bool[] statuses = new bool[2] { handMeshes[0].Status, handMeshes[1].Status };
@@ -83,6 +83,8 @@ public class EndSummary : MonoBehaviour {
         cam.enabled = true;
 
         string filePath = GetPath();
+
+        Debug.Log("Screenshot: " + GetPath());
 
         // A4 paper size 2970mm x 2100mm
         int width = 2970;
@@ -107,14 +109,16 @@ public class EndSummary : MonoBehaviour {
         handMeshes[1].Show(statuses[1]);
     }
 
-    private static string GetPath() {
+    // was static?
+    private string GetPath() {
 
-        string playerName = Player.Info.Name;
+        string filename = "Pisteet - " + gamePartName + " - " + Player.Info.Name + ".jpg";
+
 
         if (Application.isEditor) {
-            return Application.dataPath + "/" + playerName + "-score_screenshot.jpg";
+            return Application.dataPath + "/" + filename;
         } else {
-            return Application.dataPath + "/../../" + playerName + "-score_screenshot.jpg";
+            return Application.dataPath + "/../../" + filename;
         }
     }
 

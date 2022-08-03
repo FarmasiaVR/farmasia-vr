@@ -92,14 +92,22 @@ public class HandStateManager : MonoBehaviour {
         material.SetFloat("_StepEdge", 0.05f);
         material.SetInt("_Shiny", 0);
         material.SetFloat("_FresnelEffectPower", 10.0f);
+        material.SetFloat("_SoapColor", 0f);
+        cleanAnimationPlayed = false;
     }
 
     private void SetSoapy() {
         handState = HandState.Soapy;
+        material.SetFloat("_StepEdge", 0.05f);
+        StartCoroutine(Lerp(0, 0.5f, 2.0f, "_SoapColor"));
+        material.SetInt("_Shiny", 0);
+        cleanAnimationPlayed = false;
     }
 
     private void SetWet() {
         handState = HandState.Wet;
+        material.SetFloat("_SoapColor", 0f);
+        cleanAnimationPlayed = false;
     }
 
     private void SetClean() {
@@ -107,7 +115,8 @@ public class HandStateManager : MonoBehaviour {
         if (!cleanAnimationPlayed) {
             StartCoroutine(leftHandEffectSpawner.SpawnSoapBubbles());
             StartCoroutine(rightHandEffectSpawner.SpawnSoapBubbles());
-            StartCoroutine(Lerp(0.05f, 0.6f, 6.0f, "_StepEdge"));
+            StartCoroutine(Lerp(0.05f, 0.6f, 5.0f, "_StepEdge"));
+            StartCoroutine(Lerp(0.5f, 0, 4.0f, "_SoapColor"));
             cleanAnimationPlayed = true;
         }
     }
@@ -115,6 +124,7 @@ public class HandStateManager : MonoBehaviour {
     private void SetCleanest() {
         handState = HandState.Cleanest;
         if (!shinyAnimationPlayed) {
+            material.SetFloat("_SoapColor", 0f);
             StartCoroutine(leftHandEffectSpawner.SpawnLensFlares());
             StartCoroutine(rightHandEffectSpawner.SpawnLensFlares());
             material.SetInt("_Shiny", 1);
