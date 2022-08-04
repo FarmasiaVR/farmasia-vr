@@ -34,10 +34,12 @@ public class ReceiverItem : AttachmentItem
         float nearestDistance = float.MaxValue;
         GameObject nearestItem = null;
         foreach (GameObject item in PossibleItems) {
-            float newDistance = Vector3.Distance(transform.position, item.transform.position);
-            if (newDistance < nearestDistance) {
-                nearestDistance = newDistance;
-                nearestItem = item;
+            if (item != null) {
+                float newDistance = Vector3.Distance(transform.position, item.transform.position);
+                if (newDistance < nearestDistance) {
+                    nearestDistance = newDistance;
+                    nearestItem = item;
+                }
             }
         }
         return nearestItem;

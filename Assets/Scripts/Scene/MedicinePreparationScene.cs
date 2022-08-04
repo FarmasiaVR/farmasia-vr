@@ -43,7 +43,7 @@ public class MedicinePreparationScene : SceneScript {
     private SterileBag sterileBag;
 
     [SerializeField]
-    private TrashBin regularTrash, sharpTrash;
+    private TrashCan regularTrash, sharpTrash;
 
     private bool played;
     public bool IsAutoPlaying { get; private set; }

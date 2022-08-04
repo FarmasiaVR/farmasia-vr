@@ -303,7 +303,7 @@ public static class TaskConfig {
             TaskType.CloseBottles,
             "Pullojen sulkeminen",
             "Sulje pullot",
-            "Sulje pullot",
+            "Suljet isot ja pienet pullot laittamalla pullojen korkit takaisin kiinni.",
             "Pullot suljettu!",
             2
         ),
@@ -311,8 +311,8 @@ public static class TaskConfig {
         info(
             TaskType.CleanTrashMembrane,
             "Jätteiden lajittelu",
-            "Lajittle jätteet",
-            "Lajittle jätteet",
+            "Lajittele jätteet",
+            "Lajittele jätteet",
             "Jätteet lajiteltu!",
             2
         ),

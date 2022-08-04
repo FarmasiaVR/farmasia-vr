@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2623713008876199041}
   - component: {fileID: 2091633858742849759}
   m_Layer: 0
-  m_Name: Trashcan
+  m_Name: TrashCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4315963661679902720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.215, y: 0.7949, z: 4.428}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.21034099, y: 0.12739302, z: 0.21034099}
   m_Children:
   - {fileID: 8994160374880555982}
@@ -171,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trashType: 0
+  trashCanCollider: {fileID: 316967237806737}
+  trashType: 1
 --- !u!1 &6164844307092930597
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,11 +182,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 491618516061854664}
-  - component: {fileID: 4323985754507051439}
-  - component: {fileID: 5610807611921454307}
   - component: {fileID: 316967237806737}
-  - component: {fileID: 1071807672107338642}
-  - component: {fileID: 2482914556821125791}
+  - component: {fileID: 1521325603363553056}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -201,59 +199,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6164844307092930597}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2023, z: 0}
-  m_LocalScale: {x: 0.31591383, y: 0.30236694, z: 0.31591383}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 0.33, y: 0.33, z: 0.33}
   m_Children: []
   m_Father: {fileID: 2290378445638087117}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4323985754507051439
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6164844307092930597}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5610807611921454307
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6164844307092930597}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 67470d97647f69a47bbc0df4f89bd209, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!65 &316967237806737
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,7 +218,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1071807672107338642
+--- !u!114 &1521325603363553056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,25 +227,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6164844307092930597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6ec011168bee2e4a8ebe08726a67c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b0c9632114b1444faceb897fdebae80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2482914556821125791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6164844307092930597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7deec90d20ce2c44a84043ea12baef12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disable: 0
-  onlyHide: 1
-  invertFunctionality: 0
-  testHandMaterial: {fileID: 0}
 --- !u!1 &8321948447599608942
 GameObject:
   m_ObjectHideFlags: 0

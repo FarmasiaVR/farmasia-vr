@@ -24,16 +24,22 @@ class MembraneFilterationScene : SceneScript {
         WriteItemsAgain,
         TakeFingerprints,
         CloseFingertipPlates,
-        CloseBottles
+        CloseBottles,
+        CleanTrash,
+        ItemsToBasket,
+        CleanLaminarCabinet
     }
 
     public AutoPlayStrength autoPlayStrength;
+    public bool skipFingertips;
     public List<GameObject> preperationRoomObjects;
     public GameObject automaticPipette, pipette, pump, tweezers, scalpel, pipetteInCover1, pipetteInCover2, filterInCover,
         soycaseinePlate1, soycaseinePlate2, soycaseinePlate3, sabouraudDextrosePlate, bottle1, bottle2, bottle3, bottle4, sterileBag,
         tioglycolateBottle, peptoneWaterBottle, soycaseineBottle,
         cleaningBottle, writingPen, syringe, syringeCap;
     [Header("Scene items")]
+    public TrashCan smallTrashCan;
+    public TrashCan sharpTrashCan;
     public Transform preperationRoomPassThroughCabinetPositions;
     public Transform workspaceRoomLaminarCabinetPositions;
     public Interactable doorHandle;
@@ -187,7 +193,7 @@ class MembraneFilterationScene : SceneScript {
         pipetteInCover1.GetComponent<Cover>().OpenCover(leftHand);
         pipetteInCover2.GetComponent<Cover>().OpenCover(leftHand);
         FreezeAt(automaticPipette.transform, new Vector3(-18.57f, 1.3f, 2.0f));
-        yield return Wait();
+        yield return Wait(0.1f);
         GameObject serologicalPipette = GameObject.Find("PipetteHead50ml");
         DropAt(serologicalPipette.transform, automaticPipette.transform.position + Vector3.down * 0.08f);
         yield return Wait();
@@ -269,9 +275,16 @@ class MembraneFilterationScene : SceneScript {
         sterileBag.GetComponent<SterileBag2>().ReleaseSyringe();
         // Waiting for syringes to be released out of sterile bag
         yield return Wait(1.0f);
+        // Remove syringe cap
+        SyringeCapConnect syringeCapConnect = ToInteractable(syringeCap) as SyringeCapConnect;
+        StartCoroutine(syringeCapConnect.WaitForDistance(leftHand));
+        syringeCapConnect.SnapDistance = -1.0f;
+        yield return Wait();
+        leftHand.Uninteract();
+        DropAt(syringeCapConnect.transform, corner);
+        syringeCapConnect.SnapDistance = 0.03f;
         // Add medicine
         SyringeNew s = ToInteractable(syringe) as SyringeNew;
-        syringeCap.SetActive(false);
         FreezeAt(syringe.transform, pump.transform.position + Vector3.up * 0.24f);
         syringe.transform.eulerAngles = new Vector3(-180.0f, 0.0f, 0.0f);
         yield return Wait();
@@ -362,18 +375,23 @@ class MembraneFilterationScene : SceneScript {
         soycaseinePlateLid2.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
         soycaseinePlateLid3.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
         // Take fingerprints
-        Agar leftAgar = soycaseinePlate2.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
-        Agar rightAgar = soycaseinePlate3.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
-        leftAgar.Interact(leftHand);
-        rightAgar.Interact(rightHand);
-        yield return Wait(4.1f);
-        leftAgar.Uninteract(leftHand);
-        rightAgar.Uninteract(rightHand);
-        leftAgar.Interact(leftHand);
-        rightAgar.Interact(rightHand);
-        yield return Wait(4.1f);
-        leftAgar.Uninteract(leftHand);
-        rightAgar.Uninteract(rightHand);
+        if (skipFingertips) {
+            Events.FireEvent(EventType.FingerprintsGivenL);
+            Events.FireEvent(EventType.FingerprintsGivenR);
+        } else {
+            Agar leftAgar = soycaseinePlate2.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
+            Agar rightAgar = soycaseinePlate3.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
+            leftAgar.Interact(leftHand);
+            rightAgar.Interact(rightHand);
+            yield return Wait(4.1f);
+            leftAgar.Uninteract(leftHand);
+            rightAgar.Uninteract(rightHand);
+            leftAgar.Interact(leftHand);
+            rightAgar.Interact(rightHand);
+            yield return Wait(4.1f);
+            leftAgar.Uninteract(leftHand);
+            rightAgar.Uninteract(rightHand);
+        }
         if (strength == AutoPlayStrength.TakeFingerprints) yield break;
         yield return Wait();
 
@@ -397,6 +415,41 @@ class MembraneFilterationScene : SceneScript {
             cap.AttachCap();
         });
         if (strength == AutoPlayStrength.CloseBottles) yield break;
+        yield return Wait();
+
+        // --- CleanTrash ---
+
+        // Detach serological pipette from automatic pipette
+        PipetteContainer pipetteContainer = ToInteractable(serologicalPipette) as PipetteContainer;
+        StartCoroutine(pipetteContainer.WaitForDistance(leftHand));
+        pipetteContainer.SnapDistance = -1.0f;
+        yield return Wait();
+        leftHand.Uninteract();
+        DropAt(pipetteContainer.transform, corner);
+        pipetteContainer.SnapDistance = 0.03f;
+        // Put trash in the correct trash can
+        smallTrashCan.OnTrashEnter(serologicalPipette.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(lid.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(tank.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(filterInCover.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(syringe.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(tweezers.GetComponentInChildren<Collider>());
+        sharpTrashCan.OnTrashEnter(scalpel.GetComponentInChildren<Collider>());
+        yield return Wait(0.1f);
+        GameObject otherSerologicalPipette = GameObject.Find("PipetteHead50ml");
+        smallTrashCan.OnTrashEnter(otherSerologicalPipette.GetComponentInChildren<Collider>());
+        if (syringe == null) smallTrashCan.OnTrashEnter(syringeCap.GetComponentInChildren<Collider>());
+        if (strength == AutoPlayStrength.CleanTrash) yield break;
+        yield return Wait();
+
+        // --- ItemsToBasket ---
+
+        if (strength == AutoPlayStrength.ItemsToBasket) yield break;
+        yield return Wait();
+
+        // --- CleanLaminarCabinet
+
+        if (strength == AutoPlayStrength.CleanLaminarCabinet) yield break;
         yield return Wait();
 
         yield break;
