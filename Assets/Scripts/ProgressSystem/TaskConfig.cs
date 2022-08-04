@@ -328,10 +328,10 @@ public static class TaskConfig {
 
         info(
             TaskType.CleanLaminarCabinetMembrane,
-            "",
-            "",
-            "",
-            "",
+            "Laminaarikaapin putsaus",
+            "Putsaa laminaarikaapin seinät",
+            "Ruiskuta etanoliliuosta jokaisen laminaarikaapin seinälle.",
+            "Laminaarikaappi puhdistettu!",
             2
         ),
 

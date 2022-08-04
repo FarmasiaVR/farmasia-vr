@@ -60,5 +60,6 @@
     CleaningGlasses,
     ItemPlacedInBasket,
     BottleClosed,
-    BottleOpened
+    BottleOpened,
+    CleaningBottleSprayed
 }

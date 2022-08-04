@@ -17,6 +17,7 @@ public class CleaningBottleCollider : MonoBehaviour
         if (!(item == null)) {
             Items.Add(item);
         }
+        if (other.CompareTag("LaminarCabinet")) Events.FireEvent(EventType.CleaningBottleSprayed, CallbackData.Object(this));
     }
 
     private void OnTriggerExit(Collider other) {

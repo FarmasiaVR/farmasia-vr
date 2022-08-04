@@ -1,14 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 public class CleanLaminarCabinetMembrane : Task {
 
-    public CleanLaminarCabinetMembrane() : base(TaskType.CleanLaminarCabinetMembrane, true) {
+    public enum Conditions { LaminarCabinetCleaned }
 
+    public CleanLaminarCabinetMembrane() : base(TaskType.CleanLaminarCabinetMembrane, true) {
+        SetCheckAll(true);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
 
     public override void Subscribe() {
-        throw new System.NotImplementedException();
+        base.SubscribeEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
+    }
+
+    private void TrackWallsCleaned(CallbackData data) {
+        if (Started) {
+            EnableCondition(Conditions.LaminarCabinetCleaned);
+            CompleteTask();
+        }
     }
 }
