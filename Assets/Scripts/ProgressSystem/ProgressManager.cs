@@ -34,7 +34,7 @@ public class ProgressManager {
             if (calledTask.TaskType == task.TaskType) {
                 continue;
             }
-            if (task.TaskType == TaskType.Finish || task.TaskType == TaskType.ScenarioOneCleanUp) {
+            if (task.TaskType == TaskType.FinishMedicine || task.TaskType == TaskType.ScenarioOneCleanUp) {
                 continue;
             }
             Logger.Print(string.Format(
@@ -112,8 +112,10 @@ public class ProgressManager {
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = {
-            TaskType.ScenarioOneCleanUp,
-            TaskType.Finish
+            TaskType.CleanTrashMedicine,
+            TaskType.CorrectItemsInBasketMedicine,
+            TaskType.CleanLaminarCabinetMedicine,
+            TaskType.FinishMedicine
         };
 
         if (MainMenuFunctions.startFromBeginning) packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
@@ -239,7 +241,7 @@ public class ProgressManager {
 
     public void FinishProgress() {
         foreach (Task task in allTasks) {
-            if (task.TaskType == TaskType.Finish) {
+            if (task.TaskType == TaskType.FinishMedicine) {
                 RemoveTask(task);
                 MedicinePreparationScene.SavedScoreState = null;
                 break;

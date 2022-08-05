@@ -2,30 +2,18 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Finish : Task {
+public class FinishMedicine : Task {
 
-    #region Constants
     private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
     private const int MINIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 140;
     private const int MAXIMUM_CORRECT_AMOUNT_IN_SMALL_SYRINGE = 160;
 
-    #endregion
-
-    #region Fields
     private CabinetBase laminarCabinet;
-    #endregion
 
-    #region Constructor
-    ///  <summary>
-    ///  Constructor for Finish task.
-    ///  Is not removed when finished and requires previous task completion.
-    ///  </summary>
-    public Finish() : base(TaskType.Finish, true) {
-        
+    public FinishMedicine() : base(TaskType.FinishMedicine, true) {
+
     }
-    #endregion
 
-    #region Event Subscriptions
     public override void Subscribe() {
         SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
     }
@@ -37,9 +25,7 @@ public class Finish : Task {
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
     }
-    #endregion
 
-    #region Private Methods
     private void PointsForSmallSyringes() {
         int pointsForSyringeSize = 0;
         int pointsForMedicineAmount = 0;
@@ -118,21 +104,15 @@ public class Finish : Task {
         // Task disinfect = G.Instance.Progress.FindTaskWithType(TaskType.DisinfectBottles);
         // disinfect.FinishTask();
     }
-    #endregion
 
-    #region Overridden Methods
     public override void StartTask() {
         if (!Started) {
             FinishTask();
         }
         base.StartTask();
     }
-    #endregion
 
-    #region Public Methods
     public override async void FinishTask() {
-
-
         PointsForSmallSyringes();
         IsSterileBagTaskFinished();
         DroppedItemsCleaned();
@@ -143,7 +123,4 @@ public class Finish : Task {
         CompleteTask();
         base.FinishTask();
     }
-
-    
-    #endregion
 }

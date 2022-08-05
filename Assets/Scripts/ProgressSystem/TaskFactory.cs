@@ -31,7 +31,10 @@ public static class TaskFactory {
         new CorrectAmountOfMedicineSelected(),
         new ItemsToSterileBag(),
         new ScenarioOneCleanUp(),
-        new Finish(),
+        new CleanTrashMedicine(),
+        new CorrectItemsInBasketMedicine(),
+        new CleanLaminarCabinetMedicine(),
+        new FinishMedicine(),
 
         // Membrane filtration
         new SelectToolsMembrane(),

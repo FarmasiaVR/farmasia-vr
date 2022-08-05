@@ -127,15 +127,42 @@ public static class TaskConfig {
 
         info(
             TaskType.ScenarioOneCleanUp,
-            "Siivoaminen",
-            "Siivoa lopuksi työtila.",
+            "Lattialle pudonneiden esineiden siivous",
+            "Siivoa lattialle pudonneet esineet",
             "Vie pelin aikana lattialle pudonneet esineet roskakoriin.",
-            "",
+            "Lattialle pudonneet esineet siivottu!",
             1
         ),
 
         info(
-            TaskType.Finish,
+            TaskType.CleanTrashMedicine,
+            "Jätteiden lajittelu",
+            "Lajittele jätteet",
+            "Lajittele jätteet",
+            "Jätteet lajiteltu!",
+            2
+        ),
+
+        info(
+            TaskType.CorrectItemsInBasketMedicine,
+            "",
+            "",
+            "",
+            "",
+            2
+        ),
+
+        info(
+            TaskType.CleanLaminarCabinetMedicine,
+            "Laminaarikaapin putsaus",
+            "Putsaa laminaarikaapin seinät",
+            "Ruiskuta etanoliliuosta jokaisen laminaarikaapin seinälle.",
+            "Laminaarikaappi puhdistettu!",
+            2
+        ),
+
+        info(
+            TaskType.FinishMedicine,
             "Lopetus",
             "",
             "",

@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrashCan : MonoBehaviour {
 
     private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
-        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Tweezers };
+        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Tweezers, ObjectType.Luerlock, ObjectType.DisinfectingCloth };
     private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel, ObjectType.Needle };
 
     public enum TrashType {

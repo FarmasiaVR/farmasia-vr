@@ -44,7 +44,7 @@ public class ItemsToSterileBag : Task {
 
     private void OnSterileBagClose(CallbackData data2) {
         sterileBag = (SterileBag)data2.DataObject;
-        G.Instance.Progress.ForceCloseTasks(this);
+        // G.Instance.Progress.ForceCloseTasks(this);
         CompleteTask();
         FinishTask();
     }
