@@ -61,5 +61,6 @@
     ItemPlacedInBasket,
     BottleClosed,
     BottleOpened,
-    CleaningBottleSprayed
+    CleaningBottleSprayed,
+    ItemPlacedBasketForReference
 }
