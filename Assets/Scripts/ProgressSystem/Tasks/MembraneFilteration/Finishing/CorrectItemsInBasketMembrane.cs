@@ -93,10 +93,11 @@ public class CorrectItemsInBasketMembrane : Task {
                 } else if (g is Pump) {
                     pump++;
                     EnableCondition(Conditions.Pump);
-                } /*else {
-                    Logger.Print("Wrong item in basket: " + g.name);
+                } else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
+                    continue;
+                } else {
                     CreateTaskMistake("Väärä esine korissa", 1);
-                }*/
+                }
             }
         }
 
