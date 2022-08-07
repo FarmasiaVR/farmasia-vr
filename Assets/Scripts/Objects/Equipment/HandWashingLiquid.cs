@@ -27,7 +27,6 @@ public class HandWashingLiquid : Interactable {
         base.Interact(hand);
 
         // Should not run if the game is completed.
-        Events.FireEvent(EventType.WashingHands, CallbackData.Object(this));
         TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
         if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom)) {
             if (!running) {
@@ -35,6 +34,8 @@ public class HandWashingLiquid : Interactable {
                 PlayFX();
             }
         }
+
+        Events.FireEvent(EventType.WashingHands, CallbackData.Object(this));
     }
 
     public void PlayFX() {
