@@ -22,7 +22,7 @@ public class FinishMembrane : Task {
     }
 
     public override async void FinishTask() {
-        await System.Threading.Tasks.Task.Delay(1000);
+        await System.Threading.Tasks.Task.Delay(2500);
         CompleteTask();
         base.FinishTask();
     }

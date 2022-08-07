@@ -7,6 +7,7 @@ public class CleaningBottleCollider : MonoBehaviour
     public GameObject Effect;
     private List<GeneralItem> Items = new List<GeneralItem>();
     private new ParticleSystem particleSystem;
+    private bool canCleanCabinet;
 
     private void Awake() {
         particleSystem = Effect.GetComponent<ParticleSystem>();
@@ -17,14 +18,16 @@ public class CleaningBottleCollider : MonoBehaviour
         if (!(item == null)) {
             Items.Add(item);
         }
-        if (other.CompareTag("LaminarCabinet")) Events.FireEvent(EventType.CleaningBottleSprayed, CallbackData.Object(this));
+        if (other.CompareTag("LaminarCabinet")) canCleanCabinet = true;
     }
 
     private void OnTriggerExit(Collider other) {
         Items.Remove(other.GetComponentInParent<GeneralItem>());
+        if (other.CompareTag("LaminarCabinet")) canCleanCabinet = false;
     }
 
     public void Clean() {
+        if (canCleanCabinet) Events.FireEvent(EventType.CleaningBottleSprayed, CallbackData.Object(this));
         particleSystem.Play();
         bool cleaned = false;
         foreach (GeneralItem item in Items) {

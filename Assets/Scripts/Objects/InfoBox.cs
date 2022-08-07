@@ -9,6 +9,7 @@ public class InfoBox : MonoBehaviour {
     private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella, ja kaappi pyyhitään steriilillä liinalla. Voit olettaa ne jo tehdyksi.";
     private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
     private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia, mutta pelissä riittää alle 10 sekuntia.";
+    private const string CLEANING_LAMINAR_CABINET_MESSAGE = "Ruiskutuksen jälkeen seinät kuivattaisiin paperilla. Tätä vaihetta pelissä ei ole.";
 
     [Header("Children")]
     public GameObject text;
@@ -44,6 +45,7 @@ public class InfoBox : MonoBehaviour {
         Events.SubscribeToEvent(GrabbedRoomDoor, EventType.RoomDoor);
         Events.SubscribeToEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
         Events.SubscribeToEvent(HandsTouched, EventType.WashingHands);
+        Events.SubscribeToEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
     }
 
     private void ObjectPickedUp(CallbackData data) {
@@ -82,6 +84,15 @@ public class InfoBox : MonoBehaviour {
         if (liquidUsed.type == "Water") {
             ShowInfoBox(WASHING_HANDS_MESSAGE);
             Events.UnsubscribeFromEvent(HandsTouched, EventType.WashingHands);
+        }
+    }
+
+    private async void TrackWallsCleaned(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.CleanUp) {
+            ShowInfoBox(CLEANING_LAMINAR_CABINET_MESSAGE);
+            Events.UnsubscribeFromEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
         }
     }
 
