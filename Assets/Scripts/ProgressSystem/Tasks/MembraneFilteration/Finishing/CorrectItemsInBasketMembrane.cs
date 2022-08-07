@@ -12,7 +12,7 @@ public class CorrectItemsInBasketMembrane : Task {
     private bool cartMoved;
 
     public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, false) {
-        cart = GameObject.Find("Cart").GetComponent<Cart>();
+        if (GameObject.Find("Cart") != null) cart = GameObject.Find("Cart").GetComponent<Cart>();
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
