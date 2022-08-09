@@ -376,7 +376,7 @@ public static class TaskConfig {
         info(
             TaskType.WearShoeCoversAndLabCoat,
             "Kengänsuojien ja laboratoriotakin pukeminen",
-            "Pue kengänsuojat ja laboratoriotakki",
+            "Vedä kengänsuojat ja laboratoriotakki päällesi",
             "Vedä kengänsuojat ja laboratoriotakki itseesi pukeaksesi ne päällesi.",
             "Kengänsuojat ja laboratoriotakki puettu!",
             2
@@ -412,7 +412,7 @@ public static class TaskConfig {
         info(
             TaskType.WearHeadCoverAndFaceMask,
             "Suojapäähineen ja kasvomaskin pukeminen",
-            "Pue suojapäähine ja kasvomaski",
+            "Vedä suojapäähine ja kasvomaski päällesi",
             "Vedä suojapäähine ja kasvomaski itseesi pukeaksesi ne päällesi.",
             "Suojapäähine ja kasvomaski puettu!",
             2
@@ -430,7 +430,7 @@ public static class TaskConfig {
         info(
             TaskType.WearSleeveCoversAndProtectiveGloves,
             "Hihasuojien ja suojakäsineiden pukeminen",
-            "Pue hihasuojat ja suojakäsineet",
+            "Vedä hihasuojat ja suojakäsineet päällesi",
             "Vedä hihasuojat ja suojakäsineet itseesi pukeaksesi ne päällesi.",
             "Hihasuojat ja suojakäsineet puettu!",
             2
