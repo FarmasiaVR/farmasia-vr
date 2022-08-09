@@ -104,7 +104,7 @@ public class Tutorial : MonoBehaviour {
             case ObjectType.Pipette:
                 return "Pipetti";
             case ObjectType.AutomaticPipette:
-                return "Pipetintäyttäjä";
+                return "Pipettori";
             case ObjectType.Medicine:
                 return "Lääkepullo";
             case ObjectType.SterileBag:
