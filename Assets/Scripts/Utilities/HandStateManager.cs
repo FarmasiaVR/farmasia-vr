@@ -23,6 +23,7 @@ public class HandStateManager : MonoBehaviour {
 
     public void Subscribe() {
         Events.SubscribeToEvent(OpenedDoor, EventType.RoomDoor);
+        Events.SubscribeToEvent(TrackEquippedClothing, EventType.ProtectiveClothingEquipped);
     }
 
     public void WashingHands(CallbackData data) {
@@ -37,10 +38,8 @@ public class HandStateManager : MonoBehaviour {
                 } else if (handState != HandState.Clean) {
                     SetIsMistake(false);
                     SetSoapy();
-                }  
-            }
-
-            else if (liquid.type.Equals("Water")) {
+                }
+            } else if (liquid.type.Equals("Water")) {
                 if (handState == HandState.Dirty) {
                     SetIsMistake(false);
                     SetWet();
@@ -54,9 +53,7 @@ public class HandStateManager : MonoBehaviour {
                     SetIsMistake(false);
                     SetClean();
                 }
-            }
-
-            else if (liquid.type.Equals("HandSanitizer")) {
+            } else if (liquid.type.Equals("HandSanitizer")) {
                 if (handState != HandState.Clean) {
                     SetIsMistake(true);
                     SetDirty();
@@ -83,8 +80,25 @@ public class HandStateManager : MonoBehaviour {
         Events.UnsubscribeFromEvent(OpenedDoor, EventType.RoomDoor);
     }
 
+    private void TrackEquippedClothing(CallbackData data) {
+        var clothing = (data.DataObject as ProtectiveClothing);
+        if (clothing.type == ClothingType.ProtectiveGloves && handState == HandState.Cleanest) {
+            SetDefault();
+            material.SetInt("_GlovesOn", 1);
+            Events.UnsubscribeFromEvent(TrackEquippedClothing, EventType.ProtectiveClothingEquipped);
+        }
+    }
+
     public HandState GetHandState() {
         return handState;
+    }
+
+    private void SetDefault() {
+        material.SetFloat("_StepEdge", 0.6f);
+        material.SetInt("_Shiny", 0);
+        material.SetFloat("_FresnelEffectPower", 10.0f);
+        material.SetFloat("_SoapColor", 0.0f);
+        material.SetInt("_GloveOn", 0);
     }
 
     private void SetDirty() {
@@ -93,6 +107,7 @@ public class HandStateManager : MonoBehaviour {
         material.SetInt("_Shiny", 0);
         material.SetFloat("_FresnelEffectPower", 10.0f);
         material.SetFloat("_SoapColor", 0f);
+        material.SetInt("_GlovesOn", 0);
         cleanAnimationPlayed = false;
     }
 
