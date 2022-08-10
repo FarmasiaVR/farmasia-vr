@@ -8,7 +8,7 @@ public class InfoBox : MonoBehaviour {
     private const string PREPARATION_ROOM_MESSAGE = "Puhdastilaan vietävät ruiskut, neulat ja muut tarvikkeet ovat steriilejä ja pakattu suojapusseihin. VR-pelissä suojapussi puuttuu.";
     private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella, ja kaappi pyyhitään steriilillä liinalla. Voit olettaa ne jo tehdyksi.";
     private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
-    private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia, mutta pelissä riittää alle 10 sekuntia.";
+    private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia. VR-pelissä riittää alle 10 sekuntia.";
     private const string CLEANING_LAMINAR_CABINET_MESSAGE = "Ruiskutuksen jälkeen seinät kuivattaisiin paperilla. Tätä vaihetta pelissä ei ole.";
 
     [Header("Children")]
@@ -79,9 +79,11 @@ public class InfoBox : MonoBehaviour {
         }
     }
 
-    private void HandsTouched(CallbackData data) {
+    private async void HandsTouched(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
         var liquidUsed = (data.DataObject as HandWashingLiquid);
-        if (liquidUsed.type == "Water") {
+        if (liquidUsed.type == "Water" && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WashGlasses)) {
             ShowInfoBox(WASHING_HANDS_MESSAGE);
             Events.UnsubscribeFromEvent(HandsTouched, EventType.WashingHands);
         }
