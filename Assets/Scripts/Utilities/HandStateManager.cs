@@ -42,7 +42,7 @@ public class HandStateManager : MonoBehaviour {
 
             else if (liquid.type.Equals("Water")) {
                 if (handState == HandState.Dirty) {
-                    SetIsMistake(true);
+                    SetIsMistake(false);
                     SetWet();
                 } else if (handState == HandState.Wet) {
                     SetIsMistake(false);
