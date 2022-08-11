@@ -52,5 +52,6 @@ public enum TaskType {
     CloseBottles,
     CleanTrashMedicine,
     CorrectItemsInBasketMedicine,
-    CleanLaminarCabinetMedicine
+    CleanLaminarCabinetMedicine,
+    EmptyLaminarCabinetMembrane
 }

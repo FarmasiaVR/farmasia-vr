@@ -346,10 +346,19 @@ public static class TaskConfig {
 
         info(
             TaskType.CorrectItemsInBasketMembrane,
-            "",
-            "",
-            "",
-            "",
+            "Valmiit esineet koriin",
+            "Siirrä valmiit esineet koriin",
+            "Siirrä valmiit esineet koriin",
+            "Valmiit esineet korissa!",
+            2
+        ),
+
+        info(
+            TaskType.EmptyLaminarCabinetMembrane,
+            "Laminaarikaapin tyhjennys",
+            "Tyhjennä laminaarikaappi",
+            "Siirrä ylimääräiset esineet sivupöydälle",
+            "Laminaarikaappi tyhjennetty!",
             2
         ),
 
