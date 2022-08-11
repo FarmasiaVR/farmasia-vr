@@ -19,6 +19,11 @@ public class MainMenuFunctions : MonoBehaviour {
         sceneType = type;
     }
 
+    public void HideSubmenu() {
+        mainMenuButtons.SetActive(true);
+        submenuButtons.SetActive(false);
+    }
+
     public void LoadScene(int type) {
         levelChanger.SwapScene((SceneTypes)type);
     }
