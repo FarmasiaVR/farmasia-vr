@@ -433,8 +433,8 @@ class MembraneFilterationScene : SceneScript {
         smallTrashCan.OnTrashEnter(tank.GetComponentInChildren<Collider>());
         smallTrashCan.OnTrashEnter(filterInCover.GetComponentInChildren<Collider>());
         smallTrashCan.OnTrashEnter(syringe.GetComponentInChildren<Collider>());
-        smallTrashCan.OnTrashEnter(tweezers.GetComponentInChildren<Collider>());
         sharpTrashCan.OnTrashEnter(scalpel.GetComponentInChildren<Collider>());
+        smallTrashCan.OnTrashEnter(sterileBag.GetComponentInChildren<Collider>());
         yield return Wait(0.1f);
         GameObject otherSerologicalPipette = GameObject.Find("PipetteHead50ml");
         smallTrashCan.OnTrashEnter(otherSerologicalPipette.GetComponentInChildren<Collider>());

@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrashCan : MonoBehaviour {
 
     private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
-        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Tweezers, ObjectType.Luerlock, ObjectType.DisinfectingCloth };
+        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Luerlock, ObjectType.DisinfectingCloth, ObjectType.SterileBag };
     private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel, ObjectType.Needle };
 
     public enum TrashType {
@@ -22,9 +22,10 @@ public class TrashCan : MonoBehaviour {
                 return;
             } else {
                 if (item.ObjectType == ObjectType.PipetteContainer && item.gameObject.transform.parent != null) {
-                    Task.CreateGeneralMistake("Irroita ensin pipetti!", 1, true);
+                    Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
                     return;
                 }
+                // if (item.ObjectType == ObjectType.SterileBag)
                 if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType)) Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType)) Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);

@@ -47,9 +47,6 @@ public class CleanupObject : MonoBehaviour {
         if (g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) {
             Task.CreateTaskMistake(TaskType.ScenarioOneCleanUp, "Pulloa ei saa heittää roskikseen", 1);
         }
-        if (g.ObjectType == ObjectType.SterileBag) {
-            Task.CreateTaskMistake(TaskType.ScenarioOneCleanUp, "Steriilipussia ei saa heittää roskikseen", 1);
-        }
     }
 
     private void Update() {
