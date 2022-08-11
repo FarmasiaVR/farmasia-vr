@@ -5,7 +5,7 @@ using UnityEngine;
 public class CorrectItemsInBasketMembrane : Task {
 
     public enum Conditions {
-        Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, SoycaseinePlate, SabouraudDextrosePlate, Pump
+        Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, SoycaseinePlate, SabouraudDextrosePlate
     }
     private Basket basket;
     private Cart cart;
@@ -57,7 +57,6 @@ public class CorrectItemsInBasketMembrane : Task {
         int soycaseineBottle = 0;
         int soycaseinePlate = 0;
         int sabouraudDextrosePlate = 0;
-        int pump = 0;
 
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
@@ -90,9 +89,6 @@ public class CorrectItemsInBasketMembrane : Task {
                         sabouraudDextrosePlate++;
                         EnableCondition(Conditions.SabouraudDextrosePlate);
                     }
-                } else if (g is Pump) {
-                    pump++;
-                    EnableCondition(Conditions.Pump);
                 } else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
                     continue;
                 } else {
@@ -101,7 +97,7 @@ public class CorrectItemsInBasketMembrane : Task {
             }
         }
 
-        if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouraudDextrosePlate == 1 && pump == 1) {
+        if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouraudDextrosePlate == 1) {
             Logger.Print("All done");
         }
     }
