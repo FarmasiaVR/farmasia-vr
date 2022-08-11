@@ -10,6 +10,7 @@ public class InfoBox : MonoBehaviour {
     private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
     private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia. VR-pelissä riittää alle 10 sekuntia.";
     private const string CLEANING_LAMINAR_CABINET_MESSAGE = "Ruiskutuksen jälkeen seinät kuivattaisiin paperilla. Tätä vaihetta pelissä ei ole.";
+    private const string PIPETTE_CLEAN_TRASH_MESSAGE = "Pipetin pää kuuluisi irroittaa ja laittaa roskakoriin. VR-pelissä tätä vaihetta ei tarvitse tehdä.";
 
     [Header("Children")]
     public GameObject text;
@@ -46,6 +47,7 @@ public class InfoBox : MonoBehaviour {
         Events.SubscribeToEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
         Events.SubscribeToEvent(HandsTouched, EventType.WashingHands);
         Events.SubscribeToEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
+        Events.SubscribeToEvent(PickupObject, EventType.PickupObject);
     }
 
     private void ObjectPickedUp(CallbackData data) {
@@ -95,6 +97,22 @@ public class InfoBox : MonoBehaviour {
         if (G.Instance.Progress.CurrentPackage.name == PackageName.CleanUp) {
             ShowInfoBox(CLEANING_LAMINAR_CABINET_MESSAGE);
             Events.UnsubscribeFromEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
+        }
+    }
+
+    private async void PickupObject(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
+        GameObject g = data.DataObject as GameObject;
+        GeneralItem item = g.GetComponent<GeneralItem>();
+        if (item == null) {
+            return;
+        }
+        if (item.ObjectType == ObjectType.Pipette) {
+            if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMedicine) || G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMembrane)) {
+                ShowInfoBox(PIPETTE_CLEAN_TRASH_MESSAGE);
+                Events.UnsubscribeFromEvent(PickupObject, EventType.PickupObject);
+            }
         }
     }
 
