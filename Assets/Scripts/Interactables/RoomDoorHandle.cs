@@ -1,16 +1,9 @@
-using System;
-using UnityEngine;
-
 public class RoomDoorHandle : AnimatedDoorHandle {
 
-    #region Fields
-    [SerializeField]
-    private DoorGoTo destination;
-    #endregion
+    public DoorGoTo destination;
 
     protected override void Start() {
         base.Start();
-
         Type.Set(InteractableType.Interactable);
     }
 

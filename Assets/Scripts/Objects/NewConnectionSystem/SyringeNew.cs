@@ -103,7 +103,6 @@ public class SyringeNew : ReceiverItem {
         if (State == InteractState.InBottle) {
             Logger.Print("Take medicine: " + amount);
             TransferToBottle(amount);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
             SetSyringeHandlePosition();
             Logger.Print("Nestettä ruiskussa: " + Container.Amount);
         } else {
@@ -115,7 +114,6 @@ public class SyringeNew : ReceiverItem {
         if (State == InteractState.InBottle) {
             Logger.Print("Sending medicine: " + amount);
             TransferToBottle(amount);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
             Logger.Print("Nestettä ruiskussa: " + Container.Amount);
         } else {
             //Eject();

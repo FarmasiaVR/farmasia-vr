@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public static class TaskFactory {
@@ -18,17 +17,14 @@ public static class TaskFactory {
 
     private static Dictionary<TaskType, Task> tasks = new List<Task>() {
         // Medicine preparation
-        new SelectTools(),
-        new SelectMedicine(),
-        new CorrectItemsInThroughput(),
-        new CorrectLayoutInThroughput(),
-        new CorrectItemsInLaminarCabinet(),
-        new CorrectLayoutInLaminarCabinet(),
+        new CorrectItemsInThroughputMedicine(),
+        new CorrectItemsInLaminarCabinetMedicine(),
         new DisinfectBottles(),
         new MedicineToSyringe(),
         new LuerlockAttach(),
         new SyringeAttach(),
-        new CorrectAmountOfMedicineSelected(),
+        new CorrectAmountOfMedicineTransferred(),
+        new AllSyringesDone(),
         new ItemsToSterileBag(),
         new ScenarioOneCleanUp(),
         new CleanTrashMedicine(),

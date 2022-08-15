@@ -32,7 +32,6 @@ public class PipetteContainer : AttachmentItem
     public void TakeMedicine() {
         if (State == InteractState.InBottle) {
             TransferToBottle(false);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Logger.Print("PipetteContainer not in bottle");
         }
@@ -41,7 +40,6 @@ public class PipetteContainer : AttachmentItem
     public void SendMedicine() {
         if (State == InteractState.InBottle) {
             TransferToBottle(true);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Eject();
         }

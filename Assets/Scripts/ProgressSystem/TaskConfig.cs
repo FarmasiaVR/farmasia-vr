@@ -16,59 +16,76 @@ public static class TaskConfig {
     /// Points
 
     private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{
-
         info(
-            TaskType.SelectTools,
-            "Työvälineiden valinta",
-            "Valitse sopivat työvälineet.",
-            "Valitse pöydällä olevan listan perusteella oikeat välineet sekä oikea määrä välineitä.",
-            "Työväline valittu.",
-            0
-        ),
-
-        info(
-            TaskType.SelectMedicine,
-            "Lääkepullon valinta",
-            "Valitse sopiva lääkepullo.",
-            "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.",
-            "Lääkepullo valittu.",
-            0
-        ),
-
-        info(
-            TaskType.CorrectItemsInThroughput,
-            "Oikeat välineet läpiantokaapissa",
-            "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
-            "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: ",
-            "Oikea määrä työvälineitä läpiantokaapissa.",
+            TaskType.CorrectItemsInThroughputMedicine,
+            "Oikeat työvälineet läpiantokaapissa",
+            "Laita tarvittavat työvälineet läpiantokaappiin ja siirry puhdastilaan.",
+            "Katso pöydällä olevasta listasta tarvittavat työvälineet ja siirrä ne läpiantokaappiin. Muista myös puhdistaa työvälineet 70% etanoliliuoksella.",
+            "Oikea määrä työvälineitä läpiantokaapissa!",
             2
         ),
 
         info(
-            TaskType.CorrectLayoutInThroughput,
-            "Esineiden asettelu läpiantokaapissa",
-            "",
-            "",
-            "",
-            0
-        ),
-
-        info(
-            TaskType.CorrectItemsInLaminarCabinet,
-            "Oikeat välineet laminaarikaapissa",
-            "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.",
-            "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla tarkistusnappia laminaarikaapin yläosassa.",
-            "Oikea määrä työvälineitä laminaarikaapissa.",
+            TaskType.CorrectItemsInLaminarCabinetMedicine,
+            "Oikeat työvälineet laminaarikaapissa",
+            "Siirrä valitsemasi työvälineet laminaarikaappiin.",
+            "Puhdista valitsemasi työvälineet 70% etanoliliuoksella ja siirrä ne laminaarikaappiin.",
+            "Oikea määrä työvälineitä laminaarikaapissa!",
             2
         ),
 
         info(
-            TaskType.CorrectLayoutInLaminarCabinet,
-            "Esineiden asettelu laminaarikaapissa",
-            "",
-            "",
-            "",
-            0
+            TaskType.MedicineToSyringe,
+            "Lääkkeen ottaminen pullosta",
+            "Ota ruiskulla ja neulalla lääkettä lääkeainepullosta. Irroita neula kun olet valmis.",
+            "Valitse 20ml ruisku ja kiinnitä siihen neula. Ota lääkettä ruiskuun 9ml verran.",
+            "Lääkkeen ottaminen onnistui!",
+            2
+        ),
+
+        info(
+            TaskType.LuerlockAttach,
+            "Luerlockin kiinnittäminen",
+            "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock välikappaleeseen.",
+            "Kiinnitä luerlock-to-luerlock välikappale 20ml ruiskuun.",
+            "Luerlockin kiinnittäminen onnistui!",
+            1
+        ),
+
+        info(
+            TaskType.SyringeAttach,
+            "Ruiskun kiinnittäminen",
+            "Yhdistä luerlock-to-luerlock välikappaleeseen tyhjä ruisku.",
+            "Kiinnitä 1ml ruisku luerlock-to-luerlock välikappaleeseen.",
+            "Ruisku kiinnitetty luerlockiin!",
+            1
+        ),
+
+        info(
+            TaskType.CorrectAmountOfMedicineTransferred,
+            "Lääkkeen mittaaminen",
+            "Vedä 0,15ml verran lääkettä pieneen ruiskuun.",
+            "Vedä 0,15ml verran lääkettä pieneen ruiskuun. Älä työnnä lääkettä isosta ruiskusta.",
+            "Ruiskuun otettiin lääkettä!",
+            1
+        ),
+
+        info(
+            TaskType.AllSyringesDone,
+            "Lääkkeen mittaaminen",
+            "Toista samat vaiheet muille ruiskuille.",
+            "Vedä jokaiseen ruiskuun oikea määrä lääkettä (0,15ml). Älä työnnä lääkettä isosta ruiskusta.",
+            "Kaikissa ruiskuissa tarpeeksi lääkettä!",
+            5
+        ),
+
+        info(
+            TaskType.ItemsToSterileBag,
+            "Ruiskujen siirto sterilointipussiin",
+            "Sulje ruiskut ja siirrä ne sterilointipussiin.",
+            "Ota korkkeja korkkipussista ja sulje ruiskujen päät. Korkkien asettamisen jälkeen siirrä ruiskut sterilointipussiin.",
+            "Ruiskut laitettiin sterilointipussiin!",
+            2
         ),
 
         info(
@@ -78,51 +95,6 @@ public static class TaskConfig {
             "",
             "",
             1
-        ),
-
-        info(
-            TaskType.SyringeAttach,
-            "Ruiskun kiinnittäminen",
-            "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.",
-            "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.",
-            "",
-            3
-        ),
-
-        info(
-             TaskType.LuerlockAttach,
-             "Luerlockin kiinnittäminen",
-            "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.",
-            "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.",
-            "Luerlockin kiinnittäminen onnistui.",
-            1
-        ),
-
-        info(
-            TaskType.CorrectAmountOfMedicineSelected,
-            "Lääkkeen mittaaminen",
-            "Vedä ruiskuun lääkettä.",
-            "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.",
-            "Ruiskuun otettiin oikea määrä lääkettä.",
-            6
-        ),
-
-        info(
-            TaskType.MedicineToSyringe,
-            "Lääkkeen otto pullosta",
-            "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.",
-            "Valitse oikeankokoinen ruisku (20ml), jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula. Puhdista lääkepullon korkki desinfiointiliinalla.",
-            "Lääkkeen ottaminen onnistui.",
-            2
-        ),
-
-        info(
-            TaskType.ItemsToSterileBag,
-            "Ruiskujen siirto steriilipussiin",
-            "Viimeistele ruiskujen kanssa työskentely.",
-            "Sulje ruiskut korkeilla. Laita täyttämäsi ruiskut steriiliin pussiin.",
-            "Ruiskut laitettiin steriiliin pussiin.",
-            2
         ),
 
         info(

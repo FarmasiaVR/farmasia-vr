@@ -2,17 +2,14 @@
 /// Enum class for different TaskTypes
 /// </summary>
 public enum TaskType {
-    SelectTools,
-    SelectMedicine,
-    CorrectItemsInThroughput,
-    CorrectLayoutInThroughput,
-    CorrectItemsInLaminarCabinet,
-    CorrectLayoutInLaminarCabinet,
+    CorrectItemsInThroughputMedicine,
+    CorrectItemsInLaminarCabinetMedicine,
     DisinfectBottles,
     MedicineToSyringe,
     LuerlockAttach,
     SyringeAttach,
-    CorrectAmountOfMedicineSelected,
+    CorrectAmountOfMedicineTransferred,
+    AllSyringesDone,
     ItemsToSterileBag,
     ScenarioOneCleanUp,
     FinishMedicine,

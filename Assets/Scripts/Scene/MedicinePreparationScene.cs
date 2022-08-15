@@ -238,7 +238,7 @@ public class MedicinePreparationScene : SceneScript {
 
         if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
             IgnoreCollisions(all, false);
-            if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
+            if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
             yield break;
         }
 

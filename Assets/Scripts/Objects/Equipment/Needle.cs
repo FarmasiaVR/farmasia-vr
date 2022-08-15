@@ -1,5 +1,4 @@
-﻿
-public class Needle : ConnectableItem {
+﻿public class Needle : ConnectableItem {
 
     public override AttachmentConnector Connector { get; set; }
 
@@ -16,7 +15,7 @@ public class Needle : ConnectableItem {
             AfterRelease = (interactable) => {
                 var syringe = interactable as Syringe;
                 if (syringe.Container.Amount > 0) {
-                    Events.FireEvent(EventType.FinishedTakingMedicineToSyringe, CallbackData.Object(syringe));
+                    Events.FireEvent(EventType.DetachedNeedleFromSyringe, CallbackData.Object(syringe));
                 }
             }
         };

@@ -202,7 +202,7 @@ public class CorrectItemsInThroughputMembrane: Task {
 
         if (Completed) {
             
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
         }
     }
     #endregion

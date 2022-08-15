@@ -99,16 +99,15 @@ public class ProgressManager {
     /// </summary>
     private void GenerateScenarioOne() {
         TaskType[] selectTasks = {
-            TaskType.SelectTools,
-            TaskType.SelectMedicine,
-            TaskType.CorrectItemsInThroughput
+            TaskType.CorrectItemsInThroughputMedicine
         };
         TaskType[] workSpaceTasks = {
-            TaskType.CorrectItemsInLaminarCabinet,
+            TaskType.CorrectItemsInLaminarCabinetMedicine,
             TaskType.MedicineToSyringe,
             TaskType.LuerlockAttach,
             TaskType.SyringeAttach,
-            TaskType.CorrectAmountOfMedicineSelected,
+            TaskType.CorrectAmountOfMedicineTransferred,
+            TaskType.AllSyringesDone,
             TaskType.ItemsToSterileBag
         };
         TaskType[] cleanUpTasks = {

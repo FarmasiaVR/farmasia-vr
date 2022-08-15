@@ -198,8 +198,6 @@ public class LiquidContainer : MonoBehaviour {
                     Task.CreateGeneralMistake("L��kett� yritettiin ottaa uudestaan");
                 }
             }
-
-            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringe));
         }
 
         syringe.BottleContainer = this;
@@ -213,8 +211,6 @@ public class LiquidContainer : MonoBehaviour {
             if (!GeneralItem.IsClean) {
                 pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-
-            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(pipette));
         }
 
         pipette.BottleContainer = this;
@@ -228,8 +224,6 @@ public class LiquidContainer : MonoBehaviour {
             if (!GeneralItem.IsClean) {
                 pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-
-            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(pipette));
         }
 
         pipette.BottleContainer = this;
@@ -243,8 +237,6 @@ public class LiquidContainer : MonoBehaviour {
             if (!GeneralItem.IsClean) {
                 syringeNew.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-
-            Events.FireEvent(EventType.SyringeWithNeedleEntersBottle, CallbackData.Object(syringeNew));
             syringeNew.BottleContainer = this;
         }
     }

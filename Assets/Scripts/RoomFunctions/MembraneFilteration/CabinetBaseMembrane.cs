@@ -104,7 +104,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
             itemPlaced = true;
         }
         if (this.type == CabinetType.Laminar) {
-            Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(item));
+            // Events.FireEvent(EventType.ItemPlacedInCabinet, CallbackData.Object(item));
         }
 
         ObjectType type = item.ObjectType;
