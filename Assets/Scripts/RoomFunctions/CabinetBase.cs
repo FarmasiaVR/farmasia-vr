@@ -77,14 +77,14 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private IEnumerator MoveSyringeCapBagAndEnableFactory(GeneralItem syringeCapBag) {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
 
         syringeCapBag.GetComponent<SyringeCapBag>().DisableSyringeCapBag();
 
         Vector3 startPos = syringeCapBag.transform.position;
         Vector3 targetPos = syringeCapFactoryPos.transform.position;
-        Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
         Quaternion startRot = syringeCapBag.transform.rotation;
+        Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
 
         float time = 1.5f;
         float currentTime = 0;

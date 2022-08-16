@@ -26,7 +26,6 @@ public static class TaskFactory {
         new CorrectAmountOfMedicineTransferred(),
         new AllSyringesDone(),
         new ItemsToSterileBag(),
-        new ScenarioOneCleanUp(),
         new CleanTrashMedicine(),
         new CorrectItemsInBasketMedicine(),
         new CleanLaminarCabinetMedicine(),

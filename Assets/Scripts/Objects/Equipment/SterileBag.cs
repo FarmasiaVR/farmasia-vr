@@ -188,7 +188,7 @@ public class SterileBag : GeneralItem {
         closeButton.SafeDestroy();
         Logger.Print("Close Sterile bag Final!");
         Events.FireEvent(EventType.CloseSterileBag, CallbackData.Object(this));
-        CleanupObject.GetCleanup().EnableCleanup();
+        // CleanupObject.GetCleanup().EnableCleanup();
     }
 
     private Vector3 ObjectPosition(int index) {

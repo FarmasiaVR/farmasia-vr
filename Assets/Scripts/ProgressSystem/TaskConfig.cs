@@ -35,6 +35,15 @@ public static class TaskConfig {
         ),
 
         info(
+            TaskType.DisinfectBottles,
+            "Pullon desinfiointi",
+            "",
+            "",
+            "",
+            1
+        ),
+
+        info(
             TaskType.MedicineToSyringe,
             "Lääkkeen ottaminen pullosta",
             "Ota ruiskulla ja neulalla lääkettä lääkeainepullosta. Irroita neula kun olet valmis.",
@@ -89,48 +98,30 @@ public static class TaskConfig {
         ),
 
         info(
-            TaskType.DisinfectBottles,
-            "Pullon desinfiointi",
-            "",
-            "",
-            "",
-            1
-        ),
-
-        info(
-            TaskType.ScenarioOneCleanUp,
-            "Lattialle pudonneiden esineiden siivous",
-            "Siivoa lattialle pudonneet esineet",
-            "Vie pelin aikana lattialle pudonneet esineet roskakoriin.",
-            "Lattialle pudonneet esineet siivottu!",
-            1
-        ),
-
-        info(
             TaskType.CleanTrashMedicine,
             "Jätteiden lajittelu",
-            "Lajittele jätteet",
-            "Lajittele jätteet",
+            "Lajittele jätteet.",
+            "Laita neula terävien roskakoriin ja muut jätteet tavalliseen roskakoriin.",
             "Jätteet lajiteltu!",
             2
         ),
 
         info(
             TaskType.CorrectItemsInBasketMedicine,
-            "",
-            "",
-            "",
-            "",
+            "Valmiit esineet koriin",
+            "Siirrä valmiit esineet koriin.",
+            "Siirrä sterilointipussi ja lääkepullo punaiseen koriin.",
+            "Valmiit esineet korissa!",
             2
         ),
 
         info(
             TaskType.CleanLaminarCabinetMedicine,
             "Laminaarikaapin putsaus",
-            "Putsaa laminaarikaapin seinät",
-            "Ruiskuta etanoliliuosta jokaisen laminaarikaapin seinälle.",
+            "Putsaa laminaarikaapin seinät etanolipullolla.",
+            "Ruiskuta 70% etanoliliuosta laminaarikaapin seinille.",
             "Laminaarikaappi puhdistettu!",
-            2
+            1
         ),
 
         info(

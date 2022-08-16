@@ -33,7 +33,7 @@ public class CorrectItemsInBasketMembrane : Task {
     private void SetBasketReference(CallbackData data) {
         Basket basket = (Basket)data.DataObject;
         this.basket = basket;
-        base.UnsubscribeEvent(SetBasketReference, EventType.ItemPlacedForReference);
+        base.UnsubscribeEvent(SetBasketReference, EventType.ItemPlacedBasketForReference);
     }
 
     private void CorrectItems(CallbackData data) {
