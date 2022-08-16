@@ -32,11 +32,11 @@ public sealed class G {
     private G() {
         Audio = new AudioManager();
         Pipeline = new PipelineManager();
-        Progress = new ProgressManager(false);
+        Progress = new ProgressManager();
     }
 
     public void ResetProgressManager() {
-        Progress = new ProgressManager(false);
+        Progress = new ProgressManager();
     }
 
     public void Update(float deltaTime) {

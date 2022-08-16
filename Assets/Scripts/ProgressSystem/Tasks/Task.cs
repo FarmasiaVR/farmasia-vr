@@ -33,7 +33,7 @@ public abstract class Task {
         TaskType = type;
         requiresPreviousTaskCompletion = previous;
         description = TaskConfig.For(TaskType).Description;
-        hint = TaskConfig.For(type).Description;
+        hint = TaskConfig.For(type).Hint;
         success = TaskConfig.For(type).Success;
         Points = TaskConfig.For(type).Points;
     }

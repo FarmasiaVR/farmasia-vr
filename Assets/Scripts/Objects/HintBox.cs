@@ -13,8 +13,6 @@ public class HintBox : DragAcceptable {
     private static Vector3[] positions;
     private static bool initialized = false;
     private static float maxDistance = 2f;
-    private static float viewLimitX = 0.8f;
-    private static float viewLimitY = 0.6f;
 
     private Transform playerCamera;
     private Transform questionMark;
@@ -77,7 +75,7 @@ public class HintBox : DragAcceptable {
             return;
         }
 
-        CreateHintText(message, startPos);
+        CreateHintText(G.Instance.Progress.CurrentPackage.CurrentTask.Hint, startPos);
         grabbed = false;
         SafeDestroy();
         boxInstance = null;
@@ -155,6 +153,7 @@ public class HintBox : DragAcceptable {
 
         return GetClosestPosition(possible);
     }
+
     private static Vector3 GetClosestPosition(List<Vector3> positions) {
         Vector3 forward = Player.Camera.transform.forward;
         Vector3 camPos = Player.Camera.transform.position;
@@ -171,33 +170,5 @@ public class HintBox : DragAcceptable {
         }
 
         return pos;
-    }
-
-    // Currently unused but might be helpful
-    private static bool InViewLimit(Vector3 pos) {
-        Vector3 view = Player.Camera.WorldToViewportPoint(pos);
-
-        if (view.z <= 0) {
-            return false;
-        }
-
-        if (view.x > 1 || view.x < viewLimitX) {
-            return false;
-        }
-
-        if (view.y > 1 || view.y < viewLimitY) {
-            return false;
-        }
-
-        return true;
-    }
-
-    // Currently unused but might be helpful
-    private static bool IsVisible(Vector3 pos) {
-        Vector3 camPos = Player.Camera.transform.position;
-        float distance = Vector3.Distance(pos, camPos);
-        Vector3 direction = camPos - pos;
-        Ray ray = new Ray(pos, direction);
-        return !Physics.Raycast(ray, distance);
     }
 }

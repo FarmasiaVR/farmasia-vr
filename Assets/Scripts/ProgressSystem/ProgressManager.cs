@@ -1,11 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System;
 
 public class ProgressManager {
-
-    #region Fields
-    private bool testMode;
 
     // Actual list of every task. No task is ever removed from this list
     private List<Task> trueAllTasksThatAreNeverRemoved;
@@ -16,10 +13,8 @@ public class ProgressManager {
     public List<Package> packages;
     public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
-    #endregion
 
-    public ProgressManager(bool testMode) {
-        this.testMode = testMode;
+    public ProgressManager() {
         allTasks = new HashSet<Task>();
         packages = new List<Package>();
         trueAllTasksThatAreNeverRemoved = new List<Task>();
@@ -93,7 +88,6 @@ public class ProgressManager {
         }
     }
 
-    #region Initialization
     /// <summary>
     /// Used to generate every package. Package is defined with a list of tasks.
     /// </summary>
@@ -197,10 +191,6 @@ public class ProgressManager {
         return false;
     }
 
-    #endregion
-
-    #region Task Movement
-
     /// <summary>
     /// Finds task with given type that is started and not completed
     /// </summary>
@@ -218,15 +208,10 @@ public class ProgressManager {
         }
         return foundTask;
     }
-    #endregion
-
 
     public HashSet<Task> GetAllTasks() {
         return allTasks;
     }
-
-
-    #region Finishing Packages and Manager
 
     public void ChangePackage() {
         int index = packages.IndexOf(CurrentPackage);
@@ -266,29 +251,24 @@ public class ProgressManager {
             allTasks.Remove(task);
         }
     }
-    #endregion
 
-    #region Description Methods
     public void UpdateDescription() {
-        if (!testMode) {
-            if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
-                UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
+        if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
+            UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
 #if UNITY_NONVRCOMPUTER
 #else
-                VRVibrationManager.Vibrate();
+            VRVibrationManager.Vibrate();
 #endif
-            } else {
-                UISystem.Instance.Descript = "";
-            }
+        } else {
+            UISystem.Instance.Descript = "";
         }
     }
-    #endregion
 
-    #region Hint Methods
-    public void UpdateHint() {
-        if (!testMode && CurrentPackage != null && CurrentPackage.CurrentTask != null) {
+    public async void UpdateHint() {
+        // Temporary solution
+        await System.Threading.Tasks.Task.Delay(10);
+        if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
             HintBox.CreateHint(CurrentPackage.activeTasks[0].Hint);
         }
     }
-    #endregion
 }
