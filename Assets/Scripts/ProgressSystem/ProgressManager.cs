@@ -21,37 +21,14 @@ public class ProgressManager {
         taskMaxPoints = new Dictionary<TaskType, int>();
     }
 
-    public void ForceCloseTasks(Task calledTask) {
-
-        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
-
-        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
-            if (calledTask.TaskType == task.TaskType) {
+    public void ForceCloseActiveTasksInPackage(Task calledFrom, Package package) {
+        int activeTasks = package.activeTasks.Count;
+        for (int i = 0; i < activeTasks; i++) {
+            Task task = package.activeTasks[0];
+            if (calledFrom.TaskType == task.TaskType) {
                 continue;
             }
-            if (task.TaskType == TaskType.FinishMedicine || task.TaskType == TaskType.ScenarioOneCleanUp) {
-                continue;
-            }
-            Logger.Print(string.Format(
-                "max points: {0}, points: {1}",
-                task.TaskType.ToString(),
-                taskMaxPoints[task.TaskType].ToString()
-            ));
             task.ForceClose(taskMaxPoints[task.TaskType] > 0);
-        }
-    }
-
-    public void ForceCloseTask(TaskType type, bool killPoints = true) {
-        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
-            if (task.TaskType == type && !task.Completed) {
-                if (killPoints) {
-                    task.ForceClose(taskMaxPoints[type] > 0);
-                } else {
-                    task.ForceClose(false);
-                }
-
-                return;
-            }
         }
     }
 
@@ -189,24 +166,6 @@ public class ProgressManager {
             return true;
         }
         return false;
-    }
-
-    /// <summary>
-    /// Finds task with given type that is started and not completed
-    /// </summary>
-    /// <param name="taskType">Type of task to find.</param>
-    /// <returns></returns>
-    public Task FindTaskWithType(TaskType taskType) {
-        Task foundTask = null;
-        foreach (Task task in trueAllTasksThatAreNeverRemoved) {
-            if (task.Completed) continue;
-            if (!task.Started) continue;
-            if (task.TaskType == taskType) {
-                foundTask = task;
-                break;
-            }
-        }
-        return foundTask;
     }
 
     public HashSet<Task> GetAllTasks() {

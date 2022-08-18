@@ -8,11 +8,9 @@ public class CorrectItemsInBasketMembrane : Task {
         Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, SoycaseinePlate, SabouraudDextrosePlate
     }
     private Basket basket;
-    private Cart cart;
     private bool cartMoved;
 
     public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, false) {
-        if (GameObject.Find("Cart") != null) cart = GameObject.Find("Cart").GetComponent<Cart>();
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
@@ -24,7 +22,8 @@ public class CorrectItemsInBasketMembrane : Task {
     }
 
     private void BringCartIn(CallbackData data) {
-        if (Started && !cartMoved) {
+        Cart cart = GameObject.Find("Cart").GetComponent<Cart>();
+        if (Started && cart != null && !cartMoved) {
             cart.MoveCart();
             cartMoved = true;
         }

@@ -37,7 +37,7 @@ public class MedicinePreparationScene : SceneScript {
     private Transform correctPositionLaminarCabinet;
 
     [SerializeField]
-    private Interactable teleportDoorKnob, laminarCabinetCheckButton;
+    private Interactable teleportDoorKnob;
 
     [SerializeField]
     private SterileBag sterileBag;
@@ -290,7 +290,6 @@ public class MedicinePreparationScene : SceneScript {
         }
 
         yield return Wait;
-        hand.InteractWith(laminarCabinetCheckButton);
 
         if (autoPlay == AutoPlayStrength.CheckCabinetItems) {
             yield break;

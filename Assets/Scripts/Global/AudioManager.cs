@@ -27,7 +27,7 @@ public class AudioManager {
         try {
             AudioSource audioSrc = GetAudioSource(audioSourceObject, type);
             if (audioSrc == null) {
-                Logger.Warning("No AudioSource component was attached, cannot play audio.");
+                // Logger.Warning("No AudioSource component was attached, cannot play audio.");
                 return;
             }
 

@@ -81,7 +81,7 @@ public static class TaskConfig {
 
         info(
             TaskType.AllSyringesDone,
-            "Lääkkeen mittaaminen",
+            "Jokaisessa ruiskussa lääkettä",
             "Toista samat vaiheet muille ruiskuille.",
             "Vedä jokaiseen ruiskuun oikea määrä lääkettä (0,15ml). Älä työnnä lääkettä isosta ruiskusta.",
             "Kaikissa ruiskuissa tarpeeksi lääkettä!",
@@ -91,7 +91,7 @@ public static class TaskConfig {
         info(
             TaskType.ItemsToSterileBag,
             "Ruiskujen siirto sterilointipussiin",
-            "Sulje ruiskut ja siirrä ne sterilointipussiin.",
+            "Sulje ruiskut korkilla ja siirrä ne sterilointipussiin.",
             "Ota korkkeja korkkipussista ja sulje ruiskujen päät. Korkkien asettamisen jälkeen siirrä ruiskut sterilointipussiin.",
             "Ruiskut laitettiin sterilointipussiin!",
             2
@@ -101,7 +101,7 @@ public static class TaskConfig {
             TaskType.CleanTrashMedicine,
             "Jätteiden lajittelu",
             "Lajittele jätteet.",
-            "Laita neula terävien roskakoriin ja muut jätteet tavalliseen roskakoriin.",
+            "Laita neula terävien roskiin ja muut jätteet tavalliseen roskakoriin.",
             "Jätteet lajiteltu!",
             2
         ),

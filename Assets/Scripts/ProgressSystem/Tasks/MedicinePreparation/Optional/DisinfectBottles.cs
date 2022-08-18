@@ -27,7 +27,7 @@ public class DisinfectBottles : Task {
     /// </summary>
     /// <param name="data">.</param>
     private void DisinfectBottleCap(CallbackData data) {
-        G.Instance.Progress.ForceCloseTask(TaskType, false);
+        // G.Instance.Progress.ForceCloseTask(TaskType, false);
     }
     #endregion
 }

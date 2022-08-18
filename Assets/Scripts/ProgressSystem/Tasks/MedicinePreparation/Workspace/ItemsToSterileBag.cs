@@ -3,6 +3,7 @@ using System;
 public class ItemsToSterileBag : Task {
 
     public enum Conditions { AllSmallSyringesInsideSterileBag }
+    private const int REQUIRED_MINIMUM_AMOUNT = 150;
 
     public ItemsToSterileBag() : base(TaskType.ItemsToSterileBag, false) {
         SetCheckAll(true);
@@ -14,6 +15,8 @@ public class ItemsToSterileBag : Task {
     }
 
     private void OnSterileBagClose(CallbackData data) {
+        // All tasks that haven't been completed after closing sterile bag will be closed
+        G.Instance.Progress.ForceCloseActiveTasksInPackage(this, G.Instance.Progress.CurrentPackage);
         SterileBag sterileBag = (SterileBag)data.DataObject;
         CheckMistakes(sterileBag);
         EnableCondition(Conditions.AllSmallSyringesInsideSterileBag);
@@ -22,13 +25,20 @@ public class ItemsToSterileBag : Task {
 
     private void CheckMistakes(SterileBag sterileBag) {
         int missingSyringeCaps = 0;
-        foreach (SmallSyringe syringe in sterileBag.Syringes) {
+        int incorrectAmountOfMedicine = 0;
+        foreach (SmallSyringe syringe in sterileBag.syringes) {
             if (!syringe.HasSyringeCap) {
                 missingSyringeCaps++;
+            }
+            if (syringe.Container.Amount != REQUIRED_MINIMUM_AMOUNT) {
+                incorrectAmountOfMedicine++;
             }
         }
         if (missingSyringeCaps != 0) {
             CreateTaskMistake("Yhdeltä tai useammalta ruiskulta puuttui korkki.", missingSyringeCaps);
+        }
+        if (incorrectAmountOfMedicine != 0) {
+            CreateTaskMistake("Yhdessä tai useammassa ruiskussa ei ollut oikea määrä lääkettä.", incorrectAmountOfMedicine);
         }
     }
 }
