@@ -53,7 +53,7 @@ public class CleanupObject : MonoBehaviour {
         if (startedCleanup && !finished) {
             if (RoomGeneralItemCount() <= 1) {
                 finished = true;
-                G.Instance.Progress.ForceCloseTask(TaskType.ScenarioOneCleanUp, false);
+                // G.Instance.Progress.ForceCloseTask(TaskType.ScenarioOneCleanUp, false);
             }
         }
     }

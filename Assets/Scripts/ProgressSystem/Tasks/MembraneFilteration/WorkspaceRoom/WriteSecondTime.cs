@@ -10,7 +10,7 @@ public class WriteSecondTime : Task {
     public enum Conditions {
         TimesWritten
     }
-    private int numberOfObjectsThatShouldHaveText = 4;
+    // private int numberOfObjectsThatShouldHaveText = 4;
     private List<GameObject> writtenObjects;
     private bool sabourad = false;
     private bool soycaseine = false;

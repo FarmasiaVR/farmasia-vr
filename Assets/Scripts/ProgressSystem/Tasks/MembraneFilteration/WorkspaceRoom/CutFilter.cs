@@ -8,7 +8,7 @@ public class CutFilter: Task {
         FilterIsCut
     }
     private CabinetBase laminarCabinet;
-    private bool connected;
+    // private bool connected;
     private Pump pump;
 
 
@@ -37,7 +37,7 @@ public class CutFilter: Task {
     }
     private void FilterConnected(CallbackData data) {
         pump = data.DataObject as Pump;
-        connected = true;
+        // connected = true;
     }
     private void SetCabinetReference(CallbackData data) {
         CabinetBase cabinet = (CabinetBase)data.DataObject;
