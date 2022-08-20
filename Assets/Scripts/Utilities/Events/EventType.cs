@@ -16,7 +16,6 @@
     RoomDoor,
     ItemDroppedInTrash,
     ItemDroppedOnFloor,
-    ItemLiftedOffFloor,
     GrabObject,
     ReleaseObject,
     InteractWithObject,

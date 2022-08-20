@@ -13,4 +13,10 @@ public class SyringeCapBag : GeneralItem {
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         gameObject.GetComponent<BoxCollider>().enabled = false;
     }
+
+    public void EnableSyringeCapBag() {
+        gameObject.GetComponent<SyringeCapBag>().enabled = true;
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
 }

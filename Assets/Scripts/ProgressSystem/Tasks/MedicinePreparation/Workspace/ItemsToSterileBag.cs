@@ -15,7 +15,7 @@ public class ItemsToSterileBag : Task {
     }
 
     private void OnSterileBagClose(CallbackData data) {
-        // All tasks that haven't been completed after closing sterile bag will be closed
+        // All tasks that haven't been completed before closing the sterile bag will be failed
         G.Instance.Progress.ForceCloseActiveTasksInPackage(this, G.Instance.Progress.CurrentPackage);
         SterileBag sterileBag = (SterileBag)data.DataObject;
         CheckMistakes(sterileBag);

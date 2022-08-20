@@ -59,7 +59,6 @@ public class GeneralItem : Grabbable {
         base.OnGrabStart(hand);
 
         if (IsOnFloor) {
-            Events.FireEvent(EventType.ItemLiftedOffFloor, CallbackData.Object(this));
             State.Off(InteractState.OnFloor);
         }
     }

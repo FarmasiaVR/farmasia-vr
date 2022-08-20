@@ -158,7 +158,7 @@ public class WritingOptions : MonoBehaviour {
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
             if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime) {
-                if (!inTutorial && G.Instance.Progress.IsTaskCompleted(TaskType.WriteTextsToItems)) {
+                if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems)) {
                     option.WritingType = WritingType.SecondTime;
                 }
                 Logger.Print("Writing type: " + option.WritingType);

@@ -82,9 +82,6 @@ public class MedicinePreparationScene : SceneScript {
     private void DebugTasks() {
 
         Logger.Print("All tasks");
-        foreach (var asd in G.Instance.Progress.GetAllTasks()) {
-            Logger.Print(asd.ToString());
-        }
         Logger.Print("Active:");
         foreach (var asd in G.Instance.Progress.CurrentPackage.activeTasks) {
             Logger.Print(asd.ToString());
@@ -398,6 +395,8 @@ public class MedicinePreparationScene : SceneScript {
         if (autoPlay == AutoPlayStrength.SyringesToSterileBag) {
             yield break;
         }
+
+        yield return new WaitForSeconds(1.5f);
 
         sterileBag.CloseSterileBagFinal();
 

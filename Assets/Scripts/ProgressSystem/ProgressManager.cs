@@ -4,70 +4,34 @@ using System;
 
 public class ProgressManager {
 
-    // Actual list of every task. No task is ever removed from this list
-    private List<Task> trueAllTasksThatAreNeverRemoved;
-    private Dictionary<TaskType, int> taskMaxPoints;
+    private List<Package> scenarioPackages;
+    private List<Task> scenarioTasks;
 
-    // Oot actually all tasks
-    private HashSet<Task> allTasks;
-    public List<Package> packages;
-    public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
+    public Package CurrentPackage { get; private set; }
 
     public ProgressManager() {
-        allTasks = new HashSet<Task>();
-        packages = new List<Package>();
-        trueAllTasksThatAreNeverRemoved = new List<Task>();
-        taskMaxPoints = new Dictionary<TaskType, int>();
-    }
-
-    public void ForceCloseActiveTasksInPackage(Task calledFrom, Package package) {
-        int activeTasks = package.activeTasks.Count;
-        for (int i = 0; i < activeTasks; i++) {
-            Task task = package.activeTasks[0];
-            if (calledFrom.TaskType == task.TaskType) {
-                continue;
-            }
-            task.ForceClose(taskMaxPoints[task.TaskType] > 0);
-        }
+        scenarioPackages = new List<Package>();
+        scenarioTasks = new List<Task>();
     }
 
     public void SetSceneType(SceneTypes scene) {
-        switch (scene) {
-            case SceneTypes.MainMenu:
-                return;
-            case SceneTypes.Tutorial:
-                return;
-            case SceneTypes.MedicinePreparation:
-                GenerateScenarioOne();
-                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
-                break;
-            case SceneTypes.MembraneFilteration:
-                GenerateScenarioTwo();
-                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
-                break;
-            case SceneTypes.ChangingRoom:
-                GenerateScenarioThree();
-                Calculator = new ScoreCalculator(trueAllTasksThatAreNeverRemoved);
-                break;
+        if (scene == SceneTypes.MedicinePreparation) {
+            GenerateScenarioOne();
+        } else if (scene == SceneTypes.MembraneFilteration) {
+            GenerateScenarioTwo();
+        } else if (scene == SceneTypes.ChangingRoom) {
+            GenerateScenarioThree();
+        } else {
+            return;
         }
-
-        CurrentPackage = packages.First();
+        Calculator = new ScoreCalculator(scenarioTasks);
+        CurrentPackage = scenarioPackages.First();
         CurrentPackage.StartTask();
         UpdateDescription();
         UpdateHint();
     }
 
-    public void SetProgress(byte[] state) {
-        ScoreCalculator c = DataSerializer.Deserializer<ScoreCalculator>(state);
-        if (c != null) {
-            Calculator = c;
-        }
-    }
-
-    /// <summary>
-    /// Used to generate every package. Package is defined with a list of tasks.
-    /// </summary>
     private void GenerateScenarioOne() {
         TaskType[] selectTasks = {
             TaskType.CorrectItemsInThroughputMedicine
@@ -87,10 +51,11 @@ public class ProgressManager {
             TaskType.CleanLaminarCabinetMedicine,
             TaskType.FinishMedicine
         };
-
-        if (MainMenuFunctions.startFromBeginning) packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
-        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
-        packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+        if (MainMenuFunctions.startFromBeginning) {
+            scenarioPackages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        }
+        scenarioPackages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
 
     private void GenerateScenarioTwo() {
@@ -122,10 +87,11 @@ public class ProgressManager {
             TaskType.CleanLaminarCabinetMembrane,
             TaskType.FinishMembrane
         };
-
-        if (MainMenuFunctions.startFromBeginning) packages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
-        packages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
-        packages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+        if (MainMenuFunctions.startFromBeginning) {
+            scenarioPackages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        }
+        scenarioPackages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
     }
 
     private void GenerateScenarioThree() {
@@ -143,10 +109,9 @@ public class ProgressManager {
         TaskType[] finishUpTasks = {
             TaskType.FinishChangingRoom
         };
-
-        packages.Add(CreatePackage(PackageName.ChangingRoom, new List<TaskType>(changingRoomTasks)));
-        packages.Add(CreatePackage(PackageName.PreperationRoom, new List<TaskType>(preperationRoomTasks)));
-        packages.Add(CreatePackage(PackageName.FinishUp, new List<TaskType>(finishUpTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.ChangingRoom, new List<TaskType>(changingRoomTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.PreperationRoom, new List<TaskType>(preperationRoomTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.FinishUp, new List<TaskType>(finishUpTasks)));
     }
 
     private Package CreatePackage(PackageName name, List<TaskType> tasks) {
@@ -154,72 +119,15 @@ public class ProgressManager {
         foreach (TaskType type in tasks) {
             Task task = TaskFactory.GetTask(type);
             package.AddTask(task);
-
-            trueAllTasksThatAreNeverRemoved.Add(task);
-            taskMaxPoints.Add(task.TaskType, task.Points);
+            scenarioTasks.Add(task);
         }
         return package;
-    }
-
-    public bool IsTaskCompleted(TaskType task) {
-        if (CurrentPackage.doneTypes.Contains(task)) {
-            return true;
-        }
-        return false;
-    }
-
-    public HashSet<Task> GetAllTasks() {
-        return allTasks;
-    }
-
-    public void ChangePackage() {
-        int index = packages.IndexOf(CurrentPackage);
-        if ((index + 1) >= packages.Count) {
-            FinishProgress();
-        } else {
-            CurrentPackage = packages[index + 1];
-            CurrentPackage.StartTask();
-            UpdateHint();
-        }
-    }
-
-    public void FinishProgress() {
-        foreach (Task task in allTasks) {
-            if (task.TaskType == TaskType.FinishMedicine) {
-                RemoveTask(task);
-                MedicinePreparationScene.SavedScoreState = null;
-                break;
-            }
-            if (task.TaskType == TaskType.FinishMembrane) {
-                RemoveTask(task);
-                MembraneFilterationScene.SavedScoreState = null;
-                break;
-            }
-        }
-        (int score, string scoreString) = Calculator.GetScoreString();
-        EndSummary.EnableEndSummary(scoreString);
-        Player.SavePlayerData(score, scoreString);
-    }
-
-    /// <summary>
-    /// Called when task is finished and set to remove itself.
-    /// </summary>
-    /// <param name="task">Reference to the task that will be removed.</param>
-    public void RemoveTask(Task task) {
-        if (allTasks.Contains(task)) {
-            allTasks.Remove(task);
-        }
     }
 
     public void UpdateDescription() {
         if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
             UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
-#if UNITY_NONVRCOMPUTER
-#else
             VRVibrationManager.Vibrate();
-#endif
-        } else {
-            UISystem.Instance.Descript = "";
         }
     }
 
@@ -228,6 +136,44 @@ public class ProgressManager {
         await System.Threading.Tasks.Task.Delay(10);
         if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
             HintBox.CreateHint(CurrentPackage.activeTasks[0].Hint);
+        }
+    }
+
+    public void ChangePackage() {
+        int currentPackageIndex = scenarioPackages.IndexOf(CurrentPackage);
+        int nextPackageIndex = currentPackageIndex + 1;
+        if (nextPackageIndex >= scenarioPackages.Count) {
+            FinishScenario();
+        } else {
+            CurrentPackage = scenarioPackages[nextPackageIndex];
+            CurrentPackage.StartTask();
+            UpdateDescription();
+            UpdateHint();
+        }
+    }
+
+    public void FinishScenario() {
+        (int score, string scoreString) = Calculator.GetScoreString();
+        EndSummary.EnableEndSummary(scoreString);
+        Player.SavePlayerData(score, scoreString);
+    }
+
+    public void ForceCloseActiveTasksInPackage(Task calledFrom, Package package) {
+        int activeTasks = package.activeTasks.Count;
+        for (int i = 0; i < activeTasks; i++) {
+            Task task = package.activeTasks[0];
+            if (task.TaskType == calledFrom.TaskType) {
+                continue;
+            }
+            bool removePoints = task.Points > 0;
+            task.ForceClose(removePoints);
+        }
+    }
+
+    public void SetProgress(byte[] state) {
+        ScoreCalculator calculator = DataSerializer.Deserializer<ScoreCalculator>(state);
+        if (calculator != null) {
+            Calculator = calculator;
         }
     }
 }
