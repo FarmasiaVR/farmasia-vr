@@ -26,6 +26,9 @@ public class ProtectiveClothing : Grabbable {
         // Highlights the equipped item in every aseptic clothing poster found throughout the scene
         foreach (GameObject poster in posters) poster.GetComponent<AsepticClothingPoster>().HighlightText(type);
 
+        // Play a sound to indicate a piece of clothing was succesfully equipped
+        G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+
         // Setting insideCollider to false to make sure we are not trying to access destroyed object
         insideCollider = false;
         Destroy(gameObject);

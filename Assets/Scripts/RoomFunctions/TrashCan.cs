@@ -26,8 +26,14 @@ public class TrashCan : MonoBehaviour {
                     return;
                 }
                 // if (item.ObjectType == ObjectType.SterileBag)
-                if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType)) Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType)) Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType)) {
+                    Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                }
+                if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType)) {
+                    Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                }
                 if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
                 if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin normaaliin roskikseen", 1, true);
             }
