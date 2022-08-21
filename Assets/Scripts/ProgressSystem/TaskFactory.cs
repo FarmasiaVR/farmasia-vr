@@ -19,7 +19,7 @@ public static class TaskFactory {
         // Medicine preparation
         new CorrectItemsInThroughputMedicine(),
         new CorrectItemsInLaminarCabinetMedicine(),
-        new DisinfectBottles(),
+        new DisinfectBottleCap(),
         new MedicineToSyringe(),
         new LuerlockAttach(),
         new SyringeAttach(),

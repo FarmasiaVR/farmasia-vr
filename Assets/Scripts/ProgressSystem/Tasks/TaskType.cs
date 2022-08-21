@@ -4,14 +4,16 @@
 public enum TaskType {
     CorrectItemsInThroughputMedicine,
     CorrectItemsInLaminarCabinetMedicine,
-    DisinfectBottles,
+    DisinfectBottleCap,
     MedicineToSyringe,
     LuerlockAttach,
     SyringeAttach,
     CorrectAmountOfMedicineTransferred,
     AllSyringesDone,
     ItemsToSterileBag,
-    ScenarioOneCleanUp,
+    CleanTrashMedicine,
+    CorrectItemsInBasketMedicine,
+    CleanLaminarCabinetMedicine,
     FinishMedicine,
     CorrectItemsInThroughputMembrane,
     SelectToolsMembrane,
@@ -47,8 +49,5 @@ public enum TaskType {
     CloseSettlePlates,
     CloseFingertipPlates,
     CloseBottles,
-    CleanTrashMedicine,
-    CorrectItemsInBasketMedicine,
-    CleanLaminarCabinetMedicine,
     EmptyLaminarCabinetMembrane
 }

@@ -35,11 +35,11 @@ public static class TaskConfig {
         ),
 
         info(
-            TaskType.DisinfectBottles,
-            "Pullon desinfiointi",
-            "",
-            "",
-            "",
+            TaskType.DisinfectBottleCap,
+            "Lääkepullon desinfiointi",
+            "Desinfioi lääkepullon korkki steriilillä pyyhkeellä.",
+            "Desinfioi lääkepullon korkki steriilillä pyyhkeellä.",
+            "Lääkepullo desinfioitu!",
             1
         ),
 
@@ -47,7 +47,7 @@ public static class TaskConfig {
             TaskType.MedicineToSyringe,
             "Lääkkeen ottaminen pullosta",
             "Ota ruiskulla ja neulalla lääkettä lääkeainepullosta. Irroita neula kun olet valmis.",
-            "Valitse 20ml ruisku ja kiinnitä siihen neula. Ota lääkettä ruiskuun 9ml verran.",
+            "Valitse 20ml ruisku ja kiinnitä siihen neula. Ota lääkettä ruiskuun 0,9ml verran.",
             "Lääkkeen ottaminen onnistui!",
             2
         ),

@@ -38,6 +38,7 @@ public class ProgressManager {
         };
         TaskType[] workSpaceTasks = {
             TaskType.CorrectItemsInLaminarCabinetMedicine,
+            TaskType.DisinfectBottleCap,
             TaskType.MedicineToSyringe,
             TaskType.LuerlockAttach,
             TaskType.SyringeAttach,
