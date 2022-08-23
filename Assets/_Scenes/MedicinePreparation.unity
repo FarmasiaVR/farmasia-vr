@@ -2430,6 +2430,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
@@ -2834,6 +2839,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: syringe_cap_bag
       objectReference: {fileID: 0}
+    - target: {fileID: 7985414462750543633, guid: 8f0ad3b2bc6e11a4189eff8046c8c0fd,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8601229706833801085, guid: 8f0ad3b2bc6e11a4189eff8046c8c0fd,
         type: 3}
       propertyPath: m_RootOrder
@@ -2968,6 +2978,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
@@ -4579,6 +4594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: syringe_20ml
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849325299292218780, guid: aeb8f50a28114194aa83ca853e262ff0,
+        type: 3}
+      propertyPath: isClean
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb8f50a28114194aa83ca853e262ff0, type: 3}
@@ -6363,12 +6383,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1569703899}
+      objectReference: {fileID: 1315237199}
     - target: {fileID: 7825122742825631936, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1298211383}
+      objectReference: {fileID: 1293039488}
     - target: {fileID: 8558149182029478652, guid: 94c40fc46ee756747ae44eaa1583de96,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6694,6 +6714,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: luerlock_to_luerlock
       objectReference: {fileID: 0}
+    - target: {fileID: 7287717160888547206, guid: b5759bc6de0e4ac4d93ea670706f2a29,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5759bc6de0e4ac4d93ea670706f2a29, type: 3}
 --- !u!4 &1171409075 stripped
@@ -6924,6 +6949,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3658629201501056579, guid: 399da29fb99a86643bacbb4375c18ace,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3913202366267152637, guid: 399da29fb99a86643bacbb4375c18ace,
         type: 3}
       propertyPath: m_Name
@@ -6982,7 +7012,7 @@ PrefabInstance:
     - target: {fileID: 6621064418241702572, guid: 22069d79fdb0a6540915e10b3a2c9092,
         type: 3}
       propertyPath: m_text
-      value: "Ty\xF6skentelytila"
+      value: Puhdastila
       objectReference: {fileID: 0}
     - target: {fileID: 6621064418976894684, guid: 22069d79fdb0a6540915e10b3a2c9092,
         type: 3}
@@ -7650,7 +7680,7 @@ PrefabInstance:
     - target: {fileID: 2984438247856575067, guid: df7c8bf474245b346967a680da850c30,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4233144453198495354, guid: df7c8bf474245b346967a680da850c30,
         type: 3}
@@ -8275,7 +8305,7 @@ Transform:
   m_Father: {fileID: 1450693588}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!43 &1298211383
+--- !u!43 &1293039488
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8568,6 +8598,40 @@ Transform:
   m_Father: {fileID: 1450693588}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1315237199
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1323911148 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: b57c361e5e304d643b6539f5e236d098,
@@ -10025,6 +10089,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
@@ -10305,40 +10374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f98cdfe8886a694ba629f946954d305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1569703899
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1571231961
 GameObject:
   m_ObjectHideFlags: 0
@@ -11810,6 +11845,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
@@ -11900,6 +11940,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
@@ -13071,6 +13116,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673118865}
     m_Modifications:
+    - target: {fileID: 2871099113846593714, guid: 56f23fd0a6032674286d28c2fdc44bbc,
+        type: 3}
+      propertyPath: isClean
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6106976968983664472, guid: 56f23fd0a6032674286d28c2fdc44bbc,
         type: 3}
       propertyPath: m_Name
