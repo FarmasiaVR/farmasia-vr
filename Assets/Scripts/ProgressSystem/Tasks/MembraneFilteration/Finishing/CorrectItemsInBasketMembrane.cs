@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CorrectItemsInBasketMembrane : Task {
 
-    public enum Conditions {
-        Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, SoycaseinePlate, SabouraudDextrosePlate
-    }
+    public enum Conditions { Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, AgarPlate }
     private Basket basket;
     private bool cartMoved;
 
@@ -54,8 +52,7 @@ public class CorrectItemsInBasketMembrane : Task {
         int tioglycolateBottle = 0;
         int peptoneWaterBottle = 0;
         int soycaseineBottle = 0;
-        int soycaseinePlate = 0;
-        int sabouraudDextrosePlate = 0;
+        int agarPlate = 0;
 
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
@@ -77,26 +74,22 @@ public class CorrectItemsInBasketMembrane : Task {
                         tioglycolateBottle++;
                         EnableCondition(Conditions.TioglycolateBottle);
                     }
-                } else if (g is AgarPlateLid lid) {
-                    string variant = lid.Variant;
-                    if (variant == "Soija-kaseiini") {
-                        soycaseinePlate++;
-                        if (soycaseinePlate == 3) {
-                            EnableCondition(Conditions.SoycaseinePlate);
-                        }
-                    } else if (variant == "Sabourad-dekstrosi") {
-                        sabouraudDextrosePlate++;
-                        EnableCondition(Conditions.SabouraudDextrosePlate);
-                    }
+                } else if (g is AgarPlateLid) {
+                    agarPlate++;
+                } else if (g is AgarPlateBottom) {
+                    agarPlate++;
                 } else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
                     continue;
                 } else {
                     CreateTaskMistake("Väärä esine korissa", 1);
                 }
+                if (agarPlate >= 4) {
+                    EnableCondition(Conditions.AgarPlate);
+                }
             }
         }
 
-        if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouraudDextrosePlate == 1) {
+        if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && agarPlate >= 4) {
             Logger.Print("All done");
         }
     }
