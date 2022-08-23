@@ -18,6 +18,7 @@ public class HintBox : DragAcceptable {
     private Transform questionMark;
     private Vector3 targetSize;
 
+    private bool hintBoxOpened;
     private float rotateSpeed = 20;
     private float spawnTime = 1;
     private string message;
@@ -69,7 +70,10 @@ public class HintBox : DragAcceptable {
     }
 
     protected override void Activate() {
-        Task.CreateGeneralMistake("Vinkkilaatikko avattiin", 1, false);
+        if (!hintBoxOpened) {
+            Task.CreateGeneralMistake("Vinkkilaatikko avattiin", 2, false);
+            hintBoxOpened = true;
+        }
 
         if (ActivateCount > 0) {
             return;
