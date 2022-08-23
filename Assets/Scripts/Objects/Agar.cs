@@ -22,21 +22,19 @@ public class Agar : Interactable {
         string handIs = hand.HandType.ToString();
         TimeSpan time = DateTime.Now - lastTouched;
         Logger.Print("Fingerprints given for " + time + " seconds");
-        if (time.Seconds > 0.0f) {
-            base.Interact(hand);
-            if (handIs.Equals("LeftHand")) {
-                leftHandTouches++;
-            } else {
-                rightHandTouches++;
-            }
-            if (time.Seconds < 4.0f || time.Seconds > 6.0f) {
-                Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
-            }
-            if (leftHandTouches >= 2) {
-                Events.FireEvent(EventType.FingerprintsGivenL);
-            } else if (rightHandTouches >= 2) {
-                Events.FireEvent(EventType.FingerprintsGivenR);
-            }
+        base.Interact(hand);
+        if (handIs.Equals("LeftHand")) {
+            leftHandTouches++;
+        } else {
+            rightHandTouches++;
+        }
+        if (time.Seconds < 4.0f || time.Seconds > 6.0f) {
+            Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+        }
+        if (leftHandTouches >= 2) {
+            Events.FireEvent(EventType.FingerprintsGivenL);
+        } else if (rightHandTouches >= 2) {
+            Events.FireEvent(EventType.FingerprintsGivenR);
         }
     }
 }
