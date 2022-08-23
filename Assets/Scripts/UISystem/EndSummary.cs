@@ -1,29 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class EndSummary : MonoBehaviour {
 
-    #region fields
     private const string TAG = "EndSummary";
-
     private Camera cam;
     private DragAcceptable close;
+    private SceneLoader levelChanger;
+
     public string gamePartName;
-    
-    #endregion
 
     private void Start() {
         cam = transform.GetComponentInChildren<Camera>();
         cam.enabled = false;
         SetChildStatuses(false);
-
         close = transform.Find("CloseButton").GetComponent<DragAcceptable>();
         close.OnAccept = CloseGame;
-
-        
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
     private void SetChildStatuses(bool status) {
@@ -56,7 +49,6 @@ public class EndSummary : MonoBehaviour {
     }
 
     private async void CloseGame() {
-
         close.SafeDestroy();
 
         await System.Threading.Tasks.Task.Delay(2000);
@@ -64,15 +56,14 @@ public class EndSummary : MonoBehaviour {
         try {
             SnapScreenshot();
         } catch (System.Exception) {
+
         }
 
-        Application.Quit();
+        levelChanger.SwapScene(SceneTypes.MainMenu);
+        levelChanger.FadeOutScene();
     }
 
     private void SnapScreenshot() {
-
-        
-
         HandMeshToggler[] handMeshes = GameObject.FindObjectsOfType<HandMeshToggler>();
         bool[] statuses = new bool[2] { handMeshes[0].Status, handMeshes[1].Status };
 
@@ -111,9 +102,7 @@ public class EndSummary : MonoBehaviour {
 
     // was static?
     private string GetPath() {
-
         string filename = "Pisteet - " + gamePartName + " - " + Player.Info.Name + ".jpg";
-
 
         if (Application.isEditor) {
             return Application.dataPath + "/" + filename;
