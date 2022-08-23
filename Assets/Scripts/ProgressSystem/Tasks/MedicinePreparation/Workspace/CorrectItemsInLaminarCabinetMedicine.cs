@@ -26,7 +26,6 @@ public class CorrectItemsInLaminarCabinetMedicine : Task {
 
     private void CheckItems(CallbackData data) {
         if (cabinet == null) {
-            Logger.Error("Cabinet was null in CorrectItemsInLaminarCabinetMedicine");
             return;
         }
         List<Interactable> containedObjects = cabinet.GetContainedItems();

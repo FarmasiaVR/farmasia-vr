@@ -49,7 +49,6 @@ public abstract class Task {
             G.Instance.Progress.Calculator.SetScoreToZero(TaskType);
             CreateTaskMistake(TaskType, "Tehtävää ei suoritettu", 2);
         }
-        // Next group: Re do entire progress manager or your pain will be immeasureable
         CloseTask();
         FinishTask();
         isFinished = true;
