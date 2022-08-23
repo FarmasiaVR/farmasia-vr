@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class InfoBox : MonoBehaviour {
 
-    private const string PREPARATION_ROOM_MESSAGE = "Puhdastilaan vietävät ruiskut, neulat ja muut tarvikkeet ovat steriilejä ja pakattu suojapusseihin. VR-pelissä suojapussi puuttuu.";
-    private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella, ja kaappi pyyhitään steriilillä liinalla. Voit olettaa ne jo tehdyksi.";
     private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
     private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia. VR-pelissä riittää alle 10 sekuntia.";
     private const string CLEANING_LAMINAR_CABINET_MESSAGE = "Ruiskutuksen jälkeen seinät kuivattaisiin paperilla. Tätä vaihetta pelissä ei ole.";
@@ -42,34 +40,10 @@ public class InfoBox : MonoBehaviour {
     }
 
     public void Subscribe() {
-        Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
-        Events.SubscribeToEvent(GrabbedRoomDoor, EventType.RoomDoor);
         Events.SubscribeToEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
         Events.SubscribeToEvent(HandsTouched, EventType.WashingHands);
         Events.SubscribeToEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
         Events.SubscribeToEvent(PickupObject, EventType.PickupObject);
-    }
-
-    private void ObjectPickedUp(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
-            ShowInfoBox(PREPARATION_ROOM_MESSAGE);
-            Events.UnsubscribeFromEvent(ObjectPickedUp, EventType.PickupObject);
-        }
-    }
-
-    private async void GrabbedRoomDoor(CallbackData data) {
-        await System.Threading.Tasks.Task.Delay(10);
-
-        if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
-            ShowInfoBox(WORKSPACE_ROOM_MESSAGE);
-            Events.UnsubscribeFromEvent(GrabbedRoomDoor, EventType.RoomDoor);
-        }
     }
 
     private async void TrackProgress(CallbackData data) {
