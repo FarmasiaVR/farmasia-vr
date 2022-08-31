@@ -317,15 +317,6 @@ public static class TaskConfig {
         ),
 
         info(
-            TaskType.EmptyLaminarCabinetMembrane,
-            "Laminaarikaapin tyhjennys",
-            "Tyhjennä laminaarikaappi",
-            "Siirrä ylimääräiset esineet sivupöydälle",
-            "Laminaarikaappi tyhjennetty!",
-            2
-        ),
-
-        info(
             TaskType.CleanLaminarCabinetMembrane,
             "Laminaarikaapin putsaus",
             "Putsaa laminaarikaapin seinät",

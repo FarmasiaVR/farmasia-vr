@@ -52,7 +52,6 @@ public static class TaskFactory {
         new CloseBottles(),
         new CleanTrashMembrane(),
         new CorrectItemsInBasketMembrane(),
-        new EmptyLaminarCabinetMembrane(),
         new CleanLaminarCabinetMembrane(),
         new FinishMembrane(),
 

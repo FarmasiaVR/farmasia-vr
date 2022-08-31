@@ -84,7 +84,6 @@ public class ProgressManager {
             TaskType.CloseBottles,
             TaskType.CleanTrashMembrane,
             TaskType.CorrectItemsInBasketMembrane,
-            // TaskType.EmptyLaminarCabinetMembrane,
             TaskType.CleanLaminarCabinetMembrane,
             TaskType.FinishMembrane
         };
