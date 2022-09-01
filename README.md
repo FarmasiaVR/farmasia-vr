@@ -9,11 +9,9 @@ This fork implements part 3 of the original game
 
 ## Description
 
-Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of two parts – preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
+Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of three parts – the use of protective clothing & washing hands, preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
 
-This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. The project was later continued in spring 2022, during which a new team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems.
-
-The project is currently in development by the summer 2022 team.
+This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems.
 
 Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. All rights are reserved to the University of Helsinki.
 
@@ -27,15 +25,11 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2019.4.35f1` .
 
-- Docs
-Written by the spring 2022 team
+- Documentation
   - [Progress system](/Docs/progress_system.md)
  
 - Development documents
   - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1ja0GFDzCd-8x3NgSYdBKIdUyQT5DWfr7M5xOzrtkwyA)
-
-<img src=/Docs/16439036321364375859242318815669.jpg width="480" />
-Seinä.jpg
 
 ## Cloning
 
