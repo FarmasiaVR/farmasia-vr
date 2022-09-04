@@ -158,6 +158,27 @@ Hands are controlled with WASD, Q and E. Mouse left click is used for grabbing a
             <br />
             <sub><b>SPitkanen</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/tjvalkonen">
+            <img src="https://avatars.githubusercontent.com/u/33684997?v=4" width="100;" alt="tjvalkonen"/>
+            <br />
+            <sub><b>tjvalkonen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jarkmaen">
+            <img src="https://avatars.githubusercontent.com/u/73038801?v=4" width="100;" alt="jarkmaen"/>
+            <br />
+            <sub><b>jarkmaen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Siihi">
+            <img src="https://avatars.githubusercontent.com/u/70064875?v=4" width="100;" alt="Siihi"/>
+            <br />
+            <sub><b>Siihi</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: contributors -end -->
