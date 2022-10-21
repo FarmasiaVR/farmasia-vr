@@ -31,21 +31,30 @@ public class EndSummary : MonoBehaviour {
         TextMeshPro text = transform.Find("Text").GetComponent<TextMeshPro>();
 
         if (text == null) {
-            Logger.Error("Text mesh pro was null in end summary");
+            Logger.Error("Textmeshpro Text was null in end summary");
             return;
         }
 
         text.text = summary;
 
         // text for the screenshot
-        text = GameObject.Find("TextOnBoard").GetComponent<TextMeshPro>();
+        TextMeshPro textOnBoard = GameObject.Find("TextOnBoard").GetComponent<TextMeshPro>();
 
-        if (text == null) {
-            Logger.Error("Text mesh pro was null in end summary");
+        if (textOnBoard == null) {
+            Logger.Error("TextMeshPro TextOnBoard was null in end summary");
             return;
         }
 
-        text.text = summary;
+        textOnBoard.text = summary;
+
+        TextMeshPro playetNameText = GameObject.Find("PlayerNameText").GetComponent<TextMeshPro>();
+
+        if (playetNameText == null) {
+            Logger.Error("TextMeshPro PlayerNameText was null in end summary");
+            return;
+        }
+
+        playetNameText.text = Player.Info.Name;
     }
 
     private async void CloseGame() {
@@ -102,12 +111,12 @@ public class EndSummary : MonoBehaviour {
 
     // was static?
     private string GetPath() {
-        string filename = "Pisteet - " + gamePartName + " - " + Player.Info.Name + ".jpg";
+        string filename = "Todistus - " + gamePartName + " - " + Player.Info.Name + ".jpg";
 
         if (Application.isEditor) {
-            return Application.dataPath + "/" + filename;
+            return Application.dataPath + "/PlayerCertificates/" + filename;
         } else {
-            return Application.dataPath + "/../../" + filename;
+            return Application.dataPath + "/../../PlayerCertificates/" + filename;
         }
     }
 

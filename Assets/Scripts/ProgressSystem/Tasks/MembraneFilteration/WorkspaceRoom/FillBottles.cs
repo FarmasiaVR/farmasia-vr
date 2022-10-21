@@ -11,7 +11,7 @@ class FillBottles: Task {
     private int soycaseineBottlesDone = 0;
     private int tioglygolateBottlesDone = 0;
 
-    private readonly int REQUIRED_AMOUNT = 30000;
+    private readonly int REQUIRED_AMOUNT = 30000; // Should be by the instructions 80000?
 
     private HashSet<Bottle> bottles = new HashSet<Bottle>();
 
