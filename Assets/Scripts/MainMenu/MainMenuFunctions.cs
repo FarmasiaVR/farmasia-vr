@@ -10,7 +10,7 @@ public class MainMenuFunctions : MonoBehaviour {
     public static bool startFromBeginning = true;
 
     // using enum for selecting from multiple game proggrespoints.
-    public enum SelectedAutoplay { Beginning, Workspace, CloseSettlePlates, CloseFingertipPlates };
+    public enum SelectedAutoplay { Beginning, Workspace, CloseSettlePlates, CloseFingertipPlates, FilterHalvesToBottles };
     static public SelectedAutoplay selectedAutoplay = SelectedAutoplay.Beginning;
 
     private void Start() {
@@ -48,6 +48,9 @@ public class MainMenuFunctions : MonoBehaviour {
         } else if (startingPoint.Equals("CloseFingertipPlates")) {
             startFromBeginning = false;
             selectedAutoplay = SelectedAutoplay.CloseFingertipPlates;
+        } else if (startingPoint.Equals("FilterHalvesToBottles")) {
+            startFromBeginning = false;
+            selectedAutoplay = SelectedAutoplay.FilterHalvesToBottles;
         }
 
         LoadScene(sceneType);

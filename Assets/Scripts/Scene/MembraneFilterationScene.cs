@@ -60,15 +60,21 @@ class MembraneFilterationScene : SceneScript {
             autoPlayStrength = AutoPlayStrength.ItemsToPassThroughCabinet;
         } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.CloseSettlePlates) {
             autoPlayStrength = AutoPlayStrength.CloseSettlePlates;
+            // GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
         } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.CloseFingertipPlates) {
             autoPlayStrength = AutoPlayStrength.CloseFingertipPlates;
+            // GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
+        } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.FilterHalvesToBottles) {
+            autoPlayStrength = AutoPlayStrength.FilterHalvesToBottles;
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
         }
+
 
         PlayFirstRoom(autoPlayStrength);
 
     }
 
-    /*
+    
     public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
     if (autoPlayStrength == 0) return;
     CoroutineUtils.StartThrowingCoroutine(this, PlayCoroutine(autoPlayStrength),
@@ -79,8 +85,8 @@ class MembraneFilterationScene : SceneScript {
             }
         );
     }
-    
-    */
+
+    /*
     public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
 
         if (IsAutoPlaying || played || strength == 0) {
@@ -91,7 +97,7 @@ class MembraneFilterationScene : SceneScript {
 
         StartCoroutine(PlayCoroutine(strength));
     }
-    
+    */
 
     private IEnumerator PlayCoroutine(AutoPlayStrength strength) {
         Hand leftHand = VRInput.Hands[0].Hand;
@@ -123,15 +129,28 @@ class MembraneFilterationScene : SceneScript {
                 GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
             yield break;
         }
-
+        /*
         // --- Teleport if strength is AutoPlayStrenght.closeSettlePlates ---
         if (strength == AutoPlayStrength.CloseSettlePlates) {
             GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
             yield break;
         }
 
+        // --- Teleport if strength is AutoPlayStrenght.closeFingertipPlates ---
+        if (strength == AutoPlayStrength.CloseFingertipPlates) {
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
+            yield break;
+        }
 
+  
 
+        //--- Teleport if strength is AutoPlayStrenght.FilterHalvesToBottles ---
+        if (strength == AutoPlayStrength.FilterHalvesToBottles) {
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
+            yield break;
+        }
+
+         */
 
 
         // --- GoToWorkspaceRoom ---
@@ -140,6 +159,8 @@ class MembraneFilterationScene : SceneScript {
         leftHand.Uninteract();
         if (strength == AutoPlayStrength.GoToWorkspaceRoom) yield break;
         yield return Wait();
+
+
 
         // --- ItemsToLaminarCabinet ---
 
@@ -381,6 +402,8 @@ class MembraneFilterationScene : SceneScript {
 
         // --- FilterHalvesToBottles ---
 
+
+
         tweezers.GetComponent<Cover>().OpenCover(leftHand);
         GameObject filterHalfL = GameObject.Find("FilterHalfL");
         GameObject filterHalfR = GameObject.Find("FilterHalfR");
@@ -390,8 +413,6 @@ class MembraneFilterationScene : SceneScript {
         yield return Wait();
 
         // --- CloseSettlePlates ---
-
-
 
         Transform soycaseinePlateBottom1 = soycaseinePlate1.transform.GetChild(1);
         soycaseinePlateBottom1.parent = soycaseinePlateLid1.transform;
@@ -449,10 +470,6 @@ class MembraneFilterationScene : SceneScript {
 
         // --- CloseFingertipPlates ---
 
-
-
-
-
         Transform soycaseinePlateBottom2 = soycaseinePlate2.transform.GetChild(1);
         soycaseinePlateBottom2.parent = soycaseinePlateLid2.transform;
         soycaseinePlateBottom2.localPosition = Vector3.zero;
@@ -461,12 +478,6 @@ class MembraneFilterationScene : SceneScript {
         soycaseinePlateBottom3.parent = soycaseinePlateLid3.transform;
         soycaseinePlateBottom3.localPosition = Vector3.zero;
         soycaseinePlateLid3.Connector.ConnectItem(soycaseinePlateBottom3.gameObject.GetComponent<Interactable>());
-
-        // --- Teleport if strength is AutoPlayStrenght.closeFingertipPlates ---
-        if (strength == AutoPlayStrength.CloseFingertipPlates) {
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-            yield break;
-        }
 
         if (strength == AutoPlayStrength.CloseFingertipPlates) yield break;
         yield return Wait();
