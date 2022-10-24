@@ -4,9 +4,11 @@ using System.Linq;
 using System;
 using UnityEngine;
 
-class MembraneFilterationScene : SceneScript {
+class MembraneFilterationScene : SceneScript
+{
 
-    public enum AutoPlayStrength {
+    public enum AutoPlayStrength
+    {
         None = 0,
         ItemsToPassThroughCabinet,
         GoToWorkspaceRoom,
@@ -46,60 +48,27 @@ class MembraneFilterationScene : SceneScript {
     public Interactable pipeConnectorButton;
     public static byte[] SavedScoreState;
 
-    // testing
-    private bool played;
-    public bool IsAutoPlaying { get; private set; }
-
-    protected override void Start() {
+    protected override void Start()
+    {
         base.Start();
-        // if (!MainMenuFunctions.startFromBeginning) autoPlayStrength = AutoPlayStrength.ItemsToPassThroughCabinet;
-        // GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-        // PlayFirstRoom(autoPlayStrength);
-
-        if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.Workspace) {
-            autoPlayStrength = AutoPlayStrength.ItemsToPassThroughCabinet;
-        } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.CloseSettlePlates) {
-            autoPlayStrength = AutoPlayStrength.CloseSettlePlates;
-            // GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-        } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.CloseFingertipPlates) {
-            autoPlayStrength = AutoPlayStrength.CloseFingertipPlates;
-            // GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-        } else if (MainMenuFunctions.selectedAutoplay == MainMenuFunctions.SelectedAutoplay.FilterHalvesToBottles) {
-            autoPlayStrength = AutoPlayStrength.FilterHalvesToBottles;
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-        }
-
-
-        PlayFirstRoom(autoPlayStrength);
-
+        if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
+        PlayFirstRoom();
     }
 
-    
-    public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
-    if (autoPlayStrength == 0) return;
-    CoroutineUtils.StartThrowingCoroutine(this, PlayCoroutine(autoPlayStrength),
-        exception => {
-            if (exception != null)
-                Logger.Error(exception);
-            Logger.Print("Autoplay finished");
+    public void PlayFirstRoom()
+    {
+        if (autoPlayStrength == 0) return;
+        CoroutineUtils.StartThrowingCoroutine(this, PlayCoroutine(autoPlayStrength),
+            exception => {
+                if (exception != null)
+                    Logger.Error(exception);
+                Logger.Print("Autoplay finished");
             }
         );
     }
 
-    /*
-    public void PlayFirstRoom(AutoPlayStrength strength = AutoPlayStrength.None) {
-
-        if (IsAutoPlaying || played || strength == 0) {
-            return;
-        }
-        played = true;
-        IsAutoPlaying = true;
-
-        StartCoroutine(PlayCoroutine(strength));
-    }
-    */
-
-    private IEnumerator PlayCoroutine(AutoPlayStrength strength) {
+    private IEnumerator PlayCoroutine(AutoPlayStrength strength)
+    {
         Hand leftHand = VRInput.Hands[0].Hand;
         Hand rightHand = VRInput.Hands[1].Hand;
         // Create objects from prefabs and store in a list. They must be in the correct order here!
@@ -112,46 +81,15 @@ class MembraneFilterationScene : SceneScript {
         // --- ItemsToPassThroughCabinet ---
 
         cleaningBottle.transform.GetChild(1).gameObject.transform.localScale = new Vector3(5.0f, 1.0f, 1.0f);
-        for (int i = 0; i < preperationRoomObjects.Count; i++) {
+        for (int i = 0; i < preperationRoomObjects.Count; i++)
+        {
             DropAt(preperationRoomObjects[i].transform, new Vector3(-0.15f, 0.94f, 2.0f));
             cleaningBottle.GetComponent<CleaningBottle>().Clean();
             yield return Wait();
             DropAt(preperationRoomObjects[i].transform, preperationRoomPassThroughCabinetPositions.GetChild(i).transform.position);
         }
-
-        /*
         if (strength == AutoPlayStrength.ItemsToPassThroughCabinet) yield break;
         yield return Wait();
-        */
-
-        if (strength == AutoPlayStrength.ItemsToPassThroughCabinet) {
-            if (!MainMenuFunctions.startFromBeginning)
-                GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-            yield break;
-        }
-        /*
-        // --- Teleport if strength is AutoPlayStrenght.closeSettlePlates ---
-        if (strength == AutoPlayStrength.CloseSettlePlates) {
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-            yield break;
-        }
-
-        // --- Teleport if strength is AutoPlayStrenght.closeFingertipPlates ---
-        if (strength == AutoPlayStrength.CloseFingertipPlates) {
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-            yield break;
-        }
-
-  
-
-        //--- Teleport if strength is AutoPlayStrenght.FilterHalvesToBottles ---
-        if (strength == AutoPlayStrength.FilterHalvesToBottles) {
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
-            yield break;
-        }
-
-         */
-
 
         // --- GoToWorkspaceRoom ---
 
@@ -160,11 +98,10 @@ class MembraneFilterationScene : SceneScript {
         if (strength == AutoPlayStrength.GoToWorkspaceRoom) yield break;
         yield return Wait();
 
-
-
         // --- ItemsToLaminarCabinet ---
 
-        for (int i = 0; i < workspaceRoomObjects.Count; i++) {
+        for (int i = 0; i < workspaceRoomObjects.Count; i++)
+        {
             DropAt(workspaceRoomObjects[i].transform, new Vector3(-0.15f, 0.94f, 2.0f));
             cleaningBottle.GetComponent<CleaningBottle>().Clean();
             yield return Wait();
@@ -277,17 +214,20 @@ class MembraneFilterationScene : SceneScript {
             (tioglycolate, bottleTioglycolate1, bigPipette),
             (tioglycolate, bottleTioglycolate2, bigPipette),
         };
-        foreach ((Bottle, Bottle, BigPipette) set in sets) {
+        foreach ((Bottle, Bottle, BigPipette) set in sets)
+        {
             var (liquid, fillable, tool) = set;
             FreezeAt(tool.transform, liquid.transform.position + Vector3.up * 0.34f);
             yield return Wait();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 tool.TakeMedicine();
                 yield return Wait();
             }
             FreezeAt(tool.transform, fillable.transform.position + Vector3.up * 0.25f);
             yield return Wait();
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 tool.SendMedicine();
                 yield return Wait();
             }
@@ -298,7 +238,6 @@ class MembraneFilterationScene : SceneScript {
         DropAt(automaticPipette.transform, corner);
         if (strength == AutoPlayStrength.FillBottles) yield break;
         yield return Wait();
-
 
         // --- AssemblePump ---
 
@@ -402,8 +341,6 @@ class MembraneFilterationScene : SceneScript {
 
         // --- FilterHalvesToBottles ---
 
-
-
         tweezers.GetComponent<Cover>().OpenCover(leftHand);
         GameObject filterHalfL = GameObject.Find("FilterHalfL");
         GameObject filterHalfR = GameObject.Find("FilterHalfR");
@@ -448,10 +385,13 @@ class MembraneFilterationScene : SceneScript {
         soycaseinePlateLid2.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
         soycaseinePlateLid3.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
         // Take fingerprints
-        if (skipFingertips) {
+        if (skipFingertips)
+        {
             Events.FireEvent(EventType.FingerprintsGivenL);
             Events.FireEvent(EventType.FingerprintsGivenR);
-        } else {
+        }
+        else
+        {
             Agar leftAgar = soycaseinePlate2.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
             Agar rightAgar = soycaseinePlate3.GetComponentsInChildren<Transform>().FirstOrDefault(c => c.gameObject.name == "Agar")?.gameObject.GetComponent<Agar>();
             leftAgar.Interact(leftHand);
@@ -478,7 +418,6 @@ class MembraneFilterationScene : SceneScript {
         soycaseinePlateBottom3.parent = soycaseinePlateLid3.transform;
         soycaseinePlateBottom3.localPosition = Vector3.zero;
         soycaseinePlateLid3.Connector.ConnectItem(soycaseinePlateBottom3.gameObject.GetComponent<Interactable>());
-
         if (strength == AutoPlayStrength.CloseFingertipPlates) yield break;
         yield return Wait();
 
@@ -529,29 +468,35 @@ class MembraneFilterationScene : SceneScript {
         yield break;
     }
 
-    private void DropAt(Transform equipment, Vector3 position) {
+    private void DropAt(Transform equipment, Vector3 position)
+    {
         equipment.position = position;
         equipment.eulerAngles = Vector3.up;
         if (equipment.GetComponent<Rigidbody>() != null) equipment.GetComponent<Rigidbody>().isKinematic = false;
     }
 
-    private void FreezeAt(Transform equipment, Vector3 position) {
+    private void FreezeAt(Transform equipment, Vector3 position)
+    {
         equipment.position = position;
         equipment.eulerAngles = Vector3.up;
         if (equipment.GetComponent<Rigidbody>() != null) equipment.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    private WaitForSeconds Wait() {
+    private WaitForSeconds Wait()
+    {
         return new WaitForSeconds(0.04f);
     }
 
-    private WaitForSeconds Wait(float seconds) {
+    private WaitForSeconds Wait(float seconds)
+    {
         return new WaitForSeconds(seconds);
     }
 
-    private Interactable ToInteractable(GameObject g) {
+    private Interactable ToInteractable(GameObject g)
+    {
         var interactable = Interactable.GetInteractable(g.transform);
-        if (interactable == null) {
+        if (interactable == null)
+        {
             Logger.Warning(g.name + " converted to interactable was null");
         }
         return interactable;

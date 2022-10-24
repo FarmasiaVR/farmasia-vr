@@ -256,8 +256,8 @@ public static class TaskConfig {
         info(
             TaskType.CloseSettlePlates,
             "Laskeumamaljojen sulkeminen",
-            "Sulje laskeumamaljat",
-            "Sulje laskeumamaljat",
+            "Sulje kaikki maljat",
+            "Sulje laskeumamaljat ja sormenpäämaljat",
             "Laskeumamaljat suljettu!",
             2
         ),
