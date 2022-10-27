@@ -78,8 +78,9 @@ class MembraneFilterationScene : SceneScript {
         cleaningBottle.transform.GetChild(1).gameObject.transform.localScale = new Vector3(5.0f, 1.0f, 1.0f);
         for (int i = 0; i < preperationRoomObjects.Count; i++) {
             DropAt(preperationRoomObjects[i].transform, new Vector3(-0.15f, 0.94f, 2.0f));
+            yield return Wait(0.02f);
             cleaningBottle.GetComponent<CleaningBottle>().Clean();
-            yield return Wait();
+            yield return Wait(0.03f);
             DropAt(preperationRoomObjects[i].transform, preperationRoomPassThroughCabinetPositions.GetChild(i).transform.position);
         }
         if (strength == AutoPlayStrength.ItemsToPassThroughCabinet) yield break;
@@ -96,8 +97,9 @@ class MembraneFilterationScene : SceneScript {
 
         for (int i = 0; i < workspaceRoomObjects.Count; i++) {
             DropAt(workspaceRoomObjects[i].transform, new Vector3(-0.15f, 0.94f, 2.0f));
+            yield return Wait(0.02f);
             cleaningBottle.GetComponent<CleaningBottle>().Clean();
-            yield return Wait();
+            yield return Wait(0.03f);
             DropAt(workspaceRoomObjects[i].transform, workspaceRoomLaminarCabinetPositions.GetChild(i).transform.position);
         }
         cleaningBottle.transform.GetChild(1).gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
