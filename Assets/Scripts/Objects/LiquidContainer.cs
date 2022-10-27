@@ -230,7 +230,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnSyringeNewEnter(SyringeNew syringeNew) {
-        if (GeneralItem is Bottle || GeneralItem is FilterPart) {
+        if (GeneralItem is FilterPart) {
             syringeNew.State.On(InteractState.InBottle);
             syringeNew.hasBeenInBottle = true;
 
