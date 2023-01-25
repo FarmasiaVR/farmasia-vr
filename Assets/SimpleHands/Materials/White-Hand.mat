@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 4
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -23,7 +23,10 @@ Material:
   m_Name: White-Hand
   m_Shader: {fileID: -6465566751694194690, guid: 4109916d99cf50e499b50ff427f4d81d,
     type: 3}
-  m_ShaderKeywords: _METALLICSPECGLOSSMAP _OCCLUSIONMAP
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _METALLICSPECGLOSSMAP
+  - _OCCLUSIONMAP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -73,6 +76,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_17895e5f9b10b48482a74bedee2dd72c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: e0e3f7ebcaee74582bbefed2ff209097, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_6FC498D7_Texture_1:
         m_Texture: {fileID: 2800000, guid: e0e3f7ebcaee74582bbefed2ff209097, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -87,6 +94,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_D349BA0D_Texture_1:
         m_Texture: {fileID: 2800000, guid: 9806c8981db3d4a5d9825b879a8af6e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a673bfb61611808480b43ba22c5c2d25_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 9806c8981db3d4a5d9825b879a8af6e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bc89ec06d051e488998e6a05036ccf1f_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 188e2771915f24b26b8e2976587ecad7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e106e79f0ae8a7828217fd275105d3f1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 58ec52cfde4df054ab820ead6f09ebcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -117,6 +136,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
@@ -153,6 +173,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shiny: 0
@@ -176,3 +197,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
