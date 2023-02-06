@@ -16,7 +16,8 @@ public class SteamVRTranslator : MonoBehaviour
     public InputActionReference TriggerButtonAction;
     public InputActionReference LaserButtonAction;
     public InputActionReference UseItemButtonAction;
- 
+    public InputActionReference MoveButtonAction;
+
     public GameObject legacyController;
 
 
@@ -27,6 +28,8 @@ public class SteamVRTranslator : MonoBehaviour
         pairButtonAndCallBacks(LaserButtonAction, LaserActivated, LaserDeActivated);
 
         pairButtonAndCallBacks(UseItemButtonAction, useItemActivated, useItemDeActivated);
+
+        pairButtonAndCallBacks(MoveButtonAction, moveButttonActivated, moveButttonDeActivated);
 
     }
 
@@ -49,6 +52,7 @@ public class SteamVRTranslator : MonoBehaviour
 
         unPairButtonAndCallBacks(UseItemButtonAction, useItemActivated, useItemDeActivated);
 
+        unPairButtonAndCallBacks(MoveButtonAction, moveButttonActivated, moveButttonDeActivated);
     }
 
 
@@ -99,6 +103,18 @@ public class SteamVRTranslator : MonoBehaviour
     void useItemDeActivated(InputAction.CallbackContext context) {
         Debug.Log("De Activated Item Use");
         VRInput.ControlUp(ControlType.PadClick, SteamVR_Input_Sources.RightHand);
+    }
+
+
+
+    void moveButttonActivated(InputAction.CallbackContext context) {
+        Debug.Log("Move activated");
+        VRInput.ControlDown(ControlType.Menu, SteamVR_Input_Sources.RightHand);
+    }
+
+    void moveButttonDeActivated(InputAction.CallbackContext context) {
+        Debug.Log("Move De activated");
+        VRInput.ControlUp(ControlType.Menu, SteamVR_Input_Sources.RightHand);
     }
 
 }

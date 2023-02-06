@@ -1095,6 +1095,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Move button",
+                    "type": "Value",
+                    "id": "8865c64b-879b-48e3-a636-c3dbd7de423b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1128,6 +1137,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Laser button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce504557-c603-44a8-bd1a-f45de2edfe37",
+                    "path": "*/{MenuButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
