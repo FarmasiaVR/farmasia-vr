@@ -8,7 +8,7 @@ using Valve.VR;
 
 
 
-public class testintestintesting : MonoBehaviour
+public class SteamVRTranslator : MonoBehaviour
 {
 
 
