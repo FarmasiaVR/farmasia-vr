@@ -13,6 +13,8 @@ public class SteamVRTranslator : MonoBehaviour
 {
 
 
+    public SteamVR_Input_Sources inputSource;
+
     public InputActionReference TriggerButtonAction;
     public InputActionReference LaserButtonAction;
     public InputActionReference UseItemButtonAction;
@@ -64,13 +66,13 @@ public class SteamVRTranslator : MonoBehaviour
 
     void grabActivate(InputAction.CallbackContext context) {
         Debug.Log("activated grab");
-        VRInput.ControlDown(ControlType.TriggerClick, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlDown(ControlType.TriggerClick, inputSource);
        // VRInput.ControlDown(ControlType.Grip, SteamVR_Input_Sources.RightHand);
     }
 
     void grabDeActivate(InputAction.CallbackContext context) {
         Debug.Log("Deactivated grab");
-        VRInput.ControlUp(ControlType.TriggerClick, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlUp(ControlType.TriggerClick, inputSource);
         //VRInput.ControlUp(ControlType.Grip, SteamVR_Input_Sources.RightHand);
     }
 
@@ -81,7 +83,7 @@ public class SteamVRTranslator : MonoBehaviour
         
        
 
-        VRInput.ControlDown(ControlType.DPadNorth, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlDown(ControlType.DPadNorth, inputSource);
     }
 
 
@@ -91,30 +93,30 @@ public class SteamVRTranslator : MonoBehaviour
 
 
 
-        VRInput.ControlUp(ControlType.DPadNorth, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlUp(ControlType.DPadNorth, inputSource);
     }
 
 
     void useItemActivated(InputAction.CallbackContext context) {
         Debug.Log("Activated Item Use");
-        VRInput.ControlDown(ControlType.PadClick, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlDown(ControlType.PadClick, inputSource);
     }
 
     void useItemDeActivated(InputAction.CallbackContext context) {
         Debug.Log("De Activated Item Use");
-        VRInput.ControlUp(ControlType.PadClick, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlUp(ControlType.PadClick, inputSource);
     }
 
 
 
     void moveButttonActivated(InputAction.CallbackContext context) {
         Debug.Log("Move activated");
-        VRInput.ControlDown(ControlType.Menu, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlDown(ControlType.Menu, inputSource);
     }
 
     void moveButttonDeActivated(InputAction.CallbackContext context) {
         Debug.Log("Move De activated");
-        VRInput.ControlUp(ControlType.Menu, SteamVR_Input_Sources.RightHand);
+        VRInput.ControlUp(ControlType.Menu, inputSource);
     }
 
 }
