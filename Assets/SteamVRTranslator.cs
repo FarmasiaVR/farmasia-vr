@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,33 +16,39 @@ public class SteamVRTranslator : MonoBehaviour
     public InputActionReference TriggerButtonAction;
     public InputActionReference LaserButtonAction;
     public InputActionReference UseItemButtonAction;
-
+ 
     public GameObject legacyController;
 
 
     private void Start() {
-        TriggerButtonAction.action.started += grabActivate;
-        TriggerButtonAction.action.canceled += grabDeActivate;
 
-        LaserButtonAction.action.started += LaserActivated;
-        LaserButtonAction.action.canceled += LaserDeActivated;
+        pairButtonAndCallBacks(TriggerButtonAction, grabActivate, grabDeActivate);
 
+        pairButtonAndCallBacks(LaserButtonAction, LaserActivated, LaserDeActivated);
 
+        pairButtonAndCallBacks(UseItemButtonAction, useItemActivated, useItemDeActivated);
 
-        UseItemButtonAction.action.started += useItemActivated;
-        UseItemButtonAction.action.canceled += useItemDeActivated;
     }
 
+    private void pairButtonAndCallBacks(InputActionReference refToPair, Action<InputAction.CallbackContext> activateFunc, Action<InputAction.CallbackContext> deActivateFunc) {
+        refToPair.action.started += activateFunc;
+        refToPair.action.canceled += deActivateFunc;
+    }
+
+    private void unPairButtonAndCallBacks(InputActionReference refToPair, Action<InputAction.CallbackContext> activateFunc, Action<InputAction.CallbackContext> deActivateFunc) {
+        refToPair.action.started -= activateFunc;
+        refToPair.action.canceled -= deActivateFunc;
+    }
+
+
     private void OnDestroy() {
-        TriggerButtonAction.action.started -= grabActivate;
-        TriggerButtonAction.action.canceled -= grabDeActivate;
 
+        unPairButtonAndCallBacks(TriggerButtonAction, grabActivate, grabDeActivate);
 
-        LaserButtonAction.action.started -= LaserActivated;
-        LaserButtonAction.action.canceled -= LaserDeActivated;
+        unPairButtonAndCallBacks(LaserButtonAction, LaserActivated, LaserDeActivated);
 
-        UseItemButtonAction.action.started -= useItemActivated;
-        UseItemButtonAction.action.canceled -= useItemDeActivated;
+        unPairButtonAndCallBacks(UseItemButtonAction, useItemActivated, useItemDeActivated);
+
     }
 
 
@@ -93,4 +100,5 @@ public class SteamVRTranslator : MonoBehaviour
         Debug.Log("De Activated Item Use");
         VRInput.ControlUp(ControlType.PadClick, SteamVR_Input_Sources.RightHand);
     }
+
 }
