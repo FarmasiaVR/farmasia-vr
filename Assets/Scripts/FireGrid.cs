@@ -18,11 +18,12 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject pointLight;
 
+    private bool isIgnited;
+    private bool isExtinguished;
     //bool isPlaying = true;
     [SerializeField]
     private int degrees;
 
-    private int count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,10 +58,10 @@ public class FireGrid : MonoBehaviour
     {
         fireParticle.Stop();
         pointLight.SetActive(false);
-        if (extinguishParticle != null && count == 0)
+        if (extinguishParticle != null && isExtinguished == false)
         {
-            count++;
             extinguishParticle.Play();
+            isExtinguished = true;
         }
         //isPlaying = false;
         Debug.Log("degrees should be zero: " + degrees);
@@ -70,8 +71,11 @@ public class FireGrid : MonoBehaviour
     {
         fireParticle.Play();
         pointLight.SetActive(true);
-        if (igniteParticle != null)
+        if (igniteParticle != null && isIgnited == false)
+        {
             igniteParticle.Play();
+            isIgnited = true;
+        }
         //isPlaying = true;
     }
 }
