@@ -22,6 +22,9 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject pointLight;
 
+    [SerializeField]
+    private GameObject colliderCube;
+
     private bool isIgnited;
     private bool isExtinguished;
     [SerializeField]
