@@ -1,12 +1,16 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
+//using UnityEngine.InputSystem;
+using UnityEngine.XR;
 // This will add a new particle system to FireGridObject, not necessary now
 //[RequireComponent(typeof(ParticleSystem))]
 
 public class FireGrid : MonoBehaviour
 {
     public KeyCode toggleKey = KeyCode.Space;
-
+    //public InputActionReference igniteEvent;
     // Different particle effect fields
     [SerializeField]
     private ParticleSystem fireParticle;
@@ -20,7 +24,6 @@ public class FireGrid : MonoBehaviour
 
     private bool isIgnited;
     private bool isExtinguished;
-    //bool isPlaying = true;
     [SerializeField]
     private int degrees;
 
@@ -43,7 +46,7 @@ public class FireGrid : MonoBehaviour
             }
         }
         // If at 0 degrees stop the fire particle effect and play the extinguish particle once
-        if (degrees == 0)
+        if (degrees <= 0)
         {
             Extinguish();
         }
@@ -63,7 +66,6 @@ public class FireGrid : MonoBehaviour
             extinguishParticle.Play();
             isExtinguished = true;
         }
-        //isPlaying = false;
         Debug.Log("degrees should be zero: " + degrees);
     }
 
@@ -76,6 +78,5 @@ public class FireGrid : MonoBehaviour
             igniteParticle.Play();
             isIgnited = true;
         }
-        //isPlaying = true;
     }
 }
