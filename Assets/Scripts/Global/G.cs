@@ -48,7 +48,7 @@ public sealed class G {
         #elif UNITY_NONVRCOMPUTER
             Logger.Warning("Using a NON VR system. Building on this machine will not work. If you want to build, change the VR configuration variable from UNITY_NONVRCOMPUTER to UNITY_VRCOMPUTER in the csc.rsp file.");
         #else
-            throw new System.Exception("No VR configuration variable set. Check README for instructions.");
+            //throw new System.Exception("No VR configuration variable set. Check README for instructions.");
         #endif
     }
 }
