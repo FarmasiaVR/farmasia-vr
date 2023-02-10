@@ -1202,6 +1202,98 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Interactor Switching",
+            "id": "6cdf074e-7571-42a0-9e30-52c2a74c4963",
+            "actions": [
+                {
+                    "name": "EnableRayInteractorRight",
+                    "type": "Button",
+                    "id": "55598887-a38e-41e9-bed1-31337fd478d5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EnableRayInteractorLeft",
+                    "type": "Button",
+                    "id": "d88ddfc0-1f75-4fd1-95c6-c8b3fa553757",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "One Modifier",
+                    "id": "34e049b1-416b-44a2-a598-354a8824ee15",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "11cdd6c8-4bf9-4439-9877-e481db05e8fa",
+                    "path": "<XRController>{RightHand}/trackpadClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "0fa2f04d-93e6-437b-ab54-c8b7b0bebfb5",
+                    "path": "<XRController>{RightHand}/trackpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "ad836d43-3d63-4bed-b060-b82feb52d5f4",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "3291f886-93b6-40bc-9c55-3ea3d711ac76",
+                    "path": "<XRController>{LeftHand}/trackpadClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "139ac2a8-f421-49ba-94d7-61300e810e24",
+                    "path": "<XRController>{LeftHand}/trackpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": [

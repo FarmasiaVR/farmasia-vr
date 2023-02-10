@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRInteractableHighlighter : MonoBehaviour
 {
-    private int interactorsHovering;
     public Color highlightColor;
 
     private void Start() {
@@ -16,16 +15,15 @@ public class XRInteractableHighlighter : MonoBehaviour
     }
 
     public void HoveredEvent(HoverEnterEventArgs hoveredObject) {
-        interactorsHovering++;
-        ChangeHiglight(hoveredObject.interactableObject.transform, true);
+        bool hoveredObjectIsHeld = hoveredObject.interactableObject.transform.GetComponent<XRBaseInteractable>().isSelected;
+        if (!hoveredObjectIsHeld) {
+            ChangeHiglight(hoveredObject.interactableObject.transform, true);
+        }
     }
 
     public void ExitHoverEvent (HoverExitEventArgs hoveredObject) {
-        interactorsHovering -= 1;
         //Make sure that the highlight is removed only when no interactors are interacting
-        if (interactorsHovering == 0) {
-            ChangeHiglight(hoveredObject.interactableObject.transform, false);
-        }
+        ChangeHiglight(hoveredObject.interactableObject.transform, false);
     }
     private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
         ///<summary>
