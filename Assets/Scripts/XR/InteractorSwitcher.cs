@@ -28,11 +28,8 @@ public class InteractorSwitcher : MonoBehaviour
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
         Debug.Log("Enabling rays");
-        Vector2 joystickValue = context.ReadValue<Vector2>();
-        if (joystickValue.y > 0 && -0.5f < joystickValue.x && joystickValue.x < 0.5f) {
-            directInteractor.SetActive(false);
-            rayInteractor.SetActive(true);
-        }
+        directInteractor.SetActive(false);
+        rayInteractor.SetActive(true);
     }
 
     private void DisableRayInteractor(InputAction.CallbackContext context) {

@@ -1209,29 +1209,29 @@
             "actions": [
                 {
                     "name": "EnableRayInteractorRight",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "55598887-a38e-41e9-bed1-31337fd478d5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "EnableRayInteractorLeft",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "d88ddfc0-1f75-4fd1-95c6-c8b3fa553757",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "One Modifier",
+                    "name": "ViveTouchpad",
                     "id": "34e049b1-416b-44a2-a598-354a8824ee15",
                     "path": "OneModifier",
-                    "interactions": "",
+                    "interactions": "Sector(directions=1)",
                     "processors": "",
                     "groups": "",
                     "action": "EnableRayInteractorRight",
@@ -1261,10 +1261,10 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "One Modifier",
+                    "name": "ViveTouchpad",
                     "id": "ad836d43-3d63-4bed-b060-b82feb52d5f4",
                     "path": "OneModifier",
-                    "interactions": "",
+                    "interactions": "Sector(directions=1)",
                     "processors": "",
                     "groups": "",
                     "action": "EnableRayInteractorLeft",
@@ -1290,6 +1290,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "EnableRayInteractorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Joystick",
+                    "id": "3d9c23e8-2b69-42be-939d-1f10b1fe35d2",
+                    "path": "OneModifier",
+                    "interactions": "Sector(directions=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "6f72135a-a9c4-4a08-ae1e-6b1327ab5cb1",
+                    "path": "<XRController>{LeftHand}/joystickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "756ecf5e-1cda-49f7-9e7d-9d9cf0aab378",
+                    "path": "<XRController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Noncontinuous Move",
+                    "action": "EnableRayInteractorLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Joystick",
+                    "id": "81ac0f31-a0e0-4447-9b18-79c5a55d104f",
+                    "path": "OneModifier",
+                    "interactions": "Sector(directions=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "654912a4-a294-47bf-ab9b-e22706c04abc",
+                    "path": "<XRController>{RightHand}/joystickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "0612fa31-4f55-4380-b6c9-6c3406709b5a",
+                    "path": "<XRController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "EnableRayInteractorRight",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
