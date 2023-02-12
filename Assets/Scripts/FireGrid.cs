@@ -4,82 +4,81 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using UnityEngine.VFX;
 // This will add a new particle system to FireGridObject, not necessary now
 //[RequireComponent(typeof(ParticleSystem))]
 
 public class FireGrid : MonoBehaviour
 {
-    public KeyCode toggleKey = KeyCode.Space;
+    public KeyCode igniteKey = KeyCode.Space;
+    public KeyCode extinguishKey = KeyCode.G;
     //public InputActionReference igniteEvent;
     // Different particle effect fields
     [SerializeField]
-    private ParticleSystem fireParticle;
+    private VisualEffect fireEffect;
     [SerializeField]
     private ParticleSystem igniteParticle;
     [SerializeField]
     private ParticleSystem extinguishParticle;
+    
     // Light source of the fire
     [SerializeField]
     private GameObject pointLight;
 
+    // Collider tile-shaped cube for collision detection
     [SerializeField]
     private GameObject colliderCube;
 
     private bool isIgnited;
-    private bool isExtinguished;
+
     [SerializeField]
     private int degrees;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //fireParticle = GetComponent<ParticleSystem>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        // Hit spacebar to lower degrees by ten
-        if (Input.GetKeyDown(toggleKey))
-        {
-            if (degrees >= 10)
-            {
-                degrees -= 10;
-                Debug.Log("degrees should go down by -10: " + degrees);
-            }
-        }
-        // If at 0 degrees stop the fire particle effect and play the extinguish particle once
-        if (degrees <= 0)
-        {
-            Extinguish();
-        }
-        else if (degrees > 0)
+        // FOR TESTING IGNITION AND EXTINGUISHING - Press Space for ignition and G for extinguishing
+        if (Input.GetKeyDown(igniteKey))
         {
             Ignite();
+        Debug.Log("Fire should ignite");
         }
-
+        if(Input.GetKeyDown(extinguishKey))
+        {
+            Extinguish();
+            Debug.Log("Fire should extinguish");
+        }
     }
 
+    /*
+     * Callable method to stop the visual effect animation, turn off the light and to play 
+     * the extinguishing particle effect.
+     */
     public void Extinguish()
     {
-        fireParticle.Stop();
+        fireEffect.Stop();
         pointLight.SetActive(false);
-        if (extinguishParticle != null && isExtinguished == false)
+        if (extinguishParticle != null && isIgnited == true)
         {
             extinguishParticle.Play();
-            isExtinguished = true;
+            isIgnited = false;
         }
-        Debug.Log("degrees should be zero: " + degrees);
+        Debug.Log("Extinguished");
     }
 
+    /*
+     * Callable method to play the visual effect animation, turn on the light and to play
+     * the ignition particle effect. 
+     */
     public void Ignite()
     {
-        fireParticle.Play();
+        fireEffect.Play();
         pointLight.SetActive(true);
         if (igniteParticle != null && isIgnited == false)
         {
             igniteParticle.Play();
             isIgnited = true;
         }
+        Debug.Log("Ignited");
     }
 }
