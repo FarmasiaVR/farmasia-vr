@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56203199}
   m_LocalRotation: {x: 0.6560897, y: -0.21316265, z: -0.24834949, w: 0.6800224}
-  m_LocalPosition: {x: -0.7539997, y: -0.97299993, z: 1.3540001}
+  m_LocalPosition: {x: -0.99, y: -1.28, z: 1.363}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3614,7 +3614,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -3783,14 +3783,14 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 0.5
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
-    maxCollisionShapes: 256
+      m_Bits: 1
+    maxCollisionShapes: 200
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -4928,7 +4928,7 @@ PrefabInstance:
     - target: {fileID: 3814812957803540816, guid: 7d132ef6125405f4686abe92c40a9fca,
         type: 3}
       propertyPath: m_Name
-      value: Extinguisher_basic
+      value: ExtinguisherWithFoam
       objectReference: {fileID: 0}
     - target: {fileID: 4592299983337663466, guid: 7d132ef6125405f4686abe92c40a9fca,
         type: 3}
