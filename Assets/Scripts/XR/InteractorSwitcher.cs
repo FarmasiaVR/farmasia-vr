@@ -10,9 +10,9 @@ public class InteractorSwitcher : MonoBehaviour
     [Header("Interactor Objects")]
 
     [SerializeField]
-    private GameObject rayInteractor;
+    private XRBaseInteractor rayInteractor;
     [SerializeField]
-    private GameObject directInteractor;
+    private XRBaseInteractor directInteractor;
 
     [Space]
     [Header("Input Events")]
@@ -24,17 +24,20 @@ public class InteractorSwitcher : MonoBehaviour
         rayInteractorActivate.action.started += EnableRayInteractor;
         rayInteractorActivate.action.canceled += DisableRayInteractor;
         rayInteractorActivate.action.Enable();
+        DisableRayInteractor(new InputAction.CallbackContext());
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
         Debug.Log("Enabling rays");
-        directInteractor.SetActive(false);
-        rayInteractor.SetActive(true);
+        directInteractor.allowHover = false;
+        rayInteractor.allowHover = true;
+        rayInteractor.gameObject.GetComponent<XRInteractorLineVisual>().enabled = true;
     }
 
     private void DisableRayInteractor(InputAction.CallbackContext context) {
-        rayInteractor.SetActive(false);
-        directInteractor.SetActive(true);
+        directInteractor.allowHover = true;
+        rayInteractor.allowHover = false;
+        rayInteractor.gameObject.GetComponent<XRInteractorLineVisual>().enabled = false;
         Debug.Log("Disabled ray interactor");
     }
 }
