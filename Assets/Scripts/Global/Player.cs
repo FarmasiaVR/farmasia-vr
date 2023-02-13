@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
     public static PlayerData Info;
 
     public static Transform Transform { get; private set; }
+
+    
     public static Camera Camera { get; private set; }
     const int MAX_POINTS = 25;
     #endregion
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour {
     public void Awake() {
 
         Transform = transform;
-        Camera = Transform.Find("Camera").GetComponent<Camera>();
+        Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         if (Transform == null || Camera == null) {
             throw new System.Exception("Player init failed");

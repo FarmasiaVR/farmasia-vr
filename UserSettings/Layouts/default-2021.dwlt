@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -264,19 +264,1153 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 305
+    x: 316
     y: 0
-    width: 969
-    height: 769
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+    width: 731
+    height: 563
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 15}
-  - {fileID: 16}
+  - {fileID: 17}
+  - {fileID: 18}
+  - {fileID: 13}
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &12
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Test Runner
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 1055
+    y: 81
+    width: 856
+    height: 910
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+  m_Spl:
+    ID: 2788
+    splitterInitialOffset: 362
+    currentActiveSplitter: -1
+    realSizes:
+    - 291
+    - 549
+    relativeSizes:
+    - 0.34642857
+    - 0.6535714
+    minSizes:
+    - 32
+    - 32
+    maxSizes:
+    - 0
+    - 0
+    lastTotalSize: 840
+    splitSize: 6
+    xOffset: 0
+    m_Version: 1
+    oldRealSizes: 
+    oldMinSizes: 
+    oldMaxSizes: 
+    oldSplitSize: 0
+  m_TestTypeToolbarIndex: 0
+  m_PlayModeTestListGUI:
+    m_Window: {fileID: 12}
+    m_NewResultList:
+    - id: 1051
+      uniqueId: '[Aseptic Work (VR)][suite]'
+      name: Aseptic Work (VR)
+      fullName: Aseptic Work (VR)
+      resultStatus: 1
+      duration: 1.3365362
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1055
+      uniqueId: '[OpenXRToSteamVRInputTests][C:/Users/matia/Documents/GitHub/farmasia-vr/Library/ScriptAssemblies/OpenXRToSteamVRInputTests.dll][suite]'
+      name: OpenXRToSteamVRInputTests.dll
+      fullName: C:/Users/matia/Documents/GitHub/farmasia-vr/Library/ScriptAssemblies/OpenXRToSteamVRInputTests.dll
+      resultStatus: 1
+      duration: 0.8674483
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1051
+      parentUniqueId: '[Aseptic Work (VR)][suite]'
+    - id: 1052
+      uniqueId: OpenXRToSteamVRInputTests.dll/[OpenXRToSteamVRInputTests][OpenXRToSteamVRTranslatorTests][suite]
+      name: OpenXRToSteamVRTranslatorTests
+      fullName: OpenXRToSteamVRTranslatorTests
+      resultStatus: 1
+      duration: 0.8518357
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1055
+      parentUniqueId: '[OpenXRToSteamVRInputTests][C:/Users/matia/Documents/GitHub/farmasia-vr/Library/ScriptAssemblies/OpenXRToSteamVRInputTests.dll][suite]'
+    - id: 1002
+      uniqueId: OpenXRToSteamVRInputTests.dll/OpenXRToSteamVRTranslatorTests/[OpenXRToSteamVRInputTests][OpenXRToSteamVRTranslatorTests.TestSceneLoadedCorrectly]
+      name: TestSceneLoadedCorrectly
+      fullName: OpenXRToSteamVRTranslatorTests.TestSceneLoadedCorrectly
+      resultStatus: 1
+      duration: 0.7419338
+      messages: 
+      output: 'Scene in test is at index: 6
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: OpenXRToSteamVRInputTests.dll/[OpenXRToSteamVRInputTests][OpenXRToSteamVRTranslatorTests][suite]
+    - id: 1060
+      uniqueId: '[PlayTests.dll][suite]'
+      name: PlayTests.dll
+      fullName: C:/Users/matia/Documents/GitHub/farmasia-vr/Library/ScriptAssemblies/PlayTests.dll
+      resultStatus: 1
+      duration: 0.2469694
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1051
+      parentUniqueId: '[Aseptic Work (VR)][suite]'
+    - id: 1061
+      uniqueId: PlayTests.dll/[PlayTests][Tests][suite]
+      name: Tests
+      fullName: Tests
+      resultStatus: 1
+      duration: 0.2315646
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1060
+      parentUniqueId: '[PlayTests.dll][suite]'
+    - id: 1056
+      uniqueId: PlayTests.dll/Tests/[PlayTests][Tests.EventsComponentTest][suite]
+      name: EventsComponentTest
+      fullName: Tests.EventsComponentTest
+      resultStatus: 1
+      duration: 0.2141886
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1061
+      parentUniqueId: PlayTests.dll/[PlayTests][Tests][suite]
+    - id: 1058
+      uniqueId: PlayTests.dll/Tests/EventsComponentTest/[PlayTests][Tests.EventsComponentTest.Comp_CallbackIsCalled]
+      name: Comp_CallbackIsCalled
+      fullName: Tests.EventsComponentTest.Comp_CallbackIsCalled
+      resultStatus: 1
+      duration: 0.1127451
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1056
+      parentUniqueId: PlayTests.dll/Tests/[PlayTests][Tests.EventsComponentTest][suite]
+    - id: 1059
+      uniqueId: PlayTests.dll/Tests/EventsComponentTest/[PlayTests][Tests.EventsComponentTest.Comp_CallbackNotCalledAfterDestroy]
+      name: Comp_CallbackNotCalledAfterDestroy
+      fullName: Tests.EventsComponentTest.Comp_CallbackNotCalledAfterDestroy
+      resultStatus: 1
+      duration: 0.0526636
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1056
+      parentUniqueId: PlayTests.dll/Tests/[PlayTests][Tests.EventsComponentTest][suite]
+    - id: 1057
+      uniqueId: PlayTests.dll/Tests/EventsComponentTest/[PlayTests][Tests.EventsComponentTest.Comp_ResetWorks]
+      name: Comp_ResetWorks
+      fullName: Tests.EventsComponentTest.Comp_ResetWorks
+      resultStatus: 1
+      duration: 0.037195
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1056
+      parentUniqueId: PlayTests.dll/Tests/[PlayTests][Tests.EventsComponentTest][suite]
+    m_ResultText: 'TestSceneLoadedCorrectly (0,742s)
+
+      ---
+
+      Scene in test
+      is at index: 6'
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: b661ccd8
+      m_LastClickedID: -657694282
+      m_ExpandedIDs: 050048895efec199775dd29aa117de139fd42255ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+    m_SelectedOption: 0
+  m_EditModeTestListGUI:
+    m_Window: {fileID: 12}
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[Aseptic Work (VR)][suite]'
+      name: Aseptic Work (VR)
+      fullName: Aseptic Work (VR)
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1046
+      uniqueId: '[Tests.dll][suite]'
+      name: Tests.dll
+      fullName: C:/Users/matia/Documents/GitHub/farmasia-vr/Library/ScriptAssemblies/Tests.dll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Aseptic Work (VR)][suite]'
+    - id: 1047
+      uniqueId: Tests.dll/[Tests][suite]
+      name: Tests
+      fullName: Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1046
+      parentUniqueId: '[Tests.dll][suite]'
+    - id: 1001
+      uniqueId: Tests.dll/Tests/[Tests][Tests.AngleLockTest][suite]
+      name: AngleLockTest
+      fullName: Tests.AngleLockTest
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1047
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1005
+      uniqueId: Tests.dll/Tests/AngleLockTest/[Tests][Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveClampRight]
+      name: TestMinusFortyFiveToFortyFiveClampRight
+      fullName: Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveClampRight
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.AngleLockTest][suite]
+    - id: 1004
+      uniqueId: Tests.dll/Tests/AngleLockTest/[Tests][Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveNoClamp]
+      name: TestMinusFortyFiveToFortyFiveNoClamp
+      fullName: Tests.AngleLockTest.TestMinusFortyFiveToFortyFiveNoClamp
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.AngleLockTest][suite]
+    - id: 1003
+      uniqueId: Tests.dll/Tests/AngleLockTest/[Tests][Tests.AngleLockTest.TestZeroToNinetyClampRight]
+      name: TestZeroToNinetyClampRight
+      fullName: Tests.AngleLockTest.TestZeroToNinetyClampRight
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.AngleLockTest][suite]
+    - id: 1002
+      uniqueId: Tests.dll/Tests/AngleLockTest/[Tests][Tests.AngleLockTest.TestZeroToNinetyNoClamp]
+      name: TestZeroToNinetyNoClamp
+      fullName: Tests.AngleLockTest.TestZeroToNinetyNoClamp
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.AngleLockTest][suite]
+    - id: 1018
+      uniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+      name: EventsTest
+      fullName: Tests.EventsTest
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1047
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1023
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_AllMatchingCallbacksAreRemoved]
+      name: Data_AllMatchingCallbacksAreRemoved
+      fullName: Tests.EventsTest.Data_AllMatchingCallbacksAreRemoved
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1021
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_CallbackCanBeRemoved]
+      name: Data_CallbackCanBeRemoved
+      fullName: Tests.EventsTest.Data_CallbackCanBeRemoved
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1020
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_CallbacksAreCalled]
+      name: Data_CallbacksAreCalled
+      fullName: Tests.EventsTest.Data_CallbacksAreCalled
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1026
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_CallbackSupportMultipleCallbacks]
+      name: Data_CallbackSupportMultipleCallbacks
+      fullName: Tests.EventsTest.Data_CallbackSupportMultipleCallbacks
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1022
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_OnlyMatchingCallbacksAreRemoved]
+      name: Data_OnlyMatchingCallbacksAreRemoved
+      fullName: Tests.EventsTest.Data_OnlyMatchingCallbacksAreRemoved
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1019
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_ResetWorks]
+      name: Data_ResetWorks
+      fullName: Tests.EventsTest.Data_ResetWorks
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1024
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_SameCallbackCanBeAddedTwice]
+      name: Data_SameCallbackCanBeAddedTwice
+      fullName: Tests.EventsTest.Data_SameCallbackCanBeAddedTwice
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1025
+      uniqueId: Tests.dll/Tests/EventsTest/[Tests][Tests.EventsTest.Data_SubscriptionsCanBeOverwritten]
+      name: Data_SubscriptionsCanBeOverwritten
+      fullName: Tests.EventsTest.Data_SubscriptionsCanBeOverwritten
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1018
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.EventsTest][suite]
+    - id: 1006
+      uniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+      name: TestEnumBitField
+      fullName: Tests.TestEnumBitField
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1047
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1016
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestAdditionOperator]
+      name: TestAdditionOperator
+      fullName: Tests.TestEnumBitField.TestAdditionOperator
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1013
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestAll]
+      name: TestAll
+      fullName: Tests.TestEnumBitField.TestAll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1007
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestEmptyConstructor]
+      name: TestEmptyConstructor
+      fullName: Tests.TestEnumBitField.TestEmptyConstructor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1011
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestEnumConstructor]
+      name: TestEnumConstructor
+      fullName: Tests.TestEnumBitField.TestEnumConstructor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1015
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestEquality]
+      name: TestEquality
+      fullName: Tests.TestEnumBitField.TestEquality
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1010
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestInConstructorMinValue]
+      name: TestInConstructorMinValue
+      fullName: Tests.TestEnumBitField.TestInConstructorMinValue
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1008
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestIntConstructor]
+      name: TestIntConstructor
+      fullName: Tests.TestEnumBitField.TestIntConstructor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1009
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestIntConstructorMaxValue]
+      name: TestIntConstructorMaxValue
+      fullName: Tests.TestEnumBitField.TestIntConstructorMaxValue
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1014
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestOnOff]
+      name: TestOnOff
+      fullName: Tests.TestEnumBitField.TestOnOff
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1012
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestSet]
+      name: TestSet
+      fullName: Tests.TestEnumBitField.TestSet
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1017
+      uniqueId: Tests.dll/Tests/TestEnumBitField/[Tests][Tests.TestEnumBitField.TestSubtractionOperator]
+      name: TestSubtractionOperator
+      fullName: Tests.TestEnumBitField.TestSubtractionOperator
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestEnumBitField][suite]
+    - id: 1027
+      uniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+      name: TestPipeline
+      fullName: Tests.TestPipeline
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1047
+      parentUniqueId: Tests.dll/[Tests][suite]
+    - id: 1045
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestAbortFromFunctor]
+      name: TestAbortFromFunctor
+      fullName: Tests.TestPipeline.TestAbortFromFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1044
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestAbortSetsIsDone]
+      name: TestAbortSetsIsDone
+      fullName: Tests.TestPipeline.TestAbortSetsIsDone
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1040
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestDelayVoidFunctor]
+      name: TestDelayVoidFunctor
+      fullName: Tests.TestPipeline.TestDelayVoidFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1028
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestEmpty]
+      name: TestEmpty
+      fullName: Tests.TestPipeline.TestEmpty
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1043
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestFuncPreDelay]
+      name: TestFuncPreDelay
+      fullName: Tests.TestPipeline.TestFuncPreDelay
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1041
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestFuncPreFunc]
+      name: TestFuncPreFunc
+      fullName: Tests.TestPipeline.TestFuncPreFunc
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1042
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestFuncPreIntFunc]
+      name: TestFuncPreIntFunc
+      fullName: Tests.TestPipeline.TestFuncPreIntFunc
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1033
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestNullFunctorIntFunctor]
+      name: TestNullFunctorIntFunctor
+      fullName: Tests.TestPipeline.TestNullFunctorIntFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1034
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestNullGetterIntFunctor]
+      name: TestNullGetterIntFunctor
+      fullName: Tests.TestPipeline.TestNullGetterIntFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1029
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestNullVoidFunctor]
+      name: TestNullVoidFunctor
+      fullName: Tests.TestPipeline.TestNullVoidFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1037
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestObjectFunctor]
+      name: TestObjectFunctor
+      fullName: Tests.TestPipeline.TestObjectFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1038
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestOneDelay]
+      name: TestOneDelay
+      fullName: Tests.TestPipeline.TestOneDelay
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1035
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestOneIntFunctor]
+      name: TestOneIntFunctor
+      fullName: Tests.TestPipeline.TestOneIntFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1030
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestOneVoidFunctor]
+      name: TestOneVoidFunctor
+      fullName: Tests.TestPipeline.TestOneVoidFunctor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1039
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestTwoDelays]
+      name: TestTwoDelays
+      fullName: Tests.TestPipeline.TestTwoDelays
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1036
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestTwoIntFunctors]
+      name: TestTwoIntFunctors
+      fullName: Tests.TestPipeline.TestTwoIntFunctors
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1031
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestTwoVoidFunctors]
+      name: TestTwoVoidFunctors
+      fullName: Tests.TestPipeline.TestTwoVoidFunctors
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    - id: 1032
+      uniqueId: Tests.dll/Tests/TestPipeline/[Tests][Tests.TestPipeline.TestVoidFunctorIsDone]
+      name: TestVoidFunctorIsDone
+      fullName: Tests.TestPipeline.TestVoidFunctorIsDone
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1027
+      parentUniqueId: Tests.dll/Tests/[Tests][Tests.TestPipeline][suite]
+    m_ResultText: 
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: e557abf7f100a707ce1ba428fa4e77418359db419fd4225564b0a264ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+--- !u!114 &13
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12111, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 400, y: 100}
+  m_MaxSize: {x: 2048, y: 2048}
+  m_TitleContent:
+    m_Text: Asset Store
+    m_Image: {fileID: -8693916549880196297, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 468
+    y: 181
+    width: 973
+    height: 501
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,7 +1440,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: XR player
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -319,8 +1453,9 @@ MonoBehaviour:
     m_SearchArea: 1
     m_Folders:
     - Assets/_Scenes
+    - Assets/Scripts/Tests/OpenXRToSteamVRInputTests
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText: XR player
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
@@ -491,9 +1626,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b6af0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 5e8cffff148dffff3692ffff8693ffffec94ffffba96ffff7ec1ffff9cc1ffffdaac0000
+      m_ExpandedIDs: c04afdff624bfdff564efdffcc50fdff6e51fdff7854fdff925afdff345bfdff387ffdffe084fdff8285fdffa088fdffa08cfdff428dfdff6e90fdffe4a3fdff86a4fdffb2a7fdff88aafdff2aabfdff0caefdff06b0fdffa8b0fdff74b3fdffd2befdff74bffdff76c2fdff2ad2fdff54e2fdfff6e2fdff10e9fdff18f1fdff30f1fdff34f1fdff36f1fdffd8f1fdfff2f7fdff8400feff8600feff2801feff8207feff2a0afeffcc0afeffe610feff9e17feffa017feff4218feff721efeffd62cfeffd82cfeff7a2dfeffb833feffa63dfeffbe3dfeffc23dfeffc43dfeff6c3efeff443ffeffde43feffb84afeff7e4cfeff204dfeff3650feff8859feff5a5ffefffc5ffeff1684feff9686feff3887feff40abfeff2eb0feffd0b0feffd6b3feffa4b6feff46b7feff4cbafeff9ebcfeff40bdfeff5ac0feff4ac4feffecc4fefff2c7feff52cafefff4cafeff0ecefeff1ecffeffc0cffeff7ad2fefff6d4feff98d5feff3cd8feff9cdafeff3edbfeff58defeff94e5feff36e6feff62e9feff4eeafefffceafeff780bffff7216ffff7616ffff3e17fffff017ffff9218ffff361bfffff21bffff941cffffae1fffffc225ffff6426ffff1e29ffff502bfffff22bffff962effff3c35ffffde35ffff9838ffff8051ffff2252ffffdc54ffff9855ffff3a56fffff458ffff225effffcc5effff2c62ffff7e67ffff2868ffff886bffffbe71ffff6872fffffe9affff669dffff109effff5aa1ffff3aa5ffffe4a5ffff46a9ffff26aeffffd0aeffff9eb1ffffe8b6ffff92b7ffffdebaffff8abcffff34bdffff7ec0ffffa6c3ffff50c4ffff9cc7ffff00cbffffaacbffff8eceffffe8d0ffff92d1ffff60d4ffff14d5ffffbed5ffffa2d8ffff4adbfffff4dbffffc0deffff84dfffff2ee0ffff50e3ffff3af3ffffcaf9ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

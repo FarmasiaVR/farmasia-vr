@@ -16,7 +16,7 @@ public class MovementControls : MonoBehaviour {
     }
 
     private void Update() {
-        if (menuAction != null && menuAction.GetStateDown(rightHand.HandType)) {
+        if ((menuAction != null && menuAction.GetStateDown(rightHand.HandType)) || VRInput.GetControlDown(SteamVR_Input_Sources.RightHand, ControlType.Menu)) {
             Move();
         }
     }

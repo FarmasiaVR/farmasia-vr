@@ -1075,7 +1075,7 @@
             ]
         },
         {
-            "name": "Custom",
+            "name": "Custom Right hand",
             "id": "d6637e5c-bfbe-4162-b5ba-fffe6423ca13",
             "actions": [
                 {
@@ -1095,13 +1095,31 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Move button",
+                    "type": "Value",
+                    "id": "8865c64b-879b-48e3-a636-c3dbd7de423b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Take medicine button",
+                    "type": "Value",
+                    "id": "a35983d5-81a5-45be-bcc7-99b150d0f1b1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "3d27370e-628f-49ed-ab05-03b38791f45b",
-                    "path": "<XRController>/trigger",
+                    "path": "<XRController>{RightHand}/trigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1123,11 +1141,132 @@
                 {
                     "name": "",
                     "id": "dd9d70f0-e97d-4bb1-a338-eaf2f3daf354",
-                    "path": "<XRController>/trackpadClicked",
+                    "path": "<XRController>{RightHand}/trackpadClicked",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Laser button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce504557-c603-44a8-bd1a-f45de2edfe37",
+                    "path": "<XRController>{RightHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11be9c76-383b-404b-acc1-eba5ea07510d",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Take medicine button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Custom Left hand",
+            "id": "8603def2-9926-4ae0-b642-2b7fc71dbcce",
+            "actions": [
+                {
+                    "name": "Grab button",
+                    "type": "Value",
+                    "id": "cee488a1-fca9-4d74-b42d-ad0c299df808",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Take medicine button",
+                    "type": "Value",
+                    "id": "215183f0-64bc-40c6-919f-0a1fc590fee2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Laser button",
+                    "type": "Value",
+                    "id": "71deecef-d666-4734-ae66-b48bc9ec3aa6",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Move button",
+                    "type": "Value",
+                    "id": "558aec39-348d-4f3e-beab-ad1b4466bb0d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2c5b9a82-dd8c-4318-a9ea-04ab19258182",
+                    "path": "<XRController>{LeftHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4ac08c2-53df-4b16-b6fb-92255a83e228",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02b8b9c8-cc12-4095-ae31-cc2f6f584123",
+                    "path": "<XRController>{LeftHand}/trackpadClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Laser button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c7bc521-1b0f-4674-a6b1-47114993628b",
+                    "path": "<XRController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03bc73b0-491b-43ff-9e16-a290747889f2",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Take medicine button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
