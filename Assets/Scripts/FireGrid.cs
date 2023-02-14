@@ -15,7 +15,7 @@ public class FireGrid : MonoBehaviour
     //public InputActionReference igniteEvent;
     // Different particle effect fields
     [SerializeField]
-    private ParticleSystem fireParticle;
+    private VisualEffect fireVFX;
     [SerializeField]
     private ParticleSystem igniteParticle;
     [SerializeField]
@@ -56,7 +56,7 @@ public class FireGrid : MonoBehaviour
      */
     public void Extinguish()
     {
-        fireParticle.Stop();
+        fireVFX.Stop();
         pointLight.SetActive(false);
         if (extinguishParticle != null && isIgnited == true)
         {
@@ -72,7 +72,7 @@ public class FireGrid : MonoBehaviour
      */
     public void Ignite()
     {
-        fireParticle.Play();
+        fireVFX.Play();
         pointLight.SetActive(true);
         if (igniteParticle != null && isIgnited == false)
         {

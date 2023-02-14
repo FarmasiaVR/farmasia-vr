@@ -30,13 +30,17 @@ public class InteractorSwitcher : MonoBehaviour
     private void EnableRayInteractor(InputAction.CallbackContext context) {
         Debug.Log("Enabling rays");
         directInteractor.allowHover = false;
+        directInteractor.allowSelect = false;
         rayInteractor.allowHover = true;
+        rayInteractor.allowSelect = true;
         rayInteractor.gameObject.GetComponent<XRInteractorLineVisual>().enabled = true;
     }
 
     private void DisableRayInteractor(InputAction.CallbackContext context) {
         directInteractor.allowHover = true;
+        directInteractor.allowSelect = true;
         rayInteractor.allowHover = false;
+        rayInteractor.allowSelect = false;
         rayInteractor.gameObject.GetComponent<XRInteractorLineVisual>().enabled = false;
         Debug.Log("Disabled ray interactor");
     }
