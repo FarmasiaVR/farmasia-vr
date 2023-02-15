@@ -40,49 +40,67 @@ public class FireSpread : MonoBehaviour
 
     private void Move()
     {
+        // Moves to new position and sets it as current position
         transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
 
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            // Z+ movement
-            nextPos = Vector3.forward;
-            currentDir = up;
-            canMove = true;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            // Z- movement
-            nextPos = Vector3.back;
-            currentDir = down;
-            canMove = true;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            // X+ movement
-            nextPos = Vector3.right;
-            currentDir = right;
-            canMove = true;
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            // X- movement
-            nextPos = Vector3.left;
-            currentDir = left;
-            canMove = true;
-        }
+        moveUp();
+        moveDown();
+        moveRight();
+        moveLeft();
 
+    }
+
+    private void moveUp()
+    {
+        // Z+ movement
+        nextPos = Vector3.forward;
+        currentDir = up;
+        canMove = true;
+        Movement(nextPos, currentDir, canMove);
+    }
+
+    private void moveDown()
+    {
+        // Z- movement
+        nextPos = Vector3.back;
+        currentDir = down;
+        canMove = true;
+        Movement(nextPos, currentDir, canMove);
+    }
+
+    private void moveRight()
+    {
+        // X+ movement
+        nextPos = Vector3.right;
+        currentDir = right;
+        canMove = true;
+        Movement(nextPos, currentDir, canMove);
+    }
+
+    private void moveLeft()
+    {
+        // X- movement
+        nextPos = Vector3.left;
+        currentDir = left;
+        canMove = true;
+        Movement(nextPos, currentDir, canMove);
+    }
+
+    private void Movement(Vector3 nextPos, Vector3 currentDir, bool canMove)
+    {
+        // Weird tutorial if-condition between current pos and destination
         if (Vector3.Distance(destination, transform.position) <= 0.00001f)
         {
             transform.localEulerAngles = currentDir;
-            if(canMove)
+            if (canMove)
             {
-                if(checkSurroundings())
+                if (checkSurroundings())
                 {
                     destination = transform.position + nextPos;
                     direction = nextPos;
                     canMove = false;
                 }
-                
+
             }
         }
     }
@@ -101,11 +119,12 @@ public class FireSpread : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
 
-    private void spawnObject()
+    private void spawnObject(Vector3 position, Quaternion rotation)
     {
-        Instantiate(objectToSpawn, transform.position, transform.rotation);
+        Instantiate(objectToSpawn, position, rotation);
     }
 }
