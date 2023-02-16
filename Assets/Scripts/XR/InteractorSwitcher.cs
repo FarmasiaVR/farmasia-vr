@@ -24,6 +24,9 @@ public class InteractorSwitcher : MonoBehaviour
     [SerializeField]
     private InputActionReference teleportActivate;
 
+    private float teleportRayLineWidth;
+    private XRInteractorLineVisual teleportRayVisual;
+
     private void Start() {
         rayInteractorActivate.action.started += EnableRayInteractor;
         rayInteractorActivate.action.canceled += DisableRayInteractor;
@@ -31,12 +34,12 @@ public class InteractorSwitcher : MonoBehaviour
         teleportActivate.action.started += EnableTeleport;
         teleportActivate.action.canceled += DisableTeleport;
         teleportActivate.action.Enable();
+
         DisableRayInteractor(new InputAction.CallbackContext());
         DisableTeleport(new InputAction.CallbackContext());
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
-        Debug.Log("Enabling rays");
         SetInteractorEnabled(rayInteractor, true);
         SetInteractorEnabled(directInteractor, false);
     }
@@ -44,7 +47,6 @@ public class InteractorSwitcher : MonoBehaviour
     private void DisableRayInteractor(InputAction.CallbackContext context) {
         SetInteractorEnabled(directInteractor, true);
         SetInteractorEnabled(rayInteractor, false);
-        Debug.Log("Disabled ray interactor");
     }
 
      private void EnableTeleport(InputAction.CallbackContext context) {
@@ -54,7 +56,11 @@ public class InteractorSwitcher : MonoBehaviour
 
     private void DisableTeleport(InputAction.CallbackContext context) {
         // Manually pass the select event so that the player teleports when they release the teleport button.
-        teleportInteractor.interactablesHovered[0].transform.GetComponent<BaseTeleportationInteractable>().teleportationProvider.QueueTeleportRequest(new TeleportRequest());
+        if (teleportInteractor.interactablesHovered.Count > 0)
+        {
+            teleportInteractor.StartManualInteraction(teleportInteractor.interactablesHovered[0].transform.GetComponent<IXRSelectInteractable>());
+            teleportInteractor.EndManualInteraction();
+        }
         SetInteractorEnabled(directInteractor, true);
         SetInteractorEnabled(teleportInteractor, false);
     }
@@ -63,8 +69,14 @@ public class InteractorSwitcher : MonoBehaviour
         interactor.allowSelect = enabled;
         interactor.allowHover = enabled;
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
+
         if (lineVisual) {
             lineVisual.enabled = enabled;
+            /// If the ray interactor has a reticle, then disable it as well.
+            if (lineVisual.reticle)
+            {
+                lineVisual.reticle.SetActive(enabled);
+            }
         }
     }
 }

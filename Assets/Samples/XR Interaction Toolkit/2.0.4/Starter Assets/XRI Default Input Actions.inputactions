@@ -1394,6 +1394,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "EnableTeleportRight",
+                    "type": "Value",
+                    "id": "181b002e-42bd-40fc-b645-7a01696a64c3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1592,6 +1601,72 @@
                     "processors": "",
                     "groups": "Noncontinuous Move",
                     "action": "EnableTeleportLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "ViveTouchpad",
+                    "id": "1945bd73-2610-4df5-a24b-a8287a12d3a9",
+                    "path": "OneModifier",
+                    "interactions": "Sector(directions=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "c58fd8a9-c4b4-4657-a82a-b460ce1dea45",
+                    "path": "<XRController>{RightHand}/trackpadClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "f481400b-ff46-4522-96ba-eb19f5fea32d",
+                    "path": "<XRController>{RightHand}/trackpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Joystick",
+                    "id": "22a21a4e-129f-4a96-aba2-2c15721541dc",
+                    "path": "OneModifier",
+                    "interactions": "Sector(directions=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "051ac904-ca9a-464e-b93a-69342b18b103",
+                    "path": "<XRController>{RightHand}/joystickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "0e6402ea-4587-4a1e-b950-b1ad561ded60",
+                    "path": "<XRController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "EnableTeleportRight",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
