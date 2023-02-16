@@ -38,6 +38,7 @@ public class SteamVRTranslator : MonoBehaviour
 
         pairButtonAndCallBacks(FillMedicineButtonAction, fillMedicineButtonActivated, fillMedicineButtonDeActivated);
 
+        Debug.Log("Paired everything");
     }
 
     private void pairButtonAndCallBacks(InputActionReference refToPair, Action<InputAction.CallbackContext> activateFunc, Action<InputAction.CallbackContext> deActivateFunc) {
@@ -72,7 +73,8 @@ public class SteamVRTranslator : MonoBehaviour
     }
 
     void grabActivate(InputAction.CallbackContext context) {
-       // Debug.Log("activated grab");
+        Debug.Log("activated grab");
+        Debug.Log(inputSource);
         VRInput.ControlDown(ControlType.TriggerClick, inputSource);
        // VRInput.ControlDown(ControlType.Grip, SteamVR_Input_Sources.RightHand);
     }
