@@ -10,10 +10,12 @@ public class FireExtinguisherCollision : MonoBehaviour
         fireGrid = FindObjectOfType<FireGrid>();
     }
 
-    // Detects if foam particle system collides with Collider Cube situated inside FireGridObject
+    /* Detects if foam particle system collides with ColliderCube situated inside FireGridObject.
+     * ColliderCube has a tag "FireGrid" attached to it.
+     */
     private void OnParticleCollision(GameObject collision)
     {
-        if (collision.name == "ColliderCube")
+        if (collision.tag == "FireGrid")
         {
             fireGrid.Extinguish();
         }

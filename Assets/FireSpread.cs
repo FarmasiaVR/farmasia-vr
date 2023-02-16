@@ -7,6 +7,8 @@ using UnityEngine.Apple;
 public class FireSpread : MonoBehaviour
 {
     private FireGrid fireGrid;
+    private GameObject[] wallStructure;
+    private GameObject floor;
 
     private Vector3 up = Vector3.zero,
         right = new Vector3(0, 90, 0),
@@ -19,6 +21,7 @@ public class FireSpread : MonoBehaviour
     private float speed = 5f;
     private float rayLength = 1f;
     private bool canMove;
+    private bool canJump = false;
 
     [SerializeField]
     GameObject objectToSpawn;
@@ -27,6 +30,8 @@ public class FireSpread : MonoBehaviour
     void Start()
     {
         fireGrid = FindObjectOfType<FireGrid>();
+        wallStructure = GameObject.FindGameObjectsWithTag("Structure");
+        floor = GameObject.FindGameObjectWithTag("Floor");
         currentDir = up;
         nextPos = Vector3.forward;
         destination = transform.position;
@@ -43,6 +48,7 @@ public class FireSpread : MonoBehaviour
         // Moves to new position and sets it as current position
         transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
 
+
         moveUp();
         moveDown();
         moveRight();
@@ -56,7 +62,7 @@ public class FireSpread : MonoBehaviour
         nextPos = Vector3.forward;
         currentDir = up;
         canMove = true;
-        Movement(nextPos, currentDir, canMove);
+        setCheckMovement(nextPos, currentDir, canMove);
     }
 
     private void moveDown()
@@ -65,7 +71,8 @@ public class FireSpread : MonoBehaviour
         nextPos = Vector3.back;
         currentDir = down;
         canMove = true;
-        Movement(nextPos, currentDir, canMove);
+        setCheckMovement(nextPos, currentDir, canMove);
+        
     }
 
     private void moveRight()
@@ -74,7 +81,7 @@ public class FireSpread : MonoBehaviour
         nextPos = Vector3.right;
         currentDir = right;
         canMove = true;
-        Movement(nextPos, currentDir, canMove);
+        setCheckMovement(nextPos, currentDir, canMove);
     }
 
     private void moveLeft()
@@ -83,10 +90,10 @@ public class FireSpread : MonoBehaviour
         nextPos = Vector3.left;
         currentDir = left;
         canMove = true;
-        Movement(nextPos, currentDir, canMove);
+        setCheckMovement(nextPos, currentDir, canMove);
     }
 
-    private void Movement(Vector3 nextPos, Vector3 currentDir, bool canMove)
+    private void setCheckMovement(Vector3 nextPos, Vector3 currentDir, bool canMove)
     {
         // Weird tutorial if-condition between current pos and destination
         if (Vector3.Distance(destination, transform.position) <= 0.00001f)
@@ -94,36 +101,57 @@ public class FireSpread : MonoBehaviour
             transform.localEulerAngles = currentDir;
             if (canMove)
             {
-                if (checkSurroundings())
+                if (checkMovementObstacles())
                 {
                     destination = transform.position + nextPos;
                     direction = nextPos;
                     canMove = false;
+                    spawnFireGridObject(destination, transform.rotation);
                 }
+                /*else if (!canJump)
+                {
+                    canJump = true;
+                    destination = transform.position + 2 * nextPos;
+                    direction = nextPos;
+                    canMove = false;
+                }
+                else
+                {
+                    canJump = false;
+                }*/
 
             }
         }
     }
 
-    private bool checkSurroundings()
+    private bool checkMovementObstacles()
     {
-        Ray myRay = new Ray(transform.position + new Vector3(0, 0.25f, 0), transform.forward);
+        // Note the y-axis position for the ray as the ColliderCube of FireGridObject is of scale 0.01
+        Ray oneRay = new Ray(transform.position + new Vector3(0, 0.01f, 0), transform.forward);
         RaycastHit hit;
-
         //Debug.DrawRay(myRay.origin, myRay.direction, Color.red);
 
-        if (Physics.Raycast(myRay, out hit, rayLength))
+        if (Physics.Raycast(oneRay, out hit, rayLength))
         {
-            if (hit.collider.tag == "Structure" || hit.collider.tag == "FireGrid")
+            if (hit.collider.tag == "Structure" || hit.collider.CompareTag("FireGrid"))
             {
                 return false;
             }
         }
 
+        /*
+        foreach (GameObject wall in wallStructure)
+        {
+            if (destination.x < wall.transform.position.x - 0.5f || destination.x > wall.transform.position.x + floor.transform.localScale.x - 0.5f ||
+                destination.z < wall.transform.position.z - 0.5f || destination.z > wall.transform.position.z + floor.transform.localScale.z - 0.5f)
+            {
+                return false;
+            }
+        }*/
         return true;
     }
 
-    private void spawnObject(Vector3 position, Quaternion rotation)
+    private void spawnFireGridObject(Vector3 position, Quaternion rotation)
     {
         Instantiate(objectToSpawn, position, rotation);
     }
