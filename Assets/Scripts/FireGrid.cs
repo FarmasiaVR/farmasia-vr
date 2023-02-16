@@ -81,4 +81,9 @@ public class FireGrid : MonoBehaviour
         }
         Debug.Log("Ignited");
     }
+
+    public bool IsIgnited()
+    {
+        return isIgnited;
+    }
 }
