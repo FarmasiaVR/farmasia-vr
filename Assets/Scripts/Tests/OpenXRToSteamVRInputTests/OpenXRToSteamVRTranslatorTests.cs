@@ -74,7 +74,9 @@ public class OpenXRToSteamVRTranslatorTests
         initTestControllersIfNoneExists();
         yield return null;
     }
-    
+  
+
+
     [UnityTest]
     public IEnumerator TestSceneLoadedCorrectly()
     {
@@ -90,19 +92,24 @@ public class OpenXRToSteamVRTranslatorTests
     }
 
     [UnityTest]
-    public IEnumerator TestSteamVRTranslatorSetsCorrectStateWhenTriggerButtonIsPressed() {
+    public IEnumerator TestSteamVRTranslatorSetsCorrectStateWhenTriggerButtonIsPressedAndReleased() {
 
         yield return setUpTest();
         XRSimulatedController left = GetControllerOrCreateNew("XRSimulatedController - LeftHand", "LeftHand");
+        
+        //press button
         InputSystem.QueueDeltaStateEvent(left.trigger, 1);
-        yield return null; //wait frame
-        yield return null; //wait frame
         yield return null; //wait frame
         Assert.IsTrue(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.TriggerClick));
         yield return null;
+
+        //release button
+        InputSystem.QueueDeltaStateEvent(left.trigger, 0);
+        yield return null; //wait frame
+        Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.TriggerClick));
     }
 
-
+    
 
     public class MyMonoBehaviourTest : MonoBehaviour, IMonoBehaviourTest
     {
