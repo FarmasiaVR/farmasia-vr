@@ -18,7 +18,7 @@ public class XRProtectiveClothing : MonoBehaviour
         Debug.Log(posters);
         foreach (GameObject poster in posters) poster.GetComponent<AsepticClothingPoster>();
         interactable = GetComponent<XRBaseInteractable>();
-        ProtectiveClothing legacyObject = new ProtectiveClothing();
+        legacyObject = new ProtectiveClothing();
     }
 
     // OnTriggerEnter is called when two GameObjects collide

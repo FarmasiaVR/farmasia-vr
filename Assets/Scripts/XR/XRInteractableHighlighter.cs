@@ -12,6 +12,7 @@ public class XRInteractableHighlighter : MonoBehaviour
         XRBaseInteractor interactor = GetComponent<XRBaseInteractor>();
         interactor.hoverEntered.AddListener(HoveredEvent);
         interactor.hoverExited.AddListener(ExitHoverEvent);
+        interactor.selectEntered.AddListener(SelectedEvent);
     }
 
     public void HoveredEvent(HoverEnterEventArgs hoveredObject) {
@@ -25,6 +26,12 @@ public class XRInteractableHighlighter : MonoBehaviour
         //Make sure that the highlight is removed only when no interactors are interacting
         ChangeHiglight(hoveredObject.interactableObject.transform, false);
     }
+
+    public void SelectedEvent (SelectEnterEventArgs selectedObject)
+    {
+        //Make sure that the highlight is turned off when picking up an object.
+        ChangeHiglight(selectedObject.interactableObject.transform, false);
+    }
     private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
         ///<summary>
         ///When given a hovered object, highlights it. If the hovered object isn't a mesh (i.e an empty), then highlights all of the children
@@ -32,8 +39,14 @@ public class XRInteractableHighlighter : MonoBehaviour
         ///<param name="hoveredObject">The object for which the highlight will change</param>
         ///<param name="isHighlighting">Whether the object should be highlighted or not. If true, the object will be highlighted and if false, the object's highlight will be disabled</param>
         Renderer renderer = hoveredObject.GetComponent<Renderer>();
+        XRSocketInteractor socket = hoveredObject.GetComponent<XRSocketInteractor>();
         if (renderer != null) {
             ChangeHighlightMesh(renderer, isHighlighting);
+        }
+        else if (hoveredObject.GetComponent<XRSocketInteractor>())
+        {
+            //If the player is hovering over a socket then highlight the socketed object
+            ChangeHiglight(socket.GetOldestInteractableSelected().transform, isHighlighting);
         }
         else {
             foreach (Transform child in hoveredObject) {
