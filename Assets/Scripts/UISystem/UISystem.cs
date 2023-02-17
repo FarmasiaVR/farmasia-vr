@@ -4,7 +4,7 @@ public class UISystem : MonoBehaviour {
     #region Fields
     public static UISystem Instance { get; private set; }
 
-    private GameObject handuiInScene;
+    //private GameObject handuiInScene;
     [SerializeField]
     [Tooltip("Drag Popup prefab here!")]
     private GameObject popupPrefab;
@@ -30,7 +30,7 @@ public class UISystem : MonoBehaviour {
             Instance = this;
         }
         player = GameObject.FindGameObjectWithTag("MainCamera");
-        handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
+        //handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
         Popups.Prefab = popupPrefab;
         Popups.Player = GameObject.FindGameObjectWithTag("MainCamera");
