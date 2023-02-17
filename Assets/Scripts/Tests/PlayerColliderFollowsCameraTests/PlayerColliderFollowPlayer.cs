@@ -32,8 +32,15 @@ public class PlayerColliderFollowPlayer
     [UnityTest]
     public IEnumerator colliderPositionUpdatesWhenPlayerPosUpdates()
     {
+        //changing room scene throws some SteamVR log errors that are caused by not using the SteamVR's gaming rig
+        //this line disables manual log errors being able to cause the test to fail
+        LogAssert.ignoreFailingMessages = true;
+
+
         //TODO: maybe have our own scene with only player?
         yield return setUpTest(4, "ChangingRoom");
+
+
 
         GameObject[] cameras = GameObject.FindGameObjectsWithTag("MainCamera");
         Assert.That(cameras.Length == 1);
@@ -43,8 +50,8 @@ public class PlayerColliderFollowPlayer
         camera.transform.position = new Vector3(2.0f, 1.0f, 3.0f);
         yield return null;
         GameObject colliderObj = GameObject.FindGameObjectWithTag("PlayerCollider");
-        //Assert.AreEqual(colliderObj.transform.position.x, camera.transform.position.x);
-        //Assert.AreEqual(colliderObj.transform.position.z, camera.transform.position.z);
+        Assert.AreEqual(colliderObj.transform.position.x, camera.transform.position.x);
+        Assert.AreEqual(colliderObj.transform.position.z, camera.transform.position.z);
         yield return null;
     }
 
