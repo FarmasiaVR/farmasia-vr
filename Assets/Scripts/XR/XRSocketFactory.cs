@@ -10,6 +10,7 @@ public class XRSocketFactory : MonoBehaviour
     /// </summary>
     private XRSocketInteractor socket;
     public XRBaseInteractable socketInteractable;
+    private XRBaseInteractable spawnedInst;
 
     private void Start()
     {
@@ -23,7 +24,14 @@ public class XRSocketFactory : MonoBehaviour
         ///<summary>
         ///Spawns the XR interactable in the world and forces the socket to select it
         /// </summary>
-        XRBaseInteractable spawnedInst = Instantiate(socketInteractable);
+        spawnedInst = Instantiate(socketInteractable);
         socket.interactionManager.SelectEnter(socket.GetComponent<IXRSelectInteractor>(), spawnedInst);
     }
+
+    private void OnDestroy()
+    {
+        Destroy(spawnedInst);
+    }
+
+
 }

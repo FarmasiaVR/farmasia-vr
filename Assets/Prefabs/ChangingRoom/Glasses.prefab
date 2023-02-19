@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2005086512742696109}
   - component: {fileID: 870015163562334258}
   - component: {fileID: 870015163562334253}
-  - component: {fileID: 1142162507}
   - component: {fileID: 1142162513}
+  - component: {fileID: 1142162507}
   m_Layer: 0
   m_Name: Glasses
   m_TagString: Untagged
@@ -116,20 +116,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34579518, y: 0.14830004, z: 0.040657986}
   m_Center: {x: 0.13384824, y: -0.035500254, z: -0.009981687}
---- !u!114 &1142162507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59536352959210872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def0974245144a149a703c055bc4d86a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sink: {fileID: 0}
-  tapCollider: {fileID: 0}
 --- !u!114 &1142162513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,3 +231,17 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &1142162507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59536352959210872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def0974245144a149a703c055bc4d86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sink: {fileID: 0}
+  tapCollider: {fileID: 0}

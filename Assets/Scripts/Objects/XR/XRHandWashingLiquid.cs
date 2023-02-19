@@ -34,7 +34,6 @@ public class XRHandWashingLiquid : MonoBehaviour
 
     public void Interact(SelectEnterEventArgs eventArgs)
     {
-        Debug.Log("Interacting with the sink");
         // Should not run if the game is completed.
         TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
         if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom))

@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRProtectiveClothing : MonoBehaviour
 {
-    private GameObject[] posters;
+    private AsepticClothingPoster[] posters;
 
     public ClothingType type;
 
@@ -14,9 +14,7 @@ public class XRProtectiveClothing : MonoBehaviour
 
     protected void Start()
     {
-        posters = GameObject.FindGameObjectsWithTag("AsepticClothingPoster");
-        Debug.Log(posters);
-        foreach (GameObject poster in posters) poster.GetComponent<AsepticClothingPoster>();
+        posters = FindObjectsOfType<AsepticClothingPoster>();
         interactable = GetComponent<XRBaseInteractable>();
         legacyObject = new ProtectiveClothing();
     }
@@ -24,7 +22,6 @@ public class XRProtectiveClothing : MonoBehaviour
     // OnTriggerEnter is called when two GameObjects collide
     private void OnTriggerEnter(Collider other)
     {
-        // Checking if we are colliding with PlayerCollider and updating insideCollider to be true
         // PlayerCollider can be found attached to the VRPlayers camera object
         if (other.CompareTag("PlayerCollider") && interactable.isSelected)
         {
@@ -34,7 +31,7 @@ public class XRProtectiveClothing : MonoBehaviour
             Events.FireEvent(EventType.ProtectiveClothingEquipped, CallbackData.Object(legacyObject));
 
             // Highlights the equipped item in every aseptic clothing poster found throughout the scene
-            foreach (GameObject poster in posters) poster.GetComponent<AsepticClothingPoster>().HighlightText(type);
+            foreach (AsepticClothingPoster poster in posters) poster.HighlightText(type);
 
             // Play a sound to indicate a piece of clothing was succesfully equipped
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
