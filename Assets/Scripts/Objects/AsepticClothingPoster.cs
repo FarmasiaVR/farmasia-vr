@@ -9,7 +9,7 @@ public class AsepticClothingPoster : MonoBehaviour {
     public TextMeshPro sleeveCoversText;
     public TextMeshPro protectiveGlovesText;
     public TextMeshPro shoeCoversText;
-    public Color highlightedColor;
+    public Color32 highlightedColor;
 
     public void HighlightText(ClothingType type) {
         if (type == ClothingType.HeadCover) headCoverText.color = highlightedColor;

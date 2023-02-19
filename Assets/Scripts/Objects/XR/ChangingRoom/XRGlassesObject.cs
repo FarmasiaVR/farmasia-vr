@@ -6,7 +6,7 @@ public class XRGlassesObject : MonoBehaviour
 {
     private bool isClean;
 
-    public HandWashingLiquid sink;
+    public XRHandWashingLiquid sink;
     public GameObject tapCollider;
 
     private Glasses legacyObject;
@@ -29,7 +29,6 @@ public class XRGlassesObject : MonoBehaviour
     private void UpdateLegacyObject()
     {
         legacyObject= new Glasses();
-        legacyObject.sink = sink;
         legacyObject.tapCollider = tapCollider;
     }
 }
