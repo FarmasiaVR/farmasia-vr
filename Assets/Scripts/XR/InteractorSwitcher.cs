@@ -24,8 +24,10 @@ public class InteractorSwitcher : MonoBehaviour
     [SerializeField]
     private InputActionReference teleportActivate;
 
-    private float teleportRayLineWidth;
-    private XRInteractorLineVisual teleportRayVisual;
+    private List<IXRSelectInteractable> interactablesSelected;
+
+
+
 
     private void Start() {
         rayInteractorActivate.action.started += EnableRayInteractor;
@@ -40,18 +42,15 @@ public class InteractorSwitcher : MonoBehaviour
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
-        SetInteractorEnabled(rayInteractor, true);
-        SetInteractorEnabled(directInteractor, false);
+        SwitchToInteractor(directInteractor, rayInteractor);
     }
 
     private void DisableRayInteractor(InputAction.CallbackContext context) {
-        SetInteractorEnabled(directInteractor, true);
-        SetInteractorEnabled(rayInteractor, false);
+        SwitchToInteractor(rayInteractor, directInteractor);
     }
 
      private void EnableTeleport(InputAction.CallbackContext context) {
         SetInteractorEnabled(teleportInteractor, true);
-        SetInteractorEnabled(directInteractor, false);
     }
 
     private void DisableTeleport(InputAction.CallbackContext context) {
@@ -61,11 +60,12 @@ public class InteractorSwitcher : MonoBehaviour
             teleportInteractor.StartManualInteraction(teleportInteractor.interactablesHovered[0].transform.GetComponent<IXRSelectInteractable>());
             teleportInteractor.EndManualInteraction();
         }
-        SetInteractorEnabled(directInteractor, true);
         SetInteractorEnabled(teleportInteractor, false);
+        SetInteractorEnabled(directInteractor, true);
     }
 
     private void SetInteractorEnabled(XRBaseInteractor interactor, bool enabled) {
+        interactor.allowSelect = enabled;
         interactor.allowHover = enabled;
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
@@ -77,5 +77,22 @@ public class InteractorSwitcher : MonoBehaviour
                 lineVisual.reticle.SetActive(enabled);
             }
         }
+    }
+
+    private void SwitchToInteractor(XRBaseInteractor fromInteractor, XRBaseInteractor toInteractor)
+    {
+        SetInteractorEnabled(toInteractor, true);
+        ///Make sure that if we are switching interactors then the interactor selections carry on as well.
+
+
+        if (fromInteractor.isSelectActive)
+        {
+            foreach (IXRSelectInteractable interactable in fromInteractor.interactablesSelected.ToArray())
+            {
+                toInteractor.interactionManager.SelectEnter(toInteractor, interactable);
+            }
+        }
+
+        SetInteractorEnabled(fromInteractor, false);
     }
 }

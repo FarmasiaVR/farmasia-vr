@@ -5,9 +5,6 @@ public class RoomDoorHandle : AnimatedDoorHandle {
 
     public DoorGoTo destination;
 
-    public GameObject playerToTeleport;
-    public Transform target;
-
     protected override void Start() {
         base.Start();
         Type.Set(InteractableType.Interactable);
