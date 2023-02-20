@@ -19,6 +19,7 @@ public class XRHandWashingLiquid : MonoBehaviour
     private XRBaseInteractable interactable;
 
     private HandWashingLiquid legacyObject;
+    private Collider dispenserCollider;
 
     void Start()
     {
@@ -26,14 +27,12 @@ public class XRHandWashingLiquid : MonoBehaviour
         particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
         currentRunningTime = runningTime;
 
-        interactable = GetComponent<XRBaseInteractable>();
-        interactable.selectEntered.AddListener(Interact);
-
     }
 
-
-    public void Interact(SelectEnterEventArgs eventArgs)
+    public void Interact(Collider other)
     {
+        // This event should be ignored if the object interacting isn't the player.
+        if (!(other.CompareTag("Controller (Left)") | other.CompareTag("Controller (Right)"))) return;
         // Should not run if the game is completed.
         TaskType currentTask = G.Instance.Progress.CurrentPackage.CurrentTask.TaskType;
         if (type.Equals("Water") || (currentTask == TaskType.WashHandsInChangingRoom || currentTask == TaskType.WashHandsInPreperationRoom))
