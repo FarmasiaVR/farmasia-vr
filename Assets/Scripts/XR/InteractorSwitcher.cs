@@ -82,9 +82,9 @@ public class InteractorSwitcher : MonoBehaviour
     private void SwitchToInteractor(XRBaseInteractor fromInteractor, XRBaseInteractor toInteractor)
     {
         SetInteractorEnabled(toInteractor, true);
+
+
         ///Make sure that if we are switching interactors then the interactor selections carry on as well.
-
-
         if (fromInteractor.isSelectActive)
         {
             foreach (IXRSelectInteractable interactable in fromInteractor.interactablesSelected.ToArray())

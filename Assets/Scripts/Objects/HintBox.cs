@@ -175,4 +175,9 @@ public class HintBox : DragAcceptable {
 
         return pos;
     }
+
+    public void XRInteract()
+    {
+        Activate();
+    }
 }
