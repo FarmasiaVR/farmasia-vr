@@ -127,6 +127,7 @@ public class HandStateManager : MonoBehaviour {
 
     private void SetClean() {
         handState = HandState.Clean;
+        
         if (!cleanAnimationPlayed) {
             StartCoroutine(leftHandEffectSpawner.SpawnSoapBubbles());
             StartCoroutine(rightHandEffectSpawner.SpawnSoapBubbles());
@@ -134,6 +135,7 @@ public class HandStateManager : MonoBehaviour {
             StartCoroutine(Lerp(0.5f, 0, 4.0f, "_SoapColor"));
             cleanAnimationPlayed = true;
         }
+        
     }
 
     private void SetCleanest() {
