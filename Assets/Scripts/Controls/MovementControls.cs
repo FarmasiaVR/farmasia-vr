@@ -5,6 +5,9 @@ public class MovementControls : MonoBehaviour {
 
     private SteamVR_Action_Boolean menuAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
     private Hand rightHand;
+
+
+    [SerializeField]
     private Transform player;
     private Bounds[] bounds;
     private float movementStep = 0.05f;
