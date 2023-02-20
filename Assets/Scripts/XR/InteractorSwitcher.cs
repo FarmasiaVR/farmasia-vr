@@ -66,7 +66,6 @@ public class InteractorSwitcher : MonoBehaviour
     }
 
     private void SetInteractorEnabled(XRBaseInteractor interactor, bool enabled) {
-        interactor.allowSelect = enabled;
         interactor.allowHover = enabled;
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
