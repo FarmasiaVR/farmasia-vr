@@ -16,11 +16,12 @@ public class RoomTeleport : MonoBehaviour {
         }
 
         // Making sure we don't bring any grabbed items with us when teleporting
-        foreach (VRActionsMapper hand in VRInput.Hands) {
+        //this code is depricated
+        /*foreach (VRActionsMapper hand in VRInput.Hands) {
             hand.Hand.GrabUninteract();
             hand.Hand.Uninteract();
         }
-
+        */
         player.position = playerDestination.position;
 
         /*MedicinePreparationScene m = G.Instance.Scene as MedicinePreparationScene;

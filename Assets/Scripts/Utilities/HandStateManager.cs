@@ -81,7 +81,10 @@ public class HandStateManager : MonoBehaviour {
     }
 
     private void TrackEquippedClothing(CallbackData data) {
+        Debug.Log(data);
         var clothing = (data.DataObject as ProtectiveClothing);
+
+
         if (clothing.type == ClothingType.ProtectiveGloves && handState == HandState.Cleanest) {
             SetDefault();
             material.SetInt("_GlovesOn", 1);
