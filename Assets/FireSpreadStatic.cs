@@ -146,18 +146,18 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
-        currentDir = Quaternion.LookRotation(direction).eulerAngles;
+        //currentDir = Quaternion.LookRotation(direction).eulerAngles;
         Debug.Log("is it in the list: " + CheckPositionAvailability(transform.position + nextPos));
 
         // Check for obstacles in the direction
-        if (CheckMovementObstacles(currentDir) && !CheckPositionAvailability(transform.position + nextPos))
+        if (CheckMovementObstacles(nextPos) && !CheckPositionAvailability(transform.position + nextPos))
         {
             // Calculate destination and spawn object
             destination = transform.position + nextPos;
 
             Debug.Log("Current destination: " + destination + " and list status: " + string.Join(",", firePositions.getList()) + " list length: " + firePositions.getList().Count);
-            // Method with a timer, used in debugging
-            StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(currentDir), fireGrid));
+            // Method with a timer, used in debugging, can be used later to time spawns
+            StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(nextPos), fireGrid));
 
             return true;
         }
@@ -166,7 +166,8 @@ public class FireSpreadStatic : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if the position is in the List in the FirePositions script. Currently useless. 
+    /// Checks if the position is in the List in the FirePositions script. Currently useless.
+    /// Can maybe be later used to do HP status checks for grid positions. Who knows, dude.
     /// </summary>
     /// <param name="position">Vector3 parameter for spawn position.</param>
     /// <returns></returns>
@@ -184,8 +185,8 @@ public class FireSpreadStatic : MonoBehaviour
     /// <returns></returns>
     private bool CheckMovementObstacles(Vector3 direction)
     {
-        // Note the y-axis position for the ray as the ColliderCube of FireGridObject is of scale 0.01
-        Ray oneRay = new Ray(transform.position + new Vector3(0, 0.01f, 0), direction);
+        // Note that the y-axis position doesn't need a "raise" i.e new Vector3(0, 0.001f, 0) as the hallway scene floor is set to -0.1 y-position.
+        Ray oneRay = new Ray(transform.position, direction);
         RaycastHit hit;
 
         if (Physics.Raycast(oneRay, out hit, rayLength))
