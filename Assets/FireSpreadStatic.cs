@@ -48,19 +48,24 @@ public class FireSpreadStatic : MonoBehaviour
     void Update()
     {
         //Debug.Log("isIgnited status: " + fireGrid.IsIgnited());
+
         // Press space bar to change isIgnited to true on all clones which creates more clones
         if (fireGrid.IsIgnited())
         {
-            doChecks();
+            DoChecks();
         }
     }
 
-    private void doChecks()
+    /// <summary>
+    /// Beginning of the method calls. If that direction hasn't been set to true, starts the checks and possibly 
+    /// spawns a new object later in the methods. Sets true to direction boolean either way. 
+    /// </summary>
+    private void DoChecks()
     {
         // Check up
         if (!upFire)
         {
-            if (checkDirection(Vector3.forward))
+            if (CheckDirection(Vector3.forward))
             {
                 upFire = true;
             }
@@ -69,7 +74,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check down
         if (!downFire)
         {
-            if (checkDirection(Vector3.back))
+            if (CheckDirection(Vector3.back))
             {
                 downFire = true;
             }
@@ -78,7 +83,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check right
         if (!rightFire)
         {
-            if (checkDirection(Vector3.right))
+            if (CheckDirection(Vector3.right))
             {
                 rightFire = true;
             }
@@ -87,7 +92,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check left
         if (!leftFire)
         {
-            if (checkDirection(Vector3.left))
+            if (CheckDirection(Vector3.left))
             {
                 leftFire = true;
             }
@@ -96,7 +101,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check up-right
         if (!upRightFire)
         {
-            if (checkDirection(upRight))
+            if (CheckDirection(upRight))
             {
                 upRightFire = true;
             }
@@ -105,7 +110,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check up-left
         if (!upLeftFire)
         {
-            if (checkDirection(upLeft))
+            if (CheckDirection(upLeft))
             {
                 upLeftFire = true;
             }
@@ -114,7 +119,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check down-right
         if (!downRightFire)
         {
-            if (checkDirection(downRight))
+            if (CheckDirection(downRight))
             {
                 downRightFire = true;
             }
@@ -123,7 +128,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Check down-left
         if (!downLeftFire)
         {
-            if (checkDirection(downLeft))
+            if (CheckDirection(downLeft))
             {
                 downLeftFire = true;
             }
@@ -131,25 +136,28 @@ public class FireSpreadStatic : MonoBehaviour
 
     }
 
-    private bool checkDirection(Vector3 direction)
+    /// <summary>
+    /// Sets and starts the check of direction. 
+    /// Returns true, if passes CheckMovementObstacles() and not CheckPositionAvailability, else returns false.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    private bool CheckDirection(Vector3 direction)
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
         currentDir = Quaternion.LookRotation(direction).eulerAngles;
+        Debug.Log("is it in the list: " + CheckPositionAvailability(transform.position + nextPos));
 
         // Check for obstacles in the direction
-        if (checkMovementObstacles(direction) && !checkPositionAvailability(transform.position + nextPos))
+        if (CheckMovementObstacles(currentDir) && !CheckPositionAvailability(transform.position + nextPos))
         {
-
             // Calculate destination and spawn object
             destination = transform.position + nextPos;
-            if (checkPositionAvailability(destination))
-            {
-                return false;
-            }
+
             Debug.Log("Current destination: " + destination + " and list status: " + string.Join(",", firePositions.getList()) + " list length: " + firePositions.getList().Count);
             // Method with a timer, used in debugging
-            StartCoroutine(timeOutCoroutine(destination, Quaternion.Euler(currentDir), fireGrid));
+            StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(currentDir), fireGrid));
 
             return true;
         }
@@ -157,17 +165,24 @@ public class FireSpreadStatic : MonoBehaviour
         return false;
     }
 
-    private bool checkPositionAvailability(Vector3 position)
+    /// <summary>
+    /// Checks if the position is in the List in the FirePositions script. Currently useless 
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    private bool CheckPositionAvailability(Vector3 position)
     {
         Debug.Log("vector3 position: " + position.ToString());
         return firePositions.checkContains(position);
     }
 
-    /**
-     * Method to check whether an object belonging to the tags Structure or FireGrid is in assigned direction. 
-     * Objects with structure tag are walls in the scene and FireGrid tag refers to all FireGridObjects.
-     */
-    private bool checkMovementObstacles(Vector3 direction)
+    /// <summary>
+    /// Method to check whether an object belonging to the tags Structure or FireGrid is in assigned direction. 
+    /// Objects with structure tag are walls in the scene and FireGrid tag refers to all FireGridObjects' ColliderCubes.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    private bool CheckMovementObstacles(Vector3 direction)
     {
         // Note the y-axis position for the ray as the ColliderCube of FireGridObject is of scale 0.01
         Ray oneRay = new Ray(transform.position + new Vector3(0, 0.01f, 0), direction);
@@ -184,17 +199,32 @@ public class FireSpreadStatic : MonoBehaviour
         return true;
     }
 
-    IEnumerator timeOutCoroutine(Vector3 destination, Quaternion rotation, FireGrid fireGrid)
+    /// <summary>
+    /// Sets a time out before spawning a clone of the FireGridObject.
+    /// </summary>
+    /// <param name="destination"></param>
+    /// <param name="rotation"></param>
+    /// <param name="fireGrid"></param>
+    /// <returns></returns>
+    IEnumerator TimeOutCoroutine(Vector3 destination, Quaternion rotation, FireGrid fireGrid)
     {
         yield return new WaitForSeconds(1);
-        spawnFireGridObject(destination, rotation, fireGrid);
+        SpawnFireGridObject(destination, rotation, fireGrid);
     }
-    private void spawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
+
+    /// <summary>
+    /// Spawn a FireGridObject in the wanted position, with the wanted rotation. Requires fireGrid
+    /// object in the parameter to copy this script to the new clone FireGridObject.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="rotation"></param>
+    /// <param name="fireGrid"></param>
+    private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
     {
         firePositions.addPosition(position);
         GameObject obj = Instantiate(objectToSpawn, position, rotation);
         obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
-        obj.tag = "FireGrid";
+        //obj.tag = "FireGrid";
 
     }
 

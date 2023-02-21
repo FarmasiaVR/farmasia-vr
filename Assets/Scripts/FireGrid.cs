@@ -50,10 +50,9 @@ public class FireGrid : MonoBehaviour
         }
     }
 
-    /*
-     * Callable method to stop the visual effect animation, turn off the light and to play 
-     * the extinguishing particle effect.
-     */
+    /// <summary>
+    /// Callable method to stop the visual effect animation, turn off the light and to play the extinguishing particle effect.
+    /// </summary>
     public void Extinguish()
     {
         fireVFX.Stop();
@@ -66,10 +65,9 @@ public class FireGrid : MonoBehaviour
         Debug.Log("Extinguished");
     }
 
-    /*
-     * Callable method to play the visual effect animation, turn on the light and to play
-     * the ignition particle effect. 
-     */
+    /// <summary>
+    /// Callable method to play the visual effect animation, turn on the light and to play the ignition particle effect.
+    /// </summary>
     public void Ignite()
     {
         fireVFX.Play();
@@ -82,6 +80,10 @@ public class FireGrid : MonoBehaviour
         Debug.Log("Ignited");
     }
 
+    /// <summary>
+    /// Returns the value of bool isIgnited that gets turned to true when Ignite() is ran.
+    /// </summary>
+    /// <returns></returns>
     public bool IsIgnited()
     {
         return isIgnited;
