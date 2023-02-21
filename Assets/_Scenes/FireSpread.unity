@@ -12157,6 +12157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 867526153}
   - component: {fileID: 867526152}
+  - component: {fileID: 867526154}
   m_Layer: 0
   m_Name: FireGridObject
   m_TagString: Untagged
@@ -12192,7 +12193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867526151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.49, y: 0, z: 0.501}
+  m_LocalPosition: {x: -4.515, y: 0, z: 0.501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12205,6 +12206,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &867526154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867526151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c20d381c724be243ba0bec20dfbcac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 867526151}
 --- !u!1 &879492398
 GameObject:
   m_ObjectHideFlags: 0
@@ -14016,7 +14030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &993293984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27714,6 +27728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1631897418}
+  - component: {fileID: 1631897419}
   m_Layer: 0
   m_Name: Hallway
   m_TagString: Untagged
@@ -27742,6 +27757,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &1631897419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631897417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35701d608264e62438a85d3018b1d03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1657213463 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8819033432336977820, guid: 780d6a0bab4a84042b1d2f8482b2b8a5,
