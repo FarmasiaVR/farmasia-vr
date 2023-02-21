@@ -137,7 +137,7 @@ public class FireSpreadStatic : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets and starts the check of direction. 
+    /// Sets and starts the check of the current direction. 
     /// Returns true, if passes CheckMovementObstacles() and not CheckPositionAvailability, else returns false.
     /// </summary>
     /// <param name="direction"></param>
@@ -166,9 +166,9 @@ public class FireSpreadStatic : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if the position is in the List in the FirePositions script. Currently useless 
+    /// Checks if the position is in the List in the FirePositions script. Currently useless. 
     /// </summary>
-    /// <param name="position"></param>
+    /// <param name="position">Vector3 parameter for spawn position.</param>
     /// <returns></returns>
     private bool CheckPositionAvailability(Vector3 position)
     {
@@ -190,7 +190,7 @@ public class FireSpreadStatic : MonoBehaviour
 
         if (Physics.Raycast(oneRay, out hit, rayLength))
         {
-            if (hit.collider.tag == "Structure" || hit.collider.CompareTag("FireGrid"))
+            if (hit.collider.CompareTag("Structure") || hit.collider.CompareTag("FireGrid"))
             {
                 return false;
             }
@@ -216,9 +216,9 @@ public class FireSpreadStatic : MonoBehaviour
     /// Spawn a FireGridObject in the wanted position, with the wanted rotation. Requires fireGrid
     /// object in the parameter to copy this script to the new clone FireGridObject.
     /// </summary>
-    /// <param name="position"></param>
-    /// <param name="rotation"></param>
-    /// <param name="fireGrid"></param>
+    /// <param name="position">the object spawn position.</param>
+    /// <param name="rotation">the object spawn rotation.</param>
+    /// <param name="fireGrid">fireGrid object reference required for copying this script.</param>
     private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
     {
         firePositions.addPosition(position);
