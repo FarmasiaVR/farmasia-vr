@@ -109,7 +109,78 @@ public class OpenXRToSteamVRTranslatorTests
         Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.TriggerClick));
     }
 
-    
+   
+    [UnityTest]
+    public IEnumerator SteamVRTranslatorSetsCorrectStateWhenFillMedicineButtonIsPressedAndReleasedPosX()
+    {
+
+        yield return setUpTest();
+        
+
+        //left hand controller
+        XRSimulatedController left = GetControllerOrCreateNew("XRSimulatedController - LeftHand", "LeftHand");
+        //press button
+        InputSystem.QueueDeltaStateEvent(left.primary2DAxis, new Vector2(1.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsTrue(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.DPadWest));
+        yield return null;
+
+        //release button
+        InputSystem.QueueDeltaStateEvent(left.primary2DAxis, new Vector2(0.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.DPadWest));
+
+
+        //right hand controller
+        XRSimulatedController right = GetControllerOrCreateNew("XRSimulatedController - RightHand", "RightHand");
+        //press button
+        InputSystem.QueueDeltaStateEvent(right.primary2DAxis, new Vector2(1.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsTrue(VRInput.GetControl(SteamVR_Input_Sources.RightHand, ControlType.DPadWest));
+        yield return null;
+
+        //release button
+        InputSystem.QueueDeltaStateEvent(right.primary2DAxis, new Vector2(0.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.RightHand, ControlType.DPadWest));
+    }
+
+    [UnityTest]
+    public IEnumerator SteamVRTranslatorSetsCorrectStateWhenFillMedicineButtonIsPressedAndReleasedNegX()
+    {
+
+        yield return setUpTest();
+
+
+        //left hand controller
+        XRSimulatedController left = GetControllerOrCreateNew("XRSimulatedController - LeftHand", "LeftHand");
+        //press button
+        InputSystem.QueueDeltaStateEvent(left.primary2DAxis, new Vector2(-1.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsTrue(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.DPadEast));
+        yield return null;
+
+        //release button
+        InputSystem.QueueDeltaStateEvent(left.primary2DAxis, new Vector2(0.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.LeftHand, ControlType.DPadEast));
+
+
+        //right hand controller
+        XRSimulatedController right = GetControllerOrCreateNew("XRSimulatedController - RightHand", "RightHand");
+        //press button
+        InputSystem.QueueDeltaStateEvent(right.primary2DAxis, new Vector2(-1.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsTrue(VRInput.GetControl(SteamVR_Input_Sources.RightHand, ControlType.DPadEast));
+        yield return null;
+
+        //release button
+        InputSystem.QueueDeltaStateEvent(right.primary2DAxis, new Vector2(0.0f, 0.0f));
+        yield return null; //wait frame
+        Assert.IsFalse(VRInput.GetControl(SteamVR_Input_Sources.RightHand, ControlType.DPadEast));
+    }
+
+
 
     public class MyMonoBehaviourTest : MonoBehaviour, IMonoBehaviourTest
     {
