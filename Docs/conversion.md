@@ -26,6 +26,12 @@ Once again, look at an example of [original code](/Assets/Scripts/Objects/Protec
 A socket factory is a socket that spawns a new instance of the same object when an object is taken from the socket. This is used, for example, for shoe covers. Recreate a socket factory for the XR library with the following steps.
 
 1. Convert a grabbable object to the XR library using the steps mentioned before and save it as a prefab.
-2. Create a socket interactor by selecting
+2. Create a socket interactor by selecting GameObject -> XR -> Socket Interactor.
+3. Under the _XR Socket Interactor_ component set the interaction manager to _None_. Otherwise if there are several interaction managers in the scene they may conflict with each other.
+4. Set _Show Interactable Hover Meshes_ to _False_. Otherwise when you bring any XR object close to the socket it will display it's mesh and whether or not the object can be placed in the socket. Because in this case we don't want this, disable it.
+5. Add a _XR Socket Factory_ component to the socket and place the XR grabbable object prefab as the _Socket Interactable_ parameter.
+
+## Converting a Drag Acceptable object
+This component is used, for example, on buttons in popups like hint boxes and videos. This can be converted by simply placing a _Drag Acceptable To XR Converter_ component to the object the player is supposed to be interacting with. Don't mind if the original Drag Acceptable script isn't attached to the button. It is usually attached during runtime.
 
 ## **M̴̡̳͚̅̓a̴̢̘̤͘y̶͚͇͇̑ ̴̪̈́̂g̷̫̜̔ͅō̸͚̱̦d̷͔̰̱̒ ̷̱̱̓b̷͙̱̍͐ĺ̵͖̲ͅê̷̲͂́ṣ̵͕̓̔s̸̞̋̾͑ ̸̡͊̀͋ỳ̴̏̈́͜͜o̷̗͒̋u̵͚͂͛͂ͅ ̴̰̫͍̀ọ̶̡͛̓n̵̬͋ ̸̜̙̓̈͝y̸̙̦͆̚̚o̶̟̅̓̾ŭ̶̖̑͜r̷̡̤̿ ̴̩͚̪̊̑c̶͖̭̄̚ô̶̮̙͍ṋ̷͊͆v̵̯͚̀̈́ȅ̴̝̟̐r̷̨̰̞̍ṡ̶̼̮̯i̶̜̰̇̎ȏ̵̮̣n̷̢̼͎̏͂ ̸͇̩̝̌͊̓à̵͔́d̵͎̯͍̔͂́v̵̡͠e̷̬͈̋ǹ̶̢̼͓͐̄t̵̨̬̾̇̀u̵͉͑̓́r̵͉͈̃͝e̴̼̚ṣ̷͉̌,̸̭̏̀̍ ̵̡̢̠̆͐b̴̛̖͝e̷̘̿̾̐c̶̘̃á̷̄͊ͅu̵̡̧͕͠s̵͚̣͍̿e̷͔̳͗̍̇ ̴̮̤̯̀̎͑ẖ̸͖̆̑e̴̘̒ ̶͇̬̀̿͘s̶͓̟͕̚ǘ̴͓̠̹͋͆r̶̬̚e̵̜̞̐̈́͜ ̸͈͊a̵͍̔͊s̵̨̛̰̔͒ ̴͇̄͑ḣ̸̞̈́̊ȅ̸͖̘͎l̶̳̽͊͝l̸̳̺̀̀͝ͅ ̷͉̲̳͌͝h̷̩͎͎͗a̷̗͉͐́͋s̷̡̀̈́͊ǹ̶͍̇͘'̶̡̼̓ț̵͊̓͆ ̶̤̗̀b̸̼͋l̸̨͙͖̃̕͝e̸̛̦͉͊͑s̷̞͂̌̈́š̸͖̼͉͌͗ȅ̶̡d̴͓̾͆ ̴̢̛̹̪̋̈́t̸̲͋͠h̴̛̩̱̃͘ͅi̶̢̟̊s̸̛̜̟̏̓ͅ ̷̖͔̈́̔͜ĉ̸̢͇̑̃o̴̥̘͙̒̈́͝d̴̰́̂͋ͅe̸̝͊͋**
