@@ -21,4 +21,11 @@ Events.FireEvent(EventType.SomeEvent, CallbackData.Object(legacyObject));
 ```
 Once again, look at an example of [original code](/Assets/Scripts/Objects/ProtectiveClothing.cs) and [converted](https://github.com/FarmasiaVR/farmasia-vr/blob/stagingxr/Assets/Scripts/Objects/XR/ChangingRoom/XRProtectiveClothing.cs) to figure out what I am talking about :DDD
 
+## Converting a socket factory
+
+A socket factory is a socket that spawns a new instance of the same object when an object is taken from the socket. This is used, for example, for shoe covers. Recreate a socket factory for the XR library with the following steps.
+
+1. Convert a grabbable object to the XR library using the steps mentioned before and save it as a prefab.
+2. Create a socket interactor by selecting
+
 ## **M̴̡̳͚̅̓a̴̢̘̤͘y̶͚͇͇̑ ̴̪̈́̂g̷̫̜̔ͅō̸͚̱̦d̷͔̰̱̒ ̷̱̱̓b̷͙̱̍͐ĺ̵͖̲ͅê̷̲͂́ṣ̵͕̓̔s̸̞̋̾͑ ̸̡͊̀͋ỳ̴̏̈́͜͜o̷̗͒̋u̵͚͂͛͂ͅ ̴̰̫͍̀ọ̶̡͛̓n̵̬͋ ̸̜̙̓̈͝y̸̙̦͆̚̚o̶̟̅̓̾ŭ̶̖̑͜r̷̡̤̿ ̴̩͚̪̊̑c̶͖̭̄̚ô̶̮̙͍ṋ̷͊͆v̵̯͚̀̈́ȅ̴̝̟̐r̷̨̰̞̍ṡ̶̼̮̯i̶̜̰̇̎ȏ̵̮̣n̷̢̼͎̏͂ ̸͇̩̝̌͊̓à̵͔́d̵͎̯͍̔͂́v̵̡͠e̷̬͈̋ǹ̶̢̼͓͐̄t̵̨̬̾̇̀u̵͉͑̓́r̵͉͈̃͝e̴̼̚ṣ̷͉̌,̸̭̏̀̍ ̵̡̢̠̆͐b̴̛̖͝e̷̘̿̾̐c̶̘̃á̷̄͊ͅu̵̡̧͕͠s̵͚̣͍̿e̷͔̳͗̍̇ ̴̮̤̯̀̎͑ẖ̸͖̆̑e̴̘̒ ̶͇̬̀̿͘s̶͓̟͕̚ǘ̴͓̠̹͋͆r̶̬̚e̵̜̞̐̈́͜ ̸͈͊a̵͍̔͊s̵̨̛̰̔͒ ̴͇̄͑ḣ̸̞̈́̊ȅ̸͖̘͎l̶̳̽͊͝l̸̳̺̀̀͝ͅ ̷͉̲̳͌͝h̷̩͎͎͗a̷̗͉͐́͋s̷̡̀̈́͊ǹ̶͍̇͘'̶̡̼̓ț̵͊̓͆ ̶̤̗̀b̸̼͋l̸̨͙͖̃̕͝e̸̛̦͉͊͑s̷̞͂̌̈́š̸͖̼͉͌͗ȅ̶̡d̴͓̾͆ ̴̢̛̹̪̋̈́t̸̲͋͠h̴̛̩̱̃͘ͅi̶̢̟̊s̸̛̜̟̏̓ͅ ̷̖͔̈́̔͜ĉ̸̢͇̑̃o̴̥̘͙̒̈́͝d̴̰́̂͋ͅe̸̝͊͋**
