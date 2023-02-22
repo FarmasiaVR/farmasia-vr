@@ -153,6 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 511073469188240523}
   - component: {fileID: 511073469188240520}
+  - component: {fileID: 1886082207}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -189,7 +190,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.06
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -271,6 +272,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1886082207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511073469188240522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495f5d76e8018804992dbf696b8c7959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 511073469188240520}
+  startTime: 0
+  loopStartTime: 12
+  loopEndTime: 17
+  soundEndingStart: 17.5
+  soundEndingStop: 22.5
 --- !u!1 &511073469247164721
 GameObject:
   m_ObjectHideFlags: 0
@@ -5342,8 +5361,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   open: 0
   audioSource: {fileID: 511073469188240520}
-  loopStartTime: 12
-  loopEndTime: 17
   water: {fileID: 1145406306731046268}
   showerExtinguisher: {fileID: 511073469247164682}
 --- !u!1 &2500381169507965737

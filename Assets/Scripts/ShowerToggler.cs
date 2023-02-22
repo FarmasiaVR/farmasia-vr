@@ -7,8 +7,7 @@ public class ShowerToggler : MonoBehaviour
 {
     public bool open;
     public AudioSource audioSource;
-    public float loopStartTime;
-    public float loopEndTime;
+    private LoopingAudio audioLooper;
     public ParticleSystem water;
     private Coroutine turnOffShowerCoroutine;
     public ShowerExtinguisher showerExtinguisher;
@@ -17,7 +16,7 @@ public class ShowerToggler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        audioLooper = audioSource.GetComponent<LoopingAudio>();
     }
 
     // Update is called once per frame
@@ -36,13 +35,7 @@ public class ShowerToggler : MonoBehaviour
         {
             open = true;
             water.Play();
-            
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-                audioSource.time = 0;
-            }
-
+            audioLooper.Play();
 
             Debug.Log("Shower should be on");
             
@@ -55,24 +48,11 @@ public class ShowerToggler : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Shower")
-        {
-            if (audioSource.time >= loopEndTime)
-            {
-                audioSource.time = loopStartTime;
-            }
-        }
-    }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Shower" && open)
         {
-
-            audioSource.time = loopEndTime;
-            audioSource.loop = false;
+            audioLooper.Stop();
 
             turnOffShowerCoroutine =  StartCoroutine(turnOffShower());
         }
