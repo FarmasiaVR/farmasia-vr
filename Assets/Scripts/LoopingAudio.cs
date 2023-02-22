@@ -28,7 +28,7 @@ public class LoopingAudio : MonoBehaviour
     {
         if (soundEndingStart == 0)
         {
-            soundEndingStart = audioSource.clip.length;
+            soundEndingStart = audioSource.clip.length - 0.001f;
         }
 
         if (soundEndingStop == 0)
@@ -55,6 +55,11 @@ public class LoopingAudio : MonoBehaviour
 
         if (isStopping)
         {
+            if (audioSource.time < soundEndingStart)
+            {
+                audioSource.time = soundEndingStart;
+            }
+
             if (audioSource.time >= soundEndingStop)
             {
                 audioSource.Stop();
@@ -65,9 +70,20 @@ public class LoopingAudio : MonoBehaviour
 
     public void Play()
     {
-        audioSource.time = startTime;
-        audioSource.Play();
-        isLooping = true;
+
+        if (isStopping)
+        {
+            audioSource.time = loopStartTime;
+            audioSource.Play();
+            isLooping = true;
+        } else if (!isLooping)
+        {
+            audioSource.time = startTime;
+            audioSource.Play();
+            isLooping = true;
+
+        }
+        isStopping = false;
     }
 
     public void Stop()
