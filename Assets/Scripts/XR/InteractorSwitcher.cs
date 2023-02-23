@@ -89,7 +89,11 @@ public class InteractorSwitcher : MonoBehaviour
         {
             foreach (IXRSelectInteractable interactable in fromInteractor.interactablesSelected.ToArray())
             {
-                toInteractor.interactionManager.SelectEnter(toInteractor, interactable);
+                //Make sure that if the player is selecting a simple interactable, then that selection does not transfer over.
+                //TODO: Make so that a simple interactable isn't selected after the player releases the grab button.
+                if (!(interactable.transform.GetComponent<XRSimpleInteractable>())){
+                    toInteractor.interactionManager.SelectEnter(toInteractor, interactable);
+                }
             }
         }
 

@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour {
 
     private string scene;
 
-    public Animator animator;
+    public CameraFadeController fadeController;
 
     public void SwapScene(SceneTypes type) {
         switch (type) {
@@ -36,10 +36,11 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void FadeOutScene() {
-        animator.SetTrigger("FadeOut");
+        fadeController.onFadeOutComplete.AddListener(OnFadeComplete);
+        fadeController.BeginFadeOut();
     }
 
-    public void OnFadeComplete() {
+    private void OnFadeComplete() {
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         LoadScene();
