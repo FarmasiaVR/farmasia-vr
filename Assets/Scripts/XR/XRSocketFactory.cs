@@ -25,6 +25,7 @@ public class XRSocketFactory : MonoBehaviour
         ///Spawns the XR interactable in the world and forces the socket to select it
         /// </summary>
         spawnedInst = Instantiate(socketInteractable);
+        spawnedInst.transform.position = transform.position;
         socket.interactionManager.SelectEnter(socket.GetComponent<IXRSelectInteractor>(), spawnedInst);
     }
 
