@@ -17,6 +17,8 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private VisualEffect fireVFX;
     [SerializeField]
+    private VisualEffect smokeVFX;
+    [SerializeField]
     private ParticleSystem igniteParticle;
     [SerializeField]
     private ParticleSystem extinguishParticle;
@@ -56,6 +58,7 @@ public class FireGrid : MonoBehaviour
     public void Extinguish()
     {
         fireVFX.Stop();
+        smokeVFX.SetBool("looping", false);
         pointLight.SetActive(false);
         if (extinguishParticle != null && isIgnited == true)
         {
@@ -71,6 +74,7 @@ public class FireGrid : MonoBehaviour
     public void Ignite()
     {
         fireVFX.Play();
+        smokeVFX.SetBool("looping", true);
         pointLight.SetActive(true);
         if (igniteParticle != null && isIgnited == false)
         {
