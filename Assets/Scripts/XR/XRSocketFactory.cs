@@ -12,6 +12,8 @@ public class XRSocketFactory : MonoBehaviour
     public XRBaseInteractable socketInteractable;
     private XRBaseInteractable spawnedInst;
 
+    private List<XRBaseInteractable> instToDelete = new List<XRBaseInteractable>();
+
     private void Start()
     {
         socket = GetComponent<XRSocketInteractor>();
@@ -24,14 +26,23 @@ public class XRSocketFactory : MonoBehaviour
         ///<summary>
         ///Spawns the XR interactable in the world and forces the socket to select it
         /// </summary>
+
+        //This is to make sure that the socket doesn't try to spawn new objects while it is exiting the game.
+        if (gameObject.scene.isLoaded) return;
+
         spawnedInst = Instantiate(socketInteractable);
         spawnedInst.transform.position = transform.position;
+        instToDelete.Add(spawnedInst);
         socket.interactionManager.SelectEnter(socket.GetComponent<IXRSelectInteractor>(), spawnedInst);
     }
 
     private void OnDestroy()
     {
-        Destroy(spawnedInst);
+        foreach (XRBaseInteractable inst in instToDelete.ToArray()) {
+            if (inst != null) {
+                Destroy(inst.gameObject);
+            }
+        }
     }
 
 

@@ -69,7 +69,7 @@ public class InteractorSwitcher : MonoBehaviour
         interactor.allowHover = enabled;
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
-        if (lineVisual) {
+        if (lineVisual != null) {
             lineVisual.enabled = enabled;
             /// If the ray interactor has a reticle, then disable it as well.
             if (lineVisual.reticle)
@@ -98,5 +98,14 @@ public class InteractorSwitcher : MonoBehaviour
         }
 
         SetInteractorEnabled(fromInteractor, false);
+    }
+
+    private void OnDestroy() {
+        rayInteractorActivate.action.started -= EnableRayInteractor;
+        rayInteractorActivate.action.canceled -= DisableRayInteractor;
+        teleportActivate.action.started -= EnableTeleport;
+        teleportActivate.action.canceled -= DisableTeleport;
+        teleportActivate.action.Disable();
+        rayInteractorActivate.action.Disable();
     }
 }

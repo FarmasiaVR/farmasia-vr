@@ -12,7 +12,7 @@ public class HintBox : DragAcceptable {
     private static HintText hintInstance;
     private static Vector3[] positions;
     private static bool initialized = false;
-    private static float maxDistance = 2f;
+    private static float maxDistance = 5f;
 
     private Transform playerCamera;
     private Transform questionMark;

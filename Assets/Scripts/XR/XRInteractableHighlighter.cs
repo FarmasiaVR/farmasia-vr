@@ -15,11 +15,29 @@ public class XRInteractableHighlighter : MonoBehaviour
         interactor.selectEntered.AddListener(SelectedEvent);
     }
 
-    public void HoveredEvent(HoverEnterEventArgs hoveredObject) {
-        bool hoveredObjectIsHeld = hoveredObject.interactableObject.transform.GetComponent<XRBaseInteractable>().isSelected;
-        if (!hoveredObjectIsHeld) {
-            ChangeHiglight(hoveredObject.interactableObject.transform, true);
+    public void HoveredEvent(HoverEnterEventArgs hoveredArgs) {
+        ///Don't highlight selected objects. If they are selected, highlight them only if they are held by a socket.
+        ///
+
+        bool hoveredObjectIsSelected = false;
+        bool selectingObjectIsSocket = false;
+
+        List<IXRSelectInteractor> interactorsSelecting = hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>().interactorsSelecting;
+
+        if (interactorsSelecting.Count > 0) {
+            hoveredObjectIsSelected = true;
+            if (interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>()) {
+                selectingObjectIsSocket = true;
+            }
         }
+  
+
+
+        if (!hoveredObjectIsSelected | selectingObjectIsSocket) {
+            ChangeHiglight(hoveredArgs.interactableObject.transform, true);
+        }
+        
+
     }
 
     public void ExitHoverEvent (HoverExitEventArgs hoveredObject) {

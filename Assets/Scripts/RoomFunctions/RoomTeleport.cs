@@ -53,6 +53,8 @@ public class RoomTeleport : MonoBehaviour {
     public void TeleportPlayerAfterFadeOut()
     {
         player.position = playerDestination.position;
+        //Update the position of the hint so that it is in the right place.
+        G.Instance.Progress.UpdateHint();
         fadeController.BeginFadeIn();
     }
 }
