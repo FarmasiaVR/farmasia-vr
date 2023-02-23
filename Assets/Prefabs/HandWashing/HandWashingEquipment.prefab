@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 2151088098467013482}
   - component: {fileID: 1465508038}
   - component: {fileID: 2151088098467013481}
+  - component: {fileID: 7020523998617337621}
   m_Layer: 0
   m_Name: Sink
   m_TagString: Untagged
@@ -279,7 +280,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -380,6 +381,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7020523998617337621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088098467013484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3332975c20afba646a294ec58b2aa814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: Water
+  runningTime: 5.5
 --- !u!1 &2151088098575430198
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +407,7 @@ GameObject:
   - component: {fileID: 2151088098575430194}
   - component: {fileID: 2151088098575430195}
   - component: {fileID: 2151088098575430196}
+  - component: {fileID: 3938303479534093980}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -477,6 +493,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3938303479534093980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088098575430198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0e8b442503907409a37068f8044a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4743840791722919080}
+        m_TargetAssemblyTypeName: XRHandWashingLiquid, GameAssembly
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2151088098638687499
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +532,7 @@ GameObject:
   - component: {fileID: 2151088098638687497}
   - component: {fileID: 2151088098638687496}
   - component: {fileID: 2151088098638687543}
+  - component: {fileID: 4898915806379399908}
   m_Layer: 0
   m_Name: HandSanitizer
   m_TagString: Untagged
@@ -504,7 +548,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2151088098638687499}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.26000002, y: 0.356, z: -0.2}
+  m_LocalPosition: {x: 0.26000002, y: 0.356, z: -0.0553}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -643,6 +687,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4898915806379399908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088098638687499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3332975c20afba646a294ec58b2aa814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: HandSanitizer
+  runningTime: 1.8
 --- !u!1 &2151088098998086853
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +713,7 @@ GameObject:
   - component: {fileID: 2151088098998086851}
   - component: {fileID: 2151088098998086850}
   - component: {fileID: 2151088098998086849}
+  - component: {fileID: 4743840791722919080}
   m_Layer: 0
   m_Name: SoapDispencer
   m_TagString: Untagged
@@ -670,7 +729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2151088098998086853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.24000001, y: 0.35, z: -0.2}
+  m_LocalPosition: {x: -0.24000001, y: 0.35, z: -0.055299953}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -809,6 +868,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4743840791722919080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088098998086853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3332975c20afba646a294ec58b2aa814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: Soap
+  runningTime: 1.8
 --- !u!1 &2151088099579352887
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +894,7 @@ GameObject:
   - component: {fileID: 2151088099579352883}
   - component: {fileID: 2151088099579352884}
   - component: {fileID: 2151088099579352885}
+  - component: {fileID: 2314131571907803562}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -906,6 +980,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2314131571907803562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088099579352887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0e8b442503907409a37068f8044a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4898915806379399908}
+        m_TargetAssemblyTypeName: XRHandWashingLiquid, GameAssembly
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2151088099729122604
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +1019,7 @@ GameObject:
   - component: {fileID: 2151088099729122600}
   - component: {fileID: 2151088099729122601}
   - component: {fileID: 2151088099729122602}
+  - component: {fileID: 5525476703163594338}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -1003,6 +1105,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5525476703163594338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151088099729122604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0e8b442503907409a37068f8044a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7020523998617337621}
+        m_TargetAssemblyTypeName: XRHandWashingLiquid, GameAssembly
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5916452989598602107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,7 +1149,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6661630087653572267
 Transform:
@@ -1096,7 +1225,7 @@ BoxCollider:
   m_GameObject: {fileID: 5916452989598602107}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1117,7 +1246,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4495693532795199210
 Transform:
@@ -1193,7 +1322,7 @@ BoxCollider:
   m_GameObject: {fileID: 6864911801257798975}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1214,7 +1343,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &124116757812703281
 Transform:
@@ -1290,7 +1419,7 @@ BoxCollider:
   m_GameObject: {fileID: 7108707561791693328}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -6251,7 +6380,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ad347224cce360249b00ebd53c961436, type: 2}
+      objectReference: {fileID: 2100000, guid: b59816fda1f873e43b2b5156c2a39782, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6582a127c4067e1418804038379ddc7f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b59816fda1f873e43b2b5156c2a39782, type: 2}
     - target: {fileID: 919132149155446097, guid: 6582a127c4067e1418804038379ddc7f,
         type: 3}
       propertyPath: m_Name
@@ -6356,7 +6490,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ad347224cce360249b00ebd53c961436, type: 2}
+      objectReference: {fileID: 2100000, guid: 0011aa1db3ae8b24b82d7c28e19904a8, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6582a127c4067e1418804038379ddc7f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0011aa1db3ae8b24b82d7c28e19904a8, type: 2}
     - target: {fileID: 919132149155446097, guid: 6582a127c4067e1418804038379ddc7f,
         type: 3}
       propertyPath: m_Name

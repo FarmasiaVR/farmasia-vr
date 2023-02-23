@@ -8,7 +8,8 @@ public class RoomTeleport : MonoBehaviour {
     public Transform playerDestination;
     public Animator doorHandleAnimation;
 
-    private Animator blackFade;
+
+    private CameraFadeController fadeController;
 
     /// <summary>
     /// Teleports player to the next room
@@ -19,17 +20,14 @@ public class RoomTeleport : MonoBehaviour {
             return;
         }
 
-        blackFade = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<Animator>();
-        if (blackFade != null)
+        fadeController = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<CameraFadeController>();
+        if (fadeController != null)
         {
             //Play the fade in animation
-            blackFade.SetTrigger("FadeOut");
+            fadeController.onFadeOutComplete.AddListener(TeleportPlayerAfterFadeOut);
+            fadeController.BeginFadeOut();
             //Play the door handle animation
             doorHandleAnimation.SetBool("isUp", false);
-
-            //Get the length of the animation currently playing and wait for that time before teleporting the player and playing
-            //the fade in animation
-            StartCoroutine(TeleportPlayerAfterFadeIn(blackFade.GetCurrentAnimatorClipInfo(0)[0].clip.length));
         }
         //If the animator for the level changer and the fade animations isn't found, then that probably means we are
         //using legacy code and we can just teleport the player
@@ -52,10 +50,9 @@ public class RoomTeleport : MonoBehaviour {
         }*/
     }
 
-    IEnumerator TeleportPlayerAfterFadeIn(float secondsToWaitBeforeTeleport)
+    public void TeleportPlayerAfterFadeOut()
     {
-        yield return new WaitForSeconds(secondsToWaitBeforeTeleport);
         player.position = playerDestination.position;
-        blackFade.SetTrigger("FadeIn");
+        fadeController.BeginFadeIn();
     }
 }

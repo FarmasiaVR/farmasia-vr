@@ -1773,6 +1773,7 @@ GameObject:
   - component: {fileID: 2819268850625583301}
   - component: {fileID: 7929520868890322958}
   - component: {fileID: 7077061658389475366}
+  - component: {fileID: 1465080600280456670}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: LevelChanger
@@ -1874,7 +1875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7dc58514aff16408546b3c1c235381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7077061658389475366}
+  fadeController: {fileID: 1465080600280456670}
 --- !u!95 &7077061658389475366
 Animator:
   serializedVersion: 5
@@ -1895,6 +1896,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1465080600280456670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987319620600786938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f2fd8814fdb14469e182df2fceb005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onFadeOutComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onFadeInComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5044127759747117622
 GameObject:
   m_ObjectHideFlags: 0
