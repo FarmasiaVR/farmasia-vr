@@ -20,7 +20,7 @@ namespace SteamVRMock
     {
         internal void Execute(int v1, float v2, float v3, float v4, object leftHand)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
         }
     }
 
@@ -34,17 +34,18 @@ namespace SteamVRMock
     {
         internal void AddOnStateDownListener(Action<SteamVR_Action_Boolean, SteamVR_Input_Sources> triggerTouchDown, SteamVR_Input_Sources handType)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
         }
 
         internal void AddOnStateUpListener(Action<SteamVR_Action_Boolean, SteamVR_Input_Sources> triggerTouchUp, SteamVR_Input_Sources handType)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
         }
 
         internal bool GetStateDown(SteamVR_Input_Sources handType)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
+            return false;
         }
     }
 
@@ -52,7 +53,7 @@ namespace SteamVRMock
     {
         internal void AddOnChangeListener(Action<SteamVR_Action_Single, SteamVR_Input_Sources, float, float> triggerValueChange, SteamVR_Input_Sources handType)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
         }
     }
 
@@ -60,7 +61,7 @@ namespace SteamVRMock
     {
         internal void AddOnChangeListener(Action<SteamVR_Action_Vector2, SteamVR_Input_Sources, Vector2, Vector2> padTouchValueChange, SteamVR_Input_Sources handType)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
         }
     }
 
@@ -81,20 +82,25 @@ namespace SteamVRMock
 
     public class SteamVR_Input
     {
-        internal static T GetAction<T>(string v)
+        internal static SteamVR_Action_Boolean GetAction<T>(string v)
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Currently using the mock SteamVR library. Any functions dependant on SteamVR will not work as expected");
+            return new SteamVR_Action_Boolean(); 
         }
     }
 
     public class SteamVR_TrackedObject
     {
-        public static EIndex EIndex { get; internal set; }
+
+        internal class EIndex
+        {
+            internal static EIndex None;
+        }
     }
 
-    public class EIndex
+    public class SteamVR_RenderModel
     {
-        public static object None;
+        internal SteamVR_TrackedObject.EIndex index;
     }
 
 
