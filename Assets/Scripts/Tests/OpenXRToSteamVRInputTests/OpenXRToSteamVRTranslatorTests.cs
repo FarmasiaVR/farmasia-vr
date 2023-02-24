@@ -8,7 +8,11 @@ using UnityEngine.TestTools;
 
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 public class OpenXRToSteamVRTranslatorTests
 {
   

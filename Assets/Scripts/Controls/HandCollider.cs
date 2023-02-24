@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 using System.Linq;
 
 public class HandCollider : MonoBehaviour {
@@ -63,7 +67,7 @@ public class HandCollider : MonoBehaviour {
         container.EnteredObjects.Remove(interactable);
     }
 
-    #region Highlight
+#region Highlight
     public void HighlightClosestObject() {
         HighlightObject(GetClosestObject());
     }
@@ -86,7 +90,7 @@ public class HandCollider : MonoBehaviour {
             PreviousHighlight?.Highlight();
         }
     }
-    #endregion
+#endregion
 
     public void UnhighlightPrevious() {
         PreviousHighlight?.Unhighlight();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.SceneManagement;
 
 public class XRSocketFactory : MonoBehaviour
 {
@@ -12,14 +13,14 @@ public class XRSocketFactory : MonoBehaviour
     public XRBaseInteractable socketInteractable;
     private XRBaseInteractable spawnedInst;
 
-    private List<XRBaseInteractable> instToDelete = new List<XRBaseInteractable>();
-
-    private void Start()
+    private void Awake()
     {
         socket = GetComponent<XRSocketInteractor>();
         socket.selectExited.AddListener(SpawnInteractableToSocket);
-        SpawnInteractableToSocket(new SelectExitEventArgs());
+        SceneManager.sceneLoaded += SpawnInteractableOnSceneLoad;
     }
+
+
 
     public void SpawnInteractableToSocket(SelectExitEventArgs eventArgs)
     {
@@ -28,21 +29,20 @@ public class XRSocketFactory : MonoBehaviour
         /// </summary>
 
         //This is to make sure that the socket doesn't try to spawn new objects while it is exiting the game.
-        if (gameObject.scene.isLoaded) return;
+        if (!gameObject.scene.isLoaded) return;
 
         spawnedInst = Instantiate(socketInteractable);
         spawnedInst.transform.position = transform.position;
-        instToDelete.Add(spawnedInst);
         socket.interactionManager.SelectEnter(socket.GetComponent<IXRSelectInteractor>(), spawnedInst);
     }
 
-    private void OnDestroy()
+    private void SpawnInteractableOnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        foreach (XRBaseInteractable inst in instToDelete.ToArray()) {
-            if (inst != null) {
-                Destroy(inst.gameObject);
-            }
-        }
+        ///<summary>
+        ///Spawns an interactable into the socket when the scene is loaded.
+        ///Running the SpawnInteractableToSocket in Start doesn't spawn the interactable into the socket.
+        /// </summary>
+        SpawnInteractableToSocket(new SelectExitEventArgs());
     }
 
 
