@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 /// <summary>
 /// Maps SteamVR input actions to <see cref="VRInput"/> state
@@ -97,6 +101,8 @@ public class VRActionsMapper : MonoBehaviour {
 
         return false;
     }
+
+
 
     private void TriggerTouchDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         VRInput.ControlDown(ControlType.TriggerTouch, handType);

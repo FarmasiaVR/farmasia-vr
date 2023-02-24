@@ -2,11 +2,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class Hand : MonoBehaviour {
 
-    #region Fields
+#region Fields
 
     public GameObject placeholderPrefab;
     public bool IsInteracting { get => interactedInteractable != null; }
@@ -40,7 +44,7 @@ public class Hand : MonoBehaviour {
 
     private RemoteGrabLine line;
     public bool RemoteGrabbing { get; private set; }
-    #endregion
+#endregion
 
     private void Start() {
         HandCollider = transform.Find("HandColl").GetComponent<HandCollider>();

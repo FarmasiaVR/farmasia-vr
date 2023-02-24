@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class TestHandMover : MonoBehaviour {
 
