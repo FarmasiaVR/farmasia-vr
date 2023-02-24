@@ -17,7 +17,7 @@ public class FireExtinguisherCollision : MonoBehaviour
     /// <param name="collision"></param>
     private void OnParticleCollision(GameObject collision)
     {
-        if (collision.tag == "FireGrid")
+        if (collision.CompareTag("FireGrid"))
         {
             fireGrid.Extinguish();
         }

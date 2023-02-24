@@ -41,7 +41,7 @@ public class FireSpreadStatic : MonoBehaviour
         currentDir = up;
         nextPos = Vector3.forward;
         destination = transform.position;
-        firePositions.addPosition(destination);
+        //firePositions.addPosition(destination);
     }
 
     // Update is called once per frame
@@ -147,10 +147,11 @@ public class FireSpreadStatic : MonoBehaviour
         // Calculate next position and rotation based on direction
         nextPos = direction;
         //currentDir = Quaternion.LookRotation(direction).eulerAngles;
-        Debug.Log("is it in the list: " + CheckPositionAvailability(transform.position + nextPos));
+        //Debug.Log("is it in the list: " + CheckPositionAvailability(transform.position + nextPos));
+        //&& !CheckPositionAvailability(transform.position + nextPos)
 
         // Check for obstacles in the direction
-        if (CheckMovementObstacles(nextPos) && !CheckPositionAvailability(transform.position + nextPos))
+        if (CheckMovementObstacles(nextPos))
         {
             // Calculate destination and spawn object
             destination = transform.position + nextPos;
