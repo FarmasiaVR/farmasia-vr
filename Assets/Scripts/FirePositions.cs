@@ -56,15 +56,13 @@ public class FirePositions : MonoBehaviour
     {
         try
         {
-
-        
-        return objectFirePosition[objectG];
+            return objectFirePosition[objectG];
         }
         catch (KeyNotFoundException)
         {
             return Vector3.zero;
         }
-     }
+    }
 
     public void ClearPositions()
     {

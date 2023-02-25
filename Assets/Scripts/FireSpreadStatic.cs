@@ -9,7 +9,6 @@ public class FireSpreadStatic : MonoBehaviour
     private FirePositions firePositions;
     private GameObject[] wallStructure;
     private GameObject floor;
-    private List<Vector3> positions = new List<Vector3>();
 
     // Sets the rotation variables
     private Vector3 up = Vector3.zero,
@@ -22,13 +21,13 @@ public class FireSpreadStatic : MonoBehaviour
         upLeft = new Vector3(-1, 0, 1),
         downRight = new Vector3(1, 0, -1),
         downLeft = new Vector3(-1, 0, -1);
-    private Vector3 nextPos, destination, direction;
+    private Vector3 nextPos, destination;
 
     private float rayLength = 1f;
-    private float oneHalfLength = 1.5f;
+
     //private bool canMove;
-    private bool upFire, downFire, rightFire, 
-        leftFire, upRightFire, upLeftFire, 
+    private bool upFire, downFire, rightFire,
+        leftFire, upRightFire, upLeftFire,
         downRightFire, downLeftFire;
 
     [SerializeField]
@@ -50,8 +49,6 @@ public class FireSpreadStatic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("isIgnited status: " + fireGrid.IsIgnited());
-
         // Press F to pay respects and create more clones
         // fireGrid.IsIgnited()
         if (Input.GetKeyDown(KeyCode.F))
@@ -150,9 +147,6 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
-        //currentDir = Quaternion.LookRotation(direction).eulerAngles;
-        //Debug.Log("is it in the list: " + CheckPositionAvailability(transform.position + nextPos));
-        //&& !CheckPositionAvailability(transform.position + nextPos)
 
         // Check for obstacles in the direction
         if (CheckMovementObstacles(nextPos))
@@ -194,7 +188,7 @@ public class FireSpreadStatic : MonoBehaviour
         // Note that the y-axis position doesn't need a "raise" i.e new Vector3(0, 0.001f, 0) as the hallway scene floor is set to -0.1 y-position.
         Ray oneRay = new Ray(transform.position, direction);
 
-        if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength) )
+        if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength))
         {
             if (hit.collider.CompareTag("Structure") || hit.collider.CompareTag("FireGrid"))
             {
