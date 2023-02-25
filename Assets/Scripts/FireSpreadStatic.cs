@@ -160,7 +160,6 @@ public class FireSpreadStatic : MonoBehaviour
             // Calculate destination and spawn object
             destination = transform.position + nextPos;
 
-            Debug.Log("Current destination: " + destination + " and list status: " + string.Join(",", firePositions.getList()) + " list length: " + firePositions.getList().Count);
             // Method with a timer, used in debugging, can be used later to time spawns
             //StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(nextPos), fireGrid));
             SpawnFireGridObject(destination, Quaternion.Euler(nextPos), fireGrid);
@@ -180,7 +179,7 @@ public class FireSpreadStatic : MonoBehaviour
     private bool CheckPositionAvailability(Vector3 position)
     {
         Debug.Log("vector3 position: " + position.ToString());
-        return firePositions.checkContains(position);
+        return firePositions.CheckContains(position);
     }
 
 
@@ -227,7 +226,7 @@ public class FireSpreadStatic : MonoBehaviour
     /// <param name="fireGrid">fireGrid object reference required for copying this script.</param>
     private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
     {
-        firePositions.addPosition(position);
+        firePositions.AddPosition(position);
         GameObject obj = Instantiate(objectToSpawn, position, rotation);
         obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
         //obj.tag = "FireGrid";
