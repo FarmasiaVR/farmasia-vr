@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +25,11 @@ public class FireSpreadStatic : MonoBehaviour
     private Vector3 nextPos, destination, direction;
 
     private float rayLength = 1f;
+    private float oneHalfLength = 1.5f;
     //private bool canMove;
-    private bool upFire, downFire, rightFire, leftFire, upRightFire, upLeftFire, downRightFire, downLeftFire;
+    private bool upFire, downFire, rightFire, 
+        leftFire, upRightFire, upLeftFire, 
+        downRightFire, downLeftFire;
 
     [SerializeField]
     GameObject objectToSpawn;
@@ -48,8 +52,9 @@ public class FireSpreadStatic : MonoBehaviour
     {
         //Debug.Log("isIgnited status: " + fireGrid.IsIgnited());
 
-        // Press space bar to change isIgnited to true on all clones which creates more clones
-        if (fireGrid.IsIgnited())
+        // Press F to pay respects and create more clones
+        // fireGrid.IsIgnited()
+        if (Input.GetKeyDown(KeyCode.F))
         {
             DoChecks();
         }
@@ -157,7 +162,8 @@ public class FireSpreadStatic : MonoBehaviour
 
             Debug.Log("Current destination: " + destination + " and list status: " + string.Join(",", firePositions.getList()) + " list length: " + firePositions.getList().Count);
             // Method with a timer, used in debugging, can be used later to time spawns
-            StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(nextPos), fireGrid));
+            //StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(nextPos), fireGrid));
+            SpawnFireGridObject(destination, Quaternion.Euler(nextPos), fireGrid);
 
             return true;
         }
@@ -177,6 +183,7 @@ public class FireSpreadStatic : MonoBehaviour
         return firePositions.checkContains(position);
     }
 
+
     /// <summary>
     /// Method to check whether an object belonging to the tags Structure or FireGrid is in assigned direction. 
     /// Objects with structure tag are walls in the scene and FireGrid tag refers to all FireGridObjects' ColliderCubes.
@@ -187,9 +194,8 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Note that the y-axis position doesn't need a "raise" i.e new Vector3(0, 0.001f, 0) as the hallway scene floor is set to -0.1 y-position.
         Ray oneRay = new Ray(transform.position, direction);
-        RaycastHit hit;
 
-        if (Physics.Raycast(oneRay, out hit, rayLength))
+        if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength) )
         {
             if (hit.collider.CompareTag("Structure") || hit.collider.CompareTag("FireGrid"))
             {
@@ -207,11 +213,10 @@ public class FireSpreadStatic : MonoBehaviour
     /// <param name="rotation"></param>
     /// <param name="fireGrid"></param>
     /// <returns></returns>
-    IEnumerator TimeOutCoroutine(Vector3 destination, Quaternion rotation, FireGrid fireGrid)
+    /*IEnumerator TimeOutCoroutine(Vector3 destination, Quaternion rotation, FireGrid fireGrid)
     {
         yield return new WaitForSeconds(1);
-        SpawnFireGridObject(destination, rotation, fireGrid);
-    }
+    }*/
 
     /// <summary>
     /// Spawn a FireGridObject in the wanted position, with the wanted rotation. Requires fireGrid
