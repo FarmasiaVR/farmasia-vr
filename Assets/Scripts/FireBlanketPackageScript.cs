@@ -12,7 +12,5 @@ public class FireBlanketPackageScript : MonoBehaviour
     {
         Cover.SetActive(false);
         FireBlanket.SetActive(true);
-       
-        
     }
 }
