@@ -740,6 +740,7 @@ GameObject:
   - component: {fileID: 8916890791332565135}
   - component: {fileID: 2559997512078906015}
   - component: {fileID: 3558304451100064219}
+  - component: {fileID: 1923135381717759998}
   m_Layer: 10
   m_Name: Bottle100ml XR
   m_TagString: Untagged
@@ -754,16 +755,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5623048370089187305}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.22989304, y: 0.55999994, z: -0.14869754}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6255163802285953494}
   - {fileID: 5872484147450872012}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &8916890791332565135
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -913,6 +914,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.047933817, y: 0.005579397, z: 0.047070872}
   m_Center: {x: -0.00028102286, y: -0.029474638, z: -0.0014645644}
+--- !u!114 &1923135381717759998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623048370089187305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 0
+  isClean: 1
 --- !u!1 &6740840645395856843
 GameObject:
   m_ObjectHideFlags: 0
