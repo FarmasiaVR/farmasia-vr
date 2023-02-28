@@ -23,9 +23,10 @@ public class PlayerOnFireManager : MonoBehaviour
         Debug.Log("trigger enter");
         //layer 15 = "Player"
         if (collision.gameObject.tag == "FireGrid") {
-            Debug.Log("ON FIRE");
+            
             Debug.Log("STANDING ON FIRE");
             if (collision.gameObject.layer != 15 && collision.gameObject.GetComponentInParent<FireGrid>().IsIgnited()) {
+                Debug.Log("Player is on fire after if-condition");
                 fireToControl.SetActive(true);
                 fireToControl.GetComponent<FireGrid>().Ignite();
             }

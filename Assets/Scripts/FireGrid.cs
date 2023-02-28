@@ -33,8 +33,20 @@ public class FireGrid : MonoBehaviour
 
     private bool isIgnited;
 
+    public bool igniteOnStart;
+    
     [SerializeField]
     private int degrees;
+
+
+    private void Start()
+    {
+        if (igniteOnStart)
+        {
+            Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
+            Ignite();
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -58,7 +70,10 @@ public class FireGrid : MonoBehaviour
     public void Extinguish()
     {
         fireVFX.Stop();
-        smokeVFX.SetFloat("Spawn Rate", 0f);
+        if (smokeVFX)
+        {
+            smokeVFX.SetFloat("Spawn Rate", 0f);
+        }
         pointLight.SetActive(false);
         if (extinguishParticle != null && isIgnited == true)
         {
@@ -74,7 +89,10 @@ public class FireGrid : MonoBehaviour
     public void Ignite()
     {
         fireVFX.Play();
-        smokeVFX.SetFloat("Spawn Rate", 50f);
+        if (smokeVFX)
+        {
+            smokeVFX.SetFloat("Spawn Rate", 50f);
+        }
         pointLight.SetActive(true);
         if (igniteParticle != null && isIgnited == false)
         {
