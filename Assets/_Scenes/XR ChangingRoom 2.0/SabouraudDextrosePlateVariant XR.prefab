@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 86233426}
-  - component: {fileID: 86233429}
   - component: {fileID: 86233428}
   - component: {fileID: 86233427}
+  - component: {fileID: 469696127165097147}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -27,26 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86233425}
   m_LocalRotation: {x: 0.30070576, y: -0, z: 0.953717, w: 0}
-  m_LocalPosition: {x: 0, y: 0.001, z: 0}
+  m_LocalPosition: {x: 0, y: 0.009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5455736743103987640}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &86233429
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86233425}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.04999999
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &86233428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +122,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 388088065}
+--- !u!65 &469696127165097147
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86233425}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.005, z: 0.05}
+  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &4221542028902525181
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ PrefabInstance:
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0219
+      value: 0.0031
       objectReference: {fileID: 0}
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
@@ -278,12 +278,12 @@ PrefabInstance:
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
@@ -298,7 +298,7 @@ PrefabInstance:
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1282796638797860432, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
         type: 3}
@@ -538,7 +538,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
-  m_MovementType: 0
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -892,7 +892,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
-  m_MovementType: 0
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
