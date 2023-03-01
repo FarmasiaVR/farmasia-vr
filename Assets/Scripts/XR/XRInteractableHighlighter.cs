@@ -9,7 +9,7 @@ public class XRInteractableHighlighter : MonoBehaviour
 {
     public Color highlightColor;
 
-    private List<Transform> interactablesHovered;
+    private List<XRBaseInteractable> interactablesHovered;
     private Transform highlightedObject;
 
     private void Start() {
@@ -18,30 +18,30 @@ public class XRInteractableHighlighter : MonoBehaviour
         interactor.hoverExited.AddListener(ExitHoverEvent);
         interactor.selectEntered.AddListener(SelectedEvent);
         interactor.selectExited.AddListener(SelectExitEvent);
-        interactablesHovered= new List<Transform>();
+        interactablesHovered= new List<XRBaseInteractable>();
     }
 
     public void HoveredEvent(HoverEnterEventArgs hoveredArgs) {
         ///Don't highlight selected objects. If they are selected, highlight them only if they are held by a socket.
         ///
-        interactablesHovered.Add(hoveredArgs.interactableObject.transform);
+        interactablesHovered.Add(hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
     }
 
     public void ExitHoverEvent (HoverExitEventArgs hoveredArgs) {
         //Make sure that the highlight is removed only when no interactors are interacting
-        interactablesHovered.Remove(hoveredArgs.interactableObject.transform);
+        interactablesHovered.Remove(hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
     }
 
     public void SelectedEvent (SelectEnterEventArgs selectedArgs)
     {
         //Make sure that the highlight is turned off when picking up an object.
-        interactablesHovered.Remove(selectedArgs.interactableObject.transform);
+        interactablesHovered.Remove(selectedArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
     }
 
     public void SelectExitEvent (SelectExitEventArgs selectedArgs)
     {
         //When deselecting an object, make it highlightable again.
-        interactablesHovered.Add(selectedArgs.interactableObject.transform);
+        //interactablesHovered.Add(selectedArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
     }
 
     private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
@@ -85,12 +85,20 @@ public class XRInteractableHighlighter : MonoBehaviour
         Transform nearestObject = null;
         float nearestObjectDist = float.MaxValue;
 
-        foreach (Transform interactable in interactablesHovered.ToArray())
+        foreach (XRBaseInteractable interactable in interactablesHovered.ToArray())
         {
-            float distanceToInteractable = Vector3.Distance(transform.position, interactable.position);
+            /// If there are interactors interacting with the hovered object, then only highlight it if the interactor is a socket.
+            if (interactable.interactorsSelecting.Count > 0)
+            {
+                if (!interactable.interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>())
+                {
+                    continue;
+                }
+            }
+            float distanceToInteractable = Vector3.Distance(transform.position, interactable.transform.position);
             if (distanceToInteractable < nearestObjectDist)
             {
-                nearestObject = interactable;
+                nearestObject = interactable.transform;
                 nearestObjectDist = distanceToInteractable;
             }
         }
