@@ -24,7 +24,7 @@ public class InteractorSwitcher : MonoBehaviour
     [SerializeField]
     private InputActionReference teleportActivate;
 
-    private List<IXRSelectInteractable> interactablesSelected;
+    private XRInteractionManager interactionManager;
 
 
 
@@ -37,16 +37,31 @@ public class InteractorSwitcher : MonoBehaviour
         teleportActivate.action.canceled += DisableTeleport;
         teleportActivate.action.Enable();
 
+        interactionManager = directInteractor.interactionManager;
+
         DisableRayInteractor(new InputAction.CallbackContext());
         DisableTeleport(new InputAction.CallbackContext());
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
-        SwitchToInteractor(directInteractor, rayInteractor);
+        SetInteractorEnabled(rayInteractor, true);
     }
 
+
+
     private void DisableRayInteractor(InputAction.CallbackContext context) {
-        SwitchToInteractor(rayInteractor, directInteractor);
+        // If the player is hovering over an object while disabling the ray interactor, then make the player select the hovered object.
+        if (rayInteractor.interactablesHovered.Count > 0)
+        {
+            if (directInteractor.interactablesSelected.Count > 0)
+            {
+                // Drop anything the player was holding at that point so that the player cannot select multiple objects.
+                interactionManager.SelectExit(directInteractor, directInteractor.interactablesSelected[0]);
+            }
+            interactionManager.SelectEnter(directInteractor, rayInteractor.interactablesHovered[0].transform.GetComponent<IXRSelectInteractable>());
+        }
+
+        SetInteractorEnabled(rayInteractor, false);
     }
 
      private void EnableTeleport(InputAction.CallbackContext context) {
@@ -77,27 +92,6 @@ public class InteractorSwitcher : MonoBehaviour
                 lineVisual.reticle.SetActive(enabled);
             }
         }
-    }
-
-    private void SwitchToInteractor(XRBaseInteractor fromInteractor, XRBaseInteractor toInteractor)
-    {
-        SetInteractorEnabled(toInteractor, true);
-
-
-        ///Make sure that if we are switching interactors then the interactor selections carry on as well.
-        if (fromInteractor.isSelectActive)
-        {
-            foreach (IXRSelectInteractable interactable in fromInteractor.interactablesSelected.ToArray())
-            {
-                //Make sure that if the player is selecting a simple interactable, then that selection does not transfer over.
-                //TODO: Make so that a simple interactable isn't selected after the player releases the grab button.
-                if (!(interactable.transform.GetComponent<XRSimpleInteractable>())){
-                    toInteractor.interactionManager.SelectEnter(toInteractor, interactable);
-                }
-            }
-        }
-
-        SetInteractorEnabled(fromInteractor, false);
     }
 
     private void OnDestroy() {

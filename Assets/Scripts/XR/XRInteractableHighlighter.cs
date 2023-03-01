@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,48 +9,41 @@ public class XRInteractableHighlighter : MonoBehaviour
 {
     public Color highlightColor;
 
+    private List<Transform> interactablesHovered;
+    private Transform highlightedObject;
+
     private void Start() {
         XRBaseInteractor interactor = GetComponent<XRBaseInteractor>();
         interactor.hoverEntered.AddListener(HoveredEvent);
         interactor.hoverExited.AddListener(ExitHoverEvent);
         interactor.selectEntered.AddListener(SelectedEvent);
+        interactor.selectExited.AddListener(SelectExitEvent);
+        interactablesHovered= new List<Transform>();
     }
 
     public void HoveredEvent(HoverEnterEventArgs hoveredArgs) {
         ///Don't highlight selected objects. If they are selected, highlight them only if they are held by a socket.
         ///
-
-        bool hoveredObjectIsSelected = false;
-        bool selectingObjectIsSocket = false;
-
-        List<IXRSelectInteractor> interactorsSelecting = hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>().interactorsSelecting;
-
-        if (interactorsSelecting.Count > 0) {
-            hoveredObjectIsSelected = true;
-            if (interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>()) {
-                selectingObjectIsSocket = true;
-            }
-        }
-  
-
-
-        if (!hoveredObjectIsSelected | selectingObjectIsSocket) {
-            ChangeHiglight(hoveredArgs.interactableObject.transform, true);
-        }
-        
-
+        interactablesHovered.Add(hoveredArgs.interactableObject.transform);
     }
 
-    public void ExitHoverEvent (HoverExitEventArgs hoveredObject) {
+    public void ExitHoverEvent (HoverExitEventArgs hoveredArgs) {
         //Make sure that the highlight is removed only when no interactors are interacting
-        ChangeHiglight(hoveredObject.interactableObject.transform, false);
+        interactablesHovered.Remove(hoveredArgs.interactableObject.transform);
     }
 
-    public void SelectedEvent (SelectEnterEventArgs selectedObject)
+    public void SelectedEvent (SelectEnterEventArgs selectedArgs)
     {
         //Make sure that the highlight is turned off when picking up an object.
-        ChangeHiglight(selectedObject.interactableObject.transform, false);
+        interactablesHovered.Remove(selectedArgs.interactableObject.transform);
     }
+
+    public void SelectExitEvent (SelectExitEventArgs selectedArgs)
+    {
+        //When deselecting an object, make it highlightable again.
+        interactablesHovered.Add(selectedArgs.interactableObject.transform);
+    }
+
     private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
         ///<summary>
         ///When given a hovered object, highlights it. If the hovered object isn't a mesh (i.e an empty), then highlights all of the children
@@ -83,5 +77,44 @@ public class XRInteractableHighlighter : MonoBehaviour
         } else { renderer.material.DisableKeyword("_EMISSION"); }
     }
 
-   
+    private Transform GetNearestHighlightableInteractable()
+    {
+        ///<summary>
+        /// Goes through every object that is hovered at that point and returns the nearest one.
+        /// </summary>
+        Transform nearestObject = null;
+        float nearestObjectDist = float.MaxValue;
+
+        foreach (Transform interactable in interactablesHovered.ToArray())
+        {
+            float distanceToInteractable = Vector3.Distance(transform.position, interactable.position);
+            if (distanceToInteractable < nearestObjectDist)
+            {
+                nearestObject = interactable;
+                nearestObjectDist = distanceToInteractable;
+            }
+        }
+
+        return nearestObject;
+    }
+
+    private void Update()
+    {
+        if (highlightedObject)
+        {
+            ChangeHiglight(highlightedObject, false);
+            highlightedObject = null;
+        }
+
+        Transform objectToHilghlight = GetNearestHighlightableInteractable();
+
+        if (objectToHilghlight)
+        {
+            ChangeHiglight(objectToHilghlight, true);
+            highlightedObject = objectToHilghlight;
+        }
+        
+    }
+
+
 }
