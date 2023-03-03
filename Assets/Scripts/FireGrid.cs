@@ -5,6 +5,7 @@ using UnityEngine;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.VFX;
+using Codice.Client.Common.GameUI;
 // This will add a new particle system to FireGridObject, not necessary now
 //[RequireComponent(typeof(ParticleSystem))]
 
@@ -30,6 +31,9 @@ public class FireGrid : MonoBehaviour
     // Collider tile-shaped cube for collision detection
     [SerializeField]
     private GameObject colliderCube;
+
+    [SerializeField]
+    private AudioClip extinguishAudio;
 
     private bool isIgnited;
 
@@ -70,6 +74,11 @@ public class FireGrid : MonoBehaviour
     public void Extinguish()
     {
         fireVFX.Stop();
+        AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
+        fireAudioSource.Stop();
+        fireAudioSource.clip= extinguishAudio;
+        fireAudioSource.loop = false;
+        fireAudioSource.Play();
         if (smokeVFX)
         {
             smokeVFX.SetFloat("Spawn Rate", 0f);
