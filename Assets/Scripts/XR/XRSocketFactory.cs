@@ -45,5 +45,10 @@ public class XRSocketFactory : MonoBehaviour
         SpawnInteractableToSocket(new SelectExitEventArgs());
     }
 
+    private void OnDestroy()
+    {
+        socket.selectExited.RemoveAllListeners();
+    }
+
 
 }

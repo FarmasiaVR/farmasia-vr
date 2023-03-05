@@ -23,7 +23,7 @@ public class XRProtectiveClothing : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // PlayerCollider can be found attached to the VRPlayers camera object
-        if (other.CompareTag("PlayerCollider") && interactable.isSelected)
+        if (other.CompareTag("PlayerCollider") && interactable.isSelected && !interactable.firstInteractorSelecting.transform.GetComponent<XRSocketInteractor>())
         {
             //Convert the current object to a legacy ProtectiveClothing object so that all the events are fired correctly
             legacyObject.type = type;
