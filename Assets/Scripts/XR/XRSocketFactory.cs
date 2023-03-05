@@ -29,6 +29,8 @@ public class XRSocketFactory : MonoBehaviour
         /// </summary>
 
         //This is to make sure that the socket doesn't try to spawn new objects while it is exiting the game.
+        if (!gameObject) return;
+
         if (!gameObject.scene.isLoaded) return;
 
         spawnedInst = Instantiate(socketInteractable);
@@ -48,6 +50,7 @@ public class XRSocketFactory : MonoBehaviour
     private void OnDestroy()
     {
         socket.selectExited.RemoveAllListeners();
+        SceneManager.sceneLoaded -= SpawnInteractableOnSceneLoad;
     }
 
 

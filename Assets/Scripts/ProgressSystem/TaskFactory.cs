@@ -15,7 +15,11 @@ public static class TaskFactory {
         }
     }
 
-    private static Dictionary<TaskType, Task> tasks = new List<Task>() {
+    private static Dictionary<TaskType, Task> tasks;
+
+    public static void ResetTaskProgression()
+    {
+        tasks = new List<Task>() {
         // Medicine preparation
         new CorrectItemsInThroughputMedicine(),
         new CorrectItemsInLaminarCabinetMedicine(),
@@ -66,4 +70,5 @@ public static class TaskFactory {
         new FinishChangingRoom(),
 
     }.ToDictionary(task => task.TaskType, task => task);
+    }
 }
