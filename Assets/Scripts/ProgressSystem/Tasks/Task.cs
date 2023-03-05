@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 /// <summary>
 /// Inherited by every task. 
@@ -112,6 +113,10 @@ public abstract class Task {
     public void SubscribeEvent(Events.EventDataCallback action, EventType Event) {
         Events.SubscribeToEvent(action, Event);
         eventsUnsubscribed = false;
+        if (subscribedEvents.ContainsKey(action))
+        {
+            subscribedEvents.Remove(action);
+        }
         subscribedEvents.Add(action, Event);
     }
 

@@ -6,6 +6,7 @@ public class GObject : MonoBehaviour {
     SceneTypes scene = SceneTypes.MainMenu;
 
     private void Start() {
+        TaskFactory.ResetTaskProgression();
         G.Instance.ResetProgressManager();
         G.Instance.Progress.SetSceneType(scene);
         G.Instance.CurrentSceneType = scene;
