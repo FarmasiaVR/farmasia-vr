@@ -139,7 +139,7 @@ public class FireSpreadStatic : MonoBehaviour
 
     /// <summary>
     /// Sets and starts the check of the current direction. 
-    /// Returns true, if passes CheckMovementObstacles() and not CheckPositionAvailability, else returns false.
+    /// Returns true, if passes CheckMovementObstacles(), else returns false.
     /// </summary>
     /// <param name="direction"></param>
     /// <returns></returns>
@@ -226,5 +226,7 @@ public class FireSpreadStatic : MonoBehaviour
         //obj.tag = "FireGrid";
 
     }
+
+   
 
 }
