@@ -10,6 +10,7 @@ public class FireSpreadStatic : MonoBehaviour
     private GameObject[] wallStructure;
     private GameObject floor;
 
+    private int randomNumber, lastNumber, rngNum;
     // Sets the rotation variables
     private Vector3 up = Vector3.zero,
         right = new Vector3(0, 90, 0),
@@ -24,6 +25,7 @@ public class FireSpreadStatic : MonoBehaviour
     private Vector3 nextPos, destination;
 
     private float rayLength = 1f;
+    private float timeSinceLast;
 
     //private bool canMove;
     private bool upFire, downFire, rightFire,
@@ -49,22 +51,30 @@ public class FireSpreadStatic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceLast += Time.deltaTime;
+        if(timeSinceLast > 2)
+        {
+            rngNum = RandomNumber();
+            DoChecks(rngNum);
+            timeSinceLast = 0;
+        }
+        
         // Press F to pay respects and create more clones
         // fireGrid.IsIgnited()
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            DoChecks();
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+            
+        //}
     }
 
     /// <summary>
     /// Beginning of the method calls. If that direction hasn't been set to true, starts the checks and possibly 
     /// spawns a new object later in the methods. Sets true to direction boolean either way. 
     /// </summary>
-    private void DoChecks()
+    private void DoChecks(int rngNum)
     {
         // Check up
-        if (!upFire)
+        if (!upFire && rngNum == 0)
         {
             if (CheckDirection(Vector3.forward))
             {
@@ -73,7 +83,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check down
-        if (!downFire)
+        if (!downFire && rngNum == 1)
         {
             if (CheckDirection(Vector3.back))
             {
@@ -82,7 +92,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check right
-        if (!rightFire)
+        if (!rightFire && rngNum == 2)
         {
             if (CheckDirection(Vector3.right))
             {
@@ -91,7 +101,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check left
-        if (!leftFire)
+        if (!leftFire && rngNum == 3)
         {
             if (CheckDirection(Vector3.left))
             {
@@ -100,7 +110,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check up-right
-        if (!upRightFire)
+        if (!upRightFire && rngNum == 4)
         {
             if (CheckDirection(upRight))
             {
@@ -109,7 +119,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check up-left
-        if (!upLeftFire)
+        if (!upLeftFire && rngNum == 5)
         {
             if (CheckDirection(upLeft))
             {
@@ -118,7 +128,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check down-right
-        if (!downRightFire)
+        if (!downRightFire && rngNum == 6)
         {
             if (CheckDirection(downRight))
             {
@@ -127,7 +137,7 @@ public class FireSpreadStatic : MonoBehaviour
         }
 
         // Check down-left
-        if (!downLeftFire)
+        if (!downLeftFire && rngNum == 7)
         {
             if (CheckDirection(downLeft))
             {
@@ -227,6 +237,15 @@ public class FireSpreadStatic : MonoBehaviour
 
     }
 
-   
+   private int RandomNumber()
+   {
+    randomNumber = UnityEngine.Random.Range(0,7);
+    if(randomNumber == lastNumber)
+    {
+        randomNumber = UnityEngine.Random.Range(0,7);
+    }
+    lastNumber = randomNumber;
+    return randomNumber;
+   }
 
 }
