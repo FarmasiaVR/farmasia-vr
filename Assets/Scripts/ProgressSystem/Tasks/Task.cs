@@ -236,10 +236,12 @@ public abstract class Task {
 
     public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true) {
         Debug.Log("virhe: esine oli likainen");
+        
         if (showMessage) {
             UISystem.Instance.CreatePopup(-minus, mistake, MsgType.Mistake);
         }
         G.Instance.Progress.Calculator.CreateMistake(mistake, minus);
+        
     }
 
     public static void CreateTaskMistake(TaskType type, string mistake, int minus) {

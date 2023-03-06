@@ -28,11 +28,11 @@ public class CabinetBase : MonoBehaviour {
 
     private void OnCabinetEnter(Interactable other) {
         GeneralItem item = other as GeneralItem;
-
+        Debug.Log("Checking entered item in cabinet");
         if (item == null) {
             return;
         }
-
+        Debug.Log("item was not null");
         if (type == CabinetType.Laminar) {
             Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
@@ -48,15 +48,17 @@ public class CabinetBase : MonoBehaviour {
                 UnfoldSterileDrape();
             }
         }
-
+        Debug.Log("we are past the laminar checks");
         if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-            Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
+           // Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
         }
-
+        Debug.Log("item was clean");
         if (!itemPlaced) {
             Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
             itemPlaced = true;
+            Debug.Log("fired event ItemPlacedForReference");
         }
+        Debug.Log("exited OncabinetEnter function");
     }
 
     // Currently unused
