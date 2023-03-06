@@ -5,7 +5,6 @@ using UnityEngine;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.VFX;
-using Codice.Client.Common.GameUI;
 // This will add a new particle system to FireGridObject, not necessary now
 //[RequireComponent(typeof(ParticleSystem))]
 
