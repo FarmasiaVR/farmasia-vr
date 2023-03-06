@@ -22,7 +22,7 @@ public class FireSpreadStatic : MonoBehaviour
         upLeft = new Vector3(-1, 0, 1),
         downRight = new Vector3(1, 0, -1),
         downLeft = new Vector3(-1, 0, -1);
-    private Vector3 nextPos, destination;
+    private Vector3 nextPos, destination, currentPos;
 
     private float rayLength = 1f;
     private float timeSinceLast;
@@ -34,6 +34,8 @@ public class FireSpreadStatic : MonoBehaviour
 
     [SerializeField]
     GameObject objectToSpawn;
+    [SerializeField]
+    bool autonomous;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +54,7 @@ public class FireSpreadStatic : MonoBehaviour
     void Update()
     {
         timeSinceLast += Time.deltaTime;
-        if(timeSinceLast > 2)
+        if(timeSinceLast > 2 && autonomous == true)
         {
             rngNum = RandomNumber();
             DoChecks(rngNum);
@@ -157,12 +159,19 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
-
+        // Get current position
+        currentPos = transform.position;
         // Check for obstacles in the direction
         if (CheckMovementObstacles(nextPos))
         {
+            // Check from current position if we're higher than the floor. Floor should be at y = 0.
+            /*if(currentPos.y > 0.001f){
+                Debug.Log("Doing a skyraycast next");
+                // Do a ray cast from sky downwards and position fire grid lower, if possible
+                currentPos = SkyRayCast(currentPos + nextPos);
+            }*/
             // Calculate destination and spawn object
-            destination = transform.position + nextPos;
+            destination = currentPos + nextPos;
 
             // Method with a timer, used in debugging, can be used later to time spawns
             //StartCoroutine(TimeOutCoroutine(destination, Quaternion.Euler(nextPos), fireGrid));
@@ -246,6 +255,29 @@ public class FireSpreadStatic : MonoBehaviour
     }
     lastNumber = randomNumber;
     return randomNumber;
+   }
+
+   private Vector3 SkyRayCast(Vector3 checkPos)
+   {
+    Debug.Log("This is checkPos values: " + checkPos.ToString());
+    Ray oneRay = new Ray(checkPos, new Vector3(checkPos.x, -3, checkPos.z));
+    Debug.Log("This is raycast ray: " + oneRay.ToString());
+    if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength*3))
+    {
+        Debug.Log("Raycast hit!");
+        if(hit.collider.CompareTag("Furniture"))
+        {
+            Debug.Log("Hit furniture!");
+            return hit.collider.transform.position;
+        }
+        if(hit.collider.CompareTag("Floor"))
+        {
+            Debug.Log("Hit floor!");
+            return hit.collider.transform.position;
+        }
+    }
+    return checkPos;
+
    }
 
 }
