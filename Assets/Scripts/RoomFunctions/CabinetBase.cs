@@ -50,7 +50,7 @@ public class CabinetBase : MonoBehaviour {
         }
         Debug.Log("we are past the laminar checks");
         if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-           // Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
+            Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
         }
         Debug.Log("item was clean");
         if (!itemPlaced) {
