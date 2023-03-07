@@ -15,6 +15,7 @@ public class RoomTeleport : MonoBehaviour {
     /// Teleports player to the next room
     /// </summary>
     public void TeleportPlayer() {
+        Debug.Log("player is being teleported!");
         if (playerDestination == null) {
             Logger.Error("Player teleportation spot missing");
             return;
