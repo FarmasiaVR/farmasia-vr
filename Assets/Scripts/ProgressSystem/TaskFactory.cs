@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FarmasiaVR.Legacy;
 
 public static class TaskFactory{
     /// <summary>Get a task by type and call subscribe on it, effectively activating it

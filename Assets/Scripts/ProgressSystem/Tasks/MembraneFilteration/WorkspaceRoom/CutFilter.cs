@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
+using FarmasiaVR.Legacy;
 public class CutFilter: Task {
 
     public enum Conditions {

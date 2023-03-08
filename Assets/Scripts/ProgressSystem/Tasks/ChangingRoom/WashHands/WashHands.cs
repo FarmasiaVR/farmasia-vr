@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using FarmasiaVR.Legacy;
 public class WashHands : Task {
 
     public enum Conditions { HandsWashed }

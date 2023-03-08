@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class CorrectItemsInBasketMembrane : Task {
 

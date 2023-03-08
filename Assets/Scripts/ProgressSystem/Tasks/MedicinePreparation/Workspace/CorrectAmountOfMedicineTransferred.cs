@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class CorrectAmountOfMedicineTransferred : Task {
 

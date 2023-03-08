@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class OpenScalpelCover : Task {
     public enum Conditions { OpenedScalpelCover }

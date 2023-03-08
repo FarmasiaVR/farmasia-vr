@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class CabinetBase : MonoBehaviour {
 
