@@ -72,12 +72,12 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void Extinguish()
     {
-        fireVFX.Stop();
         AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
         fireAudioSource.Stop();
         fireAudioSource.clip= extinguishAudio;
         fireAudioSource.loop = false;
         fireAudioSource.Play();
+        fireVFX.Stop();
         if (smokeVFX)
         {
             smokeVFX.SetFloat("Spawn Rate", 0f);
@@ -99,7 +99,7 @@ public class FireGrid : MonoBehaviour
         fireVFX.Play();
         if (smokeVFX)
         {
-            smokeVFX.SetFloat("Spawn Rate", 50f);
+            smokeVFX.SetFloat("Spawn Rate", 15f);
         }
         pointLight.SetActive(true);
         if (igniteParticle != null && isIgnited == false)
