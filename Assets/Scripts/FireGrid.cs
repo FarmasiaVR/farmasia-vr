@@ -75,6 +75,7 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void Extinguish()
     {
+        Destroy(colliderCube);
         AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
         fireAudioSource.Stop();
         fireAudioSource.clip= extinguishAudio;
@@ -91,7 +92,7 @@ public class FireGrid : MonoBehaviour
             extinguishParticle.Play();
             isIgnited = false;
         }
-        Debug.Log("Extinguished");
+        Debug.Log("Extinguished with Fire Extinguisher");
     }
 
     /// <summary>
@@ -99,6 +100,7 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void ExtinguishWithBlanket()
     {
+        Destroy(colliderCube);
         AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
         fireAudioSource.Stop();
         fireAudioSource.clip = extinguishAudioBlanket;
@@ -115,7 +117,7 @@ public class FireGrid : MonoBehaviour
             extinguishParticle.Play();
             isIgnited = false;
         }
-        Debug.Log("Extinguished");
+        Debug.Log("Extinguished with Blanket");
     }
 
     /// <summary>
