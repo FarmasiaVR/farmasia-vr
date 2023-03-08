@@ -523,7 +523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &60130389
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4288,7 +4288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!183 &330950510
 Cloth:
   m_ObjectHideFlags: 0
@@ -4557,7 +4557,7 @@ Cloth:
     collisionSphereDistance: 3.4028235e+38
   m_CapsuleColliders: []
   m_SphereColliders:
-  - first: {fileID: 0}
+  - first: {fileID: 60130390}
     second: {fileID: 0}
   m_SelfCollisionDistance: 0
   m_SelfCollisionStiffness: 0.2
@@ -4628,9 +4628,9 @@ MeshCollider:
   m_GameObject: {fileID: 330950509}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &330950513
@@ -4649,8 +4649,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330950509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.618, y: 1.4522381, z: -0.28502327}
-  m_LocalScale: {x: 0.2, y: 1, z: 0.1}
+  m_LocalPosition: {x: -8.618, y: 1.408, z: -0.28502327}
+  m_LocalScale: {x: 0.2, y: 0.01, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -22785,7 +22785,7 @@ PrefabInstance:
     - target: {fileID: 485653456466227902, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: autonomous
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
@@ -22815,7 +22815,7 @@ PrefabInstance:
     - target: {fileID: 485653456466227905, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
