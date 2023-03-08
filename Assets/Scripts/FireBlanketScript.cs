@@ -12,7 +12,7 @@ public class FireBlanketScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "FireGrid")
         {
-            collision.gameObject.GetComponentInParent<FireGrid>().Extinguish();
+            collision.gameObject.GetComponentInParent<FireGrid>().ExtinguishWithBlanket();
         }
     }
 

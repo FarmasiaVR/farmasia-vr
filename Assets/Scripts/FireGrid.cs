@@ -34,6 +34,9 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private AudioClip extinguishAudio;
 
+    [SerializeField]
+    private AudioClip extinguishAudioBlanket;
+
     private bool isIgnited;
 
     public bool igniteOnStart;
@@ -75,6 +78,30 @@ public class FireGrid : MonoBehaviour
         AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
         fireAudioSource.Stop();
         fireAudioSource.clip= extinguishAudio;
+        fireAudioSource.loop = false;
+        fireAudioSource.Play();
+        fireVFX.Stop();
+        if (smokeVFX)
+        {
+            smokeVFX.SetFloat("Spawn Rate", 0f);
+        }
+        pointLight.SetActive(false);
+        if (extinguishParticle != null && isIgnited == true)
+        {
+            extinguishParticle.Play();
+            isIgnited = false;
+        }
+        Debug.Log("Extinguished");
+    }
+
+    /// <summary>
+    /// Callable method to stop the visual effect animation by fire blanket, turn off the light and to play the extinguishing particle effect.
+    /// </summary>
+    public void ExtinguishWithBlanket()
+    {
+        AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
+        fireAudioSource.Stop();
+        fireAudioSource.clip = extinguishAudioBlanket;
         fireAudioSource.loop = false;
         fireAudioSource.Play();
         fireVFX.Stop();
