@@ -8,15 +8,6 @@ using UnityEngine;
 namespace FarmasiaVR.New
 {
     [Serializable]
-    public class TimedTaskParameters
-    {
-        [Tooltip("How long the task is")]
-        public float timeToCompleteTask;
-        [Tooltip("Whether the player fails and the OnTaskFailed should be invoked when the time runs out")]
-        public bool failWhenOutOfTime;
-    }
-
-    [Serializable]
     public struct Task
     {
         /// <summary>
@@ -35,7 +26,7 @@ namespace FarmasiaVR.New
         public string hint;
 
         [Tooltip("How many points should be given to the player when the task is completed.")]
-        public float points;
+        public int points;
 
         [NonSerialized]
         [Tooltip("Whether this task is completed or not")]
@@ -45,15 +36,51 @@ namespace FarmasiaVR.New
         [SerializeField]
         public bool timed;
 
-        public TimedTaskParameters timedParameters;
+        [Header("Timed parameters")]
 
-        private float timeTaskStarted;
-        private int awardedPoints;
+        [Tooltip("How long the task is")]
+        public float timeToCompleteTask;
+        [Tooltip("Whether the player fails and the OnTaskFailed should be invoked when the time runs out")]
+        public bool failWhenOutOfTime;
+
+        [NonSerialized]
+        public float timeTaskStarted;
+
+        [NonSerialized]
+        public int awardedPoints;
+
+        private List<Mistake> mistakeList;
 
         public void Reset()
         {
             completed = false;
             awardedPoints = 0;
+            mistakeList = new List<Mistake>();
+        }
+
+        public void MarkAsDone()
+        {
+            completed= true;
+            if ( timed )
+            {
+                float timeTakenToCompleteTask = Time.time - timeTaskStarted;
+                float pointsMultiplier = 1 - (timeTakenToCompleteTask / timeTakenToCompleteTask);
+                // If the player took longer to complete the task than the time limit allows, then set the multiplier to zero
+                if (pointsMultiplier< 0) pointsMultiplier = 0;
+                awardedPoints = (int) (pointsMultiplier * points);
+            }
+            else
+            {
+                awardedPoints = points;
+            }
+        }
+        /// <summary>
+        /// Adds a mistake to the mistake list of the task
+        /// </summary>
+        /// <param name="mistake">A mistake object to save to the mistake list</param>
+        public void AddMistake(Mistake mistake)
+        {
+            mistakeList.Add(mistake);
         }
     }
 }
