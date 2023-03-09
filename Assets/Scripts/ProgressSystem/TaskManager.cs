@@ -40,6 +40,7 @@ public class TaskManager : MonoBehaviour
         {
             taskListObject.ResetTaskProgression();
         }
+        GetNextTask();
     }
 
 
@@ -66,7 +67,7 @@ public class TaskManager : MonoBehaviour
             currentTaskIndex++;
         }
         onTaskStarted.Invoke(currentTask);
-        currentTask.timeTaskStarted = Time.time;
+        currentTask.StartTaskTimer();
         if (currentTask.timed && currentTask.failWhenOutOfTime)
         {
             StartCoroutine(TaskCountdown(currentTask.timeToCompleteTask));
@@ -78,6 +79,10 @@ public class TaskManager : MonoBehaviour
     /// <param name="taskKey">The key of the task that should be marked as completed. Check the task list for the possible keys.</param>
     public void CompleteTask(string taskKey)
     {
+        if (taskKey!= currentTask.key && currentTask.timed)
+        {
+            Debug.LogWarning("You are completing a task that is timed but isn't active. Make sure that you only complete timed tasks when they are active!");
+        }
         if (!taskListObject.MarkTaskAsDone(taskKey))
         {
             return;
@@ -127,5 +132,16 @@ public class TaskManager : MonoBehaviour
         Mistake mistake = new Mistake(mistakeText, deductedPoints);
         taskListObject.GenerateGeneralMistake(mistake);
         onMistake.Invoke(mistake);
+    }
+    /// <summary>
+    /// </summary>
+    /// <returns>The task that is currently active</returns>
+    public Task GetCurrentTask() {
+        return currentTask;
+    }
+
+    public bool IsTaskCompleted(string taskKey)
+    {
+        return taskListObject.GetTask(taskKey).completed;
     }
 }

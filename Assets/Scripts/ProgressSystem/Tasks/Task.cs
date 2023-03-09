@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
@@ -17,37 +18,47 @@ namespace FarmasiaVR.New
         public string name;
 
         [Tooltip("The key used to refer to this task from other scripts")]
-        public string key;
+        [field: SerializeField]
+        public string key { get; private set; }
+
 
         [Tooltip("What the task is. This can be shown to the player when this task is active.")]
-        public string taskText;
+        [field: SerializeField]
+        public string taskText { get; private set; }
+
 
         [Tooltip("The hint related to the current task. Can be used in hintboxes to aid the player.")]
-        public string hint;
+        [field: SerializeField]
+        public string hint { get; private set; }
 
         [Tooltip("How many points should be given to the player when the task is completed.")]
-        public int points;
+        [field: SerializeField]
+        public int points { get; private set; }
 
-        [NonSerialized]
         [Tooltip("Whether this task is completed or not")]
-        public bool completed;
+        [field: SerializeField]
+        public bool completed { get; private set; }
 
         [Tooltip("Whether the task is time sensitive and the points awarded should be based on how long it takes for the player to complete the task")]
-        [SerializeField]
-        public bool timed;
+        [field: SerializeField]
+        public bool timed { get; private set; }
 
-        [Header("Timed parameters")]
-
+        [field: Header("Timed parameters")]
         [Tooltip("How long the task is")]
-        public float timeToCompleteTask;
-        [Tooltip("Whether the player fails and the OnTaskFailed should be invoked when the time runs out")]
-        public bool failWhenOutOfTime;
+        [field:SerializeField]
+        public float timeToCompleteTask { get; private set; }
+
+        [Tooltip("Whether the player fails if the task time runs out. OnTaskFailed is invoked when the time runs out")]
+        [field: SerializeField]
+        public bool failWhenOutOfTime { get; private set; }
 
         [NonSerialized]
-        public float timeTaskStarted;
+        private float timeTaskStarted;
+        [field: NonSerialized]
+        public float timeTakenToCompleteTask { get; private set; }
 
-        [NonSerialized]
-        public int awardedPoints;
+        [field: NonSerialized]
+        public int awardedPoints { get; private set; }
 
         private List<Mistake> mistakeList;
 
@@ -61,12 +72,14 @@ namespace FarmasiaVR.New
         public void MarkAsDone()
         {
             completed= true;
+
             if ( timed )
             {
-                float timeTakenToCompleteTask = Time.time - timeTaskStarted;
-                float pointsMultiplier = 1 - (timeTakenToCompleteTask / timeTakenToCompleteTask);
+                timeTakenToCompleteTask = Time.time - timeTaskStarted;
+                float pointsMultiplier = 1 - (timeTakenToCompleteTask / timeToCompleteTask);
                 // If the player took longer to complete the task than the time limit allows, then set the multiplier to zero
-                if (pointsMultiplier< 0) pointsMultiplier = 0;
+                if (pointsMultiplier < 0) pointsMultiplier = 0;
+                if (pointsMultiplier > 1) pointsMultiplier = 1;
                 awardedPoints = (int) (pointsMultiplier * points);
             }
             else
@@ -81,6 +94,11 @@ namespace FarmasiaVR.New
         public void AddMistake(Mistake mistake)
         {
             mistakeList.Add(mistake);
+        }
+
+        public void StartTaskTimer()
+        {
+            timeTaskStarted= Time.time;
         }
     }
 }
