@@ -20,6 +20,11 @@ public class TaskList : ScriptableObject
         // The original task list is still used to track the linear progression of the tasks
         foreach (Task task in tasks)
         {
+            if (taskDict.ContainsKey(task.key))
+            {
+                Debug.LogError("The task list " + this.name + " has multiple tasks with the key " + task.key + ". Please make sure that every task in the task list has a unique key");
+                continue;
+            }
             taskDict[task.key] = task;
         }
     }
@@ -59,12 +64,11 @@ public class TaskList : ScriptableObject
     /// </summary>
     /// <param name="taskKey">The key of the task to fetch</param>
     /// <returns>Task that has the key given as the parameter</returns>
-    public Task? GetTask(string taskKey)
+    public Task GetTask(string taskKey)
     {
         if (!taskDict.ContainsKey(taskKey))
         {
             PrintKeyError(taskKey);
-            return null;
         }
 
         return taskDict[taskKey];
@@ -81,7 +85,7 @@ public class TaskList : ScriptableObject
 
     private void PrintKeyError(string taskKey)
     {
-        Debug.LogError("A task with the key " + taskKey + " could not be found. Make sure that you wrote the key correctly and that you are using the correct task list!");
+        throw new Exception("A task with the key " + taskKey + " could not be found. Make sure that you wrote the key correctly and that you are using the correct task list!");
     }
 
     public void GenerateTaskMistake(string taskKey, Mistake mistake)
