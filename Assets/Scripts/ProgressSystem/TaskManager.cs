@@ -53,7 +53,7 @@ public class TaskManager : MonoBehaviour
         while (!newTaskFound)
         {
             /// If we have reached the end of the task list, that means all of the tasks have been completed.
-            if (currentTaskIndex > taskListObject.tasks.Count)
+            if (currentTaskIndex >= taskListObject.tasks.Count)
             {
                 onAllTasksCompleted.Invoke(taskListObject);
                 return;
@@ -79,23 +79,25 @@ public class TaskManager : MonoBehaviour
     /// <param name="taskKey">The key of the task that should be marked as completed. Check the task list for the possible keys.</param>
     public void CompleteTask(string taskKey)
     {
-        if (taskKey!= currentTask.key && currentTask.timed)
+        if (IsTaskCompleted(taskKey)) { return; }
+
+        if (taskKey != currentTask.key && GetTask(taskKey).timed)
         {
-            Debug.LogWarning("You are completing a task that is timed but isn't active. Make sure that you only complete timed tasks when they are active!");
+            Debug.LogWarning("You are completing task " + taskKey + " that is timed but isn't active. Make sure that you only complete timed tasks when they are active!");
         }
-        if (!taskListObject.MarkTaskAsDone(taskKey))
-        {
-            return;
-        }
+        taskListObject.MarkTaskAsDone(taskKey);
+
         if (currentTask.key == taskKey && currentTask.timed)
         {
             StopCoroutine(TaskCountdown(currentTask.timeToCompleteTask));
         }
+
+        onTaskCompleted.Invoke((Task)taskListObject.GetTask(taskKey));
+
         if (taskKey == currentTask.key)
         {
             GetNextTask();
         }
-        onTaskCompleted.Invoke((Task)taskListObject.GetTask(taskKey));
     }
 
 
@@ -143,5 +145,10 @@ public class TaskManager : MonoBehaviour
     public bool IsTaskCompleted(string taskKey)
     {
         return taskListObject.GetTask(taskKey).completed;
+    }
+
+    public Task GetTask(string taskKey)
+    {
+        return taskListObject.GetTask(taskKey);
     }
 }
