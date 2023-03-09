@@ -16,7 +16,7 @@ public class TriggerBox : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
