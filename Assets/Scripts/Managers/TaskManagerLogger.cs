@@ -19,4 +19,19 @@ public class TaskManagerLogger : MonoBehaviour
             Debug.Log("Task " + task.key + " completed in " + task.timeTakenToCompleteTask);
         }
     }
+
+    public void PrintTaskFailed(Task task)
+    {
+        Debug.LogError("You failed the task " + task.key);
+    }
+
+    public void PrintAllTasksCompleted(TaskList taskList)
+    {
+        Debug.Log("You completed all the tasks! You collected " + taskList.GetPoints());
+    }
+
+    public void PrintMistake(Mistake mistake)
+    {
+        Debug.LogError("You made a mistake: " + mistake.mistakeText + ". You have been deducted " + mistake.pointsDeducted + " points.");
+    }
 }

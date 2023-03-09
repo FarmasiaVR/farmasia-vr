@@ -15,6 +15,7 @@ public class TaskList : ScriptableObject
 
     private void OnEnable()
     {
+        generalMistakes = new List<Mistake>();
         taskDict = new Dictionary<string, Task>();
         // Add every task to a dictionary so that task references are faster and easier.
         // The original task list is still used to track the linear progression of the tasks
@@ -46,17 +47,15 @@ public class TaskList : ScriptableObject
     /// </summary>
     /// <param name="taskKey">The key of the task that will be marked as completed. Check the possible keys from the task list.</param>
     /// <returns>A boolean value depending on whether or not the task was succesfully marked as completed</returns>
-    public bool MarkTaskAsDone(string taskKey)
+    public void MarkTaskAsDone(string taskKey)
     {
         if (!taskDict.ContainsKey(taskKey))
         {
             PrintKeyError(taskKey);
-            return false;
         }
 
         taskDict[taskKey].MarkAsDone();
         points += taskDict[taskKey].awardedPoints;
-        return true;
     }
 
     /// <summary>
@@ -102,8 +101,14 @@ public class TaskList : ScriptableObject
 
     public void GenerateGeneralMistake(Mistake mistake)
     {
+        Debug.Log(generalMistakes);
+        Debug.Log(mistake);
         generalMistakes.Add(mistake);
         points -= mistake.pointsDeducted;
+    }
+
+    public int GetPoints() {
+        return points;
     }
 
 }

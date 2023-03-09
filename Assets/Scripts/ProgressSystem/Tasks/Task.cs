@@ -9,7 +9,7 @@ using UnityEngine;
 namespace FarmasiaVR.New
 {
     [Serializable]
-    public struct Task
+    public class Task
     {
         /// <summary>
         /// This is a struct that represents a task that the player can complete.
@@ -36,8 +36,7 @@ namespace FarmasiaVR.New
         public int points { get; private set; }
 
         [Tooltip("Whether this task is completed or not")]
-        [field: SerializeField]
-        public bool completed { get; private set; }
+        public bool completed { get; set; }
 
         [Tooltip("Whether the task is time sensitive and the points awarded should be based on how long it takes for the player to complete the task")]
         [field: SerializeField]
@@ -86,6 +85,8 @@ namespace FarmasiaVR.New
             {
                 awardedPoints = points;
             }
+
+            UnityEngine.Debug.Log("Marked " + this.key + " as completed: " + this.completed);
         }
         /// <summary>
         /// Adds a mistake to the mistake list of the task

@@ -50,7 +50,7 @@ public class ExampleSceneManager : MonoBehaviour
 
     public void PressE()
     {
-        if(!taskManager.IsTaskCompleted("Q") || !taskManager.IsTaskCompleted("W"))
+        if(!taskManager.IsTaskCompleted("Q") | !taskManager.IsTaskCompleted("W"))
         {
             taskManager.GenerateTaskMistake("You have to press Q and W before pressing E", 5);
             return;
@@ -65,6 +65,7 @@ public class ExampleSceneManager : MonoBehaviour
         if (taskManager.GetCurrentTask().key != "R")
         {
             taskManager.GenerateGeneralMistake("Make sure to press Q, W and E before pressing R", 2);
+            return;
         }
         taskManager.CompleteTask("R");
     }
@@ -75,6 +76,7 @@ public class ExampleSceneManager : MonoBehaviour
         {
             taskManager.GenerateGeneralMistake("Make sure to press Q, W, E and R before pressing T", 3);
         }
+        taskManager.CompleteTask("T");
     }
 
 }
