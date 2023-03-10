@@ -36,7 +36,7 @@ namespace FarmasiaVR.New
         public int points { get; private set; }
 
         [Tooltip("Whether this task is completed or not")]
-        public bool completed { get; set; }
+        public bool completed { get; private set; }
 
         [Tooltip("Whether the task is time sensitive and the points awarded should be based on how long it takes for the player to complete the task")]
         [field: SerializeField]
@@ -47,7 +47,7 @@ namespace FarmasiaVR.New
         [field:SerializeField]
         public float timeToCompleteTask { get; private set; }
 
-        [Tooltip("Whether the player fails if the task time runs out. OnTaskFailed is invoked when the time runs out")]
+        [Tooltip("Whether the player should be penalised for not completing the task on time. OnTaskFailed is invoked when the time runs out")]
         [field: SerializeField]
         public bool failWhenOutOfTime { get; private set; }
 
@@ -85,8 +85,6 @@ namespace FarmasiaVR.New
             {
                 awardedPoints = points;
             }
-
-            UnityEngine.Debug.Log("Marked " + this.key + " as completed: " + this.completed);
         }
         /// <summary>
         /// Adds a mistake to the mistake list of the task

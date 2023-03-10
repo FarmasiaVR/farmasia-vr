@@ -141,12 +141,19 @@ public class TaskManager : MonoBehaviour
     public Task GetCurrentTask() {
         return currentTask;
     }
-
+    /// <summary>
+    /// Returns whether or not a task has been completed
+    /// </summary>
+    /// <param name="taskKey">The key of the task</param>
+    /// <returns>True or false depending on if the task has been marked as completed.</returns>
     public bool IsTaskCompleted(string taskKey)
     {
         return taskListObject.GetTask(taskKey).completed;
     }
-
+    /// <summary>
+    /// </summary>
+    /// <param name="taskKey">The key of the task</param>
+    /// <returns>The task that has taskKey as its key</returns>
     public Task GetTask(string taskKey)
     {
         return taskListObject.GetTask(taskKey);
