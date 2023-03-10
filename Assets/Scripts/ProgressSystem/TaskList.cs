@@ -15,7 +15,6 @@ public class TaskList : ScriptableObject
 
     private void OnEnable()
     {
-        generalMistakes = new List<Mistake>();
         taskDict = new Dictionary<string, Task>();
         // Add every task to a dictionary so that task references are faster and easier.
         // The original task list is still used to track the linear progression of the tasks
@@ -73,8 +72,12 @@ public class TaskList : ScriptableObject
         return taskDict[taskKey];
     }
 
+    /// <summary>
+    /// Resets all the tasks in the list, resets the points counter and resets the general mistakes.
+    /// </summary>
     public void ResetTaskProgression()
     {
+        generalMistakes = new List<Mistake>();
         foreach (Task task in tasks)
         {
             task.Reset();
@@ -82,10 +85,21 @@ public class TaskList : ScriptableObject
         points = 0;
     }
 
+    /// <summary>
+    /// This is used to print an error message to the player when they attempt to refer to a task that does not exist.
+    /// </summary>
+    /// <param name="taskKey">The key of the task the player tried to refer to.</param>
+    /// <exception cref="Exception"></exception>
     private void PrintKeyError(string taskKey)
     {
         throw new Exception("A task with the key " + taskKey + " could not be found. Make sure that you wrote the key correctly and that you are using the correct task list!");
     }
+
+    /// <summary>
+    /// Generates a mistake related to a task
+    /// </summary>
+    /// <param name="taskKey">The key of the task where the mistake was made</param>
+    /// <param name="mistake">Information about the task made</param>
 
     public void GenerateTaskMistake(string taskKey, Mistake mistake)
     {
@@ -98,17 +112,28 @@ public class TaskList : ScriptableObject
         taskDict[taskKey].AddMistake(mistake);
         points -= mistake.pointsDeducted;
     }
-
+    /// <summary>
+    /// Generates a mistake that doesn't relate to a certain task.
+    /// </summary>
+    /// <param name="mistake">Contains information about the task made.</param>
     public void GenerateGeneralMistake(Mistake mistake)
     {
-        Debug.Log(generalMistakes);
-        Debug.Log(mistake);
         generalMistakes.Add(mistake);
         points -= mistake.pointsDeducted;
     }
 
+    /// <summary>
+    /// </summary>
+    /// <returns>The points the player has collected so far.</returns>
     public int GetPoints() {
         return points;
+    }
+    /// <summary>
+    /// </summary>
+    /// <returns>The general mistakes the player has made</returns>
+    public List<Mistake> GetGeneralMistakes()
+    {
+        return generalMistakes;
     }
 
 }
