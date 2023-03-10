@@ -625,6 +625,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8760252833753192672, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
 --- !u!1 &313747920
@@ -16882,7 +16887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372504229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.02437, z: 0.42648}
+  m_LocalPosition: {x: 0.0109, y: 0.0244, z: 0.4265}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16907,7 +16912,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 16
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1435594851}
   m_KeepSelectedTargetValid: 1
   m_StartingSelectedInteractable: {fileID: 0}
   m_HoverEntered:
@@ -16966,7 +16971,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1435594851 stripped
 Transform:
@@ -16994,7 +16999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1444700586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17108,7 +17113,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
 --- !u!64 &1444700587
 MeshCollider:
@@ -17695,7 +17700,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
 --- !u!54 &1890589335
 Rigidbody:
@@ -17708,7 +17713,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -17727,6 +17732,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 796832007039913283, guid: 26d5707d6b73b76479e9327677d19e10, type: 3}
+--- !u!114 &1890589340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890589330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5182adbbc5b45284f9981fa2876b0af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  socketsOwnerInteractable: {fileID: 635816011}
 --- !u!64 &1984495157 stripped
 MeshCollider:
   m_CorrespondingSourceObject: {fileID: 6711174194862039256, guid: 1e284c511e3bddb4ba40f52277ba93d7,
@@ -18167,12 +18185,22 @@ PrefabInstance:
     - target: {fileID: 6711174193498620506, guid: 1e284c511e3bddb4ba40f52277ba93d7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6711174193498620509, guid: 1e284c511e3bddb4ba40f52277ba93d7,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711174193498620509, guid: 1e284c511e3bddb4ba40f52277ba93d7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711174193498620509, guid: 1e284c511e3bddb4ba40f52277ba93d7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0007
       objectReference: {fileID: 0}
     - target: {fileID: 6711174193847784022, guid: 1e284c511e3bddb4ba40f52277ba93d7,
         type: 3}
