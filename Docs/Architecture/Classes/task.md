@@ -1,6 +1,12 @@
 # Task
 This document presents the parameters and functions of a Task object. New Task objects should only be generated in a Task List file.
 
+**Note!** This class belongs to the `FarmasiaVR.New` namespace. If you want to make references to an object of this class, add
+```C#
+using FarmasiaVR.New;
+```
+to your script.
+
 ## Properties
 ### string **key** 
 The key of the task. Use this to refer tasks during runtime. Read-only outside of the object.
