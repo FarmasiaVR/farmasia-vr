@@ -41,6 +41,16 @@ public class WritingOption : DragAcceptable {
         // UpdateMaterial();
     }
 
+    public void Interact() {
+        Debug.Log("Interacting with XR hand!");
+        selected = !selected;
+        if (selected)
+            onSelect(this);
+        else
+            onDeselect(this);
+    }
+
+
     public void Reset() {
         selected = false;
     }
@@ -52,4 +62,6 @@ public class WritingOption : DragAcceptable {
             boxObject.GetComponent<MeshRenderer>().material = deselectedMaterial;
         }
     }
+
+    
 }

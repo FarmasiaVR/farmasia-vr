@@ -11,4 +11,10 @@ public class WritingCancel : DragAcceptable {
         Logger.Print("Chose: cancel");
         onSelect();
     }
+
+    public void Interact() {
+       // base.Interact(hand);
+        Logger.Print("Chose: cancel");
+        onSelect();
+    }
 }
