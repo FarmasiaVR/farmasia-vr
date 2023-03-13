@@ -13,5 +13,11 @@ class WritingRemove : DragAcceptable {
         Logger.Print("Chose: remove");
         onSelect();
     }
+
+    public void Interact()
+    { 
+        Logger.Print("Chose: remove");
+        onSelect();
+    }
 }
 
