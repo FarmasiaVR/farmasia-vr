@@ -87,6 +87,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     public void TransferTo(LiquidContainer target, int amount) {
+        Debug.Log("Liguid container starts taking medicine");
         if (target == null) {
             Logger.Error("Receiving LiquidContainer was null");
             return;
@@ -129,7 +130,9 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
+        Debug.Log("FINALLY SENDING EVENT?");
         if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
+            Debug.Log("FINALLY SENDING EVENT!!");
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
         }
     }

@@ -30,10 +30,11 @@ public class PipetteContainer : AttachmentItem
     }
 
     public void TakeMedicine() {
+        Debug.Log("pipette container starts taking medicine");
         if (State == InteractState.InBottle) {
             TransferToBottle(false);
         } else {
-            Logger.Print("PipetteContainer not in bottle");
+            Debug.Log("PipetteContainer not in bottle");
         }
     }
 
@@ -50,6 +51,7 @@ public class PipetteContainer : AttachmentItem
     }
 
     private void TransferToBottle(bool into) {
+        Debug.Log("pipette container still starts taking medicine");
         if (BottleContainer == null) return;
         //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
 

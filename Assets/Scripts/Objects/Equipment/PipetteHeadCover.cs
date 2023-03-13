@@ -6,7 +6,10 @@ public class PipetteHeadCover : GeneralItem {
     private Cover cover;
 
     [SerializeField] 
-    private PipetteContainer pipette;
+    public PipetteContainer pipette;
+
+    
+
 
     protected override void Start() {
         base.Start();
