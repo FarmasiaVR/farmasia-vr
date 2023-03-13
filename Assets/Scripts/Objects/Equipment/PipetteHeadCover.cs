@@ -7,12 +7,15 @@ public class PipetteHeadCover : GeneralItem {
 
     [SerializeField] 
     public PipetteContainer pipette;
+    public bool ignoreOldInteractStateCheck;
 
-    
+
+
 
 
     protected override void Start() {
         base.Start();
+        pipette.ignoreOldInteractStateCheck= ignoreOldInteractStateCheck;
         cover = gameObject.GetComponent<Cover>();
         Type.On(InteractableType.Interactable);
         cover.DisableOpeningSpots();

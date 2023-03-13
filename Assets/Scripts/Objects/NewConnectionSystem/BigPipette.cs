@@ -40,14 +40,14 @@ public class BigPipette : ReceiverItem
             }
         }
     }
-
+   
     public void TakeMedicine() {
         Debug.Log("Big pipette starts taking medicine");
         (ConnectedItem as PipetteContainer).TakeMedicine();
         
     }
 
-    public void SendMedicine() {
+      public void SendMedicine() {
         (ConnectedItem as PipetteContainer).SendMedicine();
     }
 

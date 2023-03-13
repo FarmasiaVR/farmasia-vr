@@ -92,23 +92,24 @@ public class LiquidContainer : MonoBehaviour {
             Logger.Error("Receiving LiquidContainer was null");
             return;
         }
-
+        Debug.Log("we survived target null check on bottle side");
         if (amount == 0) {
             return;
         }
+        Debug.Log("survived amount == 0 check");
         if (amount < 0) {
             target.TransferTo(this, -amount);
             return;
         }
-
+        Debug.Log("survived amount < 0 check");
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
         if (toTransfer == 0) return;
-
+        Debug.Log("survived toTransfer == 0 check");
         TransferLiquidType(target);
-
+      
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
 

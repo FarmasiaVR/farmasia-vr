@@ -131,7 +131,7 @@ public class SteamVRTranslator : MonoBehaviour
     void fillMedicineButtonActivated(InputAction.CallbackContext context) {
 
         Vector2 coords = context.ReadValue<Vector2>();
-       // Debug.Log("thouch detected");
+        Debug.Log("thouch detected");
         Debug.Log(coords);
 
 
