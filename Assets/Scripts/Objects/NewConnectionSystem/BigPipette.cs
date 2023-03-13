@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class BigPipette : ReceiverItem
 {
+     
     public override void OnGrabStart(Hand hand) {
         base.OnGrabStart(hand);
 
@@ -44,5 +45,10 @@ public class BigPipette : ReceiverItem
 
     public void SendMedicine() {
         (ConnectedItem as PipetteContainer).SendMedicine();
+    }
+
+    public void ForceAttachToObject()
+    {
+        ConnectAttachmentXR();
     }
 }

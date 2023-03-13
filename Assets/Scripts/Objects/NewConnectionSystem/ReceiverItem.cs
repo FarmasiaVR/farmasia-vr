@@ -125,6 +125,13 @@ public class ReceiverItem : AttachmentItem
         ConnectedItem.StartCoroutine(ConnectedItem.WaitForHandDisconnectAndConnectItems(this));
 
     }
+    public virtual void ConnectAttachmentXR()
+    {
+        Debug.Log("XR connected parts XR");
+        SlotOccupied = true;
+        ConnectedItem = NearestItem.GetComponent<AttachmentItem>();
+    }
+
 
     /// <summary>
     /// Disconnects the item in parameter from this item and places it to the scene root.
