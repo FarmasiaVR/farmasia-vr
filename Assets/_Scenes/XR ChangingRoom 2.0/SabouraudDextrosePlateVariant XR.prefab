@@ -76,6 +76,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7802861232875816580}
+        m_TargetAssemblyTypeName: AgarPlateLid, GameAssembly
+        m_MethodName: sendPlateClosedEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -83,6 +95,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
         m_MethodName: EnableCollisions
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7802861232875816580}
+        m_TargetAssemblyTypeName: AgarPlateLid, GameAssembly
+        m_MethodName: sendPlateOpenedEvent
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -594,6 +618,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3120330082661095070}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7802861232875816580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5117487062915747866, guid: 669f5a1b6061a3a6ca35303a1a1748ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3120330082661095070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926495546648079069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951c5c96b6d5730c8a8c5f5405e1f6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3876544290106143347
 PrefabInstance:
   m_ObjectHideFlags: 0

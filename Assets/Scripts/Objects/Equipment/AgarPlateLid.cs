@@ -35,6 +35,17 @@ public class AgarPlateLid : ConnectableItem {
         Connector.ConnectItem(Bottom);
     }
 
+    public void sendPlateClosedEvent()
+    {
+        Events.FireEvent(EventType.AgarPlateClosed, CallbackData.Object(this));
+    }
+
+    public void sendPlateOpenedEvent()
+    {
+        Events.FireEvent(EventType.PlateOpened, CallbackData.Object(this));
+    }
+
+
     public void ReleaseItem() {
         Connector.Connection?.Remove();
     }
