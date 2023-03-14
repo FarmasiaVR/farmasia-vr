@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3845352561480385363}
   - component: {fileID: 2645049569722933706}
   - component: {fileID: 3773675749538000310}
+  - component: {fileID: 6320588803118101517}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -90,10 +91,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 108185424503917176}
-        m_TargetAssemblyTypeName: BigPipette, GameAssembly
-        m_MethodName: ForceAttachToObject
-        m_Mode: 1
+      - m_Target: {fileID: 6320588803118101517}
+        m_TargetAssemblyTypeName: AutomaticPipetteSetAttachedPipetteXR, Assembly-CSharp
+        m_MethodName: setConnectedPipette
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -148,6 +149,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1262115876945489284}
+--- !u!114 &6320588803118101517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737094356677664935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcfc023812416c4c99d89d845f4b4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reiceiverPipette: {fileID: 108185424503917176}
 --- !u!1 &2663083187711066165
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +177,7 @@ GameObject:
   - component: {fileID: 1262115876945489284}
   - component: {fileID: 4411855520590670133}
   - component: {fileID: 8174408594003345258}
+  - component: {fileID: 1966259929}
   m_Layer: 10
   m_Name: AutomaticPipette XR
   m_TagString: Untagged
@@ -212,6 +227,7 @@ MonoBehaviour:
   ConnectedItem: {fileID: 0}
   ReceivedObjectType: 25
   SlotOccupied: 0
+  pipetteContainerXR: {fileID: 0}
 --- !u!135 &996911824603334648
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -284,10 +300,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1966259929}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1966259929}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -384,6 +424,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1190068, y: 0.039316423, z: 0.01}
   m_Center: {x: 0.054503396, y: 0.014658213, z: 0}
+--- !u!114 &1966259929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663083187711066165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BigPipetteToControl: {fileID: 108185424503917176}
+  takeMedicineActionReference: {fileID: -9104747167095519760, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  transferMedicineActionReference: {fileID: -8446406140814943691, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
 --- !u!1 &5206687702962591479
 GameObject:
   m_ObjectHideFlags: 0
