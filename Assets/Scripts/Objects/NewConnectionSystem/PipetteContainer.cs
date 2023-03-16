@@ -64,7 +64,7 @@ public class PipetteContainer : AttachmentItem
         if (BottleContainer == null) return;
         Debug.Log("we survived null bottle check and will now transfor to bottle container");
         //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        Debug.Log(LiquidTransferStep);
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
 }
