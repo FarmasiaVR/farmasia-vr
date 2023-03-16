@@ -6,7 +6,7 @@ using UnityEngine;
 public class FireSpreadStatic : MonoBehaviour
 {
     private FireGrid fireGrid;
-    private FirePositions firePositions;
+    //private FirePositions firePositions;
     private GameObject[] wallStructure;
     private GameObject floor;
 
@@ -41,7 +41,7 @@ public class FireSpreadStatic : MonoBehaviour
     void Start()
     {
         fireGrid = FindObjectOfType<FireGrid>();
-        firePositions = FindObjectOfType<FirePositions>();
+        //firePositions = FindObjectOfType<FirePositions>();
         wallStructure = GameObject.FindGameObjectsWithTag("Structure");
         floor = GameObject.FindGameObjectWithTag("Floor");
         currentDir = up;
@@ -189,11 +189,11 @@ public class FireSpreadStatic : MonoBehaviour
     /// </summary>
     /// <param name="position">Vector3 parameter for spawn position.</param>
     /// <returns></returns>
-    private bool CheckPositionAvailability(Vector3 position)
+    /*private bool CheckPositionAvailability(Vector3 position)
     {
         Debug.Log("vector3 position: " + position.ToString());
         return firePositions.CheckContains(position);
-    }
+    }*/
 
 
     /// <summary>
@@ -239,7 +239,7 @@ public class FireSpreadStatic : MonoBehaviour
     /// <param name="fireGrid">fireGrid object reference required for copying this script.</param>
     private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
     {
-        firePositions.AddPosition(position);
+        //firePositions.AddPosition(position);
         GameObject obj = Instantiate(objectToSpawn, position, rotation);
         obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
         //obj.tag = "FireGrid";
