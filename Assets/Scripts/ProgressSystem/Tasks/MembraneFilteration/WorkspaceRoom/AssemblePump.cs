@@ -22,7 +22,7 @@ class AssemblePump: Task {
         base.SubscribeEvent(AttachFilter, EventType.AttachFilter);
         base.SubscribeEvent(AttachPipe, EventType.AttachPipe);
         base.SubscribeEvent(FilterCoverOpened, EventType.FilterCoverOpened);
-        base.SubscribeEvent(WrongSpotOpened, EventType.WrongSpotOpened);
+        base.SubscribeEvent(WrongSpotOpened, EventType.WrongSpotOpened); // 2023 the filter in cover does not have a wrong spot to open so this is never activated.
     }
 
     private void SetCabinetReference(CallbackData data) {
