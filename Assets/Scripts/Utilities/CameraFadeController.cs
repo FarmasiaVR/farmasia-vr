@@ -12,11 +12,27 @@ public class CameraFadeController : MonoBehaviour
     /// 
 
     private Animator fadeAnimator;
+    [Header("Fade Out")]
+    public UnityEvent onFadeOutStart;
     public UnityEvent onFadeOutComplete;
+
+    [Header("Fade In")]
+    public UnityEvent onFadeInStart;
     public UnityEvent onFadeInComplete;
+
+    // Take the states of the above events and revert to these states when the fades are completed.
+    private UnityEvent defaultOnFadeOutStart;
+    private UnityEvent defaultOnFadeOutComplete;
+    private UnityEvent defaultOnFadeInStart;
+    private UnityEvent defaultOnFadeInComplete;
 
     private void Start() {
         fadeAnimator = GetComponent<Animator>();
+        defaultOnFadeInStart = onFadeInStart;
+        defaultOnFadeInComplete = onFadeInComplete;
+        defaultOnFadeOutStart = onFadeOutStart;
+        defaultOnFadeOutComplete = onFadeOutComplete;
+
     }
 
     public void BeginFadeOut() {
@@ -26,6 +42,8 @@ public class CameraFadeController : MonoBehaviour
         /// 
 
         fadeAnimator.SetTrigger("FadeOut");
+        onFadeOutStart.Invoke();
+        onFadeOutStart = defaultOnFadeOutStart;
     }
 
     public void BeginFadeIn() {
@@ -35,16 +53,18 @@ public class CameraFadeController : MonoBehaviour
         /// 
 
         fadeAnimator.SetTrigger("FadeIn");
+        onFadeInStart.Invoke();
+        onFadeInStart = defaultOnFadeInStart;
     }
 
     public void FadeOutComplete() {
         ///<summary>
         ///This is called by the fade out animation when it has been completed.
-        ///All of the listeners attached are also removed
+        ///All of the listeners attached by other scripts are also removed
         /// </summary>
         /// 
         onFadeOutComplete.Invoke();
-        onFadeOutComplete.RemoveAllListeners();
+        onFadeOutComplete = defaultOnFadeOutComplete;
     }
 
     public void FadeInComplete() {
@@ -53,6 +73,6 @@ public class CameraFadeController : MonoBehaviour
         /// </summary>
         /// 
         onFadeInComplete.Invoke();
-        onFadeOutComplete.RemoveAllListeners();
+        onFadeInComplete = defaultOnFadeInComplete;
     }
 }

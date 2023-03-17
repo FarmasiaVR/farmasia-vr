@@ -32,7 +32,6 @@ public class XRMenuButton : MonoBehaviour
             else
             {
                 levelChanger.SwapScene(scene);
-                levelChanger.FadeOutScene();
             }
         }
     }

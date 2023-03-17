@@ -9,6 +9,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 /// </summary>
 public class SimpleInteractableAutoDeselect : MonoBehaviour
 {
+    public float selectionCooldown = 0.5f;
+
     private void Start()
     {
         XRBaseInteractor baseInteractor = GetComponent<XRBaseInteractor>();
@@ -17,13 +19,24 @@ public class SimpleInteractableAutoDeselect : MonoBehaviour
 
     public void AutoExitSelect(SelectEnterEventArgs args)
     {
+        Debug.Log("Selected object " + args.interactableObject.transform.name);
+        StartCoroutine(DeselectAfterCooldown(args));
+    }
+
+    public IEnumerator DeselectAfterCooldown(SelectEnterEventArgs args)
+    {
+        ///Use a coroutine since deselecting a simple interactable immediately after selecting it may cause the player to select an unwanted object.
         bool selectedObjectIsSimple = args.interactableObject.transform.GetComponent<XRSimpleInteractable>();
 
         if (selectedObjectIsSimple)
         {
+            yield return new WaitForSeconds(selectionCooldown);
             XRInteractionManager interactionManager = args.manager;
 
-            interactionManager.SelectExit(args.interactorObject, args.interactableObject);
+            if (args.interactableObject.isSelected)
+            {
+                interactionManager.SelectExit(args.interactorObject, args.interactableObject);
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ public class InteractorSwitcher : MonoBehaviour
     private InputActionReference teleportActivate;
 
     private XRInteractionManager interactionManager;
+    private bool interactorSwitchingEnabled;
 
 
 
@@ -37,19 +38,34 @@ public class InteractorSwitcher : MonoBehaviour
         teleportActivate.action.canceled += DisableTeleport;
         teleportActivate.action.Enable();
 
+        interactorSwitchingEnabled = true;
+
         interactionManager = directInteractor.interactionManager;
 
         DisableRayInteractor(new InputAction.CallbackContext());
         DisableTeleport(new InputAction.CallbackContext());
     }
 
+    public void EnableInteractorSwitching()
+    {
+        SetInteractorEnabled(directInteractor, true);
+        interactorSwitchingEnabled = true;
+        
+    }
+
     private void EnableRayInteractor(InputAction.CallbackContext context) {
+        // If the player is not allowed to interact with objects (for example, during a fade), then do not allow enabling of interactors.
+        // This function is called through Input events even if this component is disabled.
+        if (!interactorSwitchingEnabled) return;
+
         SetInteractorEnabled(rayInteractor, true);
     }
 
 
 
     private void DisableRayInteractor(InputAction.CallbackContext context) {
+        if (!interactorSwitchingEnabled) return;
+
         // If the player is hovering over an object while disabling the ray interactor, then make the player select the hovered object.
         if (rayInteractor.interactablesHovered.Count > 0)
         {
@@ -65,10 +81,14 @@ public class InteractorSwitcher : MonoBehaviour
     }
 
      private void EnableTeleport(InputAction.CallbackContext context) {
+        if (!interactorSwitchingEnabled) return;
+
         SetInteractorEnabled(teleportInteractor, true);
     }
 
     private void DisableTeleport(InputAction.CallbackContext context) {
+        if (!interactorSwitchingEnabled) return;
+
         // Manually pass the select event so that the player teleports when they release the teleport button.
         if (teleportInteractor.interactablesHovered.Count > 0)
         {
@@ -80,8 +100,10 @@ public class InteractorSwitcher : MonoBehaviour
     }
 
     private void SetInteractorEnabled(XRBaseInteractor interactor, bool enabled) {
-        interactor.allowSelect = enabled;
+        if (!interactorSwitchingEnabled) return;
+
         interactor.allowHover = enabled;
+        interactor.allowSelect = enabled;
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
         if (lineVisual != null) {
@@ -92,6 +114,14 @@ public class InteractorSwitcher : MonoBehaviour
                 lineVisual.reticle.SetActive(enabled);
             }
         }
+    }
+
+    public void DisableInteractorSwitching()
+    {
+        SetInteractorEnabled(directInteractor, false);
+        SetInteractorEnabled(rayInteractor, false);
+        SetInteractorEnabled(teleportInteractor, false);
+        interactorSwitchingEnabled = false;
     }
 
     private void OnDestroy() {

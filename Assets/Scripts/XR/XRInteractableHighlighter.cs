@@ -9,39 +9,15 @@ public class XRInteractableHighlighter : MonoBehaviour
     public Color highlightColor;
 
     private List<XRBaseInteractable> interactablesHovered;
+    private XRBaseInteractor interactor;
     private Transform highlightedObject;
 
     private void Start() {
-        XRBaseInteractor interactor = GetComponent<XRBaseInteractor>();
-        interactor.hoverEntered.AddListener(HoveredEvent);
-        interactor.hoverExited.AddListener(ExitHoverEvent);
-        interactor.selectEntered.AddListener(SelectedEvent);
-        interactor.selectExited.AddListener(SelectExitEvent);
-        interactablesHovered= new List<XRBaseInteractable>();
+        interactor = GetComponent<XRBaseInteractor>();
+        interactor.targetPriorityMode = TargetPriorityMode.HighestPriorityOnly;
     }
 
-    public void HoveredEvent(HoverEnterEventArgs hoveredArgs) {
-        ///Don't highlight selected objects. If they are selected, highlight them only if they are held by a socket.
-        ///
-        interactablesHovered.Add(hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
-    }
 
-    public void ExitHoverEvent (HoverExitEventArgs hoveredArgs) {
-        //Make sure that the highlight is removed only when no interactors are interacting
-        interactablesHovered.Remove(hoveredArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
-    }
-
-    public void SelectedEvent (SelectEnterEventArgs selectedArgs)
-    {
-        //Make sure that the highlight is turned off when picking up an object.
-        interactablesHovered.Remove(selectedArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
-    }
-
-    public void SelectExitEvent (SelectExitEventArgs selectedArgs)
-    {
-        //When deselecting an object, make it highlightable again.
-        //interactablesHovered.Add(selectedArgs.interactableObject.transform.GetComponent<XRBaseInteractable>());
-    }
 
     private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
         ///<summary>
@@ -76,51 +52,19 @@ public class XRInteractableHighlighter : MonoBehaviour
         } else { renderer.material.DisableKeyword("_EMISSION"); }
     }
 
-    private Transform GetNearestHighlightableInteractable()
-    {
-        ///<summary>
-        /// Goes through every object that is hovered at that point and returns the nearest one.
-        /// </summary>
-        Transform nearestObject = null;
-        float nearestObjectDist = float.MaxValue;
-
-        foreach (XRBaseInteractable interactable in interactablesHovered.ToArray())
-        {
-            /// If there are interactors interacting with the hovered object, then only highlight it if the interactor is a socket.
-            if (interactable.interactorsSelecting.Count > 0)
-            {
-                if (!interactable.interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>())
-                {
-                    continue;
-                }
-            }
-            float distanceToInteractable = Vector3.Distance(transform.position, interactable.transform.position);
-            if (distanceToInteractable < nearestObjectDist)
-            {
-                nearestObject = interactable.transform;
-                nearestObjectDist = distanceToInteractable;
-            }
-        }
-
-        return nearestObject;
-    }
-
     private void Update()
     {
-        if (highlightedObject)
+        if (highlightedObject!= null)
         {
             ChangeHiglight(highlightedObject, false);
-            highlightedObject = null;
+            highlightedObject= null;
         }
-
-        Transform objectToHilghlight = GetNearestHighlightableInteractable();
-
-        if (objectToHilghlight)
+        if (interactor.targetsForSelection.Count > 0 && !interactor.isSelectActive && interactor.allowHover)
         {
-            ChangeHiglight(objectToHilghlight, true);
-            highlightedObject = objectToHilghlight;
+            Transform highestPriorityObject = interactor.targetsForSelection[0].transform;
+            ChangeHiglight(highestPriorityObject, true);
+            highlightedObject = highestPriorityObject;
         }
-        
     }
 
 
