@@ -20,7 +20,7 @@ public class PlayerOnFireManager : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collision) {
-        Debug.Log("trigger enter");
+        //Debug.Log("trigger enter");
         //layer 15 = "Player"
         if (collision.gameObject.tag == "FireGrid") {
             

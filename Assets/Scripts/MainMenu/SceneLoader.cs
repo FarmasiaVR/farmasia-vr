@@ -22,10 +22,13 @@ public class SceneLoader : MonoBehaviour {
                 ChangeScene("Tutorial");
                 return;
             case SceneTypes.MembraneFilteration:
-                ChangeScene("MembraneFilteration");
+                ChangeScene("XR MembraneFilteration 2.0");
                 return;
             case SceneTypes.ChangingRoom:
                 ChangeScene("ChangingRoom");
+                return;
+            case SceneTypes.FireHazard:
+                ChangeScene("Laboratory");
                 return;
         }
     }
