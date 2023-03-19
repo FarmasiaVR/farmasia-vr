@@ -75,24 +75,29 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void Extinguish()
     {
-        Destroy(colliderCube);
-        AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
-        fireAudioSource.Stop();
-        fireAudioSource.clip= extinguishAudio;
-        fireAudioSource.loop = false;
-        fireAudioSource.Play();
-        fireVFX.Stop();
-        if (smokeVFX)
+        if (isIgnited)
         {
-            smokeVFX.SetFloat("Spawn Rate", 0f);
-        }
-        pointLight.SetActive(false);
-        if (extinguishParticle != null && isIgnited == true)
-        {
-            extinguishParticle.Play();
+            AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
+            fireAudioSource.Stop();
+            fireAudioSource.clip = extinguishAudio;
+            fireAudioSource.loop = false;
+            fireAudioSource.Play();
+            fireVFX.Stop();
+            if (smokeVFX)
+            {
+                smokeVFX.SetFloat("Spawn Rate", 0f);
+            }
+            pointLight.SetActive(false);
+
+            if (extinguishParticle != null)
+            {
+                extinguishParticle.Play();
+            }
+
             isIgnited = false;
+            Debug.Log("Extinguished with Fire Extinguisher");
         }
-        Debug.Log("Extinguished with Fire Extinguisher");
+        
     }
 
     /// <summary>
@@ -100,24 +105,29 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void ExtinguishWithBlanket()
     {
-        Destroy(colliderCube);
-        AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
-        fireAudioSource.Stop();
-        fireAudioSource.clip = extinguishAudioBlanket;
-        fireAudioSource.loop = false;
-        fireAudioSource.Play();
-        fireVFX.Stop();
-        if (smokeVFX)
+        if (isIgnited)
         {
-            smokeVFX.SetFloat("Spawn Rate", 0f);
-        }
-        pointLight.SetActive(false);
-        if (extinguishParticle != null && isIgnited == true)
-        {
-            extinguishParticle.Play();
+            AudioSource fireAudioSource = fireVFX.gameObject.GetComponent<AudioSource>();
+            fireAudioSource.Stop();
+            fireAudioSource.clip = extinguishAudioBlanket;
+            fireAudioSource.loop = false;
+            fireAudioSource.Play();
+            fireVFX.Stop();
+            if (smokeVFX)
+            {
+                smokeVFX.SetFloat("Spawn Rate", 0f);
+            }
+            pointLight.SetActive(false);
+
+            if (extinguishParticle != null)
+            {
+                extinguishParticle.Play();
+            }
+
             isIgnited = false;
+            Debug.Log("Extinguished with Blanket");
         }
-        Debug.Log("Extinguished with Blanket");
+        
     }
 
     /// <summary>
@@ -125,18 +135,24 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     public void Ignite()
     {
-        fireVFX.Play();
-        if (smokeVFX)
+        if (!isIgnited)
         {
-            smokeVFX.SetFloat("Spawn Rate", 15f);
-        }
-        pointLight.SetActive(true);
-        if (igniteParticle != null && isIgnited == false)
-        {
-            igniteParticle.Play();
+            fireVFX.Play();
+            if (smokeVFX)
+            {
+                smokeVFX.SetFloat("Spawn Rate", 15f);
+            }
+            pointLight.SetActive(true);
+            
+            if (igniteParticle != null)
+            {
+                igniteParticle.Play();
+            }
+
             isIgnited = true;
+            Debug.Log("Ignited");
         }
-        Debug.Log("Ignited");
+        
     }
 
     /// <summary>
