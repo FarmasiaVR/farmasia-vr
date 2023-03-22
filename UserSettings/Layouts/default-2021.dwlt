@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 3585
-    y: -301
-    width: 1771
-    height: 1348
+    x: 8
+    y: 51
+    width: 1904
+    height: 973
   m_ShowMode: 4
   m_Title: Scene
-  m_RootView: {fileID: 8}
+  m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 0
@@ -32,24 +32,23 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: GameView
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
   m_EditorClassIdentifier: 
-  m_Children: []
+  m_Children:
+  - {fileID: 9}
+  - {fileID: 3}
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 511
-    width: 335
-    height: 256
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 20}
-  m_Panes:
-  - {fileID: 20}
-  m_Selected: 0
-  m_LastSelected: 0
+    y: 30
+    width: 1904
+    height: 923
+  m_MinSize: {x: 503, y: 321}
+  m_MaxSize: {x: 16192, y: 12117}
+  vertical: 0
+  controlID: 282
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -58,23 +57,24 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 6}
-  - {fileID: 2}
+  m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 0
+    x: 1454
     y: 0
-    width: 335
-    height: 767
-  m_MinSize: {x: 100, y: 200}
-  m_MaxSize: {x: 8096, y: 16192}
-  vertical: 1
-  controlID: 520
+    width: 450
+    height: 923
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 13}
+  m_Panes:
+  - {fileID: 13}
+  m_Selected: 0
+  m_LastSelected: 0
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -84,22 +84,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 11}
-  - {fileID: 5}
+  m_Children: []
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 30
-    width: 1771
-    height: 1298
-  m_MinSize: {x: 300, y: 300}
-  m_MaxSize: {x: 24288, y: 24288}
-  vertical: 0
-  controlID: 517
+    y: 0
+    width: 360
+    height: 547
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 14}
+  m_Panes:
+  - {fileID: 14}
+  m_Selected: 0
+  m_LastSelected: 0
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -110,78 +111,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: BuildPlayerWindow
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1351
-    y: 0
-    width: 420
-    height: 1298
-  m_MinSize: {x: 641, y: 601}
+    x: 0
+    y: 547
+    width: 1454
+    height: 376
+  m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 14}
+  m_ActualView: {fileID: 17}
   m_Panes:
+  - {fileID: 12}
   - {fileID: 17}
-  - {fileID: 14}
-  - {fileID: 15}
   m_Selected: 1
   m_LastSelected: 0
 --- !u!114 &6
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneHierarchyWindow
-  m_EditorClassIdentifier: 
-  m_Children: []
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 335
-    height: 511
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
-  m_Panes:
-  - {fileID: 18}
-  m_Selected: 0
-  m_LastSelected: 0
---- !u!114 &7
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
-  m_EditorClassIdentifier: 
-  m_Children: []
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 767
-    width: 1351
-    height: 531
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 16}
-  m_Panes:
-  - {fileID: 16}
-  - {fileID: 21}
-  m_Selected: 0
-  m_LastSelected: 1
---- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,22 +141,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 9}
-  - {fileID: 4}
-  - {fileID: 10}
+  - {fileID: 7}
+  - {fileID: 2}
+  - {fileID: 8}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1771
-    height: 1348
+    width: 1904
+    height: 973
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &9
+--- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,12 +173,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1771
+    width: 1904
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
-  m_LastLoadedLayoutName: 
---- !u!114 &10
+  m_LastLoadedLayoutName: Default
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,12 +194,12 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 1328
-    width: 1771
+    y: 953
+    width: 1904
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &11
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,19 +212,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 12}
-  - {fileID: 7}
+  - {fileID: 10}
+  - {fileID: 5}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1351
-    height: 1298
-  m_MinSize: {x: 200, y: 300}
-  m_MaxSize: {x: 16192, y: 24288}
+    width: 1454
+    height: 923
+  m_MinSize: {x: 403, y: 321}
+  m_MaxSize: {x: 8096, y: 12117}
   vertical: 1
-  controlID: 518
---- !u!114 &12
+  controlID: 283
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,19 +237,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 3}
-  - {fileID: 13}
+  - {fileID: 4}
+  - {fileID: 11}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1351
-    height: 767
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 16192, y: 16192}
+    width: 1454
+    height: 547
+  m_MinSize: {x: 403, y: 221}
+  m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 519
---- !u!114 &13
+  controlID: 284
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,586 +264,19 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 335
+    x: 360
     y: 0
-    width: 1016
-    height: 767
+    width: 1094
+    height: 547
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 15}
   m_Panes:
-  - {fileID: 19}
+  - {fileID: 15}
+  - {fileID: 16}
   m_Selected: 0
-  m_LastSelected: 0
---- !u!114 &14
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12043, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 640, y: 580}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Build Settings
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 4936
-    y: -271
-    width: 419
-    height: 1277
-  m_ViewDataDictionary: {fileID: 0}
-  m_OverlayCanvas:
-    m_LastAppliedPresetName: Default
-    m_SaveData: []
-  m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 00000000
-    m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff
-    m_RenameOverlay:
-      m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
-      m_EditFieldRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      m_UserData: 0
-      m_IsWaitingForDelay: 0
-      m_IsRenaming: 0
-      m_OriginalEventType: 11
-      m_IsRenamingFilename: 0
-      m_ClientGUIView: {fileID: 0}
-    m_SearchString: 
---- !u!114 &15
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb55afc2c109f42f2af37941a8c9300e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 600, y: 300}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: XR Device Simulator Controls (Input Actions)
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 4899
-    y: -263
-    width: 453
-    height: 918
-  m_ViewDataDictionary: {fileID: 0}
-  m_OverlayCanvas:
-    m_LastAppliedPresetName: Default
-    m_SaveData: []
-  m_ActionMapsTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b7b5d452
-    m_LastClickedID: 1389671863
-    m_ExpandedIDs: 00000000
-    m_RenameOverlay:
-      m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
-      m_EditFieldRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      m_UserData: 0
-      m_IsWaitingForDelay: 0
-      m_IsRenaming: 0
-      m_OriginalEventType: 11
-      m_IsRenamingFilename: 0
-      m_ClientGUIView: {fileID: 0}
-    m_SearchString: 
-  m_ActionsTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5aa98e1f
-    m_LastClickedID: 529443162
-    m_ExpandedIDs: e21d76c9
-    m_RenameOverlay:
-      m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
-      m_EditFieldRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      m_UserData: 0
-      m_IsWaitingForDelay: 0
-      m_IsRenaming: 0
-      m_OriginalEventType: 11
-      m_IsRenamingFilename: 0
-      m_ClientGUIView: {fileID: 0}
-    m_SearchString: 
-  m_ControlPickerViewState:
-    m_AdvancedDropdownState:
-      states: []
-    m_ManualPathEditMode: 0
-  m_ActionAssetManager:
-    m_AssetObjectForEditing: {fileID: 0}
-    m_ImportedAssetObject: {fileID: -944628639613478452, guid: da2b439d1a2de5c46a4f428f8cf4fe19,
-      type: 3}
-    m_AssetGUID: da2b439d1a2de5c46a4f428f8cf4fe19
-    m_ImportedAssetJson: "{\n    \"name\": \"XR Device Simulator Controls\",\n   
-      \"maps\": [\n        {\n            \"name\": \"Main\",\n            \"id\":
-      \"c96c4ddb-3eb8-4074-bbd9-a8ae6f1f6475\",\n            \"actions\": [\n               
-      {\n                    \"name\": \"Keyboard X Translate\",\n                   
-      \"type\": \"Value\",\n                    \"id\": \"d4eb7006-5077-4816-9d5c-f570b6d586f3\",\n                   
-      \"expectedControlType\": \"Axis\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": true\n               
-      },\n                {\n                    \"name\": \"Keyboard Z Translate\",\n                   
-      \"type\": \"Value\",\n                    \"id\": \"3ea275ac-e111-4610-891f-105676c72cd5\",\n                   
-      \"expectedControlType\": \"Axis\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": true\n               
-      },\n                {\n                    \"name\": \"Keyboard Y Translate\",\n                   
-      \"type\": \"Value\",\n                    \"id\": \"5cc58f95-e9dc-4675-a42e-dd66874c3ba3\",\n                   
-      \"expectedControlType\": \"Axis\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": true\n               
-      },\n                {\n                    \"name\": \"Manipulate LeftHand\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"07c46cc4-c35d-4364-a878-68fad8ab8c64\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Manipulate RightHand\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"307cb608-f32e-48a3-8ce6-d1cd83a5fb90\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Manipulate LeftHand\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"847b79d9-a69b-4484-8688-a4bf40e58163\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Manipulate RightHand\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"241f6068-ebc8-4c6d-b747-8bc2c1f74f87\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Manipulate Head\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"f5febf74-651b-4f73-8d0a-08b0acdabc4d\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Mouse Delta\",\n                   
-      \"type\": \"Value\",\n                    \"id\": \"0b945dbf-d750-40cb-97c6-593686fcf012\",\n                   
-      \"expectedControlType\": \"Vector2\",\n                    \"processors\":
-      \"\",\n                    \"interactions\": \"\",\n                    \"initialStateCheck\":
-      true\n                },\n                {\n                    \"name\":
-      \"Mouse Scroll\",\n                    \"type\": \"Value\",\n                   
-      \"id\": \"b2a408da-a9fd-4638-9af3-17fb9bc2811d\",\n                    \"expectedControlType\":
-      \"Vector2\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": true\n               
-      },\n                {\n                    \"name\": \"Rotate Mode Override\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"2e390909-c0f6-4ca5-b8bc-4c54090f96d9\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Mouse Transformation
-      Mode\",\n                    \"type\": \"Button\",\n                    \"id\":
-      \"ae2b5c7f-b5e0-4b93-b674-172de9f68380\",\n                    \"expectedControlType\":
-      \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Negate Mode\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"8c837143-e018-41f0-9e0e-907acb9d7360\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Z Constraint\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"d3e9308c-6f8c-46f7-bb6f-14422c345983\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"X Constraint\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"11dc7a94-7230-49ff-b56d-06e6473e9951\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Y Constraint\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"11ab79c6-b9c6-4301-8086-3e9c6904ef14\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Reset\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"339ccb79-aee9-4ba4-8864-3b6c81c199db\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Cursor Lock\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"9bd36ab1-f676-4ff4-8a4d-ba0c6fb36268\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      }\n            ],\n            \"bindings\": [\n                {\n                   
-      \"name\": \"1D Axis\",\n                    \"id\": \"db741065-2a46-439d-9e13-11960dc3355a\",\n                   
-      \"path\": \"1DAxis\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Keyboard X Translate\",\n                    \"isComposite\":
-      true,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"negative\",\n                    \"id\":
-      \"3d2e07de-025e-4c2e-98df-250511a8ff6d\",\n                    \"path\": \"<Keyboard>/a\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Keyboard X Translate\",\n                   
-      \"isComposite\": false,\n                    \"isPartOfComposite\": true\n               
-      },\n                {\n                    \"name\": \"positive\",\n                   
-      \"id\": \"04e1437d-c862-4a04-8f8e-40e9f52c4f5e\",\n                    \"path\":
-      \"<Keyboard>/d\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Keyboard X Translate\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"1D Axis\",\n                    \"id\":
-      \"cb7c4679-31f4-4170-885a-e7d78c049443\",\n                    \"path\": \"1DAxis\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Keyboard Z Translate\",\n                   
-      \"isComposite\": true,\n                    \"isPartOfComposite\": false\n               
-      },\n                {\n                    \"name\": \"negative\",\n                   
-      \"id\": \"732e790c-f2a2-4f90-b525-53139a358de7\",\n                    \"path\":
-      \"<Keyboard>/s\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Keyboard Z Translate\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"positive\",\n                    \"id\":
-      \"d5a98916-ade7-419d-a138-86bcdf05670f\",\n                    \"path\": \"<Keyboard>/w\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Keyboard Z Translate\",\n                   
-      \"isComposite\": false,\n                    \"isPartOfComposite\": true\n               
-      },\n                {\n                    \"name\": \"1D Axis\",\n                   
-      \"id\": \"fca20498-bf6f-4824-ba15-6dc2d191eb2f\",\n                    \"path\":
-      \"1DAxis\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Keyboard Y Translate\",\n                    \"isComposite\":
-      true,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"negative\",\n                    \"id\":
-      \"2c01790c-a24a-4266-a2e9-74e2a1ca3fa7\",\n                    \"path\": \"<Keyboard>/q\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Keyboard Y Translate\",\n                   
-      \"isComposite\": false,\n                    \"isPartOfComposite\": true\n               
-      },\n                {\n                    \"name\": \"positive\",\n                   
-      \"id\": \"f5223aed-93c0-4633-8aa3-c393ce890872\",\n                    \"path\":
-      \"<Keyboard>/e\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Keyboard Y Translate\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"fcfb16fb-edee-474c-b1f2-f10b2a0a3569\",\n                   
-      \"path\": \"<Keyboard>/leftShift\",\n                    \"interactions\":
-      \"\",\n                    \"processors\": \"\",\n                    \"groups\":
-      \"\",\n                    \"action\": \"Manipulate LeftHand\",\n                   
-      \"isComposite\": false,\n                    \"isPartOfComposite\": false\n               
-      },\n                {\n                    \"name\": \"\",\n                   
-      \"id\": \"e791caef-78d3-4f68-9104-212f73ac0642\",\n                    \"path\":
-      \"<Keyboard>/space\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Manipulate RightHand\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"b62df009-54c9-4b03-9721-07ca66fe1bdf\",\n                   
-      \"path\": \"<Keyboard>/t\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Manipulate LeftHand\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"e8a0a3b9-06cf-40a8-86d8-1d8f1d704451\",\n                   
-      \"path\": \"<Keyboard>/y\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Manipulate RightHand\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"b2c1b1cd-6ea7-45b6-b68f-17b3662b4d3a\",\n                   
-      \"path\": \"<Mouse>/delta\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Mouse Delta\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"66e536bc-b5b6-4c7b-903a-fbcc05fc854e\",\n                   
-      \"path\": \"<Mouse>/scroll\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Mouse Scroll\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"2b070a4a-e044-4cbd-a8e2-6b362785bf21\",\n                   
-      \"path\": \"<Keyboard>/leftCtrl\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Rotate Mode Override\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"0fa0d566-1e07-4e17-9b14-3e8fce69ec26\",\n                   
-      \"path\": \"<Keyboard>/x\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"X Constraint\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"71c185e1-73fb-4691-b910-70610f397b42\",\n                   
-      \"path\": \"<Keyboard>/c\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Y Constraint\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"09809c10-d09e-4c49-b58f-1995e50cf685\",\n                   
-      \"path\": \"<Keyboard>/z\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Z Constraint\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"7611d6eb-0ff4-431f-998d-6fa429e0e1e1\",\n                   
-      \"path\": \"<Keyboard>/r\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Mouse Transformation Mode\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"5c889b78-f9fd-4cd7-96dd-5399428f6992\",\n                   
-      \"path\": \"<Mouse>/middleButton\",\n                    \"interactions\":
-      \"\",\n                    \"processors\": \"\",\n                    \"groups\":
-      \"\",\n                    \"action\": \"Negate Mode\",\n                   
-      \"isComposite\": false,\n                    \"isPartOfComposite\": false\n               
-      },\n                {\n                    \"name\": \"\",\n                   
-      \"id\": \"85f27bdb-dfe8-48d3-8512-205b3ad6306a\",\n                    \"path\":
-      \"<Keyboard>/backslash\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Cursor Lock\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"3542472e-e883-407a-b967-5b879b2d7dc4\",\n                   
-      \"path\": \"<Mouse>/rightButton\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Manipulate Head\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"cd7dcdd6-b569-4c25-87ea-c62a0fb1cf89\",\n                   
-      \"path\": \"<Keyboard>/v\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Reset\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                }\n            ]\n        },\n       
-      {\n            \"name\": \"Input Controls\",\n            \"id\": \"404d9e15-a8bc-4b52-89e8-048203e913fa\",\n           
-      \"actions\": [\n                {\n                    \"name\": \"Axis 2D\",\n                   
-      \"type\": \"Value\",\n                    \"id\": \"12cda119-7fbf-4f67-9db5-e5ad3b7905ca\",\n                   
-      \"expectedControlType\": \"Vector2\",\n                    \"processors\":
-      \"\",\n                    \"interactions\": \"\",\n                    \"initialStateCheck\":
-      true\n                },\n                {\n                    \"name\":
-      \"Resting Hand Axis 2D\",\n                    \"type\": \"Value\",\n                   
-      \"id\": \"a2176ee2-e6ed-44a9-a5ee-858b1a6089fa\",\n                    \"expectedControlType\":
-      \"Vector2\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": true\n               
-      },\n                {\n                    \"name\": \"Toggle Device Position
-      Target\",\n                    \"type\": \"Button\",\n                    \"id\":
-      \"15cd3c4a-56b1-4a43-a924-a2118e2adaf4\",\n                    \"expectedControlType\":
-      \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Primary 2D Axis
-      Target\",\n                    \"type\": \"Button\",\n                    \"id\":
-      \"e0fdec2d-309b-4313-aad7-9dcc71f1394d\",\n                    \"expectedControlType\":
-      \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Toggle Secondary 2D
-      Axis Target\",\n                    \"type\": \"Button\",\n                   
-      \"id\": \"b3b49ea5-f80f-4d24-a782-d61a13a004b3\",\n                    \"expectedControlType\":
-      \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Grip\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"99383123-529b-44b3-be25-fc03e45b0117\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Trigger\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"4c755f54-9a5b-4ab4-8971-86e750cce8c5\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Primary Button\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"f21a59fc-ba2d-43ac-9051-f61598c360bd\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Secondary Button\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"33caae29-953d-46ee-8327-c9279a3e6112\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Menu\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"4c344ddd-429e-4075-bf61-7d7a4915c0f8\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Primary 2D Axis Click\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"c98dc3c2-51e8-4d47-b5e8-9fbe8f357cea\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Secondary 2D Axis Click\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"9a69a85f-8b0d-4959-94ff-a159876275d2\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Primary 2D Axis Touch\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"068c19f3-3201-418a-b101-88dcc47aa2fd\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Secondary 2D Axis Touch\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"ec51a057-e484-434d-b335-03f16cfcf26d\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Primary Touch\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"7ce78a0e-a94b-49fa-b3d5-5fca18de3391\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      },\n                {\n                    \"name\": \"Secondary Touch\",\n                   
-      \"type\": \"Button\",\n                    \"id\": \"bd4f8d55-321e-4d2c-8215-c85c461b37eb\",\n                   
-      \"expectedControlType\": \"Button\",\n                    \"processors\": \"\",\n                   
-      \"interactions\": \"\",\n                    \"initialStateCheck\": false\n               
-      }\n            ],\n            \"bindings\": [\n                {\n                   
-      \"name\": \"2D Vector\",\n                    \"id\": \"909c7e62-e6ea-4683-8b23-883ad4898d18\",\n                   
-      \"path\": \"2DVector\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Axis 2D\",\n                    \"isComposite\": true,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"up\",\n                    \"id\": \"0c29f651-2c07-4554-b2e8-dab5be5b2e87\",\n                   
-      \"path\": \"<Keyboard>/w\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Axis 2D\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": true\n                },\n                {\n                   
-      \"name\": \"down\",\n                    \"id\": \"7a9f0789-f285-4c25-b1f4-c4f34c4d0451\",\n                   
-      \"path\": \"<Keyboard>/s\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Axis 2D\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": true\n                },\n                {\n                   
-      \"name\": \"left\",\n                    \"id\": \"905af182-924d-46b5-94d3-e22db48c4085\",\n                   
-      \"path\": \"<Keyboard>/a\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Axis 2D\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": true\n                },\n                {\n                   
-      \"name\": \"right\",\n                    \"id\": \"88e79231-cdb4-400a-8980-b4576ee0a263\",\n                   
-      \"path\": \"<Keyboard>/d\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Axis 2D\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": true\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"9404bec7-672a-4fb1-adb3-e2dc4e32801b\",\n                   
-      \"path\": \"<Keyboard>/3\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Device Position Target\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"4bfdd0e6-1936-4f44-8e97-20e16dbc879f\",\n                   
-      \"path\": \"<Keyboard>/1\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Primary 2D Axis Target\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"81d47d9e-4920-4098-94d8-bac2888d6433\",\n                   
-      \"path\": \"<Keyboard>/2\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Toggle Secondary 2D Axis Target\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"2D Vector\",\n                    \"id\":
-      \"82126405-60e1-49f1-9b69-e965eaacb8ee\",\n                    \"path\": \"2DVector\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Resting Hand Axis 2D\",\n                   
-      \"isComposite\": true,\n                    \"isPartOfComposite\": false\n               
-      },\n                {\n                    \"name\": \"up\",\n                   
-      \"id\": \"e27996d4-255f-4240-a9a6-fd8714a69a0c\",\n                    \"path\":
-      \"<Mouse>/forwardButton\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"down\",\n                    \"id\": \"77a74547-37ef-4713-a31b-725b210d98e9\",\n                   
-      \"path\": \"<Mouse>/backButton\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"left\",\n                    \"id\": \"823b1a5b-780d-4b61-8fd3-cb363e37df26\",\n                   
-      \"path\": \"<Keyboard>/q\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"right\",\n                    \"id\": \"ed43b77d-dba1-4b89-a867-d4bb242c19e3\",\n                   
-      \"path\": \"<Keyboard>/e\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"2D Vector\",\n                    \"id\":
-      \"38ceacb7-94a0-455f-8b09-eab87cdb5abb\",\n                    \"path\": \"2DVector\",\n                   
-      \"interactions\": \"\",\n                    \"processors\": \"\",\n                   
-      \"groups\": \"\",\n                    \"action\": \"Resting Hand Axis 2D\",\n                   
-      \"isComposite\": true,\n                    \"isPartOfComposite\": false\n               
-      },\n                {\n                    \"name\": \"up\",\n                   
-      \"id\": \"0499cb7f-9e2c-4ac7-b2bf-6a71a4457ea1\",\n                    \"path\":
-      \"<Keyboard>/i\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"down\",\n                    \"id\": \"b95888ad-1760-4389-8e11-9129f9744211\",\n                   
-      \"path\": \"<Keyboard>/k\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"left\",\n                    \"id\": \"fe8ea864-1ec3-4bd6-9c30-854922a9bf73\",\n                   
-      \"path\": \"<Keyboard>/j\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"right\",\n                    \"id\": \"d3516be4-3963-4077-82fc-347a180d6949\",\n                   
-      \"path\": \"<Keyboard>/l\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Resting Hand Axis 2D\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": true\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"aac14b93-d556-4433-8893-0eeafd6190f8\",\n                   
-      \"path\": \"<Keyboard>/g\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Grip\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"bc242731-d17f-4b22-aa06-3988e7cffc87\",\n                   
-      \"path\": \"<Mouse>/leftButton\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Trigger\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"5b853efd-1a70-4a8b-bd1b-84100070d99c\",\n                   
-      \"path\": \"<Keyboard>/b\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Primary Button\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"86def88d-725b-4541-8677-68ae5946fbd4\",\n                   
-      \"path\": \"<Keyboard>/n\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Secondary Button\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"c8b72a5c-4ece-44b9-b4a0-a84ce577c393\",\n                   
-      \"path\": \"<Keyboard>/m\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Menu\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"91ad530e-a4db-4a8c-8e21-599db3968011\",\n                   
-      \"path\": \"<Keyboard>/4\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Primary 2D Axis Click\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"1504de2d-a743-4608-a126-5b3ef5695007\",\n                   
-      \"path\": \"<Keyboard>/5\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Secondary 2D Axis Click\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"73f9a145-85de-4e35-97d5-824ab21ea67c\",\n                   
-      \"path\": \"<Keyboard>/6\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Primary 2D Axis Touch\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"0d5d8b6c-3d19-481a-8d8f-9f099a1a43e3\",\n                   
-      \"path\": \"<Keyboard>/7\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Secondary 2D Axis Touch\",\n                    \"isComposite\":
-      false,\n                    \"isPartOfComposite\": false\n                },\n               
-      {\n                    \"name\": \"\",\n                    \"id\": \"d431c3c8-2dbc-43fb-9062-1a7e478bbc11\",\n                   
-      \"path\": \"<Keyboard>/8\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Primary Touch\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                },\n                {\n                   
-      \"name\": \"\",\n                    \"id\": \"02d5a7f4-ea4a-465a-8232-b5419ca49f69\",\n                   
-      \"path\": \"<Keyboard>/9\",\n                    \"interactions\": \"\",\n                   
-      \"processors\": \"\",\n                    \"groups\": \"\",\n                   
-      \"action\": \"Secondary Touch\",\n                    \"isComposite\": false,\n                   
-      \"isPartOfComposite\": false\n                }\n            ]\n        }\n   
-      ],\n    \"controlSchemes\": []\n}"
-    m_IsDirty: 0
-  m_Toolbar:
-    m_IsDirty: 0
-    m_SelectedControlSchemeIndex: -1
-    m_SelectedDeviceRequirementIndex: -1
-    m_ControlSchemes: []
-    m_SearchText: 
-  m_DirtyTitle:
-    m_Text: (*) XR Device Simulator Controls (Input Actions)
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_Title:
-    m_Text: XR Device Simulator Controls (Input Actions)
-    m_Image: {fileID: 0}
-    m_Tooltip: 
---- !u!114 &16
+  m_LastSelected: 1
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -917,10 +297,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3585
-    y: 496
-    width: 1350
-    height: 510
+    x: 8
+    y: 628
+    width: 1453
+    height: 355
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -938,22 +318,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Scenes
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
-  m_StartGridSize: 96
+  m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Scenes
-  m_LastFoldersGridSize: 96
-  m_LastProjectPath: C:\Users\Teo\Documents\farmasia-vr
+  - Assets
+  m_LastFoldersGridSize: -1
+  m_LastProjectPath: D:\Unity Projects\farmasia-vr
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b0810000
-    m_LastClickedID: 33200
-    m_ExpandedIDs: 000000009c8100009e810000a0810000a2810000a4810000a6810000a8810000b0810000ea810000
+    m_SelectedIDs: 9ab50000
+    m_LastClickedID: 46490
+    m_ExpandedIDs: 000000009ab500009cb5000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -981,7 +361,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009c8100009e810000a0810000a2810000a4810000a6810000a8810000
+    m_ExpandedIDs: 000000009ab500009cb5000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1006,10 +386,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300003aae0000
+    m_SelectedInstanceIDs: 18830000
+    m_LastClickedInstanceID: 33560
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1025,7 +405,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 7}
+      m_ClientGUIView: {fileID: 0}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1033,11 +413,11 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 42}
-    m_GridSize: 96
+    m_ScrollPosition: {x: 0, y: 0}
+    m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
---- !u!114 &17
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1058,10 +438,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 4936
-    y: -271
-    width: 419
-    height: 1277
+    x: 1462
+    y: 81
+    width: 449
+    height: 902
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1079,7 +459,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &18
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1100,20 +480,20 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3585
-    y: -271
-    width: 334
-    height: 490
+    x: 8
+    y: 81
+    width: 359
+    height: 526
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 8c820000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 6037f3ffba3ef3ff6c3ff3ff06a4f3ff0ea4f3ff72caf3fff412f4ffa829f4ff4049f4ff9652f4ffdca1f4ff4079f5fff084f5fff884f5ff8e9df5ffd6a8f5ff3204f6ff3a04f6ff8828f6ff6034f6ff1679f6ff1e79f6ff6c9df6fffea9f6ffc8e9f6ffd0e9f6ff1e0ef7ff081bf7ff8659f7ff8e59f7ffdc7df7ffd635f8ff4e36f8ff589bf8ff0a9cf8ff2e00f9ff3200f9ff9226f9ff286ff9fff485f9ff04a6f9ffd4aef9ff1cfdf9ff8a3cfaff0e5efaff6e7dfaff228bfaff62d7faff6ef5faffc4fafaff7efbfaffd6fffaffe0fffaffe4fffaff4426fbff8e5cfbff5673fbff6493fbff8a9cfbff72a7ffff80a7ffff90a7ffff92a7ffff60d0ffffe0f1ffffeefaffffca82000074840000f4840000706607004e6807006a6a07002a6b07006c8f07007e8f07002c900700fc4308004a4908005c490800da4908000a4a08008c910900fa480a006ce30a0016e70a00206d0b00ca700b00720b0c001c0f0c0080af0d002ab30d00c0b30d0010b60d0098c50d00
+      scrollPos: {x: 0, y: 184}
+      m_SelectedIDs: 14bdffff
+      m_LastClickedID: -17132
+      m_ExpandedIDs: 42b5fffff2b5ffffa2b6ffff52b7ffffecb7fffff0b7ffff8eb8ffff14bdffffcabeffff66c1ffffbedbffffe4eaffff16f8ffff42fbffff9c7d0000ee7d0000c87e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1129,7 +509,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 6}
+        m_ClientGUIView: {fileID: 4}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1137,7 +517,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &19
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1158,10 +538,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3920
-    y: -271
-    width: 1014
-    height: 746
+    x: 368
+    y: 81
+    width: 1092
+    height: 526
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1429,9 +809,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -19.319687, y: 1.238398, z: -0.00977838}
+    m_Target: {x: -0.20595667, y: 1.0853995, z: 1.7436814}
     speed: 2
-    m_Value: {x: -19.319687, y: 1.238398, z: -0.00977838}
+    m_Value: {x: -0.20595667, y: 1.0853995, z: 1.7436814}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1465,7 +845,7 @@ MonoBehaviour:
         m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
-      m_Size: {x: 1, y: 1}
+      m_Size: {x: 0.1, y: 0.1}
     zGrid:
       m_Fade:
         m_Target: 0
@@ -1478,20 +858,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.2068805, y: -0.17264776, z: 0.037488244, w: -0.9623792}
+    m_Target: {x: 0.0025306526, y: 0.32916987, z: 0.00091495103, w: -0.94432026}
     speed: 2
-    m_Value: {x: -0.20541763, y: -0.17268778, z: 0.037225682, w: -0.96259904}
+    m_Value: {x: 0.003944782, y: 0.33056757, z: 0.0014146414, w: -0.94377303}
   m_Size:
-    m_Target: 0.49547985
+    m_Target: 0.09968567
     speed: 2
-    m_Value: 0.49547985
+    m_Value: 0.09539299
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1
-    m_SpeedNormalized: 0.5
+    m_Speed: 0.46076998
+    m_SpeedNormalized: 0.22999999
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1509,7 +889,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &20
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1530,10 +910,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3585
-    y: 240
-    width: 334
-    height: 235
+    x: 368
+    y: 81
+    width: 1092
+    height: 526
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1544,7 +924,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 334, y: 214}
+  m_TargetSize: {x: 1092, y: 505}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1559,10 +939,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -167
-    m_HBaseRangeMax: 167
-    m_VBaseRangeMin: -107
-    m_VBaseRangeMax: 107
+    m_HBaseRangeMin: -546
+    m_HBaseRangeMax: 546
+    m_VBaseRangeMin: -252.5
+    m_VBaseRangeMax: 252.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1571,7 +951,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -1580,29 +960,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 334
-      height: 214
+      width: 1092
+      height: 505
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 167, y: 107}
+    m_Translation: {x: 546, y: 252.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -167
-      y: -107
-      width: 334
-      height: 214
+      x: -546
+      y: -252.5
+      width: 1092
+      height: 505
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 334, y: 235}
+  m_LastWindowPixelSize: {x: 1092, y: 526}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
-  m_XRRenderMode: -1
+  m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &21
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1623,10 +1003,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 3585
-    y: 496
-    width: 1350
-    height: 510
+    x: 8
+    y: 628
+    width: 1453
+    height: 355
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default

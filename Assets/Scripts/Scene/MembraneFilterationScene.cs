@@ -53,7 +53,7 @@ class MembraneFilterationScene : SceneScript {
     }
 
     public void PlayFirstRoom() {
-        if (autoPlayStrength == 0) return;
+        if (autoPlayStrength == 0 | !Debug.isDebugBuild) return;
         CoroutineUtils.StartThrowingCoroutine(this, PlayCoroutine(autoPlayStrength),
             exception => {
                 if (exception != null)
