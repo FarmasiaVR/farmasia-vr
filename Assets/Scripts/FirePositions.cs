@@ -64,6 +64,16 @@ public class FirePositions : MonoBehaviour
         }
     }
 
+    public bool CheckFirePositionsContainsKey(GameObject gObject)
+    {
+        return objectFirePosition.ContainsKey(gObject);
+    }
+
+    public bool CheckFirePositionsContainsValue(Vector3 vector)
+    {
+        return objectFirePosition.ContainsValue(vector);
+    }
+
     public void ClearPositions()
     {
         positions.Clear();
@@ -76,7 +86,14 @@ public class FirePositions : MonoBehaviour
 
     public bool CheckContains(Vector3 position)
     {
-        return positions.Contains(position);
+        foreach (Vector3 vector in positions) 
+        {
+            if(position.x == vector.x && position.y == vector.y && position.z == vector.z)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Vector3> GetList()

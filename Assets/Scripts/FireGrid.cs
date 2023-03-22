@@ -49,7 +49,7 @@ public class FireGrid : MonoBehaviour
     {
         if (igniteOnStart)
         {
-            Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
+            //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
             Ignite();
         }
     }
@@ -61,12 +61,12 @@ public class FireGrid : MonoBehaviour
         if (Input.GetKeyDown(igniteKey))
         {
             Ignite();
-        Debug.Log("Fire should ignite");
+        //Debug.Log("Fire should ignite");
         }
         if(Input.GetKeyDown(extinguishKey))
         {
             Extinguish();
-            Debug.Log("Fire should extinguish");
+            //Debug.Log("Fire should extinguish");
         }
     }
 
@@ -95,7 +95,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = false;
-            Debug.Log("Extinguished with Fire Extinguisher");
+            //Debug.Log("Extinguished with Fire Extinguisher");
         }
         
     }
@@ -125,7 +125,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = false;
-            Debug.Log("Extinguished with Blanket");
+            //Debug.Log("Extinguished with Blanket");
         }
         
     }
@@ -150,7 +150,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = true;
-            Debug.Log("Ignited");
+            //Debug.Log("Ignited");
         }
         
     }
