@@ -109,8 +109,10 @@ public class InteractorSwitcher : MonoBehaviour
         if (lineVisual != null) {
             lineVisual.enabled = enabled;
             /// If the ray interactor has a reticle, then disable it as well.
-            if (lineVisual.reticle)
+            if (lineVisual.reticle && enabled==false)
             {
+                // Disable the line reticle when disabling the interactor. Otherwise the reticle may remain in the scene.
+                // The interactor should take care of re-enabling the reticle.
                 lineVisual.reticle.SetActive(enabled);
             }
         }
