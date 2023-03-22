@@ -33,8 +33,9 @@ public class TaskManager : MonoBehaviour
 
     private int currentTaskIndex;
     private Task currentTask;
+    private Coroutine timerCoroutine; 
 
-    private void Awake()
+    private void Start()
     {
         if(resetOnStart)
         {
@@ -70,7 +71,7 @@ public class TaskManager : MonoBehaviour
         currentTask.StartTaskTimer();
         if (currentTask.timed && currentTask.failWhenOutOfTime)
         {
-            StartCoroutine(TaskCountdown(currentTask.timeToCompleteTask));
+            timerCoroutine = StartCoroutine(TaskCountdown(currentTask.timeToCompleteTask));
         }
     }
     ///<summary>
@@ -87,9 +88,9 @@ public class TaskManager : MonoBehaviour
         }
         taskListObject.MarkTaskAsDone(taskKey);
 
-        if (currentTask.key == taskKey && currentTask.timed)
+        if (currentTask.key == taskKey && currentTask.timed && currentTask.failWhenOutOfTime)
         {
-            StopCoroutine(TaskCountdown(currentTask.timeToCompleteTask));
+            StopCoroutine(timerCoroutine);
         }
 
         onTaskCompleted.Invoke((Task)taskListObject.GetTask(taskKey));
