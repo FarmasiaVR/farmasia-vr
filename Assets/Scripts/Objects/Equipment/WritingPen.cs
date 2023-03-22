@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class WritingPen : GeneralItem {
 
     private bool isWriting;
-
+    public bool ignoreGrabCheck;
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Pen;
@@ -21,13 +21,17 @@ public class WritingPen : GeneralItem {
         if (writable == null) {
             return;
         }
-        if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
-            return;
+        Debug.Log("Detected writable!");
+        if (ignoreGrabCheck != true) {
+            if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
+                return;
+            }
         }
+
         if (isWriting) { // must submit or cancel before selecting another item
             return;
         }
-
+        Debug.Log("called pen Write function");
         Write(writable, foundObject);
     }
 

@@ -1,4 +1,6 @@
-﻿public class FinishMedicine : Task {
+﻿using FarmasiaVR.Legacy;
+
+public class FinishMedicine : Task {
 
     public FinishMedicine() : base(TaskType.FinishMedicine, true) {
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using FarmasiaVR.Legacy;
 
 public class CorrectItemsInThroughputMembrane: Task {
 
@@ -24,6 +25,7 @@ public class CorrectItemsInThroughputMembrane: Task {
 
     #region Event Subscriptions
     public override void Subscribe() {
+        Debug.Log("subcribed to events ");
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
@@ -38,6 +40,7 @@ public class CorrectItemsInThroughputMembrane: Task {
     }
 
     private void CorrectItems(CallbackData data) {
+        Debug.Log("Checking items");
         if ((DoorGoTo) data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
@@ -118,7 +121,7 @@ public class CorrectItemsInThroughputMembrane: Task {
         int filter = 0;
         int pipetteHeads = 0;
         int bigPipette = 0;
-
+        Debug.Log("Checking conditions of the passthrough cabinet in events:");
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
                 if (g is Bottle bottle) {

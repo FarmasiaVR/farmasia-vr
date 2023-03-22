@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class OpenPipetteCover : Task {
     public enum Conditions { OpenedPipetteCover }

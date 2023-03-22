@@ -11,4 +11,9 @@ public class WritingSubmit : DragAcceptable {
         Logger.Print("Chose: submit");
         onSelect();
     }
+
+    public void Interact() {
+        Logger.Print("Chose: submit");
+        onSelect();
+    }
 }

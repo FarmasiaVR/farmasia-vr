@@ -4,5 +4,6 @@
     MedicinePreparation,
     MembraneFilteration,
     ChangingRoom,
-    Restart
+    Restart,
+    FireHazard
 }

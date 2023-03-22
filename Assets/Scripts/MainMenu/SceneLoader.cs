@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour {
 
     private string scene;
 
-    public Animator animator;
+    public CameraFadeController fadeController;
 
     public void SwapScene(SceneTypes type) {
         switch (type) {
@@ -22,10 +22,13 @@ public class SceneLoader : MonoBehaviour {
                 ChangeScene("Tutorial");
                 return;
             case SceneTypes.MembraneFilteration:
-                ChangeScene("MembraneFilteration");
+                ChangeScene("XR MembraneFilteration 2.0");
                 return;
             case SceneTypes.ChangingRoom:
                 ChangeScene("ChangingRoom");
+                return;
+            case SceneTypes.FireHazard:
+                ChangeScene("Laboratory");
                 return;
         }
     }
@@ -36,10 +39,11 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void FadeOutScene() {
-        animator.SetTrigger("FadeOut");
+        fadeController.onFadeOutComplete.AddListener(OnFadeComplete);
+        fadeController.BeginFadeOut();
     }
 
-    public void OnFadeComplete() {
+    private void OnFadeComplete() {
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         LoadScene();
@@ -49,7 +53,7 @@ public class SceneLoader : MonoBehaviour {
         Events.Reset();
         if (scene.Equals("Restart")) {
             Logger.PrintVariables("Restarting current scene", scene);
-            G.Instance.Scene.Restart();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         } else {
             Logger.PrintVariables("Loading scene", scene);
             SceneManager.LoadScene(scene);

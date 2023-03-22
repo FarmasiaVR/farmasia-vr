@@ -8,4 +8,11 @@ public class Pump : ReceiverItem
 
         Events.FireEvent(EventType.AttachFilter, CallbackData.Object(this));
     }
+
+    public void attachFilterXR()
+
+    {
+        Debug.Log("Pump detected filter");
+        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(this));
+    }
 }

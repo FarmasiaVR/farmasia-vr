@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 public class FilterPart : ReceiverItem
 {
@@ -10,6 +11,7 @@ public class FilterPart : ReceiverItem
         base.Start();
         Container = LiquidContainer.FindLiquidContainer(transform);
 
+        //2023: to our understanding these events wont do anything or maybe they dò? you can figure it out.
         AfterRelease = (interactable) => {
             Events.FireEvent(EventType.FilterDissassembled, CallbackData.Object((this, interactable)));
         };
@@ -17,6 +19,7 @@ public class FilterPart : ReceiverItem
             Events.FireEvent(EventType.FilterAssembled, CallbackData.Object(new List<GeneralItem>() { this, interactable as GeneralItem }));
         };
     }
+
 
     public override void ResetItem() {
         base.ResetItem();

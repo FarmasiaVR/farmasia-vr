@@ -1,8 +1,12 @@
-﻿using Valve.VR;
+﻿#if UNITY_ANDROID
+using SteamVRMock;
+#else
+using Valve.VR;
+#endif
 
 public static class Controls {
 
-    #region Fields
+#region Fields
     private static ControlType grab;
     private static ControlType grabInteract;
 
@@ -15,9 +19,9 @@ public static class Controls {
     private static ControlType menu;
 
     public static ControlType DevEnv { get; internal set; } = ControlType.Grip;
-    #endregion
+#endregion
 
-    #region Getters
+#region Getters
     public static ControlType Grab {
         get {
 
@@ -94,13 +98,13 @@ public static class Controls {
         }
     }
 
-    #endregion
+#endregion
 
-    #region Constructors
+#region Constructors
     static Controls() {
         SetDefaultControls();
     }
-    #endregion
+#endregion
 
     public static void SetDefaultControls() {
         grab = ControlType.TriggerClick;

@@ -43,6 +43,27 @@ public class Cover : MonoBehaviour
         }
     }
 
+    //Called when player grabs on to the wrong opening spot whilst holding the object,
+    //disabling / removing cover and calling an event informing that it was opened from wrong spot
+    public void OpenCoverWrongSpotXR()
+    {
+        if (!coverOn) return;
+        coverOn = false;
+        coverGameObject.SetActive(false);
+        Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
+        DisableOpeningSpots();
+    }
+
+    //Called when player grabs on to the correct opening spot whilst holding the object,
+    //disabling / removing cover
+    public void OpenCoverRightSpotXR()
+    {
+        if (!coverOn) return;
+        coverOn = false;
+        coverGameObject.SetActive(false);
+        DisableOpeningSpots();
+    }
+
     private void OpenCoverWithPull(Hand hand) {
         if (!coverOn) return;
         other = hand.Other;
@@ -73,12 +94,16 @@ public class Cover : MonoBehaviour
         return (GameObject.ReferenceEquals(rightOpeningSpot, closest));
     }
 
+    //Called when player loads in to scene or when lets go of an object with a cover on
+    //This makes covers unopenable unless player has grabbed the object
     public void DisableOpeningSpots() {
         rightOpeningSpot.transform.gameObject.SetActive(false);
         wrongOpeningSpot.transform.gameObject.SetActive(false);
     }
 
+    //Enables opening spots when player grabs on to the object
     public void EnableOpeningSpots() {
+        if (!coverOn) return;
         rightOpeningSpot.transform.gameObject.SetActive(true);
         wrongOpeningSpot.transform.gameObject.SetActive(true);
     }

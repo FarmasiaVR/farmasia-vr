@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PipetteContainer : AttachmentItem
 {
+    public bool ignoreOldInteractStateCheck;
+
     public LiquidContainer Container;
 
     // How much liquid is moved per click
@@ -30,11 +32,19 @@ public class PipetteContainer : AttachmentItem
     }
 
     public void TakeMedicine() {
-        if (State == InteractState.InBottle) {
-            TransferToBottle(false);
-        } else {
-            Logger.Print("PipetteContainer not in bottle");
+        Debug.Log("pipette container starts taking medicine");
+        if (ignoreOldInteractStateCheck == false)
+        {
+            if (State == InteractState.InBottle)
+            {
+                TransferToBottle(false);
+            }
+            else
+            {
+                Debug.Log("PipetteContainer not in bottle");
+            }
         }
+        TransferToBottle(false);
     }
 
     public void SendMedicine() {
@@ -50,9 +60,11 @@ public class PipetteContainer : AttachmentItem
     }
 
     private void TransferToBottle(bool into) {
+        Debug.Log("pipette container still starts taking medicine");
         if (BottleContainer == null) return;
+        Debug.Log("we survived null bottle check and will now transfor to bottle container");
         //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        Debug.Log(LiquidTransferStep);
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
 }

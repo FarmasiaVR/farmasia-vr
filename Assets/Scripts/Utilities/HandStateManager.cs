@@ -81,7 +81,10 @@ public class HandStateManager : MonoBehaviour {
     }
 
     private void TrackEquippedClothing(CallbackData data) {
+        Debug.Log(data);
         var clothing = (data.DataObject as ProtectiveClothing);
+
+
         if (clothing.type == ClothingType.ProtectiveGloves && handState == HandState.Cleanest) {
             SetDefault();
             material.SetInt("_GlovesOn", 1);
@@ -127,6 +130,7 @@ public class HandStateManager : MonoBehaviour {
 
     private void SetClean() {
         handState = HandState.Clean;
+        
         if (!cleanAnimationPlayed) {
             StartCoroutine(leftHandEffectSpawner.SpawnSoapBubbles());
             StartCoroutine(rightHandEffectSpawner.SpawnSoapBubbles());
@@ -134,6 +138,7 @@ public class HandStateManager : MonoBehaviour {
             StartCoroutine(Lerp(0.5f, 0, 4.0f, "_SoapColor"));
             cleanAnimationPlayed = true;
         }
+        
     }
 
     private void SetCleanest() {

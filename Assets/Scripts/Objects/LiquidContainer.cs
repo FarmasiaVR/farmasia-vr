@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using FarmasiaVR.Legacy;
 
 public class LiquidContainer : MonoBehaviour {
 
@@ -86,27 +87,29 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     public void TransferTo(LiquidContainer target, int amount) {
+        Debug.Log("Liguid container starts taking medicine");
         if (target == null) {
             Logger.Error("Receiving LiquidContainer was null");
             return;
         }
-
+        Debug.Log("we survived target null check on bottle side");
         if (amount == 0) {
             return;
         }
+        Debug.Log("survived amount == 0 check");
         if (amount < 0) {
             target.TransferTo(this, -amount);
             return;
         }
-
+        Debug.Log("survived amount < 0 check");
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
         if (toTransfer == 0) return;
-
+        Debug.Log("survived toTransfer == 0 check");
         TransferLiquidType(target);
-
+      
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
 
@@ -128,7 +131,9 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
+        Debug.Log("FINALLY SENDING EVENT?");
         if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
+            Debug.Log("FINALLY SENDING EVENT!!");
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
         }
     }

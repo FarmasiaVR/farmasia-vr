@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using FarmasiaVR.Legacy;
 public class WashHands : Task {
 
     public enum Conditions { HandsWashed }
@@ -9,7 +9,7 @@ public class WashHands : Task {
     private PackageName packageName;
 
     public WashHands(PackageName packageName, TaskType taskType) : base(taskType, false) {
-        handStateManager = GameObject.Find("VRPlayer").GetComponent<HandStateManager>();
+        handStateManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HandStateManager>();
         this.packageName = packageName;
         SetCheckAll(true);
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FarmasiaVR.Legacy;
 
-public static class TaskFactory {
+public static class TaskFactory{
     /// <summary>Get a task by type and call subscribe on it, effectively activating it
     /// </summary>
     public static Task GetTask(TaskType type) {
+      
         if (tasks.ContainsKey(type)) {
             var task = tasks[type];
             task.Subscribe();
@@ -15,8 +17,13 @@ public static class TaskFactory {
         }
     }
 
-    private static Dictionary<TaskType, Task> tasks = new List<Task>() {
+    private static Dictionary<TaskType, Task> tasks;
+
+    public static void ResetTaskProgression()
+    {
+        tasks = new List<Task>() {
         // Medicine preparation
+        
         new CorrectItemsInThroughputMedicine(),
         new CorrectItemsInLaminarCabinetMedicine(),
         new DisinfectBottleCap(),
@@ -30,7 +37,7 @@ public static class TaskFactory {
         new CorrectItemsInBasketMedicine(),
         new CleanLaminarCabinetMedicine(),
         new FinishMedicine(),
-
+        
         // Membrane filtration
         new SelectToolsMembrane(),
         new CorrectItemsInThroughputMembrane(),
@@ -42,6 +49,7 @@ public static class TaskFactory {
         new LiquidToFilter("Lisää peptonivesi suodattimeen", 1000, LiquidType.Peptonwater, TaskType.WetFilter),
         new StartPump(TaskType.StartPump),
         new LiquidToFilter("Lisää lääke suodattimeen", 150, LiquidType.Medicine, TaskType.MedicineToFilter),
+        
         new StartPump(TaskType.StartPumpAgain),
         new CutFilter(),
         new FilterHalvesToBottles(),
@@ -54,16 +62,21 @@ public static class TaskFactory {
         new CorrectItemsInBasketMembrane(),
         new CleanLaminarCabinetMembrane(),
         new FinishMembrane(),
-
-        // Changing room
+        
+        
+        
+        
         new WearShoeCoversAndLabCoat(),
         new WashGlasses(),
+        //FOR FUTURE ME: make sure that the player in EVERY scene has a player tagged player with a handstate manager or this line below will make the events crash silently with wierd side effects
         new WashHands(PackageName.ChangingRoom, TaskType.WashHandsInChangingRoom),
         new GoToPreperationRoom(),
+        
         new WearHeadCoverAndFaceMask(),
         new WashHands(PackageName.PreperationRoom, TaskType.WashHandsInPreperationRoom),
         new WearSleeveCoversAndProtectiveGloves(),
         new FinishChangingRoom(),
-
+        
     }.ToDictionary(task => task.TaskType, task => task);
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 /// <summary>
 /// Correct amount of items inserted into Fume Cupboard.
 /// </summary>

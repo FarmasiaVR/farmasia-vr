@@ -48,7 +48,7 @@ public class InfoBox : MonoBehaviour {
 
     private async void TrackProgress(CallbackData data) {
         await System.Threading.Tasks.Task.Delay(10);
-
+        Debug.Log(G.Instance.Progress.CurrentPackage.doneTypes);
         if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WearHeadCoverAndFaceMask)) {
             ShowInfoBox(CHANGING_ROOM_MESSAGE);
             Events.UnsubscribeFromEvent(TrackProgress, EventType.ProtectiveClothingEquipped);

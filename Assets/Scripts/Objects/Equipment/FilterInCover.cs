@@ -31,6 +31,12 @@ public class FilterInCover : ReceiverItem {
         cover.EnableOpeningSpots();
     }
 
+    public void OpenCoverXR()
+    {
+        Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
+        EnableAssemblyFilterParts();
+    }
+
     public override void OnGrabEnd(Hand hand) {
         base.OnGrabEnd(hand);
         cover.DisableOpeningSpots();

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public static class VRInput {
 
@@ -100,7 +104,7 @@ public static class VRInput {
 
         HandControl key = new HandControl(c, handType);
 
-    #if UNITY_NONVRCOMPUTER
+#if UNITY_NONVRCOMPUTER
 
         // Fix for TestHandMover
 
@@ -110,9 +114,9 @@ public static class VRInput {
         }
 
         return controls[key].GetDown == Time.frameCount;
-    #else 
+#else
         return controls[key].GetDown == Time.frameCount;
-    #endif
+#endif
     }
 
     public static bool GetControl(SteamVR_Input_Sources handType, ControlType c) {
@@ -122,7 +126,7 @@ public static class VRInput {
     public static bool GetControlUp(SteamVR_Input_Sources handType, ControlType c) {
         HandControl key = new HandControl(c, handType);
 
-     #if UNITY_NONVRCOMPUTER
+#if UNITY_NONVRCOMPUTER
 
         // Fix for TestHandMover
 
@@ -132,9 +136,9 @@ public static class VRInput {
         }
 
         return controls[key].GetUp == Time.frameCount;
-    #else
+#else
         return controls[key].GetUp == Time.frameCount;
-    #endif
+#endif
     }
 
 

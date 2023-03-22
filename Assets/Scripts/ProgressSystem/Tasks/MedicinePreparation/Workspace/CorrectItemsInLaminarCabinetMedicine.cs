@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using FarmasiaVR.Legacy;
 
 public class CorrectItemsInLaminarCabinetMedicine : Task {
 

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using FarmasiaVR.Legacy;
 
 [Serializable]
 public class ScoreCalculator {

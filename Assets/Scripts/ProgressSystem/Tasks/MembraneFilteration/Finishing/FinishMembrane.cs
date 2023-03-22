@@ -1,4 +1,6 @@
-﻿public class FinishMembrane : Task {
+﻿using FarmasiaVR.Legacy;
+
+public class FinishMembrane : Task {
 
     public FinishMembrane() : base(TaskType.FinishMembrane, true) {
 

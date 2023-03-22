@@ -34,9 +34,9 @@ public class OpenableDoor : MonoBehaviour {
             return transform.eulerAngles.y;
         }
     }
-
     public bool IsClosed {
         get {
+            Debug.Log(Angle);
             return Mathf.Abs(startAngle - offsetAngle - Angle) < 1;
         }
     }

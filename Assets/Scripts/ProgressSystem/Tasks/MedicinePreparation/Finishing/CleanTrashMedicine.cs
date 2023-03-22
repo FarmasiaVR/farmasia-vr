@@ -1,4 +1,5 @@
 ﻿using System;
+using FarmasiaVR.Legacy;
 
 public class CleanTrashMedicine : Task {
 

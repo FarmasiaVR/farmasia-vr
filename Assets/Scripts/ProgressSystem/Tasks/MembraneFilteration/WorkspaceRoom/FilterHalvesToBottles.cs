@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+using FarmasiaVR.Legacy;
 
 
 public class FilterHalvesToBottles : Task {

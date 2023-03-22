@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class CabinetBase : MonoBehaviour {
 
@@ -28,11 +29,11 @@ public class CabinetBase : MonoBehaviour {
 
     private void OnCabinetEnter(Interactable other) {
         GeneralItem item = other as GeneralItem;
-
+       
         if (item == null) {
             return;
         }
-
+     
         if (type == CabinetType.Laminar) {
             Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
@@ -48,15 +49,17 @@ public class CabinetBase : MonoBehaviour {
                 UnfoldSterileDrape();
             }
         }
-
+       
         if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
             Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
         }
-
+      
         if (!itemPlaced) {
             Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
             itemPlaced = true;
+           
         }
+      
     }
 
     // Currently unused

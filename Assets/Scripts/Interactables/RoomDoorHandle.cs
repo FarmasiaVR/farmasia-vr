@@ -1,3 +1,6 @@
+
+using UnityEngine;
+
 public class RoomDoorHandle : AnimatedDoorHandle {
 
     public DoorGoTo destination;
@@ -14,4 +17,16 @@ public class RoomDoorHandle : AnimatedDoorHandle {
         }
         Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
     }
+
+    public void Interact() {
+        Debug.Log("trying to enter room");
+        if (destination == DoorGoTo.None) {
+            return;
+        }
+        Debug.Log("trying to enter room after check of destination");
+        Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
+    }
+
+
+
 }

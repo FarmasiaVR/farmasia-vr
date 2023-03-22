@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class HintBox : DragAcceptable {
 
@@ -12,7 +13,7 @@ public class HintBox : DragAcceptable {
     private static HintText hintInstance;
     private static Vector3[] positions;
     private static bool initialized = false;
-    private static float maxDistance = 2f;
+    private static float maxDistance = 5f;
 
     private Transform playerCamera;
     private Transform questionMark;
@@ -174,5 +175,10 @@ public class HintBox : DragAcceptable {
         }
 
         return pos;
+    }
+
+    public void XRInteract()
+    {
+        Activate();
     }
 }

@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class MovementControls : MonoBehaviour {
 
     private SteamVR_Action_Boolean menuAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
     private Hand rightHand;
+
+
+    [SerializeField]
     private Transform player;
     private Bounds[] bounds;
     private float movementStep = 0.05f;
@@ -16,7 +23,7 @@ public class MovementControls : MonoBehaviour {
     }
 
     private void Update() {
-        if (menuAction != null && menuAction.GetStateDown(rightHand.HandType)) {
+        if ((menuAction != null && menuAction.GetStateDown(rightHand.HandType)) || VRInput.GetControlDown(SteamVR_Input_Sources.RightHand, ControlType.Menu)) {
             Move();
         }
     }

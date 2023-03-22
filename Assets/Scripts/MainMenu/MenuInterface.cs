@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class MenuInterface : MonoBehaviour {
-
-    private SteamVR_Action_Boolean menuAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
+    public InputActionReference pauseMenuButton;
+    private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
     private GameObject menuContainer;
     private Hand leftHand;
     private Transform cam;
@@ -20,6 +25,11 @@ public class MenuInterface : MonoBehaviour {
         leftHand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         localPosOffset = transform.localPosition;
+
+        if (pauseMenuButton != null)
+        {
+            pauseMenuButton.action.started += Close;
+        }
     }
 
     private void Update() {
@@ -30,7 +40,7 @@ public class MenuInterface : MonoBehaviour {
             transform.LookAt(cameraPosition, Vector3.up);
             transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
         }
-        if (menuAction != null && menuAction.GetStateDown(leftHand.HandType)) {
+        if (pauseMenuButton == null && menuActionLegacy != null && menuActionLegacy.GetStateDown(leftHand.HandType)) {
             Close();
         }
     }
@@ -43,7 +53,17 @@ public class MenuInterface : MonoBehaviour {
         return targetPosition;
     }
     
-    public void Close() {
+    public void Close(InputAction.CallbackContext context) {
         menuContainer.SetActive(!visible);
+    }
+
+    public void Close()
+    {
+        menuContainer.SetActive(!visible);
+    }
+
+    private void OnDestroy()
+    {
+        pauseMenuButton.action.started -= Close;
     }
 }
