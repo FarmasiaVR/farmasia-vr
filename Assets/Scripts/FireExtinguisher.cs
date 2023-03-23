@@ -7,10 +7,12 @@ public class FireExtinguisher : MonoBehaviour
 
     private List<FireGrid> inside = new List<FireGrid>();
     private bool canExtinguish;
+    private bool extinguishing;
     // Start is called before the first frame update
     void Start()
     {
         canExtinguish = false;
+        extinguishing = false;
     }
 
     // Update is called once per frame
@@ -28,16 +30,28 @@ public class FireExtinguisher : MonoBehaviour
                 foreach (FireGrid fire in inside)
                 {
                     fire.Extinguish();
+                    extinguishing = true;
                 }
             }
         }
+    }
+
+    public void StopExtinguish()
+    {
+        extinguishing = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "FireGrid")
         {
-            inside.Add(other.GetComponentInParent<FireGrid>());
+            FireGrid fire = other.GetComponentInParent<FireGrid>();
+            inside.Add(fire);
+
+            if (extinguishing)
+            {
+                fire.Extinguish();
+            }
         }
     }
 
