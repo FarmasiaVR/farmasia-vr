@@ -439,6 +439,7 @@ MonoBehaviour:
   IsInteracting: 1
   DisableHighlighting: 0
   pump: {fileID: 4672594249370732609}
+  Container: {fileID: 0}
 --- !u!114 &7216056324162643925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,6 +1010,7 @@ GameObject:
   - component: {fileID: 422359054859391506}
   - component: {fileID: 5136067575532970386}
   - component: {fileID: 3459418564444582896}
+  - component: {fileID: 3738581524662166427}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -1100,12 +1102,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3738581524662166427}
+        m_TargetAssemblyTypeName: setLiquidContainerReferenceToObject, Assembly-CSharp
+        m_MethodName: setLiquidRef
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3459418564444582896}
         m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
         m_MethodName: EnableCollisions
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3738581524662166427}
+        m_TargetAssemblyTypeName: setLiquidContainerReferenceToObject, Assembly-CSharp
+        m_MethodName: setLiquidRefToNull
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1148,6 +1174,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 766803048228605000}
+--- !u!114 &3738581524662166427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335950262026825469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2dd1dbc40f59a459c432d56eb9fd2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8132105265496324967}
 --- !u!1 &6802275996775274063
 GameObject:
   m_ObjectHideFlags: 0
