@@ -1042,14 +1042,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 602114014}
     m_Modifications:
-    - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_Colliders.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_Colliders.Array.data[0]
-      value: 
-      objectReference: {fileID: 1717940349}
     - target: {fileID: 5329001660181136844, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
       propertyPath: m_Name
@@ -1109,16 +1101,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5714413464105923044, guid: 86acd661b9265834391e4ae6bec1d37a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6107940356766913182, guid: 86acd661b9265834391e4ae6bec1d37a,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
@@ -15770,34 +15752,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1717940346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2969558897484959067, guid: 86acd661b9265834391e4ae6bec1d37a,
-    type: 3}
-  m_PrefabInstance: {fileID: 106338684}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1717940349 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 6107940356766913182, guid: 86acd661b9265834391e4ae6bec1d37a,
-    type: 3}
-  m_PrefabInstance: {fileID: 106338684}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1717940353
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717940346}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1722099426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16237,7 +16191,7 @@ PrefabInstance:
     - target: {fileID: 5688840470785161006, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_Radius
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
