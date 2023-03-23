@@ -3309,8 +3309,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -3341,6 +3349,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -3369,6 +3380,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 0
   m_VelocityDamping: 0.5
@@ -3405,6 +3422,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!59 &243083035
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -5794,12 +5814,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3172627231102162583, guid: 4ae3151350d0f424f8a6adb44f0bebb9,
     type: 3}
   m_PrefabInstance: {fileID: 2799185879105847666}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &546226868 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1837031494148760910, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 4954792764162192922}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &570624558 stripped
 GameObject:
@@ -11332,8 +11346,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -11376,6 +11398,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -11404,6 +11429,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -11440,6 +11471,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!1 &946187873
 GameObject:
   m_ObjectHideFlags: 0
@@ -11469,6 +11503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9544f5aebe4bc469e107e9bca22ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hapticAction:
+    actionPath: 
+    needsReinit: 0
   TestingAmplitude: 0.722
   TestingFrequency: 150
   TestingStrength: 0.498
@@ -11941,8 +11978,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -11973,6 +12018,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -12001,6 +12049,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 0
   m_VelocityDamping: 0.5
@@ -12037,6 +12091,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!59 &987399971
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -14763,8 +14820,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -14795,6 +14860,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -14823,6 +14891,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -14859,6 +14933,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!1001 &1207899857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15540,8 +15617,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -15572,6 +15657,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -15600,6 +15688,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -15636,6 +15730,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!4 &1262193001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 783585729265350757, guid: 16da5b07a288c8442b8c96f337400136,
@@ -16803,12 +16900,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1313418739}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1324738234 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8734910265139365636, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 4954792764162192922}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1340707012
 GameObject:
   m_ObjectHideFlags: 0
@@ -16940,8 +17031,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -16972,6 +17071,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -17000,6 +17102,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -17036,6 +17144,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!95 &1352124306 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2397779827474576347, guid: adebf887963d43046a6e4dbbf1e06b18,
@@ -18236,8 +18347,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 2
+  m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -18268,6 +18387,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -18297,7 +18419,10 @@ MonoBehaviour:
       m_Calls: []
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
   m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
   m_Teleporting:
     m_PersistentCalls:
       m_Calls: []
@@ -18858,8 +18983,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -18890,6 +19023,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -18918,6 +19054,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -18954,6 +19096,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!1001 &1491854808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20135,8 +20280,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -20167,6 +20320,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -20195,6 +20351,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -20231,6 +20393,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!1 &1542036559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6509959551682566507, guid: 311825be653da8a4c809ee639439f205,
@@ -20732,8 +20897,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 2
+  m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -20764,6 +20937,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -20793,7 +20969,10 @@ MonoBehaviour:
       m_Calls: []
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
   m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
   m_Teleporting:
     m_PersistentCalls:
       m_Calls: []
@@ -21136,8 +21315,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 2
+  m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -21168,6 +21355,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -21197,7 +21387,10 @@ MonoBehaviour:
       m_Calls: []
   m_TeleportationProvider: {fileID: 0}
   m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
   m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
   m_Teleporting:
     m_PersistentCalls:
       m_Calls: []
@@ -21808,46 +22001,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 777963262053119928, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
+    - target: {fileID: 2551099023189846735, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
         type: 3}
-      propertyPath: m_Name
-      value: Bottle100ml XR (2) with text on camera 3
+      propertyPath: m_LocalPosition.x
+      value: 0.263
       objectReference: {fileID: 0}
-    - target: {fileID: 777963263867335353, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
+    - target: {fileID: 2551099023189846735, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
         type: 3}
-      propertyPath: m_Name
-      value: Bottle100ml XR (3) with tesxt on camera 2
+      propertyPath: m_LocalPosition.y
+      value: 0.384
       objectReference: {fileID: 0}
-    - target: {fileID: 777963263892021911, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
+    - target: {fileID: 2936814954731432658, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
         type: 3}
-      propertyPath: m_Name
-      value: Bottle100ml XR with text on camera 1
+      propertyPath: m_LocalPosition.y
+      value: 0.342
       objectReference: {fileID: 0}
-    - target: {fileID: 777963264010715282, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: m_Name
-      value: Bottle100ml XR (1) with text on camera 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2667661420512266122, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 197c73c2770e16244ad81b72a86336a0, type: 2}
-    - target: {fileID: 2667661421809414304, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f53e721ba68a20b4f8474db08306f059, type: 2}
-    - target: {fileID: 2667661421823218341, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4632d9ca1165e8644afe21f5a44234be, type: 2}
-    - target: {fileID: 2667661421931823755, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1f68cc70a3af5c64aa991e80a8e9598f, type: 2}
     - target: {fileID: 4167811196953736260, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
         type: 3}
       propertyPath: m_RootOrder
@@ -21903,74 +22071,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4954792762286809026, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 972832744}
-    - target: {fileID: 4954792762286809026, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textObject
-      value: 
-      objectReference: {fileID: 972832742}
-    - target: {fileID: 4954792762416049641, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 776038098}
-    - target: {fileID: 4954792762416049641, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textObject
-      value: 
-      objectReference: {fileID: 776038096}
-    - target: {fileID: 4954792762429132780, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 1819510301}
-    - target: {fileID: 4954792762429132780, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textObject
-      value: 
-      objectReference: {fileID: 1819510299}
-    - target: {fileID: 4954792764340394691, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 2013831363}
-    - target: {fileID: 4954792764340394691, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-        type: 3}
-      propertyPath: textObject
-      value: 
-      objectReference: {fileID: 2013831361}
     - target: {fileID: 5048636116331318966, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
         type: 3}
       propertyPath: m_Name
       value: game items in cabinet (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4124790096080850619, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 3645883880846855846, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 8879684903611195492, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 2972440425288975473, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 6370121644335763889, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 8122551216344771337, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 690350523595088340, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 8122551216954481746, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 690350524196411023, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 1471770862314871149, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 7872644689194259376, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 608888281603890893, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 8169164435297113104, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 5170049108268122161, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 6599483118642198093, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 2932701315231810797, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 6599483119240364310, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 2932701315705222070, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 4558711997913564201, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 5505319351506400905, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 2547980823363748745, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
-    - {fileID: 5798703033042268457, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
+    - target: {fileID: 7017624069751538704, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.404
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb, type: 3}
 --- !u!4 &1688774931 stripped
 Transform:
@@ -21997,8 +22108,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -22029,6 +22148,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -22057,6 +22179,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -22093,6 +22221,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!1 &1691248414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1970461201335060512, guid: 2f0d2027af421c34bbf38ec365dbc98f,
@@ -22728,7 +22859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1733782675
 Transform:
   m_ObjectHideFlags: 0
@@ -26462,8 +26593,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -26506,6 +26645,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -30556,12 +30698,12 @@ MonoBehaviour:
   preperationRoomObjects:
   - {fileID: 441042494776056281}
   - {fileID: 194874225}
-  - {fileID: 1324738234}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 725354099}
   - {fileID: 0}
   - {fileID: 1427399965}
-  - {fileID: 546226868}
+  - {fileID: 0}
   - {fileID: 970796783}
   - {fileID: 1859828915}
   - {fileID: 193164722}
@@ -37217,8 +37359,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -37249,6 +37399,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -37277,6 +37430,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 0
   m_VelocityDamping: 0.5
@@ -37313,6 +37472,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!59 &7922615586791949957
 HingeJoint:
   m_ObjectHideFlags: 0
