@@ -11,7 +11,7 @@ public class FilteringButton : Interactable
 
     [SerializeField]
     private GameObject pump;
-    private LiquidContainer Container;
+    public LiquidContainer Container;
 
     protected override void Start()
     {
@@ -70,7 +70,7 @@ public class FilteringButton : Interactable
 
     public void RunPump()
     {
-
+        Debug.Log("Pump running!");
         transform.parent.GetComponentInChildren<AudioSource>().Play();
         StartCoroutine(RemoveLiquid());
 
@@ -99,6 +99,7 @@ public class FilteringButton : Interactable
         Container.SetAmount(0);
         Container.SetLiquidTypeNone();
         Events.FireEvent(EventType.FilterEmptied);
+        Debug.Log("pump ran successfuly!");
     }
 
 
