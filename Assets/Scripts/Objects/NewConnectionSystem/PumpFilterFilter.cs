@@ -37,7 +37,6 @@ public class PumpFilterFilter : FilterPart {
         wholeFilterToDisable.SetActive(false);
         leftHalfToEnable.SetActive(true);
         rightHalfToEnable.SetActive(true);
-
         Events.FireEvent(EventType.FilterCutted, CallbackData.Object(this));
     }
 
