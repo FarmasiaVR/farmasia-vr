@@ -11,6 +11,11 @@ public class PumpFilterFilter : FilterPart {
     }
     private bool isCut = false;
 
+    public GameObject wholeFilterToDisable;
+    public GameObject leftHalfToEnable;
+    public GameObject rightHalfToEnable;
+
+
     public void Cut(Transform bladeTransform) {
 
         RotateToBlade(bladeTransform);
@@ -25,6 +30,17 @@ public class PumpFilterFilter : FilterPart {
         isCut = false;
         Events.FireEvent(EventType.FilterCutted, CallbackData.Object(this));
     }
+
+    public void cutXR(Transform bladeTransform)
+    {
+        RotateToBlade(bladeTransform);
+        wholeFilterToDisable.SetActive(false);
+        leftHalfToEnable.SetActive(true);
+        rightHalfToEnable.SetActive(true);
+        Events.FireEvent(EventType.FilterCutted, CallbackData.Object(this));
+    }
+
+
 
     // This does not really work, yet!
     private void RotateToBlade(Transform bladeTransform) {

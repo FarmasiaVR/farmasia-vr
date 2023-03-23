@@ -32,6 +32,12 @@ public class Scalpel : GeneralItem {
         base.OnGrabEnd(hand);
         cover.DisableOpeningSpots();
     }
+
+    public void OpenCoverXr()
+    {
+        Events.FireEvent(EventType.ScalpelCoverOpened, CallbackData.Object(this));
+    }
+
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
