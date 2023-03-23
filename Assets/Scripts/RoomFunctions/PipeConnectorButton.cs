@@ -1,3 +1,4 @@
+using System.Diagnostics;
 public class PipeConnectorButton : Interactable {
 
     protected override void Start() {
@@ -7,6 +8,12 @@ public class PipeConnectorButton : Interactable {
     }
 
     public override void Interact(Hand hand) {
+        Logger.Print("Attach medicin waste pipe to pump");
+        Events.FireEvent(EventType.AttachPipe);
+    }
+
+    public void InteractXR()
+    {
         Logger.Print("Attach medicin waste pipe to pump");
         Events.FireEvent(EventType.AttachPipe);
     }
