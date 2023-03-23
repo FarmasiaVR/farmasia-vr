@@ -25,12 +25,13 @@ public class FireExtinguisher : MonoBehaviour
     {
         if (canExtinguish)
         {
+            extinguishing = true;
             if (inside.Count != 0)
             {
                 foreach (FireGrid fire in inside)
                 {
                     fire.Extinguish();
-                    extinguishing = true;
+                    
                 }
             }
         }
