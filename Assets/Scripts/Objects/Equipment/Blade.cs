@@ -6,6 +6,8 @@ public class Blade : MonoBehaviour {
 
     private Cover cover;
 
+    public bool cutXR;
+
     void Start() {
         cover = transform.parent.GetComponentInChildren<Cover>();
     }
@@ -15,7 +17,13 @@ public class Blade : MonoBehaviour {
         var filter = other.gameObject.transform.parent?.GetComponent<PumpFilterFilter>();
         if (cover.CoverOn || filter == null) return;
         if (filter.CanBeCut) { 
-            filter.Cut(transform);
+            if (cutXR)
+            {
+                filter.cutXR(transform);
+            } else
+            {
+                filter.Cut(transform);
+            }    
         }
     }
 

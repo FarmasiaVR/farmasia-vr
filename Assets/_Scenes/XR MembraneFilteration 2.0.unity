@@ -8026,12 +8026,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717986654}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &725354099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8257535498413582867, guid: 274c2cc2c17a9cd4384c5ccbdeae90fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 4954792764162192922}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &727055465
 GameObject:
   m_ObjectHideFlags: 0
@@ -8231,6 +8225,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: "liit\xE4 j\xE4te-\nletku"
       objectReference: {fileID: 0}
+    - target: {fileID: 7384422006593326820, guid: 5862a53b10eef90de8ee13916c10c745,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7384422006593326822, guid: 5862a53b10eef90de8ee13916c10c745,
         type: 3}
       propertyPath: m_RootOrder
@@ -8314,6 +8313,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7017018105423853056, guid: 5862a53b10eef90de8ee13916c10c745, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5862a53b10eef90de8ee13916c10c745, type: 3}
+--- !u!1 &732386996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7384422006593326823, guid: 5862a53b10eef90de8ee13916c10c745,
+    type: 3}
+  m_PrefabInstance: {fileID: 732386995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &745024439
 GameObject:
   m_ObjectHideFlags: 0
@@ -20095,12 +20100,120 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 732386995}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 732386996}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f599c985faa8199548647eb361c529b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &1532498923 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 7384422006593326820, guid: 5862a53b10eef90de8ee13916c10c745,
+    type: 3}
+  m_PrefabInstance: {fileID: 732386995}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1532498926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732386996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 625173136}
+  m_Colliders:
+  - {fileID: 1532498923}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1532498920}
+        m_TargetAssemblyTypeName: PipeConnectorButton, GameAssembly
+        m_MethodName: InteractXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1533317030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30700,7 +30813,7 @@ MonoBehaviour:
   - {fileID: 194874225}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 725354099}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 1427399965}
   - {fileID: 0}
