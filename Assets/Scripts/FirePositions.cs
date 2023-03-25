@@ -88,7 +88,7 @@ public class FirePositions : MonoBehaviour
     {
         foreach (Vector3 vector in positions) 
         {
-            if(position.x == vector.x && position.y == vector.y && position.z == vector.z)
+            if(position == vector)
             {
                 return true;
             }
