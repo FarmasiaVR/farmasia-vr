@@ -37,6 +37,12 @@ public class Tweezers : ReceiverItem {
         base.OnGrabEnd(hand);
         cover.DisableOpeningSpots();
     }
+
+    public void openCoverXR()
+    {
+        Events.FireEvent(EventType.TweezersCoverOpened, CallbackData.Object(this));
+    }
+
     public override void OnGrab(Hand hand) {
         base.OnGrab(hand);
         cover.OpenCoverWithHand(hand);
