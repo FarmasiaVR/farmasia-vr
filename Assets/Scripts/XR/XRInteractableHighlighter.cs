@@ -14,7 +14,7 @@ public class XRInteractableHighlighter : MonoBehaviour
 
     private void Start() {
         interactor = GetComponent<XRBaseInteractor>();
-        interactor.targetPriorityMode = TargetPriorityMode.HighestPriorityOnly;
+        interactor.targetPriorityMode = TargetPriorityMode.All;
     }
 
 
@@ -30,24 +30,32 @@ public class XRInteractableHighlighter : MonoBehaviour
         if (renderer != null) {
             ChangeHighlightMesh(renderer, isHighlighting);
         }
+        /*
+         * Refactor and use this if the objects in sockets should also be highlighted.
         else if (socket)
         {
             //If the player is hovering over a socket then highlight the socketed object
             ChangeHiglight(socket.GetOldestInteractableSelected().transform, isHighlighting);
         }
-        else {
-            foreach (Transform child in hoveredObject) {
-                //Highlight all of the children using recursion.
-                ChangeHiglight(child, isHighlighting);
-            }
+        */
+
+        foreach (Transform child in hoveredObject) {
+            //Highlight all of the children using recursion.
+            ChangeHiglight(child, isHighlighting);
         }
+
     }
     
     private void ChangeHighlightMesh(Renderer renderer, bool isHighlight) {
-        renderer.material.SetColor("_EmissionColor", highlightColor);
-        if (isHighlight) {
-            renderer.material.EnableKeyword("_EMISSION");
-        } else { renderer.material.DisableKeyword("_EMISSION"); }
+        foreach (Material material in renderer.materials)
+        {
+            material.SetColor("_EmissionColor", highlightColor);
+            if (isHighlight)
+            {
+                material.EnableKeyword("_EMISSION");
+            }
+            else { material.DisableKeyword("_EMISSION"); }
+        }
     }
 
     private void Update()
@@ -57,11 +65,20 @@ public class XRInteractableHighlighter : MonoBehaviour
             ChangeHiglight(highlightedObject, false);
             highlightedObject= null;
         }
-        if (interactor.targetsForSelection.Count > 0 && !interactor.isSelectActive && interactor.allowHover)
+
+        if (!interactor.isSelectActive && interactor.allowHover)
         {
-            Transform highestPriorityObject = interactor.targetsForSelection[0].transform;
-            ChangeHiglight(highestPriorityObject, true);
-            highlightedObject = highestPriorityObject;
+            // If the player isn't currently selecting anything then go through all of the hovered objects until an object is found that can be highlighted.
+            foreach (IXRSelectInteractable selectTarget in interactor.targetsForSelection)
+            {
+                // If the interactable is currently selected then don't highlight it unless the selecting object is a socket interactor.
+                if (!selectTarget.isSelected | (selectTarget.isSelected && selectTarget.interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>())) 
+                {
+                    ChangeHiglight(selectTarget.transform, true);
+                    highlightedObject = selectTarget.transform;
+                    break;
+                }
+            }
         }
     }
 
