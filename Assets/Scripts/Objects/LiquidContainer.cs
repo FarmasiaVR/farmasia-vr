@@ -247,12 +247,15 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnFilterHalfEnter(GeneralItem genItem) {
+       
         if (GeneralItem is Bottle && genItem.ObjectType == ObjectType.FilterHalf) {
+          
             genItem.State.On(InteractState.InBottle);
 
             if (!GeneralItem.IsClean) {
                 genItem.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
+            
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
         }
     }

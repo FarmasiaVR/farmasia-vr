@@ -1,5 +1,9 @@
 ﻿using System;
 using FarmasiaVR.Legacy;
+using JetBrains.Annotations;
+using Unity;
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Agar : Interactable {
 
@@ -35,6 +39,48 @@ public class Agar : Interactable {
         if (leftHandTouches >= 2) {
             Events.FireEvent(EventType.FingerprintsGivenL);
         } else if (rightHandTouches >= 2) {
+            Events.FireEvent(EventType.FingerprintsGivenR);
+        }
+
+
+        
+
+    }
+
+  
+
+
+    public void startTakingFingerPrints()
+    {
+        lastTouched = DateTime.Now;
+    }
+
+
+    public void stopTakingFingerPrints(SelectExitEventArgs args)
+    {
+        TimeSpan time = DateTime.Now - lastTouched;
+        Debug.Log("Fingerprints given for " + time + " seconds");
+
+        if (time.Seconds < 4.0f || time.Seconds > 6.0f)
+        {
+            Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+        }
+
+        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)")
+        {
+            leftHandTouches++;
+        }
+        else if (args.interactorObject.transform.gameObject.tag == "Controller (Right)")
+        {
+           rightHandTouches++;
+        }
+
+        if (leftHandTouches >= 2)
+        {
+            Events.FireEvent(EventType.FingerprintsGivenL);
+        }
+        else if (rightHandTouches >= 2)
+        {
             Events.FireEvent(EventType.FingerprintsGivenR);
         }
     }
