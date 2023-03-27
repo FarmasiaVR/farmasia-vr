@@ -56,7 +56,7 @@ public class Tweezers : ReceiverItem {
     //Checks whether filter can be grabbed, if true, disables filter halfs rigidBody
     public void grabFilterWithTweezers()
     {
-        if (!filterCanBeGrabbed) return;
+        if (!filterCanBeGrabbed || cover.CoverOn) return;
 
         filter.GetComponent<Rigidbody>().isKinematic = true;
         filter.GetComponent<Rigidbody>().detectCollisions = false;
