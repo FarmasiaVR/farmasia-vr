@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using FarmasiaVR.New;
 
 public class HintManager : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class HintManager : MonoBehaviour
         foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("HintDescription"))
         {
             hintDescriptions.Add(descObject.GetComponent<TextMeshPro>());
+        }
+    }
+
+    public void UpdateHintDescriptions(Task task)
+    {
+        foreach (TextMeshPro taskHint in hintDescriptions)
+        {
+            taskHint.text = task.hint;
         }
     }
 
