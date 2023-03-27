@@ -15,19 +15,19 @@ public class TaskManager : MonoBehaviour
     [Header("Task events")]
 
     [Tooltip("This is called when the active task changes")]
-    public UnityEvent<Task> onTaskStarted;
+    public UnityEvent<Task> onTaskStarted = new UnityEvent<Task>();
 
     [Tooltip("This is called when a task is completed")]
-    public UnityEvent<Task> onTaskCompleted;
+    public UnityEvent<Task> onTaskCompleted = new UnityEvent<Task>();
 
     [Tooltip("This is called when the time to finish a task runs out")]
-    public UnityEvent<Task> onTaskFailed;
+    public UnityEvent<Task> onTaskFailed = new UnityEvent<Task>();
 
     [Tooltip("This is called when all the tasks in the task list are completed")]
-    public UnityEvent<TaskList> onAllTasksCompleted;
+    public UnityEvent<TaskList> onAllTasksCompleted = new UnityEvent<TaskList>();
 
     [Tooltip("This is called when a mistake is made")]
-    public UnityEvent<Mistake> onMistake;
+    public UnityEvent<Mistake> onMistake = new UnityEvent<Mistake>();
 
 
 
