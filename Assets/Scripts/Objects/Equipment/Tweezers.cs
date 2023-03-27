@@ -83,9 +83,12 @@ public class Tweezers : ReceiverItem {
     //Sets filterCanBeGrabbed to true and private filter object if collided object is a filter half (fyi filter halfs tag is set to Interactable at runtime)
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Interactable" && !other.name.Contains("ilter")) return;
-        filterCanBeGrabbed = true;
-        filter = other.gameObject;
+        if (other.GetComponent<FilterHalf>())
+        {
+            filterCanBeGrabbed = true;
+            filter = other.gameObject;
+        }
+       
     }
 
     private void OnTriggerExit(Collider other)
