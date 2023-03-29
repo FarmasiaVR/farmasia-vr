@@ -4,7 +4,7 @@ This document describes the basic idea of the architecture used in newer section
 ## Structure
 The concept for the architecture is the following:
 ``` mermaid
-flowchart TD
+flowchart LR
     SceneManager --> TaskManager
     TaskManager --> TaskList
     TaskManager --> TaskDisplayManager
