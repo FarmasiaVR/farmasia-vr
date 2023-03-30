@@ -13,7 +13,7 @@ public class HintBoxNew : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hintDesc.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
