@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1037771201108178347}
   - component: {fileID: 1037771201108178346}
   - component: {fileID: 7626278950226855392}
+  - component: {fileID: 1389738861344858041}
   m_Layer: 0
   m_Name: syringe_20ml XR
   m_TagString: Untagged
@@ -124,7 +125,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518893092571080674}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.2335, y: 0.808, z: 0.5816}
   m_LocalScale: {x: 1.5, y: 1.5000001, z: 1.5000001}
   m_ConstrainProportionsScale: 0
@@ -238,10 +239,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1389738861344858041}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1389738861344858041}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -324,6 +349,52 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &1389738861344858041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518893092571080674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeMedicineActionReference: {fileID: -9104747167095519760, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  transferMedicineActionReference: {fileID: -8446406140814943691, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  onTakeMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037771201108178347}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: takeMedicineFromBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSendMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037771201108178347}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: sendMedicineToBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2813680375405513767
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6136566752069476275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0486, z: -0}
+  m_LocalPosition: {x: 0, y: -0.0625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -154,10 +154,23 @@ public class Syringe : GeneralItem {
 
     private void TransferToBottle(int amount) {
         if (BottleContainer == null) return;
+        Debug.Log("survived bottle container null check");
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        Debug.Log("survived angle check");
         Container.TransferTo(BottleContainer, amount);
     }
+
+    public void takeMedicineFromBottleXR()
+    {
+        Debug.Log("taking medicine!");
+        TransferToBottle(-LiquidTransferStep);
+    }
+
+    public void sendMedicineToBottleXR()
+    {
+        TransferToBottle(LiquidTransferStep);
+    }
+
 
     public void SetSyringeHandlePosition() {
         Vector3 pos = handle.localPosition;

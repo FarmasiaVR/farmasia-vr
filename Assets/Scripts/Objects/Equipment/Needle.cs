@@ -1,4 +1,9 @@
-﻿public class Needle : ConnectableItem {
+﻿using System;
+using System.Diagnostics;
+using UnityEngine.XR.Interaction.Toolkit;
+using Valve.VR.InteractionSystem;
+using UnityEngine;
+public class Needle : ConnectableItem {
 
     public override AttachmentConnector Connector { get; set; }
 
@@ -23,5 +28,22 @@
 
     public void ReleaseItem() {
         Connector.Connection?.Remove();
+    }
+
+
+    public void setAttachedItemRef(SelectEnterEventArgs args)
+    {
+        UnityEngine.Debug.Log("checking needle attach args");
+        DisableAttachedObjectCollider socketManager = args.interactorObject.transform.GetComponent<DisableAttachedObjectCollider>();
+        if (socketManager)
+        {
+            UnityEngine.Debug.Log("found socket manager");
+            Syringe syr = socketManager.socketsOwnerInteractable.GetComponent<Syringe>();
+            if (syr)
+            {
+                Connector.attached.Interactable = syr;
+                UnityEngine.Debug.Log("attached needle to syringe!");
+            }
+        }
     }
 }
