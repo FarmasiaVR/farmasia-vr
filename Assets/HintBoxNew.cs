@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class HintBoxNew : MonoBehaviour
 {
-    private TextMeshPro hintDescription;
-    private void Awake() 
-    {
-        hintDescription = GetComponent<TextMeshPro>();
-    }
+    [SerializeField]
+    private GameObject hintDescription;
+    [SerializeField]
+    private TextMeshPro hintDesc;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,15 @@ public class HintBoxNew : MonoBehaviour
     {
         if(other.CompareTag("Controller (Left)") || other.CompareTag("Controller (Right)"))
         {
-            //hintDescription.setActive(true);
+            hintDesc.canvasRenderer.gameObject.SetActive(true);
+            hintDescription.SetActive(true);
         }
+    }
+
+    private void RotateQuestionmark() 
+    {
+        //GameObject questionMark = this.GetComponent();
+        Transform[] asd = this.gameObject.GetComponentsInChildren<Transform>();
+        //asd[0].rotation = new Vector3(1f,0f,1f);
     }
 }
