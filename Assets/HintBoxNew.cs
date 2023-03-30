@@ -13,13 +13,13 @@ public class HintBoxNew : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hintDesc.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RotateQuestionmark();
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -34,7 +34,7 @@ public class HintBoxNew : MonoBehaviour
     private void RotateQuestionmark() 
     {
         //GameObject questionMark = this.GetComponent();
-        Transform[] asd = this.gameObject.GetComponentsInChildren<Transform>();
-        //asd[0].rotation = new Vector3(1f,0f,1f);
+        Transform[] questionMark = this.gameObject.GetComponentsInChildren<Transform>();
+        questionMark[0].Rotate(Vector3.up * 20 * Time.deltaTime);
     }
 }
