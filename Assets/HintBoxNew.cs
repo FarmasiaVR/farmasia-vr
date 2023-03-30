@@ -54,8 +54,8 @@ public class HintBoxNew : MonoBehaviour
         // Index 0 rotates the whole prefab, index 1 the first child. 
         // Due to not-so-nice default rotation and origin position, 
         // objects movement/animation rely on each other object (cannot be rotated individually)
-        hintBoxObjects[0].Rotate(Vector3.up * 20 * Time.deltaTime);   
-        hintBoxObjects[1].Rotate(Vector3.left * 20 * Time.deltaTime);
+        hintBoxObjects[2].Rotate(Vector3.up * 20 * Time.deltaTime);   
+        hintBoxObjects[3].Rotate(Vector3.left * 20 * Time.deltaTime);
            
    
     }
