@@ -779,6 +779,7 @@ GameObject:
   - component: {fileID: 7766555792212563954}
   - component: {fileID: 46817248037504431}
   - component: {fileID: 8044116985601085434}
+  - component: {fileID: 4388778959809001128}
   m_Layer: 0
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -845,6 +846,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4388778959809001128}
+        m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
+        m_MethodName: setInteractionLayerToDefault
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -852,6 +865,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
         m_MethodName: EnableCollisions
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4388778959809001128}
+        m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
+        m_MethodName: setInteractionLayerToCanAttachToLuerlock
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -891,8 +916,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.036612406, z: 0.01}
-  m_Center: {x: 0, y: 0.013306221, z: 1.3560952e-16}
+  m_Size: {x: 0.02, y: 0.086494505, z: 0.02}
+  m_Center: {x: 0, y: 0.038247284, z: 2.2317126e-16}
 --- !u!114 &8044116985601085434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +928,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5182adbbc5b45284f9981fa2876b0af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  socketsOwnerInteractable: {fileID: 7626278950226855392}
+--- !u!114 &4388778959809001128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722803942146349772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809e05b6f81b91f41bcb0e2b899e19e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 7626278950226855392}
