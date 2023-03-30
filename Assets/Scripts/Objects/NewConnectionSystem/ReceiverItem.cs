@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class ReceiverItem : AttachmentItem
 {
+    public bool skipConnect;
     public AttachmentItem ConnectedItem = null;
 
     public ObjectType ReceivedObjectType;
@@ -52,9 +53,10 @@ public class ReceiverItem : AttachmentItem
         if (PossibleItems.Count > 0) {
             NearestItem = GetNearestItem();
         }
-
-        CheckDistanceAndConnect();
-
+        if (!skipConnect)
+        {
+            CheckDistanceAndConnect();
+        }
         //UpdateLineEffect(PossibleItems.Count > 0);
     }
 
@@ -78,17 +80,23 @@ public class ReceiverItem : AttachmentItem
     /// </summary>
     /// <param name="other">The entering collider</param>
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.transform.IsChildOf(transform)) {
-            return;
-        }
+        if (!skipConnect)
+        {
+            if (other.gameObject.transform.IsChildOf(transform))
+            {
+                return;
+            }
 
-        if (!CanConnect(other.GetComponent<Interactable>())) {
-            return;
-        }
+            if (!CanConnect(other.GetComponent<Interactable>()))
+            {
+                return;
+            }
 
-        GeneralItem colliderItem = other.gameObject.GetComponentInParent<GeneralItem>();
-        if (!SlotOccupied && !(colliderItem == null) && colliderItem.ObjectType == ReceivedObjectType) {
-            PossibleItems.Add(colliderItem.gameObject);
+            GeneralItem colliderItem = other.gameObject.GetComponentInParent<GeneralItem>();
+            if (!SlotOccupied && !(colliderItem == null) && colliderItem.ObjectType == ReceivedObjectType)
+            {
+                PossibleItems.Add(colliderItem.gameObject);
+            }
         }
     }
 
