@@ -34,7 +34,7 @@ public class HintBoxNew : MonoBehaviour
     private void RotateQuestionmark() 
     {
         //GameObject questionMark = this.GetComponent();
-        Transform[] asd = this.gameObject.GetComponentsInChildren<Transform>();
-        asd[0].Rotate(Vector3.up * 20 * Time.deltaTime);
+        Transform[] questionMark = this.gameObject.GetComponentsInChildren<Transform>();
+        questionMark[0].Rotate(Vector3.up * 20 * Time.deltaTime);
     }
 }
