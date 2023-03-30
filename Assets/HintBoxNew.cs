@@ -5,36 +5,42 @@ using UnityEngine;
 
 public class HintBoxNew : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject hintDescription;
+    // Add TextMeshPro object in Unity editor
     [SerializeField]
     private TextMeshPro hintDesc;
+
+    private Transform[] questionMark;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Get transforms of children objects
+        questionMark = this.gameObject.GetComponentsInChildren<Transform>();
+        // Hide text in the beginning
         hintDesc.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotateQuestionmark();
+        RotateHintBox();
     }
 
     private void OnTriggerEnter(Collider other) 
     {
         if(other.CompareTag("Controller (Left)") || other.CompareTag("Controller (Right)"))
         {
-            hintDesc.canvasRenderer.gameObject.SetActive(true);
-            hintDescription.SetActive(true);
+            hintDesc.gameObject.SetActive(true);
+            //hintDescription.SetActive(true);
         }
     }
-
-    private void RotateQuestionmark() 
+    /// <summary>
+    /// Method to rotate the question mark and hintbox
+    /// </summary>
+    private void RotateHintBox() 
     {
-        //GameObject questionMark = this.GetComponent();
-        Transform[] questionMark = this.gameObject.GetComponentsInChildren<Transform>();
+        
         questionMark[0].Rotate(Vector3.up * 20 * Time.deltaTime);
+        questionMark[1].Rotate(Vector3.down * 20 * Time.deltaTime);
     }
 }
