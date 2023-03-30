@@ -9,13 +9,13 @@ public class HintBoxNew : MonoBehaviour
     [SerializeField]
     private TextMeshPro hintDesc;
 
-    private Transform[] questionMark;
+    private Transform[] hintBoxObjects;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get transforms of children objects
-        questionMark = this.gameObject.GetComponentsInChildren<Transform>();
+        hintBoxObjects = this.gameObject.GetComponentsInChildren<Transform>();
         // Hide text in the beginning
         hintDesc.gameObject.SetActive(false);
     }
@@ -36,12 +36,12 @@ public class HintBoxNew : MonoBehaviour
         }
     }*/
 
-    private void ShowText()
+    public void ShowText()
     {
         hintDesc.gameObject.SetActive(true);
     }
 
-    private void HideText()
+    public void HideText()
     {
         hintDesc.gameObject.SetActive(false);
     }
@@ -51,7 +51,12 @@ public class HintBoxNew : MonoBehaviour
     /// </summary>
     private void RotateHintBox() 
     {
-        questionMark[0].Rotate(Vector3.up * 20 * Time.deltaTime);
-        questionMark[1].Rotate(Vector3.left * 20 * Time.deltaTime);      
+        // Index 0 rotates the whole prefab, index 1 the first child. 
+        // Due to not-so-nice default rotation and origin position, 
+        // objects movement/animation rely on each other object (cannot be rotated individually)
+        hintBoxObjects[0].Rotate(Vector3.up * 20 * Time.deltaTime);   
+        hintBoxObjects[1].Rotate(Vector3.left * 20 * Time.deltaTime);
+           
+   
     }
 }
