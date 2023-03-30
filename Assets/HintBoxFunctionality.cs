@@ -26,6 +26,7 @@ public class HintBoxNew : MonoBehaviour
         RotateHintBox();
     }
 
+/*
     private void OnTriggerEnter(Collider other) 
     {
         if(other.CompareTag("Controller (Left)") || other.CompareTag("Controller (Right)"))
@@ -33,14 +34,24 @@ public class HintBoxNew : MonoBehaviour
             hintDesc.gameObject.SetActive(true);
             //hintDescription.SetActive(true);
         }
+    }*/
+
+    private void ShowText()
+    {
+        hintDesc.gameObject.SetActive(true);
     }
+
+    private void HideText()
+    {
+        hintDesc.gameObject.SetActive(false);
+    }
+
     /// <summary>
     /// Method to rotate the question mark and hintbox
     /// </summary>
     private void RotateHintBox() 
     {
-        
         questionMark[0].Rotate(Vector3.up * 20 * Time.deltaTime);
-        questionMark[1].Rotate(Vector3.down * 20 * Time.deltaTime);
+        questionMark[1].Rotate(Vector3.left * 20 * Time.deltaTime);      
     }
 }

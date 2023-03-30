@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,6 +241,12 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &249498831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3105404178252483231, guid: 7d918f8af9e03a56bac8875df7801c32,
+    type: 3}
+  m_PrefabInstance: {fileID: 465285387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &465285387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,7 +270,11 @@ PrefabInstance:
     - target: {fileID: 465285389, guid: 7d918f8af9e03a56bac8875df7801c32, type: 3}
       propertyPath: hintDescription
       value: 
-      objectReference: {fileID: 465285388}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053548237, guid: 7d918f8af9e03a56bac8875df7801c32, type: 3}
+      propertyPath: m_text
+      value: Vihjeteksti
+      objectReference: {fileID: 0}
     - target: {fileID: 2108746192532158604, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
       propertyPath: m_RootOrder
@@ -320,19 +330,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2761999347557461266, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3105404178252483231, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
       propertyPath: m_Name
       value: HintBoxNew
       objectReference: {fileID: 0}
+    - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 249498831}
+    - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827315791880339887, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d918f8af9e03a56bac8875df7801c32, type: 3}
---- !u!1 &465285388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3846382525483086724, guid: 7d918f8af9e03a56bac8875df7801c32,
-    type: 3}
-  m_PrefabInstance: {fileID: 465285387}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &465285389 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1053548237, guid: 7d918f8af9e03a56bac8875df7801c32,
@@ -991,14 +1015,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
---- !u!222 &5588511974132801288
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5588511974132801292}
-  m_CullTransparentMesh: 0
 --- !u!23 &5588511974132801290
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1051,7 +1067,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5588511974132801293}
   - component: {fileID: 5588511974132801290}
-  - component: {fileID: 5588511974132801288}
   - component: {fileID: 5588511974132801295}
   m_Layer: 0
   m_Name: Text
@@ -1167,12 +1182,12 @@ MonoBehaviour:
   m_margin: {x: 0.00009365797, y: -0.0015775153, z: -0.0026481908, w: -0.00039342695}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 5588511974132801290}
   m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
 --- !u!1 &5588511974925483288
 GameObject:
   m_ObjectHideFlags: 0
