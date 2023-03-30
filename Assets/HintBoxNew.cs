@@ -19,7 +19,7 @@ public class HintBoxNew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        RotateQuestionmark();
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -35,6 +35,6 @@ public class HintBoxNew : MonoBehaviour
     {
         //GameObject questionMark = this.GetComponent();
         Transform[] asd = this.gameObject.GetComponentsInChildren<Transform>();
-        //asd[0].rotation = new Vector3(1f,0f,1f);
+        asd[0].Rotate(Vector3.up * 20 * Time.deltaTime);
     }
 }
