@@ -11,6 +11,9 @@ public class HintBoxNew : MonoBehaviour
 
     private Transform[] hintBoxObjects;
 
+    private float timeSincePress;
+    private bool textShown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,39 +26,50 @@ public class HintBoxNew : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Calls method to rotate the hint box
         RotateHintBox();
-    }
 
-/*
-    private void OnTriggerEnter(Collider other) 
-    {
-        if(other.CompareTag("Controller (Left)") || other.CompareTag("Controller (Right)"))
+        // Checks if text is being shown and after 10 seconds hides it
+        if (textShown)
         {
-            hintDesc.gameObject.SetActive(true);
-            //hintDescription.SetActive(true);
+            timeSincePress += Time.deltaTime;
+            if (timeSincePress > 10)
+            {
+                HideText();
+            }
         }
-    }*/
-
+    }
+    
+    /// <summary>
+    /// Method that shows the text to the player. Is currently called 
+    /// from a XR Simple Interactable's Interactable Events' event.
+    /// </summary>
     public void ShowText()
     {
         hintDesc.gameObject.SetActive(true);
-    }
+        textShown = true;
 
-    public void HideText()
-    {
-        hintDesc.gameObject.SetActive(false);
     }
 
     /// <summary>
-    /// Method to rotate the question mark and hintbox
+    /// Method to hide the text from the player.
     /// </summary>
-    private void RotateHintBox() 
+    private void HideText()
+    {
+        hintDesc.gameObject.SetActive(false);
+        textShown = false;
+    }
+
+    /// <summary>
+    /// Method to rotate the question mark and hintbox.
+    /// </summary>
+    private void RotateHintBox()
     {
         // Index 2 rotates the second child of HintBoxNew which is "Body", 
         // index 3 is the first child of "Body" AKA "HintBoxShape". 
-        hintBoxObjects[2].Rotate(Vector3.up * 20 * Time.deltaTime);   
+        hintBoxObjects[2].Rotate(Vector3.up * 20 * Time.deltaTime);
         hintBoxObjects[3].Rotate(Vector3.left * 20 * Time.deltaTime);
-           
-   
+
+
     }
 }
