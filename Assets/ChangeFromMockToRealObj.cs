@@ -21,10 +21,19 @@ public class ChangeFromMockToRealObj : MonoBehaviour
    
     public void changeToRealObj(SelectEnterEventArgs args)
     {
-        
+        IXRSelectInteractable interactable = GetComponent<IXRSelectInteractable>();
+        IXRSelectInteractor interactorSelecting = null;
+
+        if (interactable.isSelected)
+        {
+            interactorSelecting = interactable.firstInteractorSelecting;
+            manager.SelectExit(interactable.firstInteractorSelecting, interactable);
+        }
+
         foreach (GameObject obj in gameobjTODisable)
         {
             obj.SetActive(false);
+
         }
         foreach (GameObject obj in gameobjTOEnable)
         {
@@ -33,7 +42,8 @@ public class ChangeFromMockToRealObj : MonoBehaviour
         
         
 
-        manager.SelectEnter(args.interactorObject.transform.GetComponent<IXRSelectInteractor>(), interactableTOGrabAfterEnalbe);
+        manager.SelectEnter(interactorSelecting, interactableTOGrabAfterEnalbe);
+
         this.GetComponent<Collider>().enabled = false;
     }
 }

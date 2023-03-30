@@ -8,13 +8,15 @@ public class XRInteractableHighlighter : MonoBehaviour
 {
     public Color highlightColor;
 
-    private List<XRBaseInteractable> interactablesHovered;
     private XRBaseInteractor interactor;
-    private Transform highlightedObject;
+    private List<Transform> highlightedObjects = new List<Transform>();
 
     private void Start() {
         interactor = GetComponent<XRBaseInteractor>();
         interactor.targetPriorityMode = TargetPriorityMode.All;
+
+        interactor.hoverExited.AddListener(args => { ChangeHiglight(args.interactableObject.transform, false); });
+        interactor.selectEntered.AddListener(args => { ChangeHiglight(args.interactableObject.transform, false); });
     }
 
 
@@ -27,7 +29,7 @@ public class XRInteractableHighlighter : MonoBehaviour
         ///<param name="isHighlighting">Whether the object should be highlighted or not. If true, the object will be highlighted and if false, the object's highlight will be disabled</param>
         Renderer renderer = hoveredObject.GetComponent<Renderer>();
         XRSocketInteractor socket = hoveredObject.GetComponent<XRSocketInteractor>();
-        if (renderer != null) {
+        if (renderer != null && hoveredObject.gameObject.activeInHierarchy) {
             ChangeHighlightMesh(renderer, isHighlighting);
         }
         /*
@@ -60,24 +62,20 @@ public class XRInteractableHighlighter : MonoBehaviour
 
     private void Update()
     {
-        if (highlightedObject!= null)
+        foreach (Transform highlightedObject in highlightedObjects.ToArray())
         {
             ChangeHiglight(highlightedObject, false);
-            highlightedObject= null;
+            highlightedObjects.Remove(highlightedObject);
         }
 
-        if (!interactor.isSelectActive && interactor.allowHover)
+        if (!interactor.isSelectActive && interactor.allowHover && interactor.targetsForSelection.Count>0)
         {
-            // If the player isn't currently selecting anything then go through all of the hovered objects until an object is found that can be highlighted.
-            foreach (IXRSelectInteractable selectTarget in interactor.targetsForSelection)
+            XRBaseInteractable highlightCanditate = interactor.targetsForSelection[0] as XRBaseInteractable;
+            // If the interactable is currently selected then don't highlight it unless the selecting object is a socket interactor.
+            if (!highlightCanditate.isSelected | (highlightCanditate.isSelected && highlightCanditate.interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>())) 
             {
-                // If the interactable is currently selected then don't highlight it unless the selecting object is a socket interactor.
-                if (!selectTarget.isSelected | (selectTarget.isSelected && selectTarget.interactorsSelecting[0].transform.GetComponent<XRSocketInteractor>())) 
-                {
-                    ChangeHiglight(selectTarget.transform, true);
-                    highlightedObject = selectTarget.transform;
-                    break;
-                }
+                ChangeHiglight(highlightCanditate.transform, true);
+                highlightedObjects.Add(highlightCanditate.transform);
             }
         }
     }
