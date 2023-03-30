@@ -31,8 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.0561, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2808644964737387345}
+  m_Children: []
   m_Father: {fileID: 3440464930160319119}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -66,10 +65,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4
-  m_AttachTransform: {fileID: 2808644964737387345}
+    m_Bits: 128
+  m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -118,6 +119,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6320588803118101517}
+        m_TargetAssemblyTypeName: AutomaticPipetteSetAttachedPipetteXR, Assembly-CSharp
+        m_MethodName: setConnectedPipetteNull
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
   m_OnHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -132,7 +147,8 @@ MonoBehaviour:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
   m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_InteractableCantHoverMeshMaterial: {fileID: 2100000, guid: 4fe8a855b573e9f4194cd66053c1c1d5,
+    type: 2}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
@@ -161,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcfc023812416c4c99d89d845f4b4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reiceiverPipette: {fileID: 108185424503917176}
+  reiceiverPipette: {fileID: 8235524203867040853}
 --- !u!1 &2663083187711066165
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +194,7 @@ GameObject:
   - component: {fileID: 4411855520590670133}
   - component: {fileID: 8174408594003345258}
   - component: {fileID: 1966259929}
+  - component: {fileID: 8235524203867040853}
   m_Layer: 10
   m_Name: AutomaticPipette XR
   m_TagString: Untagged
@@ -211,7 +228,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2663083187711066165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5842e1f46187abd4389e2dc723eddd8c, type: 3}
   m_Name: 
@@ -220,10 +237,12 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 23
   isClean: 0
+  skipAttachment: 0
   Attached: 0
   ParentReceiver: {fileID: 0}
   SnapDistance: 0.05
   SnapAngle: 30
+  skipConnect: 1
   ConnectedItem: {fileID: 0}
   ReceivedObjectType: 25
   SlotOccupied: 0
@@ -278,8 +297,16 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 1
+  m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -334,6 +361,9 @@ MonoBehaviour:
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
   m_OnFirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -362,6 +392,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 7958970554663948995}
+  m_SecondaryAttachTransform: {fileID: 0}
+  m_UseDynamicAttach: 0
+  m_MatchAttachPosition: 1
+  m_MatchAttachRotation: 1
+  m_SnapToColliderVolume: 1
+  m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
   m_VelocityDamping: 1
@@ -398,6 +434,9 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+  m_StartingSingleGrabTransformers: []
+  m_StartingMultipleGrabTransformers: []
+  m_AddDefaultGrabTransformers: 1
 --- !u!65 &4411855520590670133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -407,7 +446,7 @@ BoxCollider:
   m_GameObject: {fileID: 2663083187711066165}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.062145233, y: 0.13870442, z: 0.1}
   m_Center: {x: 0.096063554, y: -0.04245089, z: 0}
@@ -436,11 +475,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BigPipetteToControl: {fileID: 108185424503917176}
+  BigPipetteToControl: {fileID: 8235524203867040853}
   takeMedicineActionReference: {fileID: -9104747167095519760, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
   transferMedicineActionReference: {fileID: -8446406140814943691, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
+--- !u!114 &8235524203867040853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663083187711066165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d665fd66c0bec4991a3927e29f8225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipetteContainerXR: {fileID: 0}
 --- !u!1 &5206687702962591479
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,37 +939,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7707974264023436202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2808644964737387345}
-  m_Layer: 10
-  m_Name: attachmentAttachPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2808644964737387345
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7707974264023436202}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.0409, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2697327059528827905}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &8460080236686354536
 GameObject:
   m_ObjectHideFlags: 0

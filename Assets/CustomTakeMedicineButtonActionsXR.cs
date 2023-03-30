@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
 {
 
-    public BigPipette BigPipetteToControl;
+    public BigPipetteXR BigPipetteToControl;
     public InputActionReference takeMedicineActionReference;
     public InputActionReference transferMedicineActionReference;
     bool isSelected = false;
