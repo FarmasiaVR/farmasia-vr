@@ -3,30 +3,37 @@ using System.Diagnostics;
 using UnityEngine.XR.Interaction.Toolkit;
 using Valve.VR.InteractionSystem;
 using UnityEngine;
-public class Needle : ConnectableItem {
+public class Needle : ConnectableItem
+{
 
     public override AttachmentConnector Connector { get; set; }
 
-    protected override void Start() {
+    protected override void Start()
+    {
         base.Start();
         ObjectType = ObjectType.Needle;
         Type.On(InteractableType.Interactable);
 
-        Connector = new SimpleAttachmentConnector(this, transform.Find("Syringe Collider").gameObject) {
-            CanConnect = (interactable) => {
+        Connector = new SimpleAttachmentConnector(this, transform.Find("Syringe Collider").gameObject)
+        {
+            CanConnect = (interactable) =>
+            {
                 var syringe = interactable as Syringe;
                 return syringe != null && !syringe.HasSyringeCap;
             },
-            AfterRelease = (interactable) => {
+            AfterRelease = (interactable) =>
+            {
                 var syringe = interactable as Syringe;
-                if (syringe.Container.Amount > 0) {
+                if (syringe.Container.Amount > 0)
+                {
                     Events.FireEvent(EventType.DetachedNeedleFromSyringe, CallbackData.Object(syringe));
                 }
             }
         };
     }
 
-    public void ReleaseItem() {
+    public void ReleaseItem()
+    {
         Connector.Connection?.Remove();
     }
 
@@ -45,5 +52,10 @@ public class Needle : ConnectableItem {
                 UnityEngine.Debug.Log("attached needle to syringe!");
             }
         }
+    }
+
+    public void setAttachedItemRefNull(SelectExitEventArgs args)
+    {
+        Connector.attached.Interactable = null;
     }
 }

@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 1037771201108178346}
   - component: {fileID: 7626278950226855392}
   - component: {fileID: 1389738861344858041}
+  - component: {fileID: 2293016203225014395}
   m_Layer: 0
   m_Name: syringe_20ml XR
   m_TagString: Untagged
@@ -240,7 +241,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1389738861344858041}
+      - m_Target: {fileID: 2293016203225014395}
         m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
         m_MethodName: toggleSelectState
         m_Mode: 1
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1389738861344858041}
+      - m_Target: {fileID: 2293016203225014395}
         m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
         m_MethodName: toggleSelectState
         m_Mode: 1
@@ -350,6 +351,52 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
 --- !u!114 &1389738861344858041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518893092571080674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeMedicineActionReference: {fileID: -9104747167095519760, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  transferMedicineActionReference: {fileID: -8446406140814943691, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  onTakeMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037771201108178347}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: takeMedicineFromBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSendMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1037771201108178347}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: sendMedicineToBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2293016203225014395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
