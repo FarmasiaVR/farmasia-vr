@@ -31,7 +31,10 @@ public abstract class AttachmentConnector : ItemConnector {
     public Rigidbody AttachedRigidbody { get => attached.Rigidbody; }
     public Interactable AttachedInteractable { get => attached.Interactable; }
 
-    protected AttachedObject attached;
+    public AttachedObject attached;
+
+    
+
 
     protected virtual InteractState AttachState { get => InteractState.ConnectableAttached; }
 

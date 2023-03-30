@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
 {
-
-    public BigPipetteXR BigPipetteToControl;
     public InputActionReference takeMedicineActionReference;
     public InputActionReference transferMedicineActionReference;
+    public UnityEvent onTakeMedicineFunctionsToCall;
+    public UnityEvent onSendMedicineFunctionsToCall;
     bool isSelected = false;
 
     void Start()
@@ -42,12 +43,18 @@ public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
 
     public void takeMedicineBigBottle(InputAction.CallbackContext context)
     {
-        BigPipetteToControl.TakeMedicine();
+        if (isSelected)
+        {
+            onTakeMedicineFunctionsToCall.Invoke();
+        }
     }
 
     public void transferMedicineBigBottle(InputAction.CallbackContext context)
     {
-        BigPipetteToControl.SendMedicine();
+        if (isSelected)
+        {
+            onSendMedicineFunctionsToCall.Invoke();
+        }
     }
 
     public void toggleSelectState()
