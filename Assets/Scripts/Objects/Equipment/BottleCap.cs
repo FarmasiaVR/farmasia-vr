@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class BottleCap : ConnectableItem {
 
@@ -39,8 +40,11 @@ public class BottleCap : ConnectableItem {
     }
 
     public void AttachCap() {
-        var Bottom = BottomObject.GetComponent<Interactable>();
-        Connector.ConnectItem(Bottom);
+        if (!GetComponent<XRGrabInteractable>())
+        {
+            var Bottom = BottomObject.GetComponent<Interactable>();
+            Connector.ConnectItem(Bottom);
+        }
     }
 
     public void RemoveCap() {

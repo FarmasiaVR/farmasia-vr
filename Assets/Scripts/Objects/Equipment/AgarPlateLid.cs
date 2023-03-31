@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class AgarPlateLid : ConnectableItem {
 
@@ -30,9 +31,12 @@ public class AgarPlateLid : ConnectableItem {
             }
         };
 
-        var Bottom = BottomObject.GetComponent<Interactable>();
+        if (!GetComponent<XRBaseInteractable>())
+        {
+            var Bottom = BottomObject.GetComponent<Interactable>();
 
-        Connector.ConnectItem(Bottom);
+            Connector.ConnectItem(Bottom);
+        }
     }
 
     public void sendPlateClosedEvent()
