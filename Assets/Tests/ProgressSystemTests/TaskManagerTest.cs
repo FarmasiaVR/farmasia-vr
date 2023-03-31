@@ -72,5 +72,51 @@ public class TaskManagerTest
         // Use yield to skip a frame.
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator TestGettingCurrentTaskWorks()
+    {
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestGettingSpecificTaskWorks()
+    {
+        Assert.AreEqual(taskManager.taskListObject.GetTask("B").key, "B");
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestAllTaskCompleted()
+    {
+        taskManager.CompleteTask("A");
+        taskManager.CompleteTask("B");
+        taskManager.CompleteTask("C");
+        Assert.True(taskManager.IsTaskCompleted("A"));
+        Assert.True(taskManager.IsTaskCompleted("B"));
+        Assert.True(taskManager.IsTaskCompleted("C"));
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestTimedTaskNotComplitedWhenTimeRunsOut()
+    {
+        taskManager.taskListObject.GetTask("C");
+        yield return new WaitForSeconds(4);
+        taskManager.CompleteTask("C"); //doesnt work when this is added
+        Assert.False(taskManager.IsTaskCompleted("C"));
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestMistakeReducePoints()
+    {
+        taskManager.taskListObject.GetTask("B");
+        Debug.Log(taskManager.taskListObject.GetPoints());
+        taskManager.GenerateTaskMistake("Test Mistake Text", 1);
+        Assert.AreEqual(taskManager.taskListObject.GetPoints(), 0);
+        yield return null;
+    }
 }
 
