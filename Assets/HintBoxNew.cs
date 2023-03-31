@@ -11,7 +11,9 @@ public class HintBoxNew : MonoBehaviour
 
     private Transform[] hintBoxObjects;
 
+    [SerializeField]
     private float timeSincePress;
+    
     private bool textShown;
 
     // Start is called before the first frame update
@@ -29,15 +31,6 @@ public class HintBoxNew : MonoBehaviour
         // Calls method to rotate the hint box
         RotateHintBox();
 
-        // Checks if text is being shown and after 10 seconds hides it
-        if (textShown)
-        {
-            timeSincePress += Time.deltaTime;
-            if (timeSincePress > 10)
-            {
-                HideText();
-            }
-        }
     }
     
     /// <summary>
@@ -54,10 +47,20 @@ public class HintBoxNew : MonoBehaviour
     /// <summary>
     /// Method to hide the text from the player.
     /// </summary>
-    private void HideText()
+    public void HideText()
     {
-        hintDesc.gameObject.SetActive(false);
-        textShown = false;
+        // Checks if text is being shown and after given time in seconds hides it.
+        // The time is set in Unity editor.
+        while (textShown)
+        {
+            timeSincePress -= Time.deltaTime;
+            if (timeSincePress <= 0)
+            {
+                hintDesc.gameObject.SetActive(false);
+                textShown = false;
+            }
+        }
+        
     }
 
     /// <summary>
