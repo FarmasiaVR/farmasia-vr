@@ -29,7 +29,7 @@ public class PopupManager : MonoBehaviour
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        pointPopup.SetPopup(task.awardedPoints, "Teht‰v‰ suoritettu: " + task.taskText, MsgType.Done);
+        pointPopup.SetPopup(task.awardedPoints, "Teht√§v√§ suoritettu: " + task.taskText, MsgType.Done);
     }
 
     /// <summary>
@@ -53,6 +53,6 @@ public class PopupManager : MonoBehaviour
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        pointPopup.SetPopup("Et suorittanut teht‰v‰‰ " + task.taskText + " ajoissa \n GAME OVER", MsgType.Error);
+        pointPopup.SetPopup("Et suorittanut teht√§v√§√§ " + task.taskText + " ajoissa \n GAME OVER", MsgType.Error);
     }
 }

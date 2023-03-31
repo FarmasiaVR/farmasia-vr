@@ -72,7 +72,10 @@ public class HintBoxNew : MonoBehaviour
         // index 3 is the first child of "Body" AKA "HintBoxShape". 
         hintBoxObjects[2].Rotate(Vector3.up * 20 * Time.deltaTime);
         hintBoxObjects[3].Rotate(Vector3.left * 20 * Time.deltaTime);
+    }
 
-
+    public bool GetTextShown()
+    {
+        return textShown;
     }
 }

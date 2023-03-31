@@ -17,6 +17,10 @@ public class HintManager : MonoBehaviour
         }
     }
 
+    
+    /// <summary>
+    /// Updates all hint texts in the scene. Set in Unity editor as a Task Manager Task Event.
+    /// </summary>
     public void UpdateHintDescriptions(Task task)
     {
         foreach (TextMeshPro taskHint in hintDescriptions)
