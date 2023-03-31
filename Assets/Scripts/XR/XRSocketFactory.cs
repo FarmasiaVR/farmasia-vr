@@ -17,6 +17,7 @@ public class XRSocketFactory : MonoBehaviour
     {
         socket = GetComponent<XRSocketInteractor>();
         socket.selectExited.AddListener(SpawnInteractableToSocket);
+        socket.showInteractableHoverMeshes = false;
         SceneManager.sceneLoaded += SpawnInteractableOnSceneLoad;
     }
 

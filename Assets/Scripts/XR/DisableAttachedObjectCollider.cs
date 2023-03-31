@@ -11,6 +11,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DisableAttachedObjectCollider : MonoBehaviour
 {
     public XRGrabInteractable socketsOwnerInteractable;
+    private XRSocketInteractor socket;
+
+    private void Start()
+    {
+        socket = GetComponent<XRSocketInteractor>();
+        if (socket.startingSelectedInteractable)
+        {
+            SelectEnterEventArgs args = new SelectEnterEventArgs();
+            args.interactableObject  = socket.startingSelectedInteractable;
+            DisableCollisions(args);
+        }
+    }
 
     //sets the list of colliders to ignore the colliders of the socketOwner
     public void setCollidersIgnoreState(bool shouldIgnoreCollisions, List<Collider> otherColliders) {
