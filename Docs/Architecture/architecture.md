@@ -7,7 +7,7 @@ The concept for the architecture is the following:
 flowchart LR
     SceneManager --> TaskManager
     TaskManager --> TaskList
-    TaskManager --> TaskDisplayManager
+    TaskManager --> TaskDescriptionManager
     TaskManager --> HintManager
     TaskManager --> PopupManager
 ```
@@ -21,7 +21,7 @@ The task manager is a script that is attached to an empty in the scene that mana
 ### TaskList
 This is a scriptable object (in other words, a file) that stores tasks, keeps track of completed tasks, stores mistakes and saves the player's score. Since all of this information is stored in a file, the tasks can be tracked across different scenes. However, this means that the tasks have to be manually reset.
 
-### TaskDisplayManager
+### TaskDescriptionManager
 This is a script that handles all of the displays that show the user's current task.
 
 ### HintManager
@@ -46,11 +46,11 @@ sequenceDiagram
     Scene Manager ->> Task Manager: CompleteTask(pickUpCube)
     Task Manager ->> Task List: MarkTaskAsCompleted(pickUpCube)
     Note right of Task Manager: The progression is saved in the task list file.
-    Task Manager ->> Popup Manager: OnTaskCompleted: ShowTaskCompleteMessage(pickUpCube)
-    Task Manager ->> Task List: FindNextTask()
+    Task Manager ->> Popup Manager: OnTaskCompleted: TaskCompletePopup(pickUpCube)
+    Task Manager ->> Task List: GetNextTask()
     Note right of Task Manager: Get the next available task from the task list.
-    Task Manager ->> Task Display Manager: OnBeginNewTask: ShowTaskInformation(pickUpPyramid)
-    Task Manager ->> Hint Manager: OnBeginNewTask: UpdateHint(pickUpPyramid)
+    Task Manager ->> Task Description Manager: OnTaskStarted: UpdateTaskDescriptions(pickUpPyramid)
+    Task Manager ->> Hint Manager: OnTaskStarted: UpdateHint(pickUpPyramid)
 ```
 
 ## Example 2

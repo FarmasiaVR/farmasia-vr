@@ -17,6 +17,8 @@ Whether [the task list][tasklistobj_doc] should be reset when the scene is loade
 ### void **CompleteTask**(string **taskKey**)
 Marks the task with the given key as done and selects a new task to be active.
 
+**NOTE!** If a task is timed then the timer is only started when the task is selected as currently active. If a task is completed before it has been selected as currently active then the player will be awarded full points.
+
 ### void **GenerateTaskMistake**(string **mistakeText**, int **deductedPoints**)
 Creates and stores a task mistake that is related to the currently active task.
 
