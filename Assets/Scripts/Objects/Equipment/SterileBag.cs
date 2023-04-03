@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SterileBag : GeneralItem {
 
@@ -63,6 +64,18 @@ public class SterileBag : GeneralItem {
         }
         syringes.Clear();
         isClosed = false;
+    }
+
+    public void addSyringeToListXR(SelectEnterEventArgs args)
+    {
+        Syringe syringe = args.interactableObject.transform.GetComponent<Syringe>();
+        if (syringe)
+        {
+            syringes.Add(syringe);
+            Debug.Log("Added syringe");
+            Debug.Log("Current syringe count:" + syringes.Count);
+        }
+
     }
 
     private void SetSyringe(Syringe syringe) {
