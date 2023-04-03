@@ -8,6 +8,7 @@ public class HintManager : MonoBehaviour
 {
         private List<TextMeshPro> hintDescriptions;
 
+
     private void Awake() 
     {
         hintDescriptions = new List<TextMeshPro>();
@@ -17,7 +18,7 @@ public class HintManager : MonoBehaviour
         }
     }
 
-    
+
     /// <summary>
     /// Updates all hint texts in the scene. Set in Unity editor as a Task Manager Task Event.
     /// </summary>
@@ -28,6 +29,8 @@ public class HintManager : MonoBehaviour
             taskHint.text = task.hint;
         }
     }
+
+
 
     // Start is called before the first frame update
     void Start()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -250,6 +250,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 863039767267413785, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
+      propertyPath: textShownTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 863039767267413785, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
       propertyPath: timeSincePress
       value: 10
       objectReference: {fileID: 0}
@@ -315,27 +320,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.size
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 465285388}
     - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideText
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TextShownMistake
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: HintBoxNew, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
