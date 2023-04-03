@@ -3607,7 +3607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &428566605
 Transform:
   m_ObjectHideFlags: 0
@@ -3633,6 +3633,7 @@ Transform:
   - {fileID: 396706638}
   - {fileID: 1058882653}
   - {fileID: 882015984}
+  - {fileID: 7363976436123526650}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20282,6 +20283,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1831903607225854935}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3177801054965831897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 428566605}
+    m_Modifications:
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.353
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.603
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196501627175870198, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 1865780516}
+    - target: {fileID: 8966826753803816752, guid: 9cc4e71fd37ca37488994678400a89ae,
+        type: 3}
+      propertyPath: m_Name
+      value: SterilePouch XR
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9cc4e71fd37ca37488994678400a89ae, type: 3}
 --- !u!1001 &3362629351555725959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20688,6 +20763,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76797cd03dcafff4ab4715c0d2a1d1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7363976436123526650 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5344586060127337763, guid: 9cc4e71fd37ca37488994678400a89ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 3177801054965831897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7396970397548131715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20774,6 +20855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: syringe_1ml XR
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625825646839276993, guid: 57725fce57a68b345963dc4bae6cf5c1,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 3328
       objectReference: {fileID: 0}
     - target: {fileID: 4031122908072350355, guid: 57725fce57a68b345963dc4bae6cf5c1,
         type: 3}
