@@ -355,7 +355,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967292
+    m_Bits: 4096
   m_AttachTransform: {fileID: 5872484147450872012}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -965,7 +965,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 1025
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -1410,6 +1410,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8670077357309535738}
     m_Modifications:
+    - target: {fileID: 597988986147608193, guid: dfc97ea1a2a97d34397cc3f066e7a95f,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 5120
+      objectReference: {fileID: 0}
     - target: {fileID: 3182616524614065407, guid: dfc97ea1a2a97d34397cc3f066e7a95f,
         type: 3}
       propertyPath: m_RootOrder
