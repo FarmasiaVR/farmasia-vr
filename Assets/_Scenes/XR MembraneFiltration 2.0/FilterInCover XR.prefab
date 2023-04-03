@@ -750,7 +750,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 1025
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -1446,11 +1446,13 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 29
   isClean: 0
+  skipAttachment: 0
   Attached: 0
   ParentReceiver: {fileID: 0}
   SnapDistance: 0.03
   SnapAngle: 30
-  ConnectedItem: {fileID: 1583663872487351376}
+  skipConnect: 0
+  ConnectedItem: {fileID: 0}
   ReceivedObjectType: 30
   SlotOccupied: 1
   cover: {fileID: 4136056549345521587}
@@ -1493,7 +1495,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 1025
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -2139,7 +2141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5669684808570146454
 Transform:
   m_ObjectHideFlags: 0
@@ -2173,10 +2175,12 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 32
   isClean: 1
+  skipAttachment: 0
   Attached: 0
-  ParentReceiver: {fileID: 6912748291076837915}
+  ParentReceiver: {fileID: 0}
   SnapDistance: 0.03
   SnapAngle: 30
+  skipConnect: 0
   ConnectedItem: {fileID: 0}
   ReceivedObjectType: 0
   SlotOccupied: 0
@@ -2215,7 +2219,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 64
+    m_Bits: 1088
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -2658,10 +2662,12 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 31
   isClean: 1
+  skipAttachment: 0
   Attached: 0
-  ParentReceiver: {fileID: 1583663872487351376}
+  ParentReceiver: {fileID: 0}
   SnapDistance: 0.03
   SnapAngle: 20
+  skipConnect: 0
   ConnectedItem: {fileID: 0}
   ReceivedObjectType: 32
   SlotOccupied: 1
@@ -2676,8 +2682,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06074572, y: 0.053401873, z: 0.05748888}
-  m_Center: {x: -0.00013815053, y: 0.023299068, z: -0.00072442833}
+  m_Size: {x: 0.06074572, y: 0.046983417, z: 0.05748888}
+  m_Center: {x: -0.00013815053, y: 0.026508296, z: -0.0007244274}
 --- !u!1 &6912748292946445673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3312,7 +3318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8599627925238376700}
   m_LocalRotation: {x: -0, y: -0, z: 3.73106e-11, w: 1}
-  m_LocalPosition: {x: 0.0004, y: -0.0229, z: 0.001}
+  m_LocalPosition: {x: 0.0004, y: -0.0229, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3337,10 +3343,12 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 30
   isClean: 1
+  skipAttachment: 0
   Attached: 0
-  ParentReceiver: {fileID: 4739640797023349963}
+  ParentReceiver: {fileID: 0}
   SnapDistance: 0.03
   SnapAngle: 20
+  skipConnect: 0
   ConnectedItem: {fileID: 0}
   ReceivedObjectType: 31
   SlotOccupied: 1
@@ -3391,7 +3399,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4
+    m_Bits: 1028
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -3659,9 +3667,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 5329001660181136845}
     m_Modifications:
     - target: {fileID: 106338687, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
+      propertyPath: skipConnect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 106338687, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
       propertyPath: ParentReceiver
       value: 
-      objectReference: {fileID: 4739640797023349963}
+      objectReference: {fileID: 0}
+    - target: {fileID: 106338687, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
+      propertyPath: skipAttachment
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 106338687, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
       propertyPath: leftHalfToEnable
       value: 
@@ -3753,6 +3769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1056
       objectReference: {fileID: 0}
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
