@@ -1534,6 +1534,76 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Medicine",
+            "id": "92fafa8e-89f1-4bfb-b387-0256953ecbe3",
+            "actions": [
+                {
+                    "name": "Take medicine",
+                    "type": "Value",
+                    "id": "a9b3898c-77a8-49e6-a625-dd3b1ae7a6c6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Transfer medicine",
+                    "type": "Value",
+                    "id": "c5ff2453-fc6c-4607-aa8d-0920dae68f1e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c5296c0e-5ad3-4d67-ae23-bd5337d452d1",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "Sector(directions=4)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Take medicine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cae574fb-b721-43a8-9887-6fb4b2e6d029",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
+                    "interactions": "Sector(directions=4)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Take medicine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cd6578e-e646-4397-a335-aa15037454bd",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "Sector(directions=8)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Transfer medicine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70126c02-96ec-4452-ba6c-95067beb7f92",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
+                    "interactions": "Sector(directions=8)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Transfer medicine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
