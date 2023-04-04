@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hintDesc: {fileID: 1053548237}
-  timeSincePress: 10
+  textShownTime: 10
 --- !u!114 &8458979189061804314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,12 +384,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 863039767267413785}
         m_TargetAssemblyTypeName: HintBoxNew, Assembly-CSharp
-        m_MethodName: HideText
+        m_MethodName: TextShownMistake
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -399,6 +396,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
   m_Activated:
     m_PersistentCalls:
       m_Calls: []

@@ -17,10 +17,14 @@ public class HintBoxNew : MonoBehaviour
     // TaskManager is required for Mistake generation
     private TaskManager taskManager;
 
-
+    // Given time for the text to show
     [SerializeField]
     private float textShownTime;
 
+    // Value used to reset the textShownTime timer value
+    private float textResetValue;
+    
+    // Boolean used to check if text has been shown to the player
     private bool textShown;
 
 
@@ -28,7 +32,10 @@ public class HintBoxNew : MonoBehaviour
     {
         // Find TaskManager in the scene
         taskManager = FindObjectOfType<TaskManager>();
+        // Set reset value
+        textResetValue = textShownTime;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +43,6 @@ public class HintBoxNew : MonoBehaviour
         hintBoxObjects = this.gameObject.GetComponentsInChildren<Transform>();
         // Hide text in the beginning
         hintDesc.gameObject.SetActive(false);
-
-
     }
 
     // Update is called once per frame
@@ -46,40 +51,38 @@ public class HintBoxNew : MonoBehaviour
         // Calls method to rotate the hint box
         RotateHintBox();
 
+        // Checks if text has been shown
+        if (textShown)
+        {
+            // Decrements until less than zero then calls method to hide the text
+            textShownTime -= Time.deltaTime;            
+            if (textShownTime < 0)
+            {
+                HideText();
+            }
+        }
     }
 
     /// <summary>
-    /// Method that shows the text to the player. Is currently called 
-    /// from a XR Simple Interactable's Interactable Events' event.
+    /// Method that shows the text to the player. Recommended to be used with an XR
+    /// Interactable.
     /// </summary>
     public void ShowText()
     {
         hintDesc.gameObject.SetActive(true);
         textShown = true;
+        textShownTime = textResetValue;
     }
 
     /// <summary>
     /// Method to hide the text from the player.
     /// </summary>
-    public void HideText()
+    private void HideText()
     {
         // Checks if text is being shown and after given time in seconds hides it.
         // The time is set in Unity editor.
-        if (textShown)
-        {
-            //timeSincePress -= Time.deltaTime;
-            //Debug.Log("timeSincePress value: " + timeSincePress + " and deltaTime value: " + Time.deltaTime);
-            TextTimer(textShownTime);
-            Debug.Log("Returned from timer");
-            hintDesc.gameObject.SetActive(false);
-            textShown = false;
-        }
-
-    }
-
-    private IEnumerator TextTimer(float showTextTime)
-    {
-        yield return new WaitForSeconds(showTextTime);
+        hintDesc.gameObject.SetActive(false);
+        textShown = false;
     }
 
     /// <summary>
@@ -95,7 +98,7 @@ public class HintBoxNew : MonoBehaviour
 
     /// <summary>
     /// Generates a Mistake into the TaskList as well as a Popup with the
-    /// error message through TaskManager. 
+    /// error message through TaskManager. Recommended to be used with an XR Interactable.
     /// </summary>
     public void TextShownMistake()
     {
@@ -103,7 +106,7 @@ public class HintBoxNew : MonoBehaviour
     }
 
     /// <summary>
-    /// Boolean value that tells if the text is showing or not. No use currently.
+    /// Boolean value that tells if the text is showing or not.
     /// </summary>
     /// <returns></returns>
     public bool GetTextShown()
