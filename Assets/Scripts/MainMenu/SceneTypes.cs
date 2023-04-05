@@ -5,5 +5,9 @@
     MembraneFilteration,
     ChangingRoom,
     Restart,
-    FireHazard
+    FireHazard,
+    FireExtinguisherTutorial,
+    FireBlanketTutorial,
+    EyeShowerTutorial,
+    EmergencyShowerTutorial
 }

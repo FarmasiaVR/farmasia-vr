@@ -30,6 +30,18 @@ public class SceneLoader : MonoBehaviour {
             case SceneTypes.FireHazard:
                 ChangeScene("Laboratory");
                 return;
+            case SceneTypes.FireExtinguisherTutorial:
+                ChangeScene("FireExtinguisherTutorial");
+                return;
+            case SceneTypes.FireBlanketTutorial:
+                ChangeScene("FireBlanketTutorial");
+                return;
+            case SceneTypes.EyeShowerTutorial:
+                ChangeScene("EyeShowerTutorial");
+                return;
+            case SceneTypes.EmergencyShowerTutorial:
+                ChangeScene("EmergencyShowerTutorial");
+                return;
         }
     }
 
