@@ -3,7 +3,7 @@
 public class MedicineBottleCap : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
-        if (other.name.Equals("SterilizationCloth(Clone)")) {
+        if (other.GetComponent<DisinfectingCloth>()) {
             gameObject.SetActive(false);
         }
     }
