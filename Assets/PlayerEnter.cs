@@ -7,6 +7,7 @@ public class PlayerEnter : MonoBehaviour
     private bool playerEntered;
     private bool playerExited;
     private bool playerInside;
+    private bool enteredOnce;
     private Material startingMaterial;
     public Material enteredMaterial;
     enum Scenario
@@ -40,6 +41,7 @@ public class PlayerEnter : MonoBehaviour
         {
             playerEntered = true;
             playerInside = true;
+            enteredOnce = true;
             MeshRenderer r = gameObject.GetComponent<MeshRenderer>();
             r.material = enteredMaterial;
             Debug.Log("Player entered the " + scenario + " area");
@@ -53,5 +55,10 @@ public class PlayerEnter : MonoBehaviour
             playerExited = true;
             playerInside = false;
         }
+    }
+
+    public bool HasEnteredOnce()
+    {
+        return enteredOnce;
     }
 }
