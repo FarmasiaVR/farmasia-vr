@@ -6,10 +6,12 @@ public class LaboratorySceneManager : MonoBehaviour
 {
 
     private TaskManager taskManager;
+    private GameObject playerEnter;
 
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
+        playerEnter = FindObjectOfType<EnterColliders>();
     }
 
     // Start is called before the first frame update
@@ -24,5 +26,13 @@ public class LaboratorySceneManager : MonoBehaviour
         
     }
 
+    public void FindFireExtinguisher()
+    {
+        if()
+        {
+            taskManager.CompleteTask("R");
+
+        }
+    }
 
 }
