@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Syringe : GeneralItem {
 
@@ -44,10 +45,14 @@ public class Syringe : GeneralItem {
 
         hasBeenInBottle = false;
 
-        syringeCap = transform.Find("syringe_cap").gameObject;
-        NullCheck.Check(syringeCap);
+        // Only check for the cap if using the legacy system.
+        if (!GetComponent<XRBaseInteractable>())
+        {
+            syringeCap = transform.Find("syringe_cap").gameObject;
+            NullCheck.Check(syringeCap);
 
-        syringeCap.SetActive(capVisible);
+            syringeCap.SetActive(capVisible);
+        }
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
         displayState = false;

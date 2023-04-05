@@ -6,15 +6,15 @@ using FarmasiaVR.New;
 
 public class HintManager : MonoBehaviour
 {
-        private List<TextMeshPro> hintDescriptions;
+    private List<HintBoxNew> hintDescriptions;
 
 
     private void Awake() 
     {
-        hintDescriptions = new List<TextMeshPro>();
-        foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("HintDescription"))
+        hintDescriptions = new List<HintBoxNew>();
+        foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("Hint"))
         {
-            hintDescriptions.Add(descObject.GetComponent<TextMeshPro>());
+            hintDescriptions.Add(descObject.GetComponent<HintBoxNew>());
         }
     }
 
@@ -24,9 +24,10 @@ public class HintManager : MonoBehaviour
     /// </summary>
     public void UpdateHintDescriptions(Task task)
     {
-        foreach (TextMeshPro taskHint in hintDescriptions)
+        foreach (HintBoxNew taskHint in hintDescriptions)
         {
-            taskHint.text = task.hint;
+            taskHint.HideText();
+            taskHint.UpdateText(task.hint);
         }
     }
 
