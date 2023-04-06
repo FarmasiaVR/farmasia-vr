@@ -94,6 +94,14 @@ namespace FarmasiaVR.New
         {
             mistakeList.Add(mistake);
         }
+        /// <summary>
+        /// Return the mistake list of the task
+        /// This method was created for testing
+        /// </summary>
+        public List<Mistake> ReturnMistakes()
+        {
+            return mistakeList;
+        }
 
         public void StartTaskTimer()
         {
