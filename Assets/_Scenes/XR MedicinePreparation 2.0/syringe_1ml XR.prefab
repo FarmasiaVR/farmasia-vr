@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4751144390727135045}
   - component: {fileID: 3625825646839276993}
   - component: {fileID: 2842165152830557871}
+  - component: {fileID: 8090964701638454802}
   m_Layer: 10
   m_Name: syringe_1ml XR
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119966844948930688}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0.04, y: 0.798, z: 0.573}
   m_LocalScale: {x: 1.5000001, y: 1.5000001, z: 1.5000001}
   m_ConstrainProportionsScale: 0
@@ -119,7 +120,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 2304
+    m_Bits: 3328
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -150,10 +151,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8090964701638454802}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8090964701638454802}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -249,6 +274,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0089983735, y: 0.07011641, z: 0.008997583}
   m_Center: {x: -0.0000011101364, y: -0.0028467758, z: 0.00051358115}
+--- !u!114 &8090964701638454802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119966844948930688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeMedicineActionReference: {fileID: 1485218837564966055, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  transferMedicineActionReference: {fileID: -6753229325038948182, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  onTakeMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8264759978326355818}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: takeMedicineFromBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSendMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8264759978326355818}
+        m_TargetAssemblyTypeName: Syringe, GameAssembly
+        m_MethodName: sendMedicineToBottleXR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1194798177729978139
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +363,6 @@ GameObject:
   - component: {fileID: 6444220169249640651}
   - component: {fileID: 2138526215135982632}
   - component: {fileID: 5213708016234147112}
-  - component: {fileID: 3191308816093183128}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -347,19 +417,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5213708016234147112}
-        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
-        m_MethodName: DisableCollisions
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3191308816093183128}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
         m_MethodName: setInteractionLayerToDefault
         m_Mode: 1
@@ -374,19 +432,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5213708016234147112}
-        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
-        m_MethodName: EnableCollisions
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3191308816093183128}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
         m_MethodName: setInteractionLayerToCanAttachToLuerlock
         m_Mode: 1
@@ -441,19 +487,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5182adbbc5b45284f9981fa2876b0af4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  socketsOwnerInteractable: {fileID: 3625825646839276993}
---- !u!114 &3191308816093183128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549255362493332161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 809e05b6f81b91f41bcb0e2b899e19e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 3625825646839276993}
