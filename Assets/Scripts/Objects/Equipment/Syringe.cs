@@ -196,4 +196,9 @@ public class Syringe : GeneralItem {
             return 1.0f * Container.Amount / Container.Capacity;
         }
     }
+
+    public void setLiqidContainerReference()
+    {
+
+    }
 }
