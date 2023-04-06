@@ -3,6 +3,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor;
+using UnityEngine.Events;
 
 public class TaskManagerTest
 {
@@ -76,7 +77,8 @@ public class TaskManagerTest
     [UnityTest]
     public IEnumerator TestGettingCurrentTaskWorks()
     {
-        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
+        taskManager.CompleteTask("A");
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "B");
         yield return null;
     }
 
@@ -100,23 +102,60 @@ public class TaskManagerTest
     }
 
     [UnityTest]
-    public IEnumerator TestTimedTaskNotComplitedWhenTimeRunsOut()
+    public IEnumerator TestCreateGeneralMistake()
     {
-        taskManager.taskListObject.GetTask("C");
-        yield return new WaitForSeconds(4);
-        taskManager.CompleteTask("C"); //doesnt work when this is added
-        Assert.False(taskManager.IsTaskCompleted("C"));
+        UnityEvent<Mistake> onMistakeEvent = new UnityEvent<Mistake>();
+        taskManager.onMistake = onMistakeEvent;
+        taskManager.GenerateGeneralMistake("Mistake was made", 1);
+
+        Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes().Count);
+        Assert.AreEqual("Mistake was made", taskManager.taskListObject.GetGeneralMistakes()[0].mistakeText);
+        Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes()[0].pointsDeducted);
         yield return null;
     }
 
     [UnityTest]
-    public IEnumerator TestMistakeReducePoints()
+    public IEnumerator TestCreateTaskMistake()
     {
-        taskManager.taskListObject.GetTask("B");
-        Debug.Log(taskManager.taskListObject.GetPoints());
-        taskManager.GenerateTaskMistake("Test Mistake Text", 1);
-        Assert.AreEqual(taskManager.taskListObject.GetPoints(), 0);
+        UnityEvent<Mistake> onMistakeEvent = new UnityEvent<Mistake>();
+        taskManager.onMistake = onMistakeEvent;
+        taskManager.GenerateTaskMistake("Mistake was made", 3);
+        taskManager.GenerateTaskMistake("Mistake was made again", 2);
+
+        Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes().Count);
+        Assert.AreEqual("Mistake was made", taskManager.GetCurrentTask().ReturnMistakes()[0].mistakeText);
+        Assert.AreEqual("Mistake was made again", taskManager.GetCurrentTask().ReturnMistakes()[1].mistakeText);
+        Assert.AreEqual(3, taskManager.GetCurrentTask().ReturnMistakes()[0].pointsDeducted);
+        Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes()[1].pointsDeducted);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestTaskCountdown()
+    {
+        taskManager.CompleteTask("A");
+        taskManager.CompleteTask("B");
+        yield return new WaitForSecondsRealtime(4);
+        Assert.True(taskManager.GetCurrentTask().timed);
+        Assert.True(taskManager.GetCurrentTask().failWhenOutOfTime);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestCompletingTasksInDifferentOrderWorks()
+    {
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
+        taskManager.CompleteTask("B");
+        Assert.True(taskManager.IsTaskCompleted("B"));
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
+        taskManager.CompleteTask("A");
+        Assert.True(taskManager.IsTaskCompleted("A"));
+        Assert.True(taskManager.IsTaskCompleted("B"));
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "C");
+        taskManager.CompleteTask("C");
+        Assert.True(taskManager.IsTaskCompleted("A"));
+        Assert.True(taskManager.IsTaskCompleted("B"));
+        Assert.True(taskManager.IsTaskCompleted("C"));
         yield return null;
     }
 }
-
