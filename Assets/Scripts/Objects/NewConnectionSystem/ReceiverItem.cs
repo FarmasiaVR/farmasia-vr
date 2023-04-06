@@ -116,6 +116,7 @@ public class ReceiverItem : AttachmentItem
     }
 
     public void CheckDistanceAndConnect() {
+        Debug.Log("item is trying to connect!");
         if (WillConnect()) {
             if (Vector3.Distance(transform.TransformPoint(TriggerCollider.center), NearestItem.transform.position) > SnapDistance) return;
             if (Vector3.Angle(transform.up, NearestItem.transform.up) > SnapAngle) return;

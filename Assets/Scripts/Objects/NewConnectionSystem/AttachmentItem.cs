@@ -41,7 +41,7 @@ public class AttachmentItem : GeneralItem
             while (true)
             {
                 if (VRInput.GetControlUp(hand.HandType, Controls.Grab)) break;
-
+                Debug.Log("attaching to something!");
                 Vector3 currentPositionDelta = hand.transform.position - hand.Other.transform.position;
                 float currentDistance = Vector3.Distance(startPositionDelta, currentPositionDelta);
 
