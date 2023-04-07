@@ -9,7 +9,13 @@ public class PlayerEnter : MonoBehaviour
     private bool playerInside;
     private bool enteredOnce;
     private Material startingMaterial;
-    public Material enteredMaterial;
+    [SerializeField]
+    Material enteredMaterial;
+
+    [SerializeField]
+    float greenShownTime;
+
+    private MeshRenderer meshRenderer;
     enum Scenario
     {
         EmergencyShower,
@@ -25,6 +31,7 @@ public class PlayerEnter : MonoBehaviour
     void Start()
     {
         startingMaterial = gameObject.GetComponent<MeshRenderer>().material;
+        meshRenderer = gameObject.GetComponent<MeshRenderer>();
         playerEntered = false;
         playerInside = false;
     }
@@ -32,7 +39,16 @@ public class PlayerEnter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(playerEntered)
+        {
+            meshRenderer.material = enteredMaterial;
+            greenShownTime -= Time.deltaTime;
+            if(greenShownTime < 0)
+            {
+                meshRenderer.material = startingMaterial;
+            }
+            
+        }
     }
 
     private void OnTriggerEnter(Collider other)

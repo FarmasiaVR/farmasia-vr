@@ -23,14 +23,14 @@ public class LaboratorySceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*FindFireExtinguisher();
+        FindFireExtinguisher();
         FindFireBlanket();
         FindEyeShower();
-        FindEmergencyShower();*/
-        IterateTasks();
+        FindEmergencyShower();
+        //IterateFindTasks();
     }
 
-    public void IterateTasks()
+    public void IterateFindTasks()
     {
         foreach (PlayerEnter script in playerEnter)
         {
@@ -40,11 +40,11 @@ public class LaboratorySceneManager : MonoBehaviour
             }
             if (script.gameObject.name == "PlayerEnterBox EyeShower" && script.HasEnteredOnce())
             {
-                taskManager.CompleteTask("Extinguisher");
+                taskManager.CompleteTask("EyeShower");
             }
             if (script.gameObject.name == "PlayerEnterBox FireExtinguisher" && script.HasEnteredOnce())
             {
-                taskManager.CompleteTask("EyeShower");
+                taskManager.CompleteTask("Extinguisher");
             }
             if (script.gameObject.name == "PlayerEnterBox EmergencyShower" && script.HasEnteredOnce())
             {
