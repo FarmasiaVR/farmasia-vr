@@ -78,8 +78,8 @@ public class TaskManagerTest
     public IEnumerator TestGettingCurrentTaskWorks()
     {
         taskManager.CompleteTask("A");
-        Assert.AreEqual(taskManager.GetCurrentTask().key, "B");
         yield return null;
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "B");
     }
 
     [UnityTest]
@@ -95,10 +95,10 @@ public class TaskManagerTest
         taskManager.CompleteTask("A");
         taskManager.CompleteTask("B");
         taskManager.CompleteTask("C");
+        yield return null;
         Assert.True(taskManager.IsTaskCompleted("A"));
         Assert.True(taskManager.IsTaskCompleted("B"));
         Assert.True(taskManager.IsTaskCompleted("C"));
-        yield return null;
     }
 
     [UnityTest]
@@ -108,10 +108,10 @@ public class TaskManagerTest
         taskManager.onMistake = onMistakeEvent;
         taskManager.GenerateGeneralMistake("Mistake was made", 1);
 
+        yield return null;
         Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes().Count);
         Assert.AreEqual("Mistake was made", taskManager.taskListObject.GetGeneralMistakes()[0].mistakeText);
         Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes()[0].pointsDeducted);
-        yield return null;
     }
 
     [UnityTest]
@@ -122,40 +122,58 @@ public class TaskManagerTest
         taskManager.GenerateTaskMistake("Mistake was made", 3);
         taskManager.GenerateTaskMistake("Mistake was made again", 2);
 
+        yield return null;
         Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes().Count);
         Assert.AreEqual("Mistake was made", taskManager.GetCurrentTask().ReturnMistakes()[0].mistakeText);
         Assert.AreEqual("Mistake was made again", taskManager.GetCurrentTask().ReturnMistakes()[1].mistakeText);
         Assert.AreEqual(3, taskManager.GetCurrentTask().ReturnMistakes()[0].pointsDeducted);
         Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes()[1].pointsDeducted);
-        yield return null;
     }
 
     [UnityTest]
-    public IEnumerator TestTaskCountdown()
+    public IEnumerator TestFailedTaskDoesNotIncreasePoints()
     {
         taskManager.CompleteTask("A");
         taskManager.CompleteTask("B");
         yield return new WaitForSecondsRealtime(4);
         Assert.True(taskManager.GetCurrentTask().timed);
         Assert.True(taskManager.GetCurrentTask().failWhenOutOfTime);
-        yield return null;
+        taskManager.CompleteTask("C");
+        Assert.True(taskManager.IsTaskCompleted("C"));
+        Assert.AreEqual(200, taskManager.taskListObject.GetPoints());
+    }
+
+    [UnityTest]
+    public IEnumerator TestTimedTaskGrantsPartOfThePointsAndTaskListPointsCountingWorks()
+    {
+        taskManager.CompleteTask("A");
+        taskManager.CompleteTask("B");
+        yield return new WaitForSecondsRealtime(1);
+        Assert.True(taskManager.GetCurrentTask().timed);
+        taskManager.CompleteTask("C");
+        Assert.True(taskManager.IsTaskCompleted("C"));
+        Assert.AreEqual(100, taskManager.GetCurrentTask().awardedPoints, 5);
+        Assert.AreEqual(300, taskManager.taskListObject.GetPoints(), 5);
     }
 
     [UnityTest]
     public IEnumerator TestCompletingTasksInDifferentOrderWorks()
     {
+        yield return null;
         Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
         taskManager.CompleteTask("B");
+        yield return null;
         Assert.True(taskManager.IsTaskCompleted("B"));
         Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
         taskManager.CompleteTask("A");
+        yield return null;
         Assert.True(taskManager.IsTaskCompleted("A"));
         Assert.True(taskManager.IsTaskCompleted("B"));
         Assert.AreEqual(taskManager.GetCurrentTask().key, "C");
         taskManager.CompleteTask("C");
+        yield return null;
         Assert.True(taskManager.IsTaskCompleted("A"));
         Assert.True(taskManager.IsTaskCompleted("B"));
         Assert.True(taskManager.IsTaskCompleted("C"));
-        yield return null;
     }
 }
