@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SyringeNew : ReceiverItem {
 
-    public LiquidContainer Container { get; private set; }
+    public LiquidContainer Container;
 
     // How much liquid is moved per click
     public int LiquidTransferStep = 50;
@@ -27,8 +27,15 @@ public class SyringeNew : ReceiverItem {
     protected override void Start() {
         base.Start();
         GameObject cap = gameObject.transform.parent.GetChild(1).gameObject;
-        Container = LiquidContainer.FindLiquidContainer(transform);
-
+        
+        //if there is no liquid container find it:
+        //this is here because we need the SteamVR emulated older version of the game to work...
+        //Container should be set in the newer version
+        //good luck!
+        if (!Container)
+        {
+            Container = LiquidContainer.FindLiquidContainer(transform);
+        }
         Type.On(InteractableType.Interactable);
 
         Container.OnAmountChange += SetSyringeHandlePosition;

@@ -180,6 +180,7 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         if (genItem != null) {
+            UnityEngine.Debug.Log("calling on filter half enter! from liguid container");
             OnFilterHalfEnter(genItem);
         }
     }
@@ -247,15 +248,16 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnFilterHalfEnter(GeneralItem genItem) {
-       
+        UnityEngine.Debug.Log("somebody called filter half enter!");
         if (GeneralItem is Bottle && genItem.ObjectType == ObjectType.FilterHalf) {
-          
+            UnityEngine.Debug.Log("survived bottle check");
             genItem.State.On(InteractState.InBottle);
 
             if (!GeneralItem.IsClean) {
+                UnityEngine.Debug.Log("filter is contaminated!");
                 genItem.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-            
+            UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
         }
     }

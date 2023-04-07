@@ -74,11 +74,16 @@ namespace FarmasiaVR.Legacy {
         /// </summary>
         public virtual void CompleteTask()
         {
+            UnityEngine.Debug.Log("complete task check clear begin"); 
             Completed = CheckClearConditions();
+            UnityEngine.Debug.Log("complete task check clear end" + Completed);
             if (Completed)
             {
+                UnityEngine.Debug.Log("close task start");
                 CloseTask();
+                UnityEngine.Debug.Log("popup start");
                 Popup(success, MsgType.Done, Points);
+                UnityEngine.Debug.Log("popup end");
             }
         }
 
@@ -179,25 +184,38 @@ namespace FarmasiaVR.Legacy {
         }
 
         // Check every Condition.
+        //  ^ thanks very helpfull
         private bool CheckClearConditions()
         {
+           
+
+
+            Debug.Log("Count of clearconditions: " + clearConditions.Values.Count);
             if (clearConditions.Values.Count == 0)
             {
+                UnityEngine.Debug.Log("clearConditions.Values.Count == 0");
                 return true;
             }
+            UnityEngine.Debug.Log("clearConditions.Values.Count != 0");
 
             if (checkAllClearConditions)
             {
+                UnityEngine.Debug.Log("checkAllClearConditions");
                 if (!clearConditions.ContainsValue(false))
                 {
+                    UnityEngine.Debug.Log("!clearConditions.ContainsValue(false) success");
                     return true;
                 }
+                UnityEngine.Debug.Log("!clearConditions.ContainsValue(false) failed");
                 return false;
             }
             if (clearConditions.ContainsValue(true))
             {
+                UnityEngine.Debug.Log("clearConditions.ContainsValue(true) success");
                 return true;
             }
+
+            UnityEngine.Debug.Log("final fail");
             return false;
         }
 
