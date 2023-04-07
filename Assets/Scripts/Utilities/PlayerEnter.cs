@@ -16,6 +16,7 @@ public class PlayerEnter : MonoBehaviour
     float greenShownTime;
 
     private MeshRenderer meshRenderer;
+    private GameObject emergencyShowerButton, fireExtinguisherButton, eyeShowerButton, fireBlanketButton;
     enum Scenario
     {
         EmergencyShower,
@@ -30,6 +31,10 @@ public class PlayerEnter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        emergencyShowerButton = GameObject.Find("TutorialLocations").transform.Find("TeleportButtons/TutorialTeleporter EmergencyShower").gameObject;
+        fireExtinguisherButton = GameObject.Find("TutorialLocations").transform.Find("TeleportButtons/TutorialTeleporter FireExtinguisher").gameObject;
+        eyeShowerButton = GameObject.Find("TutorialLocations").transform.Find("TeleportButtons/TutorialTeleporter EyeShower").gameObject;
+        fireBlanketButton = GameObject.Find("TutorialLocations").transform.Find("TeleportButtons/TutorialTeleporter FireBlanket").gameObject;
         startingMaterial = gameObject.GetComponent<MeshRenderer>().material;
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
         playerEntered = false;
@@ -39,15 +44,29 @@ public class PlayerEnter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerEntered)
+        if (playerEntered)
         {
-            meshRenderer.material = enteredMaterial;
             greenShownTime -= Time.deltaTime;
-            if(greenShownTime < 0)
+            if (greenShownTime < 0)
             {
                 meshRenderer.material = startingMaterial;
             }
-            
+            if (this.gameObject.name == "PlayerEnterBox EmergencyShower")
+            {
+                emergencyShowerButton.SetActive(true);
+            }
+            if (this.gameObject.name == "PlayerEnterBox FireBlanket")
+            {
+                fireBlanketButton.SetActive(true);
+            }
+            if (this.gameObject.name == "PlayerEnterBox FireExtinguisher")
+            {
+                fireExtinguisherButton.SetActive(true);
+            }
+            if (this.gameObject.name == "PlayerEnterBox EyeShower")
+            {
+                eyeShowerButton.SetActive(true);
+            }
         }
     }
 
@@ -58,8 +77,7 @@ public class PlayerEnter : MonoBehaviour
             playerEntered = true;
             playerInside = true;
             enteredOnce = true;
-            MeshRenderer r = gameObject.GetComponent<MeshRenderer>();
-            r.material = enteredMaterial;
+            meshRenderer.material = enteredMaterial;
             Debug.Log("Player entered the " + scenario + " area");
         }
     }
