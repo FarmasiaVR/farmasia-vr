@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor;
 using UnityEngine.Events;
+using System.Drawing.Text;
 
 public class TaskManagerTest
 {
@@ -89,16 +90,22 @@ public class TaskManagerTest
         yield return null;
     }
 
-    [UnityTest]
-    public IEnumerator TestAllTaskCompleted()
+    [Test]
+    public void TestAllTaskCompleted()
     {
+        bool eventCalled = false;
+
+        taskManager.onAllTasksCompleted.AddListener(task => eventCalled = true);
+
         taskManager.CompleteTask("A");
         taskManager.CompleteTask("B");
         taskManager.CompleteTask("C");
-        yield return null;
+
         Assert.True(taskManager.IsTaskCompleted("A"));
         Assert.True(taskManager.IsTaskCompleted("B"));
         Assert.True(taskManager.IsTaskCompleted("C"));
+
+        Assert.True(eventCalled);
     }
 
     [UnityTest]

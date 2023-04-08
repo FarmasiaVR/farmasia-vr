@@ -4,17 +4,22 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
+using TMPro;
 
 public class TestTaskDescriptionManager
 {
     private TaskDescriptionManager taskDescriptionManager;
     private GameObject managerGameObject;
+    private GameObject taskDesc;
     private TaskManager taskManager;
     private TaskList taskList;
 
-    [SetUp]
+    [UnitySetUp]
     public IEnumerator SetUp()
     {
+        // Instantiate a TaskDescription in the scene to check if the updates are run correctly.
+        taskDesc = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/UI/NewTaskDescription.prefab"));
+
         // Set up TaskDescriptionManager
         GameObject gameObject = new GameObject();
         taskDescriptionManager = gameObject.AddComponent<TaskDescriptionManager>();
@@ -27,6 +32,9 @@ public class TestTaskDescriptionManager
         taskManager.taskListObject = taskList;
         taskManager.resetOnStart = true;
 
+        // Connect the TaskDescriptionManager to TaskManager
+        taskManager.onTaskStarted.AddListener(taskDescriptionManager.UpdateTaskDescriptions);
+        
         // Skip a frame so that Start and Awake functions of the TaskManager are run
         yield return null;
     }
@@ -35,26 +43,28 @@ public class TestTaskDescriptionManager
     public void TearDown()
     {
         // Clean up any resources used by the tests
-        UnityEngine.Object.Destroy(taskDescriptionManager.gameObject);
-        UnityEngine.Object.Destroy(managerGameObject);
+        Object.Destroy(taskDescriptionManager.gameObject);
+        Object.Destroy(managerGameObject);
+        Object.Destroy(taskDesc);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator TestTaskDescriptionManagerWithEnumeratorPasses()
+    [Test]
+    public void TestAssetsExist()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        Assert.NotNull(taskList);
+        Assert.NotNull(taskDesc);
     }
 
-    [UnityTest]
-    public IEnumerator TestUpdateTaskDescriptions()
+    [Test]
+    public void TestTaskDescriptionCorrectOnStart()
+    {
+        Assert.AreEqual(taskDesc.GetComponent<TextMeshPro>().text, "Task A");
+    }
+
+    [Test]
+    public void TestTaskDescriptionUpdate()
     {
         taskManager.CompleteTask("A");
-        taskDescriptionManager.UpdateTaskDescriptions(taskManager.GetCurrentTask());
-        yield return null;
-        Assert.AreEqual("Task B", taskManager.GetCurrentTask().taskText);
+        Assert.AreEqual(taskDesc.GetComponent<TextMeshPro>().text, "Task B");
     }
 }
