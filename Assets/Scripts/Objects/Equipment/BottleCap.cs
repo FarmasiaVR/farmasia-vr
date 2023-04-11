@@ -61,4 +61,19 @@ public class BottleCap : ConnectableItem {
         bottle.Type.On(InteractableType.Attachable);
         yield break;
     }
+
+    public void AttachCapXR(SelectEnterEventArgs args)
+    {
+        if (args.interactorObject.transform.GetComponent<XRSocketInteractor>()) {
+            Events.FireEvent(EventType.BottleClosed, CallbackData.Object(this));
+        }
+    }
+
+    public void RemoveCapXR(SelectExitEventArgs args)
+    {
+        if (args.interactorObject.transform.GetComponent<XRSocketInteractor>())
+        {
+            Events.FireEvent(EventType.BottleOpened, CallbackData.Object(this));
+        }
+    }
 }

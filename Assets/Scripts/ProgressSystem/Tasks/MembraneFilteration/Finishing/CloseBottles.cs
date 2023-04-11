@@ -17,7 +17,10 @@ public class CloseBottles : Task {
     }
 
     private void TrackClosedBottles(CallbackData data) {
-        openedBottles--;
+        if (openedBottles > 0)
+        {
+            openedBottles--;
+        }
         if (Started) {
             if (openedBottles == 0) {
                 EnableCondition(Conditions.BottlesClosed);
