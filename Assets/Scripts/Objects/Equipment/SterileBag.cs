@@ -72,8 +72,8 @@ public class SterileBag : GeneralItem {
         if (syringe)
         {
             syringes.Add(syringe);
-            Debug.Log("Added syringe");
-            Debug.Log("Current syringe count:" + syringes.Count);
+            // Debug.Log("Added syringe");
+            // Debug.Log("Current syringe count:" + syringes.Count);
             if (syringes.Count >= 6) {
                 EnableClosing();
             }

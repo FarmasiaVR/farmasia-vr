@@ -107,7 +107,7 @@ public class SyringeNew : ReceiverItem {
     }
 
     public void TakeMedicine(int amount) {
-        Debug.Log("getting taking medicine button call!");
+        // Debug.Log("getting taking medicine button call!");
         if (State == InteractState.InBottle) {
             Logger.Print("Take medicine: " + amount);
             TransferToBottle(amount);
@@ -119,7 +119,7 @@ public class SyringeNew : ReceiverItem {
     }
 
     public void SendMedicine(int amount) {
-        Debug.Log("getting send medicine button call!");
+        // Debug.Log("getting send medicine button call!");
         if (State == InteractState.InBottle) {
             Logger.Print("Sending medicine: " + amount);
             TransferToBottle(amount);

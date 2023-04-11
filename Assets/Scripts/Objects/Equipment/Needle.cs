@@ -40,16 +40,16 @@ public class Needle : ConnectableItem
 
     public void setAttachedItemRef(SelectEnterEventArgs args)
     {
-        UnityEngine.Debug.Log("checking needle attach args");
+        // UnityEngine.Debug.Log("checking needle attach args");
         DisableAttachedObjectCollider socketManager = args.interactorObject.transform.GetComponent<DisableAttachedObjectCollider>();
         if (socketManager)
         {
-            UnityEngine.Debug.Log("found socket manager");
+            // UnityEngine.Debug.Log("found socket manager");
             Syringe syr = socketManager.socketsOwnerInteractable.GetComponent<Syringe>();
             if (syr)
             {
                 Connector.attached.Interactable = syr;
-                UnityEngine.Debug.Log("attached needle to syringe!");
+                // UnityEngine.Debug.Log("attached needle to syringe!");
             }
         }
     }

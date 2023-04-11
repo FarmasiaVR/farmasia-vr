@@ -128,22 +128,22 @@ public class CorrectItemsInThroughputMembrane: Task {
                     int capacity = bottle.Container.Capacity;
                     LiquidType type = bottle.Container.LiquidType;
                     if (capacity == 100000) {
-                        Debug.Log("detected bottle 100ml entering cabinet");
+                        // Debug.Log("detected bottle 100ml entering cabinet");
                         bottles100ml++;
                         if (bottles100ml == 4) {
                             EnableCondition(Conditions.Bottles100ml);
                         }
 
                     } else if (type == LiquidType.Peptonwater) {
-                        Debug.Log("detected peptone water entering cabinet");
+                        // Debug.Log("detected peptone water entering cabinet");
                         peptonWaterBottle++;
                         EnableCondition(Conditions.PeptoniWaterBottle);
                     } else if (type == LiquidType.Soycaseine) {
-                        Debug.Log("detected soycaseine bottle entering cabinet");
+                        // Debug.Log("detected soycaseine bottle entering cabinet");
                         soycaseineBottle++;
                         EnableCondition(Conditions.SoycaseineBottle);
                     } else if (type == LiquidType.Tioglygolate) {
-                        Debug.Log("detected Tioglygolate entering cabinet");
+                        // Debug.Log("detected Tioglygolate entering cabinet");
                         tioglycolateBottle++;
                         EnableCondition(Conditions.TioglycolateBottle);
                     } else {
@@ -152,13 +152,13 @@ public class CorrectItemsInThroughputMembrane: Task {
                 } else if (g is AgarPlateLid lid) {
                     string variant = lid.Variant;
                     if (variant == "Soija-kaseiini") {
-                        Debug.Log("detected soija kaseiini entering cabinet");
+                        // Debug.Log("detected soija kaseiini entering cabinet");
                         soycaseinePlate++;
                         if (soycaseinePlate == 3) {
                             EnableCondition(Conditions.SoycaseinePlate);
                         }
                     } else if (variant == "Sabourad-dekstrosi") {
-                        Debug.Log("detected Sabourad-dekstrosi plate entering cabinet");
+                        // Debug.Log("detected Sabourad-dekstrosi plate entering cabinet");
                         sabouradDextrosiPlate++;
                         EnableCondition(Conditions.SabouradDextrosiPlate);
                     } else {
@@ -166,40 +166,40 @@ public class CorrectItemsInThroughputMembrane: Task {
                     }
 
                 } else if (g is Tweezers) {
-                    Debug.Log("detected tweezers entering cabinet");
+                    // Debug.Log("detected tweezers entering cabinet");
                     EnableCondition(Conditions.Tweezers);
                     tweezers++;
                 } else if (g is Scalpel) {
-                    Debug.Log("detected scalpel entering cabinet");
+                    // Debug.Log("detected scalpel entering cabinet");
                     EnableCondition(Conditions.Scalpel);
                     scalpel++;
                 } else if (g is Pipette) {
-                    Debug.Log("detected pipette entering cabinet");
+                    // Debug.Log("detected pipette entering cabinet");
                     pipette++;
                     if (pipette == 1) {
                         EnableCondition(Conditions.Pipette);
                     }
                 } else if (g is Pump) {
-                    Debug.Log("detected pump entering cabinet");
+                    // Debug.Log("detected pump entering cabinet");
                     EnableCondition(Conditions.Pump);
                     pump++;
                 } else if (g is FilterInCover) {
-                    Debug.Log("detected filter in cover entering cabinet");
+                    // Debug.Log("detected filter in cover entering cabinet");
                     EnableCondition(Conditions.PumpFilter);
                     filter++;
                 
                 } else if (g is SterileBag2) {
-                    Debug.Log("detected SterileBag2 entering cabinet");
+                    // Debug.Log("detected SterileBag2 entering cabinet");
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
                 } else if (g is PipetteHeadCover) {
-                    Debug.Log("detected pipetteheadincover entering cabinet");
+                    // Debug.Log("detected pipetteheadincover entering cabinet");
                     pipetteHeads++;
                     if (pipetteHeads == 2) {
                         EnableCondition(Conditions.PipetteHeads);
                     }
                 } else if (g is BigPipette) {
-                    Debug.Log("detected bigpipette entering cabinet");
+                    // Debug.Log("detected bigpipette entering cabinet");
                     EnableCondition(Conditions.BigPipette);
                     bigPipette++;
                 }

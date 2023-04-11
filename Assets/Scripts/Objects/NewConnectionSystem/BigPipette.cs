@@ -42,7 +42,7 @@ public class BigPipette : ReceiverItem
     }
    
     public void TakeMedicine() {
-        Debug.Log("Big pipette starts taking medicine");
+        // Debug.Log("Big pipette starts taking medicine");
         if (ConnectedItem)
         {
             (ConnectedItem as PipetteContainer).TakeMedicine();

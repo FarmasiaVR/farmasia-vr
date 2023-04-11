@@ -12,7 +12,7 @@ public class Pump : ReceiverItem
     public void attachFilterXR()
 
     {
-        Debug.Log("Pump detected filter");
+        // Debug.Log("Pump detected filter");
         Events.FireEvent(EventType.AttachFilter, CallbackData.Object(this));
     }
 }

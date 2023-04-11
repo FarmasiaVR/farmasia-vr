@@ -32,7 +32,7 @@ public class PipetteContainer : AttachmentItem
     }
 
     public void TakeMedicine() {
-        Debug.Log("pipette container starts taking medicine");
+        // Debug.Log("pipette container starts taking medicine");
         if (ignoreOldInteractStateCheck == false)
         {
             if (State == InteractState.InBottle)
@@ -41,7 +41,7 @@ public class PipetteContainer : AttachmentItem
             }
             else
             {
-                Debug.Log("PipetteContainer not in bottle");
+                // Debug.Log("PipetteContainer not in bottle");
             }
         }
         TransferToBottle(false);

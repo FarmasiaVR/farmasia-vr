@@ -15,7 +15,7 @@ public class BigPipetteXR : MonoBehaviour
 
     public void TakeMedicine()
     {
-        Debug.Log("Big pipette starts taking medicine");
+        // Debug.Log("Big pipette starts taking medicine");
         if (pipetteContainerXR)
         {
             pipetteContainerXR.TakeMedicine();

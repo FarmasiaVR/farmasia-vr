@@ -87,27 +87,27 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     public void TransferTo(LiquidContainer target, int amount) {
-        Debug.Log("Liguid container starts taking medicine");
+        // Debug.Log("Liguid container starts taking medicine");
         if (target == null) {
             Logger.Error("Receiving LiquidContainer was null");
             return;
         }
-        Debug.Log("we survived target null check on bottle side");
+        // Debug.Log("we survived target null check on bottle side");
         if (amount == 0) {
             return;
         }
-        Debug.Log("survived amount == 0 check");
+        // Debug.Log("survived amount == 0 check");
         if (amount < 0) {
             target.TransferTo(this, -amount);
             return;
         }
-        Debug.Log("survived amount < 0 check");
+        // Debug.Log("survived amount < 0 check");
         int receiveCapacity = target.GetReceiveCapacity();
         int canSend = Math.Min(Amount, amount);
         int toTransfer = Math.Min(canSend, receiveCapacity);
 
         if (toTransfer == 0) return;
-        Debug.Log("survived toTransfer == 0 check");
+        // Debug.Log("survived toTransfer == 0 check");
         TransferLiquidType(target);
       
         SetAmount(Amount - toTransfer);
@@ -131,9 +131,9 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
-        Debug.Log("FINALLY SENDING EVENT?");
+        //Debug.Log("FINALLY SENDING EVENT?");
         if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
-            Debug.Log("FINALLY SENDING EVENT!!");
+            // Debug.Log("FINALLY SENDING EVENT!!");
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
         }
     }
@@ -180,7 +180,7 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         if (genItem != null) {
-            UnityEngine.Debug.Log("calling on filter half enter! from liguid container");
+            //UnityEngine.Debug.Log("calling on filter half enter! from liguid container");
             OnFilterHalfEnter(genItem);
         }
     }
@@ -248,16 +248,16 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnFilterHalfEnter(GeneralItem genItem) {
-        UnityEngine.Debug.Log("somebody called filter half enter!");
+        //UnityEngine.Debug.Log("somebody called filter half enter!");
         if (GeneralItem is Bottle && genItem.ObjectType == ObjectType.FilterHalf) {
-            UnityEngine.Debug.Log("survived bottle check");
+            //UnityEngine.Debug.Log("survived bottle check");
             genItem.State.On(InteractState.InBottle);
 
             if (!GeneralItem.IsClean) {
-                UnityEngine.Debug.Log("filter is contaminated!");
+                //UnityEngine.Debug.Log("filter is contaminated!");
                 genItem.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
-            UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
+            //UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
         }
     }

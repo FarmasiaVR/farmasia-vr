@@ -64,8 +64,8 @@ class MembraneFilterationScene : SceneScript {
     }
 
     private IEnumerator PlayCoroutine(AutoPlayStrength strength) {
-        Hand leftHand = VRInput.Hands[0].Hand;
-        Hand rightHand = VRInput.Hands[1].Hand;
+        Hand leftHand = new Hand();
+        Hand rightHand = new Hand();
         // Create objects from prefabs and store in a list. They must be in the correct order here!
         List<GameObject> workspaceRoomObjects = new List<GameObject>() {
             automaticPipette, pipette, pump, tweezers, scalpel, pipetteInCover1, pipetteInCover2, filterInCover,

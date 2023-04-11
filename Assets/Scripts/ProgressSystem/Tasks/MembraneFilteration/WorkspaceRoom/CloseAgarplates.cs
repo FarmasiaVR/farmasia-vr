@@ -17,7 +17,10 @@ public class CloseAgarPlates : Task {
     }
 
     private void TrackClosedPlates(CallbackData data) {
-        openedPlates--;
+        if (openedPlates > 0)
+        {
+            openedPlates--;
+        }
         if (Started) {
             if (openedPlates == 0) {
                 EnableCondition(Conditions.PlatesClosed);

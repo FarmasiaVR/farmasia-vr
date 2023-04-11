@@ -27,29 +27,29 @@ public class FilterHalvesToBottles : Task {
         Bottle bottle = data.DataObject as Bottle;
         LiquidContainer container = bottle.Container;
         if (container.LiquidType == LiquidType.Soycaseine) {
-            UnityEngine.Debug.Log("soycaseine halves before: " + filterHalvesInSoycaseine);
+            // UnityEngine.Debug.Log("soycaseine halves before: " + filterHalvesInSoycaseine);
             filterHalvesInSoycaseine++;
-            UnityEngine.Debug.Log("soycaseine halves after: " + filterHalvesInSoycaseine);
+            // UnityEngine.Debug.Log("soycaseine halves after: " + filterHalvesInSoycaseine);
 
 
         }
 
         if (container.LiquidType == LiquidType.Tioglygolate) {
-            UnityEngine.Debug.Log("Tioglygolate halves before: " + filterHalvesInTioglycolate);
+            // UnityEngine.Debug.Log("Tioglygolate halves before: " + filterHalvesInTioglycolate);
 
             filterHalvesInTioglycolate++;
-            UnityEngine.Debug.Log("Tioglygolate halves after: " + filterHalvesInTioglycolate);
+            // UnityEngine.Debug.Log("Tioglygolate halves after: " + filterHalvesInTioglycolate);
 
         }
 
         if (filterHalvesInSoycaseine + filterHalvesInTioglycolate >= 2) {
-            UnityEngine.Debug.Log("starting task finnish");
+            // UnityEngine.Debug.Log("starting task finish");
             EnableCondition(Conditions.HavlesInBottles);
-            UnityEngine.Debug.Log("starting check mistake");
+            // UnityEngine.Debug.Log("starting check mistake");
             CheckMistakes();
-            UnityEngine.Debug.Log("starting complete task");
+            // UnityEngine.Debug.Log("starting complete task");
             CompleteTask();
-            UnityEngine.Debug.Log("verythings completed! WHOOOO");
+            // UnityEngine.Debug.Log("verythings completed! WHOOOO");
         }
     }
 
@@ -67,7 +67,7 @@ public class FilterHalvesToBottles : Task {
     private void TweezersCoverOpened(CallbackData data) {
         var tweezers = (data.DataObject as Tweezers);
         CheckIfInsideLaminarCabinet(tweezers);
-        UnityEngine.Debug.Log("tweezers enabled");
+        // UnityEngine.Debug.Log("tweezers enabled");
         EnableCondition(Conditions.OpenedTweezersCover);
     }
 
