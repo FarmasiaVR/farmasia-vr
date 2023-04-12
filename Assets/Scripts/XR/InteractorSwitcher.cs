@@ -120,6 +120,14 @@ public class InteractorSwitcher : MonoBehaviour
 
     public void DisableInteractorSwitching()
     {
+        XRInteractionManager interactionManager = directInteractor.interactionManager;
+
+        // If the player is holding something, then drop it. Otherwise the object will stay selected and may cause bugs.
+        if (directInteractor.interactablesSelected.Count > 0)
+        {
+            interactionManager.SelectExit(directInteractor, directInteractor.interactablesSelected[0]);
+        }
+
         SetInteractorEnabled(directInteractor, false);
         SetInteractorEnabled(rayInteractor, false);
         SetInteractorEnabled(teleportInteractor, false);
