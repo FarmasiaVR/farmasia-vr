@@ -23,6 +23,7 @@ public class CleaningBottle : GeneralItem
     }
 
     public void Clean() {
+        Debug.Log("trying to clean!");
         cleaningCollider.Clean();
     }
 }
