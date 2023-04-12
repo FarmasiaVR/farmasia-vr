@@ -188,7 +188,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                     EnableCondition(Conditions.PumpFilter);
                     filter++;
                 
-                } else if (g is SterileBag2) {
+                } else if ((g is SterileBag2) || (g is SterileBag)) {
                     // Debug.Log("detected SterileBag2 entering cabinet");
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
