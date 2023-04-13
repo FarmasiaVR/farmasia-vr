@@ -38,7 +38,7 @@ public class Writable : WritingTarget {
 
     public void addLine(WritingType type, string text)
     {
-        if (!WrittenLines.ContainsKey(type))
+        if (!WrittenLines.ContainsKey(type) && writingsInOrder.Count <= MaxLines)
         {
             WrittenLines.Add(type, text);
             writingsInOrder.Add(type);

@@ -79,42 +79,47 @@ public class WritingOptions : MonoBehaviour {
     }
 
     private void AddOption(WritingOption option) {
-        if (selectedOptions.Count == maxLines) return;
-        selectedOptions.Add(option.WritingType, option.OptionText);
+        
         if (objectToTypeTo)
         {
             objectToTypeTo.addLine(option.WritingType, option.OptionText);
+            UpdateResultingText(objectToTypeTo.WrittenLines);
         }
-        lastLine = option.WritingType;
-        UpdateResultingText();
+        
+       
         UpdateErrorMessage();
     }
 
     private void RemoveOption(WritingType type) {
-        selectedOptions.Remove(type);
+       
         if (objectToTypeTo)
         {
             objectToTypeTo.removeLine(type);
+            UpdateResultingText(objectToTypeTo.WrittenLines);
         }
-        if (selectedOptions.Count != 0) lastLine = selectedOptions.Keys.Last();
-        else lastLine = null;
-        UpdateResultingText();
+      
         UpdateErrorMessage();
     }
 
-    private void UpdateResultingText() {
-        resultText = alreadyWrittenText;
-        foreach (string line in selectedOptions.Values) {
+    public void UpdateResultingText(Dictionary<WritingType, string> writings) {
+        resultText = "";
+        foreach (string line in writings.Values) {
             resultText += line + "\n";
         }
         resultTextField.SetText(resultText);
     }
 
     private void UpdateErrorMessage() {
-        if (selectedOptions.Count == maxLines) {
-            errorTextField.SetText("Maksimimäärä rivejä!");
-        } else {
-            errorTextField.SetText("");
+        if (objectToTypeTo)
+        {
+            if(objectToTypeTo.writingsInOrder.Count >= maxLines) 
+            {
+                errorTextField.SetText("Maksimimäärä rivejä!");
+            }
+            else
+            {
+                errorTextField.SetText("");
+            }
         }
     }
 
@@ -133,6 +138,7 @@ public class WritingOptions : MonoBehaviour {
         if (objectToTypeTo)
         {
             objectToTypeTo.removeLatest();
+            UpdateResultingText(objectToTypeTo.WrittenLines);
         }
 
         if (!lastLine.HasValue) return;
@@ -163,12 +169,19 @@ public class WritingOptions : MonoBehaviour {
     }
 
     public void SetWritable(Writable writable) {
+        objectToTypeTo = writable;
+        
         int fakeTimeSet = rand.Next(0, 2);
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
         int currentLines = alreadyWrittenText.Split('\n').Length - 1; // Why -1? Just trust me.
         maxLines = writable.MaxLines - currentLines;
-        UpdateResultingText();
+        
+        if (objectToTypeTo)
+        {
+            UpdateResultingText(objectToTypeTo.WrittenLines);
+        }
+
         UpdateErrorMessage();
         UpdatePosition(writable.transform);
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
