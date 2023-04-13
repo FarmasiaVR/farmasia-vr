@@ -83,8 +83,7 @@ public class WritingOptions : MonoBehaviour {
         selectedOptions.Add(option.WritingType, option.OptionText);
         if (objectToTypeTo)
         {
-            objectToTypeTo.WrittenLines.Add(option.WritingType, option.OptionText);
-            objectToTypeTo.UpdateWrittenLines();
+            objectToTypeTo.addLine(option.WritingType, option.OptionText);
         }
         lastLine = option.WritingType;
         UpdateResultingText();
@@ -93,6 +92,10 @@ public class WritingOptions : MonoBehaviour {
 
     private void RemoveOption(WritingType type) {
         selectedOptions.Remove(type);
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.removeLine(type);
+        }
         if (selectedOptions.Count != 0) lastLine = selectedOptions.Keys.Last();
         else lastLine = null;
         UpdateResultingText();
@@ -126,6 +129,12 @@ public class WritingOptions : MonoBehaviour {
     }
 
     private void RemoveLine() {
+      
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.removeLatest();
+        }
+
         if (!lastLine.HasValue) return;
         RemoveOption(lastLine.Value);
     }

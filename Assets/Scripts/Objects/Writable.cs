@@ -23,6 +23,8 @@ public class Writable : WritingTarget {
     }
 
     public Dictionary<WritingType, string> WrittenLines = new Dictionary<WritingType, string>();
+    public List<WritingType> writingsInOrder = new List<WritingType>();
+
 
     public void AddWrittenLines(Dictionary<WritingType, string> options) {
         
@@ -32,6 +34,35 @@ public class Writable : WritingTarget {
         }
 
         UpdateWrittenLines();
+    }
+
+    public void addLine(WritingType type, string text)
+    {
+        if (!WrittenLines.ContainsKey(type))
+        {
+            WrittenLines.Add(type, text);
+            writingsInOrder.Add(type);
+            UpdateWrittenLines();
+        }
+    }
+
+    public void removeLine(WritingType type)
+    {
+        if (WrittenLines.ContainsKey(type))
+        {
+            WrittenLines.Remove(type);
+            writingsInOrder.Remove(type);
+            UpdateWrittenLines();
+        }
+    }
+
+    public void removeLatest()
+    {
+        if(writingsInOrder.Count>0)
+        {
+            WritingType writingToRemove = writingsInOrder[writingsInOrder.Count - 1];
+            removeLine(writingToRemove);
+        }
     }
 
     public void UpdateWrittenLines()
