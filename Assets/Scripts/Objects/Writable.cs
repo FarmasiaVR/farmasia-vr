@@ -25,17 +25,25 @@ public class Writable : WritingTarget {
     public Dictionary<WritingType, string> WrittenLines = new Dictionary<WritingType, string>();
 
     public void AddWrittenLines(Dictionary<WritingType, string> options) {
+        
         foreach(var option in options)
         {
             WrittenLines.Add(option.Key, option.Value);
         }
+
+        UpdateWrittenLines();
+    }
+
+    public void UpdateWrittenLines()
+    {
         string resultText = "";
         int n = 0;
-        foreach(string line in WrittenLines.Values)
+        foreach (string line in WrittenLines.Values)
         {
             resultText += line + '\n';
             n++;
-            if (n == 2 && isAgar) {
+            if (n == 2 && isAgar)
+            {
                 resultText += '\n';
                 resultText += '\n';
                 resultText += '\n';
@@ -45,7 +53,6 @@ public class Writable : WritingTarget {
         }
         textField.SetText(resultText);
     }
-
 
     void Start() {
         if (textField == null) {

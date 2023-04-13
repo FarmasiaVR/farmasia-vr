@@ -13,6 +13,8 @@ public class WritingOptions : MonoBehaviour {
     private TextMeshPro resultTextField;
     private TextMeshPro errorTextField;
 
+
+    public Writable objectToTypeTo;
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
     private WritingType? lastLine = null;
     private string alreadyWrittenText;
@@ -79,6 +81,11 @@ public class WritingOptions : MonoBehaviour {
     private void AddOption(WritingOption option) {
         if (selectedOptions.Count == maxLines) return;
         selectedOptions.Add(option.WritingType, option.OptionText);
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.WrittenLines.Add(option.WritingType, option.OptionText);
+            objectToTypeTo.UpdateWrittenLines();
+        }
         lastLine = option.WritingType;
         UpdateResultingText();
         UpdateErrorMessage();

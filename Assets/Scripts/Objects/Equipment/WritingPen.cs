@@ -57,13 +57,17 @@ public class WritingPen : GeneralItem {
         // Give it the writable's info (text and maximum number of lines)
         writingOptions.SetWritable(writable);
 
+        writingOptions.objectToTypeTo = writable;
+
         // Set the callback so that it writes to the writable when it is submitted
         writingOptions.onSubmit = (selectedOptions) => {
             SubmitWriting(writable, foundObject, selectedOptions);
             isWriting = false;
+            writingOptions.objectToTypeTo = null;
         };
         writingOptions.onCancel = () => {
             isWriting = false;
+            writingOptions.objectToTypeTo = null;
         };
     }
 
