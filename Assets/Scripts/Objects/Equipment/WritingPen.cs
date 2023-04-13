@@ -55,7 +55,7 @@ public class WritingPen : GeneralItem {
         // Now show it
         writingOptions.SetVisible(true);
 
-        writingOptions.objectToTypeTo = writable;
+       
         // Give it the writable's info (text and maximum number of lines)
         writingOptions.SetWritable(writable);
 
