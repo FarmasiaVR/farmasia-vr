@@ -47,24 +47,28 @@ public class PlayerEnter : MonoBehaviour
         if (playerEntered)
         {
             greenShownTime -= Time.deltaTime;
-            if (greenShownTime < 0)
+            if (greenShownTime <= 0)
             {
                 meshRenderer.material = startingMaterial;
             }
             if (this.gameObject.name == "PlayerEnterBox EmergencyShower")
             {
+                meshRenderer.material = enteredMaterial;
                 emergencyShowerButton.SetActive(true);
             }
             if (this.gameObject.name == "PlayerEnterBox FireBlanket")
             {
+                meshRenderer.material = enteredMaterial;
                 fireBlanketButton.SetActive(true);
             }
             if (this.gameObject.name == "PlayerEnterBox FireExtinguisher")
             {
+                meshRenderer.material = enteredMaterial;
                 fireExtinguisherButton.SetActive(true);
             }
             if (this.gameObject.name == "PlayerEnterBox EyeShower")
             {
+                meshRenderer.material = enteredMaterial;
                 eyeShowerButton.SetActive(true);
             }
         }
@@ -77,7 +81,6 @@ public class PlayerEnter : MonoBehaviour
             playerEntered = true;
             playerInside = true;
             enteredOnce = true;
-            meshRenderer.material = enteredMaterial;
             Debug.Log("Player entered the " + scenario + " area");
         }
     }
