@@ -12,6 +12,9 @@ public class TaskManager : MonoBehaviour
     [Tooltip("Whether the task progression should be reset when the scene is loaded")]
     public bool resetOnStart;
 
+    [Tooltip("This is called when this component is activated the first time")]
+    public UnityEvent<TaskList> onTaskManagerStarted = new UnityEvent<TaskList>();
+
     [Header("Task events")]
 
     [Tooltip("This is called when the active task changes")]
@@ -41,6 +44,7 @@ public class TaskManager : MonoBehaviour
         {
             taskListObject.ResetTaskProgression();
         }
+        onTaskManagerStarted.Invoke(taskListObject);
         GetNextTask();
     }
 
