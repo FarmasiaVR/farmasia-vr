@@ -78,4 +78,31 @@ public class Pipette : GeneralItem {
         Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
     }
     
+    public void TakeMedicineXR()
+    {
+        if (State == InteractState.InBottle)
+        {
+            TransferToBottleXR(false);
+        }
+        else
+        {
+            Logger.Print("Pipette not in bottle");
+        }
+    }
+
+    public void SendMedicineXR()
+    {
+        if (State == InteractState.InBottle)
+        {
+            TransferToBottleXR(true);
+        }
+    }
+
+    private void TransferToBottleXR(bool into)
+    {
+        if (BottleContainer == null) return;
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+
+        Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
+    }
 }
