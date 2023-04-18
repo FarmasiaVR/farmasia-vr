@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,22 +41,36 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
 
     }
 
+    IEnumerator disableSocketFor(float seconds)
+    {
+        Debug.Log("disabled socket");
+        attachSocket.GetComponent<XRSocketInteractor>().socketActive = false;
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("enabled socket");
+        attachSocket.GetComponent<XRSocketInteractor>().socketActive = true;
+        yield return true;
+    }
+
+
     public void detachSyringe()
     {
         IXRSelectInteractable attachedSyringe = attachSocket.firstInteractableSelected;
-        attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
-        attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        string[] masks = { "CanAttachToLuerlock", "InteractableByPlayer" };
-        attachedSyringe.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask(masks);
+        if (attachedSyringe != null)
+        {
+            attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            string[] masks = { "CanAttachToLuerlock", "InteractableByPlayer" };
+            attachedSyringe.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask(masks);
 
-        XRInteractionManager manager = attachSocket.interactionManager;
-        manager.SelectCancel(attachSocket, attachedSyringe);
+           
 
-        //set syringe transform to scene
-        attachedSyringe.transform.parent = null;
+            //detach syringe from luerlock
+            XRInteractionManager manager = attachSocket.interactionManager;
+            manager.SelectCancel(attachSocket, attachedSyringe);
+            attachedSyringe.transform.parent = null;
 
-        //for dev prototyping:
-        attachSocket.GetComponent<XRSocketInteractor>().socketActive = false;
-        
+            //prevent socket from immediately re selecting the interactable
+            StartCoroutine(disableSocketFor(3.0f));
+        }
     }
 }

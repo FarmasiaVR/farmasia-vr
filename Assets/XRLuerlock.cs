@@ -34,7 +34,7 @@ public class XRLuerlock : MonoBehaviour
 
     }
 
-  
+    
     
     public void frankenstainPrototypeDetachLuerlock(ActivateEventArgs args)
     {
