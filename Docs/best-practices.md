@@ -4,7 +4,7 @@ A compilation of agreed-on ways of working as a team
 
 ## Common things
 
-Daily Scrum held every weekday at 12:30 either on Discord, at campus (eg. DK107, Factory, an empty classroom) or a mix of these.
+Daily Scrum held every weekday at 12:30 (during the third period) either on Discord, at campus (eg. DK107, Factory, an empty classroom) or a mix of these. In the fourth period, the dailies are held at 14:00 except for Wednesdays when they are held at 12:30. The timing may change based on the team's needs.
 
 Monday and Thursday are campus days, on which everyone will be present in the same space at least for the Daily. 
 

@@ -1,6 +1,8 @@
 # Architecture
 This document describes the basic idea of the architecture used in newer sections of the game. The changing room, medicine preparation and the membrane filtration scenes do not use this architecture. Please refer to [the old architecture image](/Docs/architecture.jpg) for information related to that.
 
+Please note that this document is designed to give a general idea of how the architecture works. Different scenes have different needs, so some modules may be swapped around.
+
 ## Structure
 The concept for the architecture is the following:
 ``` mermaid
@@ -13,7 +15,7 @@ flowchart LR
 ```
 
 ### SceneManager
-The scene manager is an independent script that is made for every scene that handles the logic for the scene. This script has public functions that may call the Task Manager functions and these functions may be called, for example, through the XR library's OnSelect events or through separate scripts. But the idea is that the task manager is referenced only through this singular script.
+The scene manager is an independent script that is made for every scene that handles the logic for the scene. This script has public functions that may call the Task Manager functions and these functions may be called, for example, through the XR library's OnSelect events or through separate scripts. The task manager may be called directly from other scripts, but if there is some logic related to certain tasks (i.e items should be grabbed in a specific order to complete a task), then this logic should be handled by this script.
 
 ### TaskManager
 The task manager is a script that is attached to an empty in the scene that manages the tasks associated with the scene. This should be the only script that communicates with the task list. There are several different events that are invoked and that are suitable for updating different managers.
@@ -23,6 +25,9 @@ This is a scriptable object (in other words, a file) that stores tasks, keeps tr
 
 ### TaskDescriptionManager
 This is a script that handles all of the displays that show the user's current task.
+
+### TaskboardManager
+This script is made to show the player all the tasks they can do and which tasks they have completed. 
 
 ### HintManager
 This is a script that handles all of the hint boxes in the scene.
@@ -43,8 +48,8 @@ sequenceDiagram
     Task Manager ->> Task List: GetTask("pickUpSphere")
     Task List -->> Task Manager: pickUpSphere
     Task Manager -->> Scene Manager: True
-    Scene Manager ->> Task Manager: CompleteTask(pickUpCube)
-    Task Manager ->> Task List: MarkTaskAsCompleted(pickUpCube)
+    Scene Manager ->> Task Manager: CompleteTask("pickUpCube")
+    Task Manager ->> Task List: MarkTaskAsCompleted("pickUpCube")
     Note right of Task Manager: The progression is saved in the task list file.
     Task Manager ->> Popup Manager: OnTaskCompleted: TaskCompletePopup(pickUpCube)
     Task Manager ->> Task List: GetNextTask()
