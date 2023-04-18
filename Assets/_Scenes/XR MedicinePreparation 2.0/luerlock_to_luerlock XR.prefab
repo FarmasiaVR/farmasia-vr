@@ -671,8 +671,8 @@ GameObject:
   - component: {fileID: 8104763849267262768}
   - component: {fileID: 4225519864177757817}
   - component: {fileID: 270757389073190474}
-  - component: {fileID: 7354943611118964847}
   - component: {fileID: 4631409733377747895}
+  - component: {fileID: 7354943611118964854}
   m_Layer: 0
   m_Name: luerlock_to_luerlock XR
   m_TagString: Untagged
@@ -798,7 +798,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4631409733377747895}
         m_TargetAssemblyTypeName: XRLuerlock, Assembly-CSharp
-        m_MethodName: frankenstainPrototypeDetachLuerlock
+        m_MethodName: DetachSyringeFromLuerlock
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -900,20 +900,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.05, z: 0.05}
   m_Center: {x: 0, y: -0.00043161213, z: 0}
---- !u!114 &7354943611118964847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7265552201278176647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162b4e5a3d1fcd043afbc6bf71ab2e51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MultiSelectPosition: 0
-  m_MultiSelectRotation: 2
 --- !u!114 &4631409733377747895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +915,20 @@ MonoBehaviour:
   interactableToTrack: {fileID: 4225519864177757817}
   syringe1Socket: {fileID: 618209277821144981}
   syringe2Socket: {fileID: 908908745243733033}
+--- !u!114 &7354943611118964854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265552201278176647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162b4e5a3d1fcd043afbc6bf71ab2e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MultiSelectPosition: 0
+  m_MultiSelectRotation: 1
 --- !u!1 &8815129733563516569
 GameObject:
   m_ObjectHideFlags: 0

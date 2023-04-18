@@ -36,9 +36,38 @@ public class XRLuerlock : MonoBehaviour
 
     
     
-    public void frankenstainPrototypeDetachLuerlock(ActivateEventArgs args)
+    public void DetachSyringeFromLuerlock(ActivateEventArgs args)
     {
-        syringe1Socket.detachSyringe();
-        syringe2Socket.detachSyringe();
+        IXRActivateInteractor interactor = args.interactorObject;
+
+        Vector3 socket1Pos = syringe1Socket.transform.position;
+        Vector3 socket2Pos = syringe2Socket.transform.position;
+        Vector3 activatorHandPosition = interactor.transform.position;
+
+        float distanceToSocket1 = Vector3.Distance(activatorHandPosition, socket1Pos);
+        float distanceToSocket2 = Vector3.Distance(activatorHandPosition, socket2Pos);
+
+
+
+
+        if(distanceToSocket1 < distanceToSocket2)
+        {
+            syringe1Socket.detachSyringe();
+        }
+        else
+        {
+            syringe2Socket.detachSyringe();
+        }
+       
+
+
+
+
+
+
+
+
+
+
     }
 }
