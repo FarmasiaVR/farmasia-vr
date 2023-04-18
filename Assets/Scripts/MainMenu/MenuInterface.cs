@@ -22,6 +22,7 @@ public class MenuInterface : MonoBehaviour {
 
     private void Start() {
         menuContainer = gameObject.transform.GetChild(0).gameObject;
+        menuContainer.SetActive(false);
         leftHand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         localPosOffset = transform.localPosition;
