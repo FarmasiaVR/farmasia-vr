@@ -22,15 +22,6 @@ public class XRLuerlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       List<IXRSelectInteractor> selectors =  interactableToTrack.interactorsSelecting;
-
-        int selectorNum = 0;
-        foreach(IXRSelectInteractor selector in selectors)
-        {
-            Debug.Log(selectorNum.ToString()+" " + selector.transform.position);
-            selectorNum++;
-        }
-
 
     }
 

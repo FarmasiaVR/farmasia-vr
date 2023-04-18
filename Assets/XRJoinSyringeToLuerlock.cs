@@ -25,6 +25,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+        
         args.interactableObject.transform.parent = parent.transform;
         args.interactableObject.transform.localScale= parent.transform.localScale;
        
@@ -33,7 +34,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
         {
             parent.colliders.Add(coll);
         }
-
+        
         args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("CanAttachToLuerlock");
        
 
