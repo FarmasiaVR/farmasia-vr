@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireExtinguisherTutorialSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
+    public FireGrid fire;
 
     private void Awake()
     {
