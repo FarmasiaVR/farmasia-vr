@@ -28,8 +28,9 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
     {
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        args.interactableObject.transform.gameObject.GetComponent<CustomTakeMedicineButtonActionsXR>().enabled = false;
 
-        
+
         args.interactableObject.transform.parent = parent.transform;
         args.interactableObject.transform.localScale= parent.transform.localScale;
        
@@ -67,6 +68,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
             XRInteractionManager manager = parent.interactionManager;
             manager.SelectCancel(attachSocket, attachedSyringe);
             attachedSyringe.transform.parent = null;
+            attachedSyringe.transform.gameObject.GetComponent<CustomTakeMedicineButtonActionsXR>().enabled = true;
 
             //prevent socket from immediately re selecting the interactable
             StartCoroutine(disableSocketFor(3.0f));
