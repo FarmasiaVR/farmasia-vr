@@ -16,6 +16,9 @@ public static class TaskConfig {
     /// Points
 
     private static Dictionary<TaskType, Info> dict = new List<KeyValuePair<TaskType, Info>>{
+
+        // Medicine preparation scene starts here
+
         info(
             TaskType.CorrectItemsInThroughputMedicine,
             "Oikeat työvälineet läpiantokaapissa",
@@ -135,7 +138,7 @@ public static class TaskConfig {
 
         // Membrane filtration scene starts here
 
-        info(
+        info( // redundant?
             TaskType.SelectToolsMembrane,
             "Työvälineiden valinta",
             "Valitse pöydän välinelistassa olevat ty�v�lineet.",

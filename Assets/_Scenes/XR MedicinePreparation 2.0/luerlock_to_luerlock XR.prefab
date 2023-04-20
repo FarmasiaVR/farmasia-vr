@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &13340357958893721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6466524194095013588}
+  - component: {fileID: 3166902160886562963}
+  m_Layer: 0
+  m_Name: toggledCollider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6466524194095013588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13340357958893721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0907, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2520239022476436810}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3166902160886562963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13340357958893721}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.09156735, z: 0.01}
+  m_Center: {x: 0, y: 0.03078368, z: -4.139164e-13}
 --- !u!1 &133519910119987719
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,8 +406,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.100693986, z: 0.01}
-  m_Center: {x: 0, y: 0.035346992, z: 0}
+  m_Size: {x: 0.01, y: 0.09133602, z: 0.01}
+  m_Center: {x: 0, y: 0.030668013, z: -0.0000000015700083}
 --- !u!114 &908908745243733033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +422,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachSocket: {fileID: 8723560698090132338}
   parent: {fileID: 4225519864177757817}
+  colliderToToggle: {fileID: 6437543147670515351}
+--- !u!1 &3092100534232154323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3364670262197730789}
+  - component: {fileID: 6437543147670515351}
+  m_Layer: 0
+  m_Name: toggledCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3364670262197730789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092100534232154323}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0303, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2520239022476436810}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6437543147670515351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092100534232154323}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.09156735, z: 0.01}
+  m_Center: {x: 0, y: 0.03078368, z: -4.139164e-13}
 --- !u!1 &5789014839468131159
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,8 +618,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.09650628, z: 0.01}
-  m_Center: {x: 0, y: 0.03325314, z: 0}
+  m_Size: {x: 0.01, y: 0.09156735, z: 0.01}
+  m_Center: {x: 0, y: 0.03078368, z: -4.139164e-13}
 --- !u!114 &618209277821144981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachSocket: {fileID: 1449389261105436213}
   parent: {fileID: 4225519864177757817}
+  colliderToToggle: {fileID: 3166902160886562963}
 --- !u!1 &6262621955045332322
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +766,7 @@ GameObject:
   - component: {fileID: 4631409733377747895}
   - component: {fileID: 7354943611118964854}
   - component: {fileID: 174032779209676292}
+  - component: {fileID: 7354943611118964856}
   m_Layer: 0
   m_Name: luerlock_to_luerlock XR
   m_TagString: Untagged
@@ -720,7 +813,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7265552201278176647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0416fe735af2968f39b2bbcdf2d4f89d, type: 3}
   m_Name: 
@@ -784,10 +877,34 @@ MonoBehaviour:
       m_Calls: []
   m_FirstSelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7354943611118964856}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_LastSelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7354943611118964856}
+        m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
+        m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -952,6 +1069,52 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
+--- !u!114 &7354943611118964856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265552201278176647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8074390e49b11c244b8930a02e63fca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeMedicineActionReference: {fileID: 1485218837564966055, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  transferMedicineActionReference: {fileID: -6753229325038948182, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  onTakeMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631409733377747895}
+        m_TargetAssemblyTypeName: XRLuerlock, Assembly-CSharp
+        m_MethodName: takeMedicine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSendMedicineFunctionsToCall:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4631409733377747895}
+        m_TargetAssemblyTypeName: XRLuerlock, Assembly-CSharp
+        m_MethodName: sendMedicine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8815129733563516569
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +1153,8 @@ Transform:
   - {fileID: 939663829365472856}
   - {fileID: 4056468745350846340}
   - {fileID: 706182805205952206}
+  - {fileID: 3364670262197730789}
+  - {fileID: 6466524194095013588}
   m_Father: {fileID: 5949031784114605972}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

@@ -135,6 +135,20 @@ public class Syringe : GeneralItem {
         if (amount > 0) Container.SetAmount(Container.Amount - amount);
     }
 
+    public void SendMedicineToLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe sending medicine");
+        checkIfPushingMistake(LiquidTransferStep, other);
+        Container.TransferTo(other, LiquidTransferStep);
+    }
+
+    public void TakeMedicineFromLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe taking medicine");
+        checkIfPushingMistake(-LiquidTransferStep, other);
+        Container.TransferTo(other, -LiquidTransferStep);
+    }
+
     private void TransferToLuerlock(int amount) {
         bool pushing = amount > 0;
 
@@ -148,13 +162,20 @@ public class Syringe : GeneralItem {
             (Syringe)pair.Value.LeftConnector.AttachedInteractable :
             (Syringe)pair.Value.RightConnector.AttachedInteractable;
 
-        if (pushing) {
-            if (other.Container.Capacity < Container.Capacity) {
+        checkIfPushingMistake(amount, other.Container);
+        Container.TransferTo(other.Container, amount);
+    }
+
+    void checkIfPushingMistake(int amount, LiquidContainer other)
+    {
+        bool pushing = amount > 0;
+        if (pushing)
+        {
+            if (other.Capacity < Container.Capacity)
+            {
                 Events.FireEvent(EventType.PushingToSmallerSyringe);
             }
         }
-
-        Container.TransferTo(other.Container, amount);
     }
 
     private void TransferToBottle(int amount) {

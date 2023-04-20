@@ -17,8 +17,7 @@ public class DisinfectingCloth : GeneralItem {
         }
         if (item.ObjectType == ObjectType.Medicine) {
             Bottle bottle = item as Bottle;
-            bottle.Contamination = ContaminateState.Clean;
-            Events.FireEvent(EventType.BottleDisinfect, CallbackData.Object(bottle));
+            bottle.Contamination = ContaminateState.Clean;   
         }
     }
 }

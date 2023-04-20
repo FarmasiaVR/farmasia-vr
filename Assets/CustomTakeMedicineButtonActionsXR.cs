@@ -9,8 +9,8 @@ public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
 {
     public InputActionReference takeMedicineActionReference;
     public InputActionReference transferMedicineActionReference;
-    public UnityEvent onTakeMedicineFunctionsToCall;
-    public UnityEvent onSendMedicineFunctionsToCall;
+    public UnityEvent<InputAction.CallbackContext> onTakeMedicineFunctionsToCall;
+    public UnityEvent<InputAction.CallbackContext> onSendMedicineFunctionsToCall;
     bool isSelected = false;
 
     void Start()
@@ -45,7 +45,7 @@ public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
     {
         if (isSelected)
         {
-            onTakeMedicineFunctionsToCall.Invoke();
+            onTakeMedicineFunctionsToCall.Invoke(context);
         }
     }
 
@@ -53,7 +53,7 @@ public class CustomTakeMedicineButtonActionsXR : MonoBehaviour
     {
         if (isSelected)
         {
-            onSendMedicineFunctionsToCall.Invoke();
+            onSendMedicineFunctionsToCall.Invoke(context);
         }
     }
 
