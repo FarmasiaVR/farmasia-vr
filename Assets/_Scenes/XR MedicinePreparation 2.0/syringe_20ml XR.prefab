@@ -852,6 +852,7 @@ GameObject:
   - component: {fileID: 46817248037504431}
   - component: {fileID: 8044116985601085434}
   - component: {fileID: 4388778959809001128}
+  - component: {fileID: 9176554266574475775}
   m_Layer: 0
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -957,6 +958,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9176554266574475775}
+        m_TargetAssemblyTypeName: HandleSyringeAttachedItemsEvents, Assembly-CSharp
+        m_MethodName: handleDetachEvents
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_OnHoverEntered:
@@ -1016,6 +1029,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 7626278950226855392}
+--- !u!114 &9176554266574475775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7722803942146349772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0078a2896ccceb24c88a21d6d0efc0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syringe: {fileID: 1037771201108178347}
 --- !u!1 &8092685580887799746
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,4 +58,9 @@ public class Needle : ConnectableItem
     {
         Connector.attached.Interactable = null;
     }
+
+    public void needleDetachedEvent(Syringe syringe)
+    {
+        Events.FireEvent(EventType.DetachedNeedleFromSyringe, CallbackData.Object(syringe));
+    }
 }
