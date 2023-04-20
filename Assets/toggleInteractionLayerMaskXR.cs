@@ -8,17 +8,21 @@ public class toggleInteractionLayerMaskXR : MonoBehaviour
 
     public XRBaseInteractable socketsOwnerInteractable;
 
+  
+    int canAttachToLuerlockBitField;
     
-    int canAttachToLuerlockBitField = InteractionLayerMask.GetMask("CanAttachToLuerlock");
-    int interactionLayerDefault = 1;
+    int interactionLayerDefault;
+
 
     void Start()
     {
-      
+        string[] canAttachToLuerlockMask = { "CanAttachToLuerlock", "InteractableByPlayer" };
+        canAttachToLuerlockBitField = InteractionLayerMask.GetMask(canAttachToLuerlockMask);
+        string[] interactionLayerDefaultMask = { "InteractableByPlayer", "default" };
+        interactionLayerDefault = InteractionLayerMask.GetMask(interactionLayerDefaultMask);
 
-        
-        
-       
+
+
     }
 
     public void setInteractionLayerToDefault()
