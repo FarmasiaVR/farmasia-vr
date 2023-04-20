@@ -2,7 +2,7 @@
 
 This fork implements part 4 of the original game
 (Software engineering project, University of Helsinki 2022)
-[Video](https://youtu.be/pIKCZFZo2UA)
+[Demo from autumn 2019](https://youtu.be/pIKCZFZo2UA)
 
 ## Description
 
@@ -25,7 +25,8 @@ Additional tools used for development:
 - Unity XR Interaction Toolkit 2.3.0
 
 - Development documents
-  - [Product and Sprint backlogs](https://docs.google.com/spreadsheets/d/1ja0GFDzCd-8x3NgSYdBKIdUyQT5DWfr7M5xOzrtkwyA) **TODO: Update this**
+  - [Product and Sprint backlogs](https://github.com/orgs/FarmasiaVR/projects/1)
+
 
 - Legacy documentation
   - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
@@ -51,12 +52,12 @@ There may be some prerequisites when building for a specific platform.
 ### Windows
  The prerequisites depend on which scripting backend is used in the project. This can be changed by clicking `Player Settings` in the build window and selecting `Other Settings -> Scripting backend`. Mono does not require any extra installations. IL2CPP performs a bit better, but requires the following extra modules.
     
-    - Windows Build Support (IL2CPP)
+    - Windows Build Support (IL2CPP) (Installed using Unity Hub)
     - Desktop development with C++ (Installed using Visual Studio Installer)
-    - Windows 10/11 SDK
 
 ### Android
 When building for the Oculus Quest, make sure to install the following modules using Unity Hub:
+
     - Android Build Support
     - OpenJDK
     - Android SDK & NDK Tools
@@ -81,7 +82,7 @@ To transfer liquids between objects, move the joystick right or press the right 
 
 ### Test controls
 
-To play the game without a VR headset, select the XR player in the Unity scene and enable `XR Device Simulator`. Please refer to Unity documentation for a detailed decription of the controls.
+To play the game without a VR headset, select the XR player in the Unity scene and enable `XR Device Simulator`. The controls should be visible on the screen
 
 ## Contributors
 
@@ -90,42 +91,42 @@ To play the game without a VR headset, select the XR player in the Unity scene a
 <tr>
     <td align="center">
         <a href="https://github.com/farmasia-vr">
-            <img src="https://avatars.githubusercontent.com/u/55394182?v=4" width="100;" alt="farmasia-vr"/>
+            <img src="https://github.com/farmasia-vr.png" width="100;" alt="farmasia-vr"/>
             <br />
             <sub><b>Farmasia-vr</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/porrasm">
-            <img src="https://avatars.githubusercontent.com/u/31691452?v=4" width="100;" alt="porrasm"/>
+            <img src="https://github.com/porrasm.png" width="100;" alt="porrasm"/>
             <br />
             <sub><b>Eetu Ikonen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/Mirex97">
-            <img src="https://avatars.githubusercontent.com/u/32763253?v=4" width="100;" alt="Mirex97"/>
+            <img src="https://github.com/Mirex97.png" width="100;" alt="Mirex97"/>
             <br />
             <sub><b>Kukkis</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/SirVeggie">
-            <img src="https://avatars.githubusercontent.com/u/32365239?v=4" width="100;" alt="SirVeggie"/>
+            <img src="https://github.com/SirVeggie.png" width="100;" alt="SirVeggie"/>
             <br />
             <sub><b>Veikka</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/doc97">
-            <img src="https://avatars.githubusercontent.com/u/4580546?v=4" width="100;" alt="doc97"/>
+            <img src="https://github.com/doc97.png" width="100;" alt="doc97"/>
             <br />
             <sub><b>Daniel Riissanen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/Veikkosuhonen">
-            <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
+            <img src="https://github.com/Veikkosuhonen.png" width="100;" alt="Veikkosuhonen"/>
             <br />
             <sub><b>Veikmaster</b></sub>
         </a>
@@ -133,42 +134,42 @@ To play the game without a VR headset, select the XR player in the Unity scene a
 <tr>
     <td align="center">
         <a href="https://github.com/vrfarmasia">
-            <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
+            <img src="https://github.com/vrfarmasia.png" width="100;" alt="vrfarmasia"/>
             <br />
             <sub><b>Vrfarmasia</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/heidihas">
-            <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+            <img src="https://github.com/heidihas.png" width="100;" alt="heidihas"/>
             <br />
             <sub><b>Heidi Hassinen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/Reksa97">
-            <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+            <img src="https://github.com/Reksa97.png" width="100;" alt="Reksa97"/>
             <br />
             <sub><b>Reko Kälkäjä</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/MikkoHimanka">
-            <img src="https://avatars.githubusercontent.com/u/28507056?v=4" width="100;" alt="MikkoHimanka"/>
+            <img src="https://github.com/MikkoHimanka.png" width="100;" alt="MikkoHimanka"/>
             <br />
             <sub><b>Mikko Himanka</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/hepitk">
-            <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
+            <img src="https://github.com/hepitk.png" width="100;" alt="hepitk"/>
             <br />
             <sub><b>Hepitk</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/kivik-beep">
-            <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
+            <img src="https://github.com/kivik-beep.png" width="100;" alt="kivik-beep"/>
             <br />
             <sub><b>Kivik-beep</b></sub>
         </a>
@@ -176,31 +177,83 @@ To play the game without a VR headset, select the XR player in the Unity scene a
 <tr>
     <td align="center">
         <a href="https://github.com/SPitkanen">
-            <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+            <img src="https://github.com/SPitkanen.png" width="100;" alt="SPitkanen"/>
             <br />
             <sub><b>SPitkanen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/tjvalkonen">
-            <img src="https://avatars.githubusercontent.com/u/33684997?v=4" width="100;" alt="tjvalkonen"/>
+            <img src="https://github.com/tjvalkonen.png" width="100;" alt="tjvalkonen"/>
             <br />
             <sub><b>tjvalkonen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/jarkmaen">
-            <img src="https://avatars.githubusercontent.com/u/73038801?v=4" width="100;" alt="jarkmaen"/>
+            <img src="https://github.com/jarkmaen.png" width="100;" alt="jarkmaen"/>
             <br />
             <sub><b>jarkmaen</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/Siihi">
-            <img src="https://avatars.githubusercontent.com/u/70064875?v=4" width="100;" alt="Siihi"/>
+            <img src="https://github.com/Siihi.png" width="100;" alt="Siihi"/>
             <br />
             <sub><b>Siihi</b></sub>
         </a>
-    </td></tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/sonicsasha">
+            <img src="https://github.com/sonicsasha.png" width="100;" alt="sonicsasha"/>
+            <br />
+            <sub><b>Sasha Usoskin</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/juhkure">
+            <img src="https://github.com/juhkure.png" width="100;" alt="juhkure"/>
+            <br />
+            <sub><b>juhkure</b></sub>
+        </a>
+    </td>
+</tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/MatiasSinisalo">
+            <img src="https://github.com/MatiasSinisalo.png" width="100;" alt="MatiasSinisalo"/>
+            <br />
+            <sub><b>Matias Sinisalo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/NuiS4ncE">
+            <img src="https://github.com/NuiS4ncE.png" width="100;" alt="NuiS4ncE"/>
+            <br />
+            <sub><b>Teo Uosukainen</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/opturtio">
+            <img src="https://github.com/opturtio.png" width="100;" alt="opturtio"/>
+            <br />
+            <sub><b>opturtio</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/SamiP7">
+            <img src="https://github.com/SamiP7.png" width="100;" alt="SampiP7"/>
+            <br />
+            <sub><b>SamiP7</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/selsama">
+            <img src="https://github.com/selsama.png" width="100;" alt="selsama"/>
+            <br />
+            <sub><b>Sonja Salmi</b></sub>
+        </a>
+    </td>
+    </tr>
 </table>
 <!-- readme: contributors -end -->
