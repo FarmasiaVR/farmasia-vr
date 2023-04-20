@@ -9,7 +9,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
 {
     public XRSocketInteractor attachSocket;
     public XRGrabInteractable parent;
-
+    public Collider colliderToToggle;
 
    
     // Start is called before the first frame update
@@ -35,6 +35,8 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
        
         //set syringe mask so that the player can't interact with it
         args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("CanAttachToLuerlock");
+
+        colliderToToggle.enabled = true;
     }
 
     IEnumerator disableSocketFor(float seconds)
@@ -53,6 +55,8 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
         IXRSelectInteractable attachedSyringe = attachSocket.firstInteractableSelected;
         if (attachedSyringe != null)
         {
+            colliderToToggle.enabled = false;
+
             //set syringe layer back to normal
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
