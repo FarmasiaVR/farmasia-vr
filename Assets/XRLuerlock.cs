@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -15,6 +16,8 @@ public class XRLuerlock : MonoBehaviour
 
     public XRJoinSyringeToLuerlock syringe1Socket;
     public XRJoinSyringeToLuerlock syringe2Socket;
+
+
 
     void Start()
     {
@@ -33,8 +36,11 @@ public class XRLuerlock : MonoBehaviour
         Vector3 socket2Pos = syringe2Socket.transform.position;
        
 
-        float distanceToSocket1 = Vector3.Distance(pos, socket1Pos);
-        float distanceToSocket2 = Vector3.Distance(pos, socket2Pos);
+        float distanceToSocket1 = Vector3.Distance(socket1Pos, pos);
+        float distanceToSocket2 = Vector3.Distance(socket2Pos, pos);
+        Debug.Log("Finding closest socket");
+        Debug.Log(distanceToSocket1 + "   " + syringe1Socket.gameObject.name);
+        Debug.Log(distanceToSocket2 + "   " + syringe2Socket.gameObject.name);
 
         if (distanceToSocket1 < distanceToSocket2)
         {
@@ -52,8 +58,12 @@ public class XRLuerlock : MonoBehaviour
         Vector3 socket2Pos = syringe2Socket.transform.position;
 
 
-        float distanceToSocket1 = Vector3.Distance(pos, socket1Pos);
-        float distanceToSocket2 = Vector3.Distance(pos, socket2Pos);
+        float distanceToSocket1 = Vector3.Distance(socket1Pos, pos);
+        float distanceToSocket2 = Vector3.Distance(socket2Pos, pos);
+        Debug.Log("Finding furthest socket");
+        Debug.Log(distanceToSocket1 + "   " + syringe1Socket.gameObject.name);
+        Debug.Log(distanceToSocket2 + "   " + syringe2Socket.gameObject.name);
+
 
         if (distanceToSocket1 > distanceToSocket2)
         {
@@ -79,7 +89,9 @@ public class XRLuerlock : MonoBehaviour
         Debug.Log("sending medicine");
         TrackedDevice device = (TrackedDevice)context.control.device;
         Vector3 devicePos = device.devicePosition.ReadValue();
+        Debug.Log("the device pos:");
         Debug.Log(devicePos);
+
         //dev testing...
         LiquidContainer target =  findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
         findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().SendMedicineToLuerlockXR(target);
@@ -91,7 +103,9 @@ public class XRLuerlock : MonoBehaviour
         Debug.Log("taking medicine");
         TrackedDevice device = (TrackedDevice) context.control.device;
         Vector3 devicePos = device.devicePosition.ReadValue();
+        Debug.Log("the device pos:");
         Debug.Log(devicePos);
+
         //dev testing...
         LiquidContainer target = findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
         findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().TakeMedicineFromLuerlockXR(target);

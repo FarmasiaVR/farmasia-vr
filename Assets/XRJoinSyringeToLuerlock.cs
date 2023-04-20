@@ -26,6 +26,11 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
 
    public void joinSyringe(SelectEnterEventArgs args)
     {
+
+        Debug.Log("SENDING LUERLOCK ATTACH EVENT");
+        Events.FireEvent(EventType.AttachLuerlock, CallbackData.Object(args.interactableObject.transform.gameObject));
+        Events.FireEvent(EventType.SyringeToLuerlock, CallbackData.Object(args.interactableObject.transform.gameObject));
+
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
         args.interactableObject.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         args.interactableObject.transform.gameObject.GetComponent<CustomTakeMedicineButtonActionsXR>().enabled = false;
@@ -58,6 +63,10 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
         {
             colliderToToggle.enabled = false;
 
+            
+
+            Debug.Log("SENDING LUERLOCK DETACH EVENT");
+            Events.FireEvent(EventType.SyringeFromLuerlock, CallbackData.Object(attachedSyringe.transform.gameObject));
             //set syringe layer back to normal
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
