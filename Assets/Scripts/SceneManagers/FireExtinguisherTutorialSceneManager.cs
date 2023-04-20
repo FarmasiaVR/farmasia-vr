@@ -37,6 +37,41 @@ public class FireExtinguisherTutorialSceneManager : MonoBehaviour
         }
     }
 
+    public void PickUp()
+    {
+        taskManager.CompleteTask("Pickup");
+    }
+
+    public void SafetyPin()
+    {
+        if (!taskManager.IsTaskCompleted("Pickup"))
+        {
+            taskManager.GenerateTaskMistake("Tartu ensin kiinni sammuttimesta toisella kädellä", 0);
+                return;
+        }
+        taskManager.CompleteTask("SafetyPin");
+
+    }
+
+    public void Hose()
+    {
+        if (!taskManager.IsTaskCompleted("SafetyPin"))
+        {
+            taskManager.GenerateTaskMistake("Irroita ensin sokka", 0);
+            return;
+        }
+        taskManager.CompleteTask("Hose");
+    }
+
+    public void Activate()
+    {
+        if (!taskManager.IsTaskCompleted("Hose"))
+        {
+            taskManager.GenerateTaskMistake("Tartu ensin kiinni sammuttimen letkun päästä", 0);
+            return;
+        }
+        taskManager.CompleteTask("Activate");
+    }
 
     public void PressQ()
     {
