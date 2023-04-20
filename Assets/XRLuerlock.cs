@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
@@ -25,40 +27,74 @@ public class XRLuerlock : MonoBehaviour
 
     }
 
-    
-    
+    XRJoinSyringeToLuerlock findClosestSocket(Vector3 pos)
+    {
+        Vector3 socket1Pos = syringe1Socket.transform.position;
+        Vector3 socket2Pos = syringe2Socket.transform.position;
+       
+
+        float distanceToSocket1 = Vector3.Distance(pos, socket1Pos);
+        float distanceToSocket2 = Vector3.Distance(pos, socket2Pos);
+
+        if (distanceToSocket1 < distanceToSocket2)
+        {
+            return syringe1Socket;
+        }
+        else
+        {
+            return syringe2Socket;
+        }
+    }
+
+    XRJoinSyringeToLuerlock findFurthestSocket(Vector3 pos)
+    {
+        Vector3 socket1Pos = syringe1Socket.transform.position;
+        Vector3 socket2Pos = syringe2Socket.transform.position;
+
+
+        float distanceToSocket1 = Vector3.Distance(pos, socket1Pos);
+        float distanceToSocket2 = Vector3.Distance(pos, socket2Pos);
+
+        if (distanceToSocket1 > distanceToSocket2)
+        {
+            return syringe1Socket;
+        }
+        else
+        {
+            return syringe2Socket;
+        }
+    }
+
+
+
     public void DetachSyringeFromLuerlock(ActivateEventArgs args)
     {
         IXRActivateInteractor interactor = args.interactorObject;
 
-        Vector3 socket1Pos = syringe1Socket.transform.position;
-        Vector3 socket2Pos = syringe2Socket.transform.position;
-        Vector3 activatorHandPosition = interactor.transform.position;
+        findClosestSocket(interactor.transform.position).detachSyringe();
+    }
 
-        float distanceToSocket1 = Vector3.Distance(activatorHandPosition, socket1Pos);
-        float distanceToSocket2 = Vector3.Distance(activatorHandPosition, socket2Pos);
-
-
-
-
-        if(distanceToSocket1 < distanceToSocket2)
-        {
-            syringe1Socket.detachSyringe();
-        }
-        else
-        {
-            syringe2Socket.detachSyringe();
-        }
-       
+    public void sendMedicine(InputAction.CallbackContext context)
+    {
+        Debug.Log("sending medicine");
+        TrackedDevice device = (TrackedDevice)context.control.device;
+        Vector3 devicePos = device.devicePosition.ReadValue();
+        Debug.Log(devicePos);
+        //dev testing...
+        LiquidContainer target =  findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
+        findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().SendMedicineToLuerlockXR(target);
+    }
 
 
-
-
-
-
-
-
-
+    public void takeMedicine(InputAction.CallbackContext context)
+    {
+        Debug.Log("taking medicine");
+        TrackedDevice device = (TrackedDevice) context.control.device;
+        Vector3 devicePos = device.devicePosition.ReadValue();
+        Debug.Log(devicePos);
+        //dev testing...
+        LiquidContainer target = findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
+        findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().TakeMedicineFromLuerlockXR(target);
 
     }
 }

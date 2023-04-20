@@ -135,6 +135,18 @@ public class Syringe : GeneralItem {
         if (amount > 0) Container.SetAmount(Container.Amount - amount);
     }
 
+    public void SendMedicineToLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe sending medicine");
+        Container.TransferTo(other, LiquidTransferStep);
+    }
+
+    public void TakeMedicineFromLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe taking medicine");
+        Container.TransferTo(other, -LiquidTransferStep);
+    }
+
     private void TransferToLuerlock(int amount) {
         bool pushing = amount > 0;
 
