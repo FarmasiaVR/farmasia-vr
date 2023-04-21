@@ -170,7 +170,7 @@ public static class TaskConfig {
             TaskType.WriteTextsToItems,
             "Tietojen kirjoitus esineisiin",
             "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
-            "Kosketa kyn�ll� esinett�, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niit�. Voit perua kirjoituksen painamalla teksti� uudestaan ennen kuin painat vihre�� nappia. Muista katsoa oikea kellonaika kellosta.",
+            "Kirjoita 100ml pulloihin (2kpl soijakaseiini, 2kpl tioglykolaatti) nimesi, päivämäärä, ja elatusaine. \n Kirjoita laskeumamaljoihin (1kpl soijakaseiini, 1kpl sabouraud-dekstroosi) nimesi, päivämäärä ja kellonaika. \n Kirjoita sormenpäämaljoihin (2kpl soijakaseiini) nimesi, päivämäärä ja oikea/vasen käsi.",
             "Hyvin kirjoitettu.",
             2
         ),
@@ -224,7 +224,7 @@ public static class TaskConfig {
             TaskType.MedicineToFilter,
             "Lääkkeen lisääminen",
             "Lisää lääke suodattimeen",
-            "Irrota ruiskun korkki ja lisää ruiskun neste suodattimeen",
+            "Ota lääkeruisku sterilointipussista ja lisää lääke suodattimeen",
             "Lääke lisätty",
             2
         ),
@@ -242,7 +242,7 @@ public static class TaskConfig {
             TaskType.CutFilter,
             "Kalvosuodattimen leikkaus",
             "Pura pumppu ja leikkaa suodatin",
-            "Irrota kalvosuodatin pumpusta ja leikkaa varovasti skalpellilla. Muista avata skalpellin pakkaus oikeasta päästä!",
+            "Irrota suodatin pumpusta ja leikkaa sen pohjalla oleva kalvosuodatin varovasti skalpellilla kahteen osaan. Muista avata skalpellin pakkaus oikeasta päästä!",
             "Hienoa, suodatin leikattu",
             2
         ),
@@ -251,7 +251,7 @@ public static class TaskConfig {
             TaskType.FilterHalvesToBottles,
             "Suodattimen puolikkaiden siirtäminen pulloihin",
             "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat eri liuoksiin. Siirrä yksi puolikas soija-kaseiiniliuokseen ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä!",
+            "Siirrä puolikkaat elatusliuoksiin pieniin pulloihin, toinen soijakaseiiniin ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä!",
             "Puolikkaat pulloissa!",
             2
         ),
@@ -268,8 +268,8 @@ public static class TaskConfig {
         info(
             TaskType.WriteSecondTime,
             "Lopetusaikojen kirjoitus",
-            "Ota ajat ylös",
-            "Kirjoita lopetusaika laskeumamaljoihin. Katso oikea aika kellosta.",
+            "Kirjoita lopetusaika laskeumamaljoihin",
+            "Kirjoita kellonaika laskeumamaljoihin (1kpl soijakaseiini ja  1 kpl sabouraud-dekstroosi). Katso oikea aika kellosta.",
             "Hyvin kirjoitettu",
             2
         ),
@@ -277,8 +277,8 @@ public static class TaskConfig {
         info(
             TaskType.Fingerprints,
             "Sormenpäämaljat",
-            "Valmistele sormenpäämaljat",
-            "Avaa sormenpäämaljat ja koske agaria kaksi kertaa (kerran peukalolla ja kerran muilla sormilla). Toista toisella kädellä.",
+            "Avaa sormenpäämaljat ja anna näytteet",
+            "Koske agaria oikealla kädellä kahdesti, kerran peukalolla ja kerran muilla sormilla. Toista toisella kädellä toiseen maljaan.",
             "Sormenpäämaljat valmistettu!",
             2
         ),
@@ -314,7 +314,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInBasketMembrane,
             "Valmiit esineet koriin",
             "Siirrä valmiit esineet koriin",
-            "Siirrä valmiit esineet koriin",
+            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl)",
             "Valmiit esineet korissa!",
             2
         ),
