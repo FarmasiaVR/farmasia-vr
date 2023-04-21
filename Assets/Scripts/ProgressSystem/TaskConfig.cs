@@ -152,7 +152,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInThroughputMembrane,
             "Oikeat välineet läpiantokaapissa",
             "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
-            "Puhdista työvälineet 70% etanoliliuoksella. Huoneessa on tarvittavat työvälineet. Laskeumamaljat = soijakaseiinimalja ja sabourad-dekstrosimalja. Sormenpäämaljat = soijakaseiinimaljat 2 kpl. Kostutusliuos = peptonivesi.",
+            "Lista tarvittavista työvälineistä löytyy pöydältä. Puhdista työvälineet 70% etanoliliuoksella (suihkepullossa) ennen läpiantokaappiin viemistä.",
             "Oikeat työvälineet läpiantokaapissa.",
             2
         ),
@@ -160,8 +160,8 @@ public static class TaskConfig {
         info(
             TaskType.CorrectItemsInLaminarCabinetMembrane,
             "Oikeat välineet laminaarikaapissa",
-            "Siirrä valitsemasi työvälineet laminaarikaappiin",
-            "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet. Puhdista työvälineet 70% etanoliliuoksella.",
+            "Siirrä työvälineet laminaarikaappiin",
+            "Puhdista työvälineet ennen laminaarikaappiin vientiä 70% etanoliliuoksella (suihkepullossa). Tarvitset läpiantokaapissa olevat työvälineet ja kynän.",
             "Oikea määrä työvälineitä laminaarikaapissa.",
             2
         ),
@@ -179,7 +179,7 @@ public static class TaskConfig {
             TaskType.OpenAgarplates,
             "Laskeumamaljojen avaus",
             "Avaa laskeumamaljat",
-            "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja",
+            "Avaa sabouraud-dekstroosimalja sekä se soijakaseiinimalja, johon kirjoitit kellonajan.",
             "Hienoa, agarmaljat avattu!",
             2
         ), 
@@ -187,8 +187,8 @@ public static class TaskConfig {
         info(
             TaskType.FillBottles,
             "100ml pullojen täyttö",
-            "Täytä pullot elatusaineilla",
-            "Lisää pieniin pulloihin 80 ml elatusaineita, 2 pulloa kutakin",
+            "Lisää 100ml pulloihin elatusaineita",
+            "Lisää 80ml elatusainetta kuhunkin pulloon. Tarvitset 2 pulloa soijakaseiinia ja 2 pulloa tioglykolaattia. Muista katsoa, että laitat oikeaa ainetta oikeaan pulloon. \n Mittaa elatusaineet pipettorilla. Avaa mittapipetti suojapakkauksestaan ja kiinnitä pipettoriin. Muista vaihtaa mittapipetti vaihtaessasi liuosta.",
             "Hienoa, pullot täytetty",
             4
         ),
@@ -197,7 +197,7 @@ public static class TaskConfig {
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
             "Kokoa pumppu ja kiinnitä jäteletku",
-            "Avaa suodatin pakkauksestaan, kiinnitä se pumppuun ja kiinnitä jäteletku painamalla takaseinän nappulaa.",
+            "Avaa suodatin suojapakkauksestaan ja kiinnitä se pumppuun. Kiinnitä jäteletku lääkejäteastiaan.",
             "Hienoa, pumppu on koossa",
             3
         ),
@@ -206,7 +206,7 @@ public static class TaskConfig {
             TaskType.WetFilter,
             "Suodattimen kostutus",
             "Kostuta kalvosuodatin",
-            "Kostuta suodatin lisäämällä 1ml peptonivettä Finnpipettilla",
+            "Avaa suodattimen kansi ja lisää suodattimeen 1ml peptonivettä finnpipetillä.",
             "Hienosti kostutettu!",
             2
         ),
@@ -215,7 +215,7 @@ public static class TaskConfig {
             TaskType.StartPump,
             "Kostutusliuoksen suodatus",
             "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa",
+            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
             "Kostutettu!",
             2
         ),
@@ -224,7 +224,7 @@ public static class TaskConfig {
             TaskType.MedicineToFilter,
             "Lääkkeen lisääminen",
             "Lisää lääke suodattimeen",
-            "Ota lääkeruisku sterilointipussista ja lisää lääke suodattimeen",
+            "Ota lääkeruisku sterilointipussista ja lisää lääke suodattimeen.",
             "Lääke lisätty",
             2
         ),
@@ -233,7 +233,7 @@ public static class TaskConfig {
             TaskType.StartPumpAgain,
             "Lääkevalmisteen suodatus",
             "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa",
+            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
             "Suodatettu!",
             2
         ),
@@ -242,7 +242,7 @@ public static class TaskConfig {
             TaskType.CutFilter,
             "Kalvosuodattimen leikkaus",
             "Pura pumppu ja leikkaa suodatin",
-            "Irrota suodatin pumpusta ja leikkaa sen pohjalla oleva kalvosuodatin varovasti skalpellilla kahteen osaan. Muista avata skalpellin pakkaus oikeasta päästä!",
+            "Irrota suodatin pumpusta ja leikkaa sen pohjalla oleva kalvosuodatin varovasti skalpellilla kahteen osaan. Muista avata skalpellin pakkaus oikeasta päästä.",
             "Hienoa, suodatin leikattu",
             2
         ),
@@ -251,7 +251,7 @@ public static class TaskConfig {
             TaskType.FilterHalvesToBottles,
             "Suodattimen puolikkaiden siirtäminen pulloihin",
             "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat elatusliuoksiin pieniin pulloihin, toinen soijakaseiiniin ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä!",
+            "Siirrä puolikkaat elatusliuoksiin pieniin pulloihin, toinen soijakaseiiniin ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä.",
             "Puolikkaat pulloissa!",
             2
         ),
@@ -259,8 +259,8 @@ public static class TaskConfig {
         info(
             TaskType.CloseSettlePlates,
             "Laskeumamaljojen sulkeminen",
-            "Sulje avatut maljat",
-            "Varmista, että jokainen laskeumamalja ja sormenpäämalja on suljettu.",
+            "Sulje laskeumamaljat",
+            "Varmista, että jokainen agarmalja on suljettu.",
             "Laskeumamaljat suljettu!",
             2
         ),
@@ -323,7 +323,7 @@ public static class TaskConfig {
             TaskType.CleanLaminarCabinetMembrane,
             "Laminaarikaapin putsaus",
             "Putsaa laminaarikaapin seinät",
-            "Ruiskuta etanoliliuosta jokaisen laminaarikaapin seinälle.",
+            "Ruiskuta etanoliliuosta (suihkepullossa) laminaarikaapin jokaiselle seinälle.",
             "Laminaarikaappi puhdistettu!",
             2
         ),
