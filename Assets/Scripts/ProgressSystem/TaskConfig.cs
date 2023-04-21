@@ -182,7 +182,7 @@ public static class TaskConfig {
             "Avaa yksi soijakaseiinimalja sek� yksi sabouradekstrosimalja",
             "Hienoa, agarmaljat avattu!",
             2
-        ),
+        ), 
 
         info(
             TaskType.FillBottles,
@@ -197,7 +197,7 @@ public static class TaskConfig {
             TaskType.AssemblePump,
             "Pumpun kokoaminen",
             "Kokoa pumppu ja kiinnitä jäteletku",
-            "Kiinnitä suodatin ja jäteletku pumppuun.",
+            "Avaa suodatin pakkauksestaan, kiinnitä se pumppuun ja kiinnitä jäteletku painamalla takaseinän nappulaa.",
             "Hienoa, pumppu on koossa",
             3
         ),
