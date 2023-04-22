@@ -14,6 +14,7 @@ public class FireSpreadStatic : MonoBehaviour
     private GameObject floor;
 
     private int randomNumber, lastNumber, rngNum;
+
     // Sets the rotation variables
     private Vector3 up = Vector3.zero,
         right = new Vector3(0, 90, 0),
@@ -25,6 +26,7 @@ public class FireSpreadStatic : MonoBehaviour
         upLeft = new Vector3(-1, 0, 1),
         downRight = new Vector3(1, 0, -1),
         downLeft = new Vector3(-1, 0, -1);
+
     private Vector3 nextPos, destination, currentPos;
 
     private float rayLength = 1f;
@@ -37,6 +39,7 @@ public class FireSpreadStatic : MonoBehaviour
 
     [SerializeField]
     GameObject objectToSpawn;
+
     [SerializeField]
     bool autonomous;
 
@@ -49,12 +52,9 @@ public class FireSpreadStatic : MonoBehaviour
         numInc = 0;
         fireGrid = GetComponent<FireGrid>();
         firePositions = FindObjectOfType<FirePositions>();
-        //wallStructure = GameObject.FindGameObjectsWithTag("Structure");
-        //floor = GameObject.FindGameObjectWithTag("Floor");
         currentDir = up;
         nextPos = Vector3.forward;
         destination = transform.position;
-        //firePositions.addPosition(destination);
     }
 
     // Update is called once per frame
@@ -71,6 +71,17 @@ public class FireSpreadStatic : MonoBehaviour
             }
         }
 
+    }
+
+    private int RandomNumber()
+    {
+        randomNumber = UnityEngine.Random.Range(0, 7);
+        if (randomNumber == lastNumber)
+        {
+            randomNumber = UnityEngine.Random.Range(0, 7);
+        }
+        lastNumber = randomNumber;
+        return randomNumber;
     }
 
     /// <summary>
@@ -161,22 +172,26 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
+        
         // Get current position
         currentPos = transform.position;
 
         Debug.Log("Going to direction of: " + nextPos.ToString());
+
         //Debug.Log("Value of CheckMovementObstacles: " + CheckMovementObstacles(nextPos));
         // Check for obstacles in the direction
-        if (CheckMovementObstacles(nextPos, diagonal))
+        if (CheckMovementObstacles(nextPos, diagonal, "Structure") && (CheckMovementObstacles(nextPos, diagonal, "FireGrid")))
         {
             // Calculate destination and spawn object
             destination = currentPos + nextPos;
+
             // Check from current position if we're higher than the floor. Floor should be at y = 0.
             /*if(currentPos.y > 0.001f){
                 Debug.Log("Doing a skyraycast next");
                 // Do a ray cast from sky downwards and position fire grid lower, if possible
                 currentPos = SkyRayCast(currentPos + nextPos);
             }*/
+
             if (!CheckPositionAvailability(nextPos))
             {
                 SpawnFireGridObject(destination, Quaternion.Euler(nextPos), fireGrid);
@@ -212,38 +227,22 @@ public class FireSpreadStatic : MonoBehaviour
     /// </summary>
     /// <param name="direction"></param>
     /// <returns></returns>
-    private bool CheckMovementObstacles(Vector3 direction, bool diagonal)
+    private bool CheckMovementObstacles(Vector3 direction, bool diagonal, string obstacle)
     {
         // Note that the diagonal length is according to Pythagoras' theorem
         float diagonalLength = Mathf.Sqrt(1 + 1);
-        if (diagonal)
+        float length = diagonal ? diagonalLength : rayLength;
+
+        Ray diagRay = new Ray(transform.position + new Vector3(0, 0.001f, 0), direction);
+
+        if (Physics.Raycast(diagRay, out RaycastHit diagHit, length))
         {
-            Ray diagRay = new Ray(transform.position + new Vector3(0, 0.001f, 0), direction);
-            if (Physics.Raycast(diagRay, out RaycastHit diagHit, diagonalLength))
-            {
-                if (diagHit.collider.CompareTag("Structure") || diagHit.collider.CompareTag("FireGrid"))
+            if (diagHit.collider.CompareTag(obstacle))
                 {
                     Debug.Log("hit collider hit: " + diagHit.collider.name + " in the direction: " + direction);
                     return false;
                 }
-            }
         }
-        else
-        {
-            // Note that the y-axis position doesn't need a "raise" i.e new Vector3(0, 0.001f, 0) as the hallway scene floor is set to -0.1 y-position.
-            // Or maybe it does
-            Ray oneRay = new Ray(transform.position + new Vector3(0, 0.001f, 0), direction);
-
-            if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength))
-            {
-                if (hit.collider.CompareTag("Structure") || hit.collider.CompareTag("FireGrid"))
-                {
-                    Debug.Log("hit collider hit: " + hit.collider.name + " in the direction: " + direction);
-                    return false;
-                }
-            }
-        }
-
         return true;
     }
 
@@ -256,34 +255,32 @@ public class FireSpreadStatic : MonoBehaviour
     /// <param name="fireGrid">fireGrid object reference required for copying this script.</param>
     private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
     {
-        //numInc++;
-        //Debug.Log("incremented number is now: " + numInc);
-        //objectToSpawn.name = objectToSpawn.name + numInc.ToString();
-        //firePositions.AddFirePosition(objectToSpawn, position);
+        if (CheckPositionAvailability(position))
+        {
+            Debug.Log("Position already occupied: " + position);
+            return;
+        }
+
         Debug.Log("Spawning object in position: " + position + " with rotation: " + rotation + " and name: " + objectToSpawn.name);
         firePositions.AddPosition(position);
         GameObject obj = Instantiate(objectToSpawn, position, rotation);
         obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
+
+        //numInc++;
+        //Debug.Log("incremented number is now: " + numInc);
+        //objectToSpawn.name = objectToSpawn.name + numInc.ToString();
+        //firePositions.AddFirePosition(objectToSpawn, position);
         //obj.tag = "FireGrid";
-
-    }
-
-    private int RandomNumber()
-    {
-        randomNumber = UnityEngine.Random.Range(0, 7);
-        if (randomNumber == lastNumber)
-        {
-            randomNumber = UnityEngine.Random.Range(0, 7);
-        }
-        lastNumber = randomNumber;
-        return randomNumber;
     }
 
     private Vector3 SkyRayCast(Vector3 checkPos)
     {
         Debug.Log("This is checkPos values: " + checkPos.ToString());
+
         Ray oneRay = new Ray(checkPos, new Vector3(checkPos.x, -3, checkPos.z));
+        
         Debug.Log("This is raycast ray: " + oneRay.ToString());
+        
         if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength * 3))
         {
             Debug.Log("Raycast hit!");
@@ -299,7 +296,5 @@ public class FireSpreadStatic : MonoBehaviour
             }
         }
         return checkPos;
-
     }
-
 }
