@@ -6,12 +6,14 @@ public class LaboratorySceneManager : MonoBehaviour
 {
 
     private TaskManager taskManager;
+    private TaskboardManager taskboardManager;
     private PlayerEnter[] playerEnter;
     private bool fireBlanketFound, eyeShowerFound, extinguisherFound, emergencyShowerFound;
 
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
+        taskboardManager = GetComponent<TaskboardManager>();
         playerEnter = FindObjectsOfType<PlayerEnter>();
     }
 
@@ -37,21 +39,25 @@ public class LaboratorySceneManager : MonoBehaviour
         {
             if(script.gameObject.name.Contains("PlayerEnterBox FireBlanket") && script.HasEnteredOnce() && !fireBlanketFound)
             {
+                taskboardManager.MarkTaskAsCompleted("FireBlanket");
                 taskManager.CompleteTask("FireBlanket");
                 fireBlanketFound = true;
             }
             if (script.gameObject.name.Contains("PlayerEnterBox EyeShower") && script.HasEnteredOnce() && !eyeShowerFound)
             {
+                taskboardManager.MarkTaskAsCompleted("EyeShower");
                 taskManager.CompleteTask("EyeShower");
                 eyeShowerFound = true;
             }
             if (script.gameObject.name.Contains("PlayerEnterBox FireExtinguisher") && script.HasEnteredOnce() && !extinguisherFound)
             {
+                taskboardManager.MarkTaskAsCompleted("Extinguisher");
                 taskManager.CompleteTask("Extinguisher");
                 extinguisherFound = true;
             }
             if (script.gameObject.name.Contains("PlayerEnterBox EmergencyShower") && script.HasEnteredOnce() && !emergencyShowerFound)
             {
+                taskboardManager.MarkTaskAsCompleted("EmergencyShower");
                 taskManager.CompleteTask("EmergencyShower");
                 emergencyShowerFound = true;
             }

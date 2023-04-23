@@ -9,7 +9,7 @@ public class Taskboard : MonoBehaviour
     public TMP_FontAsset textFont;
     public float textStartingDistance;
     public float textSpacing;
-    public float fontSize = 20f;
+    public float fontSize;
     public Color completedColor = Color.green;
 
     private Dictionary<string, TextMeshProUGUI> taskTexts = new Dictionary<string, TextMeshProUGUI>();
@@ -32,11 +32,12 @@ public class Taskboard : MonoBehaviour
             GameObject spawnedTextObject = new GameObject(task.key + "_text");
             spawnedTextObject.transform.parent = transform;
             spawnedTextObject.transform.localPosition = Vector3.zero;
-            
+            spawnedTextObject.transform.rotation = spawnedTextObject.transform.parent.rotation;
+
             TextMeshProUGUI spawnedTaskText = spawnedTextObject.AddComponent<TextMeshProUGUI>();
             spawnedTaskText.text = task.taskText;
             spawnedTaskText.font = textFont;
-            spawnedTaskText.alignment = TextAlignmentOptions.Left;
+            spawnedTaskText.alignment = TextAlignmentOptions.Center;
 
             // Set the anchor to the top
             spawnedTaskText.rectTransform.anchorMin = new Vector2(0.5f, 1f);
