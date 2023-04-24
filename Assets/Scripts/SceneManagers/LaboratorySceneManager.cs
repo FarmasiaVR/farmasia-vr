@@ -20,24 +20,26 @@ public class LaboratorySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //FindFireExtinguisher();
-        //FindFireBlanket();
-        //FindEyeShower();
-        //FindEmergencyShower();
-        IterateFindTasks();
+        if (iterateThrough())
+        {
+            IterateFindPlayerEnterScripts();
+        }
     }
 
-    public void IterateFindTasks()
+    /// <summary>
+    /// Iterates through PLayerEnter script components present in the Laboratory scene. 
+    /// </summary>
+    public void IterateFindPlayerEnterScripts()
     {
         foreach (PlayerEnter script in playerEnter)
         {
-            if(script.gameObject.name.Contains("PlayerEnterBox FireBlanket") && script.HasEnteredOnce() && !fireBlanketFound)
+            if (script.gameObject.name.Contains("PlayerEnterBox FireBlanket") && script.HasEnteredOnce() && !fireBlanketFound)
             {
                 taskboardManager.MarkTaskAsCompleted("FireBlanket");
                 taskManager.CompleteTask("FireBlanket");
@@ -64,42 +66,16 @@ public class LaboratorySceneManager : MonoBehaviour
         }
     }
 
-    public void FindFireBlanket()
+    /// <summary>
+    /// Checks, if equipment has been found in the scene.
+    /// </summary>
+    /// <returns>Returns false if fireBlanketFound, eyeShowerFound, extinguisherFound and emergencyShowerFound are true. Else true.</returns>
+    private bool iterateThrough()
     {
-        if (playerEnter[0].HasEnteredOnce())
+        if (fireBlanketFound && eyeShowerFound && extinguisherFound && emergencyShowerFound)
         {
-            //Debug.Log("Task complete(?)");
-            taskManager.CompleteTask("FireBlanket");
+            return false;
         }
+        return true;
     }
-
-    public void FindFireExtinguisher()
-    {
-        if (playerEnter[1].HasEnteredOnce())
-        {
-            //Debug.Log("Task complete(?)");
-            taskManager.CompleteTask("Extinguisher");
-        }
-    }
-
-    public void FindEyeShower()
-    {
-        if (playerEnter[2].HasEnteredOnce())
-        {
-            //Debug.Log("Task complete(?)");
-            taskManager.CompleteTask("EyeShower");
-        }
-    }
-
-    public void FindEmergencyShower()
-    {
-        if (playerEnter[3].HasEnteredOnce())
-        {
-            //Debug.Log("Task complete(?)");
-            taskManager.CompleteTask("EmergencyShower");
-        }
-    }
-
-   
-
 }
