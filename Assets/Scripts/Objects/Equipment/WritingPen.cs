@@ -45,14 +45,12 @@ public class WritingPen : GeneralItem {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("called on triggerenter with object" + other.gameObject.name);
         GameObject foundObject = GetInteractableObject(other.transform);
         Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
         if (writable == null)
         {
             return;
         }
-        Debug.Log("Detected writable!");
         
 
         if (isWriting)
@@ -60,7 +58,6 @@ public class WritingPen : GeneralItem {
             return;
         }
         if (collidedObject == null) {
-            Debug.Log("survived null check in ontriggerenter");
             collidedObject = foundObject;
         }
         
@@ -127,6 +124,9 @@ public class WritingPen : GeneralItem {
 
     public void SubmitWriting(Writable writable, GameObject foundObject, Dictionary<WritingType, string> selectedOptions) {
         writable.AddWrittenLines(selectedOptions);
-        Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+        if (foundObject.gameObject.GetComponent<Writable>().writingsInOrder.Count > 0)
+        {
+            Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+        }   
     }
 }
