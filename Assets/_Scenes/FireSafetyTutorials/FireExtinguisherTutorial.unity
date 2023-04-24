@@ -131,6 +131,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8802103257047320789}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Extinguish
+      objectReference: {fileID: 0}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FireExtinguisherTutorialSceneManager, GameAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+        type: 3}
+      propertyPath: onExtinguish.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: m_RootOrder
@@ -412,6 +447,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a6cf0ad6828e6349b8ffbaa73b60f6c, type: 3}
+--- !u!114 &1157321874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
+    type: 3}
+  m_PrefabInstance: {fileID: 13209251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec78b04adb31eb4899b33d160b03283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &433159363916921159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TutorialRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6213510724402597140, guid: f7b3f25f799a352479027248dba7d63b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7b3f25f799a352479027248dba7d63b, type: 3}
@@ -721,3 +773,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417ca5e6c5573ed44a3ffb17d95ed347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: {fileID: 1157321874}

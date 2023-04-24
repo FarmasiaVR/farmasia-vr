@@ -72,8 +72,15 @@ public class FireExtinguisherTutorialSceneManager : MonoBehaviour
             return;
         }
         taskManager.CompleteTask("Activate");
+
+        fire.gameObject.SetActive(true);
     }
 
+
+    public void Extinguish()
+    {
+        taskManager.CompleteTask("Extinguish");
+    }
     public void PressQ()
     {
         taskManager.CompleteTask("Q");
