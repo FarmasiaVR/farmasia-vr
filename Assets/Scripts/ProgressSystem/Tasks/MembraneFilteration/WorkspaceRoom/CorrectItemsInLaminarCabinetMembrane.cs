@@ -119,9 +119,9 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                 } else if (g is Scalpel) {
                     EnableCondition(Conditions.Scalpel);
                     scalpel++;
-                } else if (g is Pipette || g is BigPipette) {
+                } else if (g is Pipette || g is BigPipette || g is PipetteContainer || g is PipetteHeadCover) {
                     pipette++;
-                    if (pipette >= 1) {
+                    if (pipette >= 4) {
                         EnableCondition(Conditions.Pipette);
                     }
                 } else if (g is Pump) {
