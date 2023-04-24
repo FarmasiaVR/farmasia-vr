@@ -5,6 +5,7 @@ using UnityEngine;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.VFX;
+using UnityEngine.Events;
 // This will add a new particle system to FireGridObject, not necessary now
 //[RequireComponent(typeof(ParticleSystem))]
 
@@ -43,6 +44,8 @@ public class FireGrid : MonoBehaviour
     
     [SerializeField]
     private int degrees;
+
+    public UnityEvent onExtinguish = new UnityEvent();
 
 
     private void Start()
@@ -95,6 +98,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = false;
+            onExtinguish.Invoke();
             //Debug.Log("Extinguished with Fire Extinguisher");
         }
         
