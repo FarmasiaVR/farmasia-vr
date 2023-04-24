@@ -6,6 +6,8 @@ public class WritingPen : GeneralItem {
 
     private bool isWriting;
     public bool ignoreGrabCheck;
+    public GameObject collidedObject;
+    public bool writeOnTouch;
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Pen;
@@ -31,8 +33,58 @@ public class WritingPen : GeneralItem {
         if (isWriting) { // must submit or cancel before selecting another item
             return;
         }
+        
         Debug.Log("called pen Write function");
-        Write(writable, foundObject);
+        
+        if (writeOnTouch)
+        {
+            Write(writable, foundObject);
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        GameObject foundObject = GetInteractableObject(other.transform);
+        Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
+        if (writable == null)
+        {
+            return;
+        }
+        Debug.Log("Detected writable!");
+        
+
+        if (isWriting)
+        { // must submit or cancel before selecting another item
+            return;
+        }
+        if (collidedObject == null) {
+            collidedObject = foundObject;
+        }
+        
+            
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<WritingTarget>())
+        {
+            collidedObject = null;
+        }
+    }
+
+    public void WriteXR()
+    {
+        if (collidedObject != null)
+        {
+            Writable write = collidedObject.GetComponent<Writable>();
+            if (write != null)
+            {
+                Write(write, collidedObject);
+            }
+        }
     }
 
     private void Write(Writable writable, GameObject foundObject) {
@@ -67,6 +119,7 @@ public class WritingPen : GeneralItem {
             SubmitWriting(writable, foundObject, selectedOptions);
             isWriting = false;
             writingOptions.objectToTypeTo = null;
+            collidedObject = null;
         };
         writingOptions.onCancel = () => {
             isWriting = false;
