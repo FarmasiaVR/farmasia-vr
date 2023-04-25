@@ -10,7 +10,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     public override string Description { get => "Siirrä valitsemasi työvälineet laminaarikaappiin"; }
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag }
+    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, Pencil }
     private CabinetBase laminarCabinet;
     #endregion
 
@@ -135,7 +135,12 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
                     EnableCondition(Conditions.SterileBag);
                     sterileBag++;
                 } 
+                else if(g is WritingPen)
+                {
+                    EnableCondition(Conditions.Pencil);
+                }
                 if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle)) {
+                    Debug.Log("item was contaminated: " + g.gameObject.name);
                     uncleanCount++;
                     Logger.Warning(g.name + " in laminar cabinet was filthy.");
                 }
