@@ -15,10 +15,20 @@ public class HandStateManager : MonoBehaviour {
 
     private bool isMistake;
 
+
+    public bool glovesOnAtStart;
+
     public void Start() {
+       
         SetDirty();
         Subscribe();
         handSparkleAudioFX = FindObjectOfType<HandSparkleAudioFX>();
+
+        if(glovesOnAtStart)
+        {
+            SetDefault();
+            material.SetInt("_GlovesOn", 1);
+        }
     }
 
     public void Subscribe() {
