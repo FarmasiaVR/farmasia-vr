@@ -1,9 +1,9 @@
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using Valve.VR;
+
 //this is crazy prototyping code from every software devs nightmares, do not try this at home
 public class XRJoinSyringeToLuerlock : MonoBehaviour
 {
