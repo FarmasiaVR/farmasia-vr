@@ -86,7 +86,10 @@ public class HandStateManager : MonoBehaviour {
     private void OpenedDoor(CallbackData data) {
         cleanAnimationPlayed = false;
         shinyAnimationPlayed = false;
-        SetDirty();
+        if (!glovesOnAtStart)
+        {
+            SetDirty();
+        }
         Events.UnsubscribeFromEvent(OpenedDoor, EventType.RoomDoor);
     }
 
