@@ -6,7 +6,10 @@ public class WritingPen : GeneralItem {
 
     private bool isWriting;
     public bool ignoreGrabCheck;
+    
     public GameObject collidedObject;
+    Collider collidedCollider;
+
     public bool writeOnTouch;
     protected override void Start() {
         base.Start();
@@ -59,11 +62,23 @@ public class WritingPen : GeneralItem {
         }
         if (collidedObject == null) {
             collidedObject = foundObject;
+            collidedCollider = other;
         }
         
             
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (collidedCollider)
+        {
+            if (other == collidedCollider)
+            {
+                collidedObject = null;
+                collidedCollider = null;
+            }
+        }
+    }
 
     public void resetCollidedObject()
     {
