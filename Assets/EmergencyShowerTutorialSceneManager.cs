@@ -26,6 +26,7 @@ public class EmergencyShowerTutorialSceneManager : MonoBehaviour
         if(CheckPlayerExtinguished() && !doneOnce)
         {
             taskManager.CompleteTask("PlayerOnFire");
+            doneOnce = true;
         }
     }
 
@@ -36,8 +37,8 @@ public class EmergencyShowerTutorialSceneManager : MonoBehaviour
 
     public void SetPlayerExtinguished()
     {
+        Debug.Log("Setting boolean values in SetPlayerExtinguished!");
         playerExtinguished = true;
-        doneOnce = true;
     }
 
 }

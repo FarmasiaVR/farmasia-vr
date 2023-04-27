@@ -37,7 +37,7 @@ public class ShowerToggler : MonoBehaviour
             water.Play();
             audioLooper.Play();
 
-            Debug.Log("Shower should be on");
+            //Debug.Log("Shower should be on");
             
             // Stop the previous coroutine if it's still running
             if (turnOffShowerCoroutine != null)
@@ -61,14 +61,14 @@ public class ShowerToggler : MonoBehaviour
     // Coroutine that turns off water vfx after 4 seconds have passed
     private IEnumerator turnOffShower()
     {
-        Debug.Log("Shower should still be on for next 4 seconds");
+        //Debug.Log("Shower should still be on for next 4 seconds");
 
         yield return new WaitForSeconds(4);
 
         open = false;
 
         water.Stop();
-        Debug.Log("Shower should now be off");
+        //Debug.Log("Shower should now be off");
         
     }
 

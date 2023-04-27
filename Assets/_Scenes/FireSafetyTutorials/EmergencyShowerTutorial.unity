@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taskListObject: {fileID: 11400000, guid: c9cbce38db36b544b86cf87a16d251df, type: 2}
-  resetOnStart: 0
+  resetOnStart: 1
   onTaskManagerStarted:
     m_PersistentCalls:
       m_Calls:
@@ -1039,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireToControl: {fileID: 140323155}
+  startOnFire: 1
 --- !u!114 &807578144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,6 +1291,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmergencyShowerInteractable
       objectReference: {fileID: 0}
+    - target: {fileID: 581462574034516085, guid: 2d6ad9a483ac5974bba6831f4edf5313,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d6ad9a483ac5974bba6831f4edf5313, type: 3}
 --- !u!1001 &1657794292
@@ -1374,12 +1380,12 @@ PrefabInstance:
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.468
+      value: -2.462
       objectReference: {fileID: 0}
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.1742702
+      value: -2.192
       objectReference: {fileID: 0}
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
