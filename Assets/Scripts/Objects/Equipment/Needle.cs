@@ -1,8 +1,7 @@
-﻿using System;
-using System.Diagnostics;
+﻿
 using UnityEngine.XR.Interaction.Toolkit;
-using Valve.VR.InteractionSystem;
-using UnityEngine;
+
+
 public class Needle : ConnectableItem
 {
 
