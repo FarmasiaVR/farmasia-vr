@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using FarmasiaVR.Legacy;
 using Unity;
+using UnityEngine;
 class FillBottles: Task {
     public enum Conditions { BottlesFilled }
 
@@ -24,18 +25,36 @@ class FillBottles: Task {
 
     private void OnBottleFill(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
+        soycaseineBottlesDone = 0;
+        tioglygolateBottlesDone = 0;
         if (container.GeneralItem is Bottle bottle && bottle.ObjectType == ObjectType.Bottle) {
             if (bottle.Container.Amount >= REQUIRED_AMOUNT) {
-                if (bottles.Contains(bottle)) return;
-                bottles.Add(bottle);
-                if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
-
-                    soycaseineBottlesDone++;
-                } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
-                    tioglygolateBottlesDone++;
+                //if (bottles.Contains(bottle)) return;
+                if (!bottles.Contains(bottle))
+                {
+                    bottles.Add(bottle);
                 }
+                UnityEngine.Debug.Log("current tio amount in bottle: " + bottle.Container.Amount);
+                    
+                foreach (Bottle b in bottles)
+                {
+                    if (b.Container.LiquidType == LiquidType.Soycaseine)
+                    {
+                        soycaseineBottlesDone++;
+                    }
+                    if (b.Container.LiquidType == LiquidType.Tioglygolate)
+                    {
+                        tioglygolateBottlesDone++;
+                    }
+                }
+                //if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
+                  //  soycaseineBottlesDone++;
+                //} else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
+                  //  tioglygolateBottlesDone++;
+                //}
             }
         }
+        UnityEngine.Debug.Log("tio and soy amount after monster: tio:" + tioglygolateBottlesDone + "    soy:" + soycaseineBottlesDone);
         if (soycaseineBottlesDone >= 2 && tioglygolateBottlesDone >= 2) {
             EnableCondition(Conditions.BottlesFilled);
             CheckMistakes();
