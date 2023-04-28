@@ -99,7 +99,7 @@ public class FireGrid : MonoBehaviour
 
             isIgnited = false;
             onExtinguish.Invoke();
-            //Debug.Log("Extinguished with Fire Extinguisher");
+            Debug.Log("Extinguished");
         }
         
     }
@@ -154,7 +154,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = true;
-            //Debug.Log("Ignited");
+            Debug.Log("Ignited");
         }
         
     }
