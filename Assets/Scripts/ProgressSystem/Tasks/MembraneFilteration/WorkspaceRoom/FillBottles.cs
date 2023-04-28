@@ -38,11 +38,11 @@ class FillBottles: Task {
                     
                 foreach (Bottle b in bottles)
                 {
-                    if (b.Container.LiquidType == LiquidType.Soycaseine)
+                    if (b.Container.LiquidType == LiquidType.Soycaseine && b.Container.Amount >= REQUIRED_AMOUNT)
                     {
                         soycaseineBottlesDone++;
                     }
-                    if (b.Container.LiquidType == LiquidType.Tioglygolate)
+                    if (b.Container.LiquidType == LiquidType.Tioglygolate && b.Container.Amount >= REQUIRED_AMOUNT)
                     {
                         tioglygolateBottlesDone++;
                     }
