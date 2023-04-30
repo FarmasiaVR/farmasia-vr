@@ -23,6 +23,14 @@ public class TaskboardManager : MonoBehaviour
         }
     }
 
+    public void MarkTaskAsCompleted(Task task)
+    {
+        foreach (Taskboard taskboard in taskboards)
+        {
+            taskboard.MarkTaskAsCompleted(task.key);
+        }
+    }
+
     public void MarkTaskAsCompleted(string taskKey)
     {
         foreach(Taskboard taskboard in taskboards)
