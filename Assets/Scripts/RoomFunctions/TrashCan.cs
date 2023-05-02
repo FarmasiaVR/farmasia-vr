@@ -4,7 +4,7 @@ using FarmasiaVR.Legacy;
 
 public class TrashCan : MonoBehaviour {
 
-    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
+    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.PumpFilterFilter, ObjectType.PumpFilterBase, ObjectType.FilterInCover,
         ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Luerlock, ObjectType.DisinfectingCloth, ObjectType.SterileBag };
     private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel, ObjectType.Needle };
 
@@ -22,6 +22,7 @@ public class TrashCan : MonoBehaviour {
                 Task.CreateGeneralMistake("Esine ei kuulu roskikseen!", 1, true);
                 return;
             } else {
+                Debug.Log("this item belongs in trash according to logic:" + other.gameObject.name);
                 if (item.ObjectType == ObjectType.PipetteContainer && item.gameObject.transform.parent != null) {
                     Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
                     return;

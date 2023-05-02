@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using FarmasiaVR.Legacy;
+using UnityEngine;
 
 public class CleanTrashMembrane : Task {
 
@@ -17,6 +19,7 @@ public class CleanTrashMembrane : Task {
 
     private void TrackItemsInTrash(CallbackData data) {
         trashLeft--;
+        UnityEngine.Debug.Log("current trash left: " + trashLeft);
         if (trashLeft <= 0) {
             EnableCondition(Conditions.TrashCleaned);
             CompleteTask();
