@@ -41,7 +41,7 @@ public class Description : MonoBehaviour {
                 break;
         }
 
-        string text = string.Format("<color=#000000> {0} </color> \n{1}", packageName, UISystem.Instance.Descript);
+        string text = string.Format("<color=#3f546f> {0} </color> \n{1}", packageName, UISystem.Instance.Descript);
         currentTextField.text = text;
     }
 }

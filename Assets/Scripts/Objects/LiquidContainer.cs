@@ -117,10 +117,13 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void TransferLiquidType(LiquidContainer target) {
+        
         if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
+            
             if (target.Amount == 0) {
+                
                 target.LiquidType = LiquidType;
                 target.Impure = true;
             } else {
