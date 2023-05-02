@@ -8,8 +8,8 @@ using FarmasiaVR.New;
 public class HintBoxNew : MonoBehaviour
 {
     // Add TextMeshPro object in Unity editor
-    [SerializeField]
-    private TextMeshPro hintDesc;
+    [field:SerializeField]
+    public TextMeshPro hintDesc { get; private set; }
 
     // Array for child objects of HintBoxNew prefab
     private Transform[] hintBoxObjects;
