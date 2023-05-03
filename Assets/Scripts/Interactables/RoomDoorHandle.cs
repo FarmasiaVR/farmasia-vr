@@ -27,6 +27,10 @@ public class RoomDoorHandle : AnimatedDoorHandle {
         Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
     }
 
+    public void resetCounterForPlates()
+    {
+        Events.FireEvent(EventType.ResetCounter);
+    }
 
 
 }

@@ -14,6 +14,7 @@
     AmountOfMedicine,
     CloseSterileBag,
     RoomDoor,
+    ResetCounter,
     ItemDroppedInTrash,
     ItemDroppedOnFloor,
     GrabObject,

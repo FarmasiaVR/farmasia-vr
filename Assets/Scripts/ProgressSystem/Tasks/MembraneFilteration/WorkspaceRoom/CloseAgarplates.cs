@@ -14,6 +14,7 @@ public class CloseAgarPlates : Task {
     public override void Subscribe() {
         base.SubscribeEvent(TrackClosedPlates, EventType.AgarPlateClosed);
         base.SubscribeEvent(TrackOpenedPlates, EventType.PlateOpened);
+        base.SubscribeEvent(resetCounter, EventType.ResetCounter);
     }
 
     private void TrackClosedPlates(CallbackData data) {
@@ -31,5 +32,10 @@ public class CloseAgarPlates : Task {
 
     private void TrackOpenedPlates(CallbackData data) {
         openedPlates++;
+    }
+
+    public void resetCounter(CallbackData data)
+    {
+        openedPlates = 0;
     }
 }
