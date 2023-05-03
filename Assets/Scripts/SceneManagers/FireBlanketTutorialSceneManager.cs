@@ -5,12 +5,13 @@ using UnityEngine;
 public class FireBlanketTutorialSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
-    public FireGrid fire;
+    public FireGrid fireGridObj;
 
     // Start is called before the first frame update
     void Start()
     {
         taskManager = GetComponent<TaskManager>();
+        fireGridObj = GetComponent<FireGrid>();
     }
 
     // Update is called once per frame

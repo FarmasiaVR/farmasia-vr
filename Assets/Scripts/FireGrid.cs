@@ -128,6 +128,7 @@ public class FireGrid : MonoBehaviour
                 extinguishParticle.Play();
             }
 
+            onExtinguish.Invoke();
             isIgnited = false;
             //Debug.Log("Extinguished with Blanket");
         }
