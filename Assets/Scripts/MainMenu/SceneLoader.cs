@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour {
                 ChangeScene("MedicinePreparation");
                 return;
             case SceneTypes.Tutorial:
-                ChangeScene("Tutorial");
+                ChangeScene("ControlsTutorial");
                 return;
             case SceneTypes.MembraneFilteration:
                 ChangeScene("XR MembraneFilteration 2.0");
