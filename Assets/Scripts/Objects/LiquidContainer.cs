@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using FarmasiaVR.Legacy;
+using UnityEngine.Events;
 
 public class LiquidContainer : MonoBehaviour {
 
@@ -23,6 +24,9 @@ public class LiquidContainer : MonoBehaviour {
     private TriggerInteractableContainer itemContainer;
 
     public bool Impure;
+
+    [Tooltip("Called when the container is filled. Passes the amount of liquid in the container as the parameter.")]
+    public UnityEvent<int> onBottleFilled;
 
     public int Amount {
         get { return amount; }
@@ -92,7 +96,6 @@ public class LiquidContainer : MonoBehaviour {
             Logger.Error("Receiving LiquidContainer was null");
             return;
         }
-         Debug.Log("we survived target null check on bottle side");
         if (amount == 0) {
             return;
         }
@@ -134,10 +137,12 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
-        //Debug.Log("FINALLY SENDING EVENT?");
+        Debug.Log("FINALLY SENDING EVENT?");
         if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
-            // Debug.Log("FINALLY SENDING EVENT!!");
+            Debug.Log("FINALLY SENDING EVENT!!");
+            target.onBottleFilled.Invoke(target.amount);
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
+
         }
     }
 
