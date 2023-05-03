@@ -48,10 +48,10 @@ public class ButtonFollowVisual : MonoBehaviour
 
             float pokeAngle = Vector3.Angle(offset, visualTarget.TransformDirection(localAxis));
 
-            if(pokeAngle < followAngleThreshold)
+            if(pokeAngle > followAngleThreshold)
             {
-                isFollowing = true;
-                freeze = false;
+                isFollowing = false;
+                freeze = true;
             }
         }
     }
