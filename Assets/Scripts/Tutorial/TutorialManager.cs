@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -63,7 +60,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ProgressTutorial()
     {
-        Debug.Log("Progressing tutorial");
+        // Debug.Log("Progressing tutorial");
         transform.GetChild(currentTutorialIndex).gameObject.SetActive(false);
         if (currentTutorialIndex < transform.childCount - 1)
         {
@@ -86,7 +83,7 @@ public class TutorialManager : MonoBehaviour
         // Drop all of the interactable items in the scene including sockets and player's hands. Otherwise bugs may occur.
         foreach (XRBaseInteractable interactable in FindObjectsOfType<XRBaseInteractable>())
         {
-            if (interactable.isSelected)
+            if (interactable.interactorsSelecting.Count > 0)
             {
                 interactable.interactionManager.SelectExit(interactable.interactorsSelecting[0], interactable);
             }
