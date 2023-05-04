@@ -48,10 +48,11 @@ public class ButtonFollowVisual : MonoBehaviour
 
             float pokeAngle = Vector3.Angle(offset, visualTarget.TransformDirection(localAxis));
 
-            if(pokeAngle < followAngleThreshold)
+            // Note that this differs from the tutorial and fixes the button moving upwards bug
+            if(pokeAngle > followAngleThreshold)
             {
-                isFollowing = true;
-                freeze = false;
+                isFollowing = false;
+                freeze = true;
             }
         }
     }
