@@ -19,7 +19,7 @@ public class SimpleInteractableAutoDeselect : MonoBehaviour
 
     public void AutoExitSelect(SelectEnterEventArgs args)
     {
-        Debug.Log("Selected object " + args.interactableObject.transform.name);
+        //Debug.Log("Selected object " + args.interactableObject.transform.name);
         StartCoroutine(DeselectAfterCooldown(args));
     }
 

@@ -25,7 +25,7 @@ public class AutomaticPipetteSetAttachedPipetteXR : MonoBehaviour
     //called when interactable is detached from a socket
     public void setConnectedPipette(SelectEnterEventArgs args)
     {
-        Debug.Log("setting connected pipette");
+        //Debug.Log("setting connected pipette");
         //MUHAHAHAHAHAHAHHAHAH this line of code is cracy but you can do better so fix this???
         reiceiverPipette.pipetteContainerXR = args.interactableObject.transform.GetComponent<PipetteContainer>();
     }

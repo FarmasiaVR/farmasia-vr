@@ -15,7 +15,6 @@ public class ControlTutorialManager : MonoBehaviour
     }
     public void CheckBottleFill(int amountInBottle)
     {
-        Debug.Log("Checking bottle fill amount. Amount: " + amountInBottle);
         if (amountInBottle >= 30000)
         {
             taskManager.CompleteTask("med");
