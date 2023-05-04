@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
     {
         foreach (XRSocketInteractor socket in transform.GetChild(currentTutorialIndex).GetComponentsInChildren<XRSocketInteractor>())
         {
-            if (socket.isSelectActive)
+            if (socket.interactablesSelected.Count > 0)
             {
                 socket.interactionManager.SelectExit(socket, socket.interactablesSelected[0]);
             }
