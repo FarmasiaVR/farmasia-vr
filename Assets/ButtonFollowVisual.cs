@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Searcher;
-using UnityEngine;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
