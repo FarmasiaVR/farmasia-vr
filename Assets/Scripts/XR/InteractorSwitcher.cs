@@ -48,9 +48,8 @@ public class InteractorSwitcher : MonoBehaviour
 
     public void EnableInteractorSwitching()
     {
-        SetInteractorEnabled(directInteractor, true);
         interactorSwitchingEnabled = true;
-        
+        SetInteractorEnabled(directInteractor, true);
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
@@ -104,6 +103,7 @@ public class InteractorSwitcher : MonoBehaviour
 
         interactor.allowHover = enabled;
         interactor.allowSelect = enabled;
+        Debug.Log("Allow select: " + interactor.allowSelect + " enabled: " + enabled);
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
         if (lineVisual != null) {
@@ -123,10 +123,12 @@ public class InteractorSwitcher : MonoBehaviour
         XRInteractionManager interactionManager = directInteractor.interactionManager;
 
         // If the player is holding something, then drop it. Otherwise the object will stay selected and may cause bugs.
+        Debug.Log("Player is currently holding " + directInteractor.interactablesSelected.Count + " objects");
         if (directInteractor.interactablesSelected.Count > 0)
         {
             interactionManager.SelectExit(directInteractor, directInteractor.interactablesSelected[0]);
         }
+        Debug.Log("Player is currently holding " + directInteractor.interactablesSelected.Count + " objects");
 
         SetInteractorEnabled(directInteractor, false);
         SetInteractorEnabled(rayInteractor, false);

@@ -22,7 +22,7 @@ public class TutorialManager : MonoBehaviour
 
         // Go through all of the sockets in the current tutorial and make them drop their items when a tutorial section is changed.
         // Otherwise the interactables aren't parented correctly and they remain in the scene.
-        fadeController.onFadeOutComplete.AddListener(DropItemsInSockets);
+        fadeController.onFadeOutComplete.AddListener(DropInteractablesInScene);
 
         fadeController.onFadeOutComplete.AddListener(ProgressTutorial);
         fadeController.onFadeOutComplete.AddListener(fadeController.BeginFadeIn);
@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
 
     private void RemoveFadeListeners()
     {
-        fadeController.onFadeOutComplete.RemoveListener(DropItemsInSockets);
+        fadeController.onFadeOutComplete.RemoveListener(DropInteractablesInScene);
         fadeController.onFadeOutComplete.RemoveListener(fadeController.BeginFadeIn);
         fadeController.onFadeOutComplete.RemoveListener(ProgressTutorial);
     }
@@ -65,7 +65,7 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("Progressing tutorial");
         transform.GetChild(currentTutorialIndex).gameObject.SetActive(false);
-        if (currentTutorialIndex < transform.childCount)
+        if (currentTutorialIndex < transform.childCount - 1)
         {
             transform.GetChild(currentTutorialIndex + 1).gameObject.SetActive(true);
         }
@@ -81,13 +81,14 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    private void DropItemsInSockets()
+    private void DropInteractablesInScene()
     {
-        foreach (XRSocketInteractor socket in transform.GetChild(currentTutorialIndex).GetComponentsInChildren<XRSocketInteractor>())
+        // Drop all of the interactable items in the scene including sockets and player's hands. Otherwise bugs may occur.
+        foreach (XRBaseInteractable interactable in FindObjectsOfType<XRBaseInteractable>())
         {
-            if (socket.isSelectActive)
+            if (interactable.isSelected)
             {
-                socket.interactionManager.SelectExit(socket, socket.interactablesSelected[0]);
+                interactable.interactionManager.SelectExit(interactable.interactorsSelecting[0], interactable);
             }
         }
     }
