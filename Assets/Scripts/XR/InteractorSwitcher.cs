@@ -48,8 +48,8 @@ public class InteractorSwitcher : MonoBehaviour
 
     public void EnableInteractorSwitching()
     {
-        SetInteractorEnabled(directInteractor, true);
         interactorSwitchingEnabled = true;
+        SetInteractorEnabled(directInteractor, true);
     }
 
     private void EnableRayInteractor(InputAction.CallbackContext context) {
@@ -103,6 +103,7 @@ public class InteractorSwitcher : MonoBehaviour
 
         interactor.allowHover = enabled;
         interactor.allowSelect = enabled;
+        Debug.Log("Allow select: " + interactor.allowSelect + " enabled: " + enabled);
         XRInteractorLineVisual lineVisual = interactor.gameObject.GetComponent<XRInteractorLineVisual>();
 
         if (lineVisual != null) {

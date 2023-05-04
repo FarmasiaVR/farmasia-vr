@@ -65,7 +65,7 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("Progressing tutorial");
         transform.GetChild(currentTutorialIndex).gameObject.SetActive(false);
-        if (currentTutorialIndex < transform.childCount)
+        if (currentTutorialIndex < transform.childCount - 1)
         {
             transform.GetChild(currentTutorialIndex + 1).gameObject.SetActive(true);
         }
