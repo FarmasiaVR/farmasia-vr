@@ -13,7 +13,11 @@ public class XRLuerlock : MonoBehaviour
     public XRJoinSyringeToLuerlock syringe1Socket;
     public XRJoinSyringeToLuerlock syringe2Socket;
 
-
+    enum transferMode
+    {
+        take,
+        send
+    }
 
     void Start()
     {
@@ -83,28 +87,35 @@ public class XRLuerlock : MonoBehaviour
     public void sendMedicine(InputAction.CallbackContext context)
     {
         Debug.Log("sending medicine");
-        TrackedDevice device = (TrackedDevice)context.control.device;
-        Vector3 devicePos = device.devicePosition.ReadValue();
-        Debug.Log("the device pos:");
-        Debug.Log(devicePos);
-
-        //dev testing...
-        LiquidContainer target =  findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
-        findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().SendMedicineToLuerlockXR(target);
+        transferMedicine(context, transferMode.send);
     }
 
 
     public void takeMedicine(InputAction.CallbackContext context)
     {
         Debug.Log("taking medicine");
-        TrackedDevice device = (TrackedDevice) context.control.device;
+        transferMedicine(context, transferMode.take);
+    }
+   
+    void transferMedicine(InputAction.CallbackContext context, transferMode mode)
+    {
+        TrackedDevice device = (TrackedDevice)context.control.device;
         Vector3 devicePos = device.devicePosition.ReadValue();
         Debug.Log("the device pos:");
         Debug.Log(devicePos);
 
-        //dev testing...
-        LiquidContainer target = findFurthestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
-        findClosestSocket(devicePos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>().TakeMedicineFromLuerlockXR(target);
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").gameObject.transform.position;
+        Vector3 deviceWorldPos = playerPos + devicePos;
 
+        LiquidContainer target = findFurthestSocket(deviceWorldPos).attachSocket.firstInteractableSelected.transform.GetComponentInChildren<LiquidContainer>();
+        Syringe syringe = findClosestSocket(deviceWorldPos).attachSocket.firstInteractableSelected.transform.GetComponent<Syringe>();
+        
+        if (mode == transferMode.take)
+        {
+            syringe.TakeMedicineFromLuerlockXR(target);
+        }
+        else if (mode == transferMode.send) {
+            syringe.SendMedicineToLuerlockXR(target);
+        }
     }
 }
