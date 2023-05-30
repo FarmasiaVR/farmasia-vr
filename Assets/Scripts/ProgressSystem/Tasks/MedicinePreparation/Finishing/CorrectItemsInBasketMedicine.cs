@@ -48,6 +48,8 @@ public class CorrectItemsInBasketMedicine : Task {
         CompleteTask();
     }
 
+   
+
     private void CheckConditions(List<Interactable> containedObjects) {
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
@@ -55,7 +57,15 @@ public class CorrectItemsInBasketMedicine : Task {
                     EnableCondition(Conditions.SterileBag);
                 } else if (g is Bottle) {
                     EnableCondition(Conditions.MedicineBottle);
-                } else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
+                } else if (g is BottleCap 
+                    || g is FilteringButton 
+                    || g is FilterHalf 
+                    || g is FilterInCover 
+                    || g is AgarPlateBottom 
+                    || g is Agar
+                    || g is Syringe
+                    || g is SyringeCap
+                    ) {
                     continue;
                 } else {
                     CreateTaskMistake("Väärä esine korissa", 1);
