@@ -11,6 +11,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
     public XRGrabInteractable parent;
     public Collider colliderToToggle;
 
+    InteractionLayerMask attachedObjecInteractionMask;
    
     // Start is called before the first frame update
     void Start()
@@ -38,10 +39,10 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
 
         args.interactableObject.transform.parent = parent.transform;
         args.interactableObject.transform.localScale= parent.transform.localScale;
-       
-        //set syringe mask so that the player can't interact with it
-        args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("CanAttachToLuerlock");
 
+        //set syringe mask so that the player can't interact with it
+        attachedObjecInteractionMask = args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers;
+        args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("CanAttachToLuerlock");
         colliderToToggle.enabled = true;
     }
 
@@ -70,8 +71,8 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
             //set syringe layer back to normal
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
             attachedSyringe.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            string[] masks = { "CanAttachToLuerlock", "InteractableByPlayer" };
-            attachedSyringe.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask(masks);
+           
+            attachedSyringe.transform.GetComponent<XRGrabInteractable>().interactionLayers = attachedObjecInteractionMask;
 
             //detach syringe from luerlock   
             XRInteractionManager manager = parent.interactionManager;

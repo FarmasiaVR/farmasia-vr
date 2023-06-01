@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3863435476182024923}
   - component: {fileID: 973845163359575169}
   - component: {fileID: 1076839089231692289}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: syringe_cap XR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,13 +115,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1076839089231692289}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 512
-  m_DistanceCalculationMode: 1
+    m_Bits: 34304
+  m_DistanceCalculationMode: 2
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0

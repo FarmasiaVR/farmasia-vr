@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 3646843456888511438}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -345,7 +345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194798177729978139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.039, z: -0}
+  m_LocalPosition: {x: 0, y: -0.0759, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -418,10 +418,10 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
-        m_MethodName: setInteractionLayerToDefault
-        m_Mode: 1
+      - m_Target: {fileID: 5213708016234147112}
+        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
+        m_MethodName: DisableCollisions
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -433,10 +433,10 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: toggleInteractionLayerMaskXR, Assembly-CSharp
-        m_MethodName: setInteractionLayerToCanAttachToLuerlock
-        m_Mode: 1
+      - m_Target: {fileID: 5213708016234147112}
+        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
+        m_MethodName: EnableCollisions
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -984,6 +984,9 @@ MonoBehaviour:
   LiquidType: 4
   GeneralItem: {fileID: 8264759978326355818}
   Impure: 0
+  onBottleFilled:
+    m_PersistentCalls:
+      m_Calls: []
   capacity: 1000
 --- !u!136 &9120293976988220977
 CapsuleCollider:

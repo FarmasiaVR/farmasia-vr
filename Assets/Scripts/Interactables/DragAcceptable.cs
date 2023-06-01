@@ -133,6 +133,18 @@ public class DragAcceptable : Interactable {
         OnAccept?.Invoke();
         ActivateCount++;
     }
+
+    public void ActivateXR()
+    {
+        if (ActivateCount >= ActivateCountLimit && ActivateCountLimit >= 0)
+        {
+            return;
+        }
+        OnAccept?.Invoke();
+        ActivateCount++;
+    }
+
+
     private void Release() {
         if (IsGrabbed) {
             Hand.GrabbingHand(this)?.Uninteract();

@@ -4,8 +4,8 @@ using FarmasiaVR.Legacy;
 
 public class TrashCan : MonoBehaviour {
 
-    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.PumpFilterFilter, ObjectType.PumpFilterBase, ObjectType.FilterInCover,
-        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Luerlock, ObjectType.DisinfectingCloth, ObjectType.SterileBag };
+    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
+        ObjectType.PipetteContainer, ObjectType.Syringe, ObjectType.SyringeCap, ObjectType.Luerlock, ObjectType.DisinfectingCloth, ObjectType.SterileBag, ObjectType.PumpFilterFilter };
     private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel, ObjectType.Needle };
 
     public enum TrashType {
@@ -16,7 +16,8 @@ public class TrashCan : MonoBehaviour {
     public TrashType trashType;
 
     public void OnTrashEnter(Collider other) {
-        GeneralItem item = GeneralItem.Find(other.transform);
+        //GeneralItem item = GeneralItem.Find(other.transform);
+        GeneralItem item = other.transform.gameObject.GetComponent<GeneralItem>();
         if (item != null) {
             if (!normalTrash.Contains(item.ObjectType) && !sharpTrash.Contains(item.ObjectType)) {
                 Task.CreateGeneralMistake("Esine ei kuulu roskikseen!", 1, true);
@@ -36,8 +37,8 @@ public class TrashCan : MonoBehaviour {
                     Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                     G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
                 }
-                if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
-                if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin normaaliin roskikseen", 1, true);
+                if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terï¿½vien roskikseen", 1, true);
+                if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terï¿½vï¿½ esine laitettiin normaaliin roskikseen", 1, true);
             }
             PrepareObjectForRemoving(item);
             item.DestroyInteractable();
