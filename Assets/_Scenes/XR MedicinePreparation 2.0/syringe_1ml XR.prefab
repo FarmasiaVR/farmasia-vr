@@ -82,6 +82,7 @@ MonoBehaviour:
   maxPosition: -0.0665
   handle: {fileID: 4383907204747270253}
   capVisible: 0
+  HasSyringeCap: 0
   hasBeenInBottle: 0
 --- !u!114 &4751144390727135045
 MonoBehaviour:
@@ -364,6 +365,7 @@ GameObject:
   - component: {fileID: 6444220169249640651}
   - component: {fileID: 2138526215135982632}
   - component: {fileID: 5213708016234147112}
+  - component: {fileID: 4629005352140394268}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -430,12 +432,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4629005352140394268}
+        m_TargetAssemblyTypeName: syringeToggleHasSyringeCap, Assembly-CSharp
+        m_MethodName: setSyringeCap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5213708016234147112}
         m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
         m_MethodName: EnableCollisions
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4629005352140394268}
+        m_TargetAssemblyTypeName: syringeToggleHasSyringeCap, Assembly-CSharp
+        m_MethodName: removeSyringeCap
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -491,6 +517,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 3625825646839276993}
+--- !u!114 &4629005352140394268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549255362493332161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00539e39cc33e6546ba89f23e8203d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syringe: {fileID: 8264759978326355818}
 --- !u!1 &1953694062956324995
 GameObject:
   m_ObjectHideFlags: 0
