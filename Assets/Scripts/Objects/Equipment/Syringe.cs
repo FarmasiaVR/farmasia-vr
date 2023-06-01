@@ -20,7 +20,7 @@ public class Syringe : GeneralItem {
 
     private GameObject syringeCap;
     public bool capVisible;
-    public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
+    public bool HasSyringeCap;
 
     public LiquidContainer BottleContainer { get; set; }
 
