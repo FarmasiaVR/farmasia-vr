@@ -16,7 +16,7 @@ public class SceneLoader : MonoBehaviour {
                 ChangeScene("MainMenu");
                 return;
             case SceneTypes.MedicinePreparation:
-                ChangeScene("MedicinePreparation");
+                ChangeScene("XR MedicinePreparation 2.0");
                 return;
             case SceneTypes.Tutorial:
                 ChangeScene("ControlsTutorial");
