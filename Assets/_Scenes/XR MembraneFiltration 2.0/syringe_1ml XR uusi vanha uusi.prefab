@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 5149895496115030186}
   - component: {fileID: 2877366032667562503}
   - component: {fileID: 4105379766371740406}
+  - component: {fileID: 2247876141046985838}
   m_Layer: 10
   m_Name: Syringe1ml
   m_TagString: Untagged
@@ -420,6 +421,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &2247876141046985838
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420971002553358195}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.0859774, z: 0.01}
+  m_Center: {x: 0, y: -0.0067022643, z: 0}
 --- !u!1 &1451853301317283256
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1001,9 @@ MonoBehaviour:
   LiquidType: 4
   GeneralItem: {fileID: 0}
   Impure: 0
+  onBottleFilled:
+    m_PersistentCalls:
+      m_Calls: []
   capacity: 1000
 --- !u!136 &7819290879446206914
 CapsuleCollider:
