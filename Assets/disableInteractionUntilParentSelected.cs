@@ -9,6 +9,7 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
     XRGrabInteractable attachedInteractable;
     public InteractionLayerMask maskBefore;
     public InteractionLayerMask maskAfterDisabling;
+    public bool objectGrabbed;
     public void RestoreInteraction()
     {
         if (attachedInteractable)
@@ -16,6 +17,7 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
             Debug.Log("enabled grab!");
             attachedInteractable.interactionLayers = maskBefore;
         }
+        objectGrabbed = true;
     }
 
     public void DisableInteraction()
@@ -25,16 +27,20 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
             Debug.Log("disabled interaction!");
             attachedInteractable.interactionLayers = maskAfterDisabling;
         }
-        
+        objectGrabbed = false;
+
     }
 
     //Called when interactable is attached to a socket
     public void FirstDisableInteraction(SelectEnterEventArgs args)
     {
-        
+       
         attachedInteractable = args.interactableObject.transform.GetComponent<XRGrabInteractable>();
         maskBefore = attachedInteractable.interactionLayers;
-        DisableInteraction();
+        if (!objectGrabbed)
+        {
+            DisableInteraction();
+        }
     }
 
     //Called when interactable is attached to a socket
