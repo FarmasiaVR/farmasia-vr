@@ -33,16 +33,28 @@ public class WriteSecondTime : Task {
         GeneralItem item = gameObject.GetComponent<GeneralItem>();
         Writable writable = gameObject.GetComponent<Writable>();
         if (Started) {
+
             if (item.ObjectType == ObjectType.SabouradDextrosiPlate) {
-                if (writable.WrittenLines.ContainsKey(WritingType.SecondTime)) {
+                
+                if (writable.WrittenLines.ContainsKey(WritingType.SecondTime) || writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime)){
                     sabourad = true;
+                }
+                
+                if(writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime))
+                {
+                    CreateTaskMistake("Kirjoitit väärän ajan maljaan", 1);
                 }
             }
             if (item.ObjectType == ObjectType.SoycaseinePlate) {
                 if (writable.WrittenLines.ContainsKey(WritingType.LeftHand) || writable.WrittenLines.ContainsKey(WritingType.RightHand)) {
                     CreateTaskMistake("Kirjoitit ajan sormenpäämaljaan", 1);
-                } else if (writable.WrittenLines.ContainsKey(WritingType.SecondTime)) {
+                } else if (writable.WrittenLines.ContainsKey(WritingType.SecondTime) || writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime)) {
                     soycaseine = true;
+                }
+
+                if (writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime))
+                {
+                    CreateTaskMistake("Kirjoitit väärän ajan maljaan", 1);
                 }
 
             }

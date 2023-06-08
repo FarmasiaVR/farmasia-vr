@@ -159,6 +159,10 @@ public class WritingOptions : MonoBehaviour {
             if (option.WritingType == WritingType.FakeTime) {
                 option.WritingType = WritingType.Time;
             }
+            else if(option.WritingType == WritingType.SecondFakeTime)
+            {
+                option.WritingType = WritingType.SecondTime;
+            }
         }
 
         SetVisible(false);
@@ -195,6 +199,12 @@ public class WritingOptions : MonoBehaviour {
                 Logger.Print("Fake time: " + fakeTimeSet);
                 if (fakeTimeSet == 0) {
                     option.WritingType = WritingType.FakeTime;
+                    
+                    if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems))
+                    {
+                        option.WritingType = WritingType.SecondFakeTime;
+                    }
+
                     var time = DateTime.UtcNow.ToLocalTime();
                     time = time.AddMinutes(rand.Next(120) - 60);
                     option.UpdateText(time.ToShortTimeString());
