@@ -17,6 +17,6 @@ https://github.com/FarmasiaVR/farmasia-vr/assets/9552313/07624c0c-371e-4628-97e0
 1. Open the Camera app on the Quest.
 2. Select Cast.
 3. Select Computer and press next.
-4. On your browser, open [oculus.com/casting](https://www.oculus.com/casting).
+4. On your browser, open [oculus.com/casting](https://www.oculus.com/casting) and log in using the same credentials that you used to log in to your headset.
 
 Now you should see the headset's screen in the browser. Be careful not to do anything private when you start casting the screen ;)
