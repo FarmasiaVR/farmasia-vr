@@ -9,6 +9,11 @@ This document details how to connect to the eduroam network on the Quest and how
     - More detailed instructions can be found [here](https://helpdesk.it.helsinki.fi/en/instructions/logging-and-connections/eduroam-android-devices)
 
 ## Casting the screen to a browser
+
+
+https://github.com/FarmasiaVR/farmasia-vr/assets/9552313/07624c0c-371e-4628-97e0-1d798784f059
+
+
 1. Open the Camera app on the Quest.
 2. Select Cast.
 3. Select Computer and press next.
