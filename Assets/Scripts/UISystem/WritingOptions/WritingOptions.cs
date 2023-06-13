@@ -112,7 +112,7 @@ public class WritingOptions : MonoBehaviour {
     private void UpdateErrorMessage() {
         if (objectToTypeTo)
         {
-            if(objectToTypeTo.writingsInOrder.Count >= maxLines) 
+            if(objectToTypeTo.writingsInOrder.Count >= objectToTypeTo.MaxLines) 
             {
                 errorTextField.SetText("Maksimimäärä rivejä!");
             }
