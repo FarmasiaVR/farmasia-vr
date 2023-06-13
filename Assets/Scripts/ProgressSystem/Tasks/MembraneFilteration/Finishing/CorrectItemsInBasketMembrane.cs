@@ -5,7 +5,7 @@ using FarmasiaVR.Legacy;
 
 public class CorrectItemsInBasketMembrane : Task {
 
-    public enum Conditions { Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, AgarPlate }
+    public enum Conditions { Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, AgarPlate, Tweezers }
     private Basket basket;
     private bool cartMoved;
 
@@ -79,7 +79,10 @@ public class CorrectItemsInBasketMembrane : Task {
                     agarPlate++;
                 } else if (g is AgarPlateBottom) {
                     agarPlate++;
-                } else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
+                }
+                else if(g is Tweezers){
+                    EnableCondition(Conditions.Tweezers);
+                }else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
                     continue;
                 } else {
                     CreateTaskMistake("Väärä esine korissa", 1);
