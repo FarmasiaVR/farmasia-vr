@@ -12,6 +12,7 @@ public class CloseBottles : Task {
     }
 
     public override void Subscribe() {
+        base.SubscribeEvent(resetCounters, EventType.ResetCounter);
         base.SubscribeEvent(TrackClosedBottles, EventType.BottleClosed);
         base.SubscribeEvent(TrackOpenedBottles, EventType.BottleOpened);
     }
@@ -28,6 +29,12 @@ public class CloseBottles : Task {
             }
         }
     }
+
+    void resetCounters(CallbackData data)
+    {
+        openedBottles = 0;
+    }
+    
 
     private void TrackOpenedBottles(CallbackData data) {
         openedBottles++;
