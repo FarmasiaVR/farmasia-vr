@@ -1,5 +1,5 @@
 # How to cast the screen from the Quest to a browser
-This document details how to connect to the eduroam network on the Quest and how to use that to cast your screen to a browser.
+This document details how to connect to the eduroam network on the Quest and how to use that to cast your screen to a browser. If you are trying to cast in the university network, then using eduroam is strongly recommended.
 
 ## Connecting to the eduroam network
 1. Download the [geteduroam apk package](https://apkpure.com/geteduroam/app.eduroam.geteduroam) to your computer.
@@ -14,9 +14,10 @@ This document details how to connect to the eduroam network on the Quest and how
 https://github.com/FarmasiaVR/farmasia-vr/assets/9552313/07624c0c-371e-4628-97e0-1d798784f059
 
 
-1. Open the Camera app on the Quest.
-2. Select Cast.
-3. Select Computer and press next.
-4. On your browser, open [oculus.com/casting](https://www.oculus.com/casting) and log in using the same credentials that you used to log in to your headset.
+1. Make sure that the Quest headset and the computer are on the same network.
+2. Open the Camera app on the Quest.
+3. Select Cast.
+4. Select Computer and press next.
+5. On your browser, open [oculus.com/casting](https://www.oculus.com/casting) and log in using the same credentials that you used to log in to your headset.
 
 Now you should see the headset's screen in the browser. Be careful not to do anything private when you start casting the screen ;)
