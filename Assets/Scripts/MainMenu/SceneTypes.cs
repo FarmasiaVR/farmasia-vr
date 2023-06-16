@@ -9,5 +9,6 @@
     FireExtinguisherTutorial,
     FireBlanketTutorial,
     EyeShowerTutorial,
-    EmergencyShowerTutorial
+    EmergencyShowerTutorial,
+    Laboratory
 }

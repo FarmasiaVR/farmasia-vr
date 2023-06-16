@@ -14935,6 +14935,7 @@ GameObject:
   - component: {fileID: 485653456466227905}
   - component: {fileID: 485653456466227903}
   - component: {fileID: 485653456466227902}
+  - component: {fileID: 1554708679}
   m_Layer: 0
   m_Name: FireGridObject
   m_TagString: Untagged
@@ -14951,7 +14952,7 @@ Transform:
   m_GameObject: {fileID: 5483865707720281263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.59, y: 0.756, z: 4.442}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5483865707102500738}
@@ -14988,6 +14989,9 @@ MonoBehaviour:
     type: 3}
   igniteOnStart: 1
   degrees: 100
+  onExtinguish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &485653456466227902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15002,6 +15006,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: {fileID: 5483865707720281263}
   autonomous: 1
+--- !u!114 &1554708679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483865707720281263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d4016b20b9cba47a718c4ba9d2c339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireVFX: {fileID: 5483865706098364124}
+  x: 0
+  y: 0
+  z: 0
 --- !u!1 &5483865707822818380
 GameObject:
   m_ObjectHideFlags: 0
@@ -15030,7 +15050,7 @@ Transform:
   m_GameObject: {fileID: 5483865707822818380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 0.01, z: 1}
+  m_LocalScale: {x: 1, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 485653456466227905}

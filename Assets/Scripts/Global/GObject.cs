@@ -3,7 +3,7 @@ using UnityEngine;
 public class GObject : MonoBehaviour {
 
     [SerializeField]
-    SceneTypes scene = SceneTypes.MainMenu;
+    SceneTypes scene = SceneTypes.Laboratory;
 
     private void Start() {
         TaskFactory.ResetTaskProgression();

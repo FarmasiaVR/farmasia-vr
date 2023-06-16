@@ -43,6 +43,8 @@ public class FireSpreadStatic : MonoBehaviour
     [SerializeField]
     bool autonomous;
 
+    private float spawnTime = 0f;
+
     private bool diagonal;
     private int numInc;
 
@@ -60,6 +62,8 @@ public class FireSpreadStatic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawnTime += Time.deltaTime;
+
         if (fireGrid.IsIgnited())
         {
             timeSinceLast += Time.deltaTime;
@@ -183,7 +187,8 @@ public class FireSpreadStatic : MonoBehaviour
         if (CheckMovementObstacles(nextPos, diagonal, "Structure") && (CheckMovementObstacles(nextPos, diagonal, "FireGrid")))
         {
             // Calculate destination and spawn object
-            destination = currentPos + nextPos;
+            // Spread distance is changed by using ternary operation. First 5 second spread is 0.1 units. From 5 to 7 seconds 0.2 units and from 7 to 10 seconds 0.4 units and so on.
+            destination = currentPos + nextPos * ((spawnTime < 5f) ? 0.1f : (spawnTime < 7f) ? 0.2f : (spawnTime < 10f) ? 0.4f : (spawnTime < 14f) ? 0.7f : 1f);
 
             // Check from current position if we're higher than the floor. Floor should be at y = 0.
             /*if(currentPos.y > 0.001f){
