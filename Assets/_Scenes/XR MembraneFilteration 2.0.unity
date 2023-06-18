@@ -12154,6 +12154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9544f5aebe4bc469e107e9bca22ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hapticAction:
+    actionPath: 
+    needsReinit: 0
   TestingAmplitude: 0.722
   TestingFrequency: 150
   TestingStrength: 0.498
@@ -20035,7 +20038,7 @@ PrefabInstance:
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.391
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20045,7 +20048,7 @@ PrefabInstance:
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.317
+      value: 0.747
       objectReference: {fileID: 0}
     - target: {fileID: 6651203488707396150, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -35733,10 +35736,21 @@ PrefabInstance:
       propertyPath: testHandMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 2ee03258743904568b70422ca95fbe7d, type: 2}
+    - target: {fileID: 8345245348827908140, guid: 48fc5cc7d60512d459c50b823578967b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7189615962365882873, guid: 48fc5cc7d60512d459c50b823578967b, type: 3}
     - {fileID: 8167019969496008398, guid: 48fc5cc7d60512d459c50b823578967b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 48fc5cc7d60512d459c50b823578967b, type: 3}
+--- !u!1 &5599883402832993584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1677923726772711571, guid: 48fc5cc7d60512d459c50b823578967b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5599883402832993583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &5662148015922034254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40010,6 +40024,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5599883402832993583}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9138801926398221426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5599883402832993584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04ddc83e13867a4c9d33e3b719c801e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashType: 2
 --- !u!1001 &9193269332589923173
 PrefabInstance:
   m_ObjectHideFlags: 0
