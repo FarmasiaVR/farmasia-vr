@@ -25,7 +25,9 @@ public class CloseBottles : Task {
         if (Started) {
             if (openedBottles == 0) {
                 EnableCondition(Conditions.BottlesClosed);
+                Events.FireEvent(EventType.canCollectTrash, CallbackData.Object(null));
                 CompleteTask();
+
             }
         }
     }

@@ -59,5 +59,6 @@
     BottleClosed,
     BottleOpened,
     CleaningBottleSprayed,
-    ItemPlacedBasketForReference
+    ItemPlacedBasketForReference,
+    canCollectTrash,
 }
