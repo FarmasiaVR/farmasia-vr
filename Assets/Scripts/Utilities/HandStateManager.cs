@@ -199,7 +199,13 @@ public class HandStateManager : MonoBehaviour {
     {
         handsOutsideCabinet = false;
         timeOutsideCabinet = 0.0f;
+    }
+
+    public void cleanHands()
+    {
         SetGlovesOn();
+        //resetting timer avoids hands getting immediately dirty after they are cleaned
+        timeOutsideCabinet = 0.0f;
     }
 
     private void FixedUpdate()

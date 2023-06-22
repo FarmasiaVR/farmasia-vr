@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CleaningBottleCollider : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class CleaningBottleCollider : MonoBehaviour
     private List<GeneralItem> Items = new List<GeneralItem>();
     private new ParticleSystem particleSystem;
     private bool canCleanCabinet;
+
+    //this is a quick prototype version for cleaning hands, it will be improved TM =)
+    bool handInCollider = false;
 
     private void Awake() {
         particleSystem = Effect.GetComponent<ParticleSystem>();
@@ -19,11 +24,17 @@ public class CleaningBottleCollider : MonoBehaviour
             Items.Add(item);
         }
         if (other.CompareTag("LaminarCabinet")) canCleanCabinet = true;
+
+        //this is a quick prototype version for cleaning hands, it will be improved TM =)
+        if (other.GetComponent<XRBaseController>() != null) handInCollider = true;
     }
 
     private void OnTriggerExit(Collider other) {
         Items.Remove(other.GetComponentInParent<GeneralItem>());
         if (other.CompareTag("LaminarCabinet")) canCleanCabinet = false;
+
+        //this is a quick prototype version for cleaning hands, it will be improved TM =)
+        if (other.GetComponent<XRBaseController>() != null) handInCollider = false;
     }
 
     public void Clean() {
@@ -36,6 +47,16 @@ public class CleaningBottleCollider : MonoBehaviour
         }
         if (cleaned) {
             transform.parent.GetComponentInChildren<AudioSource>().Play();
+        }
+
+        //this is a quick prototype version for cleaning hands, it will be improved TM =)
+        if (handInCollider)
+        {
+            HandStateManager handStateManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HandStateManager>();
+            if (handStateManager)
+            {
+                handStateManager.cleanHands();
+            }
         }
     }
 }
