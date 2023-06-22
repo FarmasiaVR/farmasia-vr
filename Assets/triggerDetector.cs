@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class laminarCabinetDetector : MonoBehaviour
+public class triggerDetector : MonoBehaviour
 {
+
+    public string triggerTag;
+    public UnityEvent onEnterTrigger;
+    public UnityEvent onExitTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,17 +24,17 @@ public class laminarCabinetDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("LaminarCabinet"))
+        if (other.CompareTag(triggerTag))
         {
-            Debug.Log("hand entered laminar cabinet");
+            onEnterTrigger.Invoke();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("LaminarCabinet"))
+        if (other.CompareTag(triggerTag))
         {
-            Debug.Log("hand exited laminar cabinet");
+            onExitTrigger.Invoke();
         }
     }
 }
