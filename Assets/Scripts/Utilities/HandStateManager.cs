@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-
+using FarmasiaVR.Legacy;
 public class HandStateManager : MonoBehaviour {
 
     private HandState handState;
@@ -197,6 +197,10 @@ public class HandStateManager : MonoBehaviour {
 
     public void handsEnteredCabinet()
     {
+        if (handState == HandState.Dirty)
+        {
+            Task.CreateGeneralMistake("Kaappiin viedyt kädet olivat ilman saastuttamat", 1);
+        }
         handsOutsideCabinet = false;
         timeOutsideCabinet = 0.0f;
     }
