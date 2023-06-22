@@ -19,6 +19,12 @@ public class HandStateManager : MonoBehaviour {
 
     public bool glovesOnAtStart;
 
+    bool handsOutsideCabinet = false;
+
+    public bool canAirContaminate;
+    //time in seconds that the hands take to get contaminated when hands are outside the laminar cabinet
+    public float handAirContaminationDelay;
+    float timeOutsideCabinet;
     public void Start() {
        
         SetDirty();
@@ -111,6 +117,7 @@ public class HandStateManager : MonoBehaviour {
 
     public void SetGlovesOn()
     {
+        handState = HandState.Clean;
         SetDefault();
         material.SetInt("_GlovesOn", 1);
     }
@@ -180,6 +187,31 @@ public class HandStateManager : MonoBehaviour {
             material.SetFloat(property, Mathf.Lerp(a, b, elapsed / duration));
             elapsed += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public void airContaminateHands()
+    {
+        handsOutsideCabinet = true;
+    }
+
+    public void handsEnteredCabinet()
+    {
+        handsOutsideCabinet = false;
+        timeOutsideCabinet = 0.0f;
+        SetGlovesOn();
+    }
+
+    private void FixedUpdate()
+    {
+
+        if(canAirContaminate && handsOutsideCabinet)
+        {
+            timeOutsideCabinet += Time.deltaTime;
+            if(timeOutsideCabinet >= handAirContaminationDelay && handState != HandState.Dirty)
+            {
+                SetDirty();
+            }
         }
     }
 }

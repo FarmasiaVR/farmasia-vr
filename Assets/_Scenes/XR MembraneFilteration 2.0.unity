@@ -19997,6 +19997,10 @@ PrefabInstance:
       propertyPath: glovesOnAtStart
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2100765070, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
+      propertyPath: canAirContaminate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 124233165342219936, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20798,7 +20802,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1220141976}
         m_TargetAssemblyTypeName: HandStateManager, GameAssembly
-        m_MethodName: SetGlovesOn
+        m_MethodName: handsEnteredCabinet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20813,7 +20817,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1220141976}
         m_TargetAssemblyTypeName: HandStateManager, GameAssembly
-        m_MethodName: SetDirty
+        m_MethodName: airContaminateHands
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30538,7 +30542,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1220141976}
         m_TargetAssemblyTypeName: HandStateManager, GameAssembly
-        m_MethodName: SetGlovesOn
+        m_MethodName: handsEnteredCabinet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30553,7 +30557,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1220141976}
         m_TargetAssemblyTypeName: HandStateManager, GameAssembly
-        m_MethodName: SetDirty
+        m_MethodName: airContaminateHands
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
