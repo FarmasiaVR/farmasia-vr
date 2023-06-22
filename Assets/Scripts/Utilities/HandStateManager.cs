@@ -27,8 +27,7 @@ public class HandStateManager : MonoBehaviour {
 
         if(glovesOnAtStart)
         {
-            SetDefault();
-            material.SetInt("_GlovesOn", 1);
+            SetGlovesOn();
         }
     }
 
@@ -110,7 +109,13 @@ public class HandStateManager : MonoBehaviour {
         return handState;
     }
 
-    private void SetDefault() {
+    public void SetGlovesOn()
+    {
+        SetDefault();
+        material.SetInt("_GlovesOn", 1);
+    }
+
+    public void SetDefault() {
         material.SetFloat("_StepEdge", 0.6f);
         material.SetInt("_Shiny", 0);
         material.SetFloat("_FresnelEffectPower", 10.0f);
@@ -118,7 +123,7 @@ public class HandStateManager : MonoBehaviour {
         material.SetInt("_GloveOn", 0);
     }
 
-    private void SetDirty() {
+    public void SetDirty() {
         handState = HandState.Dirty;
         material.SetFloat("_StepEdge", 0.05f);
         material.SetInt("_Shiny", 0);
@@ -128,7 +133,7 @@ public class HandStateManager : MonoBehaviour {
         cleanAnimationPlayed = false;
     }
 
-    private void SetSoapy() {
+    public void SetSoapy() {
         handState = HandState.Soapy;
         material.SetFloat("_StepEdge", 0.05f);
         StartCoroutine(Lerp(0, 0.5f, 2.0f, "_SoapColor"));
@@ -136,13 +141,13 @@ public class HandStateManager : MonoBehaviour {
         cleanAnimationPlayed = false;
     }
 
-    private void SetWet() {
+    public void SetWet() {
         handState = HandState.Wet;
         material.SetFloat("_SoapColor", 0f);
         cleanAnimationPlayed = false;
     }
 
-    private void SetClean() {
+    public void SetClean() {
         handState = HandState.Clean;
         
         if (!cleanAnimationPlayed) {
@@ -155,7 +160,7 @@ public class HandStateManager : MonoBehaviour {
         
     }
 
-    private void SetCleanest() {
+    public void SetCleanest() {
         handState = HandState.Cleanest;
         if (!shinyAnimationPlayed) {
             material.SetFloat("_SoapColor", 0f);

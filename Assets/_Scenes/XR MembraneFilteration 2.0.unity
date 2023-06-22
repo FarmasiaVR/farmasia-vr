@@ -16344,6 +16344,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1344430632}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1220141976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2100765070, guid: 3fa949d1e2da943fa868465536f7e9e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468254192}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525d6beda167a147b365e16e13ed8ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1237140898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1317491652976642, guid: b2ba957224087475eb7804e492ea272e,
@@ -20780,6 +20792,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c958085150745134bab4b0b1862d8f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerTag: LaminarCabinet
+  onEnterTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1220141976}
+        m_TargetAssemblyTypeName: HandStateManager, GameAssembly
+        m_MethodName: SetGlovesOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onExitTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1220141976}
+        m_TargetAssemblyTypeName: HandStateManager, GameAssembly
+        m_MethodName: SetDirty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1478590266
 GameObject:
   m_ObjectHideFlags: 0
@@ -30489,6 +30532,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c958085150745134bab4b0b1862d8f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerTag: LaminarCabinet
+  onEnterTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1220141976}
+        m_TargetAssemblyTypeName: HandStateManager, GameAssembly
+        m_MethodName: SetGlovesOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onExitTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1220141976}
+        m_TargetAssemblyTypeName: HandStateManager, GameAssembly
+        m_MethodName: SetDirty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2099040849
 PrefabInstance:
   m_ObjectHideFlags: 0
