@@ -9,10 +9,10 @@ public class FlameController : MonoBehaviour
     private VisualEffect fireVFX;
 
     [SerializeField]
+    private float flameSize = 0.0f;
+
     private float x = 0.0f;
-    [SerializeField]
     private float y = 0.0f;
-    [SerializeField]
     private float z = 0.0f;
 
     // Summary
@@ -21,6 +21,7 @@ public class FlameController : MonoBehaviour
     // initial scale using the SetScale method.
     void Start()
     {
+        x = y = z = flameSize;
         fireVFX = transform.Find("Flames").gameObject.GetComponent<VisualEffect>();
         SetScale(x, y, z);
     }
