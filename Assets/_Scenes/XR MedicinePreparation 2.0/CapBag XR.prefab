@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1703877495300697888}
   - component: {fileID: 1703877495300697889}
   - component: {fileID: 7270838716175028362}
+  - component: {fileID: 7012156905282198939}
   m_Layer: 0
   m_Name: CapBag XR
   m_TagString: Untagged
@@ -254,10 +255,34 @@ MonoBehaviour:
       m_Calls: []
   m_FirstSelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7012156905282198939}
+        m_TargetAssemblyTypeName: DisableInteractionUntilParentSelectedGroup, Assembly-CSharp
+        m_MethodName: RestoreInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_LastSelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7012156905282198939}
+        m_TargetAssemblyTypeName: DisableInteractionUntilParentSelectedGroup, Assembly-CSharp
+        m_MethodName: DisableInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -371,6 +396,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08598973, y: 0.10544801, z: 0.007048607}
   m_Center: {x: 0, y: 0.041751146, z: 0.011762738}
+--- !u!114 &7012156905282198939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110752361525158611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b93ff136558584f8fa66ad806e635c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group:
+  - {fileID: 6736981739680722922}
+  - {fileID: 3495037202832156963}
+  - {fileID: 3371806209996405998}
+  - {fileID: 1158132791245188211}
+  - {fileID: 5630626062225008756}
+  - {fileID: 4139366556662062490}
 --- !u!1 &2788212426109775803
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +427,7 @@ GameObject:
   - component: {fileID: 4333959030964819790}
   - component: {fileID: 3394374206808621292}
   - component: {fileID: 5929029839892626075}
+  - component: {fileID: 6736981739680722922}
   m_Layer: 0
   m_Name: socket
   m_TagString: Untagged
@@ -462,6 +507,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6736981739680722922}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -511,6 +568,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &6736981739680722922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788212426109775803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1 &4325133727625254532
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +597,7 @@ GameObject:
   - component: {fileID: 8697309855017118367}
   - component: {fileID: 4587041540964178247}
   - component: {fileID: 1376791750453985379}
+  - component: {fileID: 1158132791245188211}
   m_Layer: 0
   m_Name: socket (3)
   m_TagString: Untagged
@@ -602,6 +677,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1158132791245188211}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -651,6 +738,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &1158132791245188211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325133727625254532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1 &4682542777597370792
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +767,7 @@ GameObject:
   - component: {fileID: 6148854343716715281}
   - component: {fileID: 7557784081499628541}
   - component: {fileID: 4014961670332851464}
+  - component: {fileID: 3495037202832156963}
   m_Layer: 0
   m_Name: socket (1)
   m_TagString: Untagged
@@ -742,6 +847,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3495037202832156963}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -791,6 +908,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &3495037202832156963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682542777597370792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1 &5077060555206329743
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +1020,7 @@ GameObject:
   - component: {fileID: 3790591691899129702}
   - component: {fileID: 2486861087834035391}
   - component: {fileID: 2447659570978845902}
+  - component: {fileID: 4139366556662062490}
   m_Layer: 0
   m_Name: socket (6)
   m_TagString: Untagged
@@ -965,6 +1100,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4139366556662062490}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1014,6 +1161,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &4139366556662062490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351944943419656619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1 &8448966798676021528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1190,7 @@ GameObject:
   - component: {fileID: 219150638824405680}
   - component: {fileID: 486750265489515499}
   - component: {fileID: 5452606244193109890}
+  - component: {fileID: 5630626062225008756}
   m_Layer: 0
   m_Name: socket (4)
   m_TagString: Untagged
@@ -1105,6 +1270,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5630626062225008756}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1154,6 +1331,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &5630626062225008756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8448966798676021528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1 &9018520257435521946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1360,7 @@ GameObject:
   - component: {fileID: 7537932721782096981}
   - component: {fileID: 6460615876059722323}
   - component: {fileID: 6535707329865643807}
+  - component: {fileID: 3371806209996405998}
   m_Layer: 0
   m_Name: socket (2)
   m_TagString: Untagged
@@ -1245,6 +1440,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3371806209996405998}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1294,6 +1501,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 1703877495300697888}
+--- !u!114 &3371806209996405998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9018520257435521946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 32768
+  objectGrabbed: 0
 --- !u!1001 &2139598817928256324
 PrefabInstance:
   m_ObjectHideFlags: 0
