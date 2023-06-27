@@ -166,12 +166,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8483877093405236422}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: RestoreInteraction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8090964701638454802}
         m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
         m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8483877093405236422}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: DisableInteraction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -366,6 +390,7 @@ GameObject:
   - component: {fileID: 2138526215135982632}
   - component: {fileID: 5213708016234147112}
   - component: {fileID: 4629005352140394268}
+  - component: {fileID: 8483877093405236422}
   m_Layer: 10
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -435,6 +460,18 @@ MonoBehaviour:
       - m_Target: {fileID: 4629005352140394268}
         m_TargetAssemblyTypeName: syringeToggleHasSyringeCap, Assembly-CSharp
         m_MethodName: setSyringeCap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8483877093405236422}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -530,6 +567,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syringe: {fileID: 8264759978326355818}
+--- !u!114 &8483877093405236422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549255362493332161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 512
+  objectGrabbed: 0
 --- !u!1 &1953694062956324995
 GameObject:
   m_ObjectHideFlags: 0
