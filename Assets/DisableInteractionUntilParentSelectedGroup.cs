@@ -6,13 +6,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DisableInteractionUntilParentSelectedGroup : MonoBehaviour
 {
     public List<disableInteractionUntilParentSelected> group;
-    public void RestoreInteractions()
+    public void RestoreInteractions(SelectEnterEventArgs args)
     {
         group.ForEach(script =>
         {
             if (script)
             {
-                script.RestoreInteraction();
+                script.RestoreInteraction(args);
             }
         });
     }

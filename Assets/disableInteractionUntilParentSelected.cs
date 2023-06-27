@@ -10,14 +10,23 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
     public InteractionLayerMask maskBefore;
     public InteractionLayerMask maskAfterDisabling;
     public bool objectGrabbed;
-    public void RestoreInteraction()
+    public bool mustBeSelectedByPlayer;
+
+    public void RestoreInteraction(SelectEnterEventArgs args)
     {
+        XRBaseController isSelectedByController = args.interactorObject.transform.GetComponent<XRBaseController>();
+        if (mustBeSelectedByPlayer && isSelectedByController == null) 
+        {
+            return;
+        }
+
         if (attachedInteractable)
         {
             Debug.Log("enabled grab!");
             attachedInteractable.interactionLayers = maskBefore;
         }
         objectGrabbed = true;
+        
     }
 
     public void DisableInteraction()
