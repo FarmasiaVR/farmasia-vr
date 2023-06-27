@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 6645350448522453795}
   - component: {fileID: 3089888140109364815}
   - component: {fileID: 7997274885707514148}
+  - component: {fileID: 443638722738014012}
   m_Layer: 9
   m_Name: Syringe 3 Location
   m_TagString: Untagged
@@ -201,6 +202,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 443638722738014012}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -250,6 +263,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &443638722738014012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289995949358278573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &1052425204696603045
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +495,7 @@ GameObject:
   - component: {fileID: 6332886946184489534}
   - component: {fileID: 8612931427160566622}
   - component: {fileID: 3345817732547276137}
+  - component: {fileID: 2831824601657527050}
   m_Layer: 9
   m_Name: Syringe 5 Location
   m_TagString: Untagged
@@ -556,6 +587,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2831824601657527050}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -605,6 +648,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &2831824601657527050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104871388054742193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &3276774419295591624
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +784,7 @@ GameObject:
   - component: {fileID: 3883628457140646148}
   - component: {fileID: 7200035824448228013}
   - component: {fileID: 6244990268582337912}
+  - component: {fileID: 1137567240460307259}
   m_Layer: 9
   m_Name: Syringe 1 Location
   m_TagString: Untagged
@@ -815,6 +876,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1137567240460307259}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -864,6 +937,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &1137567240460307259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836143739030978673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &3889352196379321807
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +997,7 @@ GameObject:
   - component: {fileID: 7824176586885950409}
   - component: {fileID: 5142064239218394337}
   - component: {fileID: 4824137106491797783}
+  - component: {fileID: 2586646080204449349}
   m_Layer: 9
   m_Name: Syringe 2 Location
   m_TagString: Untagged
@@ -998,6 +1089,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2586646080204449349}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1047,6 +1150,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &2586646080204449349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232501255146349287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &5140021326234156993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1255,7 @@ GameObject:
   - component: {fileID: 4445315169461762769}
   - component: {fileID: 7271706082259491240}
   - component: {fileID: 2513325379853122658}
+  - component: {fileID: 5937409873055245013}
   m_Layer: 9
   m_Name: Syringe 4 Location
   m_TagString: Untagged
@@ -1226,6 +1347,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5937409873055245013}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1275,6 +1408,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &5937409873055245013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304894139505187899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &6984278174666717045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,6 +1610,7 @@ GameObject:
   - component: {fileID: 9066282628965877368}
   - component: {fileID: 4991403718855146726}
   - component: {fileID: 7642597811246895240}
+  - component: {fileID: 4993389874317233044}
   m_Layer: 9
   m_Name: Syringe 6 Location
   m_TagString: Untagged
@@ -1551,6 +1702,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4993389874317233044}
+        m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
+        m_MethodName: FirstDisableInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -1600,6 +1763,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 6196501627175870198}
+--- !u!114 &4993389874317233044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7422378958694553497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d020425794a2b344ac5472c78c8dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskBefore:
+    m_Bits: 0
+  maskAfterDisabling:
+    m_Bits: 2048
+  objectGrabbed: 0
 --- !u!1 &7530769064870052801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,6 +1932,7 @@ GameObject:
   - component: {fileID: 9072201439077691705}
   - component: {fileID: 4261924419660951145}
   - component: {fileID: 6196501627175870198}
+  - component: {fileID: 2029013829410579270}
   m_Layer: 9
   m_Name: SterilePouch XR
   m_TagString: Untagged
@@ -1908,10 +2089,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2029013829410579270}
+        m_TargetAssemblyTypeName: DisableInteractionUntilParentSelectedGroup, Assembly-CSharp
+        m_MethodName: RestoreInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2029013829410579270}
+        m_TargetAssemblyTypeName: DisableInteractionUntilParentSelectedGroup, Assembly-CSharp
+        m_MethodName: DisableInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -1994,6 +2199,25 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &2029013829410579270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8966826753803816752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d31fe2f57d87b4b8ebd42d60968c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group:
+  - {fileID: 1137567240460307259}
+  - {fileID: 2586646080204449349}
+  - {fileID: 443638722738014012}
+  - {fileID: 5937409873055245013}
+  - {fileID: 2831824601657527050}
+  - {fileID: 4993389874317233044}
 --- !u!1 &9083227891540076150
 GameObject:
   m_ObjectHideFlags: 0

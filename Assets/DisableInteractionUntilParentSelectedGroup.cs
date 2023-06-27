@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class DisableInteractionUntilParentGrabbedGroup : MonoBehaviour
+public class DisableInteractionUntilParentSelectedGroup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<disableInteractionUntilParentSelected> group;
+    public void RestoreInteractions()
     {
-        
+        group.ForEach(script =>
+        {
+            if (script)
+            {
+                script.RestoreInteraction();
+            }
+        });
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisableInteractions()
     {
-        
+        group.ForEach(script =>
+        {
+            if (script)
+            {
+                script.DisableInteraction();
+            }
+        });
+    }
+    public void FirstDisableInteractions(SelectEnterEventArgs args)
+    {
+        group.ForEach(script =>
+        {
+            if (script)
+            {
+                script.FirstDisableInteraction(args);
+            }
+        });
     }
 }
