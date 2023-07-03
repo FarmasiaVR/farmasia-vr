@@ -1,4 +1,5 @@
 ﻿using System;
+using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using FarmasiaVR.Legacy;
 using JetBrains.Annotations;
 using Unity;
@@ -10,12 +11,22 @@ public class Agar : Interactable {
     private DateTime lastTouched;
     private int leftHandTouches;
     private int rightHandTouches;
+    private bool leftThumbTouch;
+    private bool leftMidFgrTouch;
+    private bool rightThumbTouch;
+    private bool rightMidFgrTouch;
+    //private XRBaseInteractable interactable;
 
     protected override void Start() {
         base.Start();
         Type.Set(InteractableType.Interactable);
         leftHandTouches = 0;
         rightHandTouches = 0;
+        //interactable = GetComponent<XRBaseInteractable>();
+        leftThumbTouch = false;
+        leftMidFgrTouch = false;
+        rightMidFgrTouch = false;
+        rightThumbTouch = false;
     }
 
     public override void Interact(Hand hand) {
@@ -36,18 +47,9 @@ public class Agar : Interactable {
         if (time.Seconds < 4.0f || time.Seconds > 6.0f) {
             Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
         }
-        if (leftHandTouches >= 2) {
-            Events.FireEvent(EventType.FingerprintsGivenL);
-        } else if (rightHandTouches >= 2) {
-            Events.FireEvent(EventType.FingerprintsGivenR);
-        }
-
-
-        
+        checkComplete();
 
     }
-
-  
 
 
     public void startTakingFingerPrints()
@@ -56,7 +58,7 @@ public class Agar : Interactable {
     }
 
 
-    public void stopTakingFingerPrints(SelectExitEventArgs args)
+    public void stopTakingFingerPrints(SelectExitEventArgs args, BaseInteractionEventArgs hover)
     {
         TimeSpan time = DateTime.Now - lastTouched;
         Debug.Log("Fingerprints given for " + time + " seconds");
@@ -66,20 +68,53 @@ public class Agar : Interactable {
             Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
         }
 
-        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)")
+        if (checkPokeInteractor(hover))
         {
-            leftHandTouches++;
+            XRPokeInteractor interactor = (XRPokeInteractor)hover.interactorObject;
+            handTouches(args, interactor);
         }
-        else if (args.interactorObject.transform.gameObject.tag == "Controller (Right)")
+        checkComplete();
+    }
+    private bool checkPokeInteractor(BaseInteractionEventArgs hover)
+    {
+        if (hover.interactableObject is XRPokeInteractor)
         {
-           rightHandTouches++;
+            return true;
         }
+        return false;
+    }
 
-        if (leftHandTouches >= 2)
+    private void handTouches(SelectExitEventArgs args, XRPokeInteractor interactor)
+    {
+        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        {
+            leftMidFgrTouch = true;
+            //leftHandTouches++;
+        }
+        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        {
+            leftThumbTouch = true;
+            //leftHandTouches++;
+        }
+        if (args.interactorObject.transform.gameObject.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        {
+            rightMidFgrTouch = true;
+            //rightHandTouches++;
+        }
+        if (args.interactorObject.transform.gameObject.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        {
+            rightThumbTouch = true;
+            //rightHandTouches++;
+        }
+    }
+
+    private void checkComplete()
+    {
+        if (leftMidFgrTouch && leftThumbTouch)
         {
             Events.FireEvent(EventType.FingerprintsGivenL);
         }
-        else if (rightHandTouches >= 2)
+        if (rightMidFgrTouch && rightThumbTouch)
         {
             Events.FireEvent(EventType.FingerprintsGivenR);
         }

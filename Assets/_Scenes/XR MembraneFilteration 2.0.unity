@@ -18052,6 +18052,18 @@ Transform:
   m_Father: {fileID: 294885032}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1298544697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7625411459357848266, guid: 3fa949d1e2da943fa868465536f7e9e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468254192}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5333d859a71bb444f9b01b9aa9f09397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1301177947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 783585729265350757, guid: 16da5b07a288c8442b8c96f337400136,
@@ -20066,6 +20078,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2100765070, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
+      propertyPath: leftHandEffectSpawner
+      value: 
+      objectReference: {fileID: 2027083694}
+    - target: {fileID: 2100765070, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
+      propertyPath: rightHandEffectSpawner
+      value: 
+      objectReference: {fileID: 1298544697}
+    - target: {fileID: 2100765070, guid: 3fa949d1e2da943fa868465536f7e9e2, type: 3}
       propertyPath: handAirContaminationDelay
       value: 2
       objectReference: {fileID: 0}
@@ -20339,6 +20359,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1983507276719891111, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_TagString
+      value: PokeAttachThumb
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359269283571957679, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_TagString
+      value: PokeAttachMidFgr
+      objectReference: {fileID: 0}
     - target: {fileID: 2669569872854719890, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20554,6 +20584,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 68.887
       objectReference: {fileID: 0}
+    - target: {fileID: 3947149269311957257, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_TagString
+      value: PokeAttachMidFgr
+      objectReference: {fileID: 0}
     - target: {fileID: 3964891348755792377, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20577,7 +20612,7 @@ PrefabInstance:
     - target: {fileID: 3964891348755792377, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.2424882
+      value: -0.24248824
       objectReference: {fileID: 0}
     - target: {fileID: 3964891348755792377, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20587,7 +20622,7 @@ PrefabInstance:
     - target: {fileID: 3964891348755792377, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.009018311
+      value: -0.009018313
       objectReference: {fileID: 0}
     - target: {fileID: 3964891348755792377, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20732,22 +20767,22 @@ PrefabInstance:
     - target: {fileID: 4813851511530012656, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92240036
+      value: 0.9224004
       objectReference: {fileID: 0}
     - target: {fileID: 4813851511530012656, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.38259304
+      value: -0.38259307
       objectReference: {fileID: 0}
     - target: {fileID: 4813851511530012656, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.050598662
+      value: -0.050598666
       objectReference: {fileID: 0}
     - target: {fileID: 4813851511530012656, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.015488274
+      value: -0.015488275
       objectReference: {fileID: 0}
     - target: {fileID: 4813851511530012656, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20897,7 +20932,7 @@ PrefabInstance:
     - target: {fileID: 6156898318269189003, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9882767
+      value: 0.9882768
       objectReference: {fileID: 0}
     - target: {fileID: 6156898318269189003, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20907,7 +20942,7 @@ PrefabInstance:
     - target: {fileID: 6156898318269189003, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0067961556
+      value: 0.006796156
       objectReference: {fileID: 0}
     - target: {fileID: 6156898318269189003, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -20928,6 +20963,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5.354
+      objectReference: {fileID: 0}
+    - target: {fileID: 6478455201709611688, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_TagString
+      value: PokeAttachThumb
       objectReference: {fileID: 0}
     - target: {fileID: 6512207070549507885, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
@@ -30128,6 +30168,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4954792763416998800}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2027083694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2709033180122426934, guid: 3fa949d1e2da943fa868465536f7e9e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1468254192}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5333d859a71bb444f9b01b9aa9f09397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2030408217
 PrefabInstance:
   m_ObjectHideFlags: 0
