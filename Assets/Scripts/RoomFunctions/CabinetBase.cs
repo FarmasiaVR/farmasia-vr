@@ -34,12 +34,8 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
      
-        if (type == CabinetType.Laminar || type == CabinetType.PassThrough) {
+        if (type == CabinetType.Laminar) {
             Events.FireEvent(EventType.CheckLaminarCabinetItems);
-
-            if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
-                Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin.", 1);
-            }
 
             if (item is SyringeCapBag) {
                 SyringeCapBagEnteredLaminarCabinet(item);
@@ -49,7 +45,12 @@ public class CabinetBase : MonoBehaviour {
                 UnfoldSterileDrape();
             }
         }
-       
+
+        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
+        {
+            Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda kaappiin.", 1);
+        }
+
         if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
             Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
         }
