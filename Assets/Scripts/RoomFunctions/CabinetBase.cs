@@ -34,7 +34,7 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
      
-        if (type == CabinetType.Laminar) {
+        if (type == CabinetType.Laminar || type == CabinetType.PassThrough) {
             Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated) {
