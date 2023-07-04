@@ -86,7 +86,7 @@ public class Agar : Interactable {
 
     private void handTouches(SelectExitEventArgs args, XRPokeInteractor interactor)
     {
-        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        if (args.interactorObject.transform.parent.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
         {
             leftMidFgrTouch = true;
             //leftHandTouches++;
