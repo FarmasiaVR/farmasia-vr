@@ -15,6 +15,7 @@ public class Agar : Interactable {
     private bool leftMidFgrTouch;
     private bool rightThumbTouch;
     private bool rightMidFgrTouch;
+    private DateTime lastError;
     //private XRBaseInteractable interactable;
 
     protected override void Start() {
@@ -65,7 +66,12 @@ public class Agar : Interactable {
 
         if (time.Seconds < 4.0f || time.Seconds > 6.0f)
         {
-            Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+            TimeSpan timeSpan = DateTime.Now - lastError;
+            if (timeSpan.Seconds > 1.5f) { 
+                Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+                lastError = DateTime.Now;
+            }
+            
         }
 
         XRPokeInteractor interactor = (XRPokeInteractor)args.interactorObject;
