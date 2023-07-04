@@ -68,40 +68,30 @@ public class Agar : Interactable {
             Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
         }
 
-        if (checkPokeInteractor(args))
-        {
-            XRPokeInteractor interactor = (XRPokeInteractor)args.interactorObject;
-            handTouches(args, interactor);
-        }
+        XRPokeInteractor interactor = (XRPokeInteractor)args.interactorObject;
+        handTouches(args, interactor);
+       
         checkComplete();
-    }
-    private bool checkPokeInteractor(SelectExitEventArgs args)
-    {
-        if (args.interactableObject is XRPokeInteractor)
-        {
-            return true;
-        }
-        return false;
     }
 
     private void handTouches(SelectExitEventArgs args, XRPokeInteractor interactor)
     {
-        if (args.interactorObject.transform.parent.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
         {
             leftMidFgrTouch = true;
             //leftHandTouches++;
         }
-        if (args.interactorObject.transform.gameObject.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb")
         {
             leftThumbTouch = true;
             //leftHandTouches++;
         }
-        if (args.interactorObject.transform.gameObject.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
         {
             rightMidFgrTouch = true;
             //rightHandTouches++;
         }
-        if (args.interactorObject.transform.gameObject.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb")
         {
             rightThumbTouch = true;
             //rightHandTouches++;
