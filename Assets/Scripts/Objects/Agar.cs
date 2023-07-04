@@ -58,7 +58,7 @@ public class Agar : Interactable {
     }
 
 
-    public void stopTakingFingerPrints(SelectExitEventArgs args, BaseInteractionEventArgs hover)
+    public void stopTakingFingerPrints(SelectExitEventArgs args)
     {
         TimeSpan time = DateTime.Now - lastTouched;
         Debug.Log("Fingerprints given for " + time + " seconds");
@@ -68,16 +68,16 @@ public class Agar : Interactable {
             Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
         }
 
-        if (checkPokeInteractor(hover))
+        if (checkPokeInteractor(args))
         {
-            XRPokeInteractor interactor = (XRPokeInteractor)hover.interactorObject;
+            XRPokeInteractor interactor = (XRPokeInteractor)args.interactorObject;
             handTouches(args, interactor);
         }
         checkComplete();
     }
-    private bool checkPokeInteractor(BaseInteractionEventArgs hover)
+    private bool checkPokeInteractor(SelectExitEventArgs args)
     {
-        if (hover.interactableObject is XRPokeInteractor)
+        if (args.interactableObject is XRPokeInteractor)
         {
             return true;
         }
