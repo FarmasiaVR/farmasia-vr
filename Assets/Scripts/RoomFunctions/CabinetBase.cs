@@ -10,6 +10,7 @@ public class CabinetBase : MonoBehaviour {
     private bool itemPlaced;
     private bool sterileDrapefolded;
     private bool syringeCapBagEntered;
+    public List<string> itemsNotInCabinet = new List<string>();
 
     public enum CabinetType { PassThrough, Laminar }
     public CabinetType type;
@@ -17,6 +18,7 @@ public class CabinetBase : MonoBehaviour {
     public GameObject childCollider;
     public GameObject syringeCapFactory;
     public GameObject syringeCapFactoryPos;
+    
 
     private void Start() {
         itemContainer = childCollider.AddComponent<TriggerInteractableContainer>();
@@ -78,6 +80,11 @@ public class CabinetBase : MonoBehaviour {
         }
         syringeCapBagEntered = true;
         StartCoroutine(MoveSyringeCapBagAndEnableFactory(syringeCapBag));
+    }
+
+    public void updateItemsNotInCabinet(List<string> list)
+    {
+        itemsNotInCabinet = list;
     }
 
     private IEnumerator MoveSyringeCapBagAndEnableFactory(GeneralItem syringeCapBag) {

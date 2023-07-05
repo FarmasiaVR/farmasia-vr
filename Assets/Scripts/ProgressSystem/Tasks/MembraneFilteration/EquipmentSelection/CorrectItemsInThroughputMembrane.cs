@@ -99,9 +99,12 @@ public class CorrectItemsInThroughputMembrane: Task {
             Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
             
         }
+        List<string> itemsNotInCabinet = new List<string>();
         base.GetNonClearedConditions().ForEach(c => {
             Logger.Print((Conditions) c);
+            itemsNotInCabinet.Add(((Conditions)c).ToString());
         });
+        cabinet.updateItemsNotInCabinet(itemsNotInCabinet);
         DisableConditions();
     }
 
