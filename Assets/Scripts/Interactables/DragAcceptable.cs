@@ -187,4 +187,9 @@ public class DragAcceptable : Interactable {
 
         grabbed = false;
     }
+
+    public void activateTrash()
+    {
+        Events.FireEvent(EventType.canCollectTrash, new CallbackData());
+    }
 }
