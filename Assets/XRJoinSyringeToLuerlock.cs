@@ -84,7 +84,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
 
             //prevent socket from immediately re selecting the interactable
             objAttached = false;
-            StartCoroutine(disableSocketFor(3.0f));
+            StartCoroutine(disableSocketFor(1.0f));
         }
     }
 }
