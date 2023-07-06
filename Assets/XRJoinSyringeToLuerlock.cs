@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 //this is crazy prototyping code from every software devs nightmares, do not try this at home
 public class XRJoinSyringeToLuerlock : MonoBehaviour
 {
+    public bool objAttached;
     public XRSocketInteractor attachSocket;
     public XRGrabInteractable parent;
     public Collider colliderToToggle;
@@ -44,9 +45,10 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
         attachedObjecInteractionMask = args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers;
         args.interactableObject.transform.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("CanAttachToLuerlock");
         colliderToToggle.enabled = true;
+        objAttached = true;
     }
 
-    IEnumerator disableSocketFor(float seconds)
+    public IEnumerator disableSocketFor(float seconds)
     {
         Debug.Log("disabled socket");
         attachSocket.GetComponent<XRSocketInteractor>().socketActive = false;
@@ -81,6 +83,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
             attachedSyringe.transform.gameObject.GetComponent<CustomTakeMedicineButtonActionsXR>().enabled = true;
 
             //prevent socket from immediately re selecting the interactable
+            objAttached = false;
             StartCoroutine(disableSocketFor(3.0f));
         }
     }

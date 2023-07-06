@@ -81,7 +81,18 @@ public class XRLuerlock : MonoBehaviour
     {
         IXRActivateInteractor interactor = args.interactorObject;
 
-        findClosestSocket(interactor.transform.position).detachSyringe();
+        XRJoinSyringeToLuerlock closestSocket = findClosestSocket(interactor.transform.position);
+        XRJoinSyringeToLuerlock furtestSocket = findFurthestSocket(interactor.transform.position);
+
+        //if the other socket has no object attached, disable it to prevent it from stealing the detached syringe again.
+        if (!furtestSocket.objAttached)
+        {
+            StartCoroutine(furtestSocket.disableSocketFor(1.0f));
+        }
+
+        closestSocket.detachSyringe();
+        
+       
     }
 
     public void sendMedicine(InputAction.CallbackContext context)
