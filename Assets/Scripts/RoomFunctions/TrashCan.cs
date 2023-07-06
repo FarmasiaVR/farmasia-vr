@@ -4,10 +4,34 @@ using FarmasiaVR.Legacy;
 
 public class TrashCan : MonoBehaviour {
 
-    private List<ObjectType> normalTrash = new List<ObjectType>() { ObjectType.PumpFilterLid, ObjectType.PumpFilterTank, ObjectType.FilterInCover,
-        ObjectType.PipetteContainer, ObjectType.SyringeCap, ObjectType.Luerlock, ObjectType.DisinfectingCloth, ObjectType.SterileBag, ObjectType.PumpFilterFilter };
-    private List<ObjectType> sharpTrash = new List<ObjectType>() { ObjectType.Scalpel, ObjectType.Needle };
-    private List<ObjectType> medicineTrash = new List<ObjectType>() { ObjectType.Syringe };
+    private List<ObjectType> normalTrashMembraneFiltration = new List<ObjectType>() { 
+        ObjectType.PumpFilterLid, 
+        ObjectType.PumpFilterTank, 
+        ObjectType.FilterInCover,
+        ObjectType.PipetteContainer, 
+        ObjectType.SyringeCap, 
+        ObjectType.SterileBag, 
+        ObjectType.PumpFilterFilter 
+    };
+    private List<ObjectType> sharpTrashMembraneFiltration = new List<ObjectType>() { 
+        ObjectType.Scalpel,
+    };
+    private List<ObjectType> medicineTrashMembraneFiltration = new List<ObjectType>() { 
+        ObjectType.Syringe 
+    };
+
+
+
+    private List<ObjectType> normalTrashMedicinePreparation= new List<ObjectType>() {
+        ObjectType.Luerlock,
+        ObjectType.DisinfectingCloth,
+    };
+    private List<ObjectType> sharpTrashMedicinePreparation = new List<ObjectType>() {
+        ObjectType.Needle
+    };
+    private List<ObjectType> medicineTrashMedicinePreparation = new List<ObjectType>() {
+        ObjectType.Syringe
+    };
 
     public enum TrashType {
         Normal,
