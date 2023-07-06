@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using static UnityEditor.Progress;
+using UnityEngine.SceneManagement;
 
 public class TrashCan : MonoBehaviour {
 
@@ -45,43 +47,61 @@ public class TrashCan : MonoBehaviour {
         //GeneralItem item = GeneralItem.Find(other.transform);
         GeneralItem item = other.transform.gameObject.GetComponent<GeneralItem>();
         if (item != null) {
-            if (!normalTrash.Contains(item.ObjectType) && !sharpTrash.Contains(item.ObjectType) && !medicineTrash.Contains(item.ObjectType)) {
-                Task.CreateGeneralMistake("Esine ei kuulu roskikseen!", 1, true);
-                return;
-            } else {
-                Debug.Log("this item belongs in trash according to logic:" + other.gameObject.name);
-                if (item.ObjectType == ObjectType.PipetteContainer && item.gameObject.transform.parent != null) {
-                    Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
-                    return;
-                }
-                // if (item.ObjectType == ObjectType.SterileBag)
-                if (trashType == TrashType.Medicine && medicineTrash.Contains(item.ObjectType))
-                {
-                    Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                    PrepareObjectForRemoving(item);
-                    item.DestroyInteractable();
-                }
-                if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType)) {
-                    Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                    PrepareObjectForRemoving(item);
-                    item.DestroyInteractable();
-                }
-                if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType)) {
-                    Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                    G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                    PrepareObjectForRemoving(item);
-                    item.DestroyInteractable();
-                }
-                if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin normaaliin roskikseen", 1, true);
-                if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin terävien roskikseen", 1, true);
-                if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
-                if (trashType == TrashType.Medicine && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin lääkejätteen roskikseen", 1, true);
-                if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin normaaliin roskikseen", 1, true);
-                if (trashType == TrashType.Medicine && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin lääkejätteen roskikseen", 1, true);
+            if (SceneManager.GetActiveScene().name.Contains("MembraneFiltration"))
+            {
+                checkItemsInTrash(item, normalTrashMembraneFiltration, medicineTrashMembraneFiltration, sharpTrashMembraneFiltration);
             }
-           
+            else if (SceneManager.GetActiveScene().name.Contains("MedicinePreparation"))
+            {
+                checkItemsInTrash(item, normalTrashMedicinePreparation, medicineTrashMedicinePreparation, sharpTrashMedicinePreparation);
+            }
+        }
+    }
+
+
+    void checkItemsInTrash(GeneralItem item, List<ObjectType> normalTrash, List<ObjectType> medicineTrash, List<ObjectType> sharpTrash)
+    {
+        if (!normalTrash.Contains(item.ObjectType) && !sharpTrash.Contains(item.ObjectType) && !medicineTrash.Contains(item.ObjectType))
+        {
+            Task.CreateGeneralMistake("Esine ei kuulu roskikseen!", 1, true);
+            return;
+        }
+        else
+        {
+            Debug.Log("this item belongs in trash according to logic:" + item.gameObject.name);
+            if (item.ObjectType == ObjectType.PipetteContainer && item.gameObject.transform.parent != null)
+            {
+                Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
+                return;
+            }
+            // if (item.ObjectType == ObjectType.SterileBag)
+            if (trashType == TrashType.Medicine && medicineTrash.Contains(item.ObjectType))
+            {
+                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                PrepareObjectForRemoving(item);
+                item.DestroyInteractable();
+            }
+            if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType))
+            {
+                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                PrepareObjectForRemoving(item);
+                item.DestroyInteractable();
+            }
+            if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType))
+            {
+                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                PrepareObjectForRemoving(item);
+                item.DestroyInteractable();
+            }
+            if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin normaaliin roskikseen", 1, true);
+            if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin terävien roskikseen", 1, true);
+            if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
+            if (trashType == TrashType.Medicine && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin lääkejätteen roskikseen", 1, true);
+            if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin normaaliin roskikseen", 1, true);
+            if (trashType == TrashType.Medicine && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin lääkejätteen roskikseen", 1, true);
         }
     }
 
