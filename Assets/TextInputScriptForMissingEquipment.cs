@@ -11,14 +11,18 @@ public class TextInputScriptForMissingEquipment : MonoBehaviour
 
     public void GetMissingEquipmentAndUpdate()
     {
-        string shownText = "Puuttuvia välineitä:" + System.Environment.NewLine + System.Environment.NewLine;
-
-        foreach(string i in cabinet.itemsNotInCabinet)
+        if (cabinet.itemsNotInCabinet.Count > 0)
         {
-            Debug.Log(i);
-            shownText += i + System.Environment.NewLine;
+            string shownText = "Puuttuvia välineitä:" + System.Environment.NewLine + System.Environment.NewLine;
+
+            foreach (string i in cabinet.itemsNotInCabinet)
+            {
+                shownText += i + System.Environment.NewLine;
+            }
+            textObject.text = shownText;
+        } else
+        {
+            textObject.text = "";
         }
-        
-        textObject.text = shownText;
     }
 }
