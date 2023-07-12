@@ -34,13 +34,13 @@ public class playerSelectedFilter : MonoBehaviour, IXRSelectFilter, IXRHoverFilt
     {
         if (preventHover)
         {
-            IXRSelectInteractable selectableInteractable = interactable.transform.GetComponent<IXRSelectInteractable>();
-            
-            List<IXRSelectInteractor> selectors = selectableInteractable.interactorsSelecting;
-
-            bool playerIsSelecting = playerIsOneOfSelectors(selectors);
-
-            return playerIsSelecting;
+           
+            XRGrabInteractable grabInteractable = interactable.transform.GetComponent<XRGrabInteractable>();
+            Debug.Log(grabInteractable);
+            IXRSelectInteractor firstSelector = grabInteractable.firstInteractorSelecting;
+            Debug.Log(firstSelector);
+            return firstSelector.transform.CompareTag("Controller (Right)") || firstSelector.transform.CompareTag("Controller (Left)");
+           
         }
         else
         {
