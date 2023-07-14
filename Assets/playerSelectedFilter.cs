@@ -5,11 +5,10 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
-public class playerSelectedFilter : MonoBehaviour, IXRSelectFilter, IXRHoverFilter
+public class playerSelectedFilter : MonoBehaviour, IXRSelectFilter
 {
 
     public bool preventSelect;
-    public bool preventHover;
     public bool canProcess => true;
 
     //This Process is for when interactor is selecting an interactable
@@ -29,25 +28,6 @@ public class playerSelectedFilter : MonoBehaviour, IXRSelectFilter, IXRHoverFilt
         }
     }
 
-    //this Process is for when interactor is hovering an interactable
-    public bool Process(IXRHoverInteractor interactor, IXRHoverInteractable interactable)
-    {
-        if (preventHover)
-        {
-           
-            XRGrabInteractable grabInteractable = interactable.transform.GetComponent<XRGrabInteractable>();
-            Debug.Log(grabInteractable);
-            IXRSelectInteractor firstSelector = grabInteractable.firstInteractorSelecting;
-            Debug.Log(firstSelector);
-            return firstSelector.transform.CompareTag("Controller (Right)") || firstSelector.transform.CompareTag("Controller (Left)");
-           
-        }
-        else
-        {
-            return true;
-        }
-    }
-    
     bool playerIsOneOfSelectors(List<IXRSelectInteractor> selectors)
     {
         bool playerIsSelecting = false;
