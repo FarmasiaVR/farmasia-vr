@@ -22,10 +22,20 @@ public class DisableAttachUntilParentSelected : MonoBehaviour
             targetSocket.allowSelect = false;
         }
     }
-
+    
+    
     public void enableAttach()
     {
         targetSocket.allowSelect = true;
+    }
+
+
+    public void disableAttachIfParentNotSelected()
+    {
+        if(parent.interactorsSelecting.Count <= 0)
+        {
+            disableAttach();
+        }
     }
 
 }
