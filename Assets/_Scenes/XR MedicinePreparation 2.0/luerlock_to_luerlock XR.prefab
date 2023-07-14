@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2099464842356158451}
   - component: {fileID: 908908745243733033}
   - component: {fileID: 8257001871626851698}
+  - component: {fileID: 8875266975529220883}
   m_Layer: 0
   m_Name: Socket Interactor (1)
   m_TagString: Untagged
@@ -317,7 +318,19 @@ MonoBehaviour:
   m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8875266975529220883}
+        m_TargetAssemblyTypeName: toggleHoverMeshOnTag, Assembly-CSharp
+        m_MethodName: toggleHoverMesh
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -440,6 +453,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preventSelect: 1
+--- !u!114 &8875266975529220883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918029790366015275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eaf5c0b26b4a9c42bd652dba4977abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSocketInteractor: {fileID: 8723560698090132338}
+  enableHoverMeshTags:
+  - Controller (Left)
+  - Controller (Right)
 --- !u!1 &3092100534232154323
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +528,7 @@ GameObject:
   - component: {fileID: 1824614101509389562}
   - component: {fileID: 618209277821144981}
   - component: {fileID: 3295666832598464780}
+  - component: {fileID: 2552662907188160868}
   m_Layer: 0
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -546,7 +576,19 @@ MonoBehaviour:
   m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2552662907188160868}
+        m_TargetAssemblyTypeName: toggleHoverMeshOnTag, Assembly-CSharp
+        m_MethodName: toggleHoverMesh
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -669,6 +711,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preventSelect: 1
+--- !u!114 &2552662907188160868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789014839468131159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eaf5c0b26b4a9c42bd652dba4977abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSocketInteractor: {fileID: 1449389261105436213}
+  enableHoverMeshTags:
+  - Controller (Left)
+  - Controller (Right)
 --- !u!1 &6262621955045332322
 GameObject:
   m_ObjectHideFlags: 0
