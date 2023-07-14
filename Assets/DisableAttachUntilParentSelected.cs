@@ -13,23 +13,19 @@ public class DisableAttachUntilParentSelected : MonoBehaviour
         targetSocket.allowSelect = false;
     }
 
-    //this should be called by the socket onSelectExit, and by parent onSelectEnter/onSelectExit
-    public void updateAttach()
+   
+    
+    public void disableAttach()
     {
-        //prevent socket losing selected object if socket already selected something
-        if (targetSocket.hasSelection)
-        {
-            return;
-        }
-
-        if (parent.firstInteractorSelecting.transform.GetComponent<XRBaseController>())
-        {
-            targetSocket.allowSelect = true;
-        }
-        else
+        if (!targetSocket.hasSelection)
         {
             targetSocket.allowSelect = false;
         }
+    }
+
+    public void enableAttach()
+    {
+        targetSocket.allowSelect = true;
     }
 
 }
