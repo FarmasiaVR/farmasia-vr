@@ -91,7 +91,7 @@ public class XRLuerlock : MonoBehaviour
         }
 
         closestSocket.detachSyringe();
-        
+       
        
     }
 

@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2099464842356158451}
   - component: {fileID: 908908745243733033}
   - component: {fileID: 8875266975529220883}
+  - component: {fileID: 8056672734448430306}
   m_Layer: 0
   m_Name: Socket Interactor (1)
   m_TagString: Untagged
@@ -375,6 +376,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8056672734448430306}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_OnHoverEntered:
@@ -454,6 +467,20 @@ MonoBehaviour:
   enableHoverMeshTags:
   - Controller (Left)
   - Controller (Right)
+--- !u!114 &8056672734448430306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918029790366015275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843870c486984354794c6dc95e4a557d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSocket: {fileID: 8723560698090132338}
+  parent: {fileID: 4225519864177757817}
 --- !u!1 &3092100534232154323
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +540,7 @@ GameObject:
   - component: {fileID: 1824614101509389562}
   - component: {fileID: 618209277821144981}
   - component: {fileID: 2552662907188160868}
+  - component: {fileID: 2057529419646850632}
   m_Layer: 0
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -618,6 +646,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2057529419646850632}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_OnHoverEntered:
@@ -697,6 +737,20 @@ MonoBehaviour:
   enableHoverMeshTags:
   - Controller (Left)
   - Controller (Right)
+--- !u!114 &2057529419646850632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789014839468131159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843870c486984354794c6dc95e4a557d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSocket: {fileID: 1449389261105436213}
+  parent: {fileID: 4225519864177757817}
 --- !u!1 &6262621955045332322
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,10 +1023,58 @@ MonoBehaviour:
         m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2057529419646850632}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8056672734448430306}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2057529419646850632}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8056672734448430306}
+        m_TargetAssemblyTypeName: DisableAttachUntilParentSelected, Assembly-CSharp
+        m_MethodName: updateAttach
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls:
