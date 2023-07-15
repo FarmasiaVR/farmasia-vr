@@ -20,4 +20,12 @@ public class ControlTutorialManager : MonoBehaviour
             taskManager.CompleteTask("med");
         }
     }
+
+    public void CheckFingerprintTime(double time)
+    {
+        if (time >= 4.5f & time <= 5.5f)
+        {
+            taskManager.CompleteTask("fingerprint");
+        }
+    }
 }

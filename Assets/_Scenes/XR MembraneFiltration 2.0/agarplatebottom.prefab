@@ -618,6 +618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebff8cc5b098b064bbf520e84fc9eb51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onStopwatchStopped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2961156006321140758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,8 +1191,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1129825769023278840}
-        m_TargetAssemblyTypeName: Timer, GameAssembly
-        m_MethodName: StartTimer
+        m_TargetAssemblyTypeName: Stopwatch, GameAssembly
+        m_MethodName: StartStopwatch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1215,8 +1218,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1129825769023278840}
-        m_TargetAssemblyTypeName: Timer, GameAssembly
-        m_MethodName: StopTimer
+        m_TargetAssemblyTypeName: Stopwatch, GameAssembly
+        m_MethodName: StopStopwatch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
