@@ -13,9 +13,9 @@ public class ControlTutorialManager : MonoBehaviour
     {
         taskManager = FindObjectOfType<TaskManager>();
     }
-    public void CheckBottleFill(int amountInBottle)
+    public void CheckBottleFill(LiquidContainer container)
     {
-        if (amountInBottle >= 30000)
+        if (container.Amount >= 30000)
         {
             taskManager.CompleteTask("med");
         }

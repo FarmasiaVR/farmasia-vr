@@ -25,8 +25,8 @@ public class LiquidContainer : MonoBehaviour {
 
     public bool Impure;
 
-    [Tooltip("Called when the container is filled. Passes the amount of liquid in the container as the parameter.")]
-    public UnityEvent<int> onBottleFilled;
+    [Tooltip("Called when the container is filled. Passes the amount of liquid and the type of liquid in the container as the parameter.")]
+    public UnityEvent<LiquidContainer> onLiquidAmountChanged;
 
     public int Amount {
         get { return amount; }
@@ -140,7 +140,7 @@ public class LiquidContainer : MonoBehaviour {
         // Debug.Log("FINALLY SENDING EVENT?");
         if (target.GeneralItem is Bottle || target.GeneralItem is FilterPart) {
             // Debug.Log("FINALLY SENDING EVENT!!");
-            target.onBottleFilled.Invoke(target.amount);
+            target.onLiquidAmountChanged.Invoke(target);
             Events.FireEvent(EventType.TransferLiquidToBottle, CallbackData.Object(target));
 
         }
