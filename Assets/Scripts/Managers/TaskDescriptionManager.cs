@@ -6,14 +6,18 @@ using FarmasiaVR.New;
 
 public class TaskDescriptionManager : MonoBehaviour
 {
-    private List<TextMeshPro> taskDescriptions;
+    [Tooltip("The list of task descriptions that the manager will update. Leave empty to find the task descriptions by tag.")]
+    public List<TextMeshPro> taskDescriptions;
 
     private void Awake()
     {
-        taskDescriptions = new List<TextMeshPro>();
-        foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("TaskDescription"))
+        if (taskDescriptions.Count == 0)
         {
-            taskDescriptions.Add(descObject.GetComponent<TextMeshPro>());
+            taskDescriptions = new List<TextMeshPro>();
+            foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("TaskDescription"))
+            {
+                taskDescriptions.Add(descObject.GetComponent<TextMeshPro>());
+            }
         }
     }
 

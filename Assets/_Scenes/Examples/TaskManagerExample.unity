@@ -1020,5 +1020,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8802103255835010837, guid: 664b776358d4b3e4186906216caca3b8,
+        type: 3}
+      propertyPath: onMistake.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8802103256295702919}
+    - target: {fileID: 8802103255835010837, guid: 664b776358d4b3e4186906216caca3b8,
+        type: 3}
+      propertyPath: onTaskCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 8802103256295702919}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 664b776358d4b3e4186906216caca3b8, type: 3}
+--- !u!1 &8802103256295702918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8802103255835010824, guid: 664b776358d4b3e4186906216caca3b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 8802103256295702917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8802103256295702919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802103256295702918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9225eb78120aa7340a981307a9464fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  successSound: {fileID: 8300000, guid: b06cceefba8c29e42aeff8a3878d14e6, type: 3}
+  mistakeSound: {fileID: 8300000, guid: 1a33580eae2da9a4380a41fea8960903, type: 3}

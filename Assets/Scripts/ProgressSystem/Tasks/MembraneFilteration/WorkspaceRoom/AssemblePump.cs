@@ -70,7 +70,7 @@ class AssemblePump: Task {
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin v��r�st� p��st�!", 1);
+        CreateTaskMistake("Avasit suojamuovin väärästä päästä!", 1);
     }
 
     /// <summary>
