@@ -93,6 +93,11 @@ public class HintBoxNew : MonoBehaviour
         hintDesc.text= newText;
     }
 
+    public void UpdateText(Task task)
+    {
+        hintDesc.text = task.hint;
+    }
+
     /// <summary>
     /// Method to rotate the question mark and hintbox.
     /// </summary>
