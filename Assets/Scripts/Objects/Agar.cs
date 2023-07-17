@@ -17,6 +17,8 @@ public class Agar : Interactable {
     private bool rightMidFgrTouch;
     private DateTime lastError;
     //private XRBaseInteractable interactable;
+    [SerializeField]
+    GameObject writingOptionScript;
 
     protected override void Start() {
         base.Start();
@@ -28,6 +30,7 @@ public class Agar : Interactable {
         leftMidFgrTouch = false;
         rightMidFgrTouch = false;
         rightThumbTouch = false;
+        writingOptionScript.GetComponent<WritingOption>().getOptionText();
     }
 
     public override void Interact(Hand hand) {
@@ -101,6 +104,18 @@ public class Agar : Interactable {
         {
             rightThumbTouch = true;
             //rightHandTouches++;
+        }
+    }
+
+    public void handCheck(SelectEnterEventArgs args)
+    {
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)")
+        {
+
+        }
+        else if (args.interactorObject.transform.parent.tag == "Controller (Right)")
+        {
+
         }
     }
 

@@ -63,5 +63,9 @@ public class WritingOption : DragAcceptable {
         }
     }
 
+    public String getOptionText()
+    {
+        return OptionText;
+    }
     
 }
