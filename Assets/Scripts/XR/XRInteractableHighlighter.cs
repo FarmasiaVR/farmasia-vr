@@ -21,7 +21,7 @@ public class XRInteractableHighlighter : MonoBehaviour
 
 
 
-    private void ChangeHiglight(Transform hoveredObject, bool isHighlighting) {
+    private void ChangeHiglight(Transform hoveredObject, bool isHighlighting, int depth = 0) {
         ///<summary>
         ///When given a hovered object, highlights it and also highlight all of the children
         ///</summary>
@@ -29,21 +29,23 @@ public class XRInteractableHighlighter : MonoBehaviour
         ///<param name="isHighlighting">Whether the object should be highlighted or not. If true, the object will be highlighted and if false, the object's highlight will be disabled</param>
         Renderer renderer = hoveredObject.GetComponent<Renderer>();
         XRSocketInteractor socket = hoveredObject.GetComponent<XRSocketInteractor>();
-        if (renderer != null && hoveredObject.gameObject.activeInHierarchy) {
+        if (renderer != null && hoveredObject.gameObject.activeInHierarchy && (depth == 0 | hoveredObject.GetComponent<XRBaseInteractable>() == null)) {
             ChangeHighlightMesh(renderer, isHighlighting);
         }
+
         /*
-         * Refactor and use this if the objects in sockets should also be highlighted.
+        // Use this if the objects in sockets should also be highlighted.
         else if (socket)
         {
             //If the player is hovering over a socket then highlight the socketed object
             ChangeHiglight(socket.GetOldestInteractableSelected().transform, isHighlighting);
         }
         */
+        
 
         foreach (Transform child in hoveredObject) {
             //Highlight all of the children using recursion.
-            ChangeHiglight(child, isHighlighting);
+            ChangeHiglight(child, isHighlighting, depth + 1);
         }
 
     }
