@@ -3467,6 +3467,7 @@ GameObject:
   - component: {fileID: 593771283}
   - component: {fileID: 593771282}
   - component: {fileID: 593771285}
+  - component: {fileID: 593771286}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3535,6 +3536,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 593771286}
+        m_TargetAssemblyTypeName: SFXManager, GameAssembly
+        m_MethodName: PlaySuccessSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onTaskFailed:
     m_PersistentCalls:
       m_Calls: []
@@ -3571,6 +3584,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f944776795eeb149b2bf826bf49f700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &593771286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593771281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9225eb78120aa7340a981307a9464fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  successSound: {fileID: 8300000, guid: b06cceefba8c29e42aeff8a3878d14e6, type: 3}
+  mistakeSound: {fileID: 0}
 --- !u!1 &595563494
 GameObject:
   m_ObjectHideFlags: 0
