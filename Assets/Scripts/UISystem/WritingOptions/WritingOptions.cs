@@ -107,6 +107,8 @@ public class WritingOptions : MonoBehaviour {
             resultText += line + "\n";
         }
         resultTextField.SetText(resultText);
+
+        UpdateErrorMessage();
     }
 
     private void UpdateErrorMessage() {
