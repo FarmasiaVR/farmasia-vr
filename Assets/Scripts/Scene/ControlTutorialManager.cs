@@ -11,7 +11,7 @@ public class ControlTutorialManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        taskManager = FindObjectOfType<TaskManager>();
+        taskManager = GetComponent<TaskManager>();
     }
     public void CheckBottleFill(LiquidContainer container)
     {
