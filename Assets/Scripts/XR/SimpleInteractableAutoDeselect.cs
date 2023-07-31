@@ -26,16 +26,23 @@ public class SimpleInteractableAutoDeselect : MonoBehaviour
     public IEnumerator DeselectAfterCooldown(SelectEnterEventArgs args)
     {
         ///Use a coroutine since deselecting a simple interactable immediately after selecting it may cause the player to select an unwanted object.
-        bool selectedObjectIsSimple = args.interactableObject.transform.GetComponent<XRSimpleInteractable>();
+        bool selectedObjectIsSimple = (args.interactableObject.transform.GetComponent<XRSimpleInteractable>() != null);
 
         if (selectedObjectIsSimple)
         {
+            // As it turns out, the SelectEnterEvent may change during WaitForSeconds. As such, make sure that only drop the item if the item held is the same that was selected.
+
+            IXRSelectInteractable interactable = args.interactableObject;
+            IXRSelectInteractor interactor = args.interactorObject;
+
             yield return new WaitForSeconds(selectionCooldown);
             XRInteractionManager interactionManager = args.manager;
 
-            if (args.interactableObject.isSelected)
+            if (interactable.interactorsSelecting.Count > 0)
             {
-                interactionManager.SelectExit(args.interactorObject, args.interactableObject);
+                if (interactable.interactorsSelecting[0] == interactor) {
+                    interactionManager.SelectExit(args.interactorObject, args.interactableObject);
+                }
             }
         }
     }
