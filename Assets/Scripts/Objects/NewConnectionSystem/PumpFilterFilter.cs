@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PumpFilterFilter : FilterPart {
     public bool CanBeCut { 
@@ -14,6 +15,9 @@ public class PumpFilterFilter : FilterPart {
     public GameObject wholeFilterToDisable;
     public GameObject leftHalfToEnable;
     public GameObject rightHalfToEnable;
+
+    [Header("Events")]
+    public UnityEvent onFilterCut;
 
 
     public void Cut(Transform bladeTransform) {
@@ -38,6 +42,7 @@ public class PumpFilterFilter : FilterPart {
         leftHalfToEnable.SetActive(true);
         rightHalfToEnable.SetActive(true);
         Events.FireEvent(EventType.FilterCutted, CallbackData.Object(this));
+        onFilterCut.Invoke();
     }
 
 

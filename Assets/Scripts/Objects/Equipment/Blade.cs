@@ -13,6 +13,7 @@ public class Blade : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (!enabled) return;
         if (other.isTrigger) return;
         var filter = other.gameObject.transform.parent?.GetComponent<PumpFilterFilter>();
         if (cover.CoverOn || filter == null) return;
