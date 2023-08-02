@@ -94,4 +94,9 @@ public class Writable : WritingTarget {
     public override Writable GetWritable() {
         return this;
     }
+
+    public List<WritingType> GetWritingsInOrder()
+    {
+        return writingsInOrder;
+    }
 }

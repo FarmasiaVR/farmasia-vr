@@ -176,7 +176,7 @@ public class FireSpreadStatic : MonoBehaviour
     {
         // Calculate next position and rotation based on direction
         nextPos = direction;
-        
+
         // Get current position
         currentPos = transform.position;
 
@@ -199,9 +199,9 @@ public class FireSpreadStatic : MonoBehaviour
 
             if (!CheckPositionAvailability(nextPos))
             {
-                SpawnFireGridObject(destination, Quaternion.Euler(nextPos), fireGrid);
+                SpawnFireGridObject(destination, diagonal, Quaternion.Euler(nextPos), fireGrid);
             }
-            
+
             //SpawnFireGridObject(destination, Quaternion.Euler(nextPos), fireGrid);
 
             //return true;
@@ -218,9 +218,9 @@ public class FireSpreadStatic : MonoBehaviour
     /// <returns></returns>
     private bool CheckPositionAvailability(Vector3 position)
     {
-        Debug.Log("vector3 position in CheckPositionAvailability: " + position.ToString());
+        //Debug.Log("vector3 position in CheckPositionAvailability: " + position.ToString());
         //Debug.Log("value of CheckFirePositionsContainsValue: " + firePositions.CheckFirePositionsContainsValue(position));
-        Debug.Log("values in list of positions: " + firePositions.CheckContains(position));
+        //Debug.Log("values in list of positions: " + firePositions.CheckContains(position));
         return firePositions.CheckContains(position);
         //return firePositions.CheckFirePositionsContainsValue(position);
     }
@@ -243,10 +243,10 @@ public class FireSpreadStatic : MonoBehaviour
         if (Physics.Raycast(diagRay, out RaycastHit diagHit, length))
         {
             if (diagHit.collider.CompareTag(obstacle))
-                {
-                    Debug.Log("hit collider hit: " + diagHit.collider.name + " in the direction: " + direction);
-                    return false;
-                }
+            {
+                //Debug.Log("hit collider hit: " + diagHit.collider.name + " in the direction: " + direction);
+                return false;
+            }
         }
         return true;
     }
@@ -258,19 +258,25 @@ public class FireSpreadStatic : MonoBehaviour
     /// <param name="position">the object spawn position.</param>
     /// <param name="rotation">the object spawn rotation.</param>
     /// <param name="fireGrid">fireGrid object reference required for copying this script.</param>
-    private void SpawnFireGridObject(Vector3 position, Quaternion rotation, FireGrid fireGrid)
+    private void SpawnFireGridObject(Vector3 position, bool diagonal, Quaternion rotation, FireGrid fireGrid)
     {
         if (CheckPositionAvailability(position))
         {
             Debug.Log("Position already occupied: " + position);
             return;
         }
-
-        Debug.Log("Spawning object in position: " + position + " with rotation: " + rotation + " and name: " + objectToSpawn.name);
-        firePositions.AddPosition(position);
-        GameObject obj = Instantiate(objectToSpawn, position, rotation);
-        obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
-
+        if (CheckMovementObstacles(position, diagonal, "Structure") && CheckMovementObstacles(position, diagonal, "FireGrid"))
+        {
+            Debug.Log("Spawning object in position: " + position + " with rotation: " + rotation + " and name: " + objectToSpawn.name);
+            firePositions.AddPosition(position);
+            GameObject obj = Instantiate(objectToSpawn, position, rotation);
+            obj.GetComponent<FireSpreadStatic>().fireGrid = fireGrid;
+        }
+        else
+        {
+            Debug.Log("Couldn't spawn object. Found possible obstacle.");
+            return;
+        }
         //numInc++;
         //Debug.Log("incremented number is now: " + numInc);
         //objectToSpawn.name = objectToSpawn.name + numInc.ToString();
@@ -283,9 +289,9 @@ public class FireSpreadStatic : MonoBehaviour
         Debug.Log("This is checkPos values: " + checkPos.ToString());
 
         Ray oneRay = new Ray(checkPos, new Vector3(checkPos.x, -3, checkPos.z));
-        
+
         Debug.Log("This is raycast ray: " + oneRay.ToString());
-        
+
         if (Physics.Raycast(oneRay, out RaycastHit hit, rayLength * 3))
         {
             Debug.Log("Raycast hit!");
