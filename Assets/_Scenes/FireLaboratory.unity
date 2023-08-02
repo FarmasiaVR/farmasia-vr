@@ -1484,6 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireToControl: {fileID: 1883402019}
+  startOnFire: 0
 --- !u!54 &408897979
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3423,6 +3424,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1554708679, guid: 80938108e410ea742bede7b0597fd18c, type: 3}
+      propertyPath: flameSize
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 485653456466227903, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: igniteOnStart
@@ -3486,12 +3491,12 @@ PrefabInstance:
     - target: {fileID: 5483865706098364125, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5483865706098364127, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5483865707720281263, guid: 80938108e410ea742bede7b0597fd18c,
         type: 3}
