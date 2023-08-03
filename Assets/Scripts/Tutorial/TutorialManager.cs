@@ -38,6 +38,8 @@ public class TutorialManager : MonoBehaviour
             RemoveFadeListeners();
         }
 
+        DropInteractablesInScene();
+
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);

@@ -16,7 +16,11 @@ public class Agar : Interactable {
     private bool rightThumbTouch;
     private bool rightMidFgrTouch;
     private DateTime lastError;
+    private WritingType leftHandType;
+    private WritingType rightHandType;
     //private XRBaseInteractable interactable;
+    [SerializeField]
+    GameObject writingOptionScript;
 
     protected override void Start() {
         base.Start();
@@ -28,6 +32,9 @@ public class Agar : Interactable {
         leftMidFgrTouch = false;
         rightMidFgrTouch = false;
         rightThumbTouch = false;
+        leftHandType = WritingType.LeftHand;
+        rightHandType = WritingType.RightHand;
+        writingOptionScript.GetComponent<WritingOption>().getOptionText();
     }
 
     public override void Interact(Hand hand) {
@@ -82,25 +89,42 @@ public class Agar : Interactable {
 
     private void handTouches(SelectExitEventArgs args, XRPokeInteractor interactor)
     {
-        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr" && handCheck(args))
         {
             leftMidFgrTouch = true;
             //leftHandTouches++;
         }
-        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb" && handCheck(args))
         {
             leftThumbTouch = true;
             //leftHandTouches++;
         }
-        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr")
+        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr" && handCheck(args))
         {
             rightMidFgrTouch = true;
             //rightHandTouches++;
         }
-        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb")
+        if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb" && handCheck(args))
         {
             rightThumbTouch = true;
             //rightHandTouches++;
+        }
+    }
+
+    private bool handCheck(SelectExitEventArgs args)
+    {
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && args.interactableObject.transform.GetComponent<Writable>().GetWritingsInOrder().Contains(leftHandType))
+        {
+            return true;
+        }
+        else if (args.interactorObject.transform.parent.tag == "Controller (Right)" && args.interactableObject.transform.GetComponent<Writable>().GetWritingsInOrder().Contains(rightHandType))
+        {
+            return true;
+        }
+        else
+        {
+            Task.CreateTaskMistake(TaskType.Fingerprints, "Väärällä kädellä otetut sormenjäljet", 1);
+            return false;
         }
     }
 
