@@ -25,8 +25,13 @@ public class LiquidContainer : MonoBehaviour {
 
     public bool Impure;
 
+    public bool allowLiquidTransfer = true;
+
     [Tooltip("Called when the container is filled. Passes the amount of liquid and the type of liquid in the container as the parameter.")]
     public UnityEvent<LiquidContainer> onLiquidAmountChanged;
+
+    [Tooltip("Called when a filter half is dropped into the liquid container. Passes the filter half GeneralItem as a parameter")]
+    public UnityEvent<GeneralItem> onFilterHalfEnter;
 
     public int Amount {
         get { return amount; }
@@ -91,6 +96,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     public void TransferTo(LiquidContainer target, int amount) {
+        if (!allowLiquidTransfer) return;
          // Debug.Log("Liguid container starts taking medicine");
         if (target == null) {
             Logger.Error("Receiving LiquidContainer was null");
@@ -267,6 +273,7 @@ public class LiquidContainer : MonoBehaviour {
             }
             //UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
+            onFilterHalfEnter.Invoke(genItem);
         }
     }
 

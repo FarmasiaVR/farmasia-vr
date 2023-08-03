@@ -98,14 +98,14 @@ public class Cover : MonoBehaviour
     //Called when player loads in to scene or when lets go of an object with a cover on
     //This makes covers unopenable unless player has grabbed the object
     public void DisableOpeningSpots() {
-        rightOpeningSpot.transform.gameObject.SetActive(false);
-        wrongOpeningSpot.transform.gameObject.SetActive(false);
+        rightOpeningSpot?.transform.gameObject.SetActive(false);
+        wrongOpeningSpot?.transform.gameObject.SetActive(false);
     }
 
     //Enables opening spots when player grabs on to the object
     public void EnableOpeningSpots() {
         if (!coverOn) return;
-        rightOpeningSpot.transform.gameObject.SetActive(true);
-        wrongOpeningSpot.transform.gameObject.SetActive(true);
+        rightOpeningSpot?.transform.gameObject.SetActive(true);
+        wrongOpeningSpot?.transform.gameObject.SetActive(true);
     }
 }
