@@ -92,7 +92,7 @@ public class PumpTutorialManager : MonoBehaviour
 
     public void NotifyFilterHalfInWrongBottle(GeneralItem genItem)
     {
-        taskManager.GenerateTaskMistake("Laita yksi filtterin puolikas soijakaseiiniin ja toinen puolikas tioglykoliin", 0);
+        taskManager.GenerateTaskMistake("Laitoit suodattimen puolikkaan v‰‰r‰‰n pulloon", 1);
         genItem.transform.Translate(new Vector3(0.05f, 0, 0));
     }
 

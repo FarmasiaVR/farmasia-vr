@@ -18,6 +18,8 @@ public class Tweezers : ReceiverItem {
     private GameObject filter;
 
     private bool coverOn;
+
+    private Transform originalParent;
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -61,6 +63,7 @@ public class Tweezers : ReceiverItem {
         filter.GetComponent<Rigidbody>().isKinematic = true;
         filter.GetComponent<Rigidbody>().detectCollisions = false;
 
+        originalParent = transform.parent;
         filter.transform.SetParent(transform);
         filterIsGrabbed = true;
     }
@@ -73,7 +76,7 @@ public class Tweezers : ReceiverItem {
             filter.GetComponent<Rigidbody>().isKinematic = false;
             filter.GetComponent<Rigidbody>().detectCollisions = true;
             
-            transform.DetachChildren();
+            transform.parent = originalParent;
             
             filterIsGrabbed = false;
             filter = null;

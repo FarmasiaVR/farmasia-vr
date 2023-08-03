@@ -131,11 +131,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1452912563}
     m_Modifications:
-    - target: {fileID: 29558044394782668, guid: 67af131d7fc82064a9d94abbaf0db62c,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 29558044394782670, guid: 67af131d7fc82064a9d94abbaf0db62c,
         type: 3}
       propertyPath: m_Name
@@ -183,11 +178,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 29558044394782672, guid: 67af131d7fc82064a9d94abbaf0db62c,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 29558044394782672, guid: 67af131d7fc82064a9d94abbaf0db62c,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -229,7 +219,7 @@ PrefabInstance:
     - target: {fileID: 29558044394782672, guid: 67af131d7fc82064a9d94abbaf0db62c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.732
+      value: 0.959
       objectReference: {fileID: 0}
     - target: {fileID: 29558044394782672, guid: 67af131d7fc82064a9d94abbaf0db62c,
         type: 3}
@@ -245,11 +235,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 348336958625906053, guid: 67af131d7fc82064a9d94abbaf0db62c,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67af131d7fc82064a9d94abbaf0db62c, type: 3}
@@ -3382,7 +3367,31 @@ MonoBehaviour:
         m_CallState: 2
   onMistake:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 593771282}
+        m_TargetAssemblyTypeName: PopupManager, GameAssembly
+        m_MethodName: TaskErrorPopup
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 533419743}
+        m_TargetAssemblyTypeName: SFXManager, GameAssembly
+        m_MethodName: PlayMistakeSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &533419746
 Transform:
   m_ObjectHideFlags: 0
@@ -5503,6 +5512,11 @@ PrefabInstance:
     - target: {fileID: 7116980211170453896, guid: 1cf1d8d7c199e444d853d6f899114039,
         type: 3}
       propertyPath: allowTransfer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116980211170453896, guid: 1cf1d8d7c199e444d853d6f899114039,
+        type: 3}
+      propertyPath: allowLiquidTransfer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7116980211170453896, guid: 1cf1d8d7c199e444d853d6f899114039,
@@ -9457,6 +9471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7116980211170453896, guid: 1cf1d8d7c199e444d853d6f899114039,
         type: 3}
+      propertyPath: allowLiquidTransfer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116980211170453896, guid: 1cf1d8d7c199e444d853d6f899114039,
+        type: 3}
       propertyPath: onFilterHalfEnter.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -10419,7 +10438,12 @@ PrefabInstance:
     - target: {fileID: 6110120574230603531, guid: 8dfc3feceab953f47a21505bf6855930,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609211661922758750, guid: 8dfc3feceab953f47a21505bf6855930,
+        type: 3}
+      propertyPath: wrongOpeningSpot
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7716482373799417741, guid: 8dfc3feceab953f47a21505bf6855930,
         type: 3}
@@ -10435,7 +10459,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 593771283}
+      objectReference: {fileID: 533419745}
     - target: {fileID: 7716482373799417741, guid: 8dfc3feceab953f47a21505bf6855930,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
