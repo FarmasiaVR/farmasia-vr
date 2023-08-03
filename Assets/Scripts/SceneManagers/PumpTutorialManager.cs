@@ -12,12 +12,11 @@ public class PumpTutorialManager : MonoBehaviour
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
+
+        filterHalfInSoycaseine = false;
+        filterHalfInTioglycolate = false;
     }
 
-    public void SetFilterConnectionStatus(bool value)
-    {
-        filterConnectedToPump = value;
-    }
 
     /// <summary>
     /// Call this when starting a new task. If you need some logic when starting specific tasks, write them here.
@@ -30,6 +29,11 @@ public class PumpTutorialManager : MonoBehaviour
         {
             scalpel.enabled = true;
         }
+    }
+    #region Filter events
+    public void SetFilterConnectionStatus(bool value)
+    {
+        filterConnectedToPump = value;
     }
 
     /// <summary>
@@ -48,7 +52,9 @@ public class PumpTutorialManager : MonoBehaviour
             taskManager.CompleteTask("fillMedicine");
         }
     }
+    #endregion
 
+    #region Pump events
     /// <summary>
     /// Call this when the pump is turned on
     /// </summary>
@@ -77,4 +83,50 @@ public class PumpTutorialManager : MonoBehaviour
             taskManager.CompleteTask("pumpDisassemble");
         }
     }
+    #endregion
+
+    #region Filter half events
+
+    private bool filterHalfInSoycaseine = false;
+    private bool filterHalfInTioglycolate = false;
+
+    public void NotifyFilterHalfInWrongBottle(GeneralItem genItem)
+    {
+        taskManager.GenerateTaskMistake("Laita yksi filtterin puolikas soijakaseiiniin ja toinen puolikas tioglykoliin", 0);
+        genItem.transform.Translate(new Vector3(0.05f, 0, 0));
+    }
+
+    public void FilterHalfInSoycaseine(GeneralItem genItem)
+    {
+        if (filterHalfInSoycaseine) {NotifyFilterHalfInWrongBottle(genItem);}
+
+        else
+        {
+            filterHalfInSoycaseine = true;
+            if (filterHalfInTioglycolate)
+            {
+                CompleteFilterHalfTask();
+            }
+        }
+    }
+
+    public void FilterHalfInTioglycolate(GeneralItem genItem)
+    {
+        if (filterHalfInTioglycolate) { NotifyFilterHalfInWrongBottle(genItem); }
+
+        else
+        {
+            filterHalfInTioglycolate = true;
+            if (filterHalfInSoycaseine)
+            {
+                CompleteFilterHalfTask();
+            }
+        }
+    }
+
+    private void CompleteFilterHalfTask()
+    {
+        taskManager.CompleteTask("halvesToBottles");
+    }
+    #endregion
 }
