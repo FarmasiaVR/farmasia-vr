@@ -742,6 +742,13 @@ MonoBehaviour:
   LiquidType: 0
   GeneralItem: {fileID: 0}
   Impure: 0
+  allowLiquidTransfer: 1
+  onLiquidAmountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFilterHalfEnter:
+    m_PersistentCalls:
+      m_Calls: []
   capacity: 30000
 --- !u!136 &8874511363844226148
 CapsuleCollider:
@@ -1065,7 +1072,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7489909394179376300}
   - component: {fileID: 4098953563021995538}
-  - component: {fileID: 101232903126854353}
   - component: {fileID: 4223059003086819823}
   m_Layer: 10
   m_Name: Text (TMP)
@@ -1136,14 +1142,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &101232903126854353
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7759040098954084803}
-  m_CullTransparentMesh: 0
 --- !u!114 &4223059003086819823
 MonoBehaviour:
   m_ObjectHideFlags: 0

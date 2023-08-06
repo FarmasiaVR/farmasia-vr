@@ -44,6 +44,17 @@ public class SimpleInteractableAutoDeselect : MonoBehaviour
                     interactionManager.SelectExit(args.interactorObject, args.interactableObject);
                 }
             }
+
+            // In some instances (i.e when opening a cover for an object), the interactor may select the empty object that was supposed to be deleted.
+            // This may be a bug with the XR library, but to avoid this make sure that the object the interactor is selecting actually exists.
+
+            if (interactor.isSelectActive)
+            {
+                if (!interactor.firstInteractableSelected.transform.gameObject.activeSelf)
+                {
+                    interactionManager.SelectExit(interactor, interactor.firstInteractableSelected);
+                }
+            }
         }
     }
 }
