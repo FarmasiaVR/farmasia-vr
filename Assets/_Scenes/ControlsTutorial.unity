@@ -4121,41 +4121,38 @@ PrefabInstance:
     m_TransformParent: {fileID: 1452912563}
     m_Modifications:
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 5
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 533419745}
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChangeFromMockToRealObj, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: CompleteTask
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Cover, GameAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: TaskManager, GameAssembly
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
-      value: pumpCover
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075885284, guid: 86acd661b9265834391e4ae6bec1d37a, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: FilterInCover, GameAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 520249693586046176, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
       propertyPath: m_RetainTransformParent
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 973774217129223520, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1645445891476626067, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
@@ -4167,10 +4164,30 @@ PrefabInstance:
       propertyPath: m_RetainTransformParent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2193024597936507702, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2193024597936507702, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969558897484959067, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2970795885744324949, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
       propertyPath: m_RetainTransformParent
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384739758216225017, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329001660181136844, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
@@ -4306,6 +4323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onLiquidAmountChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627790001118975112, guid: 86acd661b9265834391e4ae6bec1d37a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8032981989425681041, guid: 86acd661b9265834391e4ae6bec1d37a,
         type: 3}
@@ -10242,6 +10264,11 @@ PrefabInstance:
       propertyPath: glovesOnAtStart
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1366109436100886462, guid: 3fa949d1e2da943fa868465536f7e9e2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2647682210394393353, guid: 3fa949d1e2da943fa868465536f7e9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11972,6 +11999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HintBoxNew
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458979189061804314, guid: 7d918f8af9e03a56bac8875df7801c32,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d918f8af9e03a56bac8875df7801c32, type: 3}

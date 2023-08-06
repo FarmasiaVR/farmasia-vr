@@ -14,7 +14,9 @@ public class PumpFilterFilter : FilterPart {
 
     public GameObject wholeFilterToDisable;
     public GameObject leftHalfToEnable;
+    public GameObject leftHalfSpawnPoint;
     public GameObject rightHalfToEnable;
+    public GameObject rightHalfSpawnPoint;
 
     [Header("Events")]
     public UnityEvent onFilterCut;
@@ -40,7 +42,11 @@ public class PumpFilterFilter : FilterPart {
         RotateToBlade(bladeTransform);
         wholeFilterToDisable.SetActive(false);
         leftHalfToEnable.SetActive(true);
+        leftHalfToEnable.transform.position = leftHalfSpawnPoint.transform.position;
+        leftHalfToEnable.transform.rotation = leftHalfSpawnPoint.transform.rotation;
         rightHalfToEnable.SetActive(true);
+        rightHalfToEnable.transform.position = rightHalfSpawnPoint.transform.position;
+        rightHalfToEnable.transform.rotation = rightHalfSpawnPoint.transform.rotation;
         Events.FireEvent(EventType.FilterCutted, CallbackData.Object(this));
         onFilterCut.Invoke();
     }
