@@ -23,16 +23,15 @@ public class TrashCan : MonoBehaviour {
     };
 
 
-    //TODO: verify what items are needed in trash in medicine preparation
     private List<ObjectType> normalTrashMedicinePreparation= new List<ObjectType>() {
-        //ObjectType.Luerlock,
+        ObjectType.Luerlock,
         ObjectType.DisinfectingCloth,
     };
     private List<ObjectType> sharpTrashMedicinePreparation = new List<ObjectType>() {
         ObjectType.Needle
     };
     private List<ObjectType> medicineTrashMedicinePreparation = new List<ObjectType>() {
-        //ObjectType.Syringe
+        ObjectType.Syringe
     };
 
     public enum TrashType {
