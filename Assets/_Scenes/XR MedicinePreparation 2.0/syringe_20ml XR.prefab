@@ -126,7 +126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518893092571080674}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.2335, y: 0.808, z: 0.5816}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5000001, z: 1.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,6 +178,7 @@ MonoBehaviour:
   maxPosition: -0.0671
   handle: {fileID: 2721767071081157696}
   capVisible: 0
+  HasSyringeCap: 0
   hasBeenInBottle: 0
 --- !u!114 &1037771201108178346
 MonoBehaviour:
@@ -798,7 +799,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6136566752069476275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0625, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1242,6 +1243,13 @@ MonoBehaviour:
   LiquidType: 0
   GeneralItem: {fileID: 0}
   Impure: 0
+  allowLiquidTransfer: 1
+  onLiquidAmountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFilterHalfEnter:
+    m_PersistentCalls:
+      m_Calls: []
   capacity: 20000
 --- !u!136 &5721653315672495577
 CapsuleCollider:
