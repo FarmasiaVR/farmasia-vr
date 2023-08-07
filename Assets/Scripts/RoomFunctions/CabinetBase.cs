@@ -79,7 +79,6 @@ public class CabinetBase : MonoBehaviour {
             return;
         }
         syringeCapBagEntered = true;
-        StartCoroutine(MoveSyringeCapBagAndEnableFactory(syringeCapBag));
     }
 
     public void updateItemsNotInCabinet(List<string> list)
