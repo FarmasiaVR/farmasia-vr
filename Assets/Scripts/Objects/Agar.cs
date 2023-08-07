@@ -20,7 +20,8 @@ public class Agar : Interactable {
     private WritingType rightHandType;
     //private XRBaseInteractable interactable;
     [SerializeField]
-    GameObject writingOptionScript;
+    GameObject agarPlateLid;
+    private Writable writableScript;
 
     protected override void Start() {
         base.Start();
@@ -34,7 +35,7 @@ public class Agar : Interactable {
         rightThumbTouch = false;
         leftHandType = WritingType.LeftHand;
         rightHandType = WritingType.RightHand;
-        writingOptionScript.GetComponent<WritingOption>().getOptionText();
+        writableScript = agarPlateLid.GetComponent<Writable>();
     }
 
     public override void Interact(Hand hand) {
@@ -113,11 +114,11 @@ public class Agar : Interactable {
 
     private bool handCheck(SelectExitEventArgs args)
     {
-        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && args.interactableObject.transform.GetComponent<Writable>().GetWritingsInOrder().Contains(leftHandType))
+        if (args.interactorObject.transform.parent.tag == "Controller (Left)" && writableScript.GetWritingsInOrder().Contains(leftHandType))
         {
             return true;
         }
-        else if (args.interactorObject.transform.parent.tag == "Controller (Right)" && args.interactableObject.transform.GetComponent<Writable>().GetWritingsInOrder().Contains(rightHandType))
+        else if (args.interactorObject.transform.parent.tag == "Controller (Right)" && writableScript.GetWritingsInOrder().Contains(rightHandType))
         {
             return true;
         }
