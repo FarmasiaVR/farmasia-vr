@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FarmasiaVR.Legacy;
-using static UnityEditor.Progress;
 using UnityEngine.SceneManagement;
 
 public class TrashCan : MonoBehaviour {

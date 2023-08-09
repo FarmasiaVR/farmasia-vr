@@ -1,7 +1,5 @@
 ﻿using System;
-using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using FarmasiaVR.Legacy;
-using JetBrains.Annotations;
 using Unity;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
