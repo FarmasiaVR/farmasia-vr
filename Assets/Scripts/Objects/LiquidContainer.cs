@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using FarmasiaVR.Legacy;
 using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
 public class LiquidContainer : MonoBehaviour {
 
@@ -131,15 +132,25 @@ public class LiquidContainer : MonoBehaviour {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
             
+            //if container empty, the medicines didnt mix, but liquid is still impure...
             if (target.Amount == 0) {
-                
-                target.LiquidType = LiquidType;
-                target.Impure = true;
-            } else {
-                target.Impure = true;
+                switchLiquidTypesAndMakeImpure(target);
+            }
+            //else, there was another type of liquid already in the container,
+            //so give negative points and switch the liquid type to the just added medicine
+            //TODO: should there be a mixedMedicine liquidType?
+            else {
+                switchLiquidTypesAndMakeImpure(target);
+                Task.CreateGeneralMistake("Lääkkeet sekoittuivat keskenään!");
             }
         }
         target.liquid.SetMaterialFromType(target.LiquidType);
+    }
+
+    void switchLiquidTypesAndMakeImpure(LiquidContainer target)
+    {
+        target.LiquidType = LiquidType;
+        target.Impure = true;
     }
 
     private void FireBottleFillingEvent(LiquidContainer target) {
