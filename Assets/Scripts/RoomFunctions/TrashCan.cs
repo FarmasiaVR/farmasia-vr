@@ -43,10 +43,13 @@ public class TrashCan : MonoBehaviour {
 
     public void OnTrashEnter(Collider other) {
         //GeneralItem item = GeneralItem.Find(other.transform);
+        Debug.Log("trying to get general item!");
         GeneralItem item = other.transform.gameObject.GetComponent<GeneralItem>();
         if (item != null) {
+            Debug.Log("survived general item!");
             if (SceneManager.GetActiveScene().name.Contains("MembraneFiltration"))
             {
+                Debug.Log("check trash items for membrane filtration!");
                 checkItemsInTrash(item, normalTrashMembraneFiltration, medicineTrashMembraneFiltration, sharpTrashMembraneFiltration);
             }
             else if (SceneManager.GetActiveScene().name.Contains("MedicinePreparation"))

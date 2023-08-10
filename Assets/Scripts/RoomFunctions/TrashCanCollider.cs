@@ -9,6 +9,7 @@ public class TrashCanCollider : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+        Debug.Log("item entered trashCanCollider");
         if (other.isTrigger) return;
         trashCan.OnTrashEnter(other);
     }
