@@ -141,10 +141,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 579733777076930806}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 579733777076930806}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1548,6 +1572,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4031122908072350355}
     m_Modifications:
+    - target: {fileID: 3044608325412671191, guid: 699661a1b7713344c8ad4affe37e9950,
+        type: 3}
+      propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044608325412671191, guid: 699661a1b7713344c8ad4affe37e9950,
+        type: 3}
+      propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8024081813795427982, guid: 699661a1b7713344c8ad4affe37e9950,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1663,8 +1697,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LiquidAmountDisplayer
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3044608325412671191, guid: 699661a1b7713344c8ad4affe37e9950, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 699661a1b7713344c8ad4affe37e9950, type: 3}
+--- !u!114 &579733777076930806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8024081813795427983, guid: 699661a1b7713344c8ad4affe37e9950,
+    type: 3}
+  m_PrefabInstance: {fileID: 7444699949696392825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa3c42764fc4b244936ced0a535c858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &579733777076930807 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8024081813795427982, guid: 699661a1b7713344c8ad4affe37e9950,

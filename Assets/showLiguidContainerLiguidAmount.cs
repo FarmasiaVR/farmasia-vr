@@ -25,4 +25,14 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
             text.text = "";
         }
     }
+
+    public void show()
+    {
+        displayText = true;
+    }
+
+    public void hide()
+    {
+        displayText = false;
+    }
 }
