@@ -7,7 +7,7 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
 {
     public LiquidContainer containerToShow;
     public TextMeshPro text;
-    
+    public bool displayText;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +16,13 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     
     private void FixedUpdate()
     {
-        text.text = containerToShow.Amount.ToString() + " / " + containerToShow.Capacity.ToString();    
+        if (displayText)
+        {
+            text.text = containerToShow.Amount.ToString() + " / " + containerToShow.Capacity.ToString();
+        }
+        else
+        {
+            text.text = "";
+        }
     }
 }
