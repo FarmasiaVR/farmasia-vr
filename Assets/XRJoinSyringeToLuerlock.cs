@@ -59,7 +59,7 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
     }
 
 
-    public void detachSyringe()
+    public IXRSelectInteractable detachSyringe()
     {
         IXRSelectInteractable attachedSyringe = attachSocket.firstInteractableSelected;
         if (attachedSyringe != null)
@@ -85,6 +85,8 @@ public class XRJoinSyringeToLuerlock : MonoBehaviour
             //prevent socket from immediately re selecting the interactable
             objAttached = false;
             StartCoroutine(disableSocketFor(1.0f));
+            return attachedSyringe;
         }
+        return null;
     }
 }

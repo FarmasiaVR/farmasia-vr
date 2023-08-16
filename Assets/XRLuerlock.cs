@@ -41,7 +41,8 @@ public class XRLuerlock : MonoBehaviour
             float distanceToClosestSocket = getDistanceToClosestSocket(interactor.transform.position);
             if (distanceToClosestSocket > detachDistance)
             {
-                detachSyringeFromClosestSocket(interactor.transform.position);
+                IXRSelectInteractable detachedSyringe = detachSyringeFromClosestSocket(interactor.transform.position);
+                interactableToTrack.interactionManager.SelectEnter(interactor, detachedSyringe);
             }
         }
     }
@@ -116,7 +117,7 @@ public class XRLuerlock : MonoBehaviour
         detachSyringeFromClosestSocket(interactor.transform.position);
     }
 
-    void detachSyringeFromClosestSocket(Vector3 interactorPosition)
+    IXRSelectInteractable detachSyringeFromClosestSocket(Vector3 interactorPosition)
     {
         XRJoinSyringeToLuerlock closestSocket = findClosestSocket(interactorPosition);
         XRJoinSyringeToLuerlock furtestSocket = findFurthestSocket(interactorPosition);
@@ -127,7 +128,8 @@ public class XRLuerlock : MonoBehaviour
             StartCoroutine(furtestSocket.disableSocketFor(1.0f));
         }
 
-        closestSocket.detachSyringe();
+        IXRSelectInteractable detachedSyringe = closestSocket.detachSyringe();
+        return detachedSyringe;
     }
 
     public void sendMedicine(InputAction.CallbackContext context)
