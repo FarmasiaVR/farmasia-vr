@@ -19,18 +19,23 @@ public class HandStateManager : MonoBehaviour {
 
     public bool glovesOnAtStart;
 
+    //set to true if hands exit the laminar cabinet
     bool handsOutsideCabinet = false;
 
+    //dev bool, set to true in the editor if hands should air contaminate
     public bool canAirContaminate;
 
     //time in seconds that it takes for hands to get contaminated again after being cleaned with cleaning bottle
     public float handWashContaminationDelay;
 
+    //time in seconds since the hands have been cleaned
+    float timeSinceCleaning;
+
     //time in seconds that the hands take to get contaminated once the hands are outside the laminar cabinet
     public float handAirContaminationDelay;
 
-    //time in seconds until the hands get air contaminated
-    float timeUntilContamination;
+    //time in seconds the hands have been outside the cabinet
+    float timeOutsideCabinet;
 
     public void Start() {
        
@@ -210,31 +215,30 @@ public class HandStateManager : MonoBehaviour {
         }
         handsOutsideCabinet = false;
 
-        //this check prevents timeUntilContamination getting "reset" if it was set to higher value than handAirContaminationDelay
-        //before being put inside the cabinet, for example by being cleaned with cleaning bottle
-        if (timeUntilContamination < handAirContaminationDelay)
-        {
-            timeUntilContamination = handAirContaminationDelay;
-        }
+        timeOutsideCabinet = 0.0f;
     }
 
     public void cleanHands()
     {
         SetGlovesOn();
         //resetting timer avoids hands getting immediately dirty after they are cleaned
-        timeUntilContamination = handWashContaminationDelay;
+        timeSinceCleaning = 0.0f;
     }
 
     private void FixedUpdate()
     {
+        timeSinceCleaning += Time.deltaTime;
 
-        if(canAirContaminate && handsOutsideCabinet)
+        //hands can start contaminating by air once 3 conditions have been met:
+        //1. canAirContaminate is set to true, this is a dev bool to control to be toggled from the editor if hands should be able to be contaminated by air
+        //2. handsOutsideCabinet bool is true, this is set to true only when hands exit the laminar cabinet
+        //3. timeSinceCleaning > handWashContaminationDelay, time that has elapsed since washing hands, there should be no alchohol on the surface of the hands
+        if (canAirContaminate && handsOutsideCabinet && timeSinceCleaning > handWashContaminationDelay)
         {
-            timeUntilContamination -= Time.deltaTime;
-            if(timeUntilContamination <= 0.0f && handState != HandState.Dirty)
+            timeOutsideCabinet += Time.deltaTime;
+            if(timeOutsideCabinet >= handAirContaminationDelay && handState != HandState.Dirty)
             {
                 SetDirty();
-                timeUntilContamination = 0.0f;
             }
         }
     }
