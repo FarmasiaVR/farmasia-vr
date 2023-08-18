@@ -182,15 +182,22 @@ public class HandStateManager : MonoBehaviour {
     public void SetCleanest() {
         handState = HandState.Cleanest;
         if (!shinyAnimationPlayed) {
-            material.SetFloat("_SoapColor", 0f);
-            StartCoroutine(leftHandEffectSpawner.SpawnLensFlares());
-            StartCoroutine(rightHandEffectSpawner.SpawnLensFlares());
-            material.SetInt("_Shiny", 1);
-            StartCoroutine(Lerp(10.0f, 2.0f, 1.0f, "_FresnelEffectPower"));
+            playShinyAnimation();
             shinyAnimationPlayed = true;
         }
+        if (handSparkleAudioFX)
+        {
+            handSparkleAudioFX.PlayAudioFX();
+        }
+    }
 
-        handSparkleAudioFX.PlayAudioFX();
+    void playShinyAnimation()
+    {
+        material.SetFloat("_SoapColor", 0f);
+        StartCoroutine(leftHandEffectSpawner.SpawnLensFlares());
+        StartCoroutine(rightHandEffectSpawner.SpawnLensFlares());
+        material.SetInt("_Shiny", 1);
+        StartCoroutine(Lerp(10.0f, 2.0f, 1.0f, "_FresnelEffectPower"));
     }
 
     private IEnumerator Lerp(float a, float b, float duration, string property) {
@@ -221,6 +228,11 @@ public class HandStateManager : MonoBehaviour {
     public void cleanHands()
     {
         SetGlovesOn();
+        
+        //add some extra shinyness to the hands
+        //currently the animation has a hard coded duration of 6 * 1.2 seconds
+        playShinyAnimation();
+
         //resetting timer avoids hands getting immediately dirty after they are cleaned
         timeSinceCleaning = 0.0f;
     }
@@ -228,6 +240,12 @@ public class HandStateManager : MonoBehaviour {
     private void FixedUpdate()
     {
         timeSinceCleaning += Time.deltaTime;
+
+        //once there is no alcohol on the hands remove the cleanest state of the hands
+        if(timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay)
+        {
+            SetGlovesOn();
+        }
 
         //hands can start contaminating by air once 3 conditions have been met:
         //1. canAirContaminate is set to true, this is a dev bool to control to be toggled from the editor if hands should be able to be contaminated by air
