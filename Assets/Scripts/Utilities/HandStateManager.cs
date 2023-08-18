@@ -22,9 +22,16 @@ public class HandStateManager : MonoBehaviour {
     bool handsOutsideCabinet = false;
 
     public bool canAirContaminate;
-    //time in seconds that the hands take to get contaminated when hands are outside the laminar cabinet
+
+    //time in seconds that it takes for hands to get contaminated again after being cleaned with cleaning bottle
+    public float handWashContaminationDelay;
+
+    //time in seconds that the hands take to get contaminated once the hands are outside the laminar cabinet
     public float handAirContaminationDelay;
-    float timeOutsideCabinet;
+
+    //time in seconds until the hands get air contaminated
+    float timeUntilContamination;
+
     public void Start() {
        
         SetDirty();
@@ -202,14 +209,20 @@ public class HandStateManager : MonoBehaviour {
             Task.CreateGeneralMistake("Kaappiin viedyt kädet olivat ilman saastuttamat", 1);
         }
         handsOutsideCabinet = false;
-        timeOutsideCabinet = 0.0f;
+
+        //this check prevents timeUntilContamination getting "reset" if it was set to higher value than handAirContaminationDelay
+        //before being put inside the cabinet, for example by being cleaned with cleaning bottle
+        if (timeUntilContamination < handAirContaminationDelay)
+        {
+            timeUntilContamination = handAirContaminationDelay;
+        }
     }
 
     public void cleanHands()
     {
         SetGlovesOn();
         //resetting timer avoids hands getting immediately dirty after they are cleaned
-        timeOutsideCabinet = 0.0f;
+        timeUntilContamination = handWashContaminationDelay;
     }
 
     private void FixedUpdate()
@@ -217,10 +230,11 @@ public class HandStateManager : MonoBehaviour {
 
         if(canAirContaminate && handsOutsideCabinet)
         {
-            timeOutsideCabinet += Time.deltaTime;
-            if(timeOutsideCabinet >= handAirContaminationDelay && handState != HandState.Dirty)
+            timeUntilContamination -= Time.deltaTime;
+            if(timeUntilContamination <= 0.0f && handState != HandState.Dirty)
             {
                 SetDirty();
+                timeUntilContamination = 0.0f;
             }
         }
     }
