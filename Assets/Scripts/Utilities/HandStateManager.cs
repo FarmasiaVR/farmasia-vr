@@ -242,7 +242,7 @@ public class HandStateManager : MonoBehaviour {
         timeSinceCleaning += Time.deltaTime;
 
         //once there is no alcohol on the hands remove the cleanest state of the hands
-        if(timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay)
+        if(timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay && handState != HandState.Dirty)
         {
             SetGlovesOn();
         }
