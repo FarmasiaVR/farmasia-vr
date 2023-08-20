@@ -21,8 +21,9 @@ public class BackendCommunicator : MonoBehaviour
 
         StartCoroutine(GetRequest(backendURL + "/certificates"));
 
-        StartCoroutine(PostRequest(backendURL + "/certificates/create"));
-        
+        string jsonString = "{\"user\": \"hello from PUT request made from unity!\"}";
+        StartCoroutine(PutRequest(backendURL + "/certificates/create_put", jsonString));
+
     }
 
     // Update is called once per frame
@@ -67,6 +68,7 @@ public class BackendCommunicator : MonoBehaviour
     //https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Post.html 
     IEnumerator PostRequest(string uri)
     {
+        
         WWWForm testForm = new WWWForm();
         testForm.AddField("user", "hello from unity");
         using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, testForm))
@@ -95,6 +97,37 @@ public class BackendCommunicator : MonoBehaviour
                     {
                         resultText.text = webRequest.downloadHandler.text;
                     }
+                    break;
+            }
+        }
+    }
+
+    IEnumerator PutRequest(string uri, string jsonString)
+    {
+
+      
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(uri, jsonString))
+        {
+
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+            Debug.Log(webRequest.uploadHandler.data);
+
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                     break;
             }
         }
