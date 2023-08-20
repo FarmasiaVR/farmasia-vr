@@ -55,4 +55,15 @@ public class PopupManager : MonoBehaviour
 
         pointPopup.SetPopup("Et suorittanut tehtävää " + task.taskText + " ajoissa \n GAME OVER", MsgType.Error);
     }
+
+    /// <summary>
+    /// Shows a yellow notification text to the player. This should be used to control the player's behaviour without punishing them.
+    /// </summary>
+    /// <param name="notification">The message that should be displayed to the player</param>
+   public void NotifyPopup(string notification)
+    {
+        PointPopup pointPopup = InstantiatePopup();
+
+        pointPopup.SetPopup(notification, MsgType.Notify);
+    }
 }

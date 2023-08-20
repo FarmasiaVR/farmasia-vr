@@ -26,7 +26,11 @@ public class LiquidContainer : MonoBehaviour {
 
     public bool Impure;
 
+    [Tooltip("Should the liquid container be allowed to transfer liquids to other containers")]
     public bool allowLiquidTransfer = true;
+
+    [Tooltip("If set to true, then there can only be one type of liquid in the container at one time and mixing is impossible")]
+    public bool allowMixingLiquids = true;
 
     [Tooltip("Called when the container is filled. Passes the amount of liquid and the type of liquid in the container as the parameter.")]
     public UnityEvent<LiquidContainer> onLiquidAmountChanged;
@@ -98,7 +102,15 @@ public class LiquidContainer : MonoBehaviour {
 
     public void TransferTo(LiquidContainer target, int amount) {
         if (!allowLiquidTransfer) return;
-         // Debug.Log("Liguid container starts taking medicine");
+        //Debug.Log("Liguid container starts taking medicine");
+
+        //This is to check whether a mix would happen with the transfer
+        if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
+        {
+            FindObjectOfType<PopupManager>()?.NotifyPopup("Ole hyvä ja älä sekoita nesteitä");
+            return;
+        }
+
         if (target == null) {
             Logger.Error("Receiving LiquidContainer was null");
             return;
