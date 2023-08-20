@@ -16,30 +16,13 @@ public class BackendCommunicator : MonoBehaviour
     string backendURL = "https://certificate-backend-temporary-0395420348.onrender.com";
     public TMP_Text resultText;
 
-
-    public class Task
-    {
-        public string taskName;
-        public int points;
-        public Task(string taskName, int points)
-        {
-            this.taskName = taskName;
-            this.points = points;
-        }
-    }
-    public class exampleCertificateObject{
-        public string user = "hello from unity";
-        public Task[] tasks = { new Task("debug task name", 2) };
-    };
     void Start()
     {
-        
+
         StartCoroutine(GetRequest(backendURL + "/certificates"));
 
-        exampleCertificateObject newCertificate = new exampleCertificateObject();
-        string certificateJson = JsonUtility.ToJson(newCertificate);
-        StartCoroutine(PostRequest(backendURL + "/certificates/create", certificateJson));
-
+        StartCoroutine(PostRequest(backendURL + "/certificates/create"));
+        
     }
 
     // Update is called once per frame
@@ -82,12 +65,17 @@ public class BackendCommunicator : MonoBehaviour
 
     //source:
     //https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.Post.html 
-    IEnumerator PostRequest(string uri, string jsonStringObject)
+    IEnumerator PostRequest(string uri)
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, jsonStringObject))
+        WWWForm testForm = new WWWForm();
+        testForm.AddField("user", "hello from unity");
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(uri, testForm))
         {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
+            
+           // webRequest.SetRequestHeader("Content-Type", "application/json");
+            Debug.Log(webRequest.uploadHandler.data);
+
+           yield return webRequest.SendWebRequest();
 
             string[] pages = uri.Split('/');
             int page = pages.Length - 1;
