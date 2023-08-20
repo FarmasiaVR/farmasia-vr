@@ -23,7 +23,7 @@ public class BackendCommunicator : MonoBehaviour
 
         string jsonString = "{\"user\": \"hello from PUT request made from unity!\"}";
         StartCoroutine(PutRequest(backendURL + "/certificates/create_put", jsonString));
-        
+
     }
 
     // Update is called once per frame
@@ -128,10 +128,6 @@ public class BackendCommunicator : MonoBehaviour
                     break;
                 case UnityWebRequest.Result.Success:
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                    if (resultText)
-                    {
-                        resultText.text = webRequest.downloadHandler.text;
-                    }
                     break;
             }
         }
