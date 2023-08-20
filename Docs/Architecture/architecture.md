@@ -89,3 +89,47 @@ sequenceDiagram
 - Calls to the scene manager script: Implementing the calls in the scene may be tedious. If you want to use the same object in multiple scenes that use different scene managers, there are two ways to do this.
     1. Use Unity events: Here if you need to place the same object in the scene multiple times, then you need to add event listeners to every single object separately.
     2. Use function calls in the script: Here when the player does something with the object, a separate script needs to be implemented which checks which scene manager is currently residing in the scene and then make calls based on that information.
+
+## Multiple task managers
+
+It is also possible to use multiple task managers in one Unity scene. In this case you need to make sure that you manually set the correct items to all the other managers (for example, you need to manually set the hint boxes to the hint box manager).
+
+### Example case of multiple task managers
+
+Let's imagine a scene where the user can go to two different rooms, each with its own set of tasks. Let's say the user has to assemble a pump in room A and the user has to extinguish a fire in room B. In this case the scene needs three different task managers: task manager for assembling the pump, task manager for extinguishing the fire and a master task manager for tracking the task lists in the rooms.
+
+An example of the task lists:
+
+### Room A (Assemble pump)
+> - Grab the filter and open it from its package
+> - Attach the filter to the pump
+> - Turn on the pump
+
+### Room B(Extinguish fire)
+> - Grab the fire extinguisher
+> - Remove the safety pin
+> - Extinguish the fire
+
+### Master
+> - Assemble the pump
+> - Extinguish the fire in Room B
+
+Now when the user completes all the tasks in Room A, the task manager then sends a message to the master task manager through the OnAllTasksCompleted event that the "Assemble the pump" task has been completed. 
+
+When all the tasks in both rooms have been completed, the master task manager's OnAllTasksCompleted event is invoked and a door can be unlocked, for example.
+
+This would not function with a single task manager and a single task list as then it wouldn't be possible to show the different tasks that the rooms have since only one task can be active at one time. The user can also now freely choose which room he wants to go to first.
+
+It may also be beneficial to adding different functionality to the different task lists. For example, there could be different sounds when completing a task in a room and completing a master task.
+
+**Note that this is only an example. A master task list may not even be necessary. This is just an example, use your own judgement.**
+
+### Multiple task managers in the tutorial
+
+The only scene in which multiple task managers is currently used is the [controls tutorial](/Assets/_Scenes/ControlsTutorial.unity). In the scene there is a master task manager and a separate task manager for the pump tutorial section. 
+
+This solution was selected as this provides the most flexibility with modifying the tutorials if need be. The master task manager changes the scene when a task is completed in the master task list. The pump section, however, needed to have extra tasks to guide the player to complete the tutorial section. There was also a need to show the player hints relating to the pump tutorial's tasks. This couldn't be done with a singular task list as then the tutorial section transitions would have to be done manually. This would have caused a lot of headache if a tutorial section needs to be modified, as then the developer would also have to make sure that the transition is called in the right place.
+
+Now the pump tutorial section sends a message to the master task list when all of the pump tutorial's tasks are completed and the tutorial section transition is invoked. Additionally, now it is possible for the pump tutorial section to not feature popups when completing a pump tutorial task. If steps need to be added to the pump tutorial, then you only need to add steps to the pump tutorial's task list and make sure that they are set as completed, the transitions should still work smoothly.
+
+If you want to see how multiple task managers were used in the tutorial, open the [ControlsTutorial scene](/Assets/_Scenes/ControlsTutorial.unity) in Unity. The master task list is attached to the `GameManager` object and the pump tutorial's task manager is attached to the `TutorialScenes/PumpTutorial/PumpTutorialManager` object.
