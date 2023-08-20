@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
-
+using System.Text.Json;
 
 public class BackendCommunicator : MonoBehaviour
 {
@@ -16,13 +16,37 @@ public class BackendCommunicator : MonoBehaviour
     string backendURL = "https://certificate-backend-temporary-0395420348.onrender.com";
     public TMP_Text resultText;
 
+
+    [Serializable]
+    public class exampleTask
+    {
+        public string taskName;
+        public int points;
+        public exampleTask(string taskName, int points)
+        {
+            this.taskName = taskName;
+            this.points = points;
+        }
+    }
+    [Serializable]
+    public class exampleCertificate
+    {
+        public string user;
+        public List<exampleTask> tasks = new List<exampleTask>();
+    }
+
     void Start()
     {
 
         StartCoroutine(GetRequest(backendURL + "/certificates"));
 
-        string jsonString = "{\"user\": \"hello from PUT request made from unity!\"}";
-        StartCoroutine(PutRequest(backendURL + "/certificates/create_put", jsonString));
+        exampleCertificate exampleTask = new exampleCertificate();
+        exampleTask.user = "sample user";
+        exampleTask.tasks.Add(new exampleTask("fill bottles", 3));
+        string serializedCertificate = JsonUtility.ToJson(exampleTask);
+        Debug.Log(serializedCertificate);
+
+        StartCoroutine(PutRequest(backendURL + "/certificates/create_put", serializedCertificate));
 
     }
 
