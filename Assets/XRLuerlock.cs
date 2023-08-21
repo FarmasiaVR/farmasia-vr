@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections.Generic;
-using UnityEditorInternal;
+
 
 //this is crazy prototyping code from every software devs nightmares, do not try this at home
 public class XRLuerlock : MonoBehaviour
