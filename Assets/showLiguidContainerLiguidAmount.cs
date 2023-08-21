@@ -8,10 +8,14 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     public LiquidContainer containerToShow;
     public TextMeshPro text;
     public bool displayText;
+
+    //bool indicating if IEnumerator toggleDisplayFor has been invoked already
+    bool toggledDisplay;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        toggledDisplay = false;
     }
     
     private void FixedUpdate()
@@ -34,5 +38,22 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     public void hide()
     {
         displayText = false;
+    }
+
+    public void displayFor(float seconds)
+    {
+        if(!toggledDisplay)
+        {
+            StartCoroutine(toggleDisplayFor(seconds));
+        }
+    }
+
+    IEnumerator toggleDisplayFor(float seconds)
+    {
+        toggledDisplay = true;
+        show();
+        yield return new WaitForSeconds(seconds);
+        hide();
+        toggledDisplay = false;
     }
 }
