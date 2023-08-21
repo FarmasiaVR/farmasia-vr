@@ -618,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   containerToShow: {fileID: 7116980211170453896}
   text: {fileID: 1396763218650294928}
+  displayText: 0
 --- !u!1 &3887179950391656488
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,10 +985,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6997966473093729033}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6997966473093729033}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
