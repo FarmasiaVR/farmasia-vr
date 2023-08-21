@@ -229,10 +229,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9062287532483827665}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9062287532483827665}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -382,6 +406,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9062287532483827665}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: displayFor
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onSendMedicineFunctionsToCall:
     m_PersistentCalls:
       m_Calls:
@@ -394,6 +430,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9062287532483827665}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: displayFor
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1244,6 +1292,10 @@ MonoBehaviour:
   GeneralItem: {fileID: 0}
   Impure: 0
   allowLiquidTransfer: 1
+  allowMixingLiquids: 1
+  onLiquidTransfer:
+    m_PersistentCalls:
+      m_Calls: []
   onLiquidAmountChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1495,3 +1547,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1340090932088045918}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9062287532483827665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8024081813795427983, guid: 699661a1b7713344c8ad4affe37e9950,
+    type: 3}
+  m_PrefabInstance: {fileID: 1340090932088045918}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa3c42764fc4b244936ced0a535c858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
