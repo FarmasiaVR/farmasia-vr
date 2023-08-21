@@ -3567,6 +3567,22 @@ MonoBehaviour:
   GeneralItem: {fileID: 6912748291076837915}
   Impure: 0
   allowLiquidTransfer: 1
+  allowMixingLiquids: 1
+  onLiquidTransfer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3129693530129573721}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: displayFor
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLiquidAmountChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3887,6 +3903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   containerToShow: {fileID: 7149290687898145458}
   text: {fileID: 7805027629846724466}
+  displayText: 0
 --- !u!1 &7488277800760983218
 GameObject:
   m_ObjectHideFlags: 0
@@ -4416,10 +4433,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3129693530129573721}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3129693530129573721}
+        m_TargetAssemblyTypeName: showLiguidContainerLiguidAmount, Assembly-CSharp
+        m_MethodName: hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
