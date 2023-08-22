@@ -47,9 +47,15 @@ public class FireGrid : MonoBehaviour
 
     public UnityEvent onExtinguish = new UnityEvent();
 
+    // Adds reference to the FlameExtinguish script
+    private FlameExtinguish flameExtinguish;
+
 
     private void Start()
     {
+        // Fetches flameExtinguish component
+        flameExtinguish = GetComponent<FlameExtinguish>();
+
         if (igniteOnStart)
         {
             //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
@@ -85,7 +91,7 @@ public class FireGrid : MonoBehaviour
             fireAudioSource.clip = extinguishAudio;
             fireAudioSource.loop = false;
             fireAudioSource.Play();
-            fireVFX.Stop();
+            
             if (smokeVFX)
             {
                 smokeVFX.SetFloat("Spawn Rate", 0f);
@@ -94,7 +100,7 @@ public class FireGrid : MonoBehaviour
 
             if (extinguishParticle != null)
             {
-                extinguishParticle.Play();
+                flameExtinguish.enabled = true;
             }
 
             isIgnited = false;
