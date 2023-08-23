@@ -50,16 +50,36 @@ public class FireGrid : MonoBehaviour
     // Adds reference to the FlameExtinguish script
     private FlameExtinguish flameExtinguish;
 
+    // Adds reference to the FireCounter script
+    //private FireCounter fireCounter;
+
+
+    private void Awake()
+    {
+        // Finds FlameExtinguish component
+        flameExtinguish = GetComponent<FlameExtinguish>();
+
+        // Finds FireCounter component
+        //fireCounter = GetComponent<fireCounter>();
+    }
+
 
     private void Start()
     {
-        // Fetches flameExtinguish component
-        flameExtinguish = GetComponent<FlameExtinguish>();
+
 
         if (igniteOnStart)
         {
             //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
             Ignite();
+
+            // Increments fire count by 1
+            /*
+            if (fireCounter)
+            {
+                fireCounter.IncrementFireCount();
+            }
+            */
         }
     }
 
@@ -98,11 +118,27 @@ public class FireGrid : MonoBehaviour
             }
             pointLight.SetActive(false);
 
-            if (extinguishParticle != null)
+            // Runs flameExtinguish script and Stops the FireGrid VFX
+            if (flameExtinguish)
             {
                 flameExtinguish.enabled = true;
             }
+            else
+            {
+                Debug.Log("No flameExtinguish script found!");
+            }
 
+            // Decrement fire count by 1
+            /*
+            if (fireCounter)
+            {
+                fireCounter.DecrementFireCount();
+            }
+            else
+            {
+                Debug.Log("No FireCounter found in the scene!");
+            }
+            */
             isIgnited = false;
             onExtinguish.Invoke();
             Debug.Log("Extinguished");
