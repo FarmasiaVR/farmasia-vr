@@ -51,7 +51,7 @@ public class FireGrid : MonoBehaviour
     private FlameExtinguish flameExtinguish;
 
     // Adds reference to the FireCounter script
-    private FireCounter fireCounter;
+    public FireCounter fireCounter;
 
 
     private void Awake()
@@ -60,7 +60,10 @@ public class FireGrid : MonoBehaviour
         flameExtinguish = GetComponent<FlameExtinguish>();
 
         // Finds FireCounter component
-        fireCounter = GetComponent<FireCounter>();
+        if (fireCounter == null)
+        {
+            fireCounter = GameObject.Find("FireCounter").GetComponent<FireCounter>();
+        }
     }
 
 
@@ -74,12 +77,10 @@ public class FireGrid : MonoBehaviour
             Ignite();
 
             // Increments fire count by 1
-            /*
             if (fireCounter)
             {
                 fireCounter.IncrementFireCount();
             }
-            */
         }
     }
 
@@ -129,7 +130,6 @@ public class FireGrid : MonoBehaviour
             }
 
             // Decrement fire count by 1
-            /*
             if (fireCounter)
             {
                 fireCounter.DecrementFireCount();
@@ -138,7 +138,6 @@ public class FireGrid : MonoBehaviour
             {
                 Debug.Log("No FireCounter found in the scene!");
             }
-            */
             isIgnited = false;
             onExtinguish.Invoke();
             Debug.Log("Extinguished");
