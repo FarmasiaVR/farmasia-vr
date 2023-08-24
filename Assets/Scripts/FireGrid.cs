@@ -53,9 +53,14 @@ public class FireGrid : MonoBehaviour
     // Adds reference to the FireCounter script
     public FireCounter fireCounter;
 
+    // Delays ignition by seconds
+    [SerializeField]
+    public float ignitionTimer;
+
 
     private void Awake()
     {
+        Debug.Log("Start " + ignitionTimer + " for GameObject " + gameObject.name);
         // Finds FlameExtinguish component
         flameExtinguish = GetComponent<FlameExtinguish>();
 
@@ -64,23 +69,24 @@ public class FireGrid : MonoBehaviour
         {
             fireCounter = GameObject.Find("FireCounter").GetComponent<FireCounter>();
         }
+        Debug.Log("Start " + ignitionTimer);
+        fireVFX.Stop();
     }
 
-
+    /// <summary>
+    /// Starts the IgnitionDelay Coroutine to delay the fire ignition based on the time specified in ignitionTimer.
+    /// Increment the fire count by 1 to keep track of the total number of active fires.
+    /// </summary>
     private void Start()
     {
+        // Start the IgnitionDelay coroutine to handle ignition after a delay(DOES NOT WORK!!!)
+        StartCoroutine(IgnitionDelay());
 
 
-        if (igniteOnStart)
+        // Increments fire count by 1
+        if (fireCounter)
         {
-            //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
-            Ignite();
-
-            // Increments fire count by 1
-            if (fireCounter)
-            {
-                fireCounter.IncrementFireCount();
-            }
+            fireCounter.IncrementFireCount();
         }
     }
 
@@ -97,6 +103,20 @@ public class FireGrid : MonoBehaviour
         {
             Extinguish();
             //Debug.Log("Fire should extinguish");
+        }
+    }
+
+    /// <summary>
+    /// Ignites the fire after delay
+    /// </summary>
+    IEnumerator IgnitionDelay()
+    {
+        yield return new WaitForSeconds(ignitionTimer); // DOES NOT WORK!!!
+
+        //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
+        if (igniteOnStart)
+        {
+            Ignite();
         }
     }
 
@@ -196,7 +216,7 @@ public class FireGrid : MonoBehaviour
             }
 
             isIgnited = true;
-            Debug.Log("Ignited");
+            //Debug.Log("Ignited");
         }
         
     }
