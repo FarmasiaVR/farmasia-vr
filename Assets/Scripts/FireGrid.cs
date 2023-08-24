@@ -51,7 +51,7 @@ public class FireGrid : MonoBehaviour
     private FlameExtinguish flameExtinguish;
 
     // Adds reference to the FireCounter script
-    //private FireCounter fireCounter;
+    private FireCounter fireCounter;
 
 
     private void Awake()
@@ -60,7 +60,7 @@ public class FireGrid : MonoBehaviour
         flameExtinguish = GetComponent<FlameExtinguish>();
 
         // Finds FireCounter component
-        //fireCounter = GetComponent<fireCounter>();
+        fireCounter = GetComponent<FireCounter>();
     }
 
 
