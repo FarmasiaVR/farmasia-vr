@@ -11,9 +11,6 @@ using UnityEngine.Events;
 
 public class FireGrid : MonoBehaviour
 {
-    public KeyCode igniteKey = KeyCode.Space;
-    public KeyCode extinguishKey = KeyCode.G;
-    //public InputActionReference igniteEvent;
     // Different particle effect fields
     [SerializeField]
     private VisualEffect fireVFX;
@@ -23,6 +20,16 @@ public class FireGrid : MonoBehaviour
     private ParticleSystem igniteParticle;
     [SerializeField]
     private ParticleSystem extinguishParticle;
+
+    // Audio clip variables to store audio
+    [SerializeField]
+    private AudioClip extinguishAudio;
+    [SerializeField]
+    private AudioClip extinguishAudioBlanket;
+
+    // Temperature of the fire
+    [SerializeField]
+    private int degrees;
     
     // Light source of the fire
     [SerializeField]
@@ -32,35 +39,30 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject colliderCube;
 
+    // Delays ignition by seconds
     [SerializeField]
-    private AudioClip extinguishAudio;
-
-    [SerializeField]
-    private AudioClip extinguishAudioBlanket;
-
-    private bool isIgnited;
-
-    public bool igniteOnStart;
+    public float ignitionTimer;
     
-    [SerializeField]
-    private int degrees;
+    // Adds reference to the FireCounter script
+    public FireCounter fireCounter;
 
     public UnityEvent onExtinguish = new UnityEvent();
+
+    // Key used to manually trigger the ignition of the fire
+    public KeyCode igniteKey = KeyCode.Space;
+
+    // Key used to manually trigger the extinguishing of the fire
+    public KeyCode extinguishKey = KeyCode.G;
 
     // Adds reference to the FlameExtinguish script
     private FlameExtinguish flameExtinguish;
 
-    // Adds reference to the FireCounter script
-    public FireCounter fireCounter;
-
-    // Delays ignition by seconds
-    [SerializeField]
-    public float ignitionTimer;
+    // True if the fire is active, false if it has been extinguished.
+    private bool isIgnited;
 
 
     private void Awake()
     {
-        Debug.Log("Start " + ignitionTimer + " for GameObject " + gameObject.name);
         // Finds FlameExtinguish component
         flameExtinguish = GetComponent<FlameExtinguish>();
 
@@ -69,7 +71,9 @@ public class FireGrid : MonoBehaviour
         {
             fireCounter = GameObject.Find("FireCounter").GetComponent<FireCounter>();
         }
-        Debug.Log("Start " + ignitionTimer);
+
+        // Stop the fireVFX in the Awake method to ensure it doesn't start playing immediately.
+        // This is necessary if you intend to delay the start of the VFX animation.
         fireVFX.Stop();
     }
 
@@ -79,9 +83,8 @@ public class FireGrid : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        // Start the IgnitionDelay coroutine to handle ignition after a delay(DOES NOT WORK!!!)
+        // Start the IgnitionDelay coroutine to handle ignition after a delay
         StartCoroutine(IgnitionDelay());
-
 
         // Increments fire count by 1
         if (fireCounter)
@@ -107,17 +110,13 @@ public class FireGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// Ignites the fire after delay
+    /// Initiates the fire ignition after the duration(seconds) specified in the ignitionTimer variable, 
+    /// which can be set through the Inspector window.
     /// </summary>
     IEnumerator IgnitionDelay()
     {
-        yield return new WaitForSeconds(ignitionTimer); // DOES NOT WORK!!!
-
-        //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
-        if (igniteOnStart)
-        {
-            Ignite();
-        }
+        yield return new WaitForSeconds(ignitionTimer);
+        Ignite();
     }
 
     /// <summary>
