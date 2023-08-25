@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class FireCounter : MonoBehaviour
 {
-    private int counter = 0;
+    // Adjusts how ofter in seconds the update is run
+    [SerializeField]
+    private float seconds;
 
-    // Start is called before the first frame update
+    private float nextLogTime = 0.0f;
+    public int counter = 0;
+
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (Time.time > nextLogTime)
+        {
+            nextLogTime += seconds;
+            Debug.Log("Current fire count: " + counter);
+        }
     }
 
     public void IncrementFireCount()
     {
         counter++;
-        Debug.Log("Fire added. Current count: " + counter);
     }
 
     public void DecrementFireCount()
@@ -35,8 +41,8 @@ public class FireCounter : MonoBehaviour
         Debug.Log("Fire reduced. Current count: " + counter);
     }
 
-    public int GetFireCount() 
+    public int GetFireCount()
     {
-            return counter; 
+        return counter;
     }
 }
