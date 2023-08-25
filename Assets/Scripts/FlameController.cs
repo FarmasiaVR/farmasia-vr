@@ -9,11 +9,18 @@ public class FlameController : MonoBehaviour
     private VisualEffect fireVFX;
 
     [SerializeField]
-    private float flameSize = 0.0f;
+    private float flameSizeStart;
 
-    private float x = 0.0f;
-    private float y = 0.0f;
-    private float z = 0.0f;
+    [SerializeField]
+    private float maxFlameSize;
+
+    [SerializeField]
+    private float flameSpeedStart;
+
+    [SerializeField]
+    private float flameSpeedEnd;
+
+    private float x, y, z;
 
     // <summary>
     // This method is called once when the GameObject is first enabled.
@@ -22,7 +29,9 @@ public class FlameController : MonoBehaviour
     // <summary>
     void Start()
     {
-        x = y = z = flameSize;
+        x = flameSizeStart; 
+        y = flameSizeStart; 
+        z = flameSizeStart;
         fireVFX = transform.Find("Flames").gameObject.GetComponent<VisualEffect>();
         SetScale(x, y, z);
     }
@@ -35,26 +44,24 @@ public class FlameController : MonoBehaviour
     // <summary>
     void Update()
     {
-        if (x >= 2f && y >= 2f && z >= 2f)
+        if (x >= maxFlameSize && y >= maxFlameSize && z >= maxFlameSize)
         {
-            x = 2f;
-            y = 2f;
-            z = 2f;
+            x = maxFlameSize;
+            y = maxFlameSize;
+            z = maxFlameSize;
         }
         if (x < 0.5f && y < 0.5f && z < 0.5f)
         {
-            x += 0.03f * Time.deltaTime;
-
-            y += 0.03f * Time.deltaTime;
-
-            z += 0.03f * Time.deltaTime;
+            x += 0.03f * flameSpeedStart * Time.deltaTime;
+            y += 0.03f * flameSpeedStart * Time.deltaTime;
+            z += 0.03f * flameSpeedStart * Time.deltaTime;
         }
 
         if (x < 2f && y < 2f && z < 2f)
         {
-            x += 0.02f * Time.deltaTime;
-            y += 0.02f * Time.deltaTime;
-            z += 0.02f * Time.deltaTime;
+            x += 0.02f * flameSpeedEnd * Time.deltaTime;
+            y += 0.02f * flameSpeedEnd * Time.deltaTime;
+            z += 0.02f * flameSpeedEnd * Time.deltaTime;
         }
         SetScale(x, y, z);
     }
