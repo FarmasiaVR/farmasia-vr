@@ -39,9 +39,13 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject colliderCube;
 
-    // Delays ignition by seconds
+    // Delays the ignition. The time is counted in seconds.
     [SerializeField]
     public float ignitionTimer;
+
+    // Stops the Flame VFX after the given time. The time is counted in seconds.
+    [SerializeField]
+    public float extinguishTimer;
     
     // Adds reference to the FireCounter script
     public FireCounter fireCounter;
@@ -73,7 +77,7 @@ public class FireGrid : MonoBehaviour
         }
 
         // Stop the fireVFX in the Awake method to ensure it doesn't start playing immediately.
-        // This is necessary if you intend to delay the start of the VFX animation.
+        // This is necessary if you intend to delay the start of the VFX animation when using ignitionTimer.
         fireVFX.Stop();
     }
 
@@ -96,6 +100,8 @@ public class FireGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         // FOR TESTING IGNITION AND EXTINGUISHING - Press Space for ignition and G for extinguishing
         if (Input.GetKeyDown(igniteKey))
         {
@@ -110,13 +116,21 @@ public class FireGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// Initiates the fire ignition after the duration(seconds) specified in the ignitionTimer variable, 
-    /// which can be set through the Inspector window.
+    /// Initiates the fire ignition after the duration(seconds) specified by the ignitionTimer variable.
+    /// Then, starts another counter to automatically extinguish the fire after a duration(seconds) specified 
+    /// by the extinguishTimer variable. These events can be set through the Inspector window.
     /// </summary>
     IEnumerator IgnitionDelay()
     {
         yield return new WaitForSeconds(ignitionTimer);
         Ignite();
+        if (extinguishTimer  > 0)
+        {
+            yield return new WaitForSeconds(extinguishTimer);
+            fireVFX.Stop();
+        }
+
+
     }
 
     /// <summary>
