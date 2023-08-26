@@ -39,14 +39,21 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject colliderCube;
 
-    // Delays the ignition. The time is counted in seconds.
+    // Delays the ignition. The time is counted in seconds(approximately).
     [SerializeField]
     public float ignitionTimer;
 
-    // Stops the Flame VFX after the given time. The time is counted in seconds.
+    // Stops the Flame VFX after the given time. The time is counted in seconds(approximately).
     [SerializeField]
     public float extinguishTimer;
-    
+
+    // Additional time delay in seconds that follows the initial ignitionTimer. 
+    // Useful for adding an extra delay when multiple fires are grouped together. 
+    // Using this variable eliminates the need to individually adjust each fire's ignitionTimer
+    // when fire's are grouped as one entity and extra delay is needed.
+    [SerializeField]
+    private float startDelay;
+
     // Adds reference to the FireCounter script
     public FireCounter fireCounter;
 
@@ -100,8 +107,6 @@ public class FireGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         // FOR TESTING IGNITION AND EXTINGUISHING - Press Space for ignition and G for extinguishing
         if (Input.GetKeyDown(igniteKey))
         {
@@ -117,13 +122,18 @@ public class FireGrid : MonoBehaviour
 
     /// <summary>
     /// Initiates the fire ignition after the duration(seconds) specified by the ignitionTimer variable.
-    /// Then, starts another counter to automatically extinguish the fire after a duration(seconds) specified 
+    /// Next, it waits for an additional start delay specifired by the startDelay variable. 
+    /// This is useful for adding an extra delay when multiple fires are grouped together.
+    /// Third counter automatically extinguish the fire after a duration(seconds) specified 
     /// by the extinguishTimer variable. These events can be set through the Inspector window.
     /// </summary>
     IEnumerator IgnitionDelay()
     {
         yield return new WaitForSeconds(ignitionTimer);
+        yield return new WaitForSeconds(startDelay);
+
         Ignite();
+
         if (extinguishTimer  > 0)
         {
             yield return new WaitForSeconds(extinguishTimer);
