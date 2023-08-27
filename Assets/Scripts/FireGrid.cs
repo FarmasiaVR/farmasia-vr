@@ -71,6 +71,9 @@ public class FireGrid : MonoBehaviour
     // True if the fire is active, false if it has been extinguished.
     private bool isIgnited;
 
+    // Does not play extinguish audio
+    private bool playExtinguishAudio = true;
+
 
     private void Awake()
     {
@@ -134,13 +137,12 @@ public class FireGrid : MonoBehaviour
 
         Ignite();
 
-        if (extinguishTimer  > 0)
+        if (extinguishTimer > 0)
         {
             yield return new WaitForSeconds(extinguishTimer);
-            fireVFX.Stop();
+            playExtinguishAudio = false;
+            Extinguish();
         }
-
-
     }
 
     /// <summary>
@@ -154,8 +156,12 @@ public class FireGrid : MonoBehaviour
             fireAudioSource.Stop();
             fireAudioSource.clip = extinguishAudio;
             fireAudioSource.loop = false;
-            fireAudioSource.Play();
-            
+
+            if (playExtinguishAudio)
+            {
+                fireAudioSource.Play();
+            }
+
             if (smokeVFX)
             {
                 smokeVFX.SetFloat("Spawn Rate", 0f);
@@ -169,10 +175,11 @@ public class FireGrid : MonoBehaviour
             }
             else
             {
+                fireVFX.Stop();
                 Debug.Log("No flameExtinguish script found!");
             }
 
-            // Decrement fire count by 1
+            // Decrement fire count by 1 and inactivate fireVFX is flameExtinguish script is not activated
             if (fireCounter)
             {
                 fireCounter.DecrementFireCount();
@@ -199,7 +206,7 @@ public class FireGrid : MonoBehaviour
             fireAudioSource.Stop();
             fireAudioSource.clip = extinguishAudioBlanket;
             fireAudioSource.loop = false;
-            fireAudioSource.Play();
+
             fireVFX.Stop();
             if (smokeVFX)
             {
