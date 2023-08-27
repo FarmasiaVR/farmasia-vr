@@ -99,12 +99,6 @@ public class FireGrid : MonoBehaviour
     {
         // Start the IgnitionDelay coroutine to handle ignition after a delay
         StartCoroutine(IgnitionDelay());
-
-        // Increments fire count by 1
-        if (fireCounter)
-        {
-            fireCounter.IncrementFireCount();
-        }
     }
 
     // Update is called once per frame
@@ -245,8 +239,13 @@ public class FireGrid : MonoBehaviour
                 igniteParticle.Play();
             }
 
+            // Increments fire count by 1
+            if (fireCounter)
+            {
+                fireCounter.IncrementFireCount();
+            }
+
             isIgnited = true;
-            //Debug.Log("Ignited");
         }
         
     }
