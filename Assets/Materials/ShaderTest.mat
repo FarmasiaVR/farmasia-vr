@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -23,6 +23,8 @@ Material:
   m_Name: ShaderTest
   m_Shader: {fileID: -6465566751694194690, guid: 4109916d99cf50e499b50ff427f4d81d,
     type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -31,6 +33,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -58,6 +61,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_17895e5f9b10b48482a74bedee2dd72c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e0e3f7ebcaee74582bbefed2ff209097, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a673bfb61611808480b43ba22c5c2d25_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 9806c8981db3d4a5d9825b879a8af6e2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bc89ec06d051e488998e6a05036ccf1f_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 188e2771915f24b26b8e2976587ecad7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e106e79f0ae8a7828217fd275105d3f1_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 58ec52cfde4df054ab820ead6f09ebcf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -68,6 +87,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_E1B16314_Out_0:
         m_Texture: {fileID: 2800000, guid: 58ec52cfde4df054ab820ead6f09ebcf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -81,17 +112,23 @@ Material:
     - _Dirty: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FresnelEffectPower: 10
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GlovesOn: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Shiny: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
+    - _SoapColor: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StepEdge: 0.6
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

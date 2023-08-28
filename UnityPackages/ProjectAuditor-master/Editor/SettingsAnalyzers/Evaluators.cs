@@ -122,7 +122,7 @@ namespace Unity.ProjectAuditor.Editor.SettingsAnalyzers
             {
                 QualitySettings.SetQualityLevel(i);
 
-                if (QualitySettings.masterTextureLimit > 0)
+                if (QualitySettings.globalTextureMipmapLimit > 0)
                 {
                     usingLowTextureQuality = true;
                     break;
