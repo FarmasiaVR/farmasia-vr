@@ -10,5 +10,6 @@
     FireBlanketTutorial,
     EyeShowerTutorial,
     EmergencyShowerTutorial,
-    Laboratory
+    Laboratory,
+    EmergencyExit
 }

@@ -2729,7 +2729,15 @@ MonoBehaviour:
   LiquidType: 0
   GeneralItem: {fileID: 0}
   Impure: 0
-  onBottleFilled:
+  allowLiquidTransfer: 1
+  allowMixingLiquids: 1
+  onLiquidTransfer:
+    m_PersistentCalls:
+      m_Calls: []
+  onLiquidAmountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFilterHalfEnter:
     m_PersistentCalls:
       m_Calls: []
   capacity: 50000

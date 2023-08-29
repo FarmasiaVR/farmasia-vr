@@ -11,9 +11,6 @@ using UnityEngine.Events;
 
 public class FireGrid : MonoBehaviour
 {
-    public KeyCode igniteKey = KeyCode.Space;
-    public KeyCode extinguishKey = KeyCode.G;
-    //public InputActionReference igniteEvent;
     // Different particle effect fields
     [SerializeField]
     private VisualEffect fireVFX;
@@ -23,6 +20,16 @@ public class FireGrid : MonoBehaviour
     private ParticleSystem igniteParticle;
     [SerializeField]
     private ParticleSystem extinguishParticle;
+
+    // Audio clip variables to store audio
+    [SerializeField]
+    private AudioClip extinguishAudio;
+    [SerializeField]
+    private AudioClip extinguishAudioBlanket;
+
+    // Temperature of the fire
+    [SerializeField]
+    private int degrees;
     
     // Light source of the fire
     [SerializeField]
@@ -32,35 +39,66 @@ public class FireGrid : MonoBehaviour
     [SerializeField]
     private GameObject colliderCube;
 
+    // Delays the ignition. The time is counted in seconds(approximately).
     [SerializeField]
-    private AudioClip extinguishAudio;
+    public float ignitionTimer;
 
+    // Stops the Flame VFX after the given time. The time is counted in seconds(approximately).
     [SerializeField]
-    private AudioClip extinguishAudioBlanket;
+    public float extinguishTimer;
 
-    private bool isIgnited;
-
-    public bool igniteOnStart;
-    
+    // Additional time delay in seconds that follows the initial ignitionTimer. 
+    // Useful for adding an extra delay when multiple fires are grouped together. 
+    // Using this variable eliminates the need to individually adjust each fire's ignitionTimer
+    // when fire's are grouped as one entity and extra delay is needed.
     [SerializeField]
-    private int degrees;
+    private float startDelay;
+
+    // Adds reference to the FireCounter script
+    public FireCounter fireCounter;
 
     public UnityEvent onExtinguish = new UnityEvent();
+
+    // Key used to manually trigger the ignition of the fire
+    public KeyCode igniteKey = KeyCode.Space;
+
+    // Key used to manually trigger the extinguishing of the fire
+    public KeyCode extinguishKey = KeyCode.G;
 
     // Adds reference to the FlameExtinguish script
     private FlameExtinguish flameExtinguish;
 
+    // True if the fire is active, false if it has been extinguished.
+    private bool isIgnited;
 
-    private void Start()
+    // Does not play extinguish audio
+    private bool playExtinguishAudio = true;
+
+
+    private void Awake()
     {
-        // Fetches flameExtinguish component
+        // Finds FlameExtinguish component
         flameExtinguish = GetComponent<FlameExtinguish>();
 
-        if (igniteOnStart)
+        // Finds FireCounter component
+        if (fireCounter == null)
         {
-            //Debug.Log("igniteOnStart is set to " + igniteOnStart + " inside if-condition");
-            Ignite();
+            fireCounter = GameObject.Find("FireCounter").GetComponent<FireCounter>();
         }
+
+        // Stop the fireVFX in the Awake method to ensure it doesn't start playing immediately.
+        // This is necessary if you intend to delay the start of the VFX animation when using ignitionTimer.
+        fireVFX.Stop();
+    }
+
+    /// <summary>
+    /// Starts the IgnitionDelay Coroutine to delay the fire ignition based on the time specified in ignitionTimer.
+    /// Increment the fire count by 1 to keep track of the total number of active fires.
+    /// </summary>
+    private void Start()
+    {
+        // Start the IgnitionDelay coroutine to handle ignition after a delay
+        StartCoroutine(IgnitionDelay());
     }
 
     // Update is called once per frame
@@ -80,6 +118,28 @@ public class FireGrid : MonoBehaviour
     }
 
     /// <summary>
+    /// Initiates the fire ignition after the duration(seconds) specified by the ignitionTimer variable.
+    /// Next, it waits for an additional start delay specifired by the startDelay variable. 
+    /// This is useful for adding an extra delay when multiple fires are grouped together.
+    /// Third counter automatically extinguish the fire after a duration(seconds) specified 
+    /// by the extinguishTimer variable. These events can be set through the Inspector window.
+    /// </summary>
+    IEnumerator IgnitionDelay()
+    {
+        yield return new WaitForSeconds(ignitionTimer);
+        yield return new WaitForSeconds(startDelay);
+
+        Ignite();
+
+        if (extinguishTimer > 0)
+        {
+            yield return new WaitForSeconds(extinguishTimer);
+            playExtinguishAudio = false;
+            Extinguish();
+        }
+    }
+
+    /// <summary>
     /// Callable method to stop the visual effect animation, turn off the light and to play the extinguishing particle effect.
     /// </summary>
     public void Extinguish()
@@ -90,19 +150,38 @@ public class FireGrid : MonoBehaviour
             fireAudioSource.Stop();
             fireAudioSource.clip = extinguishAudio;
             fireAudioSource.loop = false;
-            fireAudioSource.Play();
-            
+
+            if (playExtinguishAudio)
+            {
+                fireAudioSource.Play();
+            }
+
             if (smokeVFX)
             {
                 smokeVFX.SetFloat("Spawn Rate", 0f);
             }
             pointLight.SetActive(false);
 
-            if (extinguishParticle != null)
+            // Runs flameExtinguish script and Stops the FireGrid VFX
+            if (flameExtinguish)
             {
                 flameExtinguish.enabled = true;
             }
+            else
+            {
+                fireVFX.Stop();
+                Debug.Log("No flameExtinguish script found!");
+            }
 
+            // Decrement fire count by 1 and inactivate fireVFX is flameExtinguish script is not activated
+            if (fireCounter)
+            {
+                fireCounter.DecrementFireCount();
+            }
+            else
+            {
+                Debug.Log("No FireCounter found in the scene!");
+            }
             isIgnited = false;
             onExtinguish.Invoke();
             Debug.Log("Extinguished");
@@ -121,7 +200,7 @@ public class FireGrid : MonoBehaviour
             fireAudioSource.Stop();
             fireAudioSource.clip = extinguishAudioBlanket;
             fireAudioSource.loop = false;
-            fireAudioSource.Play();
+
             fireVFX.Stop();
             if (smokeVFX)
             {
@@ -160,8 +239,13 @@ public class FireGrid : MonoBehaviour
                 igniteParticle.Play();
             }
 
+            // Increments fire count by 1
+            if (fireCounter)
+            {
+                fireCounter.IncrementFireCount();
+            }
+
             isIgnited = true;
-            Debug.Log("Ignited");
         }
         
     }

@@ -26,6 +26,8 @@ public class SyringeNew : ReceiverItem {
     private bool displayState;
     protected override void Start() {
         base.Start();
+
+        //warning! this may cause an error!
         GameObject cap = gameObject.transform.parent.GetChild(1).gameObject;
         
         //if there is no liquid container find it:
