@@ -8,6 +8,11 @@ public class MakeKinematicOnceIdle : MonoBehaviour
     XRGrabInteractable targetInteractable;
     Rigidbody targetRigidBody;
 
+    //delay to wait in second before rigidbody can become kinematic again
+    public float kinematicDisableDelay;
+
+    float timeSinceLastDisable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,18 +33,26 @@ public class MakeKinematicOnceIdle : MonoBehaviour
     //this FixedUpdate makes the target rigidbody kinematic if it is sleeping and target interactable is not selected
     private void FixedUpdate()
     {
+        timeSinceLastDisable += Time.deltaTime;
         if (targetRigidBody && targetInteractable)
         {
             //IsSleeping returns true when the rigidbody moves slower than Sleep Treshold variable determined in the Physics settings
             //read more at: https://docs.unity3d.com/Manual/RigidbodiesOverview.html
             if (targetRigidBody.IsSleeping())
             {
-                if (!targetInteractable.isSelected)
+               
+                if (!targetInteractable.isSelected && timeSinceLastDisable > kinematicDisableDelay)
                 {
                     targetRigidBody.isKinematic = true;
                 }
             }
         }
+    }
+
+    public void disableKinematic()
+    {
+        timeSinceLastDisable = 0.0f;
+        targetRigidBody.isKinematic = false;
     }
 
 }

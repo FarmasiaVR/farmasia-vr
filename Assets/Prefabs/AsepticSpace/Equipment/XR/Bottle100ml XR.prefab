@@ -1074,10 +1074,10 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8916890791332565135}
-        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-        m_MethodName: set_isKinematic
-        m_Mode: 6
+      - m_Target: {fileID: 8943774014111752827}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1088,7 +1088,19 @@ MonoBehaviour:
         m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8943774014111752827}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1145,7 +1157,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -1249,6 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kinematicDisableDelay: 0.01
 --- !u!1 &6740840645395856843
 GameObject:
   m_ObjectHideFlags: 0
