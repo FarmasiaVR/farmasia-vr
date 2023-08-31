@@ -936,6 +936,7 @@ GameObject:
   - component: {fileID: 3558304451100064219}
   - component: {fileID: 987036306}
   - component: {fileID: 987036307}
+  - component: {fileID: 8943774014111752827}
   m_Layer: 10
   m_Name: Bottle100ml XR
   m_TagString: Untagged
@@ -1072,7 +1073,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8916890791332565135}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -1132,7 +1145,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 0
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -1224,6 +1237,18 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 8
   isClean: 1
+--- !u!114 &8943774014111752827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623048370089187305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6740840645395856843
 GameObject:
   m_ObjectHideFlags: 0
