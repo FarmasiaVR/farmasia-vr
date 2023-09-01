@@ -52,6 +52,7 @@ class AssemblePump: Task {
     }
 
     private void FilterCoverOpened(CallbackData data) {
+        Debug.Log("Filter cover opened!");
         var filter = (data.DataObject as FilterInCover);
         CheckIfInsideLaminarCabinet(filter);
         EnableCondition(Conditions.FilterPackagingOpened);

@@ -33,6 +33,7 @@ public class FilterInCover : ReceiverItem {
 
     public void OpenCoverXR()
     {
+        Debug.Log("filter in cover detected cover being opened!");
         Events.FireEvent(EventType.FilterCoverOpened, CallbackData.Object(this));
         EnableAssemblyFilterParts();
     }
