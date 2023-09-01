@@ -2483,7 +2483,6 @@ GameObject:
   - component: {fileID: 946712660536750857}
   - component: {fileID: 520249693586046176}
   - component: {fileID: 1147455859991753437}
-  - component: {fileID: 7325703055451368761}
   m_Layer: 10
   m_Name: Lid
   m_TagString: Interactable
@@ -2611,34 +2610,10 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7325703055451368761}
-        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
-        m_MethodName: disableKinematic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7325703055451368761}
-        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
-        m_MethodName: disableKinematic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -2755,19 +2730,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5900784779742240047, guid: 568cacc26275817448823cda87fdacde, type: 3}
---- !u!114 &7325703055451368761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5669684808570146449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kinematicDisableDelay: 0.01
 --- !u!1 &5714413464105923044
 GameObject:
   m_ObjectHideFlags: 0
@@ -4596,7 +4558,6 @@ GameObject:
   - component: {fileID: 1574017980689965101}
   - component: {fileID: 2970795885744324949}
   - component: {fileID: 1684626219387123599}
-  - component: {fileID: 2898653412761019169}
   m_Layer: 10
   m_Name: Filter
   m_TagString: Interactable
@@ -4765,34 +4726,10 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2898653412761019169}
-        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
-        m_MethodName: disableKinematic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2898653412761019169}
-        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
-        m_MethodName: disableKinematic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -4908,19 +4845,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06119737, y: 0.045001827, z: 0.057343327}
   m_Center: {x: 0.0016455352, y: 0.027499083, z: 0.00085538614}
---- !u!114 &2898653412761019169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8599627925238376700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kinematicDisableDelay: 0.01
 --- !u!1 &8599627925349665303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5278,12 +5202,12 @@ PrefabInstance:
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
@@ -5302,19 +5226,9 @@ PrefabInstance:
       objectReference: {fileID: 4136056549345521587}
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 6062108601984015824}
-    - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
-        type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4136056549345521587}
-    - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
-        type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 6062108601984015824}
     - target: {fileID: 8768278526405480829, guid: b17fb5bfaed70ca439a01bbe5096861b,
         type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -5365,11 +5279,7 @@ PrefabInstance:
     - {fileID: 5334277309416172160, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 895875075509427636, guid: b17fb5bfaed70ca439a01bbe5096861b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6062108601984015824}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b17fb5bfaed70ca439a01bbe5096861b, type: 3}
 --- !u!65 &284620740174871216 stripped
 BoxCollider:
@@ -5437,19 +5347,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8032981989319674862}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6062108601984015824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7139378783682762330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kinematicDisableDelay: 0.01
 --- !u!1 &8047606697847379468 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 59731142550347234, guid: b17fb5bfaed70ca439a01bbe5096861b,
