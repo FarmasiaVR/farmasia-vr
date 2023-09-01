@@ -687,6 +687,7 @@ GameObject:
   - component: {fileID: 310156066635498328}
   - component: {fileID: 5370378197144932258}
   - component: {fileID: 4749452066742445108}
+  - component: {fileID: 262236659840837768}
   m_Layer: 10
   m_Name: Cap
   m_TagString: Untagged
@@ -878,10 +879,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 262236659840837768}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 262236659840837768}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -976,6 +1001,19 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &262236659840837768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019586034483955551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicDisableDelay: 0.01
 --- !u!1 &5375537785947566622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1257,7 @@ GameObject:
   - component: {fileID: 825314485739587649}
   - component: {fileID: 4323991084050285379}
   - component: {fileID: 3240167834487001796}
+  - component: {fileID: 526646623410226346}
   m_Layer: 10
   m_Name: Bottle
   m_TagString: Untagged
@@ -1421,10 +1460,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 526646623410226346}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 526646623410226346}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1540,6 +1603,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.039999984, y: 0.001876533, z: 0.039999984}
   m_Center: {x: 0, y: 0.0011684399, z: 0.0000000037252903}
+--- !u!114 &526646623410226346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868097509473977796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicDisableDelay: 0.01
 --- !u!1 &6362241196119567119
 GameObject:
   m_ObjectHideFlags: 0
