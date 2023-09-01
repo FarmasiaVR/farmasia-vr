@@ -578,6 +578,7 @@ GameObject:
   - component: {fileID: 684718141261410411}
   - component: {fileID: 766803048228605000}
   - component: {fileID: 1279556095694015532}
+  - component: {fileID: 8635162690007626579}
   m_Layer: 10
   m_Name: Pump XR
   m_TagString: Untagged
@@ -727,10 +728,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8635162690007626579}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8635162690007626579}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -846,6 +871,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.090980515, y: 0.07317658, z: 0.1333093}
   m_Center: {x: -0.0058973506, y: 0.0351568, z: -0.029839382}
+--- !u!114 &8635162690007626579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672594249370732609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicDisableDelay: 0.01
 --- !u!1 &5039796989389763693
 GameObject:
   m_ObjectHideFlags: 0
