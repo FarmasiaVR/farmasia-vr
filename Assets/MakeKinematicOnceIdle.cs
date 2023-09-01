@@ -5,8 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MakeKinematicOnceIdle : MonoBehaviour
 {
-    XRGrabInteractable targetInteractable;
-    Rigidbody targetRigidBody;
+   public XRGrabInteractable targetInteractable;
+   public Rigidbody targetRigidBody;
 
     //delay to wait in second before rigidbody can become kinematic again
     public float kinematicDisableDelay;
