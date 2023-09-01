@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 2877366032667562503}
   - component: {fileID: 4105379766371740406}
   - component: {fileID: 2247876141046985838}
+  - component: {fileID: 8866547536430678499}
   m_Layer: 10
   m_Name: Syringe1ml
   m_TagString: Untagged
@@ -330,12 +331,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8866547536430678499}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4105379766371740406}
         m_TargetAssemblyTypeName: CustomTakeMedicineButtonActionsXR, Assembly-CSharp
         m_MethodName: toggleSelectState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8866547536430678499}
+        m_TargetAssemblyTypeName: MakeKinematicOnceIdle, Assembly-CSharp
+        m_MethodName: disableKinematic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -530,6 +555,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.01, y: 0.0859774, z: 0.01}
   m_Center: {x: 0, y: -0.0067022643, z: 0}
+--- !u!114 &8866547536430678499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420971002553358195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicDisableDelay: 0.01
 --- !u!1 &1451853301317283256
 GameObject:
   m_ObjectHideFlags: 0
