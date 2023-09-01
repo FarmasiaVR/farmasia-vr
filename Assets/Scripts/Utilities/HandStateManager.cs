@@ -37,6 +37,10 @@ public class HandStateManager : MonoBehaviour {
     //time in seconds the hands have been outside the cabinet
     float timeOutsideCabinet;
 
+
+    //if this bool is set to true, hands no longer become contaminated once EnableTrashCollider event has been invoked
+    public bool IgnoreContaminationAfterTrashCollectionPhase;
+
     public void Start() {
        
         SetDirty();
@@ -47,6 +51,16 @@ public class HandStateManager : MonoBehaviour {
         {
             SetGlovesOn();
         }
+
+        if (IgnoreContaminationAfterTrashCollectionPhase)
+        {
+            Events.SubscribeToEvent(disableHandContamination, EventType.canCollectTrash);
+        }
+    }
+
+    public void disableHandContamination(CallbackData data)
+    {
+        canAirContaminate = false;
     }
 
     public void Subscribe() {
