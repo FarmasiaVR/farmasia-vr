@@ -11,5 +11,7 @@
     EyeShowerTutorial,
     EmergencyShowerTutorial,
     Laboratory,
-    EmergencyExit
+    EmergencyExitTutorial,
+    EmergencyExit,
+    EmergencyExit1
 }
