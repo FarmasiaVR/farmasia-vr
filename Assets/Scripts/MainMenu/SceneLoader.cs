@@ -42,8 +42,14 @@ public class SceneLoader : MonoBehaviour {
             case SceneTypes.EmergencyShowerTutorial:
                 ChangeScene("EmergencyShowerTutorial");
                 return;
+            case SceneTypes.EmergencyExitTutorial:
+                ChangeScene("EmergencyExitTutorial");
+                return;
             case SceneTypes.EmergencyExit:
                 ChangeScene("EmergencyExit");
+                return;
+            case SceneTypes.EmergencyExit1:
+                ChangeScene("EmergencyExit 1");
                 return;
         }
     }
