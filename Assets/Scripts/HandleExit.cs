@@ -9,7 +9,16 @@ public class HandleExit : MonoBehaviour
     private void OnValidate()
     {
         if(!levelChanger) {
-            levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
+            GameObject levelChangerObject = GameObject.FindGameObjectWithTag("LevelChanger");
+            if(levelChangerObject)
+            {
+                levelChanger = levelChangerObject.GetComponent<SceneLoader>();
+            }
+            else
+            {
+                Debug.Log("WARNING HandleExit did not find sceneloader!");
+            }
+            
         }
     }
 
