@@ -6,16 +6,17 @@ public class HandleExit : MonoBehaviour
 {
     private SceneLoader levelChanger;
     // Start is called before the first frame update
-    void Start()
+    private void OnValidate()
     {
-        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
-
+        if(!levelChanger) {
+            levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
+        }
     }
 
 
     public void ExitToMenu()
     {
         Debug.Log("Exiting to menu");
-        levelChanger.SwapScene((SceneTypes)0);
+        levelChanger.SwapScene(SceneTypes.MainMenu);
     }
 }
