@@ -18,7 +18,8 @@ public class CabinetBase : MonoBehaviour {
     public GameObject childCollider;
     public GameObject syringeCapFactory;
     public GameObject syringeCapFactoryPos;
-    
+
+    public bool ignoreContamination;
 
     private void Start() {
         itemContainer = childCollider.AddComponent<TriggerInteractableContainer>();
@@ -30,39 +31,40 @@ public class CabinetBase : MonoBehaviour {
     }
 
     private void OnCabinetEnter(Interactable other) {
-        GeneralItem item = other as GeneralItem;
+        if (!ignoreContamination) { 
+            GeneralItem item = other as GeneralItem;
        
-        if (item == null) {
-            return;
-        }
+            if (item == null) {
+                return;
+            }
      
-        if (type == CabinetType.Laminar) {
-            Events.FireEvent(EventType.CheckLaminarCabinetItems);
+            if (type == CabinetType.Laminar) {
+                Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
-            if (item is SyringeCapBag) {
-                SyringeCapBagEnteredLaminarCabinet(item);
+                if (item is SyringeCapBag) {
+                    SyringeCapBagEnteredLaminarCabinet(item);
+                }
+
+                if (Time.timeSinceLevelLoad > 1.0f) {
+                    UnfoldSterileDrape();
+                }
             }
 
-            if (Time.timeSinceLevelLoad > 1.0f) {
-                UnfoldSterileDrape();
+            if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
+            {
+                Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda kaappiin.", 1);
             }
-        }
 
-        if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
-        {
-            Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda kaappiin.", 1);
-        }
-
-        if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-            Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
-        }
+            if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
+            }
       
-        if (!itemPlaced) {
-            Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
-            itemPlaced = true;
+            if (!itemPlaced) {
+                Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
+                itemPlaced = true;
            
+            }
         }
-      
     }
 
     // Currently unused
