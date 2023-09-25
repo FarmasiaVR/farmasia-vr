@@ -27,7 +27,7 @@ public class ChangeFromMockToRealObj : MonoBehaviour
         if (interactable.isSelected)
         {
             interactorSelecting = interactable.firstInteractorSelecting;
-            manager.SelectExit(interactable.firstInteractorSelecting, interactable);
+            manager.SelectExit(interactorSelecting, interactable);
         }
 
         foreach (GameObject obj in gameobjTODisable)
@@ -39,11 +39,7 @@ public class ChangeFromMockToRealObj : MonoBehaviour
         {
             obj.SetActive(true);
         }
-        
-        
-
         manager.SelectEnter(interactorSelecting, interactableTOGrabAfterEnalbe);
-
         this.GetComponent<Collider>().enabled = false;
     }
 }
