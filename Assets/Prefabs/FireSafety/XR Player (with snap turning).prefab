@@ -1330,6 +1330,7 @@ Transform:
   - {fileID: 893983399130388668}
   - {fileID: 2897982202667022141}
   - {fileID: 3029353830825182376}
+  - {fileID: 2770006788512695534}
   m_Father: {fileID: 1648456764942252459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1648456766096858224
@@ -1451,7 +1452,7 @@ MonoBehaviour:
   m_TrackingStateInput:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Tracking State Input
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 65f6f1e8-dbc7-4d2c-81d1-cd553af7a8e4
@@ -2467,6 +2468,7 @@ GameObject:
   - component: {fileID: 2897982202881813311}
   - component: {fileID: 2897982202881813248}
   - component: {fileID: 2897982202881813249}
+  - component: {fileID: 6413414336298856650}
   m_Layer: 15
   m_Name: ColliderCylinder
   m_TagString: PlayerCollider
@@ -2538,7 +2540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireToControl: {fileID: 893983399130388666}
-  startOnFire: 1
+  startOnFire: 0
 --- !u!54 &2897982202881813249
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2566,6 +2568,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6413414336298856650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897982202881813251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c977fb0bc619f94a8bdc50442f8bbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBurnHealth: 15
+  BurnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  Death:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7947625514793736086}
+        m_TargetAssemblyTypeName: MenuInterface, GameAssembly
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2897982204122545102
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,6 +5588,107 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ActionAssets:
   - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!1001 &465025285053458685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1648456766096858237}
+    m_Modifications:
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0000001872535
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180.00002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061228435891061714, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: pauseMenuButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611679733736208665, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: m_Name
+      value: GameOverMenu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02b980fefc8de413abf95c395095d337, type: 3}
+--- !u!4 &2770006788512695534 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2307268487679568915, guid: 02b980fefc8de413abf95c395095d337,
+    type: 3}
+  m_PrefabInstance: {fileID: 465025285053458685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7947625514793736086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+    type: 3}
+  m_PrefabInstance: {fileID: 465025285053458685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5876d0f8ef6c2f04181cac4d28e491a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2897982202531161868
 PrefabInstance:
   m_ObjectHideFlags: 0
