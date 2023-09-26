@@ -8,6 +8,7 @@ public class HandAnimation : MonoBehaviour
     // Script from Justin P Barnett's tutorial https://www.youtube.com/watch?v=DxKWq7z4Xao 
     public float speed;
     Animator animator;
+    SkinnedMeshRenderer mesh;
     private float gripTarget;
     private float triggerTarget;
     private float gripCurrent;
@@ -19,6 +20,7 @@ public class HandAnimation : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        mesh = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     // Update is called once per frame
@@ -49,5 +51,9 @@ public class HandAnimation : MonoBehaviour
             triggerCurrent = Mathf.MoveTowards(triggerCurrent, triggerTarget, Time.deltaTime * speed);
             animator.SetFloat(animatorTriggerParam, triggerCurrent);
         }
+    }
+    public void ToggleHandVisibility()
+    {
+        mesh.enabled = !mesh.enabled;
     }
 }
