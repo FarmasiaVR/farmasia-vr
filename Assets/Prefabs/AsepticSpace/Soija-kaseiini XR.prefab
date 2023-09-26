@@ -718,6 +718,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -777,6 +781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
 --- !u!1 &2132136318633879256
 GameObject:
@@ -2075,6 +2081,11 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
+  m_HoverSocketSnapping: 0
+  m_SocketSnappingRadius: 0.1
+  m_SocketScaleMode: 0
+  m_FixedScale: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!114 &6961432878788670704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,8 +2261,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2499996, y: 392.6976, z: 1.2499996}
-  m_Center: {x: 0, y: 19.967112, z: 0}
+  m_Size: {x: 1.2499996, y: 786.46075, z: 1.2499996}
+  m_Center: {x: 0, y: -23.564217, z: 0}
 --- !u!64 &2976927447176954753
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2292,7 +2303,7 @@ MonoBehaviour:
     m_UseConstant: 1
     m_ConstantValue:
       m_PokeDirection: 5
-      m_InteractionDepthOffset: 0
+      m_InteractionDepthOffset: -1
       m_EnablePokeAngleThreshold: 1
       m_PokeAngleThreshold: 45
     m_Variable: {fileID: 0}
@@ -2855,6 +2866,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -2892,6 +2907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
 --- !u!1 &8371691819135569537
 GameObject:
