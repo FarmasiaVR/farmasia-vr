@@ -65,6 +65,8 @@ public class MenuInterface : MonoBehaviour {
 
     private void OnDestroy()
     {
-        pauseMenuButton.action.started -= Close;
+        if (pauseMenuButton != null) {
+            pauseMenuButton.action.started -= Close;
+        }
     }
 }
