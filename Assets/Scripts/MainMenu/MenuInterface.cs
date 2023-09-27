@@ -41,7 +41,7 @@ public class MenuInterface : MonoBehaviour {
             transform.LookAt(cameraPosition, Vector3.up);
             transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
         }
-        if (pauseMenuButton == null && menuActionLegacy != null && menuActionLegacy.GetStateDown(leftHand.HandType)) {
+        if (pauseMenuButton == null && menuActionLegacy != null && leftHand != null && menuActionLegacy.GetStateDown(leftHand.HandType)) {
             Close();
         }
     }
