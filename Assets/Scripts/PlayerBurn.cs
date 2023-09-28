@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class PlayerBurn : MonoBehaviour
 {
     [Tooltip("The time it takes for the player to burn to death in seconds")]
-    public float maxBurnHealth = 15;
+    public float maxBurnHealth = 30;
+    public bool godMode = false;
     private float currentHealth;
     private HashSet<GameObject> firesTouching = new HashSet<GameObject>();
     private bool dead = false;
@@ -30,7 +31,7 @@ public class PlayerBurn : MonoBehaviour
             BurnUpdate.Invoke(currentHealth/maxBurnHealth);
             currentHealth -= Time.deltaTime;
         }
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !godMode)
             Die();
     }
 
