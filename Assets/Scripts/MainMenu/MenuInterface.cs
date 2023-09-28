@@ -8,7 +8,7 @@ using Valve.VR;
 
 public class MenuInterface : MonoBehaviour {
     public InputActionReference pauseMenuButton;
-    public bool isGameOverMenu;
+    public bool isGameOverMenu = false;
     public Behaviour[] gameOverDisablesComponents;
     public GameObject[] gameOverDisablesObjects;
     private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
