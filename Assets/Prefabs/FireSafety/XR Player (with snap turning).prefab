@@ -3527,7 +3527,7 @@ Transform:
   m_GameObject: {fileID: 5883135959120623371}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.462, y: -2.192, z: -0.365}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5658,9 +5658,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
+      propertyPath: isGameOverMenu
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
       propertyPath: pauseMenuButton
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: gameOverDisableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: gameOverDisablesObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: gameOverDisableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 3029353830825182383}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: gameOverDisablesObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 3029353830825182383}
     - target: {fileID: 7611679733736208665, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
       propertyPath: m_Name
@@ -6134,6 +6159,12 @@ PrefabInstance:
 --- !u!4 &3029353830825182376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 161529493732615930, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+    type: 3}
+  m_PrefabInstance: {fileID: 2897982203413897810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3029353830825182383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 161529493732615933, guid: 523def29aa11f9e4ebd56bca96cdfdce,
     type: 3}
   m_PrefabInstance: {fileID: 2897982203413897810}
   m_PrefabAsset: {fileID: 0}

@@ -8,6 +8,9 @@ using Valve.VR;
 
 public class MenuInterface : MonoBehaviour {
     public InputActionReference pauseMenuButton;
+    public bool isGameOverMenu = false;
+    public Behaviour[] gameOverDisablesComponents;
+    public GameObject[] gameOverDisablesObjects;
     private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
     private GameObject menuContainer;
     private Hand leftHand;
@@ -53,14 +56,23 @@ public class MenuInterface : MonoBehaviour {
         targetPosition = new Vector3(targetPosition.x, cameraCenter.y + offset.y, targetPosition.z);
         return targetPosition;
     }
-    
-    public void Close(InputAction.CallbackContext context) {
-        menuContainer.SetActive(!visible);
-    }
+
+
+    public void Close(InputAction.CallbackContext context) => this.Close();
+
 
     public void Close()
     {
         menuContainer.SetActive(!visible);
+
+        if (this.isGameOverMenu) {
+            foreach (Behaviour comp in gameOverDisablesComponents) {
+                comp.enabled = false;
+            }
+            foreach (GameObject obj in gameOverDisablesObjects) {
+                obj.SetActive(false);
+            }
+        }
     }
 
     private void OnDestroy()
