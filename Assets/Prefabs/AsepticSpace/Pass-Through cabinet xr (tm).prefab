@@ -464,6 +464,7 @@ MonoBehaviour:
   childCollider: {fileID: 7081139796950109773}
   syringeCapFactory: {fileID: 0}
   syringeCapFactoryPos: {fileID: 0}
+  ignoreContamination: 0
 --- !u!1 &2488081523795615084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1326,7 @@ GameObject:
   - component: {fileID: 6351943929910056187}
   - component: {fileID: 4482190263886996641}
   - component: {fileID: 2735995578141648270}
+  - component: {fileID: 5558111210460314446}
   m_Layer: 0
   m_Name: Legs
   m_TagString: Untagged
@@ -1419,6 +1421,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5949695006547949565, guid: 78516d5ca6285ce47be15c507e6146ee, type: 3}
+--- !u!65 &5558111210460314446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5303893001512172693}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9820992, y: 68.98746, z: 1.986336}
+  m_Center: {x: 0.00000047683716, y: -32.650177, z: 0.00000047683716}
 --- !u!1 &5654675876481388914
 GameObject:
   m_ObjectHideFlags: 0
