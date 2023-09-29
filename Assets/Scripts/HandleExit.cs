@@ -6,20 +6,9 @@ public class HandleExit : MonoBehaviour
 {
     private SceneLoader levelChanger;
     // Start is called before the first frame update
-    private void OnValidate()
+    void Start()
     {
-        if(!levelChanger) {
-            GameObject levelChangerObject = GameObject.FindGameObjectWithTag("LevelChanger");
-            if(levelChangerObject)
-            {
-                levelChanger = levelChangerObject.GetComponent<SceneLoader>();
-            }
-            else
-            {
-                Debug.Log("WARNING HandleExit did not find sceneloader!");
-            }
-            
-        }
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
 

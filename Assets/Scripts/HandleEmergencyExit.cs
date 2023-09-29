@@ -6,26 +6,15 @@ public class HandleEmergencyExit : MonoBehaviour
 {
     private SceneLoader levelChanger;
     // Start is called before the first frame update
-    private void OnValidate()
+    void Start()
     {
-        if(!levelChanger) {
-            GameObject levelChangerObject = GameObject.FindGameObjectWithTag("LevelChanger");
-            if (levelChangerObject)
-            {
-                levelChanger = levelChangerObject.GetComponent<SceneLoader>();
-            }
-            else
-            {
-                Debug.Log("WARNING HandleEmergencyExit did not find sceneloader!");
-            }
-
-        }
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
 
     public void ExitToMenu()
     {
-        Debug.Log("Exiting to emergency exit menu");
+        Debug.Log("Exiting to fire safety menu");
         levelChanger.SwapScene(SceneTypes.EmergencyExitTutorial);
     }
 }
