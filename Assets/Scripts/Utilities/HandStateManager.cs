@@ -253,24 +253,27 @@ public class HandStateManager : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        timeSinceCleaning += Time.deltaTime;
-
-        //once there is no alcohol on the hands remove the cleanest state of the hands
-        if(timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay && handState != HandState.Dirty)
+        if (canAirContaminate)
         {
-            SetGlovesOn();
-        }
+            timeSinceCleaning += Time.deltaTime;
 
-        //hands can start contaminating by air once 3 conditions have been met:
-        //1. canAirContaminate is set to true, this is a dev bool to control to be toggled from the editor if hands should be able to be contaminated by air
-        //2. handsOutsideCabinet bool is true, this is set to true only when hands exit the laminar cabinet
-        //3. timeSinceCleaning > handWashContaminationDelay, time that has elapsed since washing hands, there should be no alchohol on the surface of the hands
-        if (canAirContaminate && handsOutsideCabinet && timeSinceCleaning > handWashContaminationDelay)
-        {
-            timeOutsideCabinet += Time.deltaTime;
-            if(timeOutsideCabinet >= handAirContaminationDelay && handState != HandState.Dirty)
+            //once there is no alcohol on the hands remove the cleanest state of the hands
+            if (timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay && handState != HandState.Dirty)
             {
-                SetDirty();
+                SetGlovesOn();
+            }
+
+            //hands can start contaminating by air once 3 conditions have been met:
+            //1. canAirContaminate is set to true, this is a dev bool to control to be toggled from the editor if hands should be able to be contaminated by air
+            //2. handsOutsideCabinet bool is true, this is set to true only when hands exit the laminar cabinet
+            //3. timeSinceCleaning > handWashContaminationDelay, time that has elapsed since washing hands, there should be no alchohol on the surface of the hands
+            if (handsOutsideCabinet && timeSinceCleaning > handWashContaminationDelay)
+            {
+                timeOutsideCabinet += Time.deltaTime;
+                if (timeOutsideCabinet >= handAirContaminationDelay && handState != HandState.Dirty)
+                {
+                    SetDirty();
+                }
             }
         }
     }
