@@ -26,8 +26,8 @@ public class PlayerBurn : MonoBehaviour
     {
         if (dead)
             return;
-        if(firesTouching.Count >= 1)
-        {
+        if(firesTouching.Count >= 1) {
+            Debug.Log(firesTouching.Count);
             BurnUpdate.Invoke(currentHealth/maxBurnHealth);
             currentHealth -= Time.deltaTime;
         }
@@ -40,18 +40,34 @@ public class PlayerBurn : MonoBehaviour
         Death.Invoke();
         dead = true;
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void RemoveFire(Collider collision) {
+        if (firesTouching.Contains(collision.gameObject))
+            firesTouching.Remove(collision.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider collision)
     {
         //the fire should have its own collision layer but this will do for now
-        if (other.gameObject.tag == "FireGrid")
-            firesTouching.Add(other.gameObject);
+        FireGrid fire = collision.gameObject.GetComponentInParent<FireGrid>(); //TODO: After new fire supports extinguishing, get the parent in a different way and remove null check below
+        
+        if (collision.gameObject.tag == "FireGrid") {
+            firesTouching.Add(collision.gameObject);
+            if (fire != null) { //Skip new fire, because it doesn't support extinguishing
+                fire.onExtinguish.AddListener(delegate{RemoveFire(collision);});
+                fire.onIgnite.AddListener(delegate{firesTouching.Add(collision.gameObject);});
+            }
+        }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "FireGrid")
-        {
-            if (firesTouching.Contains(other.gameObject))
-                firesTouching.Remove(other.gameObject);
+    private void OnTriggerExit(Collider collision) {
+        FireGrid fire = collision.gameObject.GetComponentInParent<FireGrid>(); //TODO: After new fire supports extinguishing, get the parent in a different way and remove null check below
+
+        if (collision.gameObject.tag == "FireGrid") {
+            RemoveFire(collision);
+            if (fire != null) { //Skip new fire, because it doesn't support extinguishing
+                fire.onExtinguish.RemoveListener(delegate{RemoveFire(collision);});
+                fire.onIgnite.RemoveListener(delegate{firesTouching.Add(collision.gameObject);});
+            }
         }
     }
 }
