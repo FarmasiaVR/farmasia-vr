@@ -2581,7 +2581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c977fb0bc619f94a8bdc50442f8bbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBurnHealth: 15
+  maxBurnHealth: 30
   godMode: 0
   BurnUpdate:
     m_PersistentCalls:
@@ -5685,6 +5685,11 @@ PrefabInstance:
       objectReference: {fileID: 3029353830825182383}
     - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
+      propertyPath: gameOverDisablesComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
       propertyPath: gameOverDisablesObjects.Array.data[0]
       value: 
       objectReference: {fileID: 3029353830825182383}
@@ -5710,12 +5715,18 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 465025285053458685}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8058633444563702244}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5876d0f8ef6c2f04181cac4d28e491a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8058633444563702244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7611679733736208665, guid: 02b980fefc8de413abf95c395095d337,
+    type: 3}
+  m_PrefabInstance: {fileID: 465025285053458685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2897982202531161868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6456,7 +6467,7 @@ PrefabInstance:
     - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
       propertyPath: gameOverDisablesObjects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
@@ -6473,6 +6484,11 @@ PrefabInstance:
       propertyPath: gameOverDisablesObjects.Array.data[0]
       value: 
       objectReference: {fileID: 3029353830825182383}
+    - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
+        type: 3}
+      propertyPath: gameOverDisablesObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 8058633444563702244}
     - target: {fileID: 7511926406498172779, guid: 02b980fefc8de413abf95c395095d337,
         type: 3}
       propertyPath: gameOverDisablesComponents.Array.data[0]
