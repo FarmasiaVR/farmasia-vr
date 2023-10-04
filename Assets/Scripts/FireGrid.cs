@@ -59,6 +59,8 @@ public class FireGrid : MonoBehaviour
 
     public UnityEvent onExtinguish = new UnityEvent();
 
+    public UnityEvent onIgnite = new UnityEvent();
+
     // Key used to manually trigger the ignition of the fire
     public KeyCode igniteKey = KeyCode.Space;
 
@@ -248,6 +250,7 @@ public class FireGrid : MonoBehaviour
             isIgnited = true;
         }
         
+        onIgnite.Invoke();
     }
 
     /// <summary>
