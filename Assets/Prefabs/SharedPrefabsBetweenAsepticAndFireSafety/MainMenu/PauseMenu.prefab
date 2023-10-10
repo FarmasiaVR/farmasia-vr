@@ -1018,7 +1018,6 @@ GameObject:
   m_Component:
   - component: {fileID: 161529492699029467}
   - component: {fileID: 161529492699029447}
-  - component: {fileID: 161529492699029465}
   - component: {fileID: 161529492699029464}
   m_Layer: 0
   m_Name: Text (TMP)
@@ -1088,14 +1087,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &161529492699029465
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161529492699029466}
-  m_CullTransparentMesh: 0
 --- !u!114 &161529492699029464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,7 +1275,6 @@ GameObject:
   m_Component:
   - component: {fileID: 161529492885238194}
   - component: {fileID: 161529492885238206}
-  - component: {fileID: 161529492885238192}
   - component: {fileID: 161529492885238195}
   m_Layer: 0
   m_Name: Text (TMP)
@@ -1354,14 +1344,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &161529492885238192
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161529492885238197}
-  m_CullTransparentMesh: 0
 --- !u!114 &161529492885238195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2101,7 +2083,6 @@ GameObject:
   m_Component:
   - component: {fileID: 161529493449992041}
   - component: {fileID: 161529493449992021}
-  - component: {fileID: 161529493449992023}
   - component: {fileID: 161529493449992022}
   m_Layer: 0
   m_Name: Text (TMP)
@@ -2171,14 +2152,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &161529493449992023
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161529493449992040}
-  m_CullTransparentMesh: 0
 --- !u!114 &161529493449992022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2595,8 +2568,8 @@ MonoBehaviour:
   pauseMenuButton: {fileID: -664138458025873324, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
   isGameOverMenu: 0
-  gameOverDisableComponents: []
-  gameOverDisableObjects: []
+  gameOverDisablesComponents: []
+  gameOverDisablesObjects: []
   offset: {x: 0, y: -0.03, z: 0.18}
   localPosOffset: {x: 0, y: 0, z: 0}
   lerpAmount: 0.15
