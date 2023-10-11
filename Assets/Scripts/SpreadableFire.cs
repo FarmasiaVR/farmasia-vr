@@ -18,6 +18,11 @@ public class SpreadableFire : MonoBehaviour
     public MeshFilter meshFilter;
     public VisualEffect fireEffect;
     Mesh mesh;
+
+    Dictionary<Vector2, int> vertexIndex = new Dictionary<Vector2, int>();
+    List<Vector3> vertices = new List<Vector3>();
+    List<int> triangles = new List<int>();
+
     private void OnValidate()
     {
         if (!collider)
@@ -121,9 +126,9 @@ public class SpreadableFire : MonoBehaviour
     private void GenerateFireMesh()
     {
         Debug.Log("generating mesh");
-        Dictionary<Vector2, int> vertexIndex = new Dictionary<Vector2, int>();
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
+        vertexIndex.Clear();
+        vertices.Clear();
+        triangles.Clear();
         for (int i = 0; i < gridRows; i++)
         {
             int top =-1;
@@ -143,35 +148,7 @@ public class SpreadableFire : MonoBehaviour
                     else
                         bot = j;
 
-                    if(!vertexIndex.ContainsKey(new Vector2(i, top)))
-                    {
-                        vertexIndex.Add(new Vector2(i, top),vertices.Count);
-                        vertices.Add(new Vector3((i - (gridRows / 2))*gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
-                    }
-                    if (!vertexIndex.ContainsKey(new Vector2(i + 1, top)))
-                    {
-                        vertexIndex.Add(new Vector2(i + 1, top), vertices.Count);
-                        vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
-                    }
-                    if (!vertexIndex.ContainsKey(new Vector2(i, bot)))
-                    {
-                        vertexIndex.Add(new Vector2(i, bot), vertices.Count);
-                        vertices.Add(new Vector3((i - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
-                    }
-                    if (!vertexIndex.ContainsKey(new Vector2(i + 1, bot)))
-                    {
-                        vertexIndex.Add(new Vector2(i + 1, bot), vertices.Count);
-                        vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
-                    }
-
-                    triangles.Add(vertexIndex[new Vector2(i, top)]);
-                    triangles.Add(vertexIndex[new Vector2(i+1, top)]);
-                    triangles.Add(vertexIndex[new Vector2(i, bot)]);
-
-                    triangles.Add(vertexIndex[new Vector2(i+1, top)]);
-                    triangles.Add(vertexIndex[new Vector2(i + 1, bot)]);
-                    triangles.Add(vertexIndex[new Vector2(i, bot)]);
-
+                    SetVertexPostionAndTriangleIndex(i, j, top, bot);
                     top = -1;
                     bot =-1;
                 }
@@ -190,6 +167,38 @@ public class SpreadableFire : MonoBehaviour
         //fireEffect.SetMesh("fireMesh", mesh);
         //fireEffect.SetVector3("firePos", transform.position);
     }
+
+    void SetVertexPostionAndTriangleIndex(int i,int j,int top, int bot)
+    {
+        if (!vertexIndex.ContainsKey(new Vector2(i, top)))
+        {
+            vertexIndex.Add(new Vector2(i, top), vertices.Count);
+            vertices.Add(new Vector3((i - (gridRows / 2)) * gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
+        }
+        if (!vertexIndex.ContainsKey(new Vector2(i + 1, top)))
+        {
+            vertexIndex.Add(new Vector2(i + 1, top), vertices.Count);
+            vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
+        }
+        if (!vertexIndex.ContainsKey(new Vector2(i, bot)))
+        {
+            vertexIndex.Add(new Vector2(i, bot), vertices.Count);
+            vertices.Add(new Vector3((i - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
+        }
+        if (!vertexIndex.ContainsKey(new Vector2(i + 1, bot)))
+        {
+            vertexIndex.Add(new Vector2(i + 1, bot), vertices.Count);
+            vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
+        }
+        triangles.Add(vertexIndex[new Vector2(i, top)]);
+        triangles.Add(vertexIndex[new Vector2(i + 1, top)]);
+        triangles.Add(vertexIndex[new Vector2(i, bot)]);
+
+        triangles.Add(vertexIndex[new Vector2(i + 1, top)]);
+        triangles.Add(vertexIndex[new Vector2(i + 1, bot)]);
+        triangles.Add(vertexIndex[new Vector2(i, bot)]);
+    }
+
     bool CheckIfBuring(Vector2 v1,Vector2 v2)
     {
         if (!fireVerticies.ContainsKey(v1))
@@ -239,12 +248,6 @@ public class SpreadableFire : MonoBehaviour
 
         public VertexStatus status = VertexStatus.normal;
 
-        public bool IsIgnitable()
-        {
-            if (status == VertexStatus.normal)
-                return true;
-            return false;
-        }
         public FireVertex(Vector2 pos,VertexStatus vStatus = VertexStatus.normal)
         {
             gridPos = pos;
