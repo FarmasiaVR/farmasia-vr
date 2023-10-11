@@ -8,6 +8,7 @@ public class SpreadableFire : MonoBehaviour
 {
     [SerializeField] float spreadingSpeed=1f, gridSquarewidth=1f;
     [SerializeField] int gridCols=4, gridRows=4;
+    [SerializeField] BoxCollider collider;
 
     private float spreadTimer = 0;
     private HashSet<Vector2> spreadableVerticies = new HashSet<Vector2>();
@@ -17,10 +18,17 @@ public class SpreadableFire : MonoBehaviour
     public MeshFilter meshFilter;
     public VisualEffect fireEffect;
     Mesh mesh;
+    private void OnValidate()
+    {
+        if (!collider)
+            collider = GetComponent<BoxCollider>();
+        UpdateBoxCollider();
+    }
     private void OnEnable()
     {
         PopulateGrid();
         mesh = new Mesh();
+        UpdateBoxCollider();
 
         //fireEffect.SetMesh("fireMesh", mesh);
         //fireEffect.SetVector3("firePos", transform.position);
@@ -57,6 +65,7 @@ public class SpreadableFire : MonoBehaviour
 
     private void IgniteClosestVertex(Vector3 point)
     {
+        point = point/gridSquarewidth + new Vector3(gridRows / 2, 0, gridCols / 2);
         Vector2 flatenedPoint = new Vector2((int)point.x, (int)point.z);
         if (flatenedPoint.x > gridRows + 1)
             flatenedPoint.x = gridRows + 1;
@@ -104,7 +113,11 @@ public class SpreadableFire : MonoBehaviour
         }
         GenerateFireMesh();
     }
-
+    void UpdateBoxCollider()
+    {
+        if (collider)
+            collider.size = new Vector3(gridSquarewidth * gridRows, collider.size.y, gridSquarewidth * gridCols);
+    }
     private void GenerateFireMesh()
     {
         Debug.Log("generating mesh");
@@ -133,22 +146,22 @@ public class SpreadableFire : MonoBehaviour
                     if(!vertexIndex.ContainsKey(new Vector2(i, top)))
                     {
                         vertexIndex.Add(new Vector2(i, top),vertices.Count);
-                        vertices.Add(new Vector3(i,0, top));
+                        vertices.Add(new Vector3((i - (gridRows / 2))*gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
                     }
                     if (!vertexIndex.ContainsKey(new Vector2(i + 1, top)))
                     {
                         vertexIndex.Add(new Vector2(i + 1, top), vertices.Count);
-                        vertices.Add(new Vector3(i + 1,0, top));
+                        vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (top - (gridCols / 2)) * gridSquarewidth));
                     }
                     if (!vertexIndex.ContainsKey(new Vector2(i, bot)))
                     {
                         vertexIndex.Add(new Vector2(i, bot), vertices.Count);
-                        vertices.Add(new Vector3(i,0, bot));
+                        vertices.Add(new Vector3((i - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
                     }
                     if (!vertexIndex.ContainsKey(new Vector2(i + 1, bot)))
                     {
                         vertexIndex.Add(new Vector2(i + 1, bot), vertices.Count);
-                        vertices.Add(new Vector3(i + 1,0, bot));
+                        vertices.Add(new Vector3((i + 1 - (gridRows / 2)) * gridSquarewidth, 0, (bot - (gridCols / 2)) * gridSquarewidth));
                     }
 
                     triangles.Add(vertexIndex[new Vector2(i, top)]);
@@ -207,8 +220,8 @@ public class SpreadableFire : MonoBehaviour
         {
             for (int j = 0; j < gridCols + 1; j++)
             {
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(transform.TransformPoint(new Vector3(i, 0, j)), 0.1f);
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(transform.TransformPoint(new Vector3((i-(gridRows/2))* gridSquarewidth, 0, (j-(gridCols/2))*gridSquarewidth)), 0.05f);
             }
         }
     }
