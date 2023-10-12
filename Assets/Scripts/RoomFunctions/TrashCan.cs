@@ -99,8 +99,9 @@ public class TrashCan : MonoBehaviour {
             Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
 
-            //PrepareObjectForRemoving(item);
-            //item.DestroyInteractable();
+
+            //this removal could still cause problems if gameobjects child should be counted as trash...
+            GameObject.Destroy(item.gameObject);
         }
     }
 
