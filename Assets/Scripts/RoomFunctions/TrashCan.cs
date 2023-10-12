@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FarmasiaVR.Legacy;
 using UnityEngine.SceneManagement;
+using UnityEngine.Assertions.Must;
 
 public class TrashCan : MonoBehaviour {
 
@@ -75,28 +76,13 @@ public class TrashCan : MonoBehaviour {
                 Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
                 return;
             }
-            // if (item.ObjectType == ObjectType.SterileBag)
-            if (trashType == TrashType.Medicine && medicineTrash.Contains(item.ObjectType))
-            {
-                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-              //PrepareObjectForRemoving(item);
-              //item.DestroyInteractable();
-            }
-            if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType))
-            {
-                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                //PrepareObjectForRemoving(item);
-                //item.DestroyInteractable();
-            }
-            if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType))
-            {
-                Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
-                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-               // PrepareObjectForRemoving(item);
-               // item.DestroyInteractable();
-            }
+           
+            checkTrashBelongsTo(item, TrashType.Medicine, medicineTrash);
+
+            checkTrashBelongsTo(item, TrashType.Normal, normalTrash);
+
+            checkTrashBelongsTo(item, TrashType.Sharp, sharpTrash);
+            
             if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin normaaliin roskikseen", 1, true);
             if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin terävien roskikseen", 1, true);
             if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
@@ -105,6 +91,19 @@ public class TrashCan : MonoBehaviour {
             if (trashType == TrashType.Medicine && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin lääkejätteen roskikseen", 1, true);
         }
     }
+
+    void checkTrashBelongsTo(GeneralItem item, TrashType allowedType, List<ObjectType> allowedTrashObjectList)
+    {
+        if (trashType == allowedType && allowedTrashObjectList.Contains(item.ObjectType))
+        {
+            Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+
+            //PrepareObjectForRemoving(item);
+            //item.DestroyInteractable();
+        }
+    }
+
 
     private void PrepareObjectForRemoving(GeneralItem interactable) {
         if (interactable.IsGrabbed) {
