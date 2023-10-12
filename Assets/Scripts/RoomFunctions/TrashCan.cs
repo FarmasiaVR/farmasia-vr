@@ -80,22 +80,22 @@ public class TrashCan : MonoBehaviour {
             {
                 Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                PrepareObjectForRemoving(item);
-                item.DestroyInteractable();
+              //PrepareObjectForRemoving(item);
+              //item.DestroyInteractable();
             }
             if (trashType == TrashType.Normal && normalTrash.Contains(item.ObjectType))
             {
                 Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                PrepareObjectForRemoving(item);
-                item.DestroyInteractable();
+                //PrepareObjectForRemoving(item);
+                //item.DestroyInteractable();
             }
             if (trashType == TrashType.Sharp && sharpTrash.Contains(item.ObjectType))
             {
                 Events.FireEvent(EventType.ItemDroppedInTrash, CallbackData.Object(item));
                 G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
-                PrepareObjectForRemoving(item);
-                item.DestroyInteractable();
+               // PrepareObjectForRemoving(item);
+               // item.DestroyInteractable();
             }
             if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin normaaliin roskikseen", 1, true);
             if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin terävien roskikseen", 1, true);
