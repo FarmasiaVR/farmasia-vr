@@ -73,6 +73,7 @@ public class SimpleFire : MonoBehaviour {
             if (ashVFX != null)
                 ashVFX.SetFloat("Spawn Rate", 120.0f);
             fireVFX.Play();
+            burningSound.Play();
             pointLight.SetActive(true);
 
             isBurning = true;
@@ -120,6 +121,7 @@ public class SimpleFire : MonoBehaviour {
                     // Extinguish animation finished
                     fireVFX.transform.localScale = new Vector3(0, 0, 0);
                     fireVFX.Stop();
+                    burningSound.Stop();
                     FinishAnimation();
                 }
             }
