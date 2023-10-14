@@ -5,33 +5,26 @@ using UnityEngine;
 public class FireExtinguisher : MonoBehaviour
 {
 
-    private List<FireGrid> inside = new List<FireGrid>();
+    private List<PlayerFireController> inside = new List<PlayerFireController>();
     private bool canExtinguish;
     private bool extinguishing;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         canExtinguish = false;
         extinguishing = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 
-    public void Extinguish()
-    {
-        if (canExtinguish)
-        {
+    public void Extinguish() {
+        if (canExtinguish) {
             extinguishing = true;
-            if (inside.Count != 0)
-            {
-                foreach (FireGrid fire in inside)
-                {
+            if (inside.Count != 0) {
+                foreach (PlayerFireController fire in inside) {
                     fire.Extinguish();
-                    
                 }
             }
         }
@@ -42,25 +35,21 @@ public class FireExtinguisher : MonoBehaviour
         extinguishing = false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "FireGrid")
-        {
-            FireGrid fire = other.GetComponentInParent<FireGrid>();
-            inside.Add(fire);
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "PlayerCollider") {
+            PlayerFireController playerBody = other.GetComponentInParent<PlayerFireController>();
+            inside.Add(playerBody);
 
-            if (extinguishing)
-            {
-                fire.Extinguish();
+            if (extinguishing) {
+                playerBody.Extinguish();
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "FireGrid")
-        {
-            inside.Remove(other.GetComponentInParent<FireGrid>());
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "PlayerCollider") {
+            // This would be very slow with a lot of fires in the list
+            inside.Remove(other.GetComponentInParent<PlayerFireController>());
         }
     }
 
