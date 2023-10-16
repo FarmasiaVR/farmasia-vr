@@ -2,47 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowerExtinguisher : MonoBehaviour
-{
+public class ShowerExtinguisher : MonoBehaviour {
 
-    private bool containsFire = false;
-    private FireGrid fireGrid;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerFireController playerBody;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "FireGrid")
-        {
-            fireGrid = other.GetComponentInParent<FireGrid>();
-            containsFire = true;
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "PlayerCollider") {
+            playerBody = other.GetComponentInParent<PlayerFireController>();
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "FireGrid")
-        {
-            fireGrid = null;
-            containsFire = false;
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "FireGrid") {
+            playerBody = null;
         }
     }
 
     public void Extinguish()
     {
-        if (containsFire)
-        {
-            fireGrid.Extinguish();
+        if (playerBody != null) {
+            playerBody.Extinguish();
         }
     }
-
 }
