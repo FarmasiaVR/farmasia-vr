@@ -39,7 +39,7 @@ public class SpreadableFire : MonoBehaviour
         {
             fireEffect.Stop();
             fireEffect.SetMesh("fireMesh", GenerateTemporaryMeshForVFX());
-            fireEffect.SetVector3("firePos", transform.position);
+            fireEffect.SetVector3("firePos", transform.localPosition);
             fireEffect.SetFloat("FlameHeight", flameCollisionHeight);
         }
     }
@@ -64,7 +64,7 @@ public class SpreadableFire : MonoBehaviour
                 if (!fireEffect.HasAnySystemAwake())
                     fireEffect.Play();
                 fireEffect.SetMesh("fireMesh", mesh);
-                fireEffect.SetVector3("firePos", transform.position);
+                fireEffect.SetVector3("firePos", transform.localPosition);
             }
         }
         spreadTimer += Time.deltaTime;
