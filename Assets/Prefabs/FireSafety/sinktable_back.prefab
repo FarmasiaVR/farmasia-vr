@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 8497807676168833877}
   - component: {fileID: 339157913237208420}
   - component: {fileID: 4221522074625180881}
-  - component: {fileID: 8567164000030626529}
   - component: {fileID: 9117860895906796193}
   m_Layer: 0
-  m_Name: Topcylinder
+  m_Name: HoseEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,36 +388,9 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 222765494202502751, guid: acdc841aaa58c7d409cfac95749d906e, type: 3}
---- !u!1773428102 &8567164000030626529
-ParentConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385524789999771366}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0.833, z: 0}
-  m_RotationAtRest: {x: -90, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: -0.94700027, y: 0.014999628, z: -0.66990024}
-  m_RotationOffsets:
-  - {x: 0, y: -90, z: 180}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 0
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 6667568172161926636}
-    weight: 1
 --- !u!114 &9117860895906796193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,13 +1086,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 180719046022910677, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 180719046022910677, guid: 022b358833726204c83a832e43e58cb3,
+        type: 3}
       propertyPath: m_AngularZLimit.limit
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 751814499034480429, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
       propertyPath: m_AngularZLimit.limit
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 907215984802725549, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
@@ -1169,8 +1146,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2512485670227588218, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512485670227588218, guid: 022b358833726204c83a832e43e58cb3,
+        type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602761119105143958, guid: 022b358833726204c83a832e43e58cb3,
+        type: 3}
+      propertyPath: m_AngularZLimit.limit
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6945262884987544170, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
@@ -1235,6 +1222,11 @@ PrefabInstance:
     - target: {fileID: 7721799137101052112, guid: 022b358833726204c83a832e43e58cb3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9000093818650872334, guid: 022b358833726204c83a832e43e58cb3,
+        type: 3}
+      propertyPath: m_AngularZMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9000093818650872334, guid: 022b358833726204c83a832e43e58cb3,

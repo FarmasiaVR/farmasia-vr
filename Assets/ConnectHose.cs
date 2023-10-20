@@ -6,7 +6,6 @@ using UnityEngine.Animations;
 public class connectHose : MonoBehaviour
 
 {
-    private ParentConstraint parentConstraint;
     public GameObject objectToConnect;
     public GameObject targetObject;
     public GameObject hoseTwistOne;
@@ -14,11 +13,11 @@ public class connectHose : MonoBehaviour
     public GameObject hoseJointOne;
     public GameObject hoseJointTwo;
 
-    private void Start()
+    public void Start()
     {
         if (hoseTwistOne == null || hoseTwistTwo == null || hoseJointTwo == null || hoseJointTwo == null)
         {
-            Debug.LogWarning("Please assign hose location parameters.");
+            Debug.LogWarning("Please assign hose location parameters in the Inspector.");
             return;
         }
 
@@ -31,20 +30,8 @@ public class connectHose : MonoBehaviour
         // Move the objectToConnect to the targetObject's position and bend hose.
 
         objectToConnect.transform.position = targetObject.transform.position;
-
         hoseJointOne.transform.position = hoseTwistOne.transform.position;
         hoseJointTwo.transform.position = hoseTwistTwo.transform.position;
 
-        // Get and activate the parent constraint.
-        parentConstraint = objectToConnect.GetComponent<ParentConstraint>();
-
-        if (parentConstraint != null)
-        {
-            parentConstraint.enabled = true;
-        }
-        else
-        {
-            Debug.LogWarning("No ParentConstraint component found on the objectToConnect.");
-        }
     }
 }
