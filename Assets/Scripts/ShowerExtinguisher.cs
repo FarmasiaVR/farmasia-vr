@@ -18,8 +18,7 @@ public class ShowerExtinguisher : MonoBehaviour {
         }
     }
 
-    public void Extinguish()
-    {
+    public void Extinguish() {
         if (fireSource != null) {
             fireSource.Extinguish();
         }

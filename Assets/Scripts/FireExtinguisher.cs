@@ -24,7 +24,8 @@ public class FireExtinguisher : MonoBehaviour
             extinguishing = true;
             if (inside.Count != 0) {
                 foreach (ITogglableFire fire in inside) {
-                    fire.Extinguish();
+                    if (fire != null)
+                        fire.Extinguish();
                 }
             }
         }
@@ -38,10 +39,13 @@ public class FireExtinguisher : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
             ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
-            inside.Add(fire);
 
-            if (extinguishing) {
-                fire.Extinguish();
+            if (fire != null) {
+                inside.Add(fire);
+
+                if (extinguishing) {
+                    fire.Extinguish();
+                }
             }
         }
     }
@@ -49,7 +53,8 @@ public class FireExtinguisher : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
             ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
-            inside.Remove(fire);
+            if (fire != null)
+                inside.Remove(fire);
         }
     }
 
