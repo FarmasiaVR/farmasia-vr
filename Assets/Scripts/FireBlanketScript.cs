@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class FireBlanketScript : MonoBehaviour
 {
-
-
     /// Checks if the other colliding object is FireGrid's colliderCube
     /// If the collision happens with FireGrid's colliderCube, calls the Extinguish script attached to that spesific gameObject
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "FireGrid")
-        {
-            collision.gameObject.GetComponentInParent<FireGrid>().ExtinguishWithBlanket();
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "FireGrid") {
+            other.gameObject.transform.parent.gameObject.GetComponentInParent<SimpleFire>().Extinguish();
         }
     }
-
 }
