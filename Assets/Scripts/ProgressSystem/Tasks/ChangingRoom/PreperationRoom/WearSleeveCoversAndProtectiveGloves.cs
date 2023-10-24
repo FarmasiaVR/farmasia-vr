@@ -22,11 +22,12 @@ public class WearSleeveCoversAndProtectiveGloves : Task {
         var clothing = (data.DataObject as ProtectiveClothing);
         if (!IsPreviousTasksCompleted(requiredTasks)) {
             if (clothing.type == ClothingType.SleeveCovers || clothing.type == ClothingType.ProtectiveGloves) {
-                CreateTaskMistake("Hihansuojat sekä suojakäsineet laitetaan vasta kun kädet ovat pesty uudelleen", 1);
+                Translater.Translate("DressingRoom", "MistakeHandsWashedAgain", (translatedText) => { CreateTaskMistake(translatedText, 1); });
                 return;
             }
         }
-        if (!sleeveCovers && !protectiveGloves && clothing.type == ClothingType.ProtectiveGloves) CreateTaskMistake("Hihansuojat tulee laittaa päälle ennen suojakäsineitä", 1);
+        if (!sleeveCovers && !protectiveGloves && clothing.type == ClothingType.ProtectiveGloves) 
+            Translater.Translate("DressingRoom", "MistakeSleevesBeforeGloves", (translatedText) => { CreateTaskMistake("Hihansuojat tulee laittaa päälle ennen suojakäsineitä", 1); });
         if (clothing.type == ClothingType.SleeveCovers) sleeveCovers = true;
         if (clothing.type == ClothingType.ProtectiveGloves) protectiveGloves = true;
         if (sleeveCovers && protectiveGloves) {
