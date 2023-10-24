@@ -5,8 +5,7 @@ using UnityEngine;
 public class FireExtinguisher : MonoBehaviour
 {
 
-    private List<SimpleFire> inside = new List<SimpleFire>();
-    private PlayerFireController playerFire;
+    private List<ITogglableFire> inside = new List<ITogglableFire>();
     private bool canExtinguish;
     private bool extinguishing;
     // Start is called before the first frame update
@@ -24,13 +23,10 @@ public class FireExtinguisher : MonoBehaviour
         if (canExtinguish) {
             extinguishing = true;
             if (inside.Count != 0) {
-                foreach (SimpleFire fire in inside) {
+                foreach (ITogglableFire fire in inside) {
                     fire.Extinguish();
                 }
             }
-
-            if (playerFire != null)
-                playerFire.Extinguish();
         }
     }
 
@@ -39,14 +35,8 @@ public class FireExtinguisher : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "PlayerCollider") {
-            playerFire = other.GetComponentInParent<PlayerFireController>();
-
-            if (extinguishing) {
-                playerFire.Extinguish();
-            }
-        } else if (other.tag == "FireGrid") {
-            SimpleFire fire = other.GetComponentInParent<SimpleFire>();
+        if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
+            ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
             inside.Add(fire);
 
             if (extinguishing) {
@@ -56,10 +46,8 @@ public class FireExtinguisher : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "PlayerCollider") {
-            playerFire = null;
-        } else if (other.tag == "FireGrid") {
-            SimpleFire fire = other.GetComponentInParent<SimpleFire>();
+        if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
+            ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
             inside.Remove(fire);
         }
     }

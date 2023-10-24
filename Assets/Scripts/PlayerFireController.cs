@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // This class should be renamed if functionality other than fire is added to the "player body" 
-public class PlayerFireController : MonoBehaviour {
+public class PlayerFireController : MonoBehaviour, ITogglableFire {
     [Tooltip("The time it takes for the player to burn to death in seconds")]
     public float maxBurnHealth = 30;
     public bool godMode = false;
@@ -19,6 +19,7 @@ public class PlayerFireController : MonoBehaviour {
 
     // Extinguishing player fire now happens through the player hitbox just like igniting it
     public void Extinguish() { playerFire.Extinguish(); }
+    public void Ignite() { playerFire.Ignite(); }
 
     private void OnEnable() {
         currentHealth = maxBurnHealth;
@@ -41,7 +42,7 @@ public class PlayerFireController : MonoBehaviour {
     private void OnTriggerEnter(Collider collision) {
         // Player fire should not have a cube hitbox
         if (collision.gameObject.tag == "FireGrid") {
-            playerFire.Ignite();
+            Ignite();
         }
     }
 }

@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class ShowerExtinguisher : MonoBehaviour {
 
-    private PlayerFireController playerBody;
+    private ITogglableFire fireSource;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "PlayerCollider") {
-            playerBody = other.GetComponentInParent<PlayerFireController>();
+        if (other.tag == "FireGrid" || other.tag == "PlayerCollider") {
+            fireSource = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "FireGrid") {
-            playerBody = null;
+        if (other.tag == "FireGrid" || other.tag == "PlayerCollider") {
+            fireSource = null;
         }
     }
 
     public void Extinguish()
     {
-        if (playerBody != null) {
-            playerBody.Extinguish();
+        if (fireSource != null) {
+            fireSource.Extinguish();
         }
     }
 }
