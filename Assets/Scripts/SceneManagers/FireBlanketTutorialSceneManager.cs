@@ -11,27 +11,17 @@ public class FireBlanketTutorialSceneManager : MonoBehaviour
     void Start()
     {
         taskManager = GetComponent<TaskManager>();
-        fireGridObj = GetComponent<FireGrid>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void TakeBlanket()
-    {
+    public void TakeBlanket() {
         taskManager.CompleteTask("TakeBlanket");
     }
 
-    public void OpenBlanket()
-    {
+    public void OpenBlanket() {
         taskManager.CompleteTask("OpenBlanket");
     }
 
-    public void ExtinguishFire()
-    {
+    public void ExtinguishFire() {
         taskManager.CompleteTask("ExtinguishFire");
     }
 }
