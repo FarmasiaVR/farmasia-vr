@@ -20,7 +20,9 @@ public class WearShoeCoversAndLabCoat : Task {
     private void TrackEquippedClothing(CallbackData data) {
         if (taskCompleted) return;
         var clothing = (data.DataObject as ProtectiveClothing);
-        if (!shoeCovers && !labCoat && clothing.type == ClothingType.LabCoat) CreateTaskMistake("Kengänsuojat tulee laittaa päälle ennen laboratoriotakkia", 1);
+        if (!shoeCovers && !labCoat && clothing.type == ClothingType.LabCoat) 
+            Translater.Translate("DressingRoom", "MistakeShoeCoversBeforeLabCoat", (translatedText) => 
+            { CreateTaskMistake(translatedText, 1); });
         if (clothing.type == ClothingType.ShoeCovers) shoeCovers = true;
         if (clothing.type == ClothingType.LabCoat) labCoat = true;
         if (shoeCovers && labCoat) {
