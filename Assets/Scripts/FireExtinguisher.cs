@@ -5,7 +5,7 @@ using UnityEngine;
 public class FireExtinguisher : MonoBehaviour
 {
 
-    private List<PlayerFireController> inside = new List<PlayerFireController>();
+    private List<ITogglableFire> inside = new List<ITogglableFire>();
     private bool canExtinguish;
     private bool extinguishing;
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class FireExtinguisher : MonoBehaviour
         if (canExtinguish) {
             extinguishing = true;
             if (inside.Count != 0) {
-                foreach (PlayerFireController fire in inside) {
+                foreach (ITogglableFire fire in inside) {
                     fire.Extinguish();
                 }
             }
@@ -36,20 +36,20 @@ public class FireExtinguisher : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "PlayerCollider") {
-            PlayerFireController playerBody = other.GetComponentInParent<PlayerFireController>();
-            inside.Add(playerBody);
+        if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
+            ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+            inside.Add(fire);
 
             if (extinguishing) {
-                playerBody.Extinguish();
+                fire.Extinguish();
             }
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "PlayerCollider") {
-            // This would be very slow with a lot of fires in the list
-            inside.Remove(other.GetComponentInParent<PlayerFireController>());
+        if (other.tag == "PlayerCollider" || other.tag == "FireGrid") {
+            ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+            inside.Remove(fire);
         }
     }
 

@@ -8,7 +8,7 @@ using UnityEngine.VFX;
 using UnityEngine.Events;
 using UnityEditor;
 
-public class SimpleFire : MonoBehaviour {
+public class SimpleFire : MonoBehaviour, ITogglableFire {
     [Tooltip("The time (sec) it takes for the extinguish animation to finish")]
     public float extinguishTime = 3;
     [Tooltip("The time (sec) it takes for the ignite animation to finish")]
