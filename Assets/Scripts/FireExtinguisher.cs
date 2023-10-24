@@ -5,7 +5,8 @@ using UnityEngine;
 public class FireExtinguisher : MonoBehaviour
 {
 
-    private List<PlayerFireController> inside = new List<PlayerFireController>();
+    private List<SimpleFire> inside = new List<SimpleFire>();
+    private PlayerFireController playerFire;
     private bool canExtinguish;
     private bool extinguishing;
     // Start is called before the first frame update
@@ -23,33 +24,43 @@ public class FireExtinguisher : MonoBehaviour
         if (canExtinguish) {
             extinguishing = true;
             if (inside.Count != 0) {
-                foreach (PlayerFireController fire in inside) {
+                foreach (SimpleFire fire in inside) {
                     fire.Extinguish();
                 }
             }
+
+            if (playerFire != null)
+                playerFire.Extinguish();
         }
     }
 
-    public void StopExtinguish()
-    {
+    public void StopExtinguish() {
         extinguishing = false;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "PlayerCollider") {
-            PlayerFireController playerBody = other.GetComponentInParent<PlayerFireController>();
-            inside.Add(playerBody);
+            playerFire = other.GetComponentInParent<PlayerFireController>();
 
             if (extinguishing) {
-                playerBody.Extinguish();
+                playerFire.Extinguish();
+            }
+        } else if (other.tag == "FireGrid") {
+            SimpleFire fire = other.GetComponentInParent<SimpleFire>();
+            inside.Add(fire);
+
+            if (extinguishing) {
+                fire.Extinguish();
             }
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "PlayerCollider") {
-            // This would be very slow with a lot of fires in the list
-            inside.Remove(other.GetComponentInParent<PlayerFireController>());
+            playerFire = null;
+        } else if (other.tag == "FireGrid") {
+            SimpleFire fire = other.GetComponentInParent<SimpleFire>();
+            inside.Remove(fire);
         }
     }
 
