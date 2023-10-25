@@ -41,7 +41,7 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
     /// Callable method to stop the visual effect animation, turn off the light and to play the extinguishing particle effect.
     /// </summary>
     public void Extinguish(bool playExtinguishAudio, float setExtinguishTime) {
-        if (isBurning && currScalingState == ScalingState.Stopped) {
+        if (isBurning && currScalingState != ScalingState.Extinguishing) {
             if (extinguishParticle != null && setExtinguishTime != 0.0f) // Animation time of 0.0 can be used to skip particles and scaling animation
                 extinguishParticle.Play();
             if (playExtinguishAudio)
@@ -52,6 +52,8 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
                 ashVFX.SetFloat("Spawn Rate", 0.0f);
             pointLight.SetActive(false);
 
+            if (currScalingState == ScalingState.Igniting) // Smoothly transition from ignition to extinguish
+                scalingAnimTimer = setExtinguishTime - setExtinguishTime * (scalingAnimTimer / currScalingAnimTime);
             isBurning = false;
             currScalingAnimTime = setExtinguishTime;
             currScalingState = ScalingState.Extinguishing;
@@ -65,7 +67,7 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
     /// Callable method to play the visual effect animation, turn on the light and to play the ignition particle effect.
     /// </summary>
     public void Ignite(float setIgniteTime) {
-        if (!isBurning && currScalingState == ScalingState.Stopped) {
+        if (!isBurning && currScalingState != ScalingState.Igniting) {
             if (igniteParticle != null && setIgniteTime != 0.0f) // Animation time of 0.0 works just like in Extinguish
                 igniteParticle.Play();
             if (smokeVFX != null)
@@ -76,6 +78,8 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
             burningSound.Play();
             pointLight.SetActive(true);
 
+            if (currScalingState == ScalingState.Extinguishing) // Smoothly transition from to extinguishing to ignition
+                scalingAnimTimer = setIgniteTime - setIgniteTime * (scalingAnimTimer / currScalingAnimTime);
             isBurning = true;
             currScalingAnimTime = setIgniteTime;
             currScalingState = ScalingState.Igniting;

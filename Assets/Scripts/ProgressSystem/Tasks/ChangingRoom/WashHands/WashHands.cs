@@ -30,9 +30,10 @@ public class WashHands : Task {
             // Punish the player if they try to wash hands before completing previous tasks
             if (packageName == PackageName.ChangingRoom) {
                 // Ignoring water since it is used to wash glasses
-                if (!liquid.type.Equals("Water")) CreateTaskMistake("Pue laboratoriotakki ja kengänsuojat sekä puhdista silmälasit ennen käsienpesua", 1);
+                if (!liquid.type.Equals("Water")) 
+                    CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeCoatCoversGlassesBeforeWashingHands"), 1);
             } else if (packageName == G.Instance.Progress.CurrentPackage.name) {
-                CreateTaskMistake("Pue suojapäähine ja kasvomaski ennen käsienpesua", 1);
+                CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHeadcoverFacemaskBeforeWashingHands"), 1);
             }
             return;
         }
@@ -45,7 +46,7 @@ public class WashHands : Task {
 
         // Checking for mistakes is done in HandStateManager
         if (handStateManager.GetIsMistake() == true) {
-            CreateTaskMistake("Käsienpesu tulee tehdä oikeassa järjestyksessä", 1);
+            CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHandWashRightOrder"), 1);
         }
 
         handState = handStateManager.GetHandState();
