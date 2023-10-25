@@ -22,6 +22,7 @@ public class WearShoeCoversAndLabCoat : Task {
         var clothing = (data.DataObject as ProtectiveClothing);
         if (!shoeCovers && !labCoat && clothing.type == ClothingType.LabCoat) 
             CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeShoeCoversBeforeLabCoat"), 1);
+
         if (clothing.type == ClothingType.ShoeCovers) shoeCovers = true;
         if (clothing.type == ClothingType.LabCoat) labCoat = true;
         if (shoeCovers && labCoat) {
