@@ -102,34 +102,10 @@ public class ScoreCalculator {
     }
 
     public Tuple<int, string> GetScoreString() {
-        string congratsTranslation = "";
-        string gameOverTranslation = "";
-        string commonMistakesTranslation = "";
-        string totalPointsTranslation = "";
-        int fetchedTranslations = 0;
-
-        Translater.Translate("DressingRoom", "Congrats", (translatedText) => 
-        { 
-            congratsTranslation = translatedText;
-            fetchedTranslations++;
-        });
-        Translater.Translate("DressingRoom", "GameOver", (translatedText) => 
-        {
-            gameOverTranslation = translatedText;
-            fetchedTranslations++;
-        });
-        Translater.Translate("DressingRoom", "CommonMistakes", (translatedText) => 
-        {
-            commonMistakesTranslation = translatedText;
-            fetchedTranslations++;
-        });
-        Translater.Translate("DressingRoom", "TotalPoints", (translatedText) =>
-        {
-            totalPointsTranslation = translatedText;
-            fetchedTranslations++;
-        });
-
-
+        string congratsTranslation = Translator.Translate("DressingRoom", "Congrats");
+        string gameOverTranslation = Translator.Translate("DressingRoom", "GameOver");
+        string commonMistakesTranslation = Translator.Translate("DressingRoom", "CommonMistakes");
+        string totalPointsTranslation = Translator.Translate("DressingRoom", "TotalPoints");
 
         string summary = congratsTranslation + " " + Text(Player.Info.Name, Colour.Blue)  + ", " + gameOverTranslation + "!\n\n";
         string scoreCountPerTask = "";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.UIElements;
 
 public class WearSleeveCoversAndProtectiveGloves : Task {
 
@@ -22,12 +23,12 @@ public class WearSleeveCoversAndProtectiveGloves : Task {
         var clothing = (data.DataObject as ProtectiveClothing);
         if (!IsPreviousTasksCompleted(requiredTasks)) {
             if (clothing.type == ClothingType.SleeveCovers || clothing.type == ClothingType.ProtectiveGloves) {
-                Translater.Translate("DressingRoom", "MistakeHandsWashedAgain", (translatedText) => { CreateTaskMistake(translatedText, 1); });
+                CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHandsWashedAgain"), 1);
                 return;
             }
         }
         if (!sleeveCovers && !protectiveGloves && clothing.type == ClothingType.ProtectiveGloves) 
-            Translater.Translate("DressingRoom", "MistakeSleevesBeforeGloves", (translatedText) => { CreateTaskMistake("Hihansuojat tulee laittaa päälle ennen suojakäsineitä", 1); });
+            CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeSleevesBeforeGloves"), 1);
         if (clothing.type == ClothingType.SleeveCovers) sleeveCovers = true;
         if (clothing.type == ClothingType.ProtectiveGloves) protectiveGloves = true;
         if (sleeveCovers && protectiveGloves) {

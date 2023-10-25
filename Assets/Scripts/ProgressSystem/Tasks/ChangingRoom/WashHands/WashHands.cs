@@ -31,11 +31,9 @@ public class WashHands : Task {
             if (packageName == PackageName.ChangingRoom) {
                 // Ignoring water since it is used to wash glasses
                 if (!liquid.type.Equals("Water")) 
-                    Translater.Translate("DressingRoom", "MistakeCoatCoversGlassesBeforeWashingHands", (translatedText) => 
-                    { CreateTaskMistake(translatedText, 1); });
+                    CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeCoatCoversGlassesBeforeWashingHands"), 1);
             } else if (packageName == G.Instance.Progress.CurrentPackage.name) {
-                Translater.Translate("DressingRoom", "MistakeHeadcoverFacemaskBeforeWashingHands", (translatedText) => 
-                { CreateTaskMistake(translatedText, 1); });
+                CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHeadcoverFacemaskBeforeWashingHands"), 1);
             }
             return;
         }
@@ -48,8 +46,7 @@ public class WashHands : Task {
 
         // Checking for mistakes is done in HandStateManager
         if (handStateManager.GetIsMistake() == true) {
-            Translater.Translate("DressingRoom", "MistakeHandWashRightOrder", (translatedText) => 
-            { CreateTaskMistake(translatedText, 1); });
+            CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHandWashRightOrder"), 1);
         }
 
         handState = handStateManager.GetHandState();
