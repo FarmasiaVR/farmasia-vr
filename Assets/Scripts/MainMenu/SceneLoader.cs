@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour {
 
@@ -7,51 +8,25 @@ public class SceneLoader : MonoBehaviour {
 
     public CameraFadeController fadeController;
 
+    Dictionary<SceneTypes, string> sceneTypeToSceneName = new Dictionary<SceneTypes, string> {
+        { SceneTypes.Restart, "Restart" },
+        { SceneTypes.MainMenu, "MainMenu" },
+        { SceneTypes.MedicinePreparation, "MedicinePreparation 2.0 XR" },
+        { SceneTypes.Tutorial, "ControlsTutorial" },
+        { SceneTypes.MembraneFilteration, "XR MembraneFilteration 2.0" },
+        { SceneTypes.ChangingRoom, "ChangingRoom" },
+        { SceneTypes.FireHazard, "Laboratory" },
+        { SceneTypes.FireExtinguisherTutorial, "FireExtinguisherTutorial" },
+        { SceneTypes.FireBlanketTutorial, "FireBlanketTutorial" },
+        { SceneTypes.EyeShowerTutorial, "EyeShowerTutorial" },
+        { SceneTypes.EmergencyShowerTutorial, "EmergencyShowerTutorial" },
+        { SceneTypes.EmergencyExitTutorial, "EmergencyExitTutorial" },
+        { SceneTypes.EmergencyExit, "EmergencyExit" },
+        { SceneTypes.EmergencyExit1, "EmergencyExit 1" }
+    };
+
     public void SwapScene(SceneTypes type) {
-        switch (type) {
-            case SceneTypes.Restart:
-                ChangeScene("Restart");
-                return;
-            case SceneTypes.MainMenu:
-                ChangeScene("MainMenu");
-                return;
-            case SceneTypes.MedicinePreparation:
-                ChangeScene("MedicinePreparation 2.0 XR");
-                return;
-            case SceneTypes.Tutorial:
-                ChangeScene("ControlsTutorial");
-                return;
-            case SceneTypes.MembraneFilteration:
-                ChangeScene("XR MembraneFilteration 2.0");
-                return;
-            case SceneTypes.ChangingRoom:
-                ChangeScene("ChangingRoom");
-                return;
-            case SceneTypes.FireHazard:
-                ChangeScene("Laboratory");
-                return;
-            case SceneTypes.FireExtinguisherTutorial:
-                ChangeScene("FireExtinguisherTutorial");
-                return;
-            case SceneTypes.FireBlanketTutorial:
-                ChangeScene("FireBlanketTutorial");
-                return;
-            case SceneTypes.EyeShowerTutorial:
-                ChangeScene("EyeShowerTutorial");
-                return;
-            case SceneTypes.EmergencyShowerTutorial:
-                ChangeScene("EmergencyShowerTutorial");
-                return;
-            case SceneTypes.EmergencyExitTutorial:
-                ChangeScene("EmergencyExitTutorial");
-                return;
-            case SceneTypes.EmergencyExit:
-                ChangeScene("EmergencyExit");
-                return;
-            case SceneTypes.EmergencyExit1:
-                ChangeScene("EmergencyExit 1");
-                return;
-        }
+        ChangeScene(sceneTypeToSceneName[type]);
     }
 
     private void ChangeScene(string name) {
