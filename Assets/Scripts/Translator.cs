@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using UnityEngine.Localization.Settings;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public static class Translator
 {
