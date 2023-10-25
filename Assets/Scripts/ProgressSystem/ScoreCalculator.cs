@@ -102,9 +102,38 @@ public class ScoreCalculator {
     }
 
     public Tuple<int, string> GetScoreString() {
-        string summary = "Onnittelut "+ Text(Player.Info.Name, Colour.Blue)  + ", peli päättyi!\n\n";
+        string congratsTranslation = "";
+        string gameOverTranslation = "";
+        string commonMistakesTranslation = "";
+        string totalPointsTranslation = "";
+        int fetchedTranslations = 0;
+
+        Translater.Translate("DressingRoom", "Congrats", (translatedText) => 
+        { 
+            congratsTranslation = translatedText;
+            fetchedTranslations++;
+        });
+        Translater.Translate("DressingRoom", "GameOver", (translatedText) => 
+        {
+            gameOverTranslation = translatedText;
+            fetchedTranslations++;
+        });
+        Translater.Translate("DressingRoom", "CommonMistakes", (translatedText) => 
+        {
+            commonMistakesTranslation = translatedText;
+            fetchedTranslations++;
+        });
+        Translater.Translate("DressingRoom", "TotalPoints", (translatedText) =>
+        {
+            totalPointsTranslation = translatedText;
+            fetchedTranslations++;
+        });
+
+
+
+        string summary = congratsTranslation + " " + Text(Player.Info.Name, Colour.Blue)  + ", " + gameOverTranslation + "!\n\n";
         string scoreCountPerTask = "";
-        string generalMistakes = "\n\nYleisvirheet:\n";
+        string generalMistakes = "\n\n" + commonMistakesTranslation + ":\n";
         int score = 0;
 
         Logger.Print(points.Keys.Count);
@@ -129,7 +158,7 @@ public class ScoreCalculator {
 
         Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
 
-        summary += "Kokonaispistemäärä: " + Text(score.ToString(), pointColour) + " / " + maxScore;
+        summary += totalPointsTranslation + ": " + Text(score.ToString(), pointColour) + " / " + maxScore;
 
         string scoreString = summary + scoreCountPerTask + generalMistakes;
         Logger.Print(scoreString);
