@@ -15,13 +15,8 @@ public class Description : MonoBehaviour
         initTextCache();
     }
 
-   
-
-
     void initTextCache()
     {
-
-        
         texts.Add("PointsRight", Translator.Translate("DressingRoom", "PointsRight"));
         texts.Add("SelectionOfTools", Translator.Translate("DressingRoom", "SelectionOfTools"));
         texts.Add("Workspace", Translator.Translate("DressingRoom", "Workspace"));
@@ -29,7 +24,6 @@ public class Description : MonoBehaviour
         texts.Add("DressingRoom", Translator.Translate("DressingRoom", "DressingRoom"));
         texts.Add("PreparationArea", Translator.Translate("DressingRoom", "PreparationArea"));
         texts.Add("Finishing", Translator.Translate("DressingRoom", "Finishing"));
-        
     }
 
     void Update()
