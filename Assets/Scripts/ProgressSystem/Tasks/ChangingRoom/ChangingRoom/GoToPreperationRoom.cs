@@ -20,7 +20,7 @@ public class GoToPreperationRoom : Task {
     private void TrackCompletedTasks(CallbackData data) {
         if ((DoorGoTo)data.DataObject != DoorGoTo.EnterPreparation) return;
         if (!IsPreviousTasksCompleted(requiredTasks)) {
-            Popup(Translator.Translate("DressingRoom", "NeededArrangements").Result, MsgType.Notify);
+            Popup(Translator.Translate("DressingRoom", "NeededArrangements"), MsgType.Notify);
             return;
         }
         EnableCondition(Conditions.PreviousTasksCompleted);

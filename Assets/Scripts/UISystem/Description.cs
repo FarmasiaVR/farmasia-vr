@@ -12,21 +12,24 @@ public class Description : MonoBehaviour
     void Start()
     {
         currentTextField = gameObject.GetComponent<TextMeshPro>();
-
-
-        
         initTextCache();
     }
 
+   
+
+
     void initTextCache()
     {
-        texts.Add("PointsRight", Translator.Translate("DressingRoom", "PointsRight").Result);
-        texts.Add("SelectionOfTools", Translator.Translate("DressingRoom", "SelectionOfTools").Result);
-        texts.Add("Workspace", Translator.Translate("DressingRoom", "Workspace").Result);
-        texts.Add("CleaningTheSpace", Translator.Translate("DressingRoom", "CleaningTheSpace").Result);
-        texts.Add("DressingRoom", Translator.Translate("DressingRoom", "DressingRoom").Result);
-        texts.Add("PreparationArea", Translator.Translate("DressingRoom", "PreparationArea").Result);
-        texts.Add("Finishing", Translator.Translate("DressingRoom", "Finishing").Result);
+
+        
+        texts.Add("PointsRight", Translator.Translate("DressingRoom", "PointsRight"));
+        texts.Add("SelectionOfTools", Translator.Translate("DressingRoom", "SelectionOfTools"));
+        texts.Add("Workspace", Translator.Translate("DressingRoom", "Workspace"));
+        texts.Add("CleaningTheSpace", Translator.Translate("DressingRoom", "CleaningTheSpace"));
+        texts.Add("DressingRoom", Translator.Translate("DressingRoom", "DressingRoom"));
+        texts.Add("PreparationArea", Translator.Translate("DressingRoom", "PreparationArea"));
+        texts.Add("Finishing", Translator.Translate("DressingRoom", "Finishing"));
+        
     }
 
     void Update()

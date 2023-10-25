@@ -23,12 +23,12 @@ public class WearSleeveCoversAndProtectiveGloves : Task {
         var clothing = (data.DataObject as ProtectiveClothing);
         if (!IsPreviousTasksCompleted(requiredTasks)) {
             if (clothing.type == ClothingType.SleeveCovers || clothing.type == ClothingType.ProtectiveGloves) {
-                CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHandsWashedAgain").Result, 1);
+                CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeHandsWashedAgain"), 1);
                 return;
             }
         }
         if (!sleeveCovers && !protectiveGloves && clothing.type == ClothingType.ProtectiveGloves) 
-            CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeSleevesBeforeGloves").Result, 1);
+            CreateTaskMistake(Translator.Translate("DressingRoom", "MistakeSleevesBeforeGloves"), 1);
         if (clothing.type == ClothingType.SleeveCovers) sleeveCovers = true;
         if (clothing.type == ClothingType.ProtectiveGloves) protectiveGloves = true;
         if (sleeveCovers && protectiveGloves) {
