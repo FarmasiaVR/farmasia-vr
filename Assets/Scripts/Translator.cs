@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
 using UnityEngine.Localization.Settings;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public static class Translator
 {
-    public static string Translate(string table, string key)
+    async public static Task<string> Translate(string table, string key)
     {
-        return Task.Run(async () =>
-        {
-            var handle = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(table, key);
-            await handle.Task;
-            return handle.Result;
-        }).Result;
+        var handle = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(table, key);
+
+        await handle.Task;
+
+        return handle.Result;
     }
 }

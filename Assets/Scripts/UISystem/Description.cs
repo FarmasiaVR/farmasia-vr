@@ -26,22 +26,22 @@ public class Description : MonoBehaviour
         switch (G.Instance.Progress.CurrentPackage.name)
         {
             case PackageName.EquipmentSelection:
-                UpdateText(Translator.Translate("DressingRoom", "SelectionOfTools"));
+                UpdateText(Translator.Translate("DressingRoom", "SelectionOfTools").Result);
                 return;
             case PackageName.Workspace:
-                UpdateText(Translator.Translate("DressingRoom", "Workspace"));
+                UpdateText(Translator.Translate("DressingRoom", "Workspace").Result);
                 return;
             case PackageName.CleanUp:
-                UpdateText(Translator.Translate("DressingRoom", "CleaningTheSpace"));
+                UpdateText(Translator.Translate("DressingRoom", "CleaningTheSpace").Result);
                 return;
             case PackageName.ChangingRoom:
-                UpdateText(Translator.Translate("DressingRoom", "DressingRoom"));
+                UpdateText(Translator.Translate("DressingRoom", "DressingRoom").Result);
                 return;
             case PackageName.PreperationRoom:
-                UpdateText(Translator.Translate("DressingRoom", "PreparationArea"));
+                UpdateText(Translator.Translate("DressingRoom", "PreparationArea").Result);
                 return;
             case PackageName.FinishUp:
-                UpdateText(Translator.Translate("DressingRoom", "Finishing"));
+                UpdateText(Translator.Translate("DressingRoom", "Finishing").Result);
                 return;
         }
     }

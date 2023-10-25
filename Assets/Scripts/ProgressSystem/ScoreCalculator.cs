@@ -102,14 +102,9 @@ public class ScoreCalculator {
     }
 
     public Tuple<int, string> GetScoreString() {
-        string congratsTranslation = Translator.Translate("DressingRoom", "Congrats");
-        string gameOverTranslation = Translator.Translate("DressingRoom", "GameOver");
-        string commonMistakesTranslation = Translator.Translate("DressingRoom", "CommonMistakes");
-        string totalPointsTranslation = Translator.Translate("DressingRoom", "TotalPoints");
-
-        string summary = congratsTranslation + " " + Text(Player.Info.Name, Colour.Blue)  + ", " + gameOverTranslation + "!\n\n";
+        string summary = Translator.Translate("DressingRoom", "Congrats").Result + " " + Text(Player.Info.Name, Colour.Blue)  + ", " + Translator.Translate("DressingRoom", "GameOver").Result + "!\n\n";
         string scoreCountPerTask = "";
-        string generalMistakes = "\n\n" + commonMistakesTranslation + ":\n";
+        string generalMistakes = "\n\n" + Translator.Translate("DressingRoom", "CommonMistakes").Result + ":\n";
         int score = 0;
 
         Logger.Print(points.Keys.Count);
@@ -134,7 +129,7 @@ public class ScoreCalculator {
 
         Colour pointColour = score >= 0 ? Colour.Blue : Colour.Red;
 
-        summary += totalPointsTranslation + ": " + Text(score.ToString(), pointColour) + " / " + maxScore;
+        summary += Translator.Translate("DressingRoom", "TotalPoints").Result + ": " + Text(score.ToString(), pointColour) + " / " + maxScore;
 
         string scoreString = summary + scoreCountPerTask + generalMistakes;
         Logger.Print(scoreString);
