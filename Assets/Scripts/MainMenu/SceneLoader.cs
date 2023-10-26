@@ -29,6 +29,8 @@ public class SceneLoader : MonoBehaviour {
         ChangeScene(sceneTypeToSceneName[type]);
     }
 
+    public void SwapScene(int type) => SwapScene((SceneTypes) type);
+
     private void ChangeScene(string name) {
         scene = name;
         FadeOutScene();
