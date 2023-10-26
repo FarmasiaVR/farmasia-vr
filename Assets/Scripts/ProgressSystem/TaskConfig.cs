@@ -341,26 +341,26 @@ public static class TaskConfig {
 
         info(
             TaskType.WearShoeCoversAndLabCoat,
-            "Kengänsuojien ja laboratoriotakin pukeminen",
-            "Vedä kengänsuojat ja laboratoriotakki päällesi",
-            "Vedä kengänsuojat ja laboratoriotakki itseesi pukeaksesi ne päällesi.",
-            "Kengänsuojat ja laboratoriotakki puettu!",
+            Translator.Translate("DressingRoom", "WearShoeCoversAndLabCoat1"),
+            Translator.Translate("DressingRoom", "WearShoeCoversAndLabCoat2"),
+            Translator.Translate("DressingRoom", "WearShoeCoversAndLabCoat3"),
+            Translator.Translate("DressingRoom", "WearShoeCoversAndLabCoat4"),
             2
         ),
 
         info(
             TaskType.WashGlasses,
-            "Silmälasien puhdistus",
-            "Puhdista silmälasit",
-            "Vedä silmalaist juoksevan veden alla puhdistaaksesi ne.",
-            "Silmälasit puhdistettu!",
+            Translator.Translate("DressingRoom", "WashGlasses1"),
+            Translator.Translate("DressingRoom", "WashGlasses2"),
+            Translator.Translate("DressingRoom", "WashGlasses3"),
+            Translator.Translate("DressingRoom", "WashGlasses4"),
             2
         ),
 
         info(
             TaskType.GoToPreperationRoom,
             "",
-            "Siirry valmistelutilaan",
+            Translator.Translate("DressingRoom", "GoToPreperationRoom"),
             "",
             "",
             0
@@ -368,43 +368,43 @@ public static class TaskConfig {
 
         info(
             TaskType.WashHandsInChangingRoom,
-            "Käsienpesu pukuhuoneessa",
-            "Suorita käsienpesu oikeassa järjestyksessä",
-            "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
-            "Kädet ovat puhtaat.",
+            Translator.Translate("DressingRoom", "WashHandsInChangingRoom1"),
+            Translator.Translate("DressingRoom", "WashHandsInChangingRoom2"),
+            Translator.Translate("DressingRoom", "WashHandsInChangingRoom3"),
+            Translator.Translate("DressingRoom", "WashHandsInChangingRoom4"),
             2
         ),
 
         info(
             TaskType.WearHeadCoverAndFaceMask,
-            "Suojapäähineen ja kasvomaskin pukeminen",
-            "Vedä suojapäähine ja kasvomaski päällesi",
-            "Vedä suojapäähine ja kasvomaski itseesi pukeaksesi ne päällesi.",
-            "Suojapäähine ja kasvomaski puettu!",
+            Translator.Translate("DressingRoom", "WearHeadCoverAndFaceMask1"),
+            Translator.Translate("DressingRoom", "WearHeadCoverAndFaceMask2"),
+            Translator.Translate("DressingRoom", "WearHeadCoverAndFaceMask3"),
+            Translator.Translate("DressingRoom", "WearHeadCoverAndFaceMask4"),
             2
         ),
 
         info(
             TaskType.WashHandsInPreperationRoom,
-            "Käsienpesu valmistelutilassa",
-            "Suorita käsienpesu oikeassa järjestyksessä",
-            "Käytä saippuaa, huuhtele ja lopuksi käytä käsidesiä",
-            "Kädet ovat puhtaat.",
+            Translator.Translate("DressingRoom", "WashHandsInPreperationRoom1"),
+            Translator.Translate("DressingRoom", "WashHandsInPreperationRoom2"),
+            Translator.Translate("DressingRoom", "WashHandsInPreperationRoom3"),
+            Translator.Translate("DressingRoom", "WashHandsInPreperationRoom4"),
             2
         ),
 
         info(
             TaskType.WearSleeveCoversAndProtectiveGloves,
-            "Hihasuojien ja suojakäsineiden pukeminen",
-            "Vedä hihasuojat ja suojakäsineet päällesi",
-            "Vedä hihasuojat ja suojakäsineet itseesi pukeaksesi ne päällesi.",
-            "Hihasuojat ja suojakäsineet puettu!",
+            Translator.Translate("DressingRoom", "WearSleeveCoversAndProtectiveGloves1"),
+            Translator.Translate("DressingRoom", "WearSleeveCoversAndProtectiveGloves2"),
+            Translator.Translate("DressingRoom", "WearSleeveCoversAndProtectiveGloves3"),
+            Translator.Translate("DressingRoom", "WearSleeveCoversAndProtectiveGloves4"),
             2
         ),
 
         info(
             TaskType.FinishChangingRoom,
-            "Lopetus",
+            Translator.Translate("DressingRoom","FinishChangingRoom"),
             "",
             "",
             "",

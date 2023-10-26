@@ -1,15 +1,13 @@
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine.Localization.Settings;
+using UnityEngine;
 
 public static class Translator
 {
     public static string Translate(string table, string key)
     {
-        return Task.Run(async () =>
-        {
-            var handle = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(table, key);
-            await handle.Task;
-            return handle.Result;
-        }).Result;
+        string handle = LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
+        return handle;
     }
 }
