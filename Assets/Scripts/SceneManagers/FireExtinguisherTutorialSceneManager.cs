@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireExtinguisherTutorialSceneManager : MonoBehaviour {
     private TaskManager taskManager;
     [SerializeField] private SimpleFire fire;
+    private bool ignitedOnce = false;
 
     private void Awake() {
         taskManager = GetComponent<TaskManager>();
@@ -44,7 +45,10 @@ public class FireExtinguisherTutorialSceneManager : MonoBehaviour {
         }
         taskManager.CompleteTask("Activate");
 
-        fire.Ignite();
+        if (!ignitedOnce) {
+            fire.Ignite();
+            ignitedOnce = true;
+        }
     }
 
 
