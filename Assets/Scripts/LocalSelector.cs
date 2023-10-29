@@ -6,6 +6,9 @@ using UnityEngine.Localization.Settings;
 public class LocalSelector : MonoBehaviour
 {
     private bool active = false;
+    private int currentLocale;
+
+    public int FetchCurrentLocale() { return currentLocale; }
     public void ChangeLocale(int localeID)
     {
         if (active) { return; }
@@ -19,6 +22,10 @@ public class LocalSelector : MonoBehaviour
         {
             active = true;
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localeID];
+            currentLocale = _localeID;
+            Debug.Log(currentLocale);
+            Debug.Log(_localeID);
+
             active = false;
         }
         else
