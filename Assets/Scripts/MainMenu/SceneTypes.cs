@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public enum SceneTypes {
+[Serializable] public enum SceneTypes {
     MainMenu,
     Tutorial,
     MedicinePreparation,
@@ -29,6 +29,7 @@ public readonly struct GameScenes {
         { SceneTypes.MembraneFilteration, "XR MembraneFilteration 2.0" },
         { SceneTypes.ChangingRoom, "ChangingRoom" },
         { SceneTypes.Laboratory, "Laboratory" },
+        { SceneTypes.FireHazard, "Laboratory"},
         { SceneTypes.FireExtinguisherTutorial, "FireExtinguisherTutorial" },
         { SceneTypes.FireBlanketTutorial, "FireBlanketTutorial" },
         { SceneTypes.EyeShowerTutorial, "EyeShowerTutorial" },
