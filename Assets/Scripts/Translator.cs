@@ -20,7 +20,6 @@ public static class Translator
     public static string Translate(string table, string key)
     {
         SetLocale();
-        // WAIT HERE SOULD FIX THE TIMING!!!
         string handle = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
         return handle;
     }
