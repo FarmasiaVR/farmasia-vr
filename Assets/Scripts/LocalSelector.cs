@@ -14,16 +14,15 @@ public class LocalSelector : MonoBehaviour
         if (active) { return; }
         // StartCoroutine(SetLocale(localeID));
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
-        TaskConfig.reInitDictionary(); //TaskConfig contains most of the translations so reInit it to get the updated texts...
+        //TaskConfig.reInitDictionary(); //TaskConfig contains most of the translations so reInit it to get the updated texts...
     }
 
-    /*
-     do not use in production but usefull for debug...
+    //this is BAD but works, will fix soon TM 
     private void Update()
     {
         TaskConfig.reInitDictionary();
     }
-    */
+   
 
     IEnumerator SetLocale(int _localeID)
     {

@@ -16,7 +16,7 @@ public class UISystem : MonoBehaviour {
 
 
 
-    public string Descript { get => TaskConfig.For(TaskType.WearShoeCoversAndLabCoat).Description; set => descript = value; }
+    public string Descript { get => TaskConfig.For(G.Instance.Progress.CurrentPackage.CurrentTask.TaskType).Description; set => descript = value; }
 
     #endregion
 
