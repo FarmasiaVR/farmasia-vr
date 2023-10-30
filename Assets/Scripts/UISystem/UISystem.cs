@@ -13,7 +13,10 @@ public class UISystem : MonoBehaviour {
     private Hand hand;
 
     private string descript = "";
-    public string Descript { get => descript; set => descript = value; }
+
+
+
+    public string Descript { get => TaskConfig.For(TaskType.WearShoeCoversAndLabCoat).Description; set => descript = value; }
 
     #endregion
 

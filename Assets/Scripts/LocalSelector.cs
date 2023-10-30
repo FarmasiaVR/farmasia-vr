@@ -12,8 +12,18 @@ public class LocalSelector : MonoBehaviour
     public void ChangeLocale(int localeID)
     {
         if (active) { return; }
-        StartCoroutine(SetLocale(localeID));
+        // StartCoroutine(SetLocale(localeID));
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
+        TaskConfig.reInitDictionary(); //TaskConfig contains most of the translations so reInit it to get the updated texts...
     }
+
+    /*
+     do not use in production but usefull for debug...
+    private void Update()
+    {
+        TaskConfig.reInitDictionary();
+    }
+    */
 
     IEnumerator SetLocale(int _localeID)
     {
@@ -32,5 +42,6 @@ public class LocalSelector : MonoBehaviour
         {
             Debug.LogWarning("Invalid locale ID provided.");
         }
+        
     }
 }
