@@ -1,8 +1,10 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using GluonGui.Dialog;
 
-[Serializable] public enum SceneTypes {
+public enum SceneTypes {
     MainMenu,
     Tutorial,
     MedicinePreparation,
@@ -17,7 +19,8 @@ using System.Linq;
     Laboratory,
     EmergencyExitTutorial,
     EmergencyExit,
-    EmergencyExit1
+    EmergencyExit1,
+    XrPlayer
 }
 
 public readonly struct GameScenes {
@@ -28,7 +31,6 @@ public readonly struct GameScenes {
         { SceneTypes.Tutorial, "ControlsTutorial" },
         { SceneTypes.MembraneFilteration, "XR MembraneFilteration 2.0" },
         { SceneTypes.ChangingRoom, "ChangingRoom" },
-        { SceneTypes.Laboratory, "Laboratory" },
         { SceneTypes.FireHazard, "Laboratory"},
         { SceneTypes.FireExtinguisherTutorial, "FireExtinguisherTutorial" },
         { SceneTypes.FireBlanketTutorial, "FireBlanketTutorial" },
@@ -36,11 +38,21 @@ public readonly struct GameScenes {
         { SceneTypes.EmergencyShowerTutorial, "EmergencyShowerTutorial" },
         { SceneTypes.EmergencyExitTutorial, "EmergencyExitTutorial" },
         { SceneTypes.EmergencyExit, "EmergencyExit" },
-        { SceneTypes.EmergencyExit1, "EmergencyExit 1" }
+        { SceneTypes.EmergencyExit1, "EmergencyExit 1" },
+        { SceneTypes.XrPlayer, "XR Player"}
     };
 
-    private static readonly Dictionary<string, SceneTypes> sceneNameToType = //Reverse mapping of the previous Dictionary
-        sceneTypeToName.ToDictionary(pair => pair.Value, pair => pair.Key);
+    private static Dictionary<string, SceneTypes> GetNameToTypeMapping() {
+        Dictionary<string, SceneTypes> result = new Dictionary<string, SceneTypes>();
+        try {
+            result = sceneTypeToName.ToDictionary(pair => pair.Value, pair => pair.Key);
+        } catch (ArgumentException ex) {
+            Debug.LogWarning("There was a duplicate mapping for scene. Please remove any repeated scene names.");
+        }
+        return result;
+    }
+
+    private static readonly Dictionary<string, SceneTypes> sceneNameToType = GetNameToTypeMapping();
 
     public static string GetName(SceneTypes type) {
         if (sceneTypeToName.ContainsKey(type)) {
@@ -55,6 +67,14 @@ public readonly struct GameScenes {
             return sceneNameToType[name];
         } else {
             throw new ArgumentException($"Scene {name} doesn't have a scene type associated with it.");
+        }
+    }
+
+    public static SceneTypes TypeStringToType(string type) {
+        if (Enum.TryParse(type, out SceneTypes result)) {
+            return result;
+        } else {
+            throw new ArgumentException($"Scene type {type} doesn't exist.");
         }
     }
 }
