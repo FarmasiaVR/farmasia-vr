@@ -19,7 +19,7 @@ public static class Translator
 
     public static string Translate(string table, string key)
     {
-        SetLocale();
+        //SetLocale();
         string handle = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
         return handle;
     }
