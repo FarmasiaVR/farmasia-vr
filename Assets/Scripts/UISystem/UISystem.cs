@@ -13,7 +13,10 @@ public class UISystem : MonoBehaviour {
     private Hand hand;
 
     private string descript = "";
-    public string Descript { get => descript; set => descript = value; }
+
+
+
+    public string Descript { get => TaskConfig.For(G.Instance.Progress.CurrentPackage.CurrentTask.TaskType).Description; set => descript = value; }
 
     #endregion
 
