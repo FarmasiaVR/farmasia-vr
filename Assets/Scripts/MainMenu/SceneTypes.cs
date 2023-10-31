@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using GluonGui.Dialog;
 
 public enum SceneTypes {
     MainMenu,
