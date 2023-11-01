@@ -12,12 +12,12 @@ public class FireExtinguisherTutorialSceneManager : MonoBehaviour {
     }
 
     public void PickUp() {
-        taskManager.CompleteTask("Pickup");
+        taskManager.CompleteTask("PickupFireExtinguisher");
     }
 
     public void SafetyPin()
     {
-        if (!taskManager.IsTaskCompleted("Pickup"))
+        if (!taskManager.IsTaskCompleted("PickupFireExtinguisher"))
         {
             taskManager.GenerateTaskMistake("Tartu ensin kiinni sammuttimesta toisella k�dell�", 0);
                 return;
@@ -43,7 +43,7 @@ public class FireExtinguisherTutorialSceneManager : MonoBehaviour {
             taskManager.GenerateTaskMistake("Tartu ensin kiinni sammuttimen letkun p��st�", 0);
             return;
         }
-        taskManager.CompleteTask("Activate");
+        taskManager.CompleteTask("ActivateFireExtinguisher");
 
         if (!ignitedOnce) {
             fire.Ignite();
