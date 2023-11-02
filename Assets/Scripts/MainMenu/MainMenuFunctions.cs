@@ -24,9 +24,11 @@ public class MainMenuFunctions : MonoBehaviour {
         submenuButtons.SetActive(false);
     }
 
-    public void LoadScene(int type) {
-        levelChanger.SwapScene((SceneTypes)type);
+    public void LoadScene(SceneTypes scene) {
+        levelChanger.SwapScene(scene);
     }
+
+    public void LoadScene(int type) => LoadScene((SceneTypes) type);
 
     public void SetStartingPoint(string startingPoint) {
         if (startingPoint.Equals("PreperationRoom")) startFromBeginning = true;

@@ -1,13 +1,15 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Description : MonoBehaviour
 {
     private TextMeshPro currentTextField;
-
     void Start()
     {
         currentTextField = gameObject.GetComponent<TextMeshPro>();
+       
     }
 
     void Update()
@@ -19,32 +21,29 @@ public class Description : MonoBehaviour
     {
         if (G.Instance.Progress.CurrentPackage.activeTasks.Count <= 0)
         {
-            Translater.Translate("DressingRoom", "PointsRight", (translatedText) =>
-            {
-                currentTextField.text = $"<color=#0be325> {translatedText} \n-----></color>";
-            });
+            currentTextField.text = $"<color=#0be325> {Translator.Translate("DressingRoom", "PointsRight")} \n-----></color>";
             return;
         }
 
         switch (G.Instance.Progress.CurrentPackage.name)
         {
             case PackageName.EquipmentSelection:
-                Translater.Translate("DressingRoom", "SelectionOfTools", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "SelectionOfTools"));
                 return;
             case PackageName.Workspace:
-                Translater.Translate("DressingRoom", "Workspace", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "Workspace"));
                 return;
             case PackageName.CleanUp:
-                Translater.Translate("DressingRoom", "CleaningTheSpace", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "CleaningTheSpace"));
                 return;
             case PackageName.ChangingRoom:
-                Translater.Translate("DressingRoom", "DressingRoom", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "DressingRoom"));
                 return;
             case PackageName.PreperationRoom:
-                Translater.Translate("DressingRoom", "PreparationArea", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "PreparationArea"));
                 return;
             case PackageName.FinishUp:
-                Translater.Translate("DressingRoom", "Finishing", translatedText => UpdateText(translatedText));
+                UpdateText(Translator.Translate("DressingRoom", "Finishing"));
                 return;
         }
     }

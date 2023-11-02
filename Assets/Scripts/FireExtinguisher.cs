@@ -31,8 +31,7 @@ public class FireExtinguisher : MonoBehaviour
         }
     }
 
-    public void StopExtinguish()
-    {
+    public void StopExtinguish() {
         extinguishing = false;
     }
 

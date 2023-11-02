@@ -8,7 +8,7 @@ This fork implements part 4 of the original game
 
 Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of three parts – the use of protective clothing & washing hands, preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
 
-This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team has focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience.
+This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team has focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team has focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life.
 
 Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. All rights are reserved to the University of Helsinki.
 
@@ -18,7 +18,7 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Development
 
-The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2021.3.16f1` .
+The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2022.3.10f1` .
 
 Additional tools used for development:
 - Blender 3.4
@@ -254,6 +254,57 @@ To play the game without a VR headset, select the XR player in the Unity scene a
             <sub><b>Sonja Salmi</b></sub>
         </a>
     </td>
+    <td align="center">
+        <a href="https://github.com/Cloudperry">
+            <img src="https://github.com/Cloudperry.png" width="100;" alt="Cloudperry"/>
+            <br />
+            <sub><b>Roni Hokkanen</b></sub>
+        </a>
+    </td>
     </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/arolaeemil">
+            <img src="https://github.com/arolaeemil.png" width="100;" alt="arolaeemil"/>
+            <br />
+            <sub><b>Eemil Arola</b></sub>
+        </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Stenbras">
+          <img src="https://github.com/Stenbras.png" width="100;" alt="Stenbras"/>
+          <br />
+          <sub><b>Rasmus Stenberg</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Saukka">
+          <img src="https://github.com/Saukka.png" width="100;" alt="Saukka"/>
+          <br />
+          <sub><b>Sauli Sorvari</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/BananaMayo">
+          <img src="https://github.com/BananaMayo.png" width="100;" alt="BananaMayo"/>
+          <br />
+          <sub><b>Niklas Nygård</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tuovinenemma">
+          <img src="https://github.com/tuovinenemma.png" width="100;" alt="tuovinenemma"/>
+          <br />
+          <sub><b>Emma Tuovinen</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/nicolaskivimaki">
+          <img src="https://github.com/nicolaskivimaki.png" width="100;" alt="nicolaskivimaki"/>
+          <br />
+          <sub><b>Nicolas Kivimäki</b></sub>
+      </a>
+    </td>
+  </tr>
 </table>
 <!-- readme: contributors -end -->

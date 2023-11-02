@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour {
 
@@ -8,51 +9,10 @@ public class SceneLoader : MonoBehaviour {
     public CameraFadeController fadeController;
 
     public void SwapScene(SceneTypes type) {
-        switch (type) {
-            case SceneTypes.Restart:
-                ChangeScene("Restart");
-                return;
-            case SceneTypes.MainMenu:
-                ChangeScene("MainMenu");
-                return;
-            case SceneTypes.MedicinePreparation:
-                ChangeScene("MedicinePreparation 2.0 XR");
-                return;
-            case SceneTypes.Tutorial:
-                ChangeScene("ControlsTutorial");
-                return;
-            case SceneTypes.MembraneFilteration:
-                ChangeScene("XR MembraneFilteration 2.0");
-                return;
-            case SceneTypes.ChangingRoom:
-                ChangeScene("ChangingRoom");
-                return;
-            case SceneTypes.FireHazard:
-                ChangeScene("Laboratory");
-                return;
-            case SceneTypes.FireExtinguisherTutorial:
-                ChangeScene("FireExtinguisherTutorial");
-                return;
-            case SceneTypes.FireBlanketTutorial:
-                ChangeScene("FireBlanketTutorial");
-                return;
-            case SceneTypes.EyeShowerTutorial:
-                ChangeScene("EyeShowerTutorial");
-                return;
-            case SceneTypes.EmergencyShowerTutorial:
-                ChangeScene("EmergencyShowerTutorial");
-                return;
-            case SceneTypes.EmergencyExitTutorial:
-                ChangeScene("EmergencyExitTutorial");
-                return;
-            case SceneTypes.EmergencyExit:
-                ChangeScene("EmergencyExit");
-                return;
-            case SceneTypes.EmergencyExit1:
-                ChangeScene("EmergencyExit 1");
-                return;
-        }
+        ChangeScene(GameScenes.GetName(type));
     }
+
+    public void SwapScene(int type) => SwapScene((SceneTypes) type);
 
     private void ChangeScene(string name) {
         scene = name;

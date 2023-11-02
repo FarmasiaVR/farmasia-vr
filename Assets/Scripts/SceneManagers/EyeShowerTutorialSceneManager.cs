@@ -22,20 +22,20 @@ public class EyeShowerTutorialSceneManager : MonoBehaviour
 
     public void PickUp()
     {
-        taskManager.CompleteTask("Pickup");
+        taskManager.CompleteTask("PickupEyeShower");
     }
 
     public void Activate()
     {
-        taskManager.CompleteTask("Activate");
+        taskManager.CompleteTask("ActivateEyeShower");
         AcidVisuals.SetActive(true);
     }
 
     public void Aim()
     {
-        if (taskManager.IsTaskCompleted("Activate"))
+        if (taskManager.IsTaskCompleted("ActivateEyeShower"))
         {
-            taskManager.CompleteTask("Aim");
+            taskManager.CompleteTask("AimEyeShower");
             AcidVisuals.SetActive(false);
         }
     }

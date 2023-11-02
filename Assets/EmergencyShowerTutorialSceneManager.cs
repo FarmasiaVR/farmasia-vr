@@ -6,40 +6,24 @@ public class EmergencyShowerTutorialSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
     private TaskboardManager taskboardManager;
-    private bool playerExtinguished, doneOnce;
+    private bool playerExtinguished;
     
-    private void Awake()
-    {
+    private void Awake() {
         taskManager = GetComponent<TaskManager>();
         taskboardManager = GetComponent<TaskboardManager>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(CheckPlayerExtinguished() && !doneOnce)
-        {
+    public void SetPlayerExtinguished() {
+        if(!playerExtinguished) {
+            playerExtinguished = true;
             taskManager.CompleteTask("PlayerOnFire");
-            doneOnce = true;
         }
     }
 
-    private bool CheckPlayerExtinguished()
-    {
-        return playerExtinguished;
+    public void PlayerExtinguishFailed() {
+        //TODO: Ask old team about refactoring TaskManager. Scene specific scene manager scripts
+        //like this one should contain all the logic for adding the tasks. TaskList as an object
+        //inside Unity editor just makes things more unclear and split across many places.
+        taskManager.onTaskFailed.Invoke(taskManager.GetTask("PlayerOnFire"));
     }
-
-    public void SetPlayerExtinguished()
-    {
-        Debug.Log("Setting boolean values in SetPlayerExtinguished!");
-        playerExtinguished = true;
-    }
-
 }
-
