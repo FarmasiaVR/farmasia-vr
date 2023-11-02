@@ -315,7 +315,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInBasketMembrane,
             "Valmiit esineet koriin",
             "Siirrä valmiit esineet koriin",
-            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl), pinsetit",
+            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl)",
             "Valmiit esineet korissa!",
             2
         ),
@@ -716,7 +716,7 @@ public static class TaskConfig {
             TaskType.CorrectItemsInBasketMembrane,
             "Valmiit esineet koriin",
             "Siirrä valmiit esineet koriin",
-            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl), pinsetit",
+            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl)",
             "Valmiit esineet korissa!",
             2
         ),
