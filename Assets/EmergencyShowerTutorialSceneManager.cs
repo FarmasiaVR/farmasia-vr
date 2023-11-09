@@ -6,7 +6,7 @@ public class EmergencyShowerTutorialSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
     private TaskboardManager taskboardManager;
-    private bool playerExtinguished;
+    private bool playerExtinguished = false;
     
     private void Awake() {
         taskManager = GetComponent<TaskManager>();
