@@ -8,7 +8,9 @@ public class ShowerExtinguisher : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "FireGrid" || other.tag == "PlayerCollider") {
-            fireSource = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+            ITogglableFire fire = other.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+            if (fire != null)
+                fireSource = fire;
         }
     }
 
@@ -19,8 +21,7 @@ public class ShowerExtinguisher : MonoBehaviour {
     }
 
     public void Extinguish() {
-        Debug.Log("This debug print fixes a bug... C# is such a fun language yay!");
-        if (fireSource != null && !fireSource.isBurning) {
+        if (fireSource != null) {
             fireSource.Extinguish();
         }
     }
