@@ -23,7 +23,7 @@ public class SpreadableFire : MonoBehaviour
     Dictionary<Vector3, int> vertexIndex = new Dictionary<Vector3, int>();
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
-
+    bool delayedGeneration;
     private void OnValidate()
     {
         if (!bCollider)
@@ -55,17 +55,7 @@ public class SpreadableFire : MonoBehaviour
             spreadTimer = 0;
             Propagate();
             GenerateFireMesh();
-            if (meshFilter)
-                meshFilter.mesh = mesh;
-            if (meshCollider)
-                meshCollider.sharedMesh = mesh;
-            if (fireEffect && vertices.Count>=3 && triangles.Count>=3)
-            {
-                if (!fireEffect.HasAnySystemAwake())
-                    fireEffect.Play();
-                fireEffect.SetMesh("fireMesh", mesh);
-                fireEffect.SetVector3("firePos", transform.localPosition);
-            }
+            UpdateMeshUsage();
         }
         spreadTimer += Time.deltaTime;
     }
@@ -99,6 +89,25 @@ public class SpreadableFire : MonoBehaviour
             spreadableVerticies.Remove(flatenedPoint);
         }
     }
+
+    void UpdateMeshUsage()
+    {
+        if (meshFilter)
+            meshFilter.mesh = mesh;
+        if (meshCollider)
+            meshCollider.sharedMesh = mesh;
+        if (fireEffect && vertices.Count >= 3 && triangles.Count >= 3)
+        {
+            if (!fireEffect.HasAnySystemAwake())
+                fireEffect.Play();
+            fireEffect.SetMesh("fireMesh", mesh);
+            fireEffect.SetVector3("firePos", transform.localPosition);
+        }
+        else
+        {
+            fireEffect.SetMesh("fireMesh", GenerateTemporaryMeshForVFX());
+        }
+    }
     //Ignites closest Vertex to world positon
     private void ExtinguishClosestVertex(Vector3 point)
     {
@@ -115,8 +124,50 @@ public class SpreadableFire : MonoBehaviour
         }
         if (fireVerticies.ContainsKey(flatenedPoint))
             fireVerticies[flatenedPoint].status = FireVertex.VertexStatus.extingushed;
-
+        if (!delayedGeneration)
+            StartCoroutine("DelayedMeshGenerationCall");
     }
+    //ignites verticies in an radius around the closest vertex
+    public void ExtinguishVerticesInRaidus(Vector3 point,float r=1)
+    {
+        Vector3 p = transform.InverseTransformPoint(point);
+        Vector2 center = WorldToGridPosition(p);
+        float radius = r / gridSquarewidth;
+        int rowS, rowE, colS, colE;
+        rowS = (int)(center.x - radius);
+        rowE = (int)(center.x + radius);
+        colS = (int)(center.y - radius);
+        colE = (int)(center.y + radius);
+        Debug.Log(center);
+        Debug.Log(rowS.ToString() + " " + rowE.ToString() + " " + colS.ToString() + " " + colE.ToString());
+        if (rowE > gridRows + 1)
+            rowE = gridRows + 1;
+        if (rowS < 0)
+            rowS = 0;
+        if (colE > gridCols + 1)
+            colE = gridCols + 1;
+        if (colS < 0)
+            colS = 0;
+        for(int i= rowS; i <= rowE; i++)
+        {
+            for (int j = colS; j <= colE; j++)
+            {
+                Vector2 vert = new Vector2(i, j);
+                if (Vector2.SqrMagnitude(vert - center) <= radius * radius)
+                {
+                    if (fireVerticies.ContainsKey(vert))
+                    {
+                        fireVerticies[vert].status = FireVertex.VertexStatus.extingushed;
+                        spreadableVerticies.Remove(vert);
+                        noneSpreadableVerticies.Add(vert);
+                    }
+                }
+            }
+        }
+        if (!delayedGeneration)
+            StartCoroutine("DelayedMeshGenerationCall");
+    }
+
     private void Propagate()
     {
         //spreads the fire to verticies surroungding the ignited ones, and updates the buring verticies
@@ -244,6 +295,15 @@ public class SpreadableFire : MonoBehaviour
                 surroundingPoints.Add(point + new Vector2(i, j));
 
         return surroundingPoints;
+    }
+
+    IEnumerator DelayedMeshGenerationCall()
+    {
+        delayedGeneration = true;
+        yield return new WaitForSeconds(1f);
+        GenerateFireMesh();
+        UpdateMeshUsage();
+        delayedGeneration = false;
     }
 
     //converts for world space to gridspace
