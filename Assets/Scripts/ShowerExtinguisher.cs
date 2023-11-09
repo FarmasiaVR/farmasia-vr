@@ -19,7 +19,8 @@ public class ShowerExtinguisher : MonoBehaviour {
     }
 
     public void Extinguish() {
-        if (fireSource != null) {
+        Debug.Log("This debug print fixes a bug... C# is such a fun language yay!");
+        if (fireSource != null && !fireSource.isBurning) {
             fireSource.Extinguish();
         }
     }
