@@ -9,7 +9,7 @@ public class ExtingushSpreadableFire : MonoBehaviour
     public Transform streamOrigin;
 
     bool extinguish = false;
-    float tickrate = 0.3f;
+    public float tickrate = 0.3f;
     float tick = 0;
     public void Update()
     {

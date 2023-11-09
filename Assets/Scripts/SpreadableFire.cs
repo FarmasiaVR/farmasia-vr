@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public class SpreadableFire : MonoBehaviour
 {
-    [SerializeField] float spreadingSpeed=1f, gridSquarewidth=1f,flameCollisionHeight=1f;
+    [SerializeField] float spreadingSpeed=1f, gridSquarewidth=1f,flameCollisionHeight=1f,meshUpdateDelay=0.4f;
     [SerializeField] int gridCols=4, gridRows=4;
     [SerializeField] BoxCollider bCollider;
 
@@ -300,7 +300,7 @@ public class SpreadableFire : MonoBehaviour
     IEnumerator DelayedMeshGenerationCall()
     {
         delayedGeneration = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(meshUpdateDelay);
         GenerateFireMesh();
         UpdateMeshUsage();
         delayedGeneration = false;
