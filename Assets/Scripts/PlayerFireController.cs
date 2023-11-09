@@ -9,7 +9,7 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
     public float maxBurnHealth = 30;
     public bool godMode = false;
     [SerializeField] private SimpleFire playerFire;
-    [HideInInspector] public bool isBurning {get; private set;} = false;
+    [HideInInspector] public bool isBurning {get => playerFire.isBurning;}
 
     [Tooltip("Passes a float with the current health percentage")]
     public UnityEvent <float> BurnUpdate;
@@ -25,7 +25,6 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
     private void OnEnable() {
         currentHealth = maxBurnHealth;
         dead = false;
-        isBurning = playerFire.isBurning;
     }
 
     private void Update() {
