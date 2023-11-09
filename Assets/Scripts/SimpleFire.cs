@@ -57,7 +57,9 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
             isBurning = false;
             currScalingAnimTime = setExtinguishTime;
             currScalingState = ScalingState.Extinguishing;
-            onExtinguish.Invoke();
+            // Don't fire event on instant extinguish. It is meant for turning fire off at scene start.
+            if (setExtinguishTime != 0.0)
+                onExtinguish.Invoke();
         }
     }
 
@@ -83,7 +85,9 @@ public class SimpleFire : MonoBehaviour, ITogglableFire {
             isBurning = true;
             currScalingAnimTime = setIgniteTime;
             currScalingState = ScalingState.Igniting;
-            onIgnite.Invoke();
+            // Don't fire event on instant ignition. It is meant for turning fire on at scene start.
+            if (setIgniteTime != 0.0)
+                onIgnite.Invoke();
         }
     }
 
