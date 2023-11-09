@@ -43,7 +43,12 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
     private void OnTriggerEnter(Collider collision) {
         // Player fire should not have a cube hitbox
         if (collision.gameObject.tag == "FireGrid") {
-            Ignite();
+            ITogglableFire fire = collision.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+            if (fire != null && fire.isBurning) {
+                Ignite();
+            } else {
+                Ignite();
+            }
         }
     }
 }
