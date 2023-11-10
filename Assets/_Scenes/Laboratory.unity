@@ -340,6 +340,12 @@ Transform:
   - {fileID: 1448201488}
   m_Father: {fileID: 65550842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &12188558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1030194912}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &13209251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -351,17 +357,17 @@ PrefabInstance:
     - target: {fileID: 485653456466227905, guid: c9c22ce6bfabab24780a187126e331ca,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.45
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: c9c22ce6bfabab24780a187126e331ca,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.45
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: c9c22ce6bfabab24780a187126e331ca,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.45
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 485653456466227905, guid: c9c22ce6bfabab24780a187126e331ca,
         type: 3}
@@ -412,6 +418,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586076705403332788, guid: c9c22ce6bfabab24780a187126e331ca,
+        type: 3}
+      propertyPath: igniteTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586076705403332788, guid: c9c22ce6bfabab24780a187126e331ca,
+        type: 3}
+      propertyPath: extinguishTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1586076705403332788, guid: c9c22ce6bfabab24780a187126e331ca,
         type: 3}
@@ -696,14 +712,14 @@ Transform:
   m_GameObject: {fileID: 30479001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.166, y: 0.126, z: -1.646}
+  m_LocalPosition: {x: 5.246, y: 0.126, z: -1.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 65550842}
   - {fileID: 1647478675}
   - {fileID: 2022246038}
-  m_Father: {fileID: 1023611173}
+  m_Father: {fileID: 971292726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &35238045
 Mesh:
@@ -1571,6 +1587,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &148981661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1997433567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &167651658
 Mesh:
   m_ObjectHideFlags: 0
@@ -1946,6 +1968,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0617025, y: 0.4836154, z: 0.48206985}
   m_Center: {x: -0.012331724, y: 0.050624132, z: 0.16058135}
+--- !u!1 &177300220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 284377410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &195625373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2148,10 +2176,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireExtinguisher
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2121686045}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &197751367 stripped
 Transform:
@@ -2884,6 +2917,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &283325721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1703286506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &284377410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2952,10 +2991,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EmergencyShower (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 284377416}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &284377411 stripped
 Transform:
@@ -2963,6 +3007,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 284377410}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &284377416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177300220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 177300220}
+  targetTutorialStartButton: {fileID: 176997272}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EmergencyShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &294847258
 Mesh:
   m_ObjectHideFlags: 0
@@ -6593,10 +6668,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireBlanket (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1547248671}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &622660430 stripped
 Transform:
@@ -6672,10 +6752,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EmergencyShower
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1333406738}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &629901735 stripped
 Transform:
@@ -7002,6 +7087,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &668200559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8792828837328343419, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+    type: 3}
+  m_PrefabInstance: {fileID: 9356273163606336}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921a5e4ee30ad344ca5766e61817ebcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &682744519
 GameObject:
   m_ObjectHideFlags: 0
@@ -7596,6 +7693,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &700253263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1928593989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716183509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8750366888799582947, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
@@ -8846,6 +8949,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883587509}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &896753124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1788495990}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &902611229
 Mesh:
   m_ObjectHideFlags: 0
@@ -9766,10 +9875,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 998725948}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &964645462 stripped
 Transform:
@@ -9810,6 +9924,7 @@ Transform:
   - {fileID: 1944930828}
   - {fileID: 1002200403}
   - {fileID: 1319728939}
+  - {fileID: 30479002}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &981582322
@@ -9978,6 +10093,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992415275}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &998725943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 964645461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &998725948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998725943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1002200402
 GameObject:
   m_ObjectHideFlags: 0
@@ -10508,11 +10660,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &1023611173 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9356272752127306, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+--- !u!1 &1018297494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
     type: 3}
-  m_PrefabInstance: {fileID: 9356273163606336}
+  m_PrefabInstance: {fileID: 1065236533}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1027274770
 GameObject:
@@ -10767,10 +10919,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireBlanket (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030194918}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1030194913 stripped
 Transform:
@@ -10778,6 +10935,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1030194912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1030194918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12188558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1547248666}
+  targetTutorialStartButton: {fileID: 527301728}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FireBlanket
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &1057283856
 Mesh:
   m_ObjectHideFlags: 0
@@ -11193,10 +11381,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1065236539}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1065236534 stripped
 Transform:
@@ -11204,6 +11397,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1065236533}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1065236539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018297494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1076262704
 GameObject:
   m_ObjectHideFlags: 0
@@ -11688,6 +11912,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1082629950}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1111319060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1545760726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1130846268
 Mesh:
   m_ObjectHideFlags: 0
@@ -11853,6 +12083,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1136295453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1448201487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1154174087
 Mesh:
   m_ObjectHideFlags: 0
@@ -12945,6 +13181,43 @@ Transform:
   - {fileID: 1432414003}
   m_Father: {fileID: 971292726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1333406733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 629901734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1333406738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333406733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 177300220}
+  targetTutorialStartButton: {fileID: 176997272}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EmergencyShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1341081008
 GameObject:
   m_ObjectHideFlags: 0
@@ -14090,10 +14363,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireBlanket (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448201493}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1448201488 stripped
 Transform:
@@ -14101,6 +14379,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1448201487}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1448201493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136295453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1547248666}
+  targetTutorialStartButton: {fileID: 527301728}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FireBlanket
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1457056373 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6150388122449973740, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
@@ -14885,10 +15194,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireBlanket (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1545760732}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1545760727 stripped
 Transform:
@@ -14896,6 +15210,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1545760726}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1545760732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111319060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1547248666}
+  targetTutorialStartButton: {fileID: 527301728}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FireBlanket
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &1547248666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 622660429}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1547248671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547248666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1547248666}
+  targetTutorialStartButton: {fileID: 527301728}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FireBlanket
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &1606829080
 Mesh:
   m_ObjectHideFlags: 0
@@ -15835,10 +16217,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox FireBlanket
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1703286512}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1703286507 stripped
 Transform:
@@ -15846,6 +16233,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1703286506}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1703286512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283325721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1547248666}
+  targetTutorialStartButton: {fileID: 527301728}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FireBlanket
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &1719826532
 Mesh:
   m_ObjectHideFlags: 0
@@ -16609,10 +17027,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1788495996}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1788495991 stripped
 Transform:
@@ -16620,6 +17043,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1788495990}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1788495996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896753124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &1797677168
 Mesh:
   m_ObjectHideFlags: 0
@@ -17028,10 +17482,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2052699476}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1808499524 stripped
 Transform:
@@ -17900,10 +18359,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1928593995}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1928593990 stripped
 Transform:
@@ -17911,6 +18375,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1928593989}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1928593995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700253263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &1942597572
 Mesh:
   m_ObjectHideFlags: 0
@@ -18898,10 +19393,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerEnterBox EyeShower
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2605480387868884838, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1997433573}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff486d3781e53941866fbc6c3df9592, type: 3}
 --- !u!4 &1997433568 stripped
 Transform:
@@ -18909,6 +19409,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1997433567}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1997433573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148981661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &2006597955
 Mesh:
   m_ObjectHideFlags: 0
@@ -19522,6 +20053,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 225246148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2052699471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 1808499523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2052699476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052699471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 1018297494}
+  targetTutorialStartButton: {fileID: 1490481460}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EyeShower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &2054086372
 Mesh:
   m_ObjectHideFlags: 0
@@ -20050,6 +20618,43 @@ Transform:
   - {fileID: 284377411}
   m_Father: {fileID: 65550842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2121686040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2605480387868884839, guid: 1ff486d3781e53941866fbc6c3df9592,
+    type: 3}
+  m_PrefabInstance: {fileID: 197751366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2121686045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121686040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHighlightBox: {fileID: 2121686040}
+  targetTutorialStartButton: {fileID: 315418455}
+  highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
+    type: 2}
+  onFirstEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668200559}
+        m_TargetAssemblyTypeName: LaboratorySceneManager, GameAssembly
+        m_MethodName: CompleteTask
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Extinguisher
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!43 &2143475202
 Mesh:
   m_ObjectHideFlags: 0
@@ -21998,11 +22603,7 @@ PrefabInstance:
     - {fileID: 5082478071896411501, guid: 0000ec7319e5cd34cbe65a6e33cd936d, type: 3}
     - {fileID: 9218419529183557853, guid: 0000ec7319e5cd34cbe65a6e33cd936d, type: 3}
     - {fileID: 590244617295756740, guid: 0000ec7319e5cd34cbe65a6e33cd936d, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 9356272752127306, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
-        type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 30479002}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 20336127350187551, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
