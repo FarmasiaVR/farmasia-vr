@@ -7,36 +7,25 @@ public class EyeShowerTutorialSceneManager : MonoBehaviour
     private TaskManager taskManager;
     public GameObject AcidVisuals;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         taskManager = GetComponent<TaskManager>();
-        AcidVisuals.SetActive(false);
+        //TODO: Add acid visuals back
+        //AcidVisuals.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-    public void PickUp()
-    {
+    public void PickUp() {
         taskManager.CompleteTask("PickupEyeShower");
     }
 
-    public void Activate()
-    {
+    public void Activate() {
         taskManager.CompleteTask("ActivateEyeShower");
-        AcidVisuals.SetActive(true);
+        //AcidVisuals.SetActive(true);
     }
 
-    public void Aim()
-    {
-        if (taskManager.IsTaskCompleted("ActivateEyeShower"))
-        {
+    public void Aim() {
+        if (taskManager.IsTaskCompleted("ActivateEyeShower")) {
             taskManager.CompleteTask("AimEyeShower");
-            AcidVisuals.SetActive(false);
+            //AcidVisuals.SetActive(false);
         }
     }
 }
