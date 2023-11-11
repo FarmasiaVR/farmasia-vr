@@ -79,10 +79,20 @@ public class SpreadableFire : MonoBehaviour
             IgniteClosestVertex(transform.InverseTransformPoint(collision.GetContact(0).point));
     }
 
-    //Ignites closest Vertex to world positon
+    //Ignites closest Vertex to world(local) positon
     private void IgniteClosestVertex(Vector3 point)
     {
         Vector2 flatenedPoint = WorldToGridPosition(point);
+        if (spreadableVerticies.Contains(flatenedPoint))
+        {
+            ignitedVerticies.Add(flatenedPoint);
+            spreadableVerticies.Remove(flatenedPoint);
+        }
+    }
+    public void IgniteClosestVertexNonCollision(Vector3 point)
+    {
+        Vector3 p = transform.InverseTransformPoint(point);
+        Vector2 flatenedPoint = WorldToGridPosition(p);
         if (spreadableVerticies.Contains(flatenedPoint))
         {
             ignitedVerticies.Add(flatenedPoint);
@@ -108,7 +118,7 @@ public class SpreadableFire : MonoBehaviour
             fireEffect.SetMesh("fireMesh", GenerateTemporaryMeshForVFX());
         }
     }
-    //Ignites closest Vertex to world positon
+    //Ignites closest Vertex to world(local) positon
     private void ExtinguishClosestVertex(Vector3 point)
     {
         Vector2 flatenedPoint = WorldToGridPosition(point);
@@ -127,7 +137,7 @@ public class SpreadableFire : MonoBehaviour
         if (!delayedGeneration)
             StartCoroutine("DelayedMeshGenerationCall");
     }
-    //ignites verticies in an radius around the closest vertex
+    //Extinguish verticies in an radius around the closest vertex
     public void ExtinguishVerticesInRaidus(Vector3 point,float r=1)
     {
         Vector3 p = transform.InverseTransformPoint(point);
