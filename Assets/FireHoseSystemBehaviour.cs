@@ -8,6 +8,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     public GameObject thisObject;
     public Rigidbody thisRigidbody;
     public ParticleSystem particleSystemToActivate;
+    public AudioSource audioToActivate;
     public GameObject lever;
     bool hoseEndIsOn;
     bool leverIsOn;
@@ -22,6 +23,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
         if (particleSystemToActivate != null)
         {
             particleSystemToActivate.Stop();
+            audioToActivate.Stop();
             hoseEndIsOn = false;
         }
         leverIsOn = false;
@@ -39,44 +41,51 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     public void TurnOnTheNozzle()
     {
         //starting particlesystem if hose is not on and lever is on, otherwise shutting it down
-        if (particleSystemToActivate != null && !hoseEndIsOn && leverIsOn)
+        if (particleSystemToActivate != null && !hoseEndIsOn && leverIsOn && audioToActivate != null)
         {
             particleSystemToActivate.Play();
+            audioToActivate.Play();
+            
             hoseEndIsOn = true;
         }
-        else if (particleSystemToActivate != null && !hoseEndIsOn && !leverIsOn)
+        else if (particleSystemToActivate != null && !hoseEndIsOn && !leverIsOn && audioToActivate != null)
         {
             hoseEndIsOn = true;
         }
-        else if (particleSystemToActivate != null && hoseEndIsOn)
+        else if (particleSystemToActivate != null && hoseEndIsOn && audioToActivate != null)
         {
             hoseEndIsOn = false;
             particleSystemToActivate.Stop();
+            audioToActivate.Stop();
         }
     }
 
     public void LeverIsTurned()
     {
-        if (particleSystemToActivate != null) {
+        if (particleSystemToActivate != null && audioToActivate != null) {
             if (leverIsOn && hoseEndIsOn)
             { 
                 leverIsOn = false;
                 particleSystemToActivate.Stop();
+                audioToActivate.Stop();
             }
             else if (leverIsOn && !hoseEndIsOn)
             {
                 leverIsOn = false;
                 particleSystemToActivate.Stop();
+                audioToActivate.Stop();
             }
             else if (!leverIsOn && hoseEndIsOn)
             {
                 leverIsOn = true;
                 particleSystemToActivate.Play();
+                audioToActivate.Play();
             }
             else if (!leverIsOn && !hoseEndIsOn)
             {
                 leverIsOn = true;
                 particleSystemToActivate.Stop();
+                audioToActivate.Stop();
             }
         }
     }
