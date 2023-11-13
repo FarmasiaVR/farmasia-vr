@@ -18,7 +18,7 @@ public class RotateObject : MonoBehaviour
     private bool isOpen = false;
     private bool didAlready = false;
 
-    public void Start()
+    public void ApplyRotation()
     {
         if (!isRotating)
         {
