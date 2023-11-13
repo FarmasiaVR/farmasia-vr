@@ -46,7 +46,8 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
             ITogglableFire fire = collision.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
             if (fire != null && fire.isBurning) {
                 Ignite();
-            } else {
+            } else if (fire == null) {
+                Debug.Log("Stepped on top of unknown tagged fire hitbox");
                 Ignite();
             }
         }
