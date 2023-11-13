@@ -10,8 +10,9 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     public ParticleSystem particleSystemToActivate;
     public AudioSource audioToActivate;
     public GameObject lever;
-    bool hoseEndIsOn;
-    bool leverIsOn;
+    public GameObject leverToCheck;
+    bool hoseEndIsOn = false;
+    bool leverIsOn = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,21 +27,25 @@ public class FireHoseSystemBehaviour : MonoBehaviour
             audioToActivate.Stop();
             hoseEndIsOn = false;
         }
-        leverIsOn = false;
-        hoseEndIsOn = false;
+        if (leverToCheck != null) {
+        if (Mathf.RoundToInt((leverToCheck.transform.eulerAngles.z)) == 90) {
+            leverIsOn = true;
+        }
+        }
     }
 
-    public void TakenToHand() { 
+    public void TakenToHand() {
+        Debug.Log("TakenToHand method called");
         if (thisRigidbody != null)
         {
             thisRigidbody.useGravity = true;
-            //Debug.Log("TakenToHand method called");
         }
     }
 
     public void TurnOnTheNozzle()
     {
         //starting particlesystem if hose is not on and lever is on, otherwise shutting it down
+        Debug.Log("TurnOnTheNozzle method called");
         if (particleSystemToActivate != null && !hoseEndIsOn && leverIsOn && audioToActivate != null)
         {
             particleSystemToActivate.Play();
@@ -62,6 +67,8 @@ public class FireHoseSystemBehaviour : MonoBehaviour
 
     public void LeverIsTurned()
     {
+        Debug.Log("LeverIsTurned method called");
+
         if (particleSystemToActivate != null && audioToActivate != null) {
             if (leverIsOn && hoseEndIsOn)
             { 
@@ -88,11 +95,5 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 audioToActivate.Stop();
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -8,7 +8,12 @@ public class FireHoseSpawner : MonoBehaviour
     public GameObject referenceObject;
     public GameObject objectToSpawnPrefab;
     public GameObject objectToDespawn;
-    public GameObject objectToActivate;
+    public GameObject objectToActivate1;
+    public GameObject objectToActivate2;
+    public GameObject reel;
+    public GameObject reelHalf;
+    public GameObject reelEmpty;
+    private int activeHose = 0;
 
     public void SpawnObject()
     {
@@ -28,12 +33,24 @@ public class FireHoseSpawner : MonoBehaviour
 
     public void ActivateObject()
     {
-        if (objectToDespawn != null)
+        if (objectToDespawn != null && activeHose == 0 && objectToActivate1 != null && reel != null && reelHalf != null)
         {
-        objectToDespawn.SetActive(false);
+            //Destroy(objectToDespawn);
+            objectToDespawn.SetActive(false);
+            reel.SetActive(false);
+            reelHalf.SetActive(true);
+            objectToActivate1.SetActive(true);
+            activeHose = 1;
         }
-        if (objectToActivate != null)
-        objectToActivate.SetActive(true);
+        else if (objectToActivate1 != null && activeHose == 1 && objectToActivate2 != null && reelHalf != null && reelEmpty != null)
+        {
+            //Destroy(objectToActivate1);
+            objectToActivate1.SetActive(false);
+            reelHalf.SetActive(false);
+            reelEmpty.SetActive(true);
+            objectToActivate2.SetActive(true);
+            activeHose = 2;
+        }
     }
 }
 
