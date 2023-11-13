@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.VFX;
 
 public class SpreadableFire : MonoBehaviour
@@ -11,6 +12,7 @@ public class SpreadableFire : MonoBehaviour
     [SerializeField] BoxCollider bCollider;
 
     private float spreadTimer = 0;
+    private bool burning;
     private HashSet<Vector2> spreadableVerticies = new HashSet<Vector2>();
     private HashSet<Vector2> ignitedVerticies = new HashSet<Vector2>();
     private HashSet<Vector2> noneSpreadableVerticies = new HashSet<Vector2>();
@@ -18,6 +20,8 @@ public class SpreadableFire : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshCollider meshCollider;
     public VisualEffect fireEffect;
+    public UnityEvent fireExtinguished;
+    public UnityEvent fireIgnited;
     Mesh mesh;
 
     Dictionary<Vector3, int> vertexIndex = new Dictionary<Vector3, int>();
@@ -87,8 +91,14 @@ public class SpreadableFire : MonoBehaviour
         {
             ignitedVerticies.Add(flatenedPoint);
             spreadableVerticies.Remove(flatenedPoint);
+            if (!burning)
+            {
+                burning = true;
+                fireIgnited.Invoke();
+            }
         }
     }
+    //Ignition using function call from outside
     public void IgniteClosestVertexNonCollision(Vector3 point)
     {
         Vector3 p = transform.InverseTransformPoint(point);
@@ -97,9 +107,15 @@ public class SpreadableFire : MonoBehaviour
         {
             ignitedVerticies.Add(flatenedPoint);
             spreadableVerticies.Remove(flatenedPoint);
+            if (!burning)
+            {
+                burning = true;
+                fireIgnited.Invoke();
+            }
         }
     }
 
+    //Updates the mesh used for collision and particle emission
     void UpdateMeshUsage()
     {
         if (meshFilter)
@@ -112,11 +128,18 @@ public class SpreadableFire : MonoBehaviour
                 fireEffect.Play();
             fireEffect.SetMesh("fireMesh", mesh);
             fireEffect.SetVector3("firePos", transform.localPosition);
+            return;
         }
-        else
+        fireEffect.SetMesh("fireMesh", GenerateTemporaryMeshForVFX());
+        if (burning)
         {
-            fireEffect.SetMesh("fireMesh", GenerateTemporaryMeshForVFX());
+            if (ignitedVerticies.Count < 1)
+            {
+                burning = false;
+                fireExtinguished.Invoke();
+            }
         }
+        
     }
     //Ignites closest Vertex to world(local) positon
     private void ExtinguishClosestVertex(Vector3 point)
@@ -168,7 +191,12 @@ public class SpreadableFire : MonoBehaviour
                     if (fireVerticies.ContainsKey(vert))
                     {
                         fireVerticies[vert].status = FireVertex.VertexStatus.extingushed;
-                        spreadableVerticies.Remove(vert);
+                        if (noneSpreadableVerticies.Contains(vert))
+                            continue;
+                        if (spreadableVerticies.Contains(vert))
+                            spreadableVerticies.Remove(vert);
+                        if (ignitedVerticies.Contains(vert))
+                            ignitedVerticies.Remove(vert);
                         noneSpreadableVerticies.Add(vert);
                     }
                 }
