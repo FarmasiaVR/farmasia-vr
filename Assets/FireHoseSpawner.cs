@@ -38,7 +38,6 @@ public class FireHoseSpawner : MonoBehaviour
         {
             //Destroy(objectToDespawn);
             objectToDespawn.SetActive(false);
-            reelHalf.SetActive(true);
             objectToActivate1.SetActive(true);
             activeHose = 1;
         }
