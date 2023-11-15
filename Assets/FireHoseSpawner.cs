@@ -11,6 +11,9 @@ public class FireHoseSpawner : MonoBehaviour
     public GameObject objectToActivate1;
     public GameObject objectToActivate2;
     public GameObject objectToActivate3;
+    public GameObject head2;
+    public GameObject head3;
+    public GameObject headSpawn;
     public GameObject reel;
     public GameObject reelHalf;
     public GameObject reelEmpty;
@@ -55,6 +58,7 @@ public class FireHoseSpawner : MonoBehaviour
             objectToActivate2.SetActive(true);
             activeHose = 2;
             TwistHose(hoseTwists2);
+            SecureHead(head2);
         }
         else if (objectToActivate2 != null && activeHose == 2 && objectToActivate3 != null && reelHalf != null && reelEmpty != null)
         {
@@ -64,6 +68,7 @@ public class FireHoseSpawner : MonoBehaviour
             objectToActivate3.SetActive(true);
             activeHose = 3;
             TwistHose(hoseTwists3);
+            SecureHead(head3);
         }
     }
     public void TwistHose(List<GameObject> hoseTwists)
@@ -76,6 +81,13 @@ public class FireHoseSpawner : MonoBehaviour
                 item1.transform.position = item2.transform.position;
                 index++;
             }
+        }
+    }
+
+    public void SecureHead(GameObject Head)
+    {
+    if (Head != null && headSpawn != null) { 
+        Head.transform.position = headSpawn.transform.position;
         }
     }
 }
