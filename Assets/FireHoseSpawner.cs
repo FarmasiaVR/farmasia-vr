@@ -15,6 +15,7 @@ public class FireHoseSpawner : MonoBehaviour
     public GameObject reelHalf;
     public GameObject reelEmpty;
     private int activeHose = 0;
+    //public List<GameObject> hoseTwists1 = new List<GameObject>();
     public List<GameObject> hoseTwists2 = new List<GameObject>();
     public List<GameObject> hoseTwists3 = new List<GameObject>();
     public List<GameObject> twistPlaces = new List<GameObject>();
@@ -43,6 +44,7 @@ public class FireHoseSpawner : MonoBehaviour
             objectToDespawn.SetActive(false);
             objectToActivate1.SetActive(true);
             activeHose = 1;
+            //TwistHose(hoseTwists1);
         }
         else if (objectToActivate1 != null && activeHose == 1 && objectToActivate2 != null && reelHalf != null && reel != null)
         {

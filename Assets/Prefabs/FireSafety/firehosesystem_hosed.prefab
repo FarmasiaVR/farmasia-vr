@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 118451460342874782}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.030510902, y: 0.5543, z: 1.03}
+  m_LocalPosition: {x: -0.030510902, y: 0.5543, z: 1.131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6437,7 +6437,7 @@ Transform:
   m_GameObject: {fileID: 2170411283024433121}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.030510902, y: 0.345, z: 2.48}
+  m_LocalPosition: {x: -0.052, y: 0.372, z: 2.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6994,7 +6994,7 @@ Transform:
   m_GameObject: {fileID: 2637984935171396508}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.030510902, y: 0.17, z: 4.417}
+  m_LocalPosition: {x: -0.064, y: 0.212, z: 4.417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23502,6 +23502,7 @@ GameObject:
   - component: {fileID: 2203565934830854910}
   - component: {fileID: 8715809150451643935}
   - component: {fileID: 1854794681244731535}
+  - component: {fileID: 11050214149162809}
   m_Layer: 0
   m_Name: reels
   m_TagString: Untagged
@@ -23549,6 +23550,8 @@ MonoBehaviour:
   reel: {fileID: 4079899925933480908}
   reelHalf: {fileID: 7810479947099206071}
   reelEmpty: {fileID: 4946452295122720582}
+  hoseTwists1:
+  - {fileID: 686817894574146462}
   hoseTwists2:
   - {fileID: 6656501656950735525}
   - {fileID: 9082496077626038277}
@@ -23702,6 +23705,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3471048, y: 0.63783586, z: 0.85717463}
   m_Center: {x: -0.29076177, y: -0.4208246, z: -0.6784202}
+--- !u!65 &11050214149162809
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086425281683119906}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.31636018, y: 0.2149095, z: 0.5038331}
+  m_Center: {x: -0.28841054, y: 0.03470248, z: -0.7714952}
 --- !u!1 &7245648252429912335
 GameObject:
   m_ObjectHideFlags: 0
@@ -34273,6 +34297,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 624103759914938144, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624103759914938144, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 624103759914938144, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.1314956
       objectReference: {fileID: 0}
@@ -34280,6 +34314,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000005595886
+      objectReference: {fileID: 0}
+    - target: {fileID: 917285694436542443, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 917285694436542443, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 917285694436542443, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34293,6 +34337,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984227272153508705, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 984227272153508705, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 984227272153508705, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12637234
       objectReference: {fileID: 0}
@@ -34300,6 +34354,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000050624798
+      objectReference: {fileID: 0}
+    - target: {fileID: 999717622763771221, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 999717622763771221, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 999717622763771221, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34313,6 +34377,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057110459791200622, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057110459791200622, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057110459791200622, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.124623135
       objectReference: {fileID: 0}
@@ -34320,6 +34394,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -1.3452822e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087758125661960837, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087758125661960837, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1087758125661960837, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34331,6 +34415,26 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004774787
       objectReference: {fileID: 0}
+    - target: {fileID: 1484769277534587648, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1484769277534587648, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867799948885532329, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867799948885532329, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1867799948885532329, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -34340,6 +34444,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000005477492
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152088969878513371, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152088969878513371, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216974719824059564, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216974719824059564, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2216974719824059564, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34403,6 +34527,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2603921533703417784, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603921533703417784, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603921533703417784, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12466431
       objectReference: {fileID: 0}
@@ -34410,6 +34544,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004688902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631694330432956248, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631694330432956248, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2631694330432956248, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34423,6 +34567,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2665728597277979905, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665728597277979905, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665728597277979905, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12124872
       objectReference: {fileID: 0}
@@ -34430,6 +34584,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000050515063
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633142229826371142, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633142229826371142, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3633142229826371142, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34443,6 +34607,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3850583574140978125, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3850583574140978125, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3850583574140978125, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12807977
       objectReference: {fileID: 0}
@@ -34450,6 +34624,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004225824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4021302651828568527, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4021302651828568527, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4021302651828568527, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34463,13 +34647,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4108572289222212078, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108572289222212078, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108572289222212078, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108572289222212078, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.1284225
+      value: 0.12842253
       objectReference: {fileID: 0}
     - target: {fileID: 4108572289222212078, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 1.11028506e-10
+      value: -0.000000029691293
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120977205636213630, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4120977205636213630, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4120977205636213630, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34483,6 +34692,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4157310950064006449, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157310950064006449, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157310950064006449, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.1314621
       objectReference: {fileID: 0}
@@ -34493,6 +34712,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4383647578921587744, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383647578921587744, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383647578921587744, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383647578921587744, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12498036
       objectReference: {fileID: 0}
@@ -34500,6 +34734,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.000000007450581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741100484767427341, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741100484767427341, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778849096783985706, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778849096783985706, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4778849096783985706, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34518,6 +34772,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5339311369500425913, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339311369500425913, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339311369500425913, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12538302
       objectReference: {fileID: 0}
@@ -34525,6 +34789,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -8.491777e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918850582737170221, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918850582737170221, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5918850582737170221, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34538,6 +34812,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025423181779854256, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025423181779854256, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025423181779854256, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025423181779854256, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.122956395
       objectReference: {fileID: 0}
@@ -34548,6 +34837,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6205136556504926779, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205136556504926779, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205136556504926779, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12295663
       objectReference: {fileID: 0}
@@ -34555,6 +34854,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000050516844
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258764816010774642, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258764816010774642, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6663723421375279165, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6663723421375279165, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6663723421375279165, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34568,6 +34887,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7046462539559724393, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046462539559724393, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046462539559724393, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.1263721
       objectReference: {fileID: 0}
@@ -34575,6 +34904,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000036333934
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388213059937491724, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388213059937491724, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7388213059937491724, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34588,6 +34927,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8043038159216074369, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043038159216074369, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043038159216074369, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12295687
       objectReference: {fileID: 0}
@@ -34595,6 +34944,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000049968527
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069219763452956375, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069219763452956375, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124322269843847852, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124322269843847852, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8124322269843847852, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34608,6 +34977,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8458429583010705567, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458429583010705567, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458429583010705567, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12808013
       objectReference: {fileID: 0}
@@ -34615,6 +34994,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000048921915
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662327278998344086, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662327278998344086, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662327278998344086, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8662327278998344086, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34649,17 +35043,27 @@ PrefabInstance:
     - target: {fileID: 8854887671052449698, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.3512756
+      value: -0.1762756
       objectReference: {fileID: 0}
     - target: {fileID: 8854887671052449698, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.037147462
+      value: 0.037147447
       objectReference: {fileID: 0}
     - target: {fileID: 8854887671052449698, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.8279346
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202548182817625230, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202548182817625230, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9202548182817625230, guid: b382f4464f5b5d047b93acef7a768963,
         type: 3}
@@ -34674,8 +35078,55 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4248289095263537081, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7814856109716368972}
+    - targetCorrespondingSourceObject: {fileID: 8048407392046967085, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5151378883034748241}
+    - targetCorrespondingSourceObject: {fileID: 968109273065086980, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8731868478197057657}
+    - targetCorrespondingSourceObject: {fileID: 5609947002739110797, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4175819855868457722}
+    - targetCorrespondingSourceObject: {fileID: 5503488866637340353, guid: b382f4464f5b5d047b93acef7a768963,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4941928326902138698}
   m_SourcePrefab: {fileID: 100100000, guid: b382f4464f5b5d047b93acef7a768963, type: 3}
+--- !u!1 &659213778148535345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4248289095263537081, guid: b382f4464f5b5d047b93acef7a768963,
+    type: 3}
+  m_PrefabInstance: {fileID: 3733777782024399752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &7814856109716368972
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659213778148535345}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1283221429344855485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2458930261154041397, guid: b382f4464f5b5d047b93acef7a768963,
@@ -34694,18 +35145,114 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 3733777782024399752}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4521158128305245068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 968109273065086980, guid: b382f4464f5b5d047b93acef7a768963,
+    type: 3}
+  m_PrefabInstance: {fileID: 3733777782024399752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &8731868478197057657
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521158128305245068}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6656501656950735525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8048407392046967085, guid: b382f4464f5b5d047b93acef7a768963,
     type: 3}
   m_PrefabInstance: {fileID: 3733777782024399752}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &5151378883034748241
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6656501656950735525}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9082496077626038277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5609947002739110797, guid: b382f4464f5b5d047b93acef7a768963,
     type: 3}
   m_PrefabInstance: {fileID: 3733777782024399752}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &4175819855868457722
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082496077626038277}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9201235479443486025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5503488866637340353, guid: b382f4464f5b5d047b93acef7a768963,
+    type: 3}
+  m_PrefabInstance: {fileID: 3733777782024399752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &4941928326902138698
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201235479443486025}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3773979706314286749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35214,7 +35761,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.09644793, y: 0.17916586, z: 0.0889299}
   m_Center: {x: -0.0011499152, y: -0.004422005, z: 0.0013917162}
@@ -35825,7 +36372,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0046365354, y: -1.867537, z: -0.00027799993}
+  m_ConnectedAnchor: {x: 0.0046365354, y: 0.13446379, z: -0.00027847852}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -36476,13 +37023,38 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 71706879773710397, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 71706879773710397, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 71706879773710397, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 71706879773710397, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.124807835
+      value: 0.12480879
       objectReference: {fileID: 0}
     - target: {fileID: 71706879773710397, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0000000054567657
+      value: -0.0000000054567635
+      objectReference: {fileID: 0}
+    - target: {fileID: 199664413122628449, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199664413122628449, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199664413122628449, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36496,6 +37068,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 286786372943711982, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 286786372943711982, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 286786372943711982, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12576866
       objectReference: {fileID: 0}
@@ -36503,6 +37085,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000019815276
+      objectReference: {fileID: 0}
+    - target: {fileID: 508163324641628017, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508163324641628017, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 508163324641628017, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36516,6 +37108,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 531209539335725038, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531209539335725038, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531209539335725038, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.13146195
       objectReference: {fileID: 0}
@@ -36523,6 +37125,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -1.9286842e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 578114452972872887, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578114452972872887, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 578114452972872887, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36536,6 +37148,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 668148304228631907, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 668148304228631907, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 668148304228631907, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12480855
       objectReference: {fileID: 0}
@@ -36543,6 +37165,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000003134872
+      objectReference: {fileID: 0}
+    - target: {fileID: 871245034005918406, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 871245034005918406, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 883087138447562872, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 883087138447562872, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014152395854610834, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014152395854610834, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016397601268649356, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016397601268649356, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1016397601268649356, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36556,6 +37218,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1130413898876020144, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130413898876020144, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130413898876020144, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12480831
       objectReference: {fileID: 0}
@@ -36566,13 +37238,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1231549022763364902, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231549022763364902, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231549022763364902, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.122888565
+      value: 0.12288952
       objectReference: {fileID: 0}
     - target: {fileID: 1231549022763364902, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0000000056366383
+      value: -0.0000000056366396
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296900615896274015, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296900615896274015, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1296900615896274015, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36586,6 +37278,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1627184029269318491, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627184029269318491, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627184029269318491, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.1263721
       objectReference: {fileID: 0}
@@ -36593,6 +37295,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000039923576
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742359270720092129, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742359270720092129, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742359270720092129, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36606,6 +37318,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1900018971504141520, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900018971504141520, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900018971504141520, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12864876
       objectReference: {fileID: 0}
@@ -36613,6 +37335,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000032544343
+      objectReference: {fileID: 0}
+    - target: {fileID: 2022716468331534447, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2022716468331534447, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2022716468331534447, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36626,6 +37358,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2137114568077323005, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137114568077323005, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137114568077323005, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.13149512
       objectReference: {fileID: 0}
@@ -36633,6 +37375,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000046276867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160195138360599625, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160195138360599625, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160195138360599625, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2160195138360599625, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36646,6 +37403,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2194641135762445825, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194641135762445825, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194641135762445825, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12192947
       objectReference: {fileID: 0}
@@ -36653,6 +37420,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004536189
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315039795990508556, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315039795990508556, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315039795990508556, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2315039795990508556, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36666,6 +37448,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2478668816678278983, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478668816678278983, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478668816678278983, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12466478
       objectReference: {fileID: 0}
@@ -36676,6 +37468,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519038345380150194, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519038345380150194, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519038345380150194, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12978756
       objectReference: {fileID: 0}
@@ -36683,6 +37485,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000041135624
+      objectReference: {fileID: 0}
+    - target: {fileID: 2535411899980475658, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2535411899980475658, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2741639794507032865, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2741639794507032865, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2741639794507032865, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36696,6 +37518,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811398278329773231, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811398278329773231, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811398278329773231, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12124848
       objectReference: {fileID: 0}
@@ -36703,6 +37535,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000048781343
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137909852571127463, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137909852571127463, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137909852571127463, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36716,6 +37558,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3263257530360954238, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263257530360954238, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263257530360954238, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12766266
       objectReference: {fileID: 0}
@@ -36726,6 +37578,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3366592454869525832, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366592454869525832, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366592454869525832, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.1276887
       objectReference: {fileID: 0}
@@ -36733,6 +37595,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000047016973
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429438315341934065, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3429438315341934065, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621808991457582737, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621808991457582737, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3621808991457582737, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36746,6 +37628,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3711973033489287421, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711973033489287421, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711973033489287421, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12768888
       objectReference: {fileID: 0}
@@ -36753,6 +37645,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000045261253
+      objectReference: {fileID: 0}
+    - target: {fileID: 3845022048508038195, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3845022048508038195, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3845022048508038195, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36766,6 +37668,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4242166884757994103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242166884757994103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242166884757994103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12672806
       objectReference: {fileID: 0}
@@ -36773,6 +37685,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000021239628
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403307651548728193, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403307651548728193, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702364879251790040, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702364879251790040, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4702364879251790040, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36786,6 +37718,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735427430535335728, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735427430535335728, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735427430535335728, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12576854
       objectReference: {fileID: 0}
@@ -36793,6 +37735,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.00000000376303
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745509347771336561, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745509347771336561, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4745509347771336561, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36806,6 +37758,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776131340552519994, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776131340552519994, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776131340552519994, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12576818
       objectReference: {fileID: 0}
@@ -36813,6 +37775,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000024139517
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883605819427850686, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883605819427850686, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883605819427850686, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4883605819427850686, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36826,13 +37803,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5034708333658339566, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034708333658339566, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034708333658339566, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.1246649
+      value: 0.12466538
       objectReference: {fileID: 0}
     - target: {fileID: 5034708333658339566, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0000000038923664
+      value: -0.0000000038923673
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041295071793539380, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041295071793539380, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073745638546267916, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073745638546267916, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5073745638546267916, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36846,6 +37853,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5247430598823614928, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247430598823614928, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5247430598823614928, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12295699
       objectReference: {fileID: 0}
@@ -36853,6 +37870,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000041234887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460026253943063375, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5460026253943063375, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5460026253943063375, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36866,6 +37893,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5468498169828866458, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468498169828866458, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468498169828866458, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.11954123
       objectReference: {fileID: 0}
@@ -36873,6 +37910,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000003568192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760447597028752336, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760447597028752336, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5760447597028752336, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36884,6 +37931,26 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000043368953
       objectReference: {fileID: 0}
+    - target: {fileID: 5776341896847823225, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776341896847823225, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929813571248240692, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929813571248240692, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5929813571248240692, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -36893,6 +37960,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004989083
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956334075168277179, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956334075168277179, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956334075168277179, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36911,6 +37988,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6240645133533348680, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240645133533348680, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240645133533348680, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12096822
       objectReference: {fileID: 0}
@@ -36918,6 +38005,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000047115227
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253698414809238721, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6253698414809238721, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6253698414809238721, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36931,6 +38028,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597600612402235490, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597600612402235490, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597600612402235490, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12807989
       objectReference: {fileID: 0}
@@ -36938,6 +38045,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000043905914
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599589854249994836, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599589854249994836, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6599589854249994836, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36951,6 +38068,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6620420900376542402, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620420900376542402, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620420900376542402, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12672889
       objectReference: {fileID: 0}
@@ -36958,6 +38085,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004017434
+      objectReference: {fileID: 0}
+    - target: {fileID: 6742280378200083145, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6742280378200083145, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6742280378200083145, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36971,6 +38108,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920537990989724749, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920537990989724749, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920537990989724749, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12124848
       objectReference: {fileID: 0}
@@ -36978,6 +38125,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000046549653
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941062120919980574, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941062120919980574, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941062120919980574, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -36991,6 +38148,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7263362785576328049, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263362785576328049, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263362785576328049, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12384796
       objectReference: {fileID: 0}
@@ -36998,6 +38165,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000020260225
+      objectReference: {fileID: 0}
+    - target: {fileID: 7386719735374125589, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7386719735374125589, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7386719735374125589, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -37011,6 +38188,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7456190039916872031, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456190039916872031, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456190039916872031, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12295735
       objectReference: {fileID: 0}
@@ -37021,6 +38208,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7517973172865651567, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517973172865651567, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517973172865651567, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.13067555
       objectReference: {fileID: 0}
@@ -37028,6 +38225,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.000000004468022
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580956052276071632, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580956052276071632, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7580956052276071632, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -37089,6 +38296,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7684895495365844395, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684895495365844395, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949036345275303707, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949036345275303707, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7949036345275303707, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -37132,7 +38359,17 @@ PrefabInstance:
     - target: {fileID: 8074702012796809113, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -2.831882
+      value: -0.8948822
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278486060032273623, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278486060032273623, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8278486060032273623, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -37146,13 +38383,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8329511624647158798, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329511624647158798, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329511624647158798, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329511624647158798, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.12768841
+      value: 0.12768745
       objectReference: {fileID: 0}
     - target: {fileID: 8329511624647158798, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.00000000557112
+      value: -0.0000000055711147
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338701757630771969, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338701757630771969, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8338701757630771969, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -37166,6 +38428,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8447986350307604103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447986350307604103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447986350307604103, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.11270994
       objectReference: {fileID: 0}
@@ -37176,6 +38448,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503741095755037762, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503741095755037762, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503741095755037762, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.12466407
       objectReference: {fileID: 0}
@@ -37183,6 +38465,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000000043754107
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632230865519476657, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632230865519476657, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713894350024716655, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713894350024716655, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023382777143110708, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023382777143110708, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9023382777143110708, guid: 094cf01d76ec23f4b98c839e7efe47a1,
         type: 3}
@@ -37197,7 +38509,51 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1940834176885390233, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7178934050730508349}
+    - targetCorrespondingSourceObject: {fileID: 5740508339700225293, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4896608060466882965}
+    - targetCorrespondingSourceObject: {fileID: 3275423475189668900, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1595468931187993115}
+    - targetCorrespondingSourceObject: {fileID: 7908680594821844909, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5750934231379974555}
+    - targetCorrespondingSourceObject: {fileID: 7817017491272884961, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 283218796267561642}
+    - targetCorrespondingSourceObject: {fileID: 106374839903389450, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1560361375662477833}
+    - targetCorrespondingSourceObject: {fileID: 7055978425720557444, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2236529271431444092}
+    - targetCorrespondingSourceObject: {fileID: 7449506519213791566, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8665511219273485265}
+    - targetCorrespondingSourceObject: {fileID: 6749061063297178242, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1716488824137595181}
+    - targetCorrespondingSourceObject: {fileID: 3351088006284343082, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6280423713882832608}
+    - targetCorrespondingSourceObject: {fileID: 3171196221786790942, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4482041888103354595}
   m_SourcePrefab: {fileID: 100100000, guid: 094cf01d76ec23f4b98c839e7efe47a1, type: 3}
 --- !u!1 &1223203530219545463 stripped
 GameObject:
@@ -37205,48 +38561,315 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &8665511219273485265
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223203530219545463}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1302006749248206521 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7316642583048162432, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1617805375743489469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7055978425720557444, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &2236529271431444092
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617805375743489469}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1898549327252239764 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7908680594821844909, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &5750934231379974555
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898549327252239764}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1955060800273310669 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 7834436942645713396, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2009687806189328600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7817017491272884961, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &283218796267561642
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009687806189328600}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &2159751418909163916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7665335389111368629, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3040278104316780731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6749061063297178242, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1716488824137595181
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040278104316780731}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4049341342515687220 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5740508339700225293, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &4896608060466882965
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4049341342515687220}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6420219222456716563 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3351088006284343082, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &6280423713882832608
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420219222456716563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6551862106724722205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3275423475189668900, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1595468931187993115
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551862106724722205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6600620905739920935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3171196221786790942, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &4482041888103354595
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6600620905739920935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7887911751339753888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1940834176885390233, guid: 094cf01d76ec23f4b98c839e7efe47a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8617716590219934265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &7178934050730508349
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887911751339753888}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8566317971133676851 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 106374839903389450, guid: 094cf01d76ec23f4b98c839e7efe47a1,
     type: 3}
   m_PrefabInstance: {fileID: 8617716590219934265}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &1560361375662477833
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8566317971133676851}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8781517184973697818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37263,7 +38886,7 @@ PrefabInstance:
     - target: {fileID: 1353613474346238912, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1353613474346238912, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37284,6 +38907,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 1.1102859e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353613474346238912, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_LowAngularXLimit.limit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353613474346238912, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_HighAngularXLimit.limit
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353613474346238912, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_AngularXLimitSpring.spring
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682171472803041810, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2640567388789191384, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37318,7 +38961,7 @@ PrefabInstance:
     - target: {fileID: 3122212297839795235, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3122212297839795235, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37340,20 +38983,35 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -1.3452825e-10
       objectReference: {fileID: 0}
+    - target: {fileID: 3122212297839795235, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_LowAngularXLimit.limit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122212297839795235, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_HighAngularXLimit.limit
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122212297839795235, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_AngularXLimitSpring.spring
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3789879250828134830, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularXMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3789879250828134830, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3789879250828134830, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularZMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3789879250828134830, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37378,7 +39036,7 @@ PrefabInstance:
     - target: {fileID: 4303210055826221103, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4303210055826221103, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37399,6 +39057,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -6.0587846e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303210055826221103, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_LowAngularXLimit.limit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303210055826221103, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_HighAngularXLimit.limit
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303210055826221103, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_AngularXLimitSpring.spring
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4460814560848800564, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37433,7 +39106,7 @@ PrefabInstance:
     - target: {fileID: 4460814560848800564, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.7145249
+      value: -0.61352485
       objectReference: {fileID: 0}
     - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37443,7 +39116,7 @@ PrefabInstance:
     - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37465,6 +39138,21 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -8.491773e-10
       objectReference: {fileID: 0}
+    - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_LowAngularXLimit.limit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_HighAngularXLimit.limit
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254656525760084775, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_AngularXLimitSpring.spring
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5894359479313639537, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularXMotion
@@ -37473,7 +39161,7 @@ PrefabInstance:
     - target: {fileID: 5894359479313639537, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_AngularYMotion
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5894359479313639537, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
@@ -37503,6 +39191,16 @@ PrefabInstance:
     - target: {fileID: 7706062601572015005, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878525278769237865, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878525278769237865, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8629807212724814370, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
@@ -37590,14 +39288,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1682171472803041810, guid: f8a41761ca6d2a248a6460a7a9cfb7d1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8307033089264147358, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+    - targetCorrespondingSourceObject: {fileID: 7961698870515228081, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6471672332563745839}
+      addedObject: {fileID: 747806586765930680}
+    - targetCorrespondingSourceObject: {fileID: 6052040598671201664, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5296551678656711863}
     - targetCorrespondingSourceObject: {fileID: 620205589600112654, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
         type: 3}
       insertIndex: -1
@@ -37619,39 +39322,60 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 8781517184973697818}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &762997089299409028 stripped
+--- !u!1 &1703369645595569835 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8307033089264147358, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+  m_CorrespondingSourceObject: {fileID: 7961698870515228081, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
     type: 3}
   m_PrefabInstance: {fileID: 8781517184973697818}
   m_PrefabAsset: {fileID: 0}
---- !u!1773428102 &6471672332563745839
-ParentConstraint:
+--- !u!135 &747806586765930680
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762997089299409028}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: -0.0053192438, z: 0.010638505}
-  m_RotationAtRest: {x: 90, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: 0, y: 0, z: 0}
-  m_RotationOffsets:
-  - {x: -0.019804124, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
+  m_GameObject: {fileID: 1703369645595569835}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3036303036974786202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6052040598671201664, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 8781517184973697818}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &5296551678656711863
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036303036974786202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8162034254240015124 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 620205589600112654, guid: f8a41761ca6d2a248a6460a7a9cfb7d1,
