@@ -35,7 +35,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     }
 
     public void TakenToHand() {
-        Debug.Log("TakenToHand method called");
+        //Debug.Log("TakenToHand method called");
         if (thisRigidbody != null)
         {
             thisRigidbody.useGravity = true;
@@ -45,7 +45,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     public void TurnOnTheNozzle()
     {
         //starting particlesystem if hose is not on and lever is on, otherwise shutting it down
-        Debug.Log("TurnOnTheNozzle method called");
+        //Debug.Log("TurnOnTheNozzle method called");
         if (particleSystemToActivate != null && !hoseEndIsOn && leverIsOn && audioToActivate != null)
         {
             particleSystemToActivate.Play();
@@ -67,7 +67,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
 
     public void LeverIsTurned()
     {
-        Debug.Log("LeverIsTurned method called");
+        //Debug.Log("LeverIsTurned method called");
 
         if (particleSystemToActivate != null && audioToActivate != null) {
             if (leverIsOn && hoseEndIsOn)
