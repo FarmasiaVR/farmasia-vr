@@ -15,6 +15,9 @@ public class FireHoseSpawner : MonoBehaviour
     public GameObject reelHalf;
     public GameObject reelEmpty;
     private int activeHose = 0;
+    public List<GameObject> hoseTwists2 = new List<GameObject>();
+    public List<GameObject> hoseTwists3 = new List<GameObject>();
+    public List<GameObject> twistPlaces = new List<GameObject>();
 
     public void SpawnObject()
     {
@@ -49,6 +52,7 @@ public class FireHoseSpawner : MonoBehaviour
             reelHalf.SetActive(true);
             objectToActivate2.SetActive(true);
             activeHose = 2;
+            TwistHose(hoseTwists2);
         }
         else if (objectToActivate2 != null && activeHose == 2 && objectToActivate3 != null && reelHalf != null && reelEmpty != null)
         {
@@ -57,6 +61,19 @@ public class FireHoseSpawner : MonoBehaviour
             reelEmpty.SetActive(true);
             objectToActivate3.SetActive(true);
             activeHose = 3;
+            TwistHose(hoseTwists3);
+        }
+    }
+    public void TwistHose(List<GameObject> hoseTwists)
+    {
+        int index = 0;
+        if (hoseTwists != null && twistPlaces != null) { 
+            foreach (GameObject item1 in hoseTwists)
+            {
+                GameObject item2 = twistPlaces[index];
+                item1.transform.position = item2.transform.position;
+                index++;
+            }
         }
     }
 }
