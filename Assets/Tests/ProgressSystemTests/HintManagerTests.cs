@@ -74,8 +74,8 @@ public class HintManagerTests
     public void PenalisedForOpeningHint()
     {
         hintBox.TextShownMistake();
-        Assert.Less(taskManager.taskListObject.GetPoints(), 0);
-        Assert.Greater(taskManager.taskListObject.GetGeneralMistakes().Count, 0);
+        Assert.Less(taskManager.taskListObject.points, 0);
+        Assert.Greater(taskManager.taskListObject.generalMistakes.Count, 0);
     }
 
     [UnityTearDown]

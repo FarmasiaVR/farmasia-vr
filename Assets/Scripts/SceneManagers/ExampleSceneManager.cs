@@ -62,7 +62,7 @@ public class ExampleSceneManager : MonoBehaviour
     public void PressR()
     {
         ///If pressing R isn't the current task, generate a general mistake
-        if (taskManager.GetCurrentTask().key != "R")
+        if (taskManager.currentTask.key != "R")
         {
             taskManager.GenerateGeneralMistake("Make sure to press Q, W and E before pressing R", 2);
             return;

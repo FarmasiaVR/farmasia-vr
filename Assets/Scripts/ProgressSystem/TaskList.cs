@@ -5,23 +5,19 @@ using System;
 
 [Serializable]
 [CreateAssetMenu(menuName = "FarmasiaVR/Task List", fileName = "tasks", order = 2)]
-public class TaskList : ScriptableObject
-{
+public class TaskList : ScriptableObject {
     public List<Task> tasks;
 
-    private int points;
     private Dictionary<string, Task> taskDict;
-    private List<Mistake> generalMistakes;
+    public int points {get; private set;}
+    public List<Mistake> generalMistakes {get; private set;}
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         taskDict = new Dictionary<string, Task>();
         // Add every task to a dictionary so that task references are faster and easier.
         // The original task list is still used to track the linear progression of the tasks
-        foreach (Task task in tasks)
-        {
-            if (taskDict.ContainsKey(task.key))
-            {
+        foreach (Task task in tasks) {
+            if (taskDict.ContainsKey(task.key)) {
                 Debug.LogError("The task list " + this.name + " has multiple tasks with the key " + task.key + ". Please make sure that every task in the task list has a unique key");
                 continue;
             }
@@ -29,13 +25,9 @@ public class TaskList : ScriptableObject
         }
     }
 
-    private void OnValidate()
-    {
-        ///<summary>
-        /// This is a way to show the key of the task as the name or the header of the task in the inspector. Otherwise the tasks would just say "Element N" when collapsed
-        /// </summary>
-        for(int i = 0; i < tasks.Count; i++)
-        {
+    // This is a way to show the key of the task as the name or the header of the task in the inspector. Otherwise the tasks would just say "Element N" when collapsed
+    private void OnValidate() {
+        for(int i = 0; i < tasks.Count; i++) {
             Task task = tasks[i];
             task.name = tasks[i].key;
         }
@@ -46,10 +38,8 @@ public class TaskList : ScriptableObject
     /// </summary>
     /// <param name="taskKey">The key of the task that will be marked as completed. Check the possible keys from the task list.</param>
     /// <returns>A boolean value depending on whether or not the task was succesfully marked as completed</returns>
-    public void MarkTaskAsDone(string taskKey)
-    {
-        if (!taskDict.ContainsKey(taskKey))
-        {
+    public void MarkTaskAsDone(string taskKey) {
+        if (!taskDict.ContainsKey(taskKey)) {
             PrintKeyError(taskKey);
         }
 
@@ -62,10 +52,8 @@ public class TaskList : ScriptableObject
     /// </summary>
     /// <param name="taskKey">The key of the task to fetch</param>
     /// <returns>Task that has the key given as the parameter</returns>
-    public Task GetTask(string taskKey)
-    {
-        if (!taskDict.ContainsKey(taskKey))
-        {
+    public Task GetTask(string taskKey) {
+        if (!taskDict.ContainsKey(taskKey)) {
             PrintKeyError(taskKey);
         }
 
@@ -75,23 +63,16 @@ public class TaskList : ScriptableObject
     /// <summary>
     /// Resets all the tasks in the list, resets the points counter and resets the general mistakes.
     /// </summary>
-    public void ResetTaskProgression()
-    {
-        generalMistakes = new List<Mistake>();
-        foreach (Task task in tasks)
-        {
+    public void ResetTaskProgression() {
+        generalMistakes.Clear();
+        foreach (Task task in tasks) {
             task.Reset();
         }
         points = 0;
     }
 
-    /// <summary>
     /// This is used to print an error message to the player when they attempt to refer to a task that does not exist.
-    /// </summary>
-    /// <param name="taskKey">The key of the task the player tried to refer to.</param>
-    /// <exception cref="Exception"></exception>
-    private void PrintKeyError(string taskKey)
-    {
+    private void PrintKeyError(string taskKey) {
         throw new Exception("A task with the key " + taskKey + " could not be found. Make sure that you wrote the key correctly and that you are using the correct task list!");
     }
 
@@ -100,40 +81,20 @@ public class TaskList : ScriptableObject
     /// </summary>
     /// <param name="taskKey">The key of the task where the mistake was made</param>
     /// <param name="mistake">Information about the task made</param>
-
-    public void GenerateTaskMistake(string taskKey, Mistake mistake)
-    {
-        if (!taskDict.ContainsKey(taskKey))
-        {
+    public void GenerateTaskMistake(string taskKey, Mistake mistake) {
+        if (!taskDict.ContainsKey(taskKey)) {
             PrintKeyError(taskKey);
-            return;
+        } else {
+            taskDict[taskKey].AddMistake(mistake);
+            points -= mistake.pointsDeducted;
         }
-
-        taskDict[taskKey].AddMistake(mistake);
-        points -= mistake.pointsDeducted;
     }
     /// <summary>
     /// Generates a mistake that doesn't relate to a certain task.
     /// </summary>
     /// <param name="mistake">Contains information about the task made.</param>
-    public void GenerateGeneralMistake(Mistake mistake)
-    {
+    public void GenerateGeneralMistake(Mistake mistake) {
         generalMistakes.Add(mistake);
         points -= mistake.pointsDeducted;
     }
-
-    /// <summary>
-    /// </summary>
-    /// <returns>The points the player has collected so far.</returns>
-    public int GetPoints() {
-        return points;
-    }
-    /// <summary>
-    /// </summary>
-    /// <returns>The general mistakes the player has made</returns>
-    public List<Mistake> GetGeneralMistakes()
-    {
-        return generalMistakes;
-    }
-
 }

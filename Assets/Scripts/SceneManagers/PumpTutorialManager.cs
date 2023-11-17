@@ -47,7 +47,7 @@ public class PumpTutorialManager : MonoBehaviour
             taskManager.CompleteTask("fillPepton");
         }
 
-        else if (liquidContainer.LiquidType == LiquidType.Medicine && liquidContainer.Amount >= 150 && taskManager.GetCurrentTask().key == "fillMedicine")
+        else if (liquidContainer.LiquidType == LiquidType.Medicine && liquidContainer.Amount >= 150 && taskManager.currentTask.key == "fillMedicine")
         {
             taskManager.CompleteTask("fillMedicine");
         }
@@ -62,12 +62,12 @@ public class PumpTutorialManager : MonoBehaviour
     {
         if (!filterConnectedToPump) { return; }
 
-        if (taskManager.GetCurrentTask().key == "usePump")
+        if (taskManager.currentTask.key == "usePump")
         {
             taskManager.CompleteTask("usePump");
         }
 
-        else if (taskManager.GetCurrentTask().key == "usePumpAgain")
+        else if (taskManager.currentTask.key == "usePumpAgain")
         {
             taskManager.CompleteTask("usePumpAgain");
         }
@@ -78,7 +78,7 @@ public class PumpTutorialManager : MonoBehaviour
     /// </summary>
     public void CheckPumpDisassemble()
     {
-        if (taskManager.GetCurrentTask().key == "pumpDisassemble")
+        if (taskManager.currentTask.key == "pumpDisassemble")
         {
             taskManager.CompleteTask("pumpDisassemble");
         }
@@ -92,7 +92,7 @@ public class PumpTutorialManager : MonoBehaviour
 
     public void NotifyFilterHalfInWrongBottle(GeneralItem genItem)
     {
-        taskManager.GenerateTaskMistake("Laitoit suodattimen puolikkaan väärään pulloon", 1);
+        taskManager.GenerateTaskMistake("Laitoit suodattimen puolikkaan vï¿½ï¿½rï¿½ï¿½n pulloon", 1);
         genItem.transform.Translate(new Vector3(0.05f, 0, 0));
     }
 
