@@ -43,15 +43,13 @@ public class TutorialLoader : MonoBehaviour {
         if (tutorialToLoad is TutorialType type) {
             // Disable tutorials other than the target tutorial
             foreach (TutorialType otherType in tutorialTypeToParentObject.Keys) {
-                Debug.LogWarning($"Disabling stuff if {type} != {otherType}");
                 if (type != otherType) {
-                    Debug.LogWarning($"Disabling {otherType}");
                     DisableObjectAndChildren(tutorialTypeToParentObject[otherType]);
                 }
             }
-            // Teleport player to target tutorial's start point
-            Debug.LogWarning($"Teleporting to {tutorialToLoad} start");
+            // Teleport player to target tutorial's start point and reset tutorial type
             gameObject.GetComponent<PlayerTeleporter>().TeleportPlayer(type.ToString() + "Tutorial");
+            tutorialToLoad = null;
         } else {
             throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial");
         }
