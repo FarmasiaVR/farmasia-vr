@@ -79,7 +79,7 @@ public class TaskManagerTest
     {
         taskManager.CompleteTask("A");
         yield return null;
-        Assert.AreEqual(taskManager.currentTask.key, "B");
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "B");
     }
 
     [UnityTest]
@@ -115,9 +115,9 @@ public class TaskManagerTest
         taskManager.GenerateGeneralMistake("Mistake was made", 1);
 
         yield return null;
-        Assert.AreEqual(1, taskManager.taskListObject.generalMistakes.Count);
-        Assert.AreEqual("Mistake was made", taskManager.taskListObject.generalMistakes[0].mistakeText);
-        Assert.AreEqual(1, taskManager.taskListObject.generalMistakes[0].pointsDeducted);
+        Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes().Count);
+        Assert.AreEqual("Mistake was made", taskManager.taskListObject.GetGeneralMistakes()[0].mistakeText);
+        Assert.AreEqual(1, taskManager.taskListObject.GetGeneralMistakes()[0].pointsDeducted);
     }
 
     [UnityTest]
@@ -129,11 +129,11 @@ public class TaskManagerTest
         taskManager.GenerateTaskMistake("Mistake was made again", 2);
 
         yield return null;
-        Assert.AreEqual(2, taskManager.currentTask.ReturnMistakes().Count);
-        Assert.AreEqual("Mistake was made", taskManager.currentTask.ReturnMistakes()[0].mistakeText);
-        Assert.AreEqual("Mistake was made again", taskManager.currentTask.ReturnMistakes()[1].mistakeText);
-        Assert.AreEqual(3, taskManager.currentTask.ReturnMistakes()[0].pointsDeducted);
-        Assert.AreEqual(2, taskManager.currentTask.ReturnMistakes()[1].pointsDeducted);
+        Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes().Count);
+        Assert.AreEqual("Mistake was made", taskManager.GetCurrentTask().ReturnMistakes()[0].mistakeText);
+        Assert.AreEqual("Mistake was made again", taskManager.GetCurrentTask().ReturnMistakes()[1].mistakeText);
+        Assert.AreEqual(3, taskManager.GetCurrentTask().ReturnMistakes()[0].pointsDeducted);
+        Assert.AreEqual(2, taskManager.GetCurrentTask().ReturnMistakes()[1].pointsDeducted);
     }
 
     [UnityTest]
@@ -142,11 +142,11 @@ public class TaskManagerTest
         taskManager.CompleteTask("A");
         taskManager.CompleteTask("B");
         yield return new WaitForSecondsRealtime(4);
-        Assert.True(taskManager.currentTask.timed);
-        Assert.True(taskManager.currentTask.failWhenOutOfTime);
+        Assert.True(taskManager.GetCurrentTask().timed);
+        Assert.True(taskManager.GetCurrentTask().failWhenOutOfTime);
         taskManager.CompleteTask("C");
         Assert.True(taskManager.IsTaskCompleted("C"));
-        Assert.AreEqual(200, taskManager.taskListObject.points);
+        Assert.AreEqual(200, taskManager.taskListObject.GetPoints());
     }
 
     [UnityTest]
@@ -155,27 +155,27 @@ public class TaskManagerTest
         taskManager.CompleteTask("A");
         taskManager.CompleteTask("B");
         yield return new WaitForSecondsRealtime(1);
-        Assert.True(taskManager.currentTask.timed);
+        Assert.True(taskManager.GetCurrentTask().timed);
         taskManager.CompleteTask("C");
         Assert.True(taskManager.IsTaskCompleted("C"));
-        Assert.AreEqual(100, taskManager.currentTask.awardedPoints, 5);
-        Assert.AreEqual(300, taskManager.taskListObject.points, 5);
+        Assert.AreEqual(100, taskManager.GetCurrentTask().awardedPoints, 5);
+        Assert.AreEqual(300, taskManager.taskListObject.GetPoints(), 5);
     }
 
     [UnityTest]
     public IEnumerator TestCompletingTasksInDifferentOrderWorks()
     {
         yield return null;
-        Assert.AreEqual(taskManager.currentTask.key, "A");
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
         taskManager.CompleteTask("B");
         yield return null;
         Assert.True(taskManager.IsTaskCompleted("B"));
-        Assert.AreEqual(taskManager.currentTask.key, "A");
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "A");
         taskManager.CompleteTask("A");
         yield return null;
         Assert.True(taskManager.IsTaskCompleted("A"));
         Assert.True(taskManager.IsTaskCompleted("B"));
-        Assert.AreEqual(taskManager.currentTask.key, "C");
+        Assert.AreEqual(taskManager.GetCurrentTask().key, "C");
         taskManager.CompleteTask("C");
         yield return null;
         Assert.True(taskManager.IsTaskCompleted("A"));

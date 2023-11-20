@@ -27,7 +27,7 @@ public class TaskManagerLogger : MonoBehaviour
 
     public void PrintAllTasksCompleted(TaskList taskList)
     {
-        Debug.Log("You completed all the tasks! You collected " + taskList.points);
+        Debug.Log("You completed all the tasks! You collected " + taskList.GetPoints());
     }
 
     public void PrintMistake(Mistake mistake)
