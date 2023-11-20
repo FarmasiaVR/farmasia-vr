@@ -2,19 +2,18 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+public enum TutorialType {
+    FireExtinguisher, FireBlanket, EmergencyShower, EyeShower
+}
+
 public class TutorialLoader : MonoBehaviour {
     private Dictionary<TutorialType, GameObject> tutorialTypeToParentObject = new Dictionary<TutorialType, GameObject>();
-    public static TutorialLoaderData data = null;
+    public static TutorialType? tutorialToLoad = null;
     [SerializeField] private GameObject fireExtinguisherTutorialParent, fireBlanketTutorialParent, emergencyShowerTutorialParent, eyeShowerTutorialParent;
 
     private void Start() {
         // Initialize global data if null and otherwise load the tutorial that is set in global data
-        if (data == null) {
-            Debug.LogWarning("Initializing TutorialLoader global data");
-            data = new TutorialLoaderData();
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Debug.LogWarning($"Loading tutorial {data.tutorialType} and different tutorial parent objects");
+        if (tutorialToLoad != null) {
             tutorialTypeToParentObject[TutorialType.FireExtinguisher] = fireExtinguisherTutorialParent;
             tutorialTypeToParentObject[TutorialType.FireBlanket] = fireBlanketTutorialParent;
             tutorialTypeToParentObject[TutorialType.EmergencyShower] = emergencyShowerTutorialParent;
@@ -25,7 +24,7 @@ public class TutorialLoader : MonoBehaviour {
 
     public void SetTutorialToLoad(string tutorialName) {
         if (Enum.TryParse(tutorialName, out TutorialType tutorialType)) {
-            data.tutorialType = tutorialType;
+            tutorialToLoad = tutorialType;
         } else {
             throw new ArgumentException($"Tutorial type {tutorialName} doesn't exist.");
         }
@@ -41,7 +40,7 @@ public class TutorialLoader : MonoBehaviour {
     }
 
     public void LoadSetTutorial() {
-        if (data.tutorialType is TutorialType type) {
+        if (tutorialToLoad is TutorialType type) {
             // Disable tutorials other than the target tutorial
             foreach (TutorialType otherType in tutorialTypeToParentObject.Keys) {
                 Debug.LogWarning($"Disabling stuff if {type} != {otherType}");
@@ -51,10 +50,10 @@ public class TutorialLoader : MonoBehaviour {
                 }
             }
             // Teleport player to target tutorial's start point
-            Debug.LogWarning($"Teleporting to {data.tutorialType} start");
+            Debug.LogWarning($"Teleporting to {tutorialToLoad} start");
             gameObject.GetComponent<PlayerTeleporter>().TeleportPlayer(type.ToString() + "Tutorial");
         } else {
-            throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial.");
+            throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial");
         }
     }
 }
