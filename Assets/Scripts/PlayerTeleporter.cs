@@ -13,7 +13,6 @@ public class PlayerTeleporter : MonoBehaviour {
         foreach (GameObject tpPoint in tpPoints) {
             string name = tpPoint.GetComponent<TeleportPointData>().teleportPointName;
             namedTpPoints[name] = tpPoint;
-            Debug.Log($"Added {name}"); 
         }
     }
 
