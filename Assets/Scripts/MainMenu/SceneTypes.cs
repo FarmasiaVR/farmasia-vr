@@ -19,7 +19,8 @@ public enum SceneTypes {
     EmergencyExitTutorial,
     EmergencyExit,
     EmergencyExit1,
-    XrPlayer
+    XrPlayer,
+    SafetyEquipmentTutorial
 }
 
 public readonly struct GameScenes {
@@ -38,7 +39,8 @@ public readonly struct GameScenes {
         { SceneTypes.EmergencyExitTutorial, "EmergencyExitTutorial" },
         { SceneTypes.EmergencyExit, "EmergencyExit" },
         { SceneTypes.EmergencyExit1, "EmergencyExit 1" },
-        { SceneTypes.XrPlayer, "XR Player"}
+        { SceneTypes.XrPlayer, "XR Player"},
+        { SceneTypes.SafetyEquipmentTutorial, "EquipmentTutorials"}
     };
 
     private static Dictionary<string, SceneTypes> GetNameToTypeMapping() {

@@ -7,27 +7,36 @@ using UnityEngine.VFX;
 
 public class SpreadableFire : MonoBehaviour
 {
+    //grid configuration
     [SerializeField] float spreadingSpeed=1f, gridSquarewidth=1f,flameCollisionHeight=1f,meshUpdateDelay=0.4f;
     [SerializeField] int gridCols=4, gridRows=4;
     [SerializeField] BoxCollider bCollider;
+    [SerializeField] Transform presetIgnitionPoint;
 
+    //Things that use the generated mesh
+    public MeshFilter meshFilter;
+    public MeshCollider meshCollider;
+    public VisualEffect fireEffect;
+
+    //events
+    public UnityEvent fireExtinguished;
+    public UnityEvent fireIgnited;
+
+    //fire propagation
     private float spreadTimer = 0;
     private bool burning;
     private HashSet<Vector2> spreadableVerticies = new HashSet<Vector2>();
     private HashSet<Vector2> ignitedVerticies = new HashSet<Vector2>();
     private HashSet<Vector2> noneSpreadableVerticies = new HashSet<Vector2>();
     private Dictionary<Vector2, FireVertex> fireVerticies = new Dictionary<Vector2, FireVertex>();
-    public MeshFilter meshFilter;
-    public MeshCollider meshCollider;
-    public VisualEffect fireEffect;
-    public UnityEvent fireExtinguished;
-    public UnityEvent fireIgnited;
+    
+    //mesh generatrion
     Mesh mesh;
-
     Dictionary<Vector3, int> vertexIndex = new Dictionary<Vector3, int>();
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
     bool delayedGeneration;
+
     private void OnValidate()
     {
         if (!bCollider)
@@ -83,7 +92,7 @@ public class SpreadableFire : MonoBehaviour
             IgniteClosestVertex(transform.InverseTransformPoint(collision.GetContact(0).point));
     }
 
-    //Ignites closest Vertex to world(local) positon
+    //Ignites closest Vertex to (local) positon
     private void IgniteClosestVertex(Vector3 point)
     {
         Vector2 flatenedPoint = WorldToGridPosition(point);
@@ -98,7 +107,7 @@ public class SpreadableFire : MonoBehaviour
             }
         }
     }
-    //Ignition using function call from outside
+    //Ignition using function call from outside (world) position
     public void IgniteClosestVertexNonCollision(Vector3 point)
     {
         Vector3 p = transform.InverseTransformPoint(point);
@@ -115,6 +124,11 @@ public class SpreadableFire : MonoBehaviour
         }
     }
 
+    public void IgniteAtPresetStartPoint()
+    {
+        if(presetIgnitionPoint)
+            IgniteClosestVertexNonCollision(presetIgnitionPoint.transform.position);
+    }
     //Updates the mesh used for collision and particle emission
     void UpdateMeshUsage()
     {
@@ -141,7 +155,7 @@ public class SpreadableFire : MonoBehaviour
         }
         
     }
-    //Ignites closest Vertex to world(local) positon
+    //Ignites closest Vertex to (local) positon
     private void ExtinguishClosestVertex(Vector3 point)
     {
         Vector2 flatenedPoint = WorldToGridPosition(point);
