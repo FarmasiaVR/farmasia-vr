@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // This class should be renamed if functionality other than fire is added to the "player body" 
-public class PlayerFireController : MonoBehaviour, ITogglableFire {
+public class PlayerInteractions : MonoBehaviour, ITogglableFire {
     [Tooltip("The time it takes for the player to burn to death in seconds")]
     public float maxBurnHealth = 30;
     public bool godMode = false;
@@ -14,13 +14,19 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
     [Tooltip("Passes a float with the current health percentage")]
     public UnityEvent <float> BurnUpdate;
     public UnityEvent Death;
+    public UnityEvent OnShower;
 
     private float currentHealth;
     private bool dead = false;
 
     // Extinguishing player fire now happens through the player hitbox just like igniting it
-    public void Extinguish() { playerFire.Extinguish(); }
-    public void Ignite() { playerFire.Ignite(); }
+    public void Extinguish() => playerFire.Extinguish();
+    public void Ignite() => playerFire.Ignite();
+
+    public void Shower() {
+        Extinguish();
+        OnShower.Invoke();
+    }
 
     private void OnEnable() {
         currentHealth = maxBurnHealth;
@@ -28,7 +34,7 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
     }
 
     private void Update() {
-        if(playerFire.isBurning) {
+        if(isBurning) {
             BurnUpdate.Invoke(currentHealth/maxBurnHealth);
             currentHealth -= Time.deltaTime;
         }
@@ -47,7 +53,7 @@ public class PlayerFireController : MonoBehaviour, ITogglableFire {
             if (fire != null && fire.isBurning) {
                 Ignite();
             } else if (fire == null) {
-                Debug.Log("Stepped on top of unknown tagged fire hitbox");
+                Debug.Log("Stepped on top of tagged fire hitbox, that doesn't implement the fire interface");
                 Ignite();
             }
         }
