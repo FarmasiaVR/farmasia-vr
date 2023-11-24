@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 
@@ -9,16 +10,25 @@ public enum TutorialType {
 public class TutorialLoader : MonoBehaviour {
     private Dictionary<TutorialType, GameObject> tutorialTypeToParentObject = new Dictionary<TutorialType, GameObject>();
     public static TutorialType? tutorialToLoad = null;
+    private string tutorialScene = null;
     [SerializeField] private GameObject fireExtinguisherTutorialParent, fireBlanketTutorialParent, emergencyShowerTutorialParent, eyeShowerTutorialParent;
 
+    private void OnSceneLoaded(Scene loadedScene, LoadSceneMode _) {
+        // Reset the currently set tutorial, when loading another scene
+        if (loadedScene.name != tutorialScene)
+            tutorialToLoad = null;
+    }
+
     private void Start() {
-        // Initialize global data if null and otherwise load the tutorial that is set in global data
         if (tutorialToLoad != null) {
             tutorialTypeToParentObject[TutorialType.FireExtinguisher] = fireExtinguisherTutorialParent;
             tutorialTypeToParentObject[TutorialType.FireBlanket] = fireBlanketTutorialParent;
             tutorialTypeToParentObject[TutorialType.EmergencyShower] = emergencyShowerTutorialParent;
             tutorialTypeToParentObject[TutorialType.EyeShower] = eyeShowerTutorialParent;
             LoadSetTutorial();
+            // Run function for resetting tutorialToLoad when loading a scene
+            tutorialScene = SceneManager.GetActiveScene().name;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
@@ -33,7 +43,6 @@ public class TutorialLoader : MonoBehaviour {
     private void DisableObjectAndChildren(GameObject obj) {
         // Disable parent GameObject
         obj.SetActive(false);
-
         // Disable its children recursively
         foreach (Transform child in obj.transform)
             DisableObjectAndChildren(child.gameObject);
@@ -47,9 +56,8 @@ public class TutorialLoader : MonoBehaviour {
                     DisableObjectAndChildren(tutorialTypeToParentObject[otherType]);
                 }
             }
-            // Teleport player to target tutorial's start point and reset tutorial type
+            // Teleport player to target tutorial's start point
             gameObject.GetComponent<PlayerTeleporter>().TeleportPlayer(type.ToString() + "Tutorial");
-            tutorialToLoad = null;
         } else {
             throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial");
         }
