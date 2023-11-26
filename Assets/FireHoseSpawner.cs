@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class FireHoseSpawner : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class FireHoseSpawner : MonoBehaviour
     public List<GameObject> hoseTwists2 = new List<GameObject>();
     public List<GameObject> hoseTwists3 = new List<GameObject>();
     public List<GameObject> twistPlaces = new List<GameObject>();
+    public GameObject doorToLock;
 
     public void SpawnObject()
     {
@@ -62,6 +64,22 @@ public class FireHoseSpawner : MonoBehaviour
         }
         else if (objectToActivate2 != null && activeHose == 2 && objectToActivate3 != null && reelHalf != null && reelEmpty != null)
         {
+            // Door movement with attached spawned hose might cause problems with the longest hoselength
+            if (doorToLock != null)
+            {
+                // Disable physics affecting the door
+                if (doorToLock.GetComponent<Rigidbody>() != null)
+                {
+                    Rigidbody rb = doorToLock.GetComponent<Rigidbody>();
+                    rb.isKinematic = true;
+                }
+                // Disable grabbing
+                if (doorToLock.GetComponent<XRGrabInteractable>() != null)
+                {
+                    XRGrabInteractable grabInteractable = doorToLock.GetComponent<XRGrabInteractable>();
+                    grabInteractable.interactionLayers = InteractionLayerMask.GetMask("Nothing");
+                }
+            }
             objectToActivate2.SetActive(false);
             reelHalf.SetActive(false);
             reelEmpty.SetActive(true);
