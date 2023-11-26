@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TipOverObject : MonoBehaviour
 {
+    public UnityEvent ObjectTippedOver;
+    public UnityEvent ObjectTippingStarted;
     public Transform targetObject;
     private Rigidbody targetRigidbody; // Reference to the Rigidbody
 
@@ -33,33 +36,13 @@ public class TipOverObject : MonoBehaviour
         if (!isRotating)
         {
             StartCoroutine(Rotate());
+            ObjectTippingStarted.Invoke();
         }
     }
 
 
     IEnumerator Rotate()
     {
-        if (isOpen)
-        {
-            isRotating = true;
-
-            Quaternion startRotation = targetObject.rotation;
-            Quaternion endRotation = targetObject.rotation * Quaternion.Euler(-xRotation, -yRotation, -zRotation);
-
-            float elapsedTime = 0.0f;
-            while (elapsedTime < rotationDuration)
-            {
-                float t = elapsedTime / rotationDuration;
-                targetObject.rotation = Quaternion.Slerp(startRotation, endRotation, t);
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            targetObject.rotation = endRotation;
-            isOpen = false;
-            isRotating = false;
-            didAlready = true;
-        }
         if (!isOpen && !didAlready)
         {
             isRotating = true;
@@ -79,6 +62,7 @@ public class TipOverObject : MonoBehaviour
             targetObject.rotation = endRotation;
             isOpen = true;
             isRotating = false;
+            ObjectTippedOver.Invoke();
 
             if (targetRigidbody != null)
             {
