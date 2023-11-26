@@ -1,31 +1,40 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 
+public enum TutorialType {
+    FireExtinguisher, FireBlanket, EmergencyShower, EyeShower
+}
+
 public class TutorialLoader : MonoBehaviour {
     private Dictionary<TutorialType, GameObject> tutorialTypeToParentObject = new Dictionary<TutorialType, GameObject>();
-    public static TutorialLoaderData data = null;
+    public static TutorialType? tutorialToLoad = null;
+    private string tutorialScene = null;
     [SerializeField] private GameObject fireExtinguisherTutorialParent, fireBlanketTutorialParent, emergencyShowerTutorialParent, eyeShowerTutorialParent;
 
+    private void OnSceneLoaded(Scene loadedScene, LoadSceneMode _) {
+        // Reset the currently set tutorial, when loading another scene
+        if (loadedScene.name != tutorialScene)
+            tutorialToLoad = null;
+    }
+
     private void Start() {
-        // Initialize global data if null and otherwise load the tutorial that is set in global data
-        if (data == null) {
-            Debug.LogWarning("Initializing TutorialLoader global data");
-            data = new TutorialLoaderData();
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Debug.LogWarning($"Loading tutorial {data.tutorialType} and different tutorial parent objects");
+        if (tutorialToLoad != null) {
             tutorialTypeToParentObject[TutorialType.FireExtinguisher] = fireExtinguisherTutorialParent;
             tutorialTypeToParentObject[TutorialType.FireBlanket] = fireBlanketTutorialParent;
             tutorialTypeToParentObject[TutorialType.EmergencyShower] = emergencyShowerTutorialParent;
             tutorialTypeToParentObject[TutorialType.EyeShower] = eyeShowerTutorialParent;
             LoadSetTutorial();
+            // Run function for resetting tutorialToLoad when loading a scene
+            tutorialScene = SceneManager.GetActiveScene().name;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
     public void SetTutorialToLoad(string tutorialName) {
         if (Enum.TryParse(tutorialName, out TutorialType tutorialType)) {
-            data.tutorialType = tutorialType;
+            tutorialToLoad = tutorialType;
         } else {
             throw new ArgumentException($"Tutorial type {tutorialName} doesn't exist.");
         }
@@ -34,27 +43,23 @@ public class TutorialLoader : MonoBehaviour {
     private void DisableObjectAndChildren(GameObject obj) {
         // Disable parent GameObject
         obj.SetActive(false);
-
         // Disable its children recursively
         foreach (Transform child in obj.transform)
             DisableObjectAndChildren(child.gameObject);
     }
 
     public void LoadSetTutorial() {
-        if (data.tutorialType is TutorialType type) {
+        if (tutorialToLoad is TutorialType type) {
             // Disable tutorials other than the target tutorial
             foreach (TutorialType otherType in tutorialTypeToParentObject.Keys) {
-                Debug.LogWarning($"Disabling stuff if {type} != {otherType}");
                 if (type != otherType) {
-                    Debug.LogWarning($"Disabling {otherType}");
                     DisableObjectAndChildren(tutorialTypeToParentObject[otherType]);
                 }
             }
             // Teleport player to target tutorial's start point
-            Debug.LogWarning($"Teleporting to {data.tutorialType} start");
             gameObject.GetComponent<PlayerTeleporter>().TeleportPlayer(type.ToString() + "Tutorial");
         } else {
-            throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial.");
+            throw new Exception($"You need to set the tutorial type to load before trying to load a specific tutorial");
         }
     }
 }

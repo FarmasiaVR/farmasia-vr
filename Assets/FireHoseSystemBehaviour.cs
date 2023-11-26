@@ -13,6 +13,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     public GameObject leverToCheck;
     bool hoseEndIsOn = false;
     bool leverIsOn = false;
+    public FireExtinguisher extinguisherScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +53,9 @@ public class FireHoseSystemBehaviour : MonoBehaviour
             audioToActivate.Play();
             
             hoseEndIsOn = true;
+            if (extinguisherScript != null) {
+                extinguisherScript.Extinguish();
+            }
         }
         else if (particleSystemToActivate != null && !hoseEndIsOn && !leverIsOn && audioToActivate != null)
         {
@@ -62,6 +66,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
             hoseEndIsOn = false;
             particleSystemToActivate.Stop();
             audioToActivate.Stop();
+            if (extinguisherScript != null)
+            {
+                extinguisherScript.StopExtinguish();
+            }
         }
     }
 
@@ -75,24 +83,40 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 leverIsOn = false;
                 particleSystemToActivate.Stop();
                 audioToActivate.Stop();
+                if (extinguisherScript != null)
+                {
+                    extinguisherScript.StopExtinguish();
+                }
             }
             else if (leverIsOn && !hoseEndIsOn)
             {
                 leverIsOn = false;
                 particleSystemToActivate.Stop();
                 audioToActivate.Stop();
+                if (extinguisherScript != null)
+                {
+                    extinguisherScript.StopExtinguish();
+                }
             }
             else if (!leverIsOn && hoseEndIsOn)
             {
                 leverIsOn = true;
                 particleSystemToActivate.Play();
                 audioToActivate.Play();
+                if (extinguisherScript != null)
+                {
+                    extinguisherScript.Extinguish();
+                }
             }
             else if (!leverIsOn && !hoseEndIsOn)
             {
                 leverIsOn = true;
                 particleSystemToActivate.Stop();
                 audioToActivate.Stop();
+                if (extinguisherScript != null)
+                {
+                    extinguisherScript.StopExtinguish();
+                }
             }
         }
     }

@@ -59,7 +59,7 @@ public class SpreadableFire : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("burning" + noneSpreadableVerticies.Count);
+        //Debug.Log("burning" + noneSpreadableVerticies.Count);
         if (ignitedVerticies.Count < 1)
             return;
 

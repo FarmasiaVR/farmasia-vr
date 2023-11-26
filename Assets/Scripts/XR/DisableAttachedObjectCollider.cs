@@ -13,10 +13,11 @@ public class DisableAttachedObjectCollider : MonoBehaviour
     public XRGrabInteractable socketsOwnerInteractable;
     private XRSocketInteractor socket;
 
-    private void Start()
-    {
+    private void Start() {
         socket = GetComponent<XRSocketInteractor>();
-        if (socket.startingSelectedInteractable)
+        if (socket == null)
+            Debug.Log($"Object {name} doesn't have a socket interactor. Check if this script is attached to the wrong object.");
+        if (socket != null && socket.startingSelectedInteractable) // TODO: Check if this script is being used in the wrong gameobjects
         {
             SelectEnterEventArgs args = new SelectEnterEventArgs();
             args.interactableObject  = socket.startingSelectedInteractable;
