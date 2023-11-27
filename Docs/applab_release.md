@@ -3,7 +3,7 @@ This document details how to make a new release on Meta's AppLab. Note that this
 
 ## Making a signed APK build
 Whenever you want to make an APK build of the game, you need to enter the key password in Unity in order to sign the APK. The passwords should be provided to you outside of this repository.
-![Publishing Settings](img\image.png)
+![Publishing Settings](img/image.png)
 1. In Unity, select File -> Build Settings -> Player Settings -> Android tab -> Publishing Settings.
 2. Enter the keystore password.
 3. Enter the project key password.
