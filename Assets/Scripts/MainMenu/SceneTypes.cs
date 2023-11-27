@@ -40,7 +40,8 @@ public readonly struct GameScenes {
         { SceneTypes.EmergencyExit, "EmergencyExit" },
         { SceneTypes.EmergencyExit1, "EmergencyExit 1" },
         { SceneTypes.XrPlayer, "XR Player"},
-        { SceneTypes.SafetyEquipmentTutorial, "EquipmentTutorials"}
+        { SceneTypes.SafetyEquipmentTutorial, "EquipmentTutorials"},
+        { SceneTypes.Laboratory, "LaboratoryLighting"}
     };
 
     private static Dictionary<string, SceneTypes> GetNameToTypeMapping() {
