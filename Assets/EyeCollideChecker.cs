@@ -5,18 +5,14 @@ using UnityEngine;
 public class EyeCollideChecker : MonoBehaviour
 {
 
-    public EyeShowerTutorialSceneManager manager;
+    public EyeShowerTutorialSceneManager tutorialManager;
+    public bool isRealisticScenario = false;
+    public EyeShowerScenarioManager scenarioManager;
     private bool inside;
-    // Start is called before the first frame update
+
     void Start()
     {
         inside = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +35,14 @@ public class EyeCollideChecker : MonoBehaviour
     {
         if (inside)
         {
-            manager.Aim();
+            if (isRealisticScenario)
+            {
+                scenarioManager.Aim();
+            }
+            else
+            {
+                tutorialManager.Aim();
+            }
         }
     }
 }
