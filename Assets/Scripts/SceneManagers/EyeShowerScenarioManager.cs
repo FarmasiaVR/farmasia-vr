@@ -39,16 +39,7 @@ public class EyeShowerScenarioManager : MonoBehaviour
             particleSystemToActivate.Play();
         }
 
-        StartCoroutine(PopUpCoroutine());
-    }
-
-    private IEnumerator PopUpCoroutine()
-    {
         burstPopUp.SetActive(true);
-
-        yield return new WaitForSeconds(5);
-
-        burstPopUp.SetActive(false);
     }
 }
 
