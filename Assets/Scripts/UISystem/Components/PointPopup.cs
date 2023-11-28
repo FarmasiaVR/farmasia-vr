@@ -24,7 +24,7 @@ public class PointPopup : MonoBehaviour {
 
     #region Variables
     private float timer = 0.0f;
-    private float visualTime = 3.0f;
+    public float visualTime = 3.0f;
     private float fadeInAndOut = 0.3f;
     private float speed = 0.007f;
     private float endPoint;
