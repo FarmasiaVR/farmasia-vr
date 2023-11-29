@@ -14,6 +14,7 @@ public class FireHoseSystemBehaviour : MonoBehaviour
     bool hoseEndIsOn = false;
     bool leverIsOn = false;
     public FireExtinguisher extinguisherScript;
+    public ExtingushSpreadableFire spreadFireExtScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +57,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
             if (extinguisherScript != null) {
                 extinguisherScript.Extinguish();
             }
+            if (spreadFireExtScript != null)
+            {
+                spreadFireExtScript.Extinguish();
+            }
         }
         else if (particleSystemToActivate != null && !hoseEndIsOn && !leverIsOn && audioToActivate != null)
         {
@@ -69,6 +74,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
             if (extinguisherScript != null)
             {
                 extinguisherScript.StopExtinguish();
+            }
+            if (spreadFireExtScript != null)
+            {
+                spreadFireExtScript.StopExtinguishing();
             }
         }
     }
@@ -87,6 +96,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 {
                     extinguisherScript.StopExtinguish();
                 }
+                if (spreadFireExtScript != null)
+                {
+                    spreadFireExtScript.StopExtinguishing();
+                }
             }
             else if (leverIsOn && !hoseEndIsOn)
             {
@@ -96,6 +109,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 if (extinguisherScript != null)
                 {
                     extinguisherScript.StopExtinguish();
+                }
+                if (spreadFireExtScript != null)
+                {
+                    spreadFireExtScript.StopExtinguishing();
                 }
             }
             else if (!leverIsOn && hoseEndIsOn)
@@ -107,6 +124,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 {
                     extinguisherScript.Extinguish();
                 }
+                if (spreadFireExtScript != null)
+                {
+                    spreadFireExtScript.Extinguish();
+                }
             }
             else if (!leverIsOn && !hoseEndIsOn)
             {
@@ -116,6 +137,10 @@ public class FireHoseSystemBehaviour : MonoBehaviour
                 if (extinguisherScript != null)
                 {
                     extinguisherScript.StopExtinguish();
+                }
+                if (spreadFireExtScript != null)
+                {
+                    spreadFireExtScript.StopExtinguishing();
                 }
             }
         }
