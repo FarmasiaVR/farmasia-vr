@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+//this script controls be working of the eyewashbottle after the cap is grabbed.
 
 public class EyeWashCapBehaviourScript : MonoBehaviour
 {
+    //keeps the cap attached, must be disabled so cap doesnt follow bottle movement.
     private ParentConstraint parentConstraint;
     public ParticleSystem particleSystemToActivate;
+    //collider to be possibly used for an eyewashing task.
     public Collider colliderToActivate;
 
     private void Start()
-    //get the constraint or give warning
+    //starting parameters adjusted
     {
         parentConstraint = GetComponent<ParentConstraint>();
 
@@ -60,6 +63,7 @@ public class EyeWashCapBehaviourScript : MonoBehaviour
     }
 
     private IEnumerator TurnOnParticleSystemAndColliderCoroutine(float duration)
+        //responsible for activating and deactivating system after a duration. Bottles do not tend to have infinite liquid reserves.
     {
         if (particleSystemToActivate != null)
         {

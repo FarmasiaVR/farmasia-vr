@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//general script for rotating a object for wanted amount in a wanted time. If the object has already rotated it rotates back to its original position.
+//usefull for levers and handles and doors and such when moving by grabbing is not desired and an animation-like behaviour is wanted.
 
 public class RotateObject : MonoBehaviour
 {

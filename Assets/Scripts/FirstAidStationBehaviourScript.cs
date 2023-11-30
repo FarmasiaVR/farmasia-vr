@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+//This script is responsible for managing the opening and closing of the firstaidstation lid and activating physics for inside residing bottle.
+//Could also turn on the physcis for several objects.
 
 public class FirstAidStationBehaviourScript : MonoBehaviour
 {
+    //objects for to turn the physics on.
     public List<GameObject> targetObjects = new List<GameObject>();
+    //transform of the fa-station lid.
     public Transform targetObject;
 
     public float rotationAmount = 135.0f;
     public float rotationDuration = 2.0f;
 
+    //parameters for tracking the lid opening.
     private bool isRotating = false;
     private bool isOpen = false;
     private bool didAlready = false;
 
     private void Start()
     {
+        //disables physics for given objects (meant to be objects inside the station).
         foreach (GameObject targetObject in targetObjects)
         {
             if (targetObject != null)
@@ -50,6 +56,7 @@ public class FirstAidStationBehaviourScript : MonoBehaviour
 
     IEnumerator RotateObject()
     {
+        //rotation over time.
         if (isOpen)
         {
             isRotating = true;
