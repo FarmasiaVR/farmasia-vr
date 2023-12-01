@@ -41,10 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8820469716553784350}
   - component: {fileID: 1799186309657196725}
-  - component: {fileID: 1384851595776462745}
   m_Layer: 19
   m_Name: EyeCollideChecker
-  m_TagString: Untagged
+  m_TagString: EyeColliderChecker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 1783835467119571287}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.015000002}
+  m_LocalPosition: {x: 0, y: -0, z: 0.044}
   m_LocalScale: {x: 0.14257316, y: 0.110794336, z: 0.32547373}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,23 +82,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Height: 1
+  m_Radius: 0.15
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1384851595776462745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1783835467119571287}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2169f257da00fe47b8ca9ec375c9d31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
 --- !u!1 &2691943119671449146
 GameObject:
   m_ObjectHideFlags: 0

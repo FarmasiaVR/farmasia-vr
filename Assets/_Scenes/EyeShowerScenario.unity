@@ -7990,7 +7990,12 @@ PrefabInstance:
     - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
         type: 3}
       propertyPath: Death.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
         type: 3}
@@ -8009,8 +8014,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
         type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
       propertyPath: Death.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PlayerExtinguishFailed
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 390502607}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Aim
       objectReference: {fileID: 0}
     - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
         type: 3}
@@ -8019,7 +8044,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
         type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EyeShowerScenarioManager, GameAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
       propertyPath: Death.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028367479810497277, guid: 73e5ffb388085574980746c7ce9be6e9,
+        type: 3}
+      propertyPath: EyesWashed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2897982202667022140, guid: 73e5ffb388085574980746c7ce9be6e9,
@@ -14942,6 +14977,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 771927681}
+    - target: {fileID: 120834520754846982, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EyeColliderChecker
+      objectReference: {fileID: 0}
     - target: {fileID: 126764726524042551, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_Mesh
@@ -16037,6 +16077,41 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationAtRest.x
+      value: 1.1059763
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationAtRest.y
+      value: -0.044350624
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationAtRest.z
+      value: -1.3067248
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_RotationOffsets.Array.data[0].x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].x
+      value: -1.1398687
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].y
+      value: -1.5205015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751327759342800352, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
+      propertyPath: m_TranslationOffsets.Array.data[0].z
+      value: -0.0025469065
+      objectReference: {fileID: 0}
     - target: {fileID: 5767008550309528057, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_RotationOffsets.Array.data[0].x
@@ -16415,7 +16490,7 @@ PrefabInstance:
     - target: {fileID: 7687891514776542809, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_ProvidesContacts
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7724642119707723269, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
@@ -16709,6 +16784,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9115213400114959926, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115213400114959926, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
+        type: 3}
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
@@ -16745,7 +16825,7 @@ PrefabInstance:
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
@@ -16756,7 +16836,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1814794348}
+      objectReference: {fileID: 1814794342}
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[3].m_Target
@@ -16780,7 +16860,7 @@ PrefabInstance:
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Activate
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
@@ -16805,7 +16885,7 @@ PrefabInstance:
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: EyeCollideChecker, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9194610620526662958, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
@@ -16938,10 +17018,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 9115213400114959926, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1814794348}
     - targetCorrespondingSourceObject: {fileID: 6612272134899578709, guid: 0000ec7319e5cd34cbe65a6e33cd936d,
         type: 3}
       insertIndex: -1
@@ -16979,21 +17055,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1814794340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1814794348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814794342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2169f257da00fe47b8ca9ec375c9d31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 0}
-  isRealisticScenario: 1
-  scenarioManager: {fileID: 390502607}
 --- !u!43 &1816998527
 Mesh:
   m_ObjectHideFlags: 0
