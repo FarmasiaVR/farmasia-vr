@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.VFX;
 
 public class BunsenburnerFire : MonoBehaviour
@@ -10,10 +11,15 @@ public class BunsenburnerFire : MonoBehaviour
     public Transform flameOrigin;
     public VisualEffect flameEffect;
 
+    public UnityEvent onActivate = new UnityEvent();
+    public UnityEvent onDeactivate = new UnityEvent();
+
     bool burning = false;
     private void Awake()
     {
-        TurnOff();
+        if (flameEffect)
+            flameEffect.Stop();
+        burning = false;
     }
     public void Update()
     {
@@ -33,12 +39,14 @@ public class BunsenburnerFire : MonoBehaviour
         if (flameEffect)
             flameEffect.Play();
         burning = true;
+        onActivate.Invoke();
     }
     public void TurnOff()
     {
         if (flameEffect)
             flameEffect.Stop();
         burning = false;
+        onDeactivate.Invoke();
     }
     public void ToggleFlame()
     {

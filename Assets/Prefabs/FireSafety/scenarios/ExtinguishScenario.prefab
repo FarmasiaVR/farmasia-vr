@@ -880,6 +880,7 @@ Transform:
   - {fileID: 5490750069775559030}
   - {fileID: 128254178563160080}
   - {fileID: 7236124188410378795}
+  - {fileID: 370201425762761469}
   - {fileID: 3042065163102672432}
   - {fileID: 4881087809545187110}
   - {fileID: 925959454324286702}
@@ -2384,6 +2385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925959454324286702}
   - component: {fileID: 6799038407514305400}
+  - component: {fileID: 4168173191147438283}
   m_Layer: 0
   m_Name: SupervisorVoice
   m_TagString: Untagged
@@ -2502,6 +2504,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4168173191147438283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889403593097771753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e6d57f70848e09478e5814f64cef5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDelayWhenEnabled: 0
+  delay: 4
 --- !u!1 &2891849384477950138
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,6 +2859,60 @@ MonoBehaviour:
     m_Bits: 1
   flameOrigin: {fileID: 2505553136245114165}
   flameEffect: {fileID: 1706085901865688966}
+  onActivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1308702331274263201}
+        m_TargetAssemblyTypeName: ActiveSpreadableFires, GameAssembly
+        m_MethodName: FireStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6419928435435198247}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1308702331274263201}
+        m_TargetAssemblyTypeName: ActiveSpreadableFires, GameAssembly
+        m_MethodName: FireExtinguished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6419928435435198247}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3292351575860794963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5618,8 +5688,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: You are located at your workstation. You will soon start working with
-        the BBR, but before that you have to locate the green paper cup at entrance
-        of the lab
+        the bunsenburner, but before that you have to locate the green paper cup
+        at entrance of the lab
       objectReference: {fileID: 0}
     - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
         type: 3}
@@ -5895,19 +5965,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2889403593097771753}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 4168173191147438283}
+        m_TargetAssemblyTypeName: DisableAfterDelay, GameAssembly
+        m_MethodName: startDisableDelay
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5916,6 +5977,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -6314,6 +6384,186 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelayWhenEnabled: 1
   delay: 10
+--- !u!1001 &7850028072762081734
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7071674240583970664}
+    m_Modifications:
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9842291
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.17689891
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1636346823354350154, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -20.378
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884579070052095713, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_Name
+      value: Textbox (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884579070052095713, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176197783622925326, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176197783622925326, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176197783622925326, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_text
+      value: Remember to turn off the bunsen burner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.8581352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145685581237038814, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278246399
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.727
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.267
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.277
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef757ff399dc6a74584571e5d1f63ee0, type: 3}
+--- !u!4 &370201425762761469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7625683565517912891, guid: ef757ff399dc6a74584571e5d1f63ee0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7850028072762081734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6419928435435198247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3884579070052095713, guid: ef757ff399dc6a74584571e5d1f63ee0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7850028072762081734}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8436456157342624226
 PrefabInstance:
   m_ObjectHideFlags: 0
