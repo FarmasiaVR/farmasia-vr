@@ -15,6 +15,7 @@ public class PlayerInteractions : MonoBehaviour, ITogglableFire {
     public UnityEvent <float> BurnUpdate;
     public UnityEvent Death;
     public UnityEvent OnShower;
+    public UnityEvent EyesWashed;
 
     private float currentHealth;
     private bool dead = false;
@@ -44,18 +45,32 @@ public class PlayerInteractions : MonoBehaviour, ITogglableFire {
             dead = true;
         }
     }
-
     //TODO: Move ignition to fire sources. Makes more sense as extinguishing is already done by the thing extinguishing.
-    private void OnTriggerEnter(Collider collision) {
+    private void FireCollision(Collider collision)
+    {
         // Player fire should not have a cube hitbox
-        if (collision.gameObject.tag == "FireGrid") {
-            ITogglableFire fire = collision.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
-            if (fire != null && fire.isBurning) {
-                Ignite();
-            } else if (fire == null) {
-                Debug.Log("Stepped on top of tagged fire hitbox, that doesn't implement the fire interface");
-                Ignite();
-            }
+        ITogglableFire fire = collision.GetComponentInParent(typeof(ITogglableFire)) as ITogglableFire;
+        if (fire != null && fire.isBurning)
+        {
+            Ignite();
+        }
+        else if (fire == null)
+        {
+            Debug.Log("Stepped on top of tagged fire hitbox, that doesn't implement the fire interface");
+            Ignite();
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision) {
+
+        string tag = collision.gameObject.tag;
+
+        if (tag == "FireGrid") {
+            FireCollision(collision);
+
+        } else if (tag == "EyeColliderChecker")
+        {
+            EyesWashed.Invoke();
         }
     }
 }
