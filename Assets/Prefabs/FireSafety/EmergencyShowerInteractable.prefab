@@ -5425,6 +5425,7 @@ GameObject:
   - component: {fileID: 2118765089167398155}
   - component: {fileID: 2118765089167398153}
   - component: {fileID: 1145406306785477566}
+  - component: {fileID: 1539954131034738238}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -5564,7 +5565,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 65536
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -5800,6 +5801,20 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1539954131034738238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500381169507965737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a26cb128b9e1045894b07030d92dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ungrabDistance: 0.3
+  distanceCalcTransform: {fileID: 0}
 --- !u!1 &4517548102822970727
 GameObject:
   m_ObjectHideFlags: 0
