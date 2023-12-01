@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 1723734019723701656}
   - component: {fileID: 1723734019723701639}
   - component: {fileID: 1723734019723701638}
+  - component: {fileID: 5753331768699339138}
   m_Layer: 0
   m_Name: FireHoseDoor
   m_TagString: Untagged
@@ -1053,6 +1054,20 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 20
   m_ConnectedMassScale: 20
+--- !u!114 &5753331768699339138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723734019723701636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a26cb128b9e1045894b07030d92dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ungrabDistance: 0.3
+  distanceCalcTransform: {fileID: 1723734019146309143}
 --- !u!1 &1723734020311392579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,6 +1083,7 @@ GameObject:
   - component: {fileID: 1723734020311392582}
   - component: {fileID: 1723734020311392581}
   - component: {fileID: 1723734020311392602}
+  - component: {fileID: 2953274860750489306}
   m_Layer: 0
   m_Name: FireExtinguisherDoor
   m_TagString: Untagged
@@ -1384,6 +1400,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0000005, y: 2, z: 1.9999998}
   m_Center: {x: -0.000003814698, y: -8.4703295e-22, z: 0.0000009536743}
+--- !u!114 &2953274860750489306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723734020311392579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a26cb128b9e1045894b07030d92dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ungrabDistance: 0.3
+  distanceCalcTransform: {fileID: 1723734019173904727}
 --- !u!1 &1723734020316976100
 GameObject:
   m_ObjectHideFlags: 0
