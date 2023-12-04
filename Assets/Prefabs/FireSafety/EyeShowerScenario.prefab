@@ -5469,9 +5469,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ddf686cc1b7d4581b64503c7216260a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelClearedObject: {fileID: 0}
-  particleSystemToActivate: {fileID: 8040280225723566150}
-  burstPopUp: {fileID: 0}
+  LiquidBursts:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8040280225723566150}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  MissionComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8900093572922607421
 GameObject:
   m_ObjectHideFlags: 0
@@ -10316,7 +10367,7 @@ PrefabInstance:
     - target: {fileID: 4932707202907152459, guid: ab7e48a2baa33d18a8ddfa304b902102,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9164629
+      value: -1.034
       objectReference: {fileID: 0}
     - target: {fileID: 4932707202907152459, guid: ab7e48a2baa33d18a8ddfa304b902102,
         type: 3}
@@ -10645,7 +10696,7 @@ PrefabInstance:
     - target: {fileID: 6991026364746567024, guid: 0b91af38361084d4b8b748be19925683,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22378635
+      value: -0.34132385
       objectReference: {fileID: 0}
     - target: {fileID: 6991026364746567024, guid: 0b91af38361084d4b8b748be19925683,
         type: 3}
@@ -10729,7 +10780,7 @@ PrefabInstance:
     - target: {fileID: 835509351051132866, guid: 7dcab29b251a2694ca1797b839717752,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4174633
+      value: -1.5350008
       objectReference: {fileID: 0}
     - target: {fileID: 835509351051132866, guid: 7dcab29b251a2694ca1797b839717752,
         type: 3}
