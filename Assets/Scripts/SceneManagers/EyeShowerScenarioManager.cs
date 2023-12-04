@@ -1,28 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EyeShowerScenarioManager : MonoBehaviour
 {
 
-    public GameObject levelClearedObject;
     private bool liquidBursted = false;
-    public ParticleSystem particleSystemToActivate;
-    public GameObject burstPopUp;
 
+    public UnityEvent LiquidBursts;
+    public UnityEvent MissionComplete;
 
-    public void Start()
-    {
-        if (particleSystemToActivate != null)
-        {
-            particleSystemToActivate.Stop();
-        }
-    }
     public void Aim() {
 
         if (liquidBursted)
         {
-            levelClearedObject.SetActive(true);
+            MissionComplete.Invoke();
         }
         
     }
@@ -34,12 +27,8 @@ public class EyeShowerScenarioManager : MonoBehaviour
             return;
         }
         liquidBursted = true;
-        if (particleSystemToActivate != null)
-        {
-            particleSystemToActivate.Play();
-        }
 
-        burstPopUp.SetActive(true);
+        LiquidBursts.Invoke();
     }
 }
 
