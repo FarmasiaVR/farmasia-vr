@@ -316,15 +316,15 @@ Transform:
   m_GameObject: {fileID: 9672660}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.246, y: 0.126, z: -1.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1030194913}
   - {fileID: 1703286507}
+  - {fileID: 1030194913}
   - {fileID: 622660430}
   - {fileID: 1545760727}
-  m_Father: {fileID: 30479002}
+  m_Father: {fileID: 971292726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &12188558 stripped
 GameObject:
@@ -497,41 +497,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &30479001
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 30479002}
-  m_Layer: 0
-  m_Name: TutorialLocations
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &30479002
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30479001}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.246, y: 0.126, z: -1.646}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1972383439}
-  - {fileID: 9672661}
-  - {fileID: 2105538702}
-  - {fileID: 197751367}
-  m_Father: {fileID: 971292726}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &35238045
 Mesh:
   m_ObjectHideFlags: 0
@@ -2429,7 +2394,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 30479002}
+    m_TransformParent: {fileID: 971292726}
     m_Modifications:
     - target: {fileID: 2605480387868884834, guid: 1ff486d3781e53941866fbc6c3df9592,
         type: 3}
@@ -2439,17 +2404,17 @@ PrefabInstance:
     - target: {fileID: 2605480387868884834, guid: 1ff486d3781e53941866fbc6c3df9592,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.795
+      value: 1.4509997
       objectReference: {fileID: 0}
     - target: {fileID: 2605480387868884834, guid: 1ff486d3781e53941866fbc6c3df9592,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.165
+      value: 0.291
       objectReference: {fileID: 0}
     - target: {fileID: 2605480387868884834, guid: 1ff486d3781e53941866fbc6c3df9592,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.724
+      value: -9.37
       objectReference: {fileID: 0}
     - target: {fileID: 2605480387868884834, guid: 1ff486d3781e53941866fbc6c3df9592,
         type: 3}
@@ -9141,7 +9106,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 151530705}
-  - {fileID: 30479002}
+  - {fileID: 1972383439}
+  - {fileID: 9672661}
+  - {fileID: 2105538702}
+  - {fileID: 197751367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &982956348
@@ -9327,7 +9295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1018297494}
+  targetHighlightBox: {fileID: 998725943}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -10128,7 +10096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1547248666}
+  targetHighlightBox: {fileID: 12188558}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -12013,7 +11981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 177300220}
+  targetHighlightBox: {fileID: 1333406733}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -14131,7 +14099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1547248666}
+  targetHighlightBox: {fileID: 1111319060}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -15453,7 +15421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1547248666}
+  targetHighlightBox: {fileID: 283325721}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -16263,7 +16231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1018297494}
+  targetHighlightBox: {fileID: 896753124}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -17973,7 +17941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1018297494}
+  targetHighlightBox: {fileID: 700253263}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -18677,7 +18645,7 @@ Transform:
   m_GameObject: {fileID: 1972383438}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 0, z: 0.39}
+  m_LocalPosition: {x: 4.496, y: 0.126, z: -1.256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18687,7 +18655,7 @@ Transform:
   - {fileID: 1788495991}
   - {fileID: 1065236534}
   - {fileID: 1928593990}
-  m_Father: {fileID: 30479002}
+  m_Father: {fileID: 971292726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1986207472
 PrefabInstance:
@@ -19143,7 +19111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1018297494}
+  targetHighlightBox: {fileID: 148981661}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -19685,7 +19653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320958461ecbb284b868b7f89d86a745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetHighlightBox: {fileID: 1018297494}
+  targetHighlightBox: {fileID: 2052699471}
   targetTutorialStartButton: {fileID: 0}
   highlightingMaterial: {fileID: 2100000, guid: 12069d3b3a1bb734492327d8d4b688c9,
     type: 2}
@@ -20399,13 +20367,13 @@ Transform:
   m_GameObject: {fileID: 2105538701}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.246, y: 0.126, z: -1.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 629901735}
   - {fileID: 284377411}
-  m_Father: {fileID: 30479002}
+  m_Father: {fileID: 971292726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121686040 stripped
 GameObject:
