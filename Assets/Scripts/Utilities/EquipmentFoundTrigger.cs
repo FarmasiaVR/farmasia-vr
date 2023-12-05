@@ -17,8 +17,10 @@ public class EquipmentFoundTrigger : MonoBehaviour {
     private void OnTriggerEnter(Collider collision) {
         if (collision.tag == "PlayerCollider" && !enteredOnce) {
             enteredOnce = true;
-            targetHighlightBox.GetComponent<MeshRenderer>().material = highlightingMaterial;
-            targetTutorialStartButton.SetActive(true);
+            if (targetHighlightBox != null)
+                targetHighlightBox.GetComponent<MeshRenderer>().material = highlightingMaterial;
+            if (targetTutorialStartButton != null)
+                targetTutorialStartButton.SetActive(true);
             onFirstEnter.Invoke();
         }
     }
