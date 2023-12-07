@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8820469716553784350}
   - component: {fileID: 1799186309657196725}
+  - component: {fileID: 69646475410676407}
   m_Layer: 19
   m_Name: EyeCollideChecker
   m_TagString: EyeColliderChecker
@@ -80,12 +81,36 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.15
-  m_Height: 2
+  m_Radius: 0.050510857
+  m_Height: 1.6327173
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.018664634, y: -0.18364076, z: 0.0028364484}
+--- !u!114 &69646475410676407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783835467119571287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb97cf93e4f328c43b736da7685784e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onCollisionExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2691943119671449146
 GameObject:
   m_ObjectHideFlags: 0
@@ -9723,8 +9748,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 28ed76fe8685a2446bc304bbe6f9ca88, type: 2}
-  - {fileID: 2100000, guid: 28ed76fe8685a2446bc304bbe6f9ca88, type: 2}
+  - {fileID: 2100000, guid: 23ed295dc3543df49ba5c6016db6a3d7, type: 2}
+  - {fileID: 2100000, guid: 23ed295dc3543df49ba5c6016db6a3d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9785,7 +9810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758980727974939322}
   m_Layer: 19
-  m_Name: EyeWashBottle
+  m_Name: EyeKillBottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9816,6 +9841,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4758980727974939322}
     m_Modifications:
+    - target: {fileID: -8960459971925441421, guid: 8f6b7d33ea0b7aa43bc02449bc883e4d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 361265388d426044babf1c6096c5dd66, type: 2}
     - target: {fileID: -8679921383154817045, guid: 8f6b7d33ea0b7aa43bc02449bc883e4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9876,6 +9906,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3289674471058131000, guid: 8f6b7d33ea0b7aa43bc02449bc883e4d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f0628334b62107348a3716ea00f51348, type: 2}
     - target: {fileID: -2055467150918270020, guid: 8f6b7d33ea0b7aa43bc02449bc883e4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10255,6 +10290,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a59c7b8fbe5b22f48a83b6c576bd5ab7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5063f71723c1b429b34d116e3c27df, type: 2}
     - target: {fileID: 919132149155446097, guid: a59c7b8fbe5b22f48a83b6c576bd5ab7,
         type: 3}
       propertyPath: m_Name
@@ -10391,7 +10431,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 60
+          m_FloatArgument: 600
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
