@@ -17,6 +17,7 @@ public class SpreadableFire : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshCollider meshCollider;
     public VisualEffect fireEffect;
+    public AudioSource extinguishAudio;
 
     //events
     public UnityEvent fireExtinguished;
@@ -185,8 +186,6 @@ public class SpreadableFire : MonoBehaviour
         rowE = (int)(center.x + radius);
         colS = (int)(center.y - radius);
         colE = (int)(center.y + radius);
-        Debug.Log(center);
-        Debug.Log(rowS.ToString() + " " + rowE.ToString() + " " + colS.ToString() + " " + colE.ToString());
         if (rowE > gridRows + 1)
             rowE = gridRows + 1;
         if (rowS < 0)
@@ -204,6 +203,15 @@ public class SpreadableFire : MonoBehaviour
                 {
                     if (fireVerticies.ContainsKey(vert))
                     {
+                        if(fireVerticies[vert].status == FireVertex.VertexStatus.burning)
+                        {
+                            if (extinguishAudio)
+                            {
+                                if (!extinguishAudio.isPlaying)
+                                    extinguishAudio.Play();
+                            }
+                        }
+
                         fireVerticies[vert].status = FireVertex.VertexStatus.extingushed;
                         if (noneSpreadableVerticies.Contains(vert))
                             continue;
