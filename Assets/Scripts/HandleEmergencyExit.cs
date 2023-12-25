@@ -15,6 +15,6 @@ public class HandleEmergencyExit : MonoBehaviour
     public void ExitToMenu()
     {
         Debug.Log("Exiting to fire safety menu");
-        levelChanger.SwapScene(SceneTypes.EmergencyExitTutorial);
+        levelChanger.SwapScene(SceneTypes.FireSafetyMenu);
     }
 }
