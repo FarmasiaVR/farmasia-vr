@@ -50,7 +50,7 @@ public class InfoBox : MonoBehaviour {
         await System.Threading.Tasks.Task.Delay(10);
         Debug.Log(G.Instance.Progress.CurrentPackage.doneTypes);
         if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WearHeadCoverAndFaceMask)) {
-            ShowInfoBox(CHANGING_ROOM_MESSAGE);
+            ShowInfoBox(Translator.Translate("InfoBox", "PreparingTools"));
             Events.UnsubscribeFromEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
         }
     }
@@ -60,7 +60,7 @@ public class InfoBox : MonoBehaviour {
 
         var liquidUsed = (data.DataObject as HandWashingLiquid);
         if (liquidUsed.type == "Water" && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WashGlasses)) {
-            ShowInfoBox(WASHING_HANDS_MESSAGE);
+            ShowInfoBox(Translator.Translate("InfoBox", "HandwashTime"));
             Events.UnsubscribeFromEvent(HandsTouched, EventType.WashingHands);
         }
     }
@@ -69,7 +69,7 @@ public class InfoBox : MonoBehaviour {
         await System.Threading.Tasks.Task.Delay(10);
 
         if (G.Instance.Progress.CurrentPackage.name == PackageName.CleanUp) {
-            ShowInfoBox(CLEANING_LAMINAR_CABINET_MESSAGE);
+            ShowInfoBox(Translator.Translate("InfoBox", "CleaningTheWallsWithPaper"));
             Events.UnsubscribeFromEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
         }
     }
@@ -84,7 +84,7 @@ public class InfoBox : MonoBehaviour {
         }
         if (item.ObjectType == ObjectType.Pipette) {
             if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMedicine) || G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMembrane)) {
-                ShowInfoBox(PIPETTE_CLEAN_TRASH_MESSAGE);
+                ShowInfoBox(Translator.Translate("InfoBox", "RemovingPipetteTip"));
                 Events.UnsubscribeFromEvent(PickupObject, EventType.PickupObject);
             }
         }

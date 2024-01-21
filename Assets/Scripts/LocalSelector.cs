@@ -7,6 +7,7 @@ public class LocalSelector : MonoBehaviour
 {
     private bool active = false;
     private int currentLocale;
+    private InfoBox infoBox;
 
     public int FetchCurrentLocale() { return currentLocale; }
     public void ChangeLocale(int localeID)
@@ -15,6 +16,12 @@ public class LocalSelector : MonoBehaviour
         // StartCoroutine(SetLocale(localeID));
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
         TaskConfig.reInitDictionary(); //TaskConfig contains most of the translations so reInit it to get the updated texts...
+        infoBox.Subscribe();
+    }
+
+    private void Start()
+    {
+        infoBox = FindObjectOfType<InfoBox>();
     }
 
     //this is BAD but works, will fix soon TM 
