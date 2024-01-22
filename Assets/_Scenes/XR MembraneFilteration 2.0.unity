@@ -2401,6 +2401,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1403864554350341559, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 468015884}
+    - target: {fileID: 1403864554350341559, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeLocale
+      objectReference: {fileID: 0}
+    - target: {fileID: 1403864554350341559, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LocalSelector, GameAssembly
+      objectReference: {fileID: 0}
     - target: {fileID: 1594167438989755222, guid: 523def29aa11f9e4ebd56bca96cdfdce,
         type: 3}
       propertyPath: m_IsActive
@@ -2410,6 +2425,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734332676310703026, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 468015884}
+    - target: {fileID: 3734332676310703026, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeLocale
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734332676310703026, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LocalSelector, GameAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630738666561494793, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 468015884}
+    - target: {fileID: 4630738666561494793, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeLocale
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630738666561494793, guid: 523def29aa11f9e4ebd56bca96cdfdce,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LocalSelector, GameAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 5714142904264978245, guid: 523def29aa11f9e4ebd56bca96cdfdce,
         type: 3}
@@ -5442,6 +5487,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f83bfdc195d6b74b84d67258037a2f0, type: 3}
+--- !u!114 &468015884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8840928657346826702, guid: 6f83bfdc195d6b74b84d67258037a2f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 468015883}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c57a53cccbe2484ab3930201a9e86d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &471080718
 GameObject:
   m_ObjectHideFlags: 0
@@ -13015,6 +13072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9544f5aebe4bc469e107e9bca22ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hapticAction:
+    actionPath: 
+    needsReinit: 0
   TestingAmplitude: 0.722
   TestingFrequency: 150
   TestingStrength: 0.498
