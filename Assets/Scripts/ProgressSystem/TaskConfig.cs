@@ -423,19 +423,19 @@ public static class TaskConfig {
 
         info(
             TaskType.CorrectItemsInThroughputMedicine,
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane1"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane2"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane3"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane4"),
+            "Oikeat työvälineet läpiantokaapissa",
+            "Laita tarvittavat työvälineet läpiantokaappiin ja siirry puhdastilaan.",
+            "Katso pöydällä olevasta listasta tarvittavat työvälineet ja siirrä ne läpiantokaappiin. Muista myös puhdistaa työvälineet 70% etanoliliuoksella.",
+            "Oikea määrä työvälineitä läpiantokaapissa!",
             2
         ),
 
         info(
             TaskType.CorrectItemsInLaminarCabinetMedicine,
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane1"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane2"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane3"),
-            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane4"),
+            "Oikeat työvälineet laminaarikaapissa",
+            "Siirrä valitsemasi työvälineet laminaarikaappiin.",
+            "Puhdista valitsemasi työvälineet 70% etanoliliuoksella ja siirrä ne laminaarikaappiin.",
+            "Oikea määrä työvälineitä laminaarikaapissa!",
             2
         ),
 
@@ -552,19 +552,19 @@ public static class TaskConfig {
 
         info(
             TaskType.CorrectItemsInThroughputMembrane,
-            "Oikeat välineet läpiantokaapissa",
-            "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
-            "Lista tarvittavista työvälineistä löytyy pöydältä. Puhdista työvälineet 70% etanoliliuoksella (suihkepullossa) ennen läpiantokaappiin viemistä.",
-            "Oikeat työvälineet läpiantokaapissa.",
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInThroughputMembrane4"),
             2
         ),
 
         info(
             TaskType.CorrectItemsInLaminarCabinetMembrane,
-            "Oikeat välineet laminaarikaapissa",
-            "Siirrä työvälineet laminaarikaappiin",
-            "Puhdista työvälineet ennen laminaarikaappiin vientiä 70% etanoliliuoksella (suihkepullossa). Tarvitset läpiantokaapissa olevat työvälineet ja kynän.",
-            "Oikea määrä työvälineitä laminaarikaapissa.",
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInLaminarCabinetMembrane4"),
             2
         ),
 
