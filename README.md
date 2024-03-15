@@ -1,6 +1,6 @@
-# Pharmacy VR Game Part 4
+# Pharmacy VR Game Part 5
 
-This fork implements part 4 of the original game
+This fork implements part 5 of the original game
 (Software engineering project, University of Helsinki 2022)
 [Demo from autumn 2019](https://youtu.be/pIKCZFZo2UA)
 
