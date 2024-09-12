@@ -82,7 +82,7 @@ To transfer liquids between objects, move the joystick right or press the right 
 
 ### Test controls
 
-To play the game without a VR headset, select the XR player in the Unity scene and enable `XR Device Simulator`. The controls should be visible on the screen
+To play the game without a VR headset, select the XR player in the Unity scene hierarchy and enable `XR Device Simulator` in the inspector. The controls should be visible on the screen
 
 ## Contributors
 
