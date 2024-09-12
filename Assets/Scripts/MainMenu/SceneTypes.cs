@@ -20,7 +20,8 @@ public enum SceneTypes {
     EmergencyExit,
     EmergencyExit1,
     XrPlayer,
-    SafetyEquipmentTutorial
+    SafetyEquipmentTutorial,
+    PlateCountMethod
 }
 
 public readonly struct GameScenes {
@@ -41,7 +42,8 @@ public readonly struct GameScenes {
         { SceneTypes.EmergencyExit1, "EmergencyExit 1" },
         { SceneTypes.XrPlayer, "XR Player"},
         { SceneTypes.SafetyEquipmentTutorial, "EquipmentTutorials"},
-        { SceneTypes.Laboratory, "LaboratoryLighting"}
+        { SceneTypes.Laboratory, "LaboratoryLighting"},
+        { SceneTypes.PlateCountMethod, "PlateCountMethod"}
     };
 
     private static Dictionary<string, SceneTypes> GetNameToTypeMapping() {
