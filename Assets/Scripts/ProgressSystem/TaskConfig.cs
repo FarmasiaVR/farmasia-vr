@@ -196,55 +196,55 @@ public static class TaskConfig {
 
         info(
             TaskType.AssemblePump,
-            "Pumpun kokoaminen",
-            "Kokoa pumppu ja kiinnitä jäteletku",
-            "Avaa suodatin suojapakkauksestaan ja kiinnitä se pumppuun. Kiinnitä jäteletku lääkejäteastiaan.",
-            "Hienoa, pumppu on koossa",
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump4"),
             3
         ),
 
         info(
             TaskType.WetFilter,
-            "Suodattimen kostutus",
-            "Kostuta kalvosuodatin",
-            "Avaa suodattimen kansi ja lisää suodattimeen 1ml peptonivettä finnpipetillä.",
-            "Hienosti kostutettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter4"),
             2
         ),
 
         info(
             TaskType.StartPump,
-            "Kostutusliuoksen suodatus",
-            "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
-            "Kostutettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump4"),
             2
         ),
 
         info(
             TaskType.MedicineToFilter,
-            "Lääkkeen lisääminen",
-            "Lisää lääke suodattimeen",
-            "Ota lääkeruisku sterilointipussista ja lisää lääke suodattimeen.",
-            "Lääke lisätty",
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter4"),
             2
         ),
 
         info(
             TaskType.StartPumpAgain,
-            "Lääkevalmisteen suodatus",
-            "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
-            "Suodatettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain4"),
             2
         ),
 
         info(
             TaskType.CutFilter,
-            "Kalvosuodattimen leikkaus",
-            "Pura pumppu ja leikkaa suodatin",
-            "Irrota suodatin pumpusta ja leikkaa sen pohjalla oleva kalvosuodatin varovasti skalpellilla kahteen osaan. Muista avata skalpellin pakkaus oikeasta päästä.",
-            "Hienoa, suodatin leikattu",
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter4"),
             2
         ),
 
