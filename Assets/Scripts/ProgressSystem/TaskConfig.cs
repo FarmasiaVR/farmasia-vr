@@ -169,28 +169,28 @@ public static class TaskConfig {
 
         info(
             TaskType.WriteTextsToItems,
-            "Tietojen kirjoitus esineisiin",
-            "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
-            "Kirjoita 100ml pulloihin (2kpl soijakaseiini, 2kpl tioglykolaatti) nimesi, päivämäärä, ja elatusaine. \n Kirjoita laskeumamaljoihin (1kpl soijakaseiini, 1kpl sabouraud-dekstroosi) nimesi, päivämäärä ja kellonaika. \n Kirjoita sormenpäämaljoihin (2kpl soijakaseiini) nimesi, päivämäärä ja oikea/vasen käsi.",
-            "Hyvin kirjoitettu.",
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems4"),
             2
         ),
 
         info(
             TaskType.OpenAgarplates,
-            "Laskeumamaljojen avaus",
-            "Avaa laskeumamaljat",
-            "Avaa sabouraud-dekstroosimalja sekä se soijakaseiinimalja, johon kirjoitit kellonajan.",
-            "Hienoa, agarmaljat avattu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates4"),
             2
         ), 
 
         info(
             TaskType.FillBottles,
-            "100ml pullojen täyttö",
-            "Lisää 100ml pulloihin elatusaineita",
-            "Lisää 80ml elatusainetta kuhunkin pulloon. Tarvitset 2 pulloa soijakaseiinia ja 2 pulloa tioglykolaattia. Muista katsoa, että laitat oikeaa ainetta oikeaan pulloon. \n Mittaa elatusaineet pipettorilla. Avaa mittapipetti suojapakkauksestaan ja kiinnitä pipettoriin. Muista vaihtaa mittapipetti vaihtaessasi liuosta.",
-            "Hienoa, pullot täytetty",
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles4"),
             4
         ),
 
