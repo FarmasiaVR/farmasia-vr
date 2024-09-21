@@ -250,88 +250,88 @@ public static class TaskConfig {
 
         info(
             TaskType.FilterHalvesToBottles,
-            "Suodattimen puolikkaiden siirtäminen pulloihin",
-            "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat elatusliuoksiin pieniin pulloihin, toinen soijakaseiiniin ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä.",
-            "Puolikkaat pulloissa!",
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles4"),
             2
         ),
 
         info(
             TaskType.CloseSettlePlates,
-            "Laskeumamaljojen sulkeminen",
-            "Sulje laskeumamaljat",
-            "Varmista, että jokainen agarmalja on suljettu.",
-            "Laskeumamaljat suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates4"),
             2
         ),
 
         info(
             TaskType.WriteSecondTime,
-            "Lopetusaikojen kirjoitus",
-            "Kirjoita lopetusaika laskeumamaljoihin",
-            "Kirjoita kellonaika laskeumamaljoihin (1kpl soijakaseiini ja  1 kpl sabouraud-dekstroosi). Katso oikea aika kellosta.",
-            "Hyvin kirjoitettu",
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime4"),
             2
         ),
 
         info(
             TaskType.Fingerprints,
-            "Sormenpäämaljat",
-            "Avaa sormenpäämaljat ja anna näytteet",
-            "Koske agaria oikealla kädellä kahdesti, kerran peukalolla ja kerran muilla sormilla. Toista toisella kädellä toiseen maljaan.",
-            "Sormenpäämaljat valmistettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints4"),
             2
         ),
 
         info(
             TaskType.CloseFingertipPlates,
-            "Sormenpäämaljojen sulkeminen",
-            "Sulje sormenpäämaljat",
-            "Sulje sormenpäämaljat",
-            "Sormenpäämaljat suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates4"),
             2
         ),
 
         info(
             TaskType.CloseBottles,
-            "Pullojen sulkeminen",
-            "Sulje pullot",
-            "Suljet isot ja pienet pullot laittamalla pullojen korkit takaisin kiinni.",
-            "Pullot suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles4"),
             2
         ),
 
         info(
             TaskType.CleanTrashMembrane,
-            "Jätteiden lajittelu",
-            "Lajittele jätteet",
-            "Lajittele jätteet",
-            "Jätteet lajiteltu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane4"),
             2
         ),
 
         info(
             TaskType.CorrectItemsInBasketMembrane,
-            "Valmiit esineet koriin",
-            "Siirrä valmiit esineet koriin",
-            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl), pinsetit",
-            "Valmiit esineet korissa!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane4"),
             2
         ),
 
         info(
             TaskType.CleanLaminarCabinetMembrane,
-            "Laminaarikaapin putsaus",
-            "Putsaa laminaarikaapin seinät",
-            "Ruiskuta etanoliliuosta (suihkepullossa) laminaarikaapin jokaiselle seinälle.",
-            "Laminaarikaappi puhdistettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane4"),
             2
         ),
 
         info(
             TaskType.FinishMembrane,
-            "Lopetus",
+            Translator.Translate("XR MembraneFilteration 2.0", "FinishMembrane"),
             "",
             "",
             "",
@@ -570,169 +570,169 @@ public static class TaskConfig {
 
         info(
             TaskType.WriteTextsToItems,
-            "Tietojen kirjoitus esineisiin",
-            "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
-            "Kirjoita 100ml pulloihin (2kpl soijakaseiini, 2kpl tioglykolaatti) nimesi, päivämäärä, ja elatusaine. \n Kirjoita laskeumamaljoihin (1kpl soijakaseiini, 1kpl sabouraud-dekstroosi) nimesi, päivämäärä ja kellonaika. \n Kirjoita sormenpäämaljoihin (2kpl soijakaseiini) nimesi, päivämäärä ja oikea/vasen käsi.",
-            "Hyvin kirjoitettu.",
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteTextsToItems4"),
             2
         ),
 
         info(
             TaskType.OpenAgarplates,
-            "Laskeumamaljojen avaus",
-            "Avaa laskeumamaljat",
-            "Avaa sabouraud-dekstroosimalja sekä se soijakaseiinimalja, johon kirjoitit kellonajan.",
-            "Hienoa, agarmaljat avattu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "OpenAgarplates4"),
             2
         ),
 
         info(
             TaskType.FillBottles,
-            "100ml pullojen täyttö",
-            "Lisää 100ml pulloihin elatusaineita",
-            "Lisää 80ml elatusainetta kuhunkin pulloon. Tarvitset 2 pulloa soijakaseiinia ja 2 pulloa tioglykolaattia. Muista katsoa, että laitat oikeaa ainetta oikeaan pulloon. \n Mittaa elatusaineet pipettorilla. Avaa mittapipetti suojapakkauksestaan ja kiinnitä pipettoriin. Muista vaihtaa mittapipetti vaihtaessasi liuosta.",
-            "Hienoa, pullot täytetty",
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FillBottles4"),
             4
         ),
 
         info(
             TaskType.AssemblePump,
-            "Pumpun kokoaminen",
-            "Kokoa pumppu ja kiinnitä jäteletku",
-            "Avaa suodatin suojapakkauksestaan ja kiinnitä se pumppuun. Kiinnitä jäteletku lääkejäteastiaan.",
-            "Hienoa, pumppu on koossa",
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "AssemblePump4"),
             3
         ),
 
         info(
             TaskType.WetFilter,
-            "Suodattimen kostutus",
-            "Kostuta kalvosuodatin",
-            "Avaa suodattimen kansi ja lisää suodattimeen 1ml peptonivettä finnpipetillä.",
-            "Hienosti kostutettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WetFilter4"),
             2
         ),
 
         info(
             TaskType.StartPump,
-            "Kostutusliuoksen suodatus",
-            "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
-            "Kostutettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPump4"),
             2
         ),
 
         info(
             TaskType.MedicineToFilter,
-            "Lääkkeen lisääminen",
-            "Lisää lääke suodattimeen",
-            "Ota lääkeruisku sterilointipussista ja lisää lääke suodattimeen.",
-            "Lääke lisätty",
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "MedicineToFilter4"),
             2
         ),
 
         info(
             TaskType.StartPumpAgain,
-            "Lääkevalmisteen suodatus",
-            "Käynnistä pumppu",
-            "Käynnistä pumppu painamalla käynnistysnappulaa. Muista sulkea kansi.",
-            "Suodatettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "StartPumpAgain4"),
             2
         ),
 
         info(
             TaskType.CutFilter,
-            "Kalvosuodattimen leikkaus",
-            "Pura pumppu ja leikkaa suodatin",
-            "Irrota suodatin pumpusta ja leikkaa sen pohjalla oleva kalvosuodatin varovasti skalpellilla kahteen osaan. Muista avata skalpellin pakkaus oikeasta päästä.",
-            "Hienoa, suodatin leikattu",
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CutFilter4"),
             2
         ),
 
         info(
             TaskType.FilterHalvesToBottles,
-            "Suodattimen puolikkaiden siirtäminen pulloihin",
-            "Siirrä puolikkaat pulloihin pinseteillä",
-            "Siirrä puolikkaat elatusliuoksiin pieniin pulloihin, toinen soijakaseiiniin ja toinen tioglykolaattiin. Muista avata pinsettien pakkaus oikeasta päästä.",
-            "Puolikkaat pulloissa!",
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "FilterHalvesToBottles4"),
             2
         ),
 
         info(
             TaskType.CloseSettlePlates,
-            "Laskeumamaljojen sulkeminen",
-            "Sulje laskeumamaljat",
-            "Varmista, että jokainen agarmalja on suljettu.",
-            "Laskeumamaljat suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseSettlePlates4"),
             2
         ),
 
         info(
             TaskType.WriteSecondTime,
-            "Lopetusaikojen kirjoitus",
-            "Kirjoita lopetusaika laskeumamaljoihin",
-            "Kirjoita kellonaika laskeumamaljoihin (1kpl soijakaseiini ja  1 kpl sabouraud-dekstroosi). Katso oikea aika kellosta.",
-            "Hyvin kirjoitettu",
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "WriteSecondTime4"),
             2
         ),
 
         info(
             TaskType.Fingerprints,
-            "Sormenpäämaljat",
-            "Avaa sormenpäämaljat ja anna näytteet",
-            "Koske agaria oikealla kädellä kahdesti, kerran peukalolla ja kerran muilla sormilla. Toista toisella kädellä toiseen maljaan.",
-            "Sormenpäämaljat valmistettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "Fingerprints4"),
             2
         ),
 
         info(
             TaskType.CloseFingertipPlates,
-            "Sormenpäämaljojen sulkeminen",
-            "Sulje sormenpäämaljat",
-            "Sulje sormenpäämaljat",
-            "Sormenpäämaljat suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseFingertipPlates4"),
             2
         ),
 
         info(
             TaskType.CloseBottles,
-            "Pullojen sulkeminen",
-            "Sulje pullot",
-            "Suljet isot ja pienet pullot laittamalla pullojen korkit takaisin kiinni.",
-            "Pullot suljettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CloseBottles4"),
             2
         ),
 
         info(
             TaskType.CleanTrashMembrane,
-            "Jätteiden lajittelu",
-            "Lajittele jätteet",
-            "Lajittele jätteet",
-            "Jätteet lajiteltu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanTrashMembrane4"),
             2
         ),
 
         info(
             TaskType.CorrectItemsInBasketMembrane,
-            "Valmiit esineet koriin",
-            "Siirrä valmiit esineet koriin",
-            "Siirrä koriin: pienet pullot (4kpl), isot pullot (3kpl), maljat (4kpl)",
-            "Valmiit esineet korissa!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CorrectItemsInBasketMembrane4"),
             2
         ),
 
         info(
             TaskType.CleanLaminarCabinetMembrane,
-            "Laminaarikaapin putsaus",
-            "Putsaa laminaarikaapin seinät",
-            "Ruiskuta etanoliliuosta (suihkepullossa) laminaarikaapin jokaiselle seinälle.",
-            "Laminaarikaappi puhdistettu!",
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane1"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane2"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane3"),
+            Translator.Translate("XR MembraneFilteration 2.0", "CleanLaminarCabinetMembrane4"),
             2
         ),
 
         info(
             TaskType.FinishMembrane,
-            "Lopetus",
+            Translator.Translate("XR MembraneFilteration 2.0", "FinishMembrane"),
             "",
             "",
             "",
