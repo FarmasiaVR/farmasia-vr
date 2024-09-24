@@ -1,7 +1,8 @@
 using System;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-class StartPump: Task {
+class StartPump : Task {
 
     public enum Conditions { FilterIsEmpty }
 
@@ -27,7 +28,7 @@ class StartPump: Task {
 
     private void CheckMistakes() {
         if (pumpFilter.Container.Amount > 0) {
-            CreateTaskMistake("Suodattimessa on vielä nestettä", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "FilterStillHasLiquid"), 1);
         }
     }
 }

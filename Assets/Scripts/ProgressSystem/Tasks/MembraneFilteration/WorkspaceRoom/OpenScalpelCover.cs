@@ -1,5 +1,7 @@
 ﻿using System;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class OpenScalpelCover : Task {
     public enum Conditions { OpenedScalpelCover }
@@ -35,15 +37,15 @@ public class OpenScalpelCover : Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpenedFilterCoverOutsideLaminar"), 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpenedFilterCoverOutsideLaminar"), 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin väärästä päästä! Muista aina avata aseptiset ja terävät työvälineet oikeasta päästä!", 1);
+        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpenedSharpObjectFromWrongEnd"), 1);
     }
 }
