@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 /// <summary>
 /// Correct amount of items inserted into Fume Cupboard.
 /// </summary>
@@ -50,7 +51,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         }
         List<Interactable> objects = laminarCabinet.GetContainedItems();
         if (objects.Count == 0) {
-            Popup("Siirrä tarvittavat työvälineet laminaarikaappiin.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "MoveItemsToLaminarCabinet"), MsgType.Notify);
             return;
         }
 
@@ -153,7 +154,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
         }
 
         if (uncleanCount > 0) {
-            CreateTaskMistake("Likainen esine laminaarikaapissa", uncleanCount);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemInLaminarCabinet"), uncleanCount);
         }
     }
     #endregion

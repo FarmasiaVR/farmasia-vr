@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 public class CutFilter: Task {
 
     public enum Conditions {
@@ -27,10 +28,10 @@ public class CutFilter: Task {
 
     private void FilterCut(CallbackData data) {
         if (!package.doneTypes.Contains(TaskType.AssemblePump) && !package.doneTypes.Contains(TaskType.WetFilter) && !package.doneTypes.Contains(TaskType.MedicineToFilter)) {
-            CreateTaskMistake("Leikkasit suodattimen ennen tarvittavia toimenpiteitä", 3);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "PrematureFilterCut"), 3);
         }
-        if (pump.SlotOccupied) { 
-            CreateTaskMistake("Leikkasit suodattimen sen ollessa kiinni pumpussa", 1);
+        if (pump.SlotOccupied) {
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "InPumpFilterCut"), 1);
         }
         EnableCondition(Conditions.FilterIsCut);
         CompleteTask();
@@ -56,15 +57,15 @@ public class CutFilter: Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningFilterCupOutsideLaminarCabinet"), 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningFilterCupOutsideLaminarCabinet"), 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojapakkauksen väärästä päästä!", 1);
+        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningFilterCupWrongSide"), 1);
     }
 }
