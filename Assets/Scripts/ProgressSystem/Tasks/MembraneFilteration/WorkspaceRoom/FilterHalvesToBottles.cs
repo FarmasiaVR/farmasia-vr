@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using FarmasiaVR.Legacy;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class FilterHalvesToBottles : Task {
     public enum Conditions { HavlesInBottles, OpenedTweezersCover }
@@ -54,7 +56,7 @@ public class FilterHalvesToBottles : Task {
     }
 
     private void TouchedFilter(CallbackData data) {
-        CreateTaskMistake("Koskit kalvosuodattimeen kädellä", 1);
+        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "TouchedFilterHalves"), 1);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -75,20 +77,20 @@ public class FilterHalvesToBottles : Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningProtectivePackageFilterHalves"), 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suojapakkauksen laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningProtectivePackageFilterHalves"), 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojapakkauksen väärästä päästä!", 1);
+        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningWrongEndFilterHalves"), 1);
     }
     private void CheckMistakes() {
         if (filterHalvesInSoycaseine > 1 || filterHalvesInTioglycolate > 1) {
-            CreateTaskMistake("Kaksi puolikasta samassa liuoksessa", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "BothFilterHalvesInSame"), 1);
         }
     }
 }

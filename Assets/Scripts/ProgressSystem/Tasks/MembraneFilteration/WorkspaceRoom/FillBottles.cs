@@ -4,7 +4,9 @@ using System.Diagnostics;
 using FarmasiaVR.Legacy;
 using Unity;
 using UnityEngine;
-class FillBottles: Task {
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
+class FillBottles : Task {
     public enum Conditions { BottlesFilled }
 
     private int soycaseineBottlesDone = 0;
@@ -69,25 +71,25 @@ class FillBottles: Task {
             if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
 
                 if (!writable.WrittenLines.ContainsKey(WritingType.SoyCaseine)) {
-                    CreateTaskMistake("Pulloon johon laitettiin soijakaseiinia, ei ole kirjoitettu 'Soijakaseiini'", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongWritingSoyCaseineBottle"), 1);
                 }
                 if (bottle.Container.Amount > REQUIRED_AMOUNT) {
-                    CreateTaskMistake("Soijakaseiinipullossa oli liikaa nestettä", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAmountSoyCaseineBottle"), 1);
                 }
                 if (bottle.Container.Impure) {
-                    CreateTaskMistake("Soijakaseiinipullon neste oli sekoittunut", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MixedLiquidSoyCaseineBottle"), 1);
                 }
 
             } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
 
                 if (!writable.WrittenLines.ContainsKey(WritingType.Tioglygolate)) {
-                    CreateTaskMistake("Pulloon johon laitettiin tioglykolaattia, ei ole kirjoitettu 'Tioglykolaatti'", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongWritingTioglygolateBottle"), 1);
                 }
                 if (bottle.Container.Amount > REQUIRED_AMOUNT) {
-                    CreateTaskMistake("Tioglykolaattipullossa oli liikaa nestettä", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAmountTioglygolateBottle"), 1);
                 }
                 if (bottle.Container.Impure) {
-                    CreateTaskMistake("Tioglykolaattipullon neste oli sekoittunut", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MixedLiquidTioglygolateBottle"), 1);
                 }
             }
 
