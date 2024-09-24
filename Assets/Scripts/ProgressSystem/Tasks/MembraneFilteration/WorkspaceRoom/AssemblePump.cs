@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 class AssemblePump: Task {
 
@@ -40,10 +41,10 @@ class AssemblePump: Task {
         Pump pump = data.DataObject as Pump;
 
         if (laminarCabinet == null) {
-            CreateTaskMistake("Suodatin kiinnitettiin liian aikaisin.", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "EarlyPumpAssembly"), 1);
             return;
         } else if (!laminarCabinet.GetContainedItems().Contains(pump)) {
-            CreateTaskMistake("Suodatin kiinnitettiin laminaarikaapin ulkopuolella", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OutsidePumpAssembly"), 1);
             return;
         }
     
@@ -62,16 +63,16 @@ class AssemblePump: Task {
         if (laminarCabinet.GetContainedItems().Contains(interactable)) {
             return;
         } else {
-            CreateTaskMistake("Avasit suodattimen suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningFilterPumpAssembly"), 1);
         }
 
         if (laminarCabinet.GetContainedItems() == null) {
-            CreateTaskMistake("Avasit suodattimen suojamuovin laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpeningFilterPumpAssembly"), 1);
         }
     }
 
     public void WrongSpotOpened(CallbackData data) {
-        CreateTaskMistake("Avasit suojamuovin väärästä päästä!", 1);
+        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongSideOpeningPumpAssembly"), 1);
     }
 
     /// <summary>

@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class CorrectItemsInThroughputMembrane: Task {
 
@@ -52,13 +54,13 @@ public class CorrectItemsInThroughputMembrane: Task {
 
         List<Interactable> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
-            Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "GetCorrectItemsThroughput"), MsgType.Notify);
             return;
         }
 
         if (containedObjects.Count > 44) {
             Logger.Print("ESINEIDEN MÄÄRÄ LÄPIANTOKAAPISSA: " + containedObjects.Count);
-            CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "TooManyItemsThroughput"), 1);
         }
 
         foreach (Interactable obj in containedObjects) {
@@ -72,7 +74,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                 if (g is Bottle) {
                     continue;
                 } else {
-                    CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), 1);
                 }
             }
         }
@@ -86,17 +88,17 @@ public class CorrectItemsInThroughputMembrane: Task {
                 MissingItems();
             }
         } else {
-            Popup("Sulje läpiantokaapin ovi.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "CloseThroughput"), MsgType.Notify);
         }
     }
     #endregion
 
     private void MissingItems() {
         if (!firstCheckDone) {
-            CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MissingItemsThroughput"), 2);
             firstCheckDone = true;
         } else {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "MissingItemsThroughput"), MsgType.Mistake);
             
         }
         List<string> itemsNotInCabinet = new List<string>();
@@ -150,7 +152,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                         tioglycolateBottle++;
                         EnableCondition(Conditions.TioglycolateBottle);
                     } else {
-                        CreateTaskMistake("Väärä pullo läpiantokaapissa", 5);
+                        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongBottleThroughput"), 5);
                     }
                 } else if (g is AgarPlateLid lid) {
                     string variant = lid.Variant;
@@ -165,7 +167,7 @@ public class CorrectItemsInThroughputMembrane: Task {
                         sabouradDextrosiPlate++;
                         EnableCondition(Conditions.SabouradDextrosiPlate);
                     } else {
-                        CreateTaskMistake("Väärä agarmalja läpiantokaapissa", 5);
+                        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAgarPlateThroughput"), 5);
                     }
 
                 } else if (g is Tweezers) {
