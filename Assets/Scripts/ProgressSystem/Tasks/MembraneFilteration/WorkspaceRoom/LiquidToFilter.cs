@@ -1,5 +1,7 @@
 ﻿using System;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 class LiquidToFilter : Task {
 
@@ -62,16 +64,16 @@ class LiquidToFilter : Task {
 
     private void CheckMistakes() {
         if (pumpFilter.Container.LiquidType != liquidType && liquidType == LiquidType.Peptonwater) {
-            CreateGeneralMistake("Et lisännyt peptonivettä filtteriin", 1);
+            CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NoPeptonInFilter"), 1);
         }
         if (pumpFilter.Container.LiquidType != liquidType && liquidType == LiquidType.Medicine) {
-            CreateGeneralMistake("Et lisännyt lääkettä filtteriin", 1);
+            CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NoMedicineInFilter"), 1);
         }
         if (pumpFilter.Container.Amount > REQUIRED_AMOUNT) {
-            CreateTaskMistake("Filtterissä on liikaa nestettä", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "TooMuchLiquidInFilter"), 1);
         }
         if (pumpFilter.Container.Impure) {
-            CreateTaskMistake("Filtterin neste on sekoittunut", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MixedLiquidInFilter"), 1);
         }
     }
 }

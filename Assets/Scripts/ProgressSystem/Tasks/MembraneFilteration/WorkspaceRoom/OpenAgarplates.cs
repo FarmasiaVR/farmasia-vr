@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class OpenAgarplates : Task {
 
@@ -48,7 +50,7 @@ public class OpenAgarplates : Task {
         if (lid == null) return;
 
         if (laminarCabinet == null || !laminarCabinet.GetContainedItems().Contains(lid)) {
-            CreateTaskMistake("Avasit maljan laminaarikaapin ulkopuolella!!!", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpenedAgarOutsideLaminar"), 1);
             return;
         }
 
@@ -61,7 +63,7 @@ public class OpenAgarplates : Task {
 
         if (soycaseinePlates >= 1 && sabouradPlates >= 1) {
             if (soycaseinePlates + sabouradPlates > 2) {
-                CreateTaskMistake("Avasit liian monta maljaa >:(", soycaseinePlates + sabouradPlates - 2);
+                CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "OpenedTooManyAgarPlates"), soycaseinePlates + sabouradPlates - 2);
             }
             EnableCondition(Conditions.OpenedCorrectPlates);
             CompleteTask();
