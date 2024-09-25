@@ -3,6 +3,8 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class CabinetBase : MonoBehaviour {
 
@@ -52,11 +54,11 @@ public class CabinetBase : MonoBehaviour {
 
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
             {
-                Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda kaappiin.", 1);
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                Task.CreateGeneralMistake("Kaappiin tuotu esine ei ollut puhdas.", 1);
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
             }
       
             if (!itemPlaced) {
