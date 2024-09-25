@@ -2,6 +2,8 @@
 using System;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class CorrectItemsInBasketMembrane : Task {
 
@@ -41,7 +43,7 @@ public class CorrectItemsInBasketMembrane : Task {
         }
         List<Interactable> containedObjects = basket.GetBasketItems();
         if (containedObjects.Count == 0) {
-            Popup("Kerää tarvittavat esineet koriin.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "CollectItemsToBasket"), MsgType.Notify);
             return;
         }
         CheckConditions(containedObjects);
@@ -85,7 +87,7 @@ public class CorrectItemsInBasketMembrane : Task {
                 }else if (g is BottleCap || g is FilteringButton || g is FilterHalf || g is FilterInCover || g is AgarPlateBottom || g is Agar) {
                     continue;
                 } else {
-                    CreateTaskMistake("Väärä esine korissa", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongItemInBasket"), 1);
                 }
                 if (agarPlate >= 4) {
                     EnableCondition(Conditions.AgarPlate);

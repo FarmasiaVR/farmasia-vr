@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 public class WriteSecondTime : Task {
 
     #region Fields
@@ -42,19 +44,19 @@ public class WriteSecondTime : Task {
                 
                 if(writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime))
                 {
-                    CreateTaskMistake("Kirjoitit väärän ajan maljaan", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongTimeInAgarPlate"), 1);
                 }
             }
             if (item.ObjectType == ObjectType.SoycaseinePlate) {
                 if (writable.WrittenLines.ContainsKey(WritingType.LeftHand) || writable.WrittenLines.ContainsKey(WritingType.RightHand)) {
-                    CreateTaskMistake("Kirjoitit ajan sormenpäämaljaan", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongWritingInAgarPlate"), 1);
                 } else if (writable.WrittenLines.ContainsKey(WritingType.SecondTime) || writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime)) {
                     soycaseine = true;
                 }
 
                 if (writable.WrittenLines.ContainsKey(WritingType.SecondFakeTime))
                 {
-                    CreateTaskMistake("Kirjoitit väärän ajan maljaan", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongTimeInAgarPlate"), 1);
                 }
 
             }

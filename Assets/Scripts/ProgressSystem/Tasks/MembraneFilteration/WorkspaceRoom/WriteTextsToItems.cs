@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 public class WriteTextsToItems : Task {
 
     #region Fields
@@ -110,7 +112,7 @@ public class WriteTextsToItems : Task {
                     if (!writable.WrittenLines.ContainsKey(requiredWriting)) {
                         foundAllRequiredWritings = false;
                         if (checkForMistakes)
-                            CreateTaskMistake("Et kirjoittanut " + requiredWriting + " esineeseen " + item.ObjectType, 1);
+                            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MissingWritings1") + requiredWriting + Translator.Translate("XR MembraneFilteration 2.0", "MissingWritings2") + item.ObjectType, 1);
                     }
                 }
                 if (foundAllRequiredWritings) {
@@ -122,7 +124,7 @@ public class WriteTextsToItems : Task {
             }
         }
         if (correctObjectType == false && checkForMistakes) {
-            CreateTaskMistake("Kirjoitit ylimääräiseen esineseen", 1);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WritingInWrongItem"), 1);
         }
         return false;
     }
