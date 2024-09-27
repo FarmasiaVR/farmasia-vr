@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class CabinetBaseMembrane : MonoBehaviour {
 
@@ -79,7 +81,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
         if (this.type == CabinetType.Laminar) {
             if (FirstEnterObjects.ContainsKey(item)) {
                 if (!FirstEnterObjects[item]) {
-                    Task.CreateGeneralMistake("Esineitä ei saa tuoda pois työskentelytilasta");
+                    Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NoItemsOutsideWorkspace"));
                     FirstEnterObjects[item] = true;
                 }
             } else {
@@ -89,7 +91,7 @@ public class CabinetBaseMembrane : MonoBehaviour {
 
         if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated && this.type == CabinetType.Laminar) {
             Logger.Print("Item was on floor: " + item.name);
-            Task.CreateGeneralMistake("Lattialla olevia esineitä ei saa tuoda laminaarikaappiin");
+            Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NoItemsFromFloor"));
 
             // To force Contaminated state you need to set the state to Clean first. Look at the Contaminated property and fix it T. previous ryhmä
             item.Contamination = GeneralItem.ContaminateState.Clean;
