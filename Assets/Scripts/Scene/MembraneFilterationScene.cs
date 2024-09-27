@@ -3,6 +3,8 @@ using System.Collections;
 using System.Linq;
 using System;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 class MembraneFilterationScene : SceneScript {
 
@@ -119,54 +121,54 @@ class MembraneFilterationScene : SceneScript {
         Bottle bottleTioglycolate2 = bottle4.GetComponentInChildren<Bottle>();
         // Mark lids
         var writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
             {WritingType.Time, DateTime.UtcNow.ToLocalTime().ToShortTimeString()}
         };
         pen.SubmitWriting(soycaseinePlateLid1.GetComponent<Writable>(), soycaseinePlateLid1.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
             {WritingType.Time, DateTime.UtcNow.ToLocalTime().ToShortTimeString()}
         };
         pen.SubmitWriting(sabouraudDextrosePlateLid.GetComponent<Writable>(), sabouraudDextrosePlateLid.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.RightHand, "Vasen käsi"},
+            {WritingType.RightHand, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption2")},
             {WritingType.Time, DateTime.UtcNow.ToLocalTime().ToShortTimeString()}
         };
         pen.SubmitWriting(soycaseinePlateLid2.GetComponent<Writable>(), soycaseinePlateLid2.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.LeftHand, "Oikea käsi"},
+            {WritingType.LeftHand, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption1")},
             {WritingType.Time, DateTime.UtcNow.ToLocalTime().ToShortTimeString()}
         };
         pen.SubmitWriting(soycaseinePlateLid3.GetComponent<Writable>(), soycaseinePlateLid3.gameObject, writing);
         // Mark bottles
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.SoyCaseine, "Soijakaseiini"},
+            {WritingType.SoyCaseine, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption3")},
         };
         pen.SubmitWriting(bottleSoycaseine1.GetComponent<Writable>(), bottleSoycaseine1.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ??Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.SoyCaseine, "Soijakaseiini"},
+            {WritingType.SoyCaseine, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption3")},
         };
         pen.SubmitWriting(bottleSoycaseine2.GetComponent<Writable>(), bottleSoycaseine2.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.Tioglygolate, "Tioglykolaatti"},
+            {WritingType.Tioglygolate, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption6")},
         };
         pen.SubmitWriting(bottleTioglycolate1.GetComponent<Writable>(), bottleTioglycolate1.gameObject, writing);
         writing = new Dictionary<WritingType, string>() {
-            {WritingType.Name, Player.Info.Name ?? "Nimi"},
+            {WritingType.Name, Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "PlayerName")},
             {WritingType.Date, DateTime.UtcNow.ToLocalTime().ToShortDateString()},
-            {WritingType.Tioglygolate, "Tioglykolaatti"},
+            {WritingType.Tioglygolate, Translator.Translate("XR MembraneFilteration 2.0", "WritingOption6")},
         };
         pen.SubmitWriting(bottleTioglycolate2.GetComponent<Writable>(), bottleTioglycolate2.gameObject, writing);
         if (strength == AutoPlayStrength.WriteItems) yield break;
