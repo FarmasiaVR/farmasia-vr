@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class TextInputScriptForMissingEquipment : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class TextInputScriptForMissingEquipment : MonoBehaviour
     {
         if (cabinet.itemsNotInCabinet.Count > 0)
         {
-            string shownText = "Puuttuvia välineitä:" + System.Environment.NewLine + System.Environment.NewLine;
+            string shownText = Translator.Translate("XR MembraneFilteration 2.0", "MissingEquipmentsInTable") + System.Environment.NewLine + System.Environment.NewLine;
 
             foreach (string i in cabinet.itemsNotInCabinet)
             {
