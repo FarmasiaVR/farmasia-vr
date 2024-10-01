@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine;
 using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 public class HandStateManager : MonoBehaviour {
 
     private HandState handState;
@@ -232,7 +234,7 @@ public class HandStateManager : MonoBehaviour {
     {
         if (handState == HandState.Dirty)
         {
-            Task.CreateGeneralMistake("Kaappiin viedyt kädet olivat ilman saastuttamat", 1);
+            Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyHandsInLaminarCabinet"), 1);
         }
         handsOutsideCabinet = false;
 
