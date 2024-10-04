@@ -3,6 +3,8 @@ using UnityEngine;
 using FarmasiaVR.Legacy;
 using UnityEngine.SceneManagement;
 using UnityEngine.Assertions.Must;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class TrashCan : MonoBehaviour {
 
@@ -65,7 +67,7 @@ public class TrashCan : MonoBehaviour {
     {
         if (!normalTrash.Contains(item.ObjectType) && !sharpTrash.Contains(item.ObjectType) && !medicineTrash.Contains(item.ObjectType))
         {
-            Task.CreateGeneralMistake("Esine ei kuulu roskikseen!", 1, true);
+            Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "ItemDoesNotBelongInTrash"), 1, true);
             return;
         }
         else
@@ -73,7 +75,7 @@ public class TrashCan : MonoBehaviour {
             Debug.Log("this item belongs in trash according to logic:" + item.gameObject.name);
             if (item.ObjectType == ObjectType.PipetteContainer && item.gameObject.transform.parent != null)
             {
-                Task.CreateGeneralMistake("Irroita ensin mittapipetti!", 1, true);
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FirstRemoveThePipette"), 1, true);
                 return;
             }
            
@@ -82,13 +84,13 @@ public class TrashCan : MonoBehaviour {
             checkTrashBelongsTo(item, TrashType.Normal, normalTrash);
 
             checkTrashBelongsTo(item, TrashType.Sharp, sharpTrash);
-            
-            if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin normaaliin roskikseen", 1, true);
-            if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Lääkejäte esine laitettiin terävien roskikseen", 1, true);
-            if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin terävien roskikseen", 1, true);
-            if (trashType == TrashType.Medicine && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Normaali esine laitettiin lääkejätteen roskikseen", 1, true);
-            if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin normaaliin roskikseen", 1, true);
-            if (trashType == TrashType.Medicine && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake("Terävä esine laitettiin lääkejätteen roskikseen", 1, true);
+
+            if (trashType == TrashType.Normal && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "MedicineInNormalTrash"), 1, true);
+            if (trashType == TrashType.Sharp && medicineTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "MedicineInSharpTrash"), 1, true);
+            if (trashType == TrashType.Sharp && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NormalInSharpTrash"), 1, true);
+            if (trashType == TrashType.Medicine && normalTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "NormalInMedicineTrash"), 1, true);
+            if (trashType == TrashType.Normal && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "SharpInNormalTrash"), 1, true);
+            if (trashType == TrashType.Medicine && sharpTrash.Contains(item.ObjectType)) Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "SharpInMedicineTrash"), 1, true);
         }
     }
 
