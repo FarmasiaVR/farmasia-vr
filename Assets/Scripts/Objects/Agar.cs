@@ -3,6 +3,8 @@ using FarmasiaVR.Legacy;
 using Unity;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class Agar : Interactable {
 
@@ -52,7 +54,7 @@ public class Agar : Interactable {
             rightHandTouches++;
         }
         if (time.Seconds < 4.0f || time.Seconds > 6.0f) {
-            Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+            Task.CreateTaskMistake(TaskType.Fingerprints, Translator.Translate("XR MembraneFilteration 2.0", "FingerprintTouchMistake"), 1);
         }
         checkComplete();
 
@@ -74,7 +76,7 @@ public class Agar : Interactable {
         {
             TimeSpan timeSpan = DateTime.Now - lastError;
             if (timeSpan.Seconds > 1.5f) { 
-                Task.CreateTaskMistake(TaskType.Fingerprints, "Kosketuksen tulee olla noin 5 sekuntia", 1);
+                Task.CreateTaskMistake(TaskType.Fingerprints, Translator.Translate("XR MembraneFilteration 2.0", "FingerprintTouchMistake"), 1);
                 lastError = DateTime.Now;
             }
             
@@ -122,7 +124,7 @@ public class Agar : Interactable {
         }
         else
         {
-            Task.CreateTaskMistake(TaskType.Fingerprints, "Väärällä kädellä otetut sormenjäljet", 1);
+            Task.CreateTaskMistake(TaskType.Fingerprints, Translator.Translate("XR MembraneFilteration 2.0", "WrongHandFingerprints"), 1);
             return false;
         }
     }
