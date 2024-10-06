@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class WritingOptions : MonoBehaviour {
 
@@ -116,7 +118,7 @@ public class WritingOptions : MonoBehaviour {
         {
             if(objectToTypeTo.writingsInOrder.Count >= objectToTypeTo.MaxLines) 
             {
-                errorTextField.SetText("Maksimimäärä rivejä!");
+                errorTextField.SetText(Translator.Translate("XR MembraneFilteration 2.0", "MaxAmountOfRows"));
             }
             else
             {
@@ -192,16 +194,19 @@ public class WritingOptions : MonoBehaviour {
         UpdatePosition(writable.transform);
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
-            if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime) {
-                if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems)) {
+            if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime)
+            {
+                if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems))
+                {
                     option.WritingType = WritingType.SecondTime;
                 }
                 Logger.Print("Writing type: " + option.WritingType);
                 Logger.Print("Writing option: " + option);
                 Logger.Print("Fake time: " + fakeTimeSet);
-                if (fakeTimeSet == 0) {
+                if (fakeTimeSet == 0)
+                {
                     option.WritingType = WritingType.FakeTime;
-                    
+
                     if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems))
                     {
                         option.WritingType = WritingType.SecondFakeTime;
@@ -210,16 +215,37 @@ public class WritingOptions : MonoBehaviour {
                     var time = DateTime.UtcNow.ToLocalTime();
                     time = time.AddMinutes(rand.Next(120) - 60);
                     option.UpdateText(time.ToShortTimeString());
-                } else {
+                }
+                else
+                {
                     option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortTimeString());
                 }
                 fakeTimeSet--;
-            } else if (option.WritingType == WritingType.Date) {
-                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortDateString());
-            } else if (option.WritingType == WritingType.Name) {
-                option.UpdateText(Player.Info.Name ?? "Pelaaja");
             }
-
+            else if (option.WritingType == WritingType.Date)
+            {
+                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortDateString());
+            }
+            else if (option.WritingType == WritingType.Name)
+            {
+                option.UpdateText(Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "Player"));
+            }
+            else if (option.WritingType == WritingType.LeftHand)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "LeftHand"));
+            }
+            else if (option.WritingType == WritingType.RightHand)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "RightHand"));
+            }
+            else if (option.WritingType == WritingType.Tioglygolate)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "Thioglycolate"));
+            }
+            else if (option.WritingType == WritingType.SoyCaseine)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "SoyCaseine"));
+            }
 
         }
     }
