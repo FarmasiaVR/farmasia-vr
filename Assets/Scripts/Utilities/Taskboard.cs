@@ -35,7 +35,11 @@ public class Taskboard : MonoBehaviour
             spawnedTextObject.transform.rotation = spawnedTextObject.transform.parent.rotation;
 
             TextMeshProUGUI spawnedTaskText = spawnedTextObject.AddComponent<TextMeshProUGUI>();
-            spawnedTaskText.text = task.taskText;
+
+            // needs to be changed if taskboards are used in other scenes than laboratory (tour)
+            spawnedTaskText.text = Translator.Translate("LaboratoryTour", task.key);
+           
+            // spawnedTaskText.text = task.taskText; 
             spawnedTaskText.font = textFont;
             spawnedTaskText.alignment = TextAlignmentOptions.Center;
 
