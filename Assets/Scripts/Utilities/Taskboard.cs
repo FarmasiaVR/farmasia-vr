@@ -78,25 +78,11 @@ public class Taskboard : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the task texts when the locale changes. This will only work if the taskboard is active 
-    /// when the language change happens
+    /// Updates the task texts when the locale changes. 
     /// </summary>
     private void UpdateTaskTexts()
     {
         Debug.Log("Updating task texts due to locale change.");
-        foreach (var taskEntry in taskTexts)
-        {
-            string taskKey = taskEntry.Key;
-            taskTexts[taskKey].text = Translator.Translate("LaboratoryTour", taskKey);
-            //taskEntry.Value.text = Translator.Translate("LaboratoryTour", taskKey);
-        }
-    }
-
-    /// <summary>
-    /// This method will check the current locale when the taskboard awakens
-    /// </summary>
-    private void RefreshTaskTexts()
-    {
         foreach (var taskEntry in taskTexts)
         {
             string taskKey = taskEntry.Key;
