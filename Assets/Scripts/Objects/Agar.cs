@@ -93,21 +93,25 @@ public class Agar : Interactable {
         if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachMidFgr" && handCheck(args))
         {
             leftMidFgrTouch = true;
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             //leftHandTouches++;
         }
         if (args.interactorObject.transform.parent.tag == "Controller (Left)" && interactor.attachTransform.tag == "PokeAttachThumb" && handCheck(args))
         {
             leftThumbTouch = true;
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             //leftHandTouches++;
         }
         if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachMidFgr" && handCheck(args))
         {
             rightMidFgrTouch = true;
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             //rightHandTouches++;
         }
         if (args.interactorObject.transform.parent.tag == "Controller (Right)" && interactor.attachTransform.tag == "PokeAttachThumb" && handCheck(args))
         {
             rightThumbTouch = true;
+            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             //rightHandTouches++;
         }
     }
