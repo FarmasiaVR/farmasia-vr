@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using TMPro;
 using UnityEngine;
 using FarmasiaVR.Legacy;
@@ -79,7 +80,7 @@ public class HintBox : DragAcceptable {
             return;
         }
 
-        CreateHintText(G.Instance.Progress.CurrentPackage.CurrentTask.Hint, startPos);
+        CreateHintText(TaskConfig.For(G.Instance.Progress.CurrentPackage.CurrentTask.TaskType).Hint, startPos);
         grabbed = false;
         SafeDestroy();
         boxInstance = null;
@@ -179,5 +180,18 @@ public class HintBox : DragAcceptable {
     public void XRInteract()
     {
         Activate();
+    }
+
+    // tracks LocalSelector changes mid game
+    private void OnEnable()
+    {
+        LocalSelector.OnLocaleChanged += UpdateHintText;
+        Debug.Log("Subscribed to OnLocaleChanged event.");
+
+    }
+
+    private void UpdateHintText()
+    {
+        CreateHint(TaskConfig.For(G.Instance.Progress.CurrentPackage.CurrentTask.TaskType).Hint);
     }
 }
