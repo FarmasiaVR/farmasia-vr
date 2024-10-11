@@ -13,8 +13,8 @@ public class PointPopup : MonoBehaviour {
 
     private const float LERP_AMOUNT = 0.05f;
 
-    private float popupSpawnDistance = 0.5f;
-    private float popupDistance = 0.5f;
+    private float popupSpawnDistance = 0.7f;
+    private float popupDistance = 0.7f;
     private float popupHeightOffset = -0.2f;
     private float centerOffset = 0.06f;
     // CameraCenter is where the center of your head is, not the headset (eyes) is.
@@ -24,7 +24,7 @@ public class PointPopup : MonoBehaviour {
 
     #region Variables
     private float timer = 0.0f;
-    public float visualTime = 3.0f;
+    public float visualTime = 4.0f;
     private float fadeInAndOut = 0.3f;
     private float speed = 0.007f;
     private float endPoint;
