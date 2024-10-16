@@ -41,7 +41,7 @@ public class TaskDescriptionManager : MonoBehaviour
     {
         foreach (TextMeshPro taskDesc in taskDescriptions)
         {
-            taskDesc.text = "Kaikki tehtävät suoritettu! \n Sait yhteensä " + taskList.GetPoints() + " pistettä";
+            taskDesc.text = Translator.Translate("LaboratoryTour", "MissionCompleted") + " " + taskList.GetPoints();
         }
     }
 }
