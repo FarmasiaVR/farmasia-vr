@@ -29,7 +29,7 @@ public class PopupManager : MonoBehaviour
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        pointPopup.SetPopup(task.awardedPoints, "Tehtävä suoritettu: " + task.taskText, MsgType.Done);
+        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("LaboratoryTour", "MissionAccomplished") + " " + task.taskText, MsgType.Done);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class PopupManager : MonoBehaviour
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        pointPopup.SetPopup("Et suorittanut tehtävää " + task.taskText + " ajoissa \n GAME OVER", MsgType.Error);
+        pointPopup.SetPopup(Translator.Translate("LaboratoryTour", "NotCompleted") + " " + task.taskText + " \n GAME OVER", MsgType.Error);
     }
 
     /// <summary>
