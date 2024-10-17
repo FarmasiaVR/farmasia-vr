@@ -9,6 +9,8 @@ public class TaskDescriptionManager : MonoBehaviour
     [Tooltip("The list of task descriptions that the manager will update. Leave empty to find the task descriptions by tag.")]
     public List<TextMeshPro> taskDescriptions;
 
+    private TaskList currentTaskList;
+
     private void Awake()
     {
         if (taskDescriptions.Count == 0)
@@ -19,6 +21,18 @@ public class TaskDescriptionManager : MonoBehaviour
                 taskDescriptions.Add(descObject.GetComponent<TextMeshPro>());
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        LocalSelector.OnLocaleChanged += UpdateGameOverText;
+        Debug.Log("Subscribed to OnLocaleChanged event");
+    }
+
+    private void OnDisable()
+    {
+        LocalSelector.OnLocaleChanged -= UpdateGameOverText;
+        Debug.Log("Unsubscribed from OnLocaleChanged event");
     }
 
     /// <summary>
@@ -39,9 +53,23 @@ public class TaskDescriptionManager : MonoBehaviour
     /// <param name="taskList">The task list the player has finished</param>
     public void GameOverText(TaskList taskList)
     {
+        currentTaskList = taskList;
+        UpdateTaskDescriptionsWithPoints();
+    }
+
+    private void UpdateGameOverText()
+    {
+        if (currentTaskList != null)
+        {
+            UpdateTaskDescriptionsWithPoints();
+        }
+    }
+
+    private void UpdateTaskDescriptionsWithPoints()
+    {
         foreach (TextMeshPro taskDesc in taskDescriptions)
         {
-            taskDesc.text = Translator.Translate("LaboratoryTour", "MissionCompleted") + " " + taskList.GetPoints();
+            taskDesc.text = Translator.Translate("LaboratoryTour", "MissionCompleted") + " " + currentTaskList.GetPoints();
         }
     }
 }
