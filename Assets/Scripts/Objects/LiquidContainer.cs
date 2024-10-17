@@ -156,7 +156,7 @@ public class LiquidContainer : MonoBehaviour {
             //TODO: should there be a mixedMedicine liquidType?
             else {
                 switchLiquidTypesAndMakeImpure(target);
-                Task.CreateGeneralMistake("Lääkkeet sekoittuivat keskenään!");
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "MedicinesWereMixed"));
             }
         }
         target.liquid.SetMaterialFromType(target.LiquidType);
