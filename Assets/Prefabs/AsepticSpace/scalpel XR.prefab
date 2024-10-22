@@ -589,7 +589,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -608,6 +608,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -645,6 +649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
 --- !u!1 &1743190126195868450
 GameObject:
