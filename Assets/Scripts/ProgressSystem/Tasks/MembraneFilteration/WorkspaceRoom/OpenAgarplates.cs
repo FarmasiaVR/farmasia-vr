@@ -31,6 +31,16 @@ public class OpenAgarplates : Task {
     public override void Subscribe() {
         base.SubscribeEvent(TrackOpenedPlates, EventType.PlateOpened);
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
+        base.SubscribeEvent(NotifyPlayerOfPlates, EventType.BottleOpened); // added to notify player if they don't open the settling plates!
+    }
+
+    private void NotifyPlayerOfPlates(CallbackData data)
+    {
+        if (G.Instance.Progress.CurrentPackage.CurrentTask.TaskType == TaskType.OpenAgarplates)
+        {
+            UISystem.Instance.CreatePopup(Translator.Translate("XR MembraneFilteration 2.0", "NotificationPlates"), MsgType.Notify);
+        }
+        
     }
 
     private void SetCabinetReference(CallbackData data) {
