@@ -57,11 +57,9 @@ public class CabinetBase : MonoBehaviour {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
             }
 
-            // removed due to duplicate error messages, other one in CorrectItemsInLaminarCabinetMembrane
-            //if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-              //  
-              //   Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
-            //}
+            if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
+            }
       
             if (!itemPlaced) {
                 Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
