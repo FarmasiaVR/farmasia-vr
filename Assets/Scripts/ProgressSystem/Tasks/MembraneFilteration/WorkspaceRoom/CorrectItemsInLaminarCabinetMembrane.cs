@@ -13,6 +13,7 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
     #region Fields
     public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag, Pencil }
     private CabinetBase laminarCabinet;
+    public int dirtyItems = 0;
     #endregion
 
     #region Constructor
@@ -153,8 +154,16 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
             
         }
 
-        if (uncleanCount > 0) {
-            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemInLaminarCabinet"), uncleanCount);
+        if (uncleanCount != dirtyItems) {
+            if (uncleanCount > dirtyItems)
+            {
+                CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemInLaminarCabinet"), uncleanCount);
+                dirtyItems++;
+            }
+            else 
+            {
+                dirtyItems--;
+            }
         }
     }
     #endregion
