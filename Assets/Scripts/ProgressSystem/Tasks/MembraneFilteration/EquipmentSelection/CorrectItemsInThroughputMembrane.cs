@@ -15,6 +15,8 @@ public class CorrectItemsInThroughputMembrane: Task {
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
+
+    public int dirtyItems = 0;
     #endregion
 
     #region Constructor
@@ -30,6 +32,7 @@ public class CorrectItemsInThroughputMembrane: Task {
         Debug.Log("subcribed to events ");
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
+        base.SubscribeEvent(CheckCabinetItems, EventType.CheckLaminarCabinetItems);
     }
 
     private void SetCabinetReference(CallbackData data) {
@@ -39,6 +42,12 @@ public class CorrectItemsInThroughputMembrane: Task {
             door = cabinet.transform.Find("Door").GetComponent<OpenableDoor>();
             base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         }
+    }
+
+    private void CheckCabinetItems(CallbackData data)
+    {
+        List<Interactable> containedObjects = cabinet.GetContainedItems();
+        CheckConditions(containedObjects);
     }
 
     private void CorrectItems(CallbackData data) {
@@ -70,13 +79,13 @@ public class CorrectItemsInThroughputMembrane: Task {
                 continue;
             }
 
-            if (!g.IsClean) {
-                if (g is Bottle) {
-                    continue;
-                } else {
-                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), 1);
-                }
-            }
+            //if (!g.IsClean) {
+              //  if (g is Bottle) {
+                //    continue;
+                //} else {
+                  //  CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), 1);
+                //}
+            //}
         }
 
         CheckConditions(containedObjects);
@@ -126,6 +135,9 @@ public class CorrectItemsInThroughputMembrane: Task {
         int filter = 0;
         int pipetteHeads = 0;
         int bigPipette = 0;
+
+        int uncleanCount = 0;
+
         Debug.Log("Checking conditions of the passthrough cabinet in events:");
         foreach (var item in containedObjects) {
             if (Interactable.GetInteractable(item.transform) is var g && g != null) {
@@ -208,10 +220,29 @@ public class CorrectItemsInThroughputMembrane: Task {
                     EnableCondition(Conditions.BigPipette);
                     bigPipette++;
                 }
+                if (g is GeneralItem generalItem && !generalItem.IsClean && !(generalItem is Bottle))
+                {
+                    Debug.Log("item was contaminated: " + g.gameObject.name);
+                    uncleanCount++;
+                    Logger.Warning(g.name + " in laminar cabinet was filthy.");
+                }
             }
         }
         if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1)) {
             // CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
+        }
+
+        if (uncleanCount != dirtyItems)
+        {
+            if (uncleanCount > dirtyItems)
+            {
+                CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), uncleanCount);
+                dirtyItems++;
+            }
+            else
+            {
+                dirtyItems--;
+            }
         }
     }
 
