@@ -22,7 +22,7 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     {
         if (displayText)
         {
-            text.text = containerToShow.Amount.ToString() + " / " + containerToShow.Capacity.ToString();
+            text.text = (containerToShow.Amount / 1000).ToString("0.0") + "ml" + " / " + (containerToShow.Capacity / 1000).ToString("0.0") + "ml";
         }
         else
         {
