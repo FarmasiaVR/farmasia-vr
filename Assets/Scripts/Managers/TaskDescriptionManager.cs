@@ -10,6 +10,8 @@ public class TaskDescriptionManager : MonoBehaviour
 
     private TaskList currentTaskList;
 
+    private Task currentTask;
+
     private void Awake()
     {
         taskDescriptions = new List<TextMeshPro>();  // Create the list
@@ -30,7 +32,7 @@ public class TaskDescriptionManager : MonoBehaviour
         LocalSelector.OnLocaleChanged -= UpdateGameOverText;
     }
 
-     public void UpdateTaskDescriptionList()
+     public void UpdateTaskDescriptionList() // For some reason doesn't work without testing with VR-headset
     {
         taskDescriptions.Clear();  // Empty the list
         
@@ -41,7 +43,10 @@ public class TaskDescriptionManager : MonoBehaviour
             if (textComponent != null)
             {
                 taskDescriptions.Add(textComponent);
-                textComponent.text = "This should not be shown";
+                if (currentTask != null)
+                {
+                    textComponent.text = Translator.Translate("LaboratoryTour", currentTask.name);
+                }
             }
         }
         
@@ -49,9 +54,10 @@ public class TaskDescriptionManager : MonoBehaviour
 
       public void UpdateTaskDescriptions(Task task)
     {
+        currentTask = task;
         foreach (TextMeshPro taskDesc in taskDescriptions)
         {
-            taskDesc.text = Translator.Translate("LaboratoryTour", task.name); // Update whiteboard text
+            taskDesc.text = Translator.Translate("LaboratoryTour", currentTask.name); // Update whiteboard text
         }
     }
 
@@ -63,6 +69,7 @@ public class TaskDescriptionManager : MonoBehaviour
 
     private void UpdateGameOverText()
     {
+        UpdateTaskDescriptionList();
         if (currentTaskList != null)
         {
             UpdateTaskDescriptionsWithPoints();
