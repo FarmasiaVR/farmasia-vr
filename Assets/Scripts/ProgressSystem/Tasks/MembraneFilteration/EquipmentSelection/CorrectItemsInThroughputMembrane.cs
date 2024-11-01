@@ -16,7 +16,7 @@ public class CorrectItemsInThroughputMembrane: Task {
     private CabinetBase cabinet;
     private OpenableDoor door;
 
-    public int dirtyItems = 0;
+    public int dirty = 0;
     #endregion
 
     #region Constructor
@@ -232,17 +232,12 @@ public class CorrectItemsInThroughputMembrane: Task {
             // CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
         }
 
-        if (uncleanCount != dirtyItems)
+        if (uncleanCount > 0)
         {
-            if (uncleanCount > dirtyItems)
-            {
+         
                 CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), uncleanCount);
-                dirtyItems++;
-            }
-            else
-            {
-                dirtyItems--;
-            }
+                dirty++;
+          
         }
     }
 

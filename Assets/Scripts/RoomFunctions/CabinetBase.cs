@@ -47,7 +47,7 @@ public class CabinetBase : MonoBehaviour {
                     SyringeCapBagEnteredLaminarCabinet(item);
                 }
 
-                if (Time.timeSinceLevelLoad > 1.0f) {
+                if (Time.timeSinceLevelLoad > 1.0f && type == CabinetType.Laminar) {
                     UnfoldSterileDrape();
                 }
             }
