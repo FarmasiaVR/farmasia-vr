@@ -46,6 +46,11 @@ public class CorrectItemsInThroughputMembrane: Task {
 
     private void CheckCabinetItems(CallbackData data)
     {
+        if (cabinet == null)
+        {
+            Logger.Error("laminarCabinet was null in CorrectItemsInLaminarCabinetMembrane!");
+            return;
+        }
         List<Interactable> containedObjects = cabinet.GetContainedItems();
         CheckConditions(containedObjects);
     }

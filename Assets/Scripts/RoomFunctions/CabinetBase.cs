@@ -39,7 +39,14 @@ public class CabinetBase : MonoBehaviour {
             if (item == null) {
                 return;
             }
-     
+
+            if (!itemPlaced)
+            {
+                Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
+                itemPlaced = true;
+
+            }
+
             if (type == CabinetType.Laminar || type == CabinetType.PassThrough) {
                 Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
@@ -63,11 +70,7 @@ public class CabinetBase : MonoBehaviour {
               //   Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
             //}
       
-            if (!itemPlaced) {
-                Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
-                itemPlaced = true;
            
-            }
         }
     }
 
