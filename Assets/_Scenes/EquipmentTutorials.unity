@@ -11003,7 +11003,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7857187501655644558, guid: 61ba4115bf408a34c8ce491d07b1e6b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 831614272}
   m_SourcePrefab: {fileID: 100100000, guid: 61ba4115bf408a34c8ce491d07b1e6b4, type: 3}
 --- !u!224 &831614269 stripped
 RectTransform:
@@ -11017,6 +11021,58 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 831614268}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &831614271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7857187501655644556, guid: 61ba4115bf408a34c8ce491d07b1e6b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 831614268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831614270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &831614272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831614270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:f93b5c2491f27f662babb36e9dba3bdc
+    m_TableEntryReference:
+      m_KeyId: 13414054847578112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 831614271}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!43 &839431976
 Mesh:
   m_ObjectHideFlags: 0
