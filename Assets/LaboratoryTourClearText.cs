@@ -21,6 +21,6 @@ public class LaboratoryTourClearText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        LocalSelector.OnLocaleChanged += Start;
     }
 }
