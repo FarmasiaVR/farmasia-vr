@@ -84,4 +84,9 @@ public class TaskDescriptionManager : MonoBehaviour
             taskDesc.text = translatedText;
         }
     }
+
+    public int getValue()
+    {
+        return currentTaskList.GetPoints();
+    }
 }
