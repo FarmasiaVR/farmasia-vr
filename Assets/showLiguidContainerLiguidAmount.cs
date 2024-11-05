@@ -8,6 +8,7 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     public LiquidContainer containerToShow;
     public TextMeshPro text;
     public bool displayText;
+    public string decimalAccuracy = "0.000";
 
     //bool indicating if IEnumerator toggleDisplayFor has been invoked already
     bool toggledDisplay;
@@ -22,7 +23,7 @@ public class showLiguidContainerLiguidAmount : MonoBehaviour
     {
         if (displayText)
         {
-            text.text = (containerToShow.Amount / 1000).ToString("0.0") + "ml" + " / " + (containerToShow.Capacity / 1000).ToString("0.0") + "ml";
+            text.text = (containerToShow.Amount / 1000.0f).ToString(decimalAccuracy) + "ml" + " / " + (containerToShow.Capacity / 1000.0f).ToString(decimalAccuracy) + "ml";
         }
         else
         {

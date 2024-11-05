@@ -277,6 +277,37 @@ Transform:
   - {fileID: 2803851278658898982}
   m_Father: {fileID: 5607598013309711170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4772731858846364778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2536279331303060645}
+  m_Layer: 0
+  m_Name: leftAttach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2536279331303060645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772731858846364778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: -0, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: -0.037, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.49999988, z: 0.49999988}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5357183298687629392}
+  m_LocalEulerAnglesHint: {x: 180, y: -90, z: 0}
 --- !u!1 &5087343554631739896
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +356,7 @@ GameObject:
   - component: {fileID: 4964931567727425733}
   - component: {fileID: 3815356544536697300}
   - component: {fileID: 6007467560816242469}
-  - component: {fileID: 3815356544536697301}
+  - component: {fileID: 8910216377067032174}
   - component: {fileID: 3242325704835274617}
   - component: {fileID: 7492905843444838001}
   m_Layer: 10
@@ -352,6 +383,7 @@ Transform:
   - {fileID: 5580978896062011641}
   - {fileID: 4034898051408458492}
   - {fileID: 6960134831138785582}
+  - {fileID: 2536279331303060645}
   - {fileID: 4147022831074503150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -463,7 +495,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.01054115, y: 0.0043143257, z: 0.004}
   m_Center: {x: -0.0069533, y: -0.044106744, z: 0}
---- !u!114 &3815356544536697301
+--- !u!114 &8910216377067032174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,7 +504,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5357183298687629393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 58a0983651be8604b91693792d7778df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -637,7 +669,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 6960134831138785582}
+  m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -652,12 +684,12 @@ MonoBehaviour:
   m_AngularVelocityScale: 1
   m_TrackPosition: 1
   m_SmoothPosition: 0
-  m_SmoothPositionAmount: 5
-  m_TightenPosition: 0.5
+  m_SmoothPositionAmount: 8
+  m_TightenPosition: 0.1
   m_TrackRotation: 1
   m_SmoothRotation: 0
-  m_SmoothRotationAmount: 5
-  m_TightenRotation: 0.5
+  m_SmoothRotationAmount: 8
+  m_TightenRotation: 0.1
   m_TrackScale: 1
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
@@ -687,6 +719,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  leftAttach: {fileID: 2536279331303060645}
+  rightAttach: {fileID: 6960134831138785582}
 --- !u!114 &3242325704835274617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,12 +1408,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 4098953563021995538}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 4098953563021995538}
+  m_maskType: 0
 --- !u!1 &9151522019494225968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6960134831138785582}
   m_Layer: 0
-  m_Name: Transform
+  m_Name: rightAttach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
