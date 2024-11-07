@@ -22,21 +22,23 @@ public class PopupManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Shows a green completed text popup
+    /// Shows a green completed text popup for laboratorytour
     /// </summary>
     /// <param name="task">The task that was completed</param>
     public void TaskCompletePopup(Task task)
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        if (task.key == "grab" || task.key == "distGrab" || task.key == "move" || task.key == "activate" || task.key == "med" || task.key == "fingerprint" || task.key == "pump")
-        {
-            pointPopup.SetPopup(task.awardedPoints, Translator.Translate("ControlsTutorial", "MissionAccomplished") + " " + Translator.Translate("ControlsTutorial", task.key), MsgType.Done);
-        }
-        else 
-        {
-            pointPopup.SetPopup(task.awardedPoints, Translator.Translate("LaboratoryTour", "MissionAccomplished") + " " + Translator.Translate("LaboratoryTour", task.key), MsgType.Done);
-        }
+        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("LaboratoryTour", "MissionAccomplished") + " " + Translator.Translate("LaboratoryTour", task.key), MsgType.Done);
+
+    }
+
+        public void TaskCompletePopupControlsTutorial(Task task)
+    {
+        PointPopup pointPopup = InstantiatePopup();
+
+        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("ControlsTutorial", "MissionAccomplished") + " " + Translator.Translate("ControlsTutorial", task.key), MsgType.Done);
+    
     }
 
     /// <summary>
