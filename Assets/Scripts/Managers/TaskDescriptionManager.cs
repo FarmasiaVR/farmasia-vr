@@ -45,11 +45,17 @@ public class TaskDescriptionManager : MonoBehaviour
                 taskDescriptions.Add(textComponent);
                 if (currentTask != null)
                 {
-                    textComponent.text = Translator.Translate("LaboratoryTour", currentTask.name);
+                    if (currentTask.name == "EmergencyShower" || currentTask.name == "Extinguisher" || currentTask.name == "FireBlanket" || currentTask.name == "EyeShower" || currentTask.name == "EmergencyExit")
+                    {
+                        textComponent.text = Translator.Translate("LaboratoryTour", currentTask.name);
+                    }
+                    else
+                    {
+                        textComponent.text = Translator.Translate("ControlsTutorial", currentTask.name);
+                    }
                 }
             }
-        }
-        
+        }       
     }
 
       public void UpdateTaskDescriptions(Task task)
@@ -57,7 +63,15 @@ public class TaskDescriptionManager : MonoBehaviour
         currentTask = task;
         foreach (TextMeshPro taskDesc in taskDescriptions)
         {
-            taskDesc.text = Translator.Translate("LaboratoryTour", currentTask.name); // Update whiteboard text
+            // Update whiteboard text
+            if (currentTask.name == "EmergencyShower" || currentTask.name == "Extinguisher" || currentTask.name == "FireBlanket" || currentTask.name == "EyeShower" || currentTask.name == "EmergencyExit")
+            {
+                taskDesc.text = Translator.Translate("LaboratoryTour", currentTask.name);
+            }
+            else
+            {
+                taskDesc.text = Translator.Translate("ControlsTutorial", currentTask.name);
+            } 
         }
     }
 
