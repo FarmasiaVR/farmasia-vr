@@ -32,7 +32,10 @@ public class FilterHalvesToBottles : Task {
             // UnityEngine.Debug.Log("soycaseine halves before: " + filterHalvesInSoycaseine);
             filterHalvesInSoycaseine++;
             // UnityEngine.Debug.Log("soycaseine halves after: " + filterHalvesInSoycaseine);
-
+            if (filterHalvesInSoycaseine == 1)
+            {
+                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+            }
 
         }
 
@@ -41,7 +44,10 @@ public class FilterHalvesToBottles : Task {
 
             filterHalvesInTioglycolate++;
             // UnityEngine.Debug.Log("Tioglygolate halves after: " + filterHalvesInTioglycolate);
-
+            if (filterHalvesInSoycaseine == 1)
+            {
+                G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+            }
         }
 
         if (filterHalvesInSoycaseine + filterHalvesInTioglycolate >= 2) {
