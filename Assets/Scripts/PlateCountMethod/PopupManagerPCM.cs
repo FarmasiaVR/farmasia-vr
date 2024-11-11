@@ -28,8 +28,10 @@ public class PopupManagerPCM : MonoBehaviour
     public void TaskCompletePopup(Task task)
     {
         PointPopup pointPopup = InstantiatePopup();
+        
+        string popupLocal = task.key + "Popup";
 
-        pointPopup.SetPopup(task.awardedPoints, task.taskText, MsgType.Done); // Translator.Translate("PlateCountMethod", "MissionAccomplished") + " " + Translator.Translate("LaboratoryTour", task.key)
+        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("PlateCountMethod", "MissionAccomplished") + " " + Translator.Translate("PlateCountMethod", popupLocal), MsgType.Done);
 
     }
 
