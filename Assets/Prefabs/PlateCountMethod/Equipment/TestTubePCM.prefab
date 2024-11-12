@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4287880639987366626
 Transform:
   m_ObjectHideFlags: 0
@@ -621,6 +621,8 @@ GameObject:
   - component: {fileID: 2802684226581301877}
   - component: {fileID: 5907200629304551093}
   - component: {fileID: 4129805900981803627}
+  - component: {fileID: 3505587930738296934}
+  - component: {fileID: 7908291423647367635}
   m_Layer: 0
   m_Name: TestTubePCM
   m_TagString: Untagged
@@ -657,7 +659,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023370961206319097}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -731,10 +733,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7908291423647367635}
+        m_TargetAssemblyTypeName: PCM_MakeKinematicOnceIdle, GameAssembly
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7908291423647367635}
+        m_TargetAssemblyTypeName: PCM_MakeKinematicOnceIdle, GameAssembly
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -833,6 +859,42 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!65 &3505587930738296934
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023370961206319097}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.015947396, y: 0.0019999966, z: 0.0147312805}
+  m_Center: {x: -0.0004713731, y: -0.06, z: -0.0002014956}
+--- !u!114 &7908291423647367635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023370961206319097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fd6af0855a6d444beb10f1c25ab67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
+  kinematicDisableDelay: 0
 --- !u!1 &2737245042502111932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1147,7 @@ GameObject:
   - component: {fileID: 3067243213195184138}
   - component: {fileID: 4342190509716269075}
   - component: {fileID: 2075495494438983148}
-  - component: {fileID: 8567291139604986457}
+  - component: {fileID: 8328401455009366286}
   m_Layer: 0
   m_Name: Socket Interactor
   m_TagString: Untagged
@@ -1161,8 +1223,8 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8567291139604986457}
-        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
+      - m_Target: {fileID: 8328401455009366286}
+        m_TargetAssemblyTypeName: PCM_DisableAttachedObjectCollider, GameAssembly
         m_MethodName: DisableCollisions
         m_Mode: 0
         m_Arguments:
@@ -1176,8 +1238,8 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8567291139604986457}
-        m_TargetAssemblyTypeName: DisableAttachedObjectCollider, GameAssembly
+      - m_Target: {fileID: 8328401455009366286}
+        m_TargetAssemblyTypeName: PCM_DisableAttachedObjectCollider, GameAssembly
         m_MethodName: EnableCollisions
         m_Mode: 0
         m_Arguments:
@@ -1214,7 +1276,7 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!114 &8567291139604986457
+--- !u!114 &8328401455009366286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1223,7 +1285,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5732004039695007053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5182adbbc5b45284f9981fa2876b0af4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0db56ae1a838a144fb20d72d88eab682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   socketsOwnerInteractable: {fileID: 4129805900981803627}
@@ -1252,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 6462461641355573471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.0168, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0362, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
