@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7277688131841652897}
   - component: {fileID: 8771078724701821694}
   - component: {fileID: 1938757318815121423}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: side (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 6213600996443225025}
   - component: {fileID: 5115208758294058655}
   - component: {fileID: 1227453205691692860}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: test_tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,14 +202,14 @@ GameObject:
   - component: {fileID: 5103289207452812821}
   - component: {fileID: 7552023196158214521}
   - component: {fileID: 8374094555546340828}
-  - component: {fileID: 8890213519503551115}
-  m_Layer: 0
+  - component: {fileID: 6420275731313418913}
+  m_Layer: 20
   m_Name: bottle_cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4287880639987366626
 Transform:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8374094555546340828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,10 +376,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6420275731313418913}
+        m_TargetAssemblyTypeName: PCM_MakeKinematicOnceIdle, GameAssembly
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6420275731313418913}
+        m_TargetAssemblyTypeName: PCM_MakeKinematicOnceIdle, GameAssembly
+        m_MethodName: disableKinematic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -473,38 +497,26 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!1773428102 &8890213519503551115
-ParentConstraint:
+--- !u!114 &6420275731313418913
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629394949650021336}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 0.0665, z: 0}
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: 0, y: 0, z: 0}
-  m_RotationOffsets:
-  - {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 0
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fd6af0855a6d444beb10f1c25ab67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 7552023196158214521}
+  kinematicDisableDelay: 0
 --- !u!1 &1773859835464319477
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +529,7 @@ GameObject:
   - component: {fileID: 7937959246485774201}
   - component: {fileID: 7698715658507784421}
   - component: {fileID: 3515675018353220282}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,7 +635,7 @@ GameObject:
   - component: {fileID: 4129805900981803627}
   - component: {fileID: 3505587930738296934}
   - component: {fileID: 7908291423647367635}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: TestTubePCM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +918,7 @@ GameObject:
   - component: {fileID: 2018069359938200433}
   - component: {fileID: 4838551034020268589}
   - component: {fileID: 723633384565119585}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -988,7 +1000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6134527995457582760}
   - component: {fileID: 1779544620407971539}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Bottom Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1055,7 @@ GameObject:
   - component: {fileID: 3182670038734511828}
   - component: {fileID: 7083689052124498736}
   - component: {fileID: 542639271244272528}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,10 +1157,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3067243213195184138}
-  - component: {fileID: 4342190509716269075}
+  - component: {fileID: 4135920761519506073}
   - component: {fileID: 2075495494438983148}
   - component: {fileID: 8328401455009366286}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Socket Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1170,8 +1182,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2802684226581301877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4342190509716269075
-SphereCollider:
+--- !u!136 &4135920761519506073
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1188,8 +1200,10 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.03
+  serializedVersion: 2
+  m_Radius: 0.008
+  m_Height: 0.03
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2075495494438983148
 MonoBehaviour:
@@ -1298,7 +1312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5173724374735806865}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1314,7 +1328,7 @@ Transform:
   m_GameObject: {fileID: 6462461641355573471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.0362, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0238, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1332,7 +1346,7 @@ GameObject:
   - component: {fileID: 4440521535498101976}
   - component: {fileID: 1250624921517550441}
   - component: {fileID: 3505720746043490393}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: side (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1451,7 @@ GameObject:
   - component: {fileID: 6559340903456739143}
   - component: {fileID: 47912649353242707}
   - component: {fileID: 2034231838151602019}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: side (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1539,7 +1553,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2066917886397539899}
-  m_Layer: 10
+  m_Layer: 20
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1556,7 +1570,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7359075, z: -0, w: -0.6770822}
   m_LocalPosition: {x: 0, y: -0.0233, z: 0}
-  m_LocalScale: {x: 0.33000004, y: 1.3112345, z: 0.33000004}
+  m_LocalScale: {x: 0.40516967, y: 1.3112345, z: 0.39881566}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6571663553445431756}
