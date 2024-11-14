@@ -7,18 +7,18 @@ using System.Text;
 public class ServerPostRequest : MonoBehaviour
 {
     // URL of the server, testing with a GKE Cluster
-    private string serverUrl = "https://example.com/api/submit-data";
+    public string serverUrl = "http://35.228.153.79/certificates/create";
 
-    public void SendPostRequest(string userName, int task1, int task2)
+    public void SendPostRequest()
     {
-        UserTaskData userData = new UserTaskData
+        string jsonData = @"
         {
-            User = userName,
-            Task1 = task1,
-            Task2 = task2
-        };
-
-        string jsonData = JsonUtility.ToJson(userData);
+            ""user"": ""John Doe"",
+            ""tasks"": [
+                { ""taskName"": ""task1"", ""points"": 10 },
+                { ""taskName"": ""task2"", ""points"": 5 }
+            ]
+        }";
 
         StartCoroutine(PostRequest(serverUrl, jsonData));
     }
