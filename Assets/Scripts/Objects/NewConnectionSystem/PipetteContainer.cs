@@ -63,7 +63,8 @@ public class PipetteContainer : AttachmentItem
         // Debug.Log("pipette container still starts taking medicine");
         if (BottleContainer == null) return;
         // Debug.Log("we survived null bottle check and will now transfor to bottle container");
-        //if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+        
+        if (!into && Vector3.Distance(BottleContainer.transform.position, transform.position) > 0.3f) return;
         // Debug.Log(LiquidTransferStep);
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
