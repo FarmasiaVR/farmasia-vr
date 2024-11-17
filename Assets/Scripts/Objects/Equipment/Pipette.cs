@@ -102,7 +102,7 @@ public class Pipette : GeneralItem {
     {
         if (BottleContainer == null) return;
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        if (!into && Vector3.Distance(BottleContainer.transform.position, transform.position) > 0.3f) return;
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
 }
