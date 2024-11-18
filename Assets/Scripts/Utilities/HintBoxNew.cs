@@ -95,7 +95,9 @@ public class HintBoxNew : MonoBehaviour
 
     public void UpdateText(Task task)
     {
-        hintDesc.text = task.hint;
+        // hintDesc.text = task.hint;
+        string hintTextLocal = task.key + "Hint";
+        hintDesc.text = Translator.Translate("ControlsTutorial", hintTextLocal);
     }
 
     /// <summary>
