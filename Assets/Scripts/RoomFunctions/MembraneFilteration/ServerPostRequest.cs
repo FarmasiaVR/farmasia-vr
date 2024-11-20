@@ -7,7 +7,7 @@ using System.Text;
 public class ServerPostRequest : MonoBehaviour
 {
     // URL of the server, testing with a GKE Cluster
-    public string serverUrl = "http://35.228.153.79/certificates/create";
+    public string serverUrl = "https://farmasiavr-backend-ohtuprojekti-staging.ext.ocp-test-0.k8s.it.helsinki.fi/certificates/create";
 
     public void SendPostRequest()
     {
