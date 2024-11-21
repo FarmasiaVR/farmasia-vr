@@ -83,6 +83,18 @@ public class Tweezers : ReceiverItem {
         }
     }
 
+    public void letGoOverride()
+    {
+            filter.GetComponent<Rigidbody>().isKinematic = false;
+            filter.GetComponent<Rigidbody>().detectCollisions = true;
+
+            transform.parent = originalParent;
+
+            filterIsGrabbed = false;
+            filter = null;
+    }
+
+
     //Sets filterCanBeGrabbed to true and private filter object if collided object is a filter half (fyi filter halfs tag is set to Interactable at runtime)
     private void OnTriggerEnter(Collider other)
     {

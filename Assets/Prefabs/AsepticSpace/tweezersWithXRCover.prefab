@@ -612,18 +612,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2788200285393723924}
+  - component: {fileID: 7870800288758372076}
   - component: {fileID: 2788200285393723951}
   - component: {fileID: 2788200285393723950}
   - component: {fileID: 2788200285393723945}
   - component: {fileID: 2788200285393723944}
-  - component: {fileID: 7870800288758372076}
   - component: {fileID: 7609211661922758750}
   - component: {fileID: 9196268621547791747}
   - component: {fileID: 3339583160722625727}
   - component: {fileID: 7441900568499983480}
   m_Layer: 0
   m_Name: tweezersWithXRCover
-  m_TagString: Untagged
+  m_TagString: Tweezers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -645,6 +645,32 @@ Transform:
   - {fileID: 1251595697522630250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7870800288758372076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200285393723925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec13a51eec95f8a4eb09c41e3c26b045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInteracting: 0
+  DisableHighlighting: 0
+  objectType: 21
+  isClean: 0
+  skipAttachment: 0
+  Attached: 0
+  ParentReceiver: {fileID: 0}
+  SnapDistance: 0.05
+  SnapAngle: 360
+  skipConnect: 0
+  ConnectedItem: {fileID: 0}
+  ReceivedObjectType: 35
+  SlotOccupied: 0
+  cover: {fileID: 7609211661922758750}
 --- !u!33 &2788200285393723951
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -743,32 +769,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7870800288758372076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200285393723925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec13a51eec95f8a4eb09c41e3c26b045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInteracting: 0
-  DisableHighlighting: 0
-  objectType: 21
-  isClean: 0
-  skipAttachment: 0
-  Attached: 0
-  ParentReceiver: {fileID: 0}
-  SnapDistance: 0.05
-  SnapAngle: 360
-  skipConnect: 0
-  ConnectedItem: {fileID: 0}
-  ReceivedObjectType: 35
-  SlotOccupied: 0
-  cover: {fileID: 7609211661922758750}
 --- !u!114 &7609211661922758750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,7 +996,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1

@@ -300,6 +300,14 @@ public class LiquidContainer : MonoBehaviour {
             //UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
             onFilterHalfEnter.Invoke(genItem);
+            GameObject[] tweezers = GameObject.FindGameObjectsWithTag("Tweezers");
+            foreach (GameObject tweezer in tweezers)
+            {
+                Tweezers t = tweezer.GetComponent<Tweezers>();
+                t.letGoOverride();
+
+            }
+
         }
     }
 
