@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 using FarmasiaVR.Legacy;
 using UnityEngine.Events;
 using static UnityEngine.GraphicsBuffer;
+using JetBrains.Annotations;
 
 public class LiquidContainer : MonoBehaviour {
 
@@ -288,7 +289,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnFilterHalfEnter(GeneralItem genItem) {
-        //UnityEngine.Debug.Log("somebody called filter half enter!");
+        // UnityEngine.Debug.Log("somebody called filter half enter!");
         if (GeneralItem is Bottle && genItem.ObjectType == ObjectType.FilterHalf) {
             //UnityEngine.Debug.Log("survived bottle check");
             genItem.State.On(InteractState.InBottle);
@@ -300,14 +301,14 @@ public class LiquidContainer : MonoBehaviour {
             //UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
             onFilterHalfEnter.Invoke(genItem);
-            GameObject[] tweezers = GameObject.FindGameObjectsWithTag("Tweezers");
-            foreach (GameObject tweezer in tweezers)
+            GameObject[] tweezerses;
+            tweezerses = GameObject.FindGameObjectsWithTag("Tweezers");
+            UnityEngine.Debug.Log(tweezerses.Length);
+            foreach (GameObject tweezers in tweezerses)
             {
-                Tweezers t = tweezer.GetComponent<Tweezers>();
-                t.letGoOverride();
-
+                UnityEngine.Debug.Log("called tweezers letGoOverride()");
+                tweezers.GetComponent<Tweezers>().letGoOverride();
             }
-
         }
     }
 

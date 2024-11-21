@@ -92,6 +92,8 @@ public class Tweezers : ReceiverItem {
 
             filterIsGrabbed = false;
             filter = null;
+            UnityEngine.Debug.Log("Called letGoOverride()");
+        
     }
 
 
