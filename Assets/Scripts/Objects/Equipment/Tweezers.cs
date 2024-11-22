@@ -17,6 +17,8 @@ public class Tweezers : ReceiverItem {
     //Grabbed filter half
     private GameObject filter;
 
+    public FilterHalf[] filterHalves;
+
     private bool coverOn;
 
     private Transform originalParent;
@@ -58,6 +60,10 @@ public class Tweezers : ReceiverItem {
     //Checks whether filter can be grabbed, if true, disables filter halfs rigidBody
     public void grabFilterWithTweezers()
     {
+
+        filterHalves = FindObjectsOfType<FilterHalf>();
+        UnityEngine.Debug.Log("Found FilterHalves: " + filterHalves.Length);
+
         if (!filterCanBeGrabbed || cover.CoverOn) return;
 
         filter.GetComponent<Rigidbody>().isKinematic = true;
@@ -81,18 +87,16 @@ public class Tweezers : ReceiverItem {
             filterIsGrabbed = false;
             filter = null;
         }
+        letGoOverride();
     }
 
+    // bug fix code by group 6. Filter half would sometimes get stuck on the tweezers; this was due to the filter's "isKinematic" toggle staying on, even after the "letGoOfFilterWithTweezers() was called.
     public void letGoOverride()
     {
-            filter.GetComponent<Rigidbody>().isKinematic = false;
-            filter.GetComponent<Rigidbody>().detectCollisions = true;
-
-            transform.parent = originalParent;
-
-            filterIsGrabbed = false;
-            filter = null;
-            UnityEngine.Debug.Log("Called letGoOverride()");
+         foreach (FilterHalf f in filterHalves)
+        {
+            f.GetComponent<Rigidbody>().isKinematic = false;
+        }
         
     }
 

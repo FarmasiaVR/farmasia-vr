@@ -80,7 +80,7 @@ public class LiquidContainer : MonoBehaviour {
         Assert.IsNotNull(liquid);
         Capacity = capacity;
         SetAmount(amount);
-    }
+}
 
 
     private void Start() {
@@ -301,14 +301,6 @@ public class LiquidContainer : MonoBehaviour {
             //UnityEngine.Debug.Log("CALLED FILTER HALF ENTER!");
             Events.FireEvent(EventType.FilterHalfEnteredBottle, CallbackData.Object(GeneralItem));
             onFilterHalfEnter.Invoke(genItem);
-            GameObject[] tweezerses;
-            tweezerses = GameObject.FindGameObjectsWithTag("Tweezers");
-            UnityEngine.Debug.Log(tweezerses.Length);
-            foreach (GameObject tweezers in tweezerses)
-            {
-                UnityEngine.Debug.Log("called tweezers letGoOverride()");
-                tweezers.GetComponent<Tweezers>().letGoOverride();
-            }
         }
     }
 
