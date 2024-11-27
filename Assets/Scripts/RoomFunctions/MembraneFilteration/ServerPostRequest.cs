@@ -6,7 +6,10 @@ using System.Text;
 
 public class ServerPostRequest : MonoBehaviour
 {
-    // This is all a test setup to test communication between Openshift and FarmasiaVr game 
+    // This is all a test setup to test communication between Openshift FarmasiaVr backend and FarmasiaVr game 
+    // When ready switch the SendPostRequest function to receive the jsonData as a parameter
+    // The jsonData should be the players email address, and the scene summary.
+
     public string serverUrl = "https://farmasiavr-backend-ohtuprojekti-staging.ext.ocp-test-0.k8s.it.helsinki.fi/certificates/create";
 
     public void SendPostRequest()
