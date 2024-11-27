@@ -6,7 +6,7 @@ using System.Text;
 
 public class ServerPostRequest : MonoBehaviour
 {
-    // URL of the server, testing with a GKE Cluster
+    // This is all a test setup to test communication between Openshift and FarmasiaVr game 
     public string serverUrl = "https://farmasiavr-backend-ohtuprojekti-staging.ext.ocp-test-0.k8s.it.helsinki.fi/certificates/create";
 
     public void SendPostRequest()
