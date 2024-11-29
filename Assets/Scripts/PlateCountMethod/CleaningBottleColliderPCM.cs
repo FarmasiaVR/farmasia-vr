@@ -53,7 +53,7 @@ public class CleaningBottleColliderPCM : MonoBehaviour
         //this is a quick prototype version for cleaning hands, it will be improved TM =)
         if (handInCollider)
         {
-            HandStateManager handStateManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HandStateManager>();
+            HandStateManagerPCM handStateManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HandStateManagerPCM>();
             if (handStateManager)
             {
                 handStateManager.cleanHands();
