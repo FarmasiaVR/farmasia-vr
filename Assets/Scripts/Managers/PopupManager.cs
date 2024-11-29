@@ -37,7 +37,7 @@ public class PopupManager : MonoBehaviour
     {
         PointPopup pointPopup = InstantiatePopup();
 
-        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("ControlsTutorial", "MissionAccomplished") + " " + Translator.Translate("ControlsTutorial", task.key), MsgType.Done);
+        pointPopup.SetPopup(task.awardedPoints, Translator.Translate("ControlsTutorial", "MissionAccomplished"), MsgType.Done);
     
     }
 
