@@ -12,5 +12,10 @@ public enum WritingType {
     RightHand,
     FakeTime,
     SecondTime,
-    SecondFakeTime
+    SecondFakeTime,
+    SabouraudDextrose,
+    OneToTen,
+    OneToHundred,
+    OneToThousand,
+    Control
 }
