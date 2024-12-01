@@ -95,14 +95,10 @@ public class HintBoxNew : MonoBehaviour
 
     public void UpdateText(Task task)
     {
-        // Hintbox only in Finnish
-        hintDesc.text = task.hint;
-
-        // Hintbox with translations (does not work):
-        // string hintTextLocal = task.key + "Hint";
-        // string translatedText = Translator.Translate("ControlsTutorial", hintTextLocal);
-        // UpdateText(translatedText);
-        // ShowText();
+        // Hintbox with translations (does not update perfectly yet):
+        string hintTextLocal = task.key + "Hint";
+        string translatedText = Translator.Translate("ControlsTutorial", hintTextLocal);
+        hintDesc.text = translatedText;
     }
 
     /// <summary>
