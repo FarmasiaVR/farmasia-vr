@@ -28,7 +28,7 @@ public class LiquidObject : MonoBehaviour {
     private bool HasRealLiquidMaterial;
 
     [SerializeField]
-    private float percentage;
+    public float percentage;
 
     #endregion
 
@@ -79,7 +79,7 @@ public class LiquidObject : MonoBehaviour {
         mesh.material.SetFloat("_Fill", percentage);
     }
 
-    private void UpdateObject(int? amount = null) {
+    public void UpdateObject(int? amount = null) {
         if (!HasRealLiquidMaterial) {
             // localScale scales around pivot (default is center of object)
             // Therefore, translation needed
@@ -132,7 +132,7 @@ public class LiquidObject : MonoBehaviour {
 
     public void SetMaterialFromType(LiquidType type) {
         switch (type) {
-            case LiquidType.Peptonwater:
+            case LiquidType.Peptonwater or LiquidType.PhosphateBuffer: // Stole pepton water texture for phosphate buffer since it just looks the same lol -Grp6
                 if (HasRealLiquidMaterial) {
                     mesh.material.SetColor("_SideColor", new Color(0.3722854f, 0.8229616f, 0.8867924f, 1));
                     mesh.material.SetColor("_TopColor", new Color(0.2722854f, 0.8229616f, 0.8867924f, 1));

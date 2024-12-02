@@ -11,5 +11,6 @@ public enum LiquidType {
     Peptonwater,
     Medicine,
     MeatSoup,
-    Virkon
+    Virkon,
+    PhosphateBuffer
 }
