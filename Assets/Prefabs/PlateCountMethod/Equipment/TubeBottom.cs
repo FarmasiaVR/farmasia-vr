@@ -1,12 +1,15 @@
 using Newtonsoft.Json.Converters;
 using System.Collections;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TubeBottom : MonoBehaviour {
+public class TubeBottom : MonoBehaviour { // jank code to make filling the test tube appear natural. Scaling the test tube might require changing the size of "on"!
     public LiquidObject liquidObject;
     private Vector3 on = new Vector3(5.75f, 5.75f, 1.45f);
     private Vector3 off = new Vector3(0, 0, 0);
+    public GameObject otherObject;
+    private Material otherMaterial;
 
     void Update()
     {
@@ -17,6 +20,14 @@ public class TubeBottom : MonoBehaviour {
         else
         {
             transform.localScale = off;
+        }
+    }
+    public async void CopyMaterial()
+    {
+        await Task.Delay(10); // wait just a bit to make sure we get the updated texture
+        if (otherObject != null) { 
+            otherMaterial = otherObject.GetComponent<MeshRenderer>().material;
+            GetComponent<MeshRenderer>().material = otherMaterial;
         }
     }
 }
