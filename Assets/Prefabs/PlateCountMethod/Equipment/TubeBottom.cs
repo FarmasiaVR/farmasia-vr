@@ -11,8 +11,14 @@ public class TubeBottom : MonoBehaviour { // jank code to make filling the test 
     public GameObject otherObject;
     private Material otherMaterial;
 
-    void Update()
+    public async void CopyMaterial() // performant way to handle this! no calling update every frame!!!
     {
+
+        await Task.Delay(10); // wait just a bit to make sure we get the updated texture
+        if (otherObject != null) { 
+            otherMaterial = otherObject.GetComponent<MeshRenderer>().material;
+            GetComponent<MeshRenderer>().material = otherMaterial;
+        }
         if (liquidObject.percentage > 0)
         {
             transform.localScale = on;
@@ -20,14 +26,6 @@ public class TubeBottom : MonoBehaviour { // jank code to make filling the test 
         else
         {
             transform.localScale = off;
-        }
-    }
-    public async void CopyMaterial()
-    {
-        await Task.Delay(10); // wait just a bit to make sure we get the updated texture
-        if (otherObject != null) { 
-            otherMaterial = otherObject.GetComponent<MeshRenderer>().material;
-            GetComponent<MeshRenderer>().material = otherMaterial;
         }
     }
 }
