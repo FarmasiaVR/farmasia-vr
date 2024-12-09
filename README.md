@@ -269,47 +269,39 @@ To play the game without a VR headset, select the XR player in the Unity scene h
     </tr>
     <tr>
       <td align="center">
-        <a href="https://github.com/arolaeemil">
-            <img src="https://github.com/arolaeemil.png" width="100;" alt="arolaeemil"/>
+        <a href="https://github.com/levomaaa">
+            <img src="https://github.com/levomaaa.png" width="100;" alt="levomaaa"/>
             <br />
-            <sub><b>Eemil Arola</b></sub>
+            <sub><b>Aapo Levomäki</b></sub>
         </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Stenbras">
-          <img src="https://github.com/Stenbras.png" width="100;" alt="Stenbras"/>
+      <a href="https://github.com/Mahlamaki">
+          <img src="https://github.com/Mahlamaki.png" width="100;" alt="Mahlamaki"/>
           <br />
-          <sub><b>Rasmus Stenberg</b></sub>
+          <sub><b>Susanna Mahlamäki</b></sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Saukka">
-          <img src="https://github.com/Saukka.png" width="100;" alt="Saukka"/>
+      <a href="https://github.com/smausquared">
+          <img src="https://github.com/smausquared.png" width="100;" alt="smausquared"/>
           <br />
-          <sub><b>Sauli Sorvari</b></sub>
+          <sub><b>Samu Ähynmäki</b></sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/BananaMayo">
-          <img src="https://github.com/BananaMayo.png" width="100;" alt="BananaMayo"/>
+      <a href="https://github.com/JuhoSiitonen">
+          <img src="https://github.com/JuhoSiitonen.png" width="100;" alt="JuhoSiitonen"/>
           <br />
-          <sub><b>Niklas Nygård</b></sub>
+          <sub><b>Juho Siitonen</b></sub>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/tuovinenemma">
-          <img src="https://github.com/tuovinenemma.png" width="100;" alt="tuovinenemma"/>
+      <a href="https://github.com/aihyytiainen">
+          <img src="https://github.com/aihyytiainen.png" width="100;" alt="aihyytiainen"/>
           <br />
-          <sub><b>Emma Tuovinen</b></sub>
+          <sub><b>Antti Hyytiäinen</b></sub>
       </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/nicolaskivimaki">
-          <img src="https://github.com/nicolaskivimaki.png" width="100;" alt="nicolaskivimaki"/>
-          <br />
-          <sub><b>Nicolas Kivimäki</b></sub>
-      </a>
-    </td>
   </tr>
 </table>
 <!-- readme: contributors -end -->
