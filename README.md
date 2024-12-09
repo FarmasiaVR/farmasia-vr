@@ -1,8 +1,13 @@
-# Pharmacy VR Game Part 5
+# Pharmacy VR Game for Faculty of Pharmacy, University of Helsinki
 
-This fork implements part 5 of the original game
-(Software engineering project, University of Helsinki 2022)
-[Demo from autumn 2019](https://youtu.be/pIKCZFZo2UA)
+Software engineering project, University of Helsinki 20XX-2024
+
+[End Demo ???](https://drive.google.com/file/d/1a1dkk5ZBnloUZdbxUlrPs3CoHDZ6xzBD/view?pli=1)\
+[End Demo ???](https://drive.google.com/file/d/1CMKsz_xbZPIIZJpUDFGbTqreYAgsLnUi/view?usp=share_link)\
+[End Demo fall 2019](https://youtu.be/pIKCZFZo2UA)\
+[Mid Demo fall 2023](https://youtu.be/ASA7PMW_mGI?si=EdcNciua4nFXLOs2)\
+[End Demo fall 2023](https://youtu.be/uL822Pbvwr0?si=HbdrWTF9DVj5KPED)\
+[Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)
 
 ## Description
 
