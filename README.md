@@ -30,18 +30,17 @@ Customer: Faculty of Pharmacy, University of Helsinki
 
 Implementation environment: Online Course / VR, Faculty of Pharmacy
 
-## Development
+## Development tools
 
 The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2022.3.10f1` .
 
 Additional tools used for development:
-- Blender 3.4
+- Blender
 - Unity XR Interaction Toolkit 2.3.0
-
-- Development documents
-  - [Product and Sprint backlogs](https://github.com/orgs/FarmasiaVR/projects/1)
-
-
+- Github desktop app (highly recommended)
+- Meta Quest Link
+- Meta Quest Developer Hub
+- Sidequest
 - Legacy documentation
   - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
 
