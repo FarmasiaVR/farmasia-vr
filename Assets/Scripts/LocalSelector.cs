@@ -33,10 +33,10 @@ public class LocalSelector : MonoBehaviour
     }
 
     //this is BAD but works, will fix soon TM 
-    private void Update()
-    {
-        TaskConfig.reInitDictionary();
-    }
+//    private void Update()
+//    {
+//        TaskConfig.reInitDictionary();
+//    }
    
 
     IEnumerator SetLocale(int _localeID)
