@@ -1,6 +1,6 @@
 # Pharmacy VR Game for Faculty of Pharmacy, University of Helsinki
 
-Software engineering project, University of Helsinki 2018-2024
+Software engineering project, University of Helsinki 2019-2024
 
 Group 1 [Mid Demo fall 2019](https://youtu.be/pIKCZFZo2UA)\
 Group 2 [End Demo spring 2022](https://drive.google.com/file/d/1a1dkk5ZBnloUZdbxUlrPs3CoHDZ6xzBD/view?pli=1)\
@@ -12,9 +12,17 @@ Group 6 [Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)
 
 ## Description
 
-Pharmacy VR Game is a virtual way of practicing the process of preparing clean eye medicine. Taking place in a cleanroom laboratory environment, the game works as an introduction to medicine production and cleanliness testing. The game consists of three parts – the use of protective clothing & washing hands, preparing the medicine and testing the microbiological cleanliness of the product. The process is divided into different steps that affect the success in the game and the cleanliness of the product. The choices made by the player will be evaluated and scored.
+Pharmacy VR Game is a virtual way of practicing laboratory work in Viikki Pharmaceutical laboratory.
 
-This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team has focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team has focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life.
+The following scenarios are implemented in the game at this point in time:
+  - Controls tutorial
+  - Fire safety (Including multiple scenarios)
+  - Changing room (Washing hands and gearing up for aceptic work)
+  - Membrane Filtration (Preparation room and aceptic work)
+
+There is also a scene for plate count method in the aceptic room that is started and under construction. Also there is an adandoned scenario for medicine preparation.
+
+This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team has focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team has focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life. The sixth group worked on the project in the fall of 2024, focusing on bug fixes in old scenarios and implementing english and swedish translations to the whole game. The sixth group also started work on the new plate count method scenario.
 
 Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. All rights are reserved to the University of Helsinki.
 
