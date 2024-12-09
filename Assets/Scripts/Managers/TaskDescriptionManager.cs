@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,17 +10,20 @@ public class TaskDescriptionManager : MonoBehaviour
     public List<TextMeshPro> taskDescriptions;
 
     private TaskList currentTaskList;
-
     private Task currentTask;
 
     private void Awake()
     {
-        taskDescriptions = new List<TextMeshPro>();  // Create the list
+        taskDescriptions = new List<TextMeshPro>(); // Create the list
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
-        UpdateTaskDescriptionList(); 
+        // Wait for Unity and VR systems to initialize
+        yield return null; // Wait one frame for initialization
+        yield return new WaitForSeconds(0.5f); // Optionally add more delay for VR setup
+
+        UpdateTaskDescriptionList();
     }
 
     private void OnEnable()
@@ -32,12 +36,19 @@ public class TaskDescriptionManager : MonoBehaviour
         LocalSelector.OnLocaleChanged -= UpdateGameOverText;
     }
 
-     public void UpdateTaskDescriptionList() // For some reason doesn't work without testing with VR-headset
+    public void UpdateTaskDescriptionList()
     {
-        taskDescriptions.Clear();  // Empty the list
-        
-        // Find all objects which have the tag "TaskDescription"
-        foreach (GameObject descObject in GameObject.FindGameObjectsWithTag("TaskDescription"))
+        taskDescriptions.Clear(); // Empty the list
+
+        // Find all objects tagged as "TaskDescription"
+        GameObject[] descObjects = GameObject.FindGameObjectsWithTag("TaskDescription");
+        if (descObjects.Length == 0)
+        {
+            Debug.LogWarning("No TaskDescription objects found!");
+            return;
+        }
+
+        foreach (GameObject descObject in descObjects)
         {
             TextMeshPro textComponent = descObject.GetComponent<TextMeshPro>();
             if (textComponent != null)
@@ -45,37 +56,32 @@ public class TaskDescriptionManager : MonoBehaviour
                 taskDescriptions.Add(textComponent);
                 if (currentTask != null)
                 {
-                    if (currentTask.name == "EmergencyShower" || currentTask.name == "Extinguisher" || currentTask.name == "FireBlanket" || currentTask.name == "EyeShower" || currentTask.name == "EmergencyExit")
-                    {
-                        textComponent.text = Translator.Translate("LaboratoryTour", currentTask.name);
-                    }
-                    else
-                    {
-                        textComponent.text = Translator.Translate("ControlsTutorial", currentTask.name);
-                    }
+                    textComponent.text = GetTranslatedTaskText(currentTask.name);
                 }
             }
-        }       
-    }
-
-      public void UpdateTaskDescriptions(Task task)
-    {
-        currentTask = task;
-        foreach (TextMeshPro taskDesc in taskDescriptions)
-        {
-            // Update whiteboard text
-            if (currentTask.name == "EmergencyShower" || currentTask.name == "Extinguisher" || currentTask.name == "FireBlanket" || currentTask.name == "EyeShower" || currentTask.name == "EmergencyExit")
-            {
-                taskDesc.text = Translator.Translate("LaboratoryTour", currentTask.name);
-            }
-            else
-            {
-                taskDesc.text = Translator.Translate("ControlsTutorial", currentTask.name);
-            } 
         }
     }
 
-        public void GameOverText(TaskList taskList)
+    public void UpdateTaskDescriptions(Task task)
+    {
+        currentTask = task;
+
+        if (taskDescriptions == null || taskDescriptions.Count == 0)
+        {
+            Debug.LogWarning("No task descriptions available to update!");
+            return;
+        }
+
+        foreach (TextMeshPro taskDesc in taskDescriptions)
+        {
+            if (currentTask != null)
+            {
+                taskDesc.text = GetTranslatedTaskText(currentTask.name);
+            }
+        }
+    }
+
+    public void GameOverText(TaskList taskList)
     {
         currentTaskList = taskList;
         UpdateTaskDescriptionsWithPoints();
@@ -102,5 +108,18 @@ public class TaskDescriptionManager : MonoBehaviour
     public int getValue()
     {
         return currentTaskList.GetPoints();
+    }
+
+    private string GetTranslatedTaskText(string taskName)
+    {
+        if (taskName == "EmergencyShower" || taskName == "Extinguisher" || taskName == "FireBlanket" ||
+            taskName == "EyeShower" || taskName == "EmergencyExit")
+        {
+            return Translator.Translate("LaboratoryTour", taskName);
+        }
+        else
+        {
+            return Translator.Translate("ControlsTutorial", taskName);
+        }
     }
 }
