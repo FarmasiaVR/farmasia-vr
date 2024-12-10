@@ -51,12 +51,12 @@ Additional tools used for development:
 - Meta Quest Developer Hub
 - Sidequest
 
-## Project Architecture
+## Project Architecture and Systems overview
 
-You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md). Note that this architecture is only used in the newer scenes.
+You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md). Note that this architecture is only used in the newer scenes.\
 [Poke interactor](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/pokeinteractor.md)\
 [Task List](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/tasklist.md)\
-[Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)\
+[Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)
 
 Classes:
   - [Mistake](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/mistake.md)
@@ -64,15 +64,18 @@ Classes:
 
 Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above. 
 Legacy documentation
-  - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**\
+  - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
   - [Old architecture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture)
 
+[Fire Systems Overview](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/FireSystemsOverview.md)
 
 ## Localization
 
-[Localization doc](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md)
+The older scenes including Membrane Filtration use an outdated localization system but they should be already translstated to fin/eng/swe. Unity has a built in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
 
 ## Performance
+
+The game runs smoothly while the VR headset is connected to a pc and the pc is casting unity's game window to the headset. But there are significant issues with performance on the Quest 2 runnig a build of the game on it's own. We have tried to fix the performance issues the best we could but there is still a lot of room for improvement. Here are some methods that can improve and measure performance.
 
 ### Occlusion culling
 
@@ -105,13 +108,15 @@ Additionally, if you are using the IL2CPP scripting backend, then make sure to a
 
 [AppLab release to Meta store](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/applab_release.md)
 
-## Controls
+## Playtesting the Game
 
 Grab objects by pressing the Grab button. The position of this button depends on the controller, but usually this is about where your middle finger rests when you are holding a controller. This is a toggle, which means that to release the object from your hand you need to press the grab button again.\
 To grab onto objects from a distance, hold the joystick forward or hold your finger on the top part of the touchpad, point it at an object and release the finger.\
 The move around the scene, hold the joystick towards yourself or press the lower part of the touchpad, point at the part of the level where you want to move and release your finger to move there.\
 To use extra functionality of an object, like spraying with a cleaning bottle, press the trigger button while holding the object.\
 To transfer liquids between objects, move the joystick right or press the right side of the touchpad to transfer liquid into the object and move the joystick left or press the left side of the touchpad to move liquid from the object.\
+
+[Screencasting the game from Quest to browser](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/quest_casting.md)
 
 ### Test controls
 
