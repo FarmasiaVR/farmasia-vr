@@ -33,6 +33,10 @@ Customer: Faculty of Pharmacy, University of Helsinki
 Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Getting Started on development
+
+[Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)\
+
+
 ### Cloning
 
 First install Unity using Unity's official guide. Make sure to install the version of Unity that the project was developed on. This can be done by first cloning the project to your local machine, opening the cloned directory by selecting `Open` in the Projects tab in Unity Hub. This will prompt you to install the correct version of Unity. The project will not open in any older version of Unity and opening the project in a newer version of Unity will upgrade the project, which may break things. Updating the engine is recommended, but make sure that everyone in the development team is on the same page about which version of Unity should be used.
@@ -46,28 +50,33 @@ The original project was created with `Unity Version: 2019.2.3.f1` and for devel
 Additional tools used for development:
 - Blender
 - Unity XR Interaction Toolkit 2.3.0
+- [Probuilder](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Probuilder.md)
 - Github desktop app (highly recommended)
 - Meta Quest Link
 - Meta Quest Developer Hub
 - Sidequest
 
+[Merge conflict](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/merge_conflict.md)
+
 ## Project Architecture and Systems overview
 
-You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md). Note that this architecture is only used in the newer scenes.\
+You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md) & [architecture picture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture). Note that this architecture is only used in the newer scenes.\
 [Poke interactor](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/pokeinteractor.md)\
 [Task List](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/tasklist.md)\
 [Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)
 
-Classes:
-  - [Mistake](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/mistake.md)
-  - [Task](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/task.md)
+Classes:\
+[Mistake](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/mistake.md)\
+[Task](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/task.md)
 
-Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above. 
-Legacy documentation
-  - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
-  - [Old architecture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture)
+Legacy documentation:\
+[Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**\
+Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above.
 
+[Scenario Overview for Fire Safety](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedFireScenes.md)\
 [Fire Systems Overview](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/FireSystemsOverview.md)
+
+[Connecting a scene to Main menu](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/connecting_scene_to_mainmenu.md)
 
 ## Localization
 
