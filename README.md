@@ -32,13 +32,14 @@ Customer: Faculty of Pharmacy, University of Helsinki
 
 Implementation environment: Online Course / VR, Faculty of Pharmacy
 
-## Cloning
+## Getting Started on development
+### Cloning
 
 First install Unity using Unity's official guide. Make sure to install the version of Unity that the project was developed on. This can be done by first cloning the project to your local machine, opening the cloned directory by selecting `Open` in the Projects tab in Unity Hub. This will prompt you to install the correct version of Unity. The project will not open in any older version of Unity and opening the project in a newer version of Unity will upgrade the project, which may break things. Updating the engine is recommended, but make sure that everyone in the development team is on the same page about which version of Unity should be used.
 
 Additionally, make sure to install Blender. Otherwise some models may be missing when the project is opened.
 
-## Development tools
+### Development tools
 
 The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2022.3.10f1` .
 
@@ -50,13 +51,27 @@ Additional tools used for development:
 - Meta Quest Developer Hub
 - Sidequest
 
-## Architecture
+## Project Architecture
 
 You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md). Note that this architecture is only used in the newer scenes.
 
 Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above. 
 Legacy documentation
   - [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
+
+## Localization
+
+[Localization doc](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md)
+
+## Performance
+
+### Occlusion culling
+
+[Occlusion culling doc (works on all scenes)](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/updating-laboratory-scene.md)
+
+### Lighting
+### Performance metrics
+
 
 ## Build & Deployment
 
@@ -78,6 +93,8 @@ Additionally, if you are using the IL2CPP scripting backend, then make sure to a
     
     - Windows Build Support (IL2CPP) (Installed using Unity Hub)
     - Desktop development with C++ (Installed using Visual Studio Installer)
+
+[AppLab release to Meta store](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/applab_release.md)
 
 ## Controls
 
