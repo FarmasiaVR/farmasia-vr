@@ -10,6 +10,7 @@ public class TaskDescriptionManagerPCM : MonoBehaviour // copied TaskDescription
     public List<TextMeshPro> taskDescriptions;
 
     private TaskList currentTaskList;
+    public TaskManager taskManager;
     private Task currentTask;
 
     private void Awake()
@@ -50,6 +51,7 @@ public class TaskDescriptionManagerPCM : MonoBehaviour // copied TaskDescription
 
     public void UpdateTaskDescriptionList()
     {
+        currentTask = taskManager.GetCurrentTask(); // force update current task: fixing a build-only bug
         taskDescriptions.Clear(); // Empty the list
 
         GameObject[] descObjects = GameObject.FindGameObjectsWithTag("TaskDescription");
@@ -75,7 +77,7 @@ public class TaskDescriptionManagerPCM : MonoBehaviour // copied TaskDescription
                 taskDescriptions.Add(textComponent);
                 if (currentTask != null)
                 {
-                    textComponent.text = GetTranslatedTaskText(currentTask.name);
+                    textComponent.text = GetTranslatedTaskText(currentTask.key);
                 }
             }
         }
@@ -83,6 +85,7 @@ public class TaskDescriptionManagerPCM : MonoBehaviour // copied TaskDescription
 
     public void UpdateTaskDescriptions(Task task)
     {
+        currentTask = taskManager.GetCurrentTask();
         if (task == null)
         {
             Debug.LogError("UpdateTaskDescriptions called with null task!");
@@ -102,7 +105,7 @@ public class TaskDescriptionManagerPCM : MonoBehaviour // copied TaskDescription
         {
             if (currentTask != null)
             {
-                taskDesc.text = GetTranslatedTaskText(currentTask.name);
+                taskDesc.text = GetTranslatedTaskText(currentTask.key);
             }
         }
     }

@@ -9,7 +9,7 @@ public class TaskDescriptionManager : MonoBehaviour
 {
     [Tooltip("The list of task descriptions that the manager will update. Leave empty to find the task descriptions by tag.")]
     public List<TextMeshPro> taskDescriptions;
-
+    public TaskManager taskManager;
     private TaskList currentTaskList;
     private Task currentTask;
 
@@ -51,6 +51,7 @@ public class TaskDescriptionManager : MonoBehaviour
 
     public void UpdateTaskDescriptionList()
     {
+        currentTask = taskManager.GetCurrentTask(); // force update current task
         taskDescriptions.Clear(); // Empty the list
 
         GameObject[] descObjects = GameObject.FindGameObjectsWithTag("TaskDescription");
@@ -76,7 +77,7 @@ public class TaskDescriptionManager : MonoBehaviour
                 taskDescriptions.Add(textComponent);
                 if (currentTask != null)
                 {
-                    textComponent.text = GetTranslatedTaskText(currentTask.name);
+                    textComponent.text = GetTranslatedTaskText(currentTask.key);
                 }
             }
         }
@@ -84,6 +85,7 @@ public class TaskDescriptionManager : MonoBehaviour
 
     public void UpdateTaskDescriptions(Task task)
     {
+        currentTask = taskManager.GetCurrentTask();
         if (task == null)
         {
             Debug.LogError("UpdateTaskDescriptions called with null task!");
@@ -103,7 +105,7 @@ public class TaskDescriptionManager : MonoBehaviour
         {
             if (currentTask != null)
             {
-                taskDesc.text = GetTranslatedTaskText(currentTask.name);
+                taskDesc.text = GetTranslatedTaskText(currentTask.key);
             }
         }
     }
