@@ -340,7 +340,7 @@ To play the game without a VR headset, select the XR player in the Unity scene h
       <a href="https://github.com/smausquared">
           <img src="https://github.com/smausquared.png" width="100;" alt="smausquared"/>
           <br />
-          <sub><b>Samu Ähynmäki</b></sub>
+          <sub><b>Samu Äyhynmäki</b></sub>
       </a>
     </td>
     <td align="center">
