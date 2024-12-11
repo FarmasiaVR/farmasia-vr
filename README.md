@@ -87,11 +87,22 @@ The game runs smoothly while the VR headset is connected to a pc and the pc is c
 
 ### Occlusion culling
 
+`Window -> Rendering -> Occlusion Culling` This improves performance by rendering only the objects in the scene that are visible to the palyer camera.\
 [Occlusion culling doc (works on all scenes)](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/updating-laboratory-scene.md)
 
 ### Lighting
+
+`Window -> Rendering -> Lighting` & `Window -> Rendering -> Light Explorer`\
+Real time lights are a big recource hog. In almost all the scenes (Membrane filtration excluded) the lights are baked and the real time lights are cut to a minimum.\
+There are a lot of different lighting systems in use in this project.\
+At least group 6 did not get a full understanding on the different light sources, reflection probes, light probes, rendering pipelines and emissive materials. So good luck :)
+
 ### Performance metrics
 
+Unity has a built in performance analyzer. `Window -> Analysis -> Profiler`\
+You can analyse the performance of the game when it is running on your Unity game window. This also works when the VR headset is connected with Meta Quest Link.\
+There should also be a way to connect the VR headset to the Unity profiler via ip or a cable and analyze the performance when the App is running just on the headset. But group 6 could not get this working. :(\
+There is also a OVRmetrics app on the Meta Store that should able real time analysis of a running app on the Quest 2 headset but the app is somehow f'd up and at least group 6 could not install it to the headset.
 
 ## Build & Deployment
 
