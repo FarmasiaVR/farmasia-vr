@@ -34,8 +34,7 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Getting Started on development
 
-[Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)\
-
+[Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)
 
 ### Cloning
 
@@ -56,7 +55,6 @@ Additional tools used for development:
 - Meta Quest Developer Hub
 - Sidequest
 
-[Merge conflict](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/merge_conflict.md)
 
 ## Project Architecture and Systems overview
 
@@ -73,10 +71,14 @@ Legacy documentation:\
 [Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**\
 Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above.
 
+
 [Scenario Overview for Fire Safety](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedFireScenes.md)\
 [Fire Systems Overview](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/FireSystemsOverview.md)
 
-[Connecting a scene to Main menu](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/connecting_scene_to_mainmenu.md)
+[Connecting a scene to Main menu](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/connecting_scene_to_mainmenu.md)\
+[Setting up teleportation](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/teleportation.md)
+
+[Merge conflict](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/merge_conflict.md)
 
 ## Localization
 
