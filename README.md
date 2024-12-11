@@ -114,7 +114,8 @@ Additionally, if you are using the IL2CPP scripting backend, then make sure to a
     - Windows Build Support (IL2CPP) (Installed using Unity Hub)
     - Desktop development with C++ (Installed using Visual Studio Installer)
 
-[AppLab release to Meta store](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/applab_release.md)
+[AppLab release to Meta store](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/applab_release.md) (old documentation)\
+[Making and publishing a build](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/buid.md)
 
 ## Playtesting the Game
 
