@@ -34,7 +34,8 @@ Implementation environment: Online Course / VR, Faculty of Pharmacy
 
 ## Getting Started on development
 
-[Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)
+[Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)\
+[Tips, tricks & links from group 6](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/tips_tricks_links_group6.md)
 
 ### Cloning
 
