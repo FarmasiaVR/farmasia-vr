@@ -19,12 +19,12 @@ Pharmacy VR Game is a virtual way of practicing laboratory work in Viikki Pharma
 The following scenarios are implemented in the game at this point in time:
   - Controls tutorial
   - Fire safety (Including multiple scenarios)
-  - Changing room (Washing hands and gearing up for aceptic work)
+  - Changing room (Washing hands and gearing up for aseptic work)
   - Membrane Filtration (Preparation room and aseptic work)
 
-There is also a scene for plate count method in the aseptic room that is started and under construction. Also there is an adandoned scenario for medicine preparation.
+There is also a scene for plate count method in the aseptic room that is started and under construction. Also there is an abandoned scenario for medicine preparation.
 
-This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team has focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team has focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life. The sixth group worked on the project in the fall of 2024, focusing on bug fixes and quality improvements in old scenarios and implementing english and swedish translations to the whole game. The sixth group also started work on the new plate count method scenario.
+This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life. The sixth group worked on the project in the fall of 2024, focusing on bug fixes and quality improvements in old scenarios and implementing english and swedish translations to the whole game. The sixth group also started work on the new plate count method scenario.
 
 Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. All rights are reserved to the University of Helsinki.
 
@@ -80,21 +80,21 @@ Changing Room, Membrane Filtration and Medicine Preparation scenes use the older
 
 ## Localization
 
-The older scenes including Membrane Filtration use an outdated localization system but they should be already translstated to fin/eng/swe. Unity has a built in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
+The older scenes including Membrane Filtration use an outdated localization system but they should be already translated to fin/eng/swe. Unity has a built-in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
 
 ## Performance
 
-The game runs smoothly while the VR headset is connected to a pc and the pc is casting unity's game window to the headset. But there are significant issues with performance on the Quest 2 runnig a build of the game on it's own. We have tried to fix the performance issues the best we could but there is still a lot of room for improvement. Here are some methods that can improve and measure performance.
+The game runs smoothly while the VR headset is connected to a pc and the pc is casting unity's game window to the headset. But there are significant issues with performance on the Quest 2 running a build of the game on its own. We have tried to fix the performance issues the best we could but there is still a lot of room for improvement. Here are some methods that can improve and measure performance.
 
 ### Occlusion culling
 
-`Window -> Rendering -> Occlusion Culling` This improves performance by rendering only the objects in the scene that are visible to the palyer camera.\
+`Window -> Rendering -> Occlusion Culling` This improves performance by rendering only the objects in the scene that are visible to the player camera.\
 [Occlusion culling doc (works on all scenes)](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/updating-laboratory-scene.md)
 
 ### Lighting
 
 `Window -> Rendering -> Lighting` & `Window -> Rendering -> Light Explorer`\
-Real time lights are a big recource hog. In almost all the scenes (Membrane filtration excluded) the lights are baked and the real time lights are cut to a minimum.\
+Real time lights use a lot of resources. In almost all the scenes (Membrane filtration excluded) the lights are baked and the real time lights are cut to a minimum.\
 There are a lot of different lighting systems in use in this project.\
 At least group 6 did not get a full understanding on the different light sources, reflection probes, light probes, rendering pipelines and emissive materials. So good luck :)
 
