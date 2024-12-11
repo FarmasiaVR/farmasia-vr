@@ -12,6 +12,8 @@ During customer meetings it was much easier to have the headset connected with a
 
 If your scene view in Unity bugs out with flashing red picture here is a [FIX](https://www.youtube.com/watch?v=rod3Bnkb3lI)
 
+Some [beginner tips in finnish](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/beginner_tips_in_finnish.md) found on our Discord from the start of the project.
+
 [Royalty free skyboxes](https://polyhaven.com/hdris)
 
 Beacause doodle is nowadays strait from Anneli, we used [Tallycal](https://tallycal.com/) for scheduling team meetings and customer meetings.\
