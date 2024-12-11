@@ -80,7 +80,7 @@ Changing Room, Membrane Filtration and Medicine Preparation scenes use the older
 
 ## Localization
 
-The older scenes including Membrane Filtration use an outdated localization system but they should be already translated to fin/eng/swe. Unity has a built-in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
+The older scenes including Membrane Filtration use an [outdated localization system](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Translator.Translate.md) but they should be already translated to fin/eng/swe. Unity has a built-in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
 
 ## Performance
 
