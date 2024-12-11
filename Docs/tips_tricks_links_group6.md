@@ -35,3 +35,12 @@ For team communicaton we used [Discord](https://discord.com/).
 
 [Blender Donut Tutorial playlist](https://www.youtube.com/playlist?list=PLjEaoINr3zgEPv5y--4MKpciLaoQYZB1Z)
 
+### Performance
+
+[VR Optimation playlist](https://youtube.com/playlist?list=PLX8u1QKl_yPAq3MFK96WtBL4jR1lBCcQp&si=4kj9LU0JVKGQHw3B)\
+[Unity profiler](https://youtu.be/xjsqv8nj0cw?si=-JFhEeYpMjiXOeo9)\
+[Unite Europe 2015 optimization](https://youtu.be/ewWfQB9zdKA?si=6r5FCtsNQkHO5G_s)\
+[Unite 2016 VR Performance](https://youtu.be/kGCS8LqXJ4o?si=T3JS1WqoadxRNqDh)\
+[Unite Europe 2017 practical guide to profiling](https://youtu.be/OSlOwJP8Z14?si=qG9VOpbeK3Nu8nSP)
+
+Oh and use your GPU if you bake lights.
