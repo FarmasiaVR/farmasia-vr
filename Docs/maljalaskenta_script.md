@@ -39,24 +39,24 @@
 - Työvälineet: Koeputkiteline ja sen sisältämät koeputket, fosfaattipuskuri,
   kertakäyttöpipetti, automaattipipetti
 - **Ohje:** Mittaa 5ml fosfaattipuskuria sennajauheputkeen, ja ravista putkea sekoittaaksesi
-Oikea toimintatapa: Pelaaja mittaa kertakäyttöpipetillä 5ml fosfaattipuskuria sennajauheputkeen ja ravistaa sekoittaakseen :D
+- **Oikea toimintatapa:** Pelaaja mittaa kertakäyttöpipetillä 5ml fosfaattipuskuria sennajauheputkeen ja ravistaa sekoittaakseen :D
 		
-Ohje: Tee 1:10-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
-Oikea toimintatapa: Pelaaja mittaa automaattipipetillä rohdossuspensiosta 0,5ml suspensiota (oikea sanankäyttö?), ja siirtää sen 1:10-merkattuun koeputkeen ja sekoittaa ravistamalla
+- **Ohje:** Tee 1:10-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
+- **Oikea toimintatapa:** Pelaaja mittaa automaattipipetillä rohdossuspensiosta 0,5ml <mark>suspensiota (oikea sanankäyttö?)</mark>, ja siirtää sen 1:10-merkattuun koeputkeen ja sekoittaa ravistamalla
 
-Ohje: Tee 1:100-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
-Oikea toimintatapa: Pelaaja ottaa 1:10-merkatusta koeputkesta 0,5ml nestettä 1:100-merkattuun putkeen ja sekoittaa ravistamalla
+- **Ohje:** Tee 1:100-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
+- **Oikea toimintatapa:** Pelaaja ottaa 1:10-merkatusta koeputkesta 0,5ml nestettä 1:100-merkattuun putkeen ja sekoittaa ravistamalla
 
-Ohje: Tee 1:1000-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
-Oikea toimintatapa: Pelaaja ottaa 1:100-merkatusta koeputkesta 0,5ml nestettä 1:1000-merkattuun putkeen ja sekoittaa ravistamalla
+- **Ohje:** Tee 1:1000-laimennos mittaamalla oikeaan koeputkeen 0,5ml suspensiota ja ravista putkea sekoittaaksesi
+- **Oikea toimintatapa:** Pelaaja ottaa 1:100-merkatusta koeputkesta 0,5ml nestettä 1:1000-merkattuun putkeen ja sekoittaa ravistamalla
 
-Levitys maljoille
-Työvälineet: 4 soijakaseiinimaljaa (TAMC), 4 saboraud-dekstroosimaljaa (TYMC), automaattipipetti, koeputkiteline ja sen sisältämät 5 koeputkea, kertakäyttöiset levitystikut
-Ohje: Mittaa 0,1ml 1:10-laimennosta yhdelle TAMC- ja TYMC-maljalle
-Oikea toimintatapa: Pelaaja mittaa automaattipipetillä 0,1ml 1:10-laimennosta TAMC- ja TYMC- maljoille
+## Levitys maljoille
+- Työvälineet: 4 soijakaseiinimaljaa (TAMC), 4 saboraud-dekstroosimaljaa (TYMC), automaattipipetti, koeputkiteline ja sen sisältämät 5 koeputkea, kertakäyttöiset levitystikut
+- **Ohje:** Mittaa 0,1ml 1:10-laimennosta yhdelle TAMC- ja TYMC-maljalle
+- **Oikea toimintatapa:** Pelaaja mittaa automaattipipetillä 0,1ml 1:10-laimennosta TAMC- ja TYMC- maljoille
 
-Ohje: Levitä laimennos kertakäyttöisellä levitystikulla TAMC- ja TYMC-maljojen pinnoissa
-Oikea toimintatapa: Pelaaja tuo levitystikun lähelle TAMC- ja TYMC-maljoja ja “sekoittaa” (voidaan tehdä ajastimella; pelaajan täytyy pidellä tikkua maljan lähellä muutama sekunti)
+- **Ohje:** Levitä laimennos kertakäyttöisellä levitystikulla TAMC- ja TYMC-maljojen pinnoissa
+- **Oikea toimintatapa:** Pelaaja tuo levitystikun lähelle TAMC- ja TYMC-maljoja ja “sekoittaa” (voidaan tehdä ajastimella; pelaajan täytyy pidellä tikkua maljan lähellä muutama sekunti)
 
 Sama suoritetaan 1:100 ja 1:1000 laimennoksille ja kontrollille.
 
