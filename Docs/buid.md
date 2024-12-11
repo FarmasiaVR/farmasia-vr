@@ -6,30 +6,30 @@
 `Set Platform to Android`\
 `Go to Player Settings`
 
-img1
+![img1](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/build1.png)
 
 There are a **lot** of options in the project settings that affect the quality of the build.
 
-img2
+![img2](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/build2.png)
 
 In `Player Settings` Set the Version of your build.\
 We decided to a use version naming convention where the first number is the Group (of cs students assigned to the project), second number is the Sprint and the third number is just a counter for that sprints builds.
 
-The lightmap encoding option sets all baked lightmaps to a quality level. The quality is set to low because **there is a 1.1GB file size limitation** when uploading an .apk to the Meta Store. Thare is a way to bundle the upload to multiple files but we have not tried that.
+The lightmap encoding option sets all baked lightmaps to a quality level. The quality is set to low because **there is a 1.1GB file size limitation** when uploading an .apk to the Meta Store. There is a way to bundle the upload to multiple files but we have not tried that.
 
 Further down on `Player Settings -> Other Settings` submenu there is a Version number field and below that is the `Bundle Version Code`. This bundle version code **needs to be incremented** every time you publish a build or the Meta Quest Developer Hub won't accept the build.
 
-img3
+![img3](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/build3.png)
 
 In `Player Settings -> Puhlishin Settings` you need to fill in the keystore password and the project key. These keys are stored outside of this repo, ask your project advisor for these.
 
-img4
+![img4](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/build4.png)
 
 **Before you build make sure you have toggled off the `Device Simulator` from all the secenes** 
 
 After all the settings are set. `Build Settings -> Build` the first build you make on a computer might take a *while*.
 
-img5
+![img5](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/build5.png)
 
 ## Meta Quest Developer Hub
 
@@ -44,9 +44,9 @@ img5
 8. Select *Next* and select *Upload*.
 Now the APK is being uploaded and tested. After the tests have passed, the update should be immediately available.
 
-img6
+![img6](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/devhub1.png)
 
-img7
+![img7](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/devoculus1.png)
 
 After the tests are completed you can download/update the new build to the Quest 2 headset from the store/app library.\
 Depending on the channel you chose to publish on you might have to change the channel in the headsets library where the app is located.
