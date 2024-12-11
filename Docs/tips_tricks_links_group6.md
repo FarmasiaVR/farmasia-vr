@@ -2,7 +2,9 @@
 
 Some of the links listed in this document are duplicates from other docs in this repo.
 
-[360 pictures of the Pharmacy lab](https://www.thinglink.com/video/1509905783737810947)
+[360 pictures of the Pharmacy lab](https://www.thinglink.com/video/1509905783737810947)\
+[Plate Count Method](https://docs.google.com/document/d/1CNYUvWerJ-o4ipFlDih-U1gz8Z5i8F-g/edit?usp=drive_link&ouid=117499824332226556149&rtpof=true&sd=true) description in finnish.\
+[Plate Count script](https://docs.google.com/document/d/1b3IVUSWwiL0TmAGMzKAIj_MVqgSQ6XnuHUJq08asDyc/edit?usp=drive_link) in finnish.
 
 [Meta Horizon dashboard](https://developer.oculus.com/manage/organizations/641878557790712/?app=6038104376288741) The website where you can manage builds and check testing status.
 
