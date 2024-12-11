@@ -58,33 +58,34 @@
 - **Ohje:** Levitä laimennos kertakäyttöisellä levitystikulla TAMC- ja TYMC-maljojen pinnoissa
 - **Oikea toimintatapa:** Pelaaja tuo levitystikun lähelle TAMC- ja TYMC-maljoja ja “sekoittaa” (voidaan tehdä ajastimella; pelaajan täytyy pidellä tikkua maljan lähellä muutama sekunti)
 
-Sama suoritetaan 1:100 ja 1:1000 laimennoksille ja kontrollille.
+- Sama suoritetaan 1:100 ja 1:1000 laimennoksille ja kontrollille.
 
-Viimeistelyt
-Työvälineet: 4 soijakaseiinimaljaa (TAMC), 4 saboraud-dekstroosimaljaa (TYMC)
-Halutaanko loppuun “odotteluvaihe”, jotta maljoista haihtuu vesi? Jonkunlainen odotusmekaniikka sceneen joudutaan toteuttamaan joka tapauksessa. Tähän tarvittaisiin myös mahdollisuus asettaa maljojen kannet hieman raolleen. Lisätään tähän, jos semmoinen toive kuullaan.
+## Viimeistelyt
 
-Ohje: vie maljat inkuboitumaan ylösalaisin
-Oikea toimintatapa: Pelaaja vie kaikki maljat inkuboitumaan sopiviin oloihin (minne?)
+- Työvälineet: 4 soijakaseiinimaljaa (TAMC), 4 saboraud-dekstroosimaljaa (TYMC)
+- <mark> Halutaanko loppuun “odotteluvaihe”, jotta maljoista haihtuu vesi? Jonkunlainen odotusmekaniikka sceneen joudutaan toteuttamaan joka tapauksessa. Tähän tarvittaisiin myös mahdollisuus asettaa maljojen kannet hieman raolleen. Lisätään tähän, jos semmoinen toive kuullaan.</mark>
 
-Ohje: Mene kotiin odottamaan maljojen inkuboitumista
-Oikea toimintatapa: Pelaaja tarttuu ovesta “poistuakseen” aseptisesta tilasta. (Halutaanko testata pelaajan tietämystä siitä, miten kauan inkubointia täytyy odottaa? Jos halutaan, tässä voitaisiin antaa pelaajalle valinta, kuinka kauan odottaa, ja väärästä ajasta miinustaa pisteitä.)
+- **Ohje:** vie maljat inkuboitumaan ylösalaisin
+- **Oikea toimintatapa:** Pelaaja vie kaikki maljat inkuboitumaan sopiviin oloihin <mark>(minne?)</mark>
 
-Ohje: Tarkista kontrollin puhtaus
-Oikea toimintatapa: Pelaaja tarkastelee kontrollimaljaa ja vahvistaa, että siinä ei ole pesäkkeitä (halutaanko mahdollistaa, että kontrollimalja ei olekaan puhdas pelaajan aiheuttamasta kontaminaatiosta johtuen?)
+- **Ohje:** Mene kotiin odottamaan maljojen inkuboitumista
+- **Oikea toimintatapa:** Pelaaja tarttuu ovesta “poistuakseen” aseptisesta tilasta. <mark>(Halutaanko testata pelaajan tietämystä siitä, miten kauan inkubointia täytyy odottaa? Jos halutaan, tässä voitaisiin antaa pelaajalle valinta, kuinka kauan odottaa, ja väärästä ajasta miinustaa pisteitä.)</mark>
 
-Ohje: Laske pesäkkeiden määrä maljoista, joista sen voi laskea
-Oikea toimintatapa: Pelaaja tarkastelee maljoja, kunnes löytää sellaisen, josta pesäkkeiden määrä on selvästi laskettavissa
+- **Ohje:** Tarkista kontrollin puhtaus
+- **Oikea toimintatapa:** Pelaaja tarkastelee kontrollimaljaa ja vahvistaa, että siinä ei ole pesäkkeitä <mark>(halutaanko mahdollistaa, että kontrollimalja ei olekaan puhdas pelaajan aiheuttamasta kontaminaatiosta johtuen?)</mark>
+
+- **Ohje:** Laske pesäkkeiden määrä maljoista, joista sen voi laskea
+- **Oikea toimintatapa:** Pelaaja tarkastelee maljoja, kunnes löytää sellaisen, josta pesäkkeiden määrä on selvästi laskettavissa
 
 
-Asiakastapaamisessa saatuja vastauksia:
-Ideaali tilanteessa olisi kiva, jos maljalaskennassakin otettaisiin tavarat läpivetokaapista ja putsattaisiin, mutta toisaalta hyvä vaihtoehto olisi myös se, että kaikki tarvittava olisi jo valmiina kaapissa. Työ tehdään siis ovesta katsottuna vasemmanpuoleisessa kaapissa. Kaappia voi tarvittaessa hieman suurentaa.
-Maljalaskennassa siis itse työ kaapissa, mutta esimerkiksi lopussa se tarkastelu voi tapahtua esimerkiksi pöydällä tai muussa näkymässä.
-Lämpötilakysymyksestä liittyen maljalaskentaan: ei tarvitse erikseen kiikuttaa mihinkään hyllyyn/tilaan, vaan kun homma on valmis niin voi tulla esimerkiksi kysymys että mihin ne nyt pitäisi viedä ja mihin lämpötilaan.
-Inkubointiaikaa ei tarve sisällyttää peliin. Osoitetaan vain jollain tavalla, että aikaa kuluu.
-Lopussa ei tarvitse indikoida mitenkään, onko kontrolli puhdas. Tämä voi olla opiskelijoille ankeaa pelin lopuksi. Voisi olla esim kysymys (kolme vaihtoehtoa) että mitä tekisit JOS olisi kontaminoitunut.
-Nesteiden haihtumiseen olisi tärkeä saada simuloituajonkinlainen odotteluaika. (oikea noin vartti, eli pelissä voisi vain jotenkin simuloida sitä että nyt on kulunut aika, tai vaikka nappi, että edistä aikaa noin 15 min..)
-Suspensio on oikea termi.
-Kerrotaanko ohjeet liuosjuttuihin? Hintbox on hyvä, niinkuin edellisessä pelissä.
-Jos kirjoittaa maljoihin väärin, voi ylikirjoittaa. Tärkeintä että on lopuksi oikein. Ei pakko mennä siis opiskelijan toimesta oikein, mutta pitää jotenkin indikoida, että tämä meni väärin ja tämä on oikea vastaus.
+## Asiakastapaamisessa saatuja vastauksia:
+- Ideaali tilanteessa olisi kiva, jos maljalaskennassakin otettaisiin tavarat läpivetokaapista ja putsattaisiin, mutta toisaalta hyvä vaihtoehto olisi myös se, että kaikki tarvittava olisi jo valmiina kaapissa. Työ tehdään siis ovesta katsottuna vasemmanpuoleisessa kaapissa. Kaappia voi tarvittaessa hieman suurentaa.
+- Maljalaskennassa siis itse työ kaapissa, mutta esimerkiksi lopussa se tarkastelu voi tapahtua esimerkiksi pöydällä tai muussa näkymässä.
+- Lämpötilakysymyksestä liittyen maljalaskentaan: ei tarvitse erikseen kiikuttaa mihinkään hyllyyn/tilaan, vaan kun homma on valmis niin voi tulla esimerkiksi kysymys että mihin ne nyt pitäisi viedä ja mihin lämpötilaan.
+- Inkubointiaikaa ei tarve sisällyttää peliin. Osoitetaan vain jollain tavalla, että aikaa kuluu.
+- Lopussa ei tarvitse indikoida mitenkään, onko kontrolli puhdas. Tämä voi olla opiskelijoille ankeaa pelin lopuksi. Voisi olla esim kysymys (kolme vaihtoehtoa) että mitä tekisit JOS olisi kontaminoitunut.
+- Nesteiden haihtumiseen olisi tärkeä saada simuloituajonkinlainen odotteluaika. (oikea noin vartti, eli pelissä voisi vain jotenkin simuloida sitä että nyt on kulunut aika, tai vaikka nappi, että edistä aikaa noin 15 min..)
+- Suspensio on oikea termi.
+- Kerrotaanko ohjeet liuosjuttuihin? Hintbox on hyvä, niinkuin edellisessä pelissä.
+- Jos kirjoittaa maljoihin väärin, voi ylikirjoittaa. Tärkeintä että on lopuksi oikein. Ei pakko mennä siis opiskelijan toimesta oikein, mutta pitää jotenkin indikoida, että tämä meni väärin ja tämä on oikea vastaus.
 
