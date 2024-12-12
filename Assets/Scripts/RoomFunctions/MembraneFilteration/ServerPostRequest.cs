@@ -7,16 +7,19 @@ using System.Text;
 public class ServerPostRequest : MonoBehaviour
 {
     // This is all a test setup to test communication between Openshift FarmasiaVr backend and FarmasiaVr game 
-    // When ready switch the SendPostRequest function to receive the jsonData as a parameter
-    // The jsonData should be the players email address, and the scene summary.
+    // When ready switch the SendPostRequest function to receive the jsonData as a parameter from the summary script
+    // The jsonData should be the players email address, and the scene summary. Also an authToken password is to be inserted
+    // by the player so the backend approves the POST request, the password can be changed in the backend UI if needed.
 
-    public string serverUrl = "https://farmasiavr-backend-ohtuprojekti-staging.ext.ocp-test-0.k8s.it.helsinki.fi/certificates/create";
+    public string serverUrl = "https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi/farmasiavr-backend/api/certificates/create";
+    public string authToken = "12345";
+    public string emailAccount = "";
 
     public void SendPostRequest()
     {
         string jsonData = @"
         {
-            ""user"": ""John Doe"",
+            ""email"": ""test@email.com"",
             ""tasks"": [
                 { ""taskName"": ""task1"", ""points"": 10 },
                 { ""taskName"": ""task2"", ""points"": 5 }
@@ -34,6 +37,7 @@ public class ServerPostRequest : MonoBehaviour
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", authToken);
 
             // Send the request and wait for a response
             yield return request.SendWebRequest();
@@ -52,7 +56,7 @@ public class ServerPostRequest : MonoBehaviour
     [System.Serializable]
     public class UserTaskData
     {
-        public string User;
+        public string EmailAccount;
         public int Task1;
         public int Task2;
     }
