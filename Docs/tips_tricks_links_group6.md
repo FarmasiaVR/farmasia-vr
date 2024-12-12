@@ -18,7 +18,7 @@ Some [beginner tips in finnish](https://github.com/FarmasiaVR/farmasia-vr/blob/d
 
 [Royalty free skyboxes](https://polyhaven.com/hdris)
 
-Beacause doodle is nowadays straight from Anneli, we used [Tallycal](https://tallycal.com/) for scheduling team meetings and customer meetings.\
+Because doodle is nowadays straight from Anneli, we used [Tallycal](https://tallycal.com/) for scheduling team meetings and customer meetings.\
 For team communication we used [Discord](https://discord.com/).
 
 ## Tutorials:
