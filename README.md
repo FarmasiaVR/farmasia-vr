@@ -10,7 +10,8 @@ Group 4 [Mid Demo spring 2023](https://drive.google.com/file/d/1fFVl9ZidW_DfH8o3
 Group 4 [End Demo spring 2023](https://drive.google.com/file/d/1CMKsz_xbZPIIZJpUDFGbTqreYAgsLnUi/view?usp=share_link)\
 Group 5 [Mid Demo fall 2023](https://youtu.be/ASA7PMW_mGI?si=EdcNciua4nFXLOs2)\
 Group 5 [End Demo fall 2023](https://youtu.be/uL822Pbvwr0?si=HbdrWTF9DVj5KPED)\
-Group 6 [Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)
+Group 6 [Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)\
+Group 6 [End Demo fall 2024](https://www.youtube.com/watch?v=lc7FpVJEIuk)
 
 ## Description
 
