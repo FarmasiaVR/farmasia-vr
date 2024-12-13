@@ -2,6 +2,8 @@
 
 Software engineering project, University of Helsinki 2019-2024
 
+[Youtube playlist of Demo videos.](https://youtube.com/playlist?list=PLcInC9BHVUWDKuVEtxtwqEL6yLZVHpJZ2&si=w6DBedLs3Dh199UK)
+
 Group 1 [Mid Demo fall 2019](https://youtu.be/pIKCZFZo2UA)\
 Group 1 [End Demo fall 2019](https://youtu.be/3NkUEzHm15Q?si=QZiTjBtOvQ7L5s3M)\
 Group 2 [End Demo spring 2022](https://drive.google.com/file/d/1a1dkk5ZBnloUZdbxUlrPs3CoHDZ6xzBD/view?pli=1)\
