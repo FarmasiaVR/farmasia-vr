@@ -2,7 +2,7 @@
 
 Software engineering project, University of Helsinki 2019-2024
 
-[Youtube playlist of Demo videos.](https://youtube.com/playlist?list=PLcInC9BHVUWDKuVEtxtwqEL6yLZVHpJZ2&si=w6DBedLs3Dh199UK)
+[Youtube playlist of Demo videos](https://youtube.com/playlist?list=PLcInC9BHVUWDKuVEtxtwqEL6yLZVHpJZ2&si=w6DBedLs3Dh199UK)
 
 Group 1 [Mid Demo fall 2019](https://youtu.be/pIKCZFZo2UA)\
 Group 1 [End Demo fall 2019](https://youtu.be/3NkUEzHm15Q?si=QZiTjBtOvQ7L5s3M)\
@@ -65,7 +65,7 @@ Additional tools used for development:
 You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md) & [architecture picture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture). Note that this architecture is only used in the newer scenes.\
 [Poke interactor](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/pokeinteractor.md)\
 [Task List](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/tasklist.md)\
-[Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)
+[Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)\
 [Mistake](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/mistake.md)\
 [Task](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/task.md)
 
