@@ -12,8 +12,7 @@ After this, you might want to check Unity’s [Create with VR](https://learn.uni
 
 You might find the tutorial for the [XR Interaction Toolkit](https://www.youtube.com/watch?v=5ZBkEYUyBWQ) helpful.
 
-## Fire safety
-Go read the document on scenarios and the FireSystemsOverview.md ;).
+
 ## 3D Modeling (Blender)
 For those new to modeling for games in Unity using Blender, a fantastic starting point is Blender Guru's tutorial video [Donut tutorial] (https://www.youtube.com/watch?v=B0J27sf9N1Y&list=PLjEaoINr3zgEPv5y--4MKpciLaoQYZB1Z). This tutorial offers a solid foundation, guiding you through essential techniques.
 
