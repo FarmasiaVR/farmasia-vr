@@ -1,6 +1,6 @@
 # Pharmacy VR Game for Faculty of Pharmacy, University of Helsinki
 
-Software engineering project, University of Helsinki 2019-2024
+Software engineering project, University of Helsinki 2019-2025
 
 [Youtube playlist of Demo videos](https://youtube.com/playlist?list=PLcInC9BHVUWDKuVEtxtwqEL6yLZVHpJZ2&si=w6DBedLs3Dh199UK)
 
@@ -27,18 +27,20 @@ The following scenarios are implemented in the game at this point in time:
 
 There is also a scene for plate count method in the aseptic room that is started and under construction. Also there is an abandoned scenario for medicine preparation.
 
-This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life. The sixth group worked on the project in the fall of 2024, focusing on bug fixes and quality improvements in old scenarios and implementing english and swedish translations to the whole game. The sixth group also started work on the new plate count method scenario.
+This project was started in 2019 in a University of Helsinki software engineering project. The first team laid the groundwork for VR gameplay and progression, and created the medicine preparation scene. In spring 2022, the second team expanded the game to include the membrane filtration procedure and made multiple upgrades and improvements to the game's systems. In summer 2022, the third team created a new changing room scenario, improved the overall look of the game and fixed various game systems. In spring 2023 the fourth team focused on porting the game to use the Unity's XR Interaction toolkit, porting the game to Oculus Quest, creating a new fire safety scenario and improving the user experience. In fall 2023, the fifth team focused on the fire safety part of the game, creating new scenarios and improving the former one, and making the laboratory more realistic by decorating the interior as it is in real life. The sixth group worked on the project in the fall of 2024, focusing on bug fixes and quality improvements in old scenarios and implementing English and Swedish translations to the whole game. The sixth group also started work on the new plate count method scenario.
 
-Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. All rights are reserved to the University of Helsinki.
+Pharmacy VR Game was built in collaboration with the Faculty of Pharmacy (University of Helsinki) as well as the animation and visualization students of Metropolia, University of Applied Sciences. The project is released under an open-source MIT License, see `LICENSE`.
 
 Customer: Faculty of Pharmacy, University of Helsinki
 
 Implementation environment: Online Course / VR, Faculty of Pharmacy
 
-## Getting Started on development
+## Getting started with development
 
 [Learning Tools](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedLearningTools.md)\
-[Tips, tricks & links from group 6](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/tips_tricks_links_group6.md)
+[Tips, tricks & links from group 6](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/tips_tricks_links_group6.md)\
+[Guide to merge conflicts](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/merge_conflict.md)
+
 
 ### Cloning
 
@@ -52,9 +54,9 @@ The original project was created with `Unity Version: 2019.2.3.f1` and for devel
 
 Additional tools used for development:
 - Blender
-- Unity XR Interaction Toolkit 2.3.0
+- Unity XR Interaction Toolkit
 - [Probuilder](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Probuilder.md)
-- Github desktop app (highly recommended)
+- Github Desktop (highly recommended)
 - Meta Quest Link
 - Meta Quest Developer Hub
 - Sidequest
@@ -62,15 +64,23 @@ Additional tools used for development:
 
 ## Project Architecture and Systems overview
 
-You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md) & [architecture picture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture). Note that this architecture is only used in the newer scenes.\
+You can read more about the architecture used in this project in the [architecture documentation](/Docs/Architecture/architecture.md) & [architecture picture](https://github.com/FarmasiaVR/farmasia-vr/tree/dev/Docs/Architecture). Note that this architecture is only used in the newer scenes.
+
 [Poke interactor](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/pokeinteractor.md)\
 [Task List](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/tasklist.md)\
 [Task Manager](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/taskmanager.md)\
 [Mistake](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/mistake.md)\
 [Task](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Architecture/Classes/task.md)
 
-[Progress system](/Docs/progress_system.md) **NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**\
-Changing Room, Membrane Filtration and Medicine Preparation scenes use the older "GObject" architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above.\
+### Old architecture
+
+[Progress system](/Docs/progress_system.md) \
+**NOTE! This is used only in the legacy portions of the game (Changing Room, Membrane Filtration and Medicine Preparation). Please, please, PLEASE avoid using this implementation at all costs. Only refer to this document if you want to fix problems with the legacy scenarios.**
+
+Changing Room, Membrane Filtration and Medicine Preparation scenes use the older `GObject` architecture. Unfortunately there wasn't any documentation for the old architecture besides the progress system document that was mentioned above.
+
+### Systems overview
+
 [Conversion from SteamVR](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/conversion.md) (This has already been implemented.)
 
 [Scenario Overview for Fire Safety](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/GettingStartedFireScenes.md)\
@@ -79,36 +89,40 @@ Changing Room, Membrane Filtration and Medicine Preparation scenes use the older
 [Connecting a scene to Main menu](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/connecting_scene_to_mainmenu.md)\
 [Setting up teleportation](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/teleportation.md)
 
-[Merge conflict](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/merge_conflict.md)
-
 ## Localization
 
 The older scenes including Membrane Filtration use an [outdated localization system](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/Translator.Translate.md) but they should be already translated to fin/eng/swe. Unity has a built-in [localization](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/localization.md) system that is used on newer scenes.
 
 ## Performance
 
-The game runs smoothly while the VR headset is connected to a pc and the pc is casting unity's game window to the headset. But there are significant issues with performance on the Quest 2 running a build of the game on its own. We have tried to fix the performance issues the best we could but there is still a lot of room for improvement. Here are some methods that can improve and measure performance.
+The game runs smoothly while the VR headset is connected to a PC and the PC is casting Unity's game window to the headset. But there are significant issues with performance on the Quest 2 running a build of the game on its own. We have tried to fix the performance issues the best we could but there is still a lot of room for improvement. Here are some methods that can improve and measure performance.
 
 ### Occlusion culling
 
-`Window -> Rendering -> Occlusion Culling` This improves performance by rendering only the objects in the scene that are visible to the player camera.\
+`Window -> Rendering -> Occlusion Culling` This improves performance by rendering only the objects in the scene that are visible to the player camera.
+
 [Occlusion culling doc (works on all scenes)](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/updating-laboratory-scene.md)
 
 ### Lighting
 
-`Window -> Rendering -> Lighting` & `Window -> Rendering -> Light Explorer`\
-Real time lights use a lot of resources. In almost all the scenes (Membrane filtration excluded) the lights are baked and the real time lights are cut to a minimum.\
-There are a lot of different lighting systems in use in this project.\
+`Window -> Rendering -> Lighting` & `Window -> Rendering -> Light Explorer`
+
+Real time lights use a lot of resources. In almost all the scenes (Membrane filtration excluded) the lights are baked and the real time lights are cut to a minimum.
+
+There are a lot of different lighting systems in use in this project.
+
 At least group 6 did not get a full understanding on the different light sources, reflection probes, light probes, rendering pipelines and emissive materials. So good luck :)
 
 ### Performance metrics
 
 Unity has a built in performance analyzer. `Window -> Analysis -> Profiler`\
-You can analyse the performance of the game when it is running on your Unity game window. This also works when the VR headset is connected with Meta Quest Link.\
-There should also be a way to connect the VR headset to the Unity profiler via ip or a cable and analyze the performance when the App is running just on the headset. But group 6 could not get this working. :(\
+You can analyse the performance of the game when it is running on your Unity game window. This also works when the VR headset is connected with Meta Quest Link.
+
+There should also be a way to connect the VR headset to the Unity profiler via ip or a cable and analyze the performance when the App is running just on the headset. But group 6 could not get this working. :(
+
 There is also a OVRmetrics app on the Meta Store that should able real time analysis of a running app on the Quest 2 headset but the app is somehow f'd up and at least group 6 could not install it to the headset.
 
-## Build & Deployment
+## Build & deploy
 
 If you want to make a build of the game, open Unity and select `File -> Build Setting`. Select the platform you want to build for, select `Switch Platform` if necessary and select `Build`. 
 
@@ -132,13 +146,17 @@ Additionally, if you are using the IL2CPP scripting backend, then make sure to a
 [AppLab release to Meta store](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/applab_release.md) (old documentation)\
 [Making and publishing a build](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/buid.md)
 
-## Playtesting the Game
+## Playtesting
 
-Grab objects by pressing the Grab button. The position of this button depends on the controller, but usually this is about where your middle finger rests when you are holding a controller. This is a toggle, which means that to release the object from your hand you need to press the grab button again.\
-To grab onto objects from a distance, hold the joystick forward or hold your finger on the top part of the touchpad, point it at an object and release the finger.\
-The move around the scene, hold the joystick towards yourself or press the lower part of the touchpad, point at the part of the level where you want to move and release your finger to move there.\
-To use extra functionality of an object, like spraying with a cleaning bottle, press the trigger button while holding the object.\
-To transfer liquids between objects, move the joystick right or press the right side of the touchpad to transfer liquid into the object and move the joystick left or press the left side of the touchpad to move liquid from the object.\
+Grab objects by pressing the Grab button. The position of this button depends on the controller, but usually this is about where your middle finger rests when you are holding a controller. This is a toggle, which means that to release the object from your hand you need to press the grab button again.
+
+To grab onto objects from a distance, hold the joystick forward or hold your finger on the top part of the touchpad, point it at an object and release the finger.
+
+The move around the scene, hold the joystick towards yourself or press the lower part of the touchpad, point at the part of the level where you want to move and release your finger to move there.
+
+To use extra functionality of an object, like spraying with a cleaning bottle, press the trigger button while holding the object.
+
+To transfer liquids between objects, move the joystick right or press the right side of the touchpad to transfer liquid into the object and move the joystick left or press the left side of the touchpad to move liquid from the object.
 
 [Screencasting the game from Quest to browser](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/quest_casting.md)
 
