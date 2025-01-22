@@ -405,17 +405,17 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/selsama">
-                    <img src="https://avatars.githubusercontent.com/u/56793802?v=4" width="100;" alt="selsama"/>
-                    <br />
-                    <sub><b>Sonja Salmi</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/jobatabs">
                     <img src="https://avatars.githubusercontent.com/u/2370315?v=4" width="100;" alt="jobatabs"/>
                     <br />
                     <sub><b>Jonatan Noponen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/selsama">
+                    <img src="https://avatars.githubusercontent.com/u/56793802?v=4" width="100;" alt="selsama"/>
+                    <br />
+                    <sub><b>Sonja Salmi</b></sub>
                 </a>
             </td>
             <td align="center">
