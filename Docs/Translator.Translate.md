@@ -10,7 +10,7 @@ Localization tables can be used like this: Navigate within the project to Assets
 
 Here is an example of how it should be used:
 
-![alt text](Translator.Translate.png)
+![alt text](img/Translator.Translate.png)
 
 In the example, the first column contains the text **"ControlsTutorial"**, which refers to a localization table called `ControlsTutorial`. The second column contains the text **"MissionAccomplished"**, which means that in the localization table (called `ControlsTutorial`), should be an entry with the key `MissionAccomplished`.
 

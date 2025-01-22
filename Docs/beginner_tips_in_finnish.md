@@ -3,9 +3,9 @@ Tee laitemääritys headsetille Link (Cable) kautta. Sen jälkeen mene Settings 
 Sitten aukaise FarmasiaVR projekti Unity Hubissa ja klikkaa kuvan mukaisesti Assets -> Scenes -> Main menu ja sitten play näppäintä yläriviltä. Laita headset päähän ja jos kaikki on mennyt kuin eräässä kokkiohjelmassa näet pelin. 
 Voi myös olla että peli ei vielä näy vaan näet valikon kun katsot hieman alaspäin. Tästä valikosta sinun tulee valita Unity ruudulla näytettäväksi. (huom käytössä siis Windows pöytäkone, Linux kokemus voi olla jotain täysin muuta)
 
-![img1](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/questlink1.png)
-![img2](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/questlink2.png)
+![img1](img/questlink1.png)
+![img2](img/questlink2.png)
 
 Pelin testaus ilman VR laseja! Alla olevan kuvan mukaisesti etsi hierarkiasta XR device simulator, klikkaa sitä ja togglaa inspectorista XR device simulator päälle. Sitten vain painat play ja peliä voi pelata ilman laseja.
 
-![img3](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/devsimu.png)
+![img3](img/devsimu.png)

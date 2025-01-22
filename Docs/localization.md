@@ -2,7 +2,7 @@
 
 To create translations for texts in scenes (a.k.a localize them) you first need to add the LocalizationManager prefab asset to the scene hierarchy. Then add the component Localize String Event to the desired text (Text Mesh Pro) item.
 
-![alt text](localization.png)
+![alt text](img/localization.png)
 
 Then you need to click the plus sign on the Update String box within the Localize String Event component and drag and drop the same text item from the hierarchy to the Update String box row where it reads "None (Object)" (in the picture above the text item is already dragged in). Then you need to select the item inside the Update String box where it reads No Function and select TextMeshPro -> Text.
 
