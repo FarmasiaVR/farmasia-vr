@@ -21,4 +21,4 @@
 6. Inkuboi TAMC-maljoja 37 °C:ssa 3-5 vrk ja TYMC-maljoja 25 °C:ssa 5-7 vrk.
 7. Tulokset lasketaan yhdeltä TAMC ja yhdeltä TYMC maljalta, jossa kasvaa sopiva määrä pesäkkeitä (CFU = Colony Forming Unit) tai jossa pesäkkeet ovat laskettavissa. Laske lopulliset tulokset yksikössä CFU/g rohdosta. Tulosten laskemisesta on Moodlessa video: Mikrobipitoisuuden määrittäminen (lasku). 
 
-![img](https://github.com/FarmasiaVR/farmasia-vr/blob/dev/Docs/img/Screenshot%202024-12-11%20at%2018.39.44.png)
+![img](img/sarjalaimennos.png)
