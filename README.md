@@ -168,215 +168,271 @@ To play the game without a VR headset, select the XR player in the Unity scene h
 
 <!-- readme: contributors -start -->
 <table>
-<tr>
-    <td align="center">
-        <a href="https://github.com/farmasia-vr">
-            <img src="https://github.com/farmasia-vr.png" width="100;" alt="farmasia-vr"/>
-            <br />
-            <sub><b>Farmasia-vr</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/porrasm">
-            <img src="https://github.com/porrasm.png" width="100;" alt="porrasm"/>
-            <br />
-            <sub><b>Eetu Ikonen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Mirex97">
-            <img src="https://github.com/Mirex97.png" width="100;" alt="Mirex97"/>
-            <br />
-            <sub><b>Kukkis</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/SirVeggie">
-            <img src="https://github.com/SirVeggie.png" width="100;" alt="SirVeggie"/>
-            <br />
-            <sub><b>Veikka</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/doc97">
-            <img src="https://github.com/doc97.png" width="100;" alt="doc97"/>
-            <br />
-            <sub><b>Daniel Riissanen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Veikkosuhonen">
-            <img src="https://github.com/Veikkosuhonen.png" width="100;" alt="Veikkosuhonen"/>
-            <br />
-            <sub><b>Veikmaster</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/vrfarmasia">
-            <img src="https://github.com/vrfarmasia.png" width="100;" alt="vrfarmasia"/>
-            <br />
-            <sub><b>Vrfarmasia</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/heidihas">
-            <img src="https://github.com/heidihas.png" width="100;" alt="heidihas"/>
-            <br />
-            <sub><b>Heidi Hassinen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Reksa97">
-            <img src="https://github.com/Reksa97.png" width="100;" alt="Reksa97"/>
-            <br />
-            <sub><b>Reko Kälkäjä</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/MikkoHimanka">
-            <img src="https://github.com/MikkoHimanka.png" width="100;" alt="MikkoHimanka"/>
-            <br />
-            <sub><b>Mikko Himanka</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/hepitk">
-            <img src="https://github.com/hepitk.png" width="100;" alt="hepitk"/>
-            <br />
-            <sub><b>Hepitk</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/kivik-beep">
-            <img src="https://github.com/kivik-beep.png" width="100;" alt="kivik-beep"/>
-            <br />
-            <sub><b>Kivik-beep</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/SPitkanen">
-            <img src="https://github.com/SPitkanen.png" width="100;" alt="SPitkanen"/>
-            <br />
-            <sub><b>SPitkanen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/tjvalkonen">
-            <img src="https://github.com/tjvalkonen.png" width="100;" alt="tjvalkonen"/>
-            <br />
-            <sub><b>tjvalkonen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/jarkmaen">
-            <img src="https://github.com/jarkmaen.png" width="100;" alt="jarkmaen"/>
-            <br />
-            <sub><b>jarkmaen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Siihi">
-            <img src="https://github.com/Siihi.png" width="100;" alt="Siihi"/>
-            <br />
-            <sub><b>Siihi</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/sonicsasha">
-            <img src="https://github.com/sonicsasha.png" width="100;" alt="sonicsasha"/>
-            <br />
-            <sub><b>Sasha Usoskin</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/juhkure">
-            <img src="https://github.com/juhkure.png" width="100;" alt="juhkure"/>
-            <br />
-            <sub><b>juhkure</b></sub>
-        </a>
-    </td>
-</tr>
-<tr>
-    <td align="center">
-        <a href="https://github.com/MatiasSinisalo">
-            <img src="https://github.com/MatiasSinisalo.png" width="100;" alt="MatiasSinisalo"/>
-            <br />
-            <sub><b>Matias Sinisalo</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/NuiS4ncE">
-            <img src="https://github.com/NuiS4ncE.png" width="100;" alt="NuiS4ncE"/>
-            <br />
-            <sub><b>Teo Uosukainen</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/opturtio">
-            <img src="https://github.com/opturtio.png" width="100;" alt="opturtio"/>
-            <br />
-            <sub><b>opturtio</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/SamiP7">
-            <img src="https://github.com/SamiP7.png" width="100;" alt="SampiP7"/>
-            <br />
-            <sub><b>SamiP7</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/selsama">
-            <img src="https://github.com/selsama.png" width="100;" alt="selsama"/>
-            <br />
-            <sub><b>Sonja Salmi</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/Cloudperry">
-            <img src="https://github.com/Cloudperry.png" width="100;" alt="Cloudperry"/>
-            <br />
-            <sub><b>Roni Hokkanen</b></sub>
-        </a>
-    </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/levomaaa">
-            <img src="https://github.com/levomaaa.png" width="100;" alt="levomaaa"/>
-            <br />
-            <sub><b>Aapo Levomäki</b></sub>
-        </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Mahlamaki">
-          <img src="https://github.com/Mahlamaki.png" width="100;" alt="Mahlamaki"/>
-          <br />
-          <sub><b>Susanna Mahlamäki</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/smausquared">
-          <img src="https://github.com/smausquared.png" width="100;" alt="smausquared"/>
-          <br />
-          <sub><b>Samu Äyhynmäki</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/JuhoSiitonen">
-          <img src="https://github.com/JuhoSiitonen.png" width="100;" alt="JuhoSiitonen"/>
-          <br />
-          <sub><b>Juho Siitonen</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/aihyytiainen">
-          <img src="https://github.com/aihyytiainen.png" width="100;" alt="aihyytiainen"/>
-          <br />
-          <sub><b>Antti Hyytiäinen</b></sub>
-      </a>
-  </tr>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/MatiasSinisalo">
+                    <img src="https://avatars.githubusercontent.com/u/50097749?v=4" width="100;" alt="MatiasSinisalo"/>
+                    <br />
+                    <sub><b>Matias Sinisalo</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/farmasia-vr">
+                    <img src="https://avatars.githubusercontent.com/u/55394182?v=4" width="100;" alt="farmasia-vr"/>
+                    <br />
+                    <sub><b>Farmasia-vr</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Cloudperry">
+                    <img src="https://avatars.githubusercontent.com/u/25011618?v=4" width="100;" alt="Cloudperry"/>
+                    <br />
+                    <sub><b>Roni Hokkanen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/porrasm">
+                    <img src="https://avatars.githubusercontent.com/u/31691452?v=4" width="100;" alt="porrasm"/>
+                    <br />
+                    <sub><b>Eetu Ikonen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Mirex97">
+                    <img src="https://avatars.githubusercontent.com/u/32763253?v=4" width="100;" alt="Mirex97"/>
+                    <br />
+                    <sub><b>Kukkis</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Veikkosuhonen">
+                    <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
+                    <br />
+                    <sub><b>Veikmaster</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/NuiS4ncE">
+                    <img src="https://avatars.githubusercontent.com/u/55931311?v=4" width="100;" alt="NuiS4ncE"/>
+                    <br />
+                    <sub><b>Teo Uosukainen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/SirVeggie">
+                    <img src="https://avatars.githubusercontent.com/u/32365239?v=4" width="100;" alt="SirVeggie"/>
+                    <br />
+                    <sub><b>Veikka</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/vrfarmasia">
+                    <img src="https://avatars.githubusercontent.com/u/98387910?v=4" width="100;" alt="vrfarmasia"/>
+                    <br />
+                    <sub><b>Vrfarmasia</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/doc97">
+                    <img src="https://avatars.githubusercontent.com/u/4580546?v=4" width="100;" alt="doc97"/>
+                    <br />
+                    <sub><b>Daniel Riissanen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/sashausoskin">
+                    <img src="https://avatars.githubusercontent.com/u/9552313?v=4" width="100;" alt="sashausoskin"/>
+                    <br />
+                    <sub><b>Sasha Usoskin</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/aihyytiainen">
+                    <img src="https://avatars.githubusercontent.com/u/12662050?v=4" width="100;" alt="aihyytiainen"/>
+                    <br />
+                    <sub><b>Antti Hyytiäinen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/opturtio">
+                    <img src="https://avatars.githubusercontent.com/u/86497253?v=4" width="100;" alt="opturtio"/>
+                    <br />
+                    <sub><b>opturtio</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/jarkmaen">
+                    <img src="https://avatars.githubusercontent.com/u/73038801?v=4" width="100;" alt="jarkmaen"/>
+                    <br />
+                    <sub><b>jarkmaen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/heidihas">
+                    <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+                    <br />
+                    <sub><b>Heidi Hassinen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/arolaeemil">
+                    <img src="https://avatars.githubusercontent.com/u/101641321?v=4" width="100;" alt="arolaeemil"/>
+                    <br />
+                    <sub><b>arolaeemil</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/juhkure">
+                    <img src="https://avatars.githubusercontent.com/u/16820390?v=4" width="100;" alt="juhkure"/>
+                    <br />
+                    <sub><b>juhkure</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/JuhoSiitonen">
+                    <img src="https://avatars.githubusercontent.com/u/104775829?v=4" width="100;" alt="JuhoSiitonen"/>
+                    <br />
+                    <sub><b>Juho Siitonen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/MikkoHimanka">
+                    <img src="https://avatars.githubusercontent.com/u/28507056?v=4" width="100;" alt="MikkoHimanka"/>
+                    <br />
+                    <sub><b>Mikko Himanka</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Saukka">
+                    <img src="https://avatars.githubusercontent.com/u/80990021?v=4" width="100;" alt="Saukka"/>
+                    <br />
+                    <sub><b>Saukka</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Stenbras">
+                    <img src="https://avatars.githubusercontent.com/u/117363774?v=4" width="100;" alt="Stenbras"/>
+                    <br />
+                    <sub><b>Stenbras</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Reksa97">
+                    <img src="https://avatars.githubusercontent.com/u/36817054?v=4" width="100;" alt="Reksa97"/>
+                    <br />
+                    <sub><b>Reko Kälkäjä</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/levomaaa">
+                    <img src="https://avatars.githubusercontent.com/u/148433955?v=4" width="100;" alt="levomaaa"/>
+                    <br />
+                    <sub><b>Aapo Levomäki</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/SamiP7">
+                    <img src="https://avatars.githubusercontent.com/u/57110244?v=4" width="100;" alt="SamiP7"/>
+                    <br />
+                    <sub><b>SamiP7</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/kivik-beep">
+                    <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
+                    <br />
+                    <sub><b>Kivik-beep</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/smausquared">
+                    <img src="https://avatars.githubusercontent.com/u/120834179?v=4" width="100;" alt="smausquared"/>
+                    <br />
+                    <sub><b>Samu Äyhynmäki</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/nicolaskivimaki">
+                    <img src="https://avatars.githubusercontent.com/u/86207135?v=4" width="100;" alt="nicolaskivimaki"/>
+                    <br />
+                    <sub><b>nicolaskivimaki</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/hepitk">
+                    <img src="https://avatars.githubusercontent.com/u/31772375?v=4" width="100;" alt="hepitk"/>
+                    <br />
+                    <sub><b>Hepitk</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Mahlamaki">
+                    <img src="https://avatars.githubusercontent.com/u/117199066?v=4" width="100;" alt="Mahlamaki"/>
+                    <br />
+                    <sub><b>Susanna Mahlamäki</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/tjvalkonen">
+                    <img src="https://avatars.githubusercontent.com/u/33684997?v=4" width="100;" alt="tjvalkonen"/>
+                    <br />
+                    <sub><b>tjvalkonen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/BananaMayo">
+                    <img src="https://avatars.githubusercontent.com/u/101586122?v=4" width="100;" alt="BananaMayo"/>
+                    <br />
+                    <sub><b>Niklas Nygård</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/tuovinenemma">
+                    <img src="https://avatars.githubusercontent.com/u/102189885?v=4" width="100;" alt="tuovinenemma"/>
+                    <br />
+                    <sub><b>tuovinenemma</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/selsama">
+                    <img src="https://avatars.githubusercontent.com/u/56793802?v=4" width="100;" alt="selsama"/>
+                    <br />
+                    <sub><b>Sonja Salmi</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/jobatabs">
+                    <img src="https://avatars.githubusercontent.com/u/2370315?v=4" width="100;" alt="jobatabs"/>
+                    <br />
+                    <sub><b>Jonatan Noponen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/SPitkanen">
+                    <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
+                    <br />
+                    <sub><b>SPitkanen</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Uxusino">
+                    <img src="https://avatars.githubusercontent.com/u/89293277?v=4" width="100;" alt="Uxusino"/>
+                    <br />
+                    <sub><b>Uxusino Uxusone</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
 </table>
 <!-- readme: contributors -end -->
