@@ -147,13 +147,8 @@ PlayerSettings:
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 11400000, guid: 3c754bf22e7536649b0e992834a3c64d, type: 2}
-  - {fileID: 11400000, guid: c2da93a7096008346976c92c0469a96f, type: 2}
   - {fileID: 11400000, guid: fafa02919ebac0a49874b49cb0d669bc, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 118168a3f7e454d968fb6fbe1f0a1357, type: 2}
-  - {fileID: 11400000, guid: 27b58b1b53175324a8a6ed53535b85da, type: 2}
-  - {fileID: -816335140710112841, guid: 5e5d0c432a3b59d91bc8966f47c6660b, type: 2}
-  - {fileID: 6711236491873454457, guid: f3bb936ba4131824b98d8ff9a98bb71b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -175,13 +170,13 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.FacultyofPharmacyUniversityofHelsinki.AsepticWorkVR
-    Standalone: com.Faculty-of-Pharmacy---University-of-Helsinki.Aseptic-Work--VR-
+    Standalone: com.FacultyofPharmacyUniversityofHelsinki.AsepticWorkVR
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 0
+  overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 36
   AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 32
@@ -627,6 +622,8 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality:
   - m_BuildTarget: Android
     m_EncodingQuality: 0
+  - m_BuildTarget: Standalone
+    m_EncodingQuality: 0
   m_BuildTargetGroupHDRCubemapEncodingQuality:
   - m_BuildTarget: Android
     m_EncodingQuality: 1
@@ -903,8 +900,11 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
-  il2cppCompilerConfiguration: {}
-  il2cppCodeGeneration: {}
+    Standalone: 1
+  il2cppCompilerConfiguration:
+    Standalone: 0
+  il2cppCodeGeneration:
+    Standalone: 1
   managedStrippingLevel:
     Android: 1
     EmbeddedLinux: 1
@@ -927,7 +927,7 @@ PlayerSettings:
   useDeterministicCompilation: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
-  gcIncremental: 0
+  gcIncremental: 1
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Standalone: 3
@@ -1021,4 +1021,4 @@ PlayerSettings:
   hmiLoadingImage: {fileID: 0}
   platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
-  insecureHttpOption: 2
+  insecureHttpOption: 1
