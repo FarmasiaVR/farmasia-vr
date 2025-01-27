@@ -50,7 +50,7 @@ Additionally, make sure to install Blender. Otherwise some models may be missing
 
 ### Development tools
 
-The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2022.3.10f1` .
+The original project was created with `Unity Version: 2019.2.3.f1` and for development version has been updated to `Unity Version: 2022.3.56f1` .
 
 Additional tools used for development:
 - Blender
