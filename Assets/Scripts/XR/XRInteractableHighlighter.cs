@@ -66,8 +66,11 @@ public class XRInteractableHighlighter : MonoBehaviour
     {
         foreach (Transform highlightedObject in highlightedObjects.ToArray())
         {
-            ChangeHiglight(highlightedObject, false);
-            highlightedObjects.Remove(highlightedObject);
+            if (highlightedObject != null)
+            {
+                ChangeHiglight(highlightedObject, false);
+                highlightedObjects.Remove(highlightedObject);
+            }
         }
 
         if (!interactor.isSelectActive && interactor.allowHover && interactor.targetsForSelection.Count>0)
