@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using FarmasiaVR.Legacy;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 
@@ -54,11 +53,11 @@ public class CabinetBasePCM : MonoBehaviour {
 
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
             {
-                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
+                //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
+                //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
             }
       
             if (!itemPlaced) {
