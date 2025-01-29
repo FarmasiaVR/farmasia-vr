@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Events;
 
 
 public class CabinetBasePCM : MonoBehaviour {
@@ -11,14 +12,16 @@ public class CabinetBasePCM : MonoBehaviour {
     private bool itemPlaced;
     private bool sterileDrapefolded;
     private bool syringeCapBagEntered;
-    public List<string> itemsNotInCabinet = new List<string>();
 
-    public enum CabinetType { PassThrough, Laminar }
-    public CabinetType type;
+    [Tooltip("Stores items inside the cabinet.")]
+    public LaminarCabinetInventory laminarCabinetInventory;
     public Animator sterileDrape;
     public GameObject childCollider;
     public GameObject syringeCapFactory;
     public GameObject syringeCapFactoryPos;
+    [Header("Cabinet Events")]
+    public UnityEvent onAllItemsInCabinet;
+    public UnityEvent onDirtyItemEnter;
 
     public bool ignoreContamination;
 
@@ -32,49 +35,55 @@ public class CabinetBasePCM : MonoBehaviour {
     }
 
     private void OnCabinetEnter(Interactable other) {
-        if (!ignoreContamination) { 
-            GeneralItem item = other as GeneralItem;
-       
-            if (item == null) {
+        GeneralItem item = other as GeneralItem;
+
+        if (item == null) {
                 return;
             }
-     
-            if (type == CabinetType.Laminar) {
-                Events.FireEvent(EventType.CheckLaminarCabinetItems);
 
-                if (item is SyringeCapBag) {
-                    SyringeCapBagEnteredLaminarCabinet(item);
-                }
+        if (!ignoreContamination) { 
 
-                if (Time.timeSinceLevelLoad > 1.0f) {
-                    UnfoldSterileDrape();
-                }
+            //Events.FireEvent(EventType.CheckLaminarCabinetItems);
+
+            if (item is SyringeCapBag) {
+                SyringeCapBagEnteredLaminarCabinet(item);
+            }
+
+            if (Time.timeSinceLevelLoad > 1.0f) {
+                UnfoldSterileDrape();
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
             {
-                //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
+                onDirtyItemEnter.Invoke();
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
-            }
-      
-            if (!itemPlaced) {
-                Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
-                itemPlaced = true;
-           
+                onDirtyItemEnter.Invoke();
             }
         }
+
+        if (!laminarCabinetInventory.isInCabinet(item)) {
+            bool allItemsComplete = laminarCabinetInventory.AddItem(item);
+            if (allItemsComplete)
+            {
+                Debug.Log("All items were in cabinet.");
+                onAllItemsInCabinet.Invoke();
+            }
+        }
+        else Debug.Log(item + " is already inside the cabinet");
+        
     }
 
-    // Currently unused
     private void OnCabinetExit(Interactable other) {
         GeneralItem item = other as GeneralItem;
 
         if (item == null) {
             return;
         }
+
+        laminarCabinetInventory.RemoveItem(item);
+        Debug.Log(item + " removed from laminar cabinet");
     }
 
     private void SyringeCapBagEnteredLaminarCabinet(GeneralItem syringeCapBag) {
@@ -86,7 +95,7 @@ public class CabinetBasePCM : MonoBehaviour {
 
     public void updateItemsNotInCabinet(List<string> list)
     {
-        itemsNotInCabinet = list;
+        //itemsNotInCabinet = list;
     }
 
     private IEnumerator MoveSyringeCapBagAndEnableFactory(GeneralItem syringeCapBag) {
