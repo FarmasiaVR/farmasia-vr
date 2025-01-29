@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
-    [Tooltip("Laminar cabinet that is used to perform actions.")]
-    public GameObject cabinet;
     [Tooltip("All items that have to be cleaned and put in a laminar cabinet.")]
     public LaminarCabinetInventory laminarCabinetInventory;
 
