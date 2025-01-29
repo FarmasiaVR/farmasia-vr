@@ -13,7 +13,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
-        Debug.Log("Enabling the inventory....");
         laminarCabinetInventory.Enable();
     }
 
