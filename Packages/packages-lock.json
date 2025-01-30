@@ -1,16 +1,5 @@
 {
   "dependencies": {
-    "com.microsoft.mixedreality.openxr": {
-      "version": "file:MixedReality/com.microsoft.mixedreality.openxr-1.7.2.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.unity.xr.arfoundation": "4.1.7",
-        "com.unity.xr.management": "4.2.0",
-        "com.unity.xr.openxr": "1.5.3",
-        "com.unity.xr.core-utils": "2.1.0"
-      }
-    },
     "com.unity.addressables": {
       "version": "1.22.3",
       "depth": 1,
@@ -51,28 +40,12 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.editorcoroutines": {
-      "version": "1.0.0",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
-    },
-    "com.unity.feature.vr": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.xr.oculus": "4.4.0",
-        "com.unity.xr.openxr": "1.14.0"
-      }
     },
     "com.unity.ide.rider": {
       "version": "3.0.34",
@@ -290,24 +263,6 @@
         "com.unity.render-pipelines.core": "14.0.11"
       }
     },
-    "com.unity.xr.arfoundation": {
-      "version": "5.1.5",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.inputsystem": "1.3.0",
-        "com.unity.mathematics": "1.2.5",
-        "com.unity.xr.core-utils": "2.2.1",
-        "com.unity.xr.management": "4.0.1",
-        "com.unity.editorcoroutines": "1.0.0",
-        "com.unity.modules.particlesystem": "1.0.0",
-        "com.unity.modules.unityanalytics": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.xr.core-utils": {
       "version": "2.5.1",
       "depth": 1,
@@ -345,22 +300,13 @@
     },
     "com.unity.xr.management": {
       "version": "4.4.0",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0",
         "com.unity.modules.subsystems": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.7"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.oculus": {
-      "version": "4.4.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xr.management": "4.4.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -385,16 +331,6 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.4"
       }
-    },
-    "com.varjo.xr": {
-      "version": "https://github.com/varjocom/VarjoUnityXRPlugin.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.xr.management": "4.2.1",
-        "com.unity.xr.arfoundation": "4.2.7"
-      },
-      "hash": "6b37de274d6b11b6cdee40d189e478423f0ee983"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
