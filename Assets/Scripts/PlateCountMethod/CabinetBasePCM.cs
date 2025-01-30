@@ -8,13 +8,12 @@ using UnityEngine.Events;
 
 public class CabinetBasePCM : MonoBehaviour {
 
+    private CabinetInventory cabinetInventory;
     private TriggerInteractableContainer itemContainer;
     private bool itemPlaced;
     private bool sterileDrapefolded;
     private bool syringeCapBagEntered;
 
-    [Tooltip("Stores items inside the cabinet.")]
-    public LaminarCabinetInventory laminarCabinetInventory;
     public Animator sterileDrape;
     public GameObject childCollider;
     public GameObject syringeCapFactory;
@@ -27,6 +26,10 @@ public class CabinetBasePCM : MonoBehaviour {
 
     private void Start() {
         itemContainer = childCollider.AddComponent<TriggerInteractableContainer>();
+        cabinetInventory = GetComponent<CabinetInventory>();
+        if (cabinetInventory is null) {
+            Debug.Log("Oops, did not initiate inventory");
+        }
         itemContainer.OnEnter = OnCabinetEnter;
         itemContainer.OnExit = OnCabinetExit;
         if (syringeCapFactory != null) {
@@ -63,8 +66,8 @@ public class CabinetBasePCM : MonoBehaviour {
             }
         }
 
-        if (!laminarCabinetInventory.isInCabinet(item)) {
-            bool allItemsComplete = laminarCabinetInventory.AddItem(item);
+        if (!cabinetInventory.isInCabinet(item)) {
+            bool allItemsComplete = cabinetInventory.AddItem(item);
             if (allItemsComplete)
             {
                 Debug.Log("All items were in cabinet.");
@@ -82,7 +85,7 @@ public class CabinetBasePCM : MonoBehaviour {
             return;
         }
 
-        laminarCabinetInventory.RemoveItem(item);
+        cabinetInventory.RemoveItem(item);
         Debug.Log(item + " removed from laminar cabinet");
     }
 

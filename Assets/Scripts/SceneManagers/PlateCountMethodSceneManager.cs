@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
-    [Tooltip("All items that have to be cleaned and put in a laminar cabinet.")]
-    public LaminarCabinetInventory laminarCabinetInventory;
-
     private TaskManager taskManager;
 
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
-        laminarCabinetInventory.Enable();
     }
 
     public void CompleteTask(string taskName)
