@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class CleaningBottleColliderPCM : MonoBehaviour
 {
-    public PlateCountMethodSceneManager sceneManager;
     public GameObject Effect;
+    public UnityEvent onCleanHands;
     private List<GeneralItem> Items = new List<GeneralItem>();
     private new ParticleSystem particleSystem;
     private bool canCleanCabinet;
@@ -57,7 +58,7 @@ public class CleaningBottleColliderPCM : MonoBehaviour
             if (handStateManager)
             {
                 handStateManager.cleanHands();
-                sceneManager.CleanHands();
+                onCleanHands.Invoke();
             }
         }
     }
