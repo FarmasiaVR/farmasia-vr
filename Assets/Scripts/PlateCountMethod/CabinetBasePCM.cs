@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using FarmasiaVR.Legacy;
+using FarmasiaVR;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 
@@ -10,41 +10,39 @@ public class CabinetBasePCM : MonoBehaviour {
 
     public PlateCountMethodSceneManager sceneManager;
     private bool sterileDrapefolded;
-
     public Animator sterileDrape;
-
-    private Dictionary<string, int> requiredItems = new Dictionary<string, int>{
-        { "Bottle100ml XR", 2 },  // Requires 2 Bottle100ml XR
-
-        };   
-    
-    private Dictionary<string, int> inPlaceItems = new Dictionary<string, int>{
-        { "Bottle100ml XR", 0 }, 
-
-        };   
+    public List<GameObject> requiredItems;  
+    private List<bool> itemsFound;
+ 
     private void Start() {
+
+        itemsFound = new List<bool>();
+        for (int i = 0; i < requiredItems.Count; i++)
+        {
+            itemsFound.Add(false);  // Initially, no items are found
+        }
 
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("Triggered by: " + other.gameObject.name);
+    {        
         GeneralItem item = other.GetComponent<GeneralItem>();
         
         if (item == null) {
             return;
         }
 
-        if(!item.isClean){
-            sceneManager.GeneralMistake("Dirty!",1);
-            //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
+        
+        if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
+            sceneManager.GeneralMistake("Dirty!",1);            
             Debug.Log("Dirty: " + other.gameObject.name);
             return;
         }
 
-        if (requiredItems.ContainsKey(other.gameObject.name)){
-            inPlaceItems[other.gameObject.name]++;  // Increase count if the item exists            
-            Debug.Log($"Added {other.gameObject.name}. New count: {inPlaceItems[other.gameObject.name]}");
+        if (requiredItems.Contains(other.gameObject)){            
+            int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
+            itemsFound[index] = true;  // Mark the item as found
+            Debug.Log($"{index} found index.");
         }
         else{
             sceneManager.GeneralMistake("Do you realy need it ?",1);
@@ -52,39 +50,34 @@ public class CabinetBasePCM : MonoBehaviour {
         }
 
         bool allReady = true;
-        foreach (KeyValuePair<string, int> entry in requiredItems)
-        {
-            if(requiredItems[entry.Key] > inPlaceItems[entry.Key]) allReady = false;
-            Debug.Log($"Item: {entry.Key}, Count: {entry.Value}");
+
+        foreach(bool i in itemsFound){
+            if(!i) allReady = false;
         }
 
         if (allReady){
             Debug.Log($"Complete");
             sceneManager.CompleteTask("toolsToCabinet");
-        }
-        
+        }        
         
         UnfoldSterileDrape();
     }
 
     private void OnTriggerExit(Collider other)
-    {
-        //Debug.Log("Triggered by: " + other.gameObject.name);
+    {        
         GeneralItem item = other.GetComponent<GeneralItem>();
         
         if (item == null) {
             return;
         }
 
-        if(!item.isClean){
-            //Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
-            Debug.Log("Dirty: " + other.gameObject.name);
+        if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){            
             return;
         }
 
-        if (requiredItems.ContainsKey(other.gameObject.name)){
-            inPlaceItems[other.gameObject.name]--;  // Increase count if the item exists            
-            Debug.Log($"Removed {other.gameObject.name}. New count: {inPlaceItems[other.gameObject.name]}");
+        if (requiredItems.Contains(other.gameObject)){            
+            int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
+            itemsFound[index] = false; 
         }
     }
 
