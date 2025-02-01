@@ -10,7 +10,7 @@ public class CabinetBasePCM : MonoBehaviour {
 
     public PlateCountMethodSceneManager sceneManager;
     private bool sterileDrapefolded;
-    private bool questCompleated = false;
+    private bool questCompleted = false;
 
     public Animator sterileDrape;
     public List<GameObject> requiredItems;  
@@ -41,7 +41,7 @@ public class CabinetBasePCM : MonoBehaviour {
             return;
         }
 
-        if (questCompleated) {
+        if (questCompleted) {
             return;
         }
 
@@ -50,11 +50,11 @@ public class CabinetBasePCM : MonoBehaviour {
             itemsFound[index] = true;  // Mark the item as found
             Debug.Log($"{index} found index.");
         }
-        // This can be used if we want to add penalty for bringing unnesesary items to the workstation
-        // else{
-        //     sceneManager.GeneralMistake("Do you realy need it ?",1);
-        //     Debug.Log($"{other.gameObject.name} is not in the required list.");
-        // }
+        /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
+        else{
+             sceneManager.GeneralMistake("Do you realy need it ?",1);
+             Debug.Log($"{other.gameObject.name} is not in the required list.");
+        }*/
 
         bool allReady = true;
 
@@ -65,7 +65,7 @@ public class CabinetBasePCM : MonoBehaviour {
         if (allReady){
             Debug.Log($"Complete");
             sceneManager.CompleteTask("toolsToCabinet");
-            questCompleated = true;
+            questCompleted = true;
         }        
         
         UnfoldSterileDrape();
@@ -73,7 +73,7 @@ public class CabinetBasePCM : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {   
-        if (questCompleated) {
+        if (questCompleted) {
             return;
         }     
         GeneralItem item = other.GetComponent<GeneralItem>();
