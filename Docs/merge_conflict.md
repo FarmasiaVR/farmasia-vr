@@ -29,3 +29,9 @@ The message you receive in GitHub Desktop when there is a merge conflict
 ![image](https://user-images.githubusercontent.com/9552313/217278643-f08c4f27-d61f-48bb-a40a-59f9d680767d.png)
 
 8. Make sure that the merge conflict is solved by opening the asset in Unity. If it opens and functions, then the merge conflict is solved and you can go on about your day. Remember to stay hydrated and use a seatbelt when driving! :shipit:
+
+## More complicated merge conflicts
+
+For more in-depth merging, you should use the UnityYAMLMerge ("Unity Smart Merge") tool. Read up on it [here](https://docs.unity3d.com/6000.0/Documentation/Manual/SmartMerge.html). Follow the Git steps to add the required lines to your `$HOME/.gitconfig`. You will also need to configure UnityYAMLMerge using the `mergespecfile.txt`, as guided on [this StackOverflow answer](https://stackoverflow.com/a/63005559). You will also need a merge tool, such as [Meld](https://meldmerge.org/) installed. For Windows, make sure to specify Meld's binary as `MeldConsole.exe`.
+
+Once you are in the merge conflict phase, simply run `git mergetool` to run UnityYAMLMerge, which will then subsequently run Meld for when it needs your opinion on things. Be sure to also check out [this guide](https://stackoverflow.com/a/34119867) on using Meld and `git mergetool` in general. Have fun 🤞📝
