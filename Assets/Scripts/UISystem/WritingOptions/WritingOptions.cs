@@ -1,37 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class WritingOptions : MonoBehaviour {
 
+    private static System.Random rand = new System.Random();
 
-    [SerializeField]
-    private GameObject resultTextObject;
+    public GameObject resultTextObject;
+    public GameObject errorTextObject;
     private TextMeshPro resultTextField;
-
-    [SerializeField]
-    private GameObject errorTextObject;
     private TextMeshPro errorTextField;
 
+
+    public Writable objectToTypeTo;
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
-    private Dictionary<WritingType, string> alreadySelectedOptions = new Dictionary<WritingType, string>();
+    private WritingType? lastLine = null;
     private string alreadyWrittenText;
     private string resultText;
-
-    // How many lines can be selected, in addition to the already existing text
-    private int maxLines;
-
-
-    // Whether the options are initially visible
-    [SerializeField]
-    private bool visible;
 
     // The visibility of the options are controlled with the toggle gameObject
     private GameObject toggle;
 
+    // How many lines can be selected, in addition to the already existing text
+    private int maxLines;
+
+    // Ignore ProgressSystem if in tutorial
+    public bool inTutorial;
+
+    // Whether the options are initially visible
+    public bool visible;
+
     // Callback that is invoked when the submit button is clicked. The WritingPen will set this.
     public Action<Dictionary<WritingType, string>> onSubmit;
+
+    public Action onCancel = () => { };
 
     void Start() {
         resultTextField = resultTextObject.GetComponent<TextMeshPro>();
@@ -54,9 +60,9 @@ public class WritingOptions : MonoBehaviour {
     private void SetButtonCallbacks() {
         // First get the actual options and set the callbacks. true is passed to the method so inactive objects are searched as well.
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
-        foreach(WritingOption option in options) {
+        foreach (WritingOption option in options) {
             option.onSelect = AddOption;
-            option.onDeselect = RemoveOption;
+            option.onDeselect = (o) => RemoveOption(o.WritingType);
         }
         // Then the cancel button
         WritingCancel cancel = toggle.transform.GetComponentInChildren<WritingCancel>(true);
@@ -67,44 +73,80 @@ public class WritingOptions : MonoBehaviour {
         WritingSubmit submit = toggle.transform.GetComponentInChildren<WritingSubmit>(true);
         if (cancel == null) Logger.Warning("WritingOptions did not find WritingSubmit component!");
         submit.onSelect = Submit;
+
+        // Then the remove button
+        WritingRemove remove = toggle.transform.GetComponentInChildren<WritingRemove>(true);
+        if (cancel == null) Logger.Warning("WritingOptions did not find WritingRemove component!");
+        remove.onSelect = RemoveLine;
     }
 
     private void AddOption(WritingOption option) {
-        if (selectedOptions.Count == maxLines) return;
-        selectedOptions.Add(option.WritingType, option.OptionText);
-        UpdateResultingText();
+        
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.addLine(option.WritingType, option.OptionText);
+            UpdateResultingText(objectToTypeTo.WrittenLines);
+        }
+        
+       
         UpdateErrorMessage();
     }
 
-    private void RemoveOption(WritingOption option) {
-        selectedOptions.Remove(option.WritingType);
-        UpdateResultingText();
+    private void RemoveOption(WritingType type) {
+       
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.removeLine(type);
+            UpdateResultingText(objectToTypeTo.WrittenLines);
+        }
+      
         UpdateErrorMessage();
     }
 
-    private void UpdateResultingText() {
-        resultText = alreadyWrittenText;
-        foreach (string line in selectedOptions.Values) {
+    public void UpdateResultingText(Dictionary<WritingType, string> writings) {
+        resultText = "";
+        foreach (string line in writings.Values) {
             resultText += line + "\n";
         }
         resultTextField.SetText(resultText);
+
+        UpdateErrorMessage();
     }
-    
+
     private void UpdateErrorMessage() {
-        if (selectedOptions.Count == maxLines) {
-            errorTextField.SetText("Maksimimäärä rivejä!");
-        } else {
-            errorTextField.SetText("");
+        if (objectToTypeTo)
+        {
+            if(objectToTypeTo.writingsInOrder.Count >= objectToTypeTo.MaxLines) 
+            {
+                errorTextField.SetText(Translator.Translate("XR MembraneFilteration 2.0", "MaxAmountOfRows"));
+            }
+            else
+            {
+                errorTextField.SetText("");
+            }
         }
     }
 
     private void Cancel() {
+        onCancel();
         ResetOptions();
     }
 
     private void Submit() {
         onSubmit(selectedOptions);
         ResetOptions();
+    }
+
+    private void RemoveLine() {
+      
+        if (objectToTypeTo)
+        {
+            objectToTypeTo.removeLatest();
+            UpdateResultingText(objectToTypeTo.WrittenLines);
+        }
+
+        if (!lastLine.HasValue) return;
+        RemoveOption(lastLine.Value);
     }
 
     private void ResetOptions() {
@@ -118,6 +160,13 @@ public class WritingOptions : MonoBehaviour {
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {
             option.Reset();
+            if (option.WritingType == WritingType.FakeTime) {
+                option.WritingType = WritingType.Time;
+            }
+            else if(option.WritingType == WritingType.SecondFakeTime)
+            {
+                option.WritingType = WritingType.SecondTime;
+            }
         }
 
         SetVisible(false);
@@ -128,11 +177,80 @@ public class WritingOptions : MonoBehaviour {
     }
 
     public void SetWritable(Writable writable) {
+        objectToTypeTo = writable;
+        
+        int fakeTimeSet = rand.Next(0, 2);
         alreadyWrittenText = writable.Text;
         // Count how many lines it already has
         int currentLines = alreadyWrittenText.Split('\n').Length - 1; // Why -1? Just trust me.
         maxLines = writable.MaxLines - currentLines;
-        UpdateResultingText();
+        
+        if (objectToTypeTo)
+        {
+            UpdateResultingText(objectToTypeTo.WrittenLines);
+        }
+
         UpdateErrorMessage();
+        UpdatePosition(writable.transform);
+        WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
+        foreach (WritingOption option in options) {
+            if (option.WritingType == WritingType.Time || option.WritingType == WritingType.SecondTime)
+            {
+                if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems))
+                {
+                    option.WritingType = WritingType.SecondTime;
+                }
+                Logger.Print("Writing type: " + option.WritingType);
+                Logger.Print("Writing option: " + option);
+                Logger.Print("Fake time: " + fakeTimeSet);
+                if (fakeTimeSet == 0)
+                {
+                    option.WritingType = WritingType.FakeTime;
+
+                    if (!inTutorial && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WriteTextsToItems))
+                    {
+                        option.WritingType = WritingType.SecondFakeTime;
+                    }
+
+                    var time = DateTime.UtcNow.ToLocalTime();
+                    time = time.AddMinutes(rand.Next(120) - 60);
+                    option.UpdateText(time.ToShortTimeString());
+                }
+                else
+                {
+                    option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortTimeString());
+                }
+                fakeTimeSet--;
+            }
+            else if (option.WritingType == WritingType.Date)
+            {
+                option.UpdateText(DateTime.UtcNow.ToLocalTime().ToShortDateString());
+            }
+            else if (option.WritingType == WritingType.Name)
+            {
+                option.UpdateText(Player.Info.Name ?? Translator.Translate("XR MembraneFilteration 2.0", "Player"));
+            }
+            else if (option.WritingType == WritingType.LeftHand)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "LeftHand"));
+            }
+            else if (option.WritingType == WritingType.RightHand)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "RightHand"));
+            }
+            else if (option.WritingType == WritingType.Tioglygolate)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "Thioglycolate"));
+            }
+            else if (option.WritingType == WritingType.SoyCaseine)
+            {
+                option.UpdateText(Translator.Translate("XR MembraneFilteration 2.0", "SoyCaseine"));
+            }
+
+        }
+    }
+
+    private void UpdatePosition(Transform writableTransform) {
+        // TODO
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+
 
 public class LaminarCabinetTable : MonoBehaviour {
 
@@ -40,7 +43,7 @@ public class LaminarCabinetTable : MonoBehaviour {
 
             if (item.IsClean || !contaminatedItems.Contains(item.GetInstanceID())) {
                 contaminatedItems.Add(item.GetInstanceID());
-                TaskBase.CreateGeneralMistake("Esine koski laminaarikaapin pintaa");
+                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "ItemTouchedCabinet"));
                 item.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
         }

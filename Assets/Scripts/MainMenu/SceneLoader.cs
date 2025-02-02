@@ -1,42 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour {
-    public Animator animator;
+
     private string scene;
+
+    public CameraFadeController fadeController;
+
     public void SwapScene(SceneTypes type) {
-        switch (type) {
-            case SceneTypes.Restart:
-                ChangeScene("Restart");
-                return;
-            case SceneTypes.MainMenu:
-                ChangeScene("MainMenu");
-                return;
-            case SceneTypes.MedicinePreparation:
-                ChangeScene("MedicinePreparation");
-                return;
-            case SceneTypes.Tutorial:
-                ChangeScene("Tutorial");
-                return;
-            case SceneTypes.MembraneFilteration:
-                ChangeScene("MembraneFilteration");
-                return;
-        }
+        ChangeScene(GameScenes.GetName(type));
     }
+
+    public void SwapScene(int type) => SwapScene((SceneTypes) type);
+
     private void ChangeScene(string name) {
         scene = name;
         FadeOutScene();
-
     }
 
     public void FadeOutScene() {
-        animator.SetTrigger("FadeOut");
+        fadeController.onFadeOutComplete.AddListener(OnFadeComplete);
+        fadeController.BeginFadeOut();
     }
 
-    public void OnFadeComplete() {
-        if (scene == null) {
-            return;
-        }
+    private void OnFadeComplete() {
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Resources.UnloadUnusedAssets();
         LoadScene();
@@ -46,12 +34,10 @@ public class SceneLoader : MonoBehaviour {
         Events.Reset();
         if (scene.Equals("Restart")) {
             Logger.PrintVariables("Restarting current scene", scene);
-            G.Instance.Scene.Restart();
-            return;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        } else {
+            Logger.PrintVariables("Loading scene", scene);
+            SceneManager.LoadScene(scene);
         }
-        Logger.PrintVariables("Loading scene", scene);
-        SceneManager.LoadScene(scene);
     }
-
-
 }

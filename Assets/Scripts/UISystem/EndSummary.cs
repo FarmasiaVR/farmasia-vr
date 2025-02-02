@@ -1,25 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class EndSummary : MonoBehaviour {
 
-    #region fields
     private const string TAG = "EndSummary";
-
     private Camera cam;
     private DragAcceptable close;
-    #endregion
+    private SceneLoader levelChanger;
+
+    public string gamePartName;
 
     private void Start() {
         cam = transform.GetComponentInChildren<Camera>();
         cam.enabled = false;
         SetChildStatuses(false);
-
         close = transform.Find("CloseButton").GetComponent<DragAcceptable>();
         close.OnAccept = CloseGame;
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
 
     private void SetChildStatuses(bool status) {
@@ -34,29 +31,48 @@ public class EndSummary : MonoBehaviour {
         TextMeshPro text = transform.Find("Text").GetComponent<TextMeshPro>();
 
         if (text == null) {
-            Logger.Error("Text mesh pro was null in end summary");
+            Logger.Error("Textmeshpro Text was null in end summary");
             return;
         }
 
         text.text = summary;
+
+        // text for the screenshot
+        TextMeshPro textOnBoard = GameObject.Find("TextOnBoard").GetComponent<TextMeshPro>();
+
+        if (textOnBoard == null) {
+            Logger.Error("TextMeshPro TextOnBoard was null in end summary");
+            return;
+        }
+
+        textOnBoard.text = summary;
+
+        TextMeshPro playetNameText = GameObject.Find("PlayerNameText").GetComponent<TextMeshPro>();
+
+        if (playetNameText == null) {
+            Logger.Error("TextMeshPro PlayerNameText was null in end summary");
+            return;
+        }
+
+        playetNameText.text = Player.Info.Name;
     }
 
     private async void CloseGame() {
-
         close.SafeDestroy();
 
-        await Task.Delay(2000);
+        await System.Threading.Tasks.Task.Delay(2000);
 
         try {
             SnapScreenshot();
         } catch (System.Exception) {
+
         }
 
-        Application.Quit();
+        levelChanger.SwapScene(SceneTypes.MainMenu);
+        levelChanger.FadeOutScene();
     }
 
     private void SnapScreenshot() {
-
         HandMeshToggler[] handMeshes = GameObject.FindObjectsOfType<HandMeshToggler>();
         bool[] statuses = new bool[2] { handMeshes[0].Status, handMeshes[1].Status };
 
@@ -68,8 +84,11 @@ public class EndSummary : MonoBehaviour {
 
         string filePath = GetPath();
 
-        int width = 1920;
-        int height = 1080;
+        Debug.Log("Screenshot: " + GetPath());
+
+        // A4 paper size 2970mm x 2100mm
+        int width = 2970;
+        int height = 2100;
 
         RenderTexture tex = new RenderTexture(width, height, 24);
 
@@ -89,11 +108,15 @@ public class EndSummary : MonoBehaviour {
         handMeshes[0].Show(statuses[0]);
         handMeshes[1].Show(statuses[1]);
     }
-    private static string GetPath() {
+
+    // was static?
+    private string GetPath() {
+        string filename = "Todistus - " + gamePartName + " - " + Player.Info.Name + ".jpg";
+
         if (Application.isEditor) {
-            return Application.dataPath + "/score_screenshot.jpg";
+            return Application.dataPath + "/PlayerCertificates/" + filename;
         } else {
-            return Application.dataPath + "/../../score_screenshot.jpg";
+            return Application.dataPath + "/../../PlayerCertificates/" + filename;
         }
     }
 

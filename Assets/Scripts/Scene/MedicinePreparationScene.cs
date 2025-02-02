@@ -37,13 +37,13 @@ public class MedicinePreparationScene : SceneScript {
     private Transform correctPositionLaminarCabinet;
 
     [SerializeField]
-    private Interactable teleportDoorKnob, laminarCabinetCheckButton;
+    private Interactable teleportDoorKnob;
 
     [SerializeField]
     private SterileBag sterileBag;
 
     [SerializeField]
-    private TrashBin regularTrash, sharpTrash;
+    private TrashCan regularTrash, sharpTrash;
 
     private bool played;
     public bool IsAutoPlaying { get; private set; }
@@ -63,6 +63,7 @@ public class MedicinePreparationScene : SceneScript {
         base.Start();
         //NullCheck.Check(p_syringeCapBag, p_luerlock, p_needle, p_smallSyringe, p_bigSyringe, p_bottle, p_sterileCloth);
         //NullCheck.Check(correctPositions, teleportDoorKnob, laminarCabinetCheckButton, sterileBag, regularTrash, sharpTrash);
+        if (!MainMenuFunctions.startFromBeginning) autoPlayStrength = AutoPlayStrength.ItemsToPassThrough;
         PlayFirstRoom(autoPlayStrength);
     }
 
@@ -81,9 +82,6 @@ public class MedicinePreparationScene : SceneScript {
     private void DebugTasks() {
 
         Logger.Print("All tasks");
-        foreach (var asd in G.Instance.Progress.GetAllTasks()) {
-            Logger.Print(asd.ToString());
-        }
         Logger.Print("Active:");
         foreach (var asd in G.Instance.Progress.CurrentPackage.activeTasks) {
             Logger.Print(asd.ToString());
@@ -160,7 +158,7 @@ public class MedicinePreparationScene : SceneScript {
         LuerlockAdapter luerlock = ToInteractable(g_luerlock) as LuerlockAdapter;
         Needle needle = ToInteractable(g_needle) as Needle;
         Syringe bigSyringe = ToInteractable(g_bigSyringe) as Syringe;
-        MedicineBottle bottle = ToInteractable(g_bottle) as MedicineBottle;
+        Bottle bottle = ToInteractable(g_bottle) as Bottle;
 
         SmallSyringe[] smallSyringes = new SmallSyringe[6];
 
@@ -223,6 +221,7 @@ public class MedicinePreparationScene : SceneScript {
         bigSyringe.transform.up = correctPositions.right;
         bigSyringe.Rigidbody.velocity = Vector3.zero;
         yield return null;
+        bottle.Contamination = GeneralItem.ContaminateState.Clean;
         bottle.transform.position = correctPositions.GetChild(4).position;
         bottle.transform.up = correctPositions.right;
         bottle.Rigidbody.velocity = Vector3.zero;
@@ -236,6 +235,7 @@ public class MedicinePreparationScene : SceneScript {
 
         if (autoPlay == AutoPlayStrength.ItemsToPassThrough) {
             IgnoreCollisions(all, false);
+            if (!MainMenuFunctions.startFromBeginning) GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
             yield break;
         }
 
@@ -287,7 +287,6 @@ public class MedicinePreparationScene : SceneScript {
         }
 
         yield return Wait;
-        hand.InteractWith(laminarCabinetCheckButton);
 
         if (autoPlay == AutoPlayStrength.CheckCabinetItems) {
             yield break;
@@ -396,6 +395,8 @@ public class MedicinePreparationScene : SceneScript {
         if (autoPlay == AutoPlayStrength.SyringesToSterileBag) {
             yield break;
         }
+
+        yield return new WaitForSeconds(1.5f);
 
         sterileBag.CloseSterileBagFinal();
 

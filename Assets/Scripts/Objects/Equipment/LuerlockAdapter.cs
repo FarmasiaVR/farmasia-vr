@@ -78,20 +78,12 @@ public class LuerlockAdapter : GeneralItem {
         base.Start();
 
         ObjectType = ObjectType.Luerlock;
-        Type.On(InteractableType.SmallObject);
         Contamination = ContaminateState.Clean;
 
         connectors = new Dictionary<Side, LuerlockConnector> {
             { Side.Left, new LuerlockConnector(Side.Left, this, transform.Find("Left collider").gameObject) },
             { Side.Right, new LuerlockConnector(Side.Right, this, transform.Find("Right collider").gameObject) }
         };
-
-        SubscribeCollisions();
-    }
-
-    private void SubscribeCollisions() {
-        LeftConnector.Subscribe();
-        RightConnector.Subscribe();
     }
 
     public LuerlockConnector GetConnector(Side side) {

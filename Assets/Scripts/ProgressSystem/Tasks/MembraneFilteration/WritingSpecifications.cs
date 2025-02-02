@@ -47,13 +47,11 @@ public static class WritingSpecifications {
         // Will be iterated backwards in WriteTextToItems -> last
         new WritingSpec(ObjectType.SoycaseinePlate,
             WritingType.Name,
-            WritingType.Time,
             WritingType.Date,
             WritingType.RightHand
             ),
         new WritingSpec(ObjectType.SoycaseinePlate,
             WritingType.Name,
-            WritingType.Time,
             WritingType.Date,
             WritingType.LeftHand
             ),

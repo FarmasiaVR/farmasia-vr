@@ -8,6 +8,17 @@ using UnityEngine;
 /// http://JacksonDunstan.com/articles/3718
 /// </summary>
 public static class CoroutineUtils {
+
+	public static Coroutine StartThrowingCoroutine(
+		this MonoBehaviour monoBehaviour,
+		IEnumerator enumerator
+	) {
+		return monoBehaviour.StartCoroutine(RunThrowingIterator(enumerator, e => {
+			if (e != null)
+				Logger.Error(e);
+		}));
+	}
+
 	/// <summary>
 	/// Start a coroutine that might throw an exception. Call the callback with the exception if it
 	/// does or null if it finishes without throwing an exception.

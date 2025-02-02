@@ -23,7 +23,20 @@
     Tweezers,
     Scalpel,
     Pipette,
-    AgarPlateBottom,
-    AgarPlateLid,
-    PumpFilter
+    PumpFilter,
+    PipetteContainer,
+    RedLego,
+    YellowLego,
+    GreenLego,
+    PumpFilterBase,
+    PumpFilterFilter,
+    PumpFilterTank,
+    PumpFilterLid,
+    NotApplicable,
+    FilterInCover,
+    FilterHalf,
+    SoapDispencer,
+    AutomaticPipette,
+    DisinfectantBottle,
+    AgarPlate
 }

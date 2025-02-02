@@ -8,7 +8,12 @@ public class WritingSubmit : DragAcceptable {
 
     public override void Interact(Hand hand) {
         base.Interact(hand);
-        Logger.Print("Chose: cancel");
+        Logger.Print("Chose: submit");
+        onSelect();
+    }
+
+    public void Interact() {
+        Logger.Print("Chose: submit");
         onSelect();
     }
 }

@@ -4,10 +4,17 @@ using System.Collections.Generic;
 
 public class WritingPen : GeneralItem {
 
+    private bool isWriting;
+    public bool ignoreGrabCheck;
+    
+    public GameObject collidedObject;
+    Collider collidedCollider;
+
+    public bool writeOnTouch;
     protected override void Start() {
         base.Start();
         objectType = ObjectType.Pen;
-        Type.On(InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
     }
 
     protected override void OnCollisionEnter(Collision other) {
@@ -15,15 +22,79 @@ public class WritingPen : GeneralItem {
 
         // Get the Writable component of the collided item
         GameObject foundObject = GetInteractableObject(other.transform);
-        Writable writable = foundObject?.GetComponent<Writable>();
+        Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
         if (writable == null) {
             return;
         }
-        if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
-            return;
+        Debug.Log("Detected writable!");
+        if (ignoreGrabCheck != true) {
+            if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
+                return;
+            }
         }
 
-        Write(writable, foundObject);
+        if (isWriting) { // must submit or cancel before selecting another item
+            return;
+        }
+        
+        Debug.Log("called pen Write function");
+        
+        if (writeOnTouch)
+        {
+            Write(writable, foundObject);
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject foundObject = GetInteractableObject(other.transform);
+        Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
+        if (writable == null)
+        {
+            return;
+        }
+        
+
+        if (isWriting)
+        { // must submit or cancel before selecting another item
+            return;
+        }
+        if (collidedObject == null) {
+            collidedObject = foundObject;
+            collidedCollider = other;
+        }
+        
+            
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (collidedCollider)
+        {
+            if (other == collidedCollider)
+            {
+                collidedObject = null;
+                collidedCollider = null;
+            }
+        }
+    }
+
+    public void resetCollidedObject()
+    {
+        collidedObject = null;
+    }
+
+    public void WriteXR()
+    {
+        if (collidedObject != null)
+        {
+            Writable write = collidedObject.GetComponent<Writable>();
+            if (write != null)
+            {
+                Write(write, collidedObject);
+            }
+        }
     }
 
     private void Write(Writable writable, GameObject foundObject) {
@@ -41,20 +112,36 @@ public class WritingPen : GeneralItem {
             Logger.Print("Did not found gameObject writing options");
             return;
         }
+        isWriting = true;
 
         // Now show it
         writingOptions.SetVisible(true);
+
+       
         // Give it the writable's info (text and maximum number of lines)
         writingOptions.SetWritable(writable);
 
+
+        
+        
         // Set the callback so that it writes to the writable when it is submitted
         writingOptions.onSubmit = (selectedOptions) => {
             SubmitWriting(writable, foundObject, selectedOptions);
+            isWriting = false;
+            writingOptions.objectToTypeTo = null;
+            collidedObject = null;
+        };
+        writingOptions.onCancel = () => {
+            isWriting = false;
+            writingOptions.objectToTypeTo = null;
         };
     }
 
     public void SubmitWriting(Writable writable, GameObject foundObject, Dictionary<WritingType, string> selectedOptions) {
         writable.AddWrittenLines(selectedOptions);
-        Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+        if (foundObject.gameObject.GetComponent<Writable>().writingsInOrder.Count > 0)
+        {
+            Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+        }   
     }
 }

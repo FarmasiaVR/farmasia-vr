@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-public class Pump : GeneralItem
+public class Pump : ReceiverItem
 {
+    protected override void ConnectAttachment() {
+        base.ConnectAttachment();
 
-    #region fields
-    #endregion
+        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(this));
+    }
 
-    protected override void Start()
+    public void attachFilterXR()
+
     {
-        base.Start();
-        ObjectType = ObjectType.Pump;
-        Type.On(InteractableType.Attachable, InteractableType.Interactable, InteractableType.SmallObject);
-
+        Debug.Log("Pump detected filter");
+        Events.FireEvent(EventType.AttachFilter, CallbackData.Object(this));
     }
 }

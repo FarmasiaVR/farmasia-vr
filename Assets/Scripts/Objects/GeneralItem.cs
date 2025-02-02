@@ -14,7 +14,7 @@ public class GeneralItem : Grabbable {
     }
 
     [SerializeField]
-    private bool isClean = true;
+    public bool isClean = true;
     private ContaminateState contamination;
     public ContaminateState Contamination {
         get => contamination; 
@@ -59,7 +59,6 @@ public class GeneralItem : Grabbable {
         base.OnGrabStart(hand);
 
         if (IsOnFloor) {
-            Events.FireEvent(EventType.ItemLiftedOffFloor, CallbackData.Object(this));
             State.Off(InteractState.OnFloor);
         }
     }

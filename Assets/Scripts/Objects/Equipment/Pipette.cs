@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pipette : GeneralItem {
-    
-    public LiquidContainer Container { get; private set; }
+
+    public LiquidContainer Container;
     
     // How much liquid is moved per click
     public int LiquidTransferStep = 50;
@@ -25,10 +25,7 @@ public class Pipette : GeneralItem {
         objectType = ObjectType.Pipette;
         base.Start();
 
-        Container = LiquidContainer.FindLiquidContainer(transform);
-
-        
-        Type.On(InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Interactable);
     }
 
     public override void OnGrabStart(Hand hand) {
@@ -50,7 +47,8 @@ public class Pipette : GeneralItem {
 
         bool takeMedicine = VRInput.GetControlDown(hand.HandType, Controls.TakeMedicine);
         bool sendMedicine = VRInput.GetControlDown(hand.HandType, Controls.EjectMedicine);
-        
+        bool grabInteract = VRInput.GetControlDown(hand.HandType, Controls.GrabInteract);
+
         if (takeMedicine) {
             TakeMedicine();
         } else if (sendMedicine) {
@@ -62,7 +60,6 @@ public class Pipette : GeneralItem {
     public void TakeMedicine() {
         if (State == InteractState.InBottle) {
             TransferToBottle(false);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Logger.Print("Pipette not in bottle");
         }
@@ -71,14 +68,7 @@ public class Pipette : GeneralItem {
     public void SendMedicine() {
         if (State == InteractState.InBottle) {
             TransferToBottle(true);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
-        } else {
-            Eject();
         }
-    }
-
-    private void Eject() {
-        Container.SetAmount(0);
     }
 
     private void TransferToBottle(bool into) {
@@ -88,4 +78,31 @@ public class Pipette : GeneralItem {
         Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
     }
     
+    public void TakeMedicineXR()
+    {
+        if (State == InteractState.InBottle)
+        {
+            TransferToBottleXR(false);
+        }
+        else
+        {
+            Logger.Print("Pipette not in bottle");
+        }
+    }
+
+    public void SendMedicineXR()
+    {
+        if (State == InteractState.InBottle)
+        {
+            TransferToBottleXR(true);
+        }
+    }
+
+    private void TransferToBottleXR(bool into)
+    {
+        if (BottleContainer == null) return;
+        if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
+        if (!into && Vector3.Distance(BottleContainer.transform.position, transform.position) > 0.3f) return;
+        Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
+    }
 }

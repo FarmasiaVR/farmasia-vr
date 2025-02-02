@@ -1,121 +1,37 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-public class LuerlockAttach : TaskBase {
+using FarmasiaVR.Legacy;
 
-    #region Constants
-    private const string DESCRIPTION = "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.";
-    private const string HINT = "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.";
-    #endregion
+public class LuerlockAttach : Task {
 
-    #region Fields
-    public enum Conditions { SyringeWithMedicineAttached }
-    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe };
-    private CabinetBase laminarCabinet;
-    private bool fail = false;
-    private bool firstCheckDone = false;
-    #endregion
+    public enum Conditions { LuerlockAttachedToSyringeWithMedicine }
+    private const int REQUIRED_MINIMUM_AMOUNT = 900;
 
-    #region Constructor
-    public LuerlockAttach() : base(TaskType.LuerlockAttach, true, true) {
+    public LuerlockAttach() : base(TaskType.LuerlockAttach, true) {
         SetCheckAll(true);
-        Subscribe();
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 1;
     }
-    #endregion
 
-    #region Event Subscriptions
     public override void Subscribe() {
-        base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(AttachLuerlock, EventType.AttachLuerlock);
     }
 
-    private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
-        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
-            laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        }
-    }
-
-    /// <summary>
-    /// Once fired by an event, checks if and how Luerlock was attached as well as previous required task completion.
-    /// Sets corresponding conditions to be true.
-    /// </summary>
-    /// <param name="data">"Refers to the data returned by the trigger."</param>
     private void AttachLuerlock(CallbackData data) {
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null) {
-            return;
-        }
-
-        if (laminarCabinet == null) {
-            CreateTaskMistake("Ruisku kiinnitettiin liian aikaisin.", 1);
-            Fail();
-            return;
-        } else if (!laminarCabinet.GetContainedItems().Contains(item)) {
-            CreateTaskMistake("Ruisku kiinnitettiin laminaarikaapin ulkopuolella", 1);
-            Fail();
-            return;
-        }
-
-        if (!IsPreviousTasksCompleted(requiredTasks)) {
-            Popup("Ota ruiskuun lääkettä ennen luerlockiin yhdistämistä.", MsgType.Notify);
-            return;
-        }
-
-        ObjectType type = item.ObjectType;
-        if (type == ObjectType.Syringe) {
-            MedicineSyringeCheck(item);
-        }
-
-        if (!item.IsClean) {
-            CreateTaskMistake("Ruisku oli likainen", 1);
-            Fail();
-        }
-
-        CompleteTask();
-
-        if (!IsCompleted()) {
-            if (!firstCheckDone) {
-                CreateTaskMistake("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun", 1);
-                Popup("Luerlockia ei kiinnitetty ensin lääkkeelliseen ruiskuun.", MsgType.Mistake, -1);
-                firstCheckDone = true;
-                Fail();
-            } else {
-                Popup("Kiinnitä ensin lääkkeellinen ruisku", MsgType.Mistake);
-            }
+        GameObject obj = (GameObject)data.DataObject;
+        GeneralItem item = obj.GetComponent<GeneralItem>();
+        Syringe syringe = item.GetComponent<Syringe>(); ;
+        CheckMistakes(syringe);
+        if (syringe.Container.Amount >= REQUIRED_MINIMUM_AMOUNT) {
+            EnableCondition(Conditions.LuerlockAttachedToSyringeWithMedicine);
+            CompleteTask();
         }
     }
 
-    private void MedicineSyringeCheck(GeneralItem item) {
-        Syringe syringe = item.GetComponent<Syringe>();
-        if (syringe.Container.Amount > 0) {
-            EnableCondition(Conditions.SyringeWithMedicineAttached);
+    private void CheckMistakes(Syringe syringe) {
+        if (syringe.Container.Amount == 0) {
+            CreateTaskMistake("Luerlockia ei kiinnitetty ruiskuun mikä sisälsi lääkettä.", 1);
+        } else if (syringe.Container.Amount < REQUIRED_MINIMUM_AMOUNT) {
+            CreateTaskMistake("Luerlock yhdistettiin ruiskuun mikä ei sisältänyt tarpeeksi lääkettä.", 1);
         }
     }
-
-    private void Fail() {
-        fail = true;
-    }
-    #endregion
-
-    #region Public Methods
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
-
-    public override string GetHint() {
-        return HINT;
-    }
-
-    protected override void OnTaskComplete() {
-        if (!fail) {
-            Popup("Luerlockin kiinnittäminen onnistui.", MsgType.Done);
-        }
-    }
-    #endregion
 }

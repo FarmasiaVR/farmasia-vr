@@ -2,14 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class VRVibrationManager : MonoBehaviour {
 
-    #region Fields
+#region Fields
     private static GameObject vibrationManager;
     public SteamVR_Action_Vibration hapticAction;
-    #endregion
+#endregion
 
     [Range(0, 1)]
     public float TestingAmplitude;
@@ -36,13 +40,13 @@ public class VRVibrationManager : MonoBehaviour {
         vibrationManager.GetComponent<VRVibrationManager>().TriggerVibration();
     }
 
-    #region Public methods
+#region Public methods
     public void TriggerVibration() { 
         try { 
             hapticAction.Execute(0, 0.1f, (TestingFrequency * TestingStrength), (TestingAmplitude * TestingStrength), SteamVR_Input_Sources.LeftHand);
-        } catch (Exception e) {
+        } catch (Exception) {
             Logger.Warning("Vibration failed!");
         }
     }
-    #endregion
+#endregion
 }

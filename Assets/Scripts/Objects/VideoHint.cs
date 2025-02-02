@@ -1,35 +1,28 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class VideoHint : MonoBehaviour {
 
-    #region fields
-    public static VideoHint CurrentVideo;
-    public static GameObject videoHintPrefab;
-
     private VideoPlayer player;
     private AudioSource audioSource;
     private Renderer targetRenderer;
     private Material targetMaterial;
-    private Color matColor;
-
     private VideoClip clip;
-
     private TextMeshPro text;
-
-    private float spawnTime = 0.5f;
-    private Vector3 targetSize;
     private Transform closeBtn;
     private Transform playBtn;
     private DragAcceptable closeButton;
     private DragAcceptable playButton;
+    private Color matColor;
+    private Vector3 targetSize;
+    private float spawnTime = 0.5f;
     private string videoTitle;
-    #endregion
 
-    #region Initialization
+    public static GameObject videoHintPrefab;
+    public static VideoHint CurrentVideo;
+
     private void Awake() {
         Transform v = transform.Find("Video");
         player = v.GetComponent<VideoPlayer>();
@@ -40,37 +33,30 @@ public class VideoHint : MonoBehaviour {
         closeBtn = transform.Find("CloseButton");
         playBtn = transform.Find("PlayButton");
         text = transform.Find("Text").GetComponent<TextMeshPro>();
-
         targetSize = transform.localScale;
         transform.localScale = Vector3.zero;
     }
+
     private void Start() {
         text.text = videoTitle;
         StartCoroutine(InitSpawn());
     }
 
     private void PlayVideo() {
-
         Logger.Print("Playing video: " + clip);
-
         text.gameObject.SetActive(false);
-
         playButton.Hide(true);
-
         player.clip = clip;
         player.frame = 0;
         player.renderMode = VideoRenderMode.MaterialOverride;
         player.targetMaterialRenderer = targetRenderer;
-        player.targetMaterialProperty = "_MainTex";
+        player.targetMaterialProperty = "_BaseMap";
         player.audioOutputMode = VideoAudioOutputMode.AudioSource;
         player.SetTargetAudioSource(0, audioSource);
         player.isLooping = false;
-
         player.loopPointReached -= VideoEnded;
         player.loopPointReached += VideoEnded;
-
         targetMaterial.color = Color.white;
-
         player.Play();
     }
 
@@ -81,9 +67,7 @@ public class VideoHint : MonoBehaviour {
     }
 
     private IEnumerator InitSpawn() {
-
         float time = spawnTime;
-
         Vector3 closeButtonPos = closeBtn.localPosition;
         Vector3 playButtonPos = playBtn.localPosition;
 
@@ -117,15 +101,14 @@ public class VideoHint : MonoBehaviour {
     }
 
     public void DestroyHint() {
-
         StopAllCoroutines();
-
         Destroy(player);
         Destroy(audioSource);
 
         if (closeButton != null) {
             closeButton.SafeDestroy();
         }
+
         if (playButton != null) {
             playButton.SafeDestroy();
         }
@@ -138,16 +121,11 @@ public class VideoHint : MonoBehaviour {
             videoHintPrefab = Resources.Load<GameObject>("Prefabs/VideoHint");
         }
     }
-    #endregion
-
-
 
     public static void CreateVideoHint(VideoClip clip, string videoTitle, Vector3 position) {
-
         if (clip == null) {
             return;
         }
-
 
         if (CurrentVideo != null) {
             if (!CurrentVideo.videoTitle.Equals(videoTitle)) {
@@ -158,13 +136,16 @@ public class VideoHint : MonoBehaviour {
         }
 
         Init();
-
         GameObject newHint = Instantiate(videoHintPrefab);
         newHint.transform.position = position;
-
         CurrentVideo = newHint.GetComponent<VideoHint>();
-
         CurrentVideo.clip = clip;
         CurrentVideo.videoTitle = videoTitle;
+    }
+
+    public static void DestroyCurrentVideo() {
+        if (CurrentVideo != null) {
+            CurrentVideo.DestroyHint();
+        }
     }
 }

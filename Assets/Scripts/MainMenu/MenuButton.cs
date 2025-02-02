@@ -1,30 +1,27 @@
 ﻿using UnityEngine;
 
 public class MenuButton : Interactable {
-    [SerializeField]
-    private MenuInterface menu;
 
-    [SerializeField]
-    private SceneTypes scene;
+    private SceneLoader levelChanger;
 
-    [SerializeField]
-    private bool isCloseButton = false;
-
-    private SceneLoader changer;
+    public MenuInterface menu;
+    public SceneTypes scene;
+    public bool isCloseButton = false;
 
     protected override void Start() {
         base.Start();
         Type.Set(InteractableType.Interactable);
-        changer = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
+        levelChanger = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<SceneLoader>();
     }
+
     public override void Interact(Hand hand) {
         if (gameObject.activeInHierarchy) {
             base.Interact(hand);
             if (isCloseButton) {
                 menu.Close();
             } else {
-                changer.SwapScene(scene);
-                changer.FadeOutScene();
+                levelChanger.SwapScene(scene);
+                levelChanger.FadeOutScene();
             }
         }
     }

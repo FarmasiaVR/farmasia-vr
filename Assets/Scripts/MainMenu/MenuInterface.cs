@@ -1,59 +1,84 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
+using Valve.VR;
+#endif
 
 public class MenuInterface : MonoBehaviour {
-
-    [SerializeField]
+    public InputActionReference pauseMenuButton;
+    public bool isGameOverMenu = false;
+    public Behaviour[] gameOverDisablesComponents;
+    public GameObject[] gameOverDisablesObjects;
+    private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
     private GameObject menuContainer;
-    private Hand hand;
-    [SerializeField]
+    private Hand leftHand;
     private Transform cam;
-    [SerializeField]
-    private Vector3 offset;
 
-    [SerializeField]
-    private Vector3 localPosOffset;
-
-    [SerializeField]
-    private float lerpAmount;
-    [SerializeField]
-    private float centerOffset = 0.2f;
-    private Vector3 CameraCenter { get => cam.position + cam.forward * centerOffset; }
-
-    public bool Visible => menuContainer.activeSelf;
-
-    public void Close() {
-        menuContainer.SetActive(!Visible);
-    }
+    public Vector3 cameraCenter { get => cam.position + cam.forward * centerOffset; }
+    public Vector3 offset;
+    public Vector3 localPosOffset;
+    public float lerpAmount = 0.15f;
+    public float centerOffset = 0.2f;
+    public bool visible => menuContainer.activeSelf;
 
     private void Start() {
+        menuContainer = gameObject.transform.GetChild(0).gameObject;
+        menuContainer.SetActive(false);
+        leftHand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         localPosOffset = transform.localPosition;
-        if (cam == null) {
-            cam = GameObject.FindGameObjectWithTag("MainCamera")?.transform;
+
+        if (pauseMenuButton != null)
+        {
+            pauseMenuButton.action.started += Close;
         }
-        hand = GameObject.FindGameObjectWithTag("Controller (Left)")?.GetComponent<Hand>();
     }
 
     private void Update() {
-        if (Visible) {
-            Vector3 position = cam.transform.position;
-
-            position += localPosOffset;
-            transform.LookAt(position, Vector3.up);
+        if (visible) {
+            // keeps the pause menu in front of the player when moving
+            Vector3 cameraPosition = cam.transform.position;
+            cameraPosition += localPosOffset;
+            transform.LookAt(cameraPosition, Vector3.up);
             transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
         }
-        if (hand != null && VRInput.GetControlDown(hand.HandType, Controls.Menu)) {
+        if (pauseMenuButton == null && menuActionLegacy != null && leftHand != null && menuActionLegacy.GetStateDown(leftHand.HandType)) {
             Close();
-        } else if (hand == null) {
-            Logger.Warning("Hand is Null!");
         }
     }
 
     private Vector3 GetTransformPosition() {
         Vector3 forward = new Vector3(cam.forward.x, 0, cam.forward.z).normalized;
         Vector3 right = new Vector3(cam.right.x, 0, cam.right.z).normalized;
-
-        Vector3 targetPosition = CameraCenter + forward * offset.z + right * offset.x;
-        targetPosition = new Vector3(targetPosition.x, CameraCenter.y + offset.y, targetPosition.z);
+        Vector3 targetPosition = cameraCenter + forward * offset.z + right * offset.x;
+        targetPosition = new Vector3(targetPosition.x, cameraCenter.y + offset.y, targetPosition.z);
         return targetPosition;
+    }
+
+
+    public void Close(InputAction.CallbackContext context) => this.Close();
+
+
+    public void Close()
+    {
+        menuContainer.SetActive(!visible);
+
+        if (this.isGameOverMenu) {
+            foreach (Behaviour comp in gameOverDisablesComponents) {
+                comp.enabled = false;
+            }
+            foreach (GameObject obj in gameOverDisablesObjects) {
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (pauseMenuButton != null) {
+            pauseMenuButton.action.started -= Close;
+        }
     }
 }

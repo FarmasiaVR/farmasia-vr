@@ -6,12 +6,14 @@ public class Interactable : MonoBehaviour {
 
     #region fields
     public static string iTag = "Interactable";
+    
+    protected Hand grabbingHand;
 
     public EnumBitField<InteractableType> Type { get; protected set; } = new EnumBitField<InteractableType>();
 
     public EnumBitField<InteractState> State { get; set; } = new EnumBitField<InteractState>();
 
-    public RigidbodyContainer RigidbodyContainer { get; private set; }
+    public RigidbodyContainer RigidbodyContainer { get; protected set; }
     public Rigidbody Rigidbody {
         get {
             if (RigidbodyContainer.Enabled) {
@@ -28,7 +30,7 @@ public class Interactable : MonoBehaviour {
     public Interactors Interactors;
 
     [SerializeField]
-    private bool disableHighlighting;
+    public bool DisableHighlighting;
 
     private ObjectHighlight highlight;
 
@@ -41,7 +43,7 @@ public class Interactable : MonoBehaviour {
 
     protected virtual void Start() {
         if (gameObject.GetComponent<ObjectHighlight>() == null) {
-            gameObject.AddComponent<ObjectHighlight>().DisableHighlighting(disableHighlighting);
+            gameObject.AddComponent<ObjectHighlight>().DisableHighlighting(DisableHighlighting);
 
         }
 
@@ -53,10 +55,12 @@ public class Interactable : MonoBehaviour {
     public virtual void OnGrab(Hand hand) { }
     public virtual void OnGrabStart(Hand hand) {
         IsInteracting = true;
+        grabbingHand = hand;
     }
     public virtual void Uninteract(Hand hand) { }
     public virtual void OnGrabEnd(Hand hand) {
         IsInteracting = false;
+        grabbingHand = null;
     }
 
     public static Interactable GetInteractable(Transform t) {
@@ -128,7 +132,7 @@ public class Interactable : MonoBehaviour {
 
     public bool IsAttached {
         get {
-            return State == InteractState.LuerlockAttached || State == InteractState.NeedleAttached || State == InteractState.LidAttached || State == InteractState.PumpFilterAttached;
+            return State == InteractState.LuerlockAttached || State == InteractState.ConnectableAttached;
         }
     }
 

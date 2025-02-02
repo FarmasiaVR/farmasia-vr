@@ -1,40 +1,30 @@
 using System.Collections;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class InfoBox : MonoBehaviour {
 
-    #region Constants
-    private const string PREPARATION_ROOM_MESSAGE = "Puhdastilaan vietävät ruiskut, neulat ja muut tarvikkeet ovat steriilejä ja pakattu suojapusseihin. VR-pelissä suojapussi puuttuu.";
-    private const string WORKSPACE_ROOM_MESSAGE = "Tässä kohtaa laminaarikaappiin siirrettävät työvälineet ruiskutetaan etanoliliuoksella, ja kaappi pyyhitään steriilillä liinalla. Voit olettaa ne jo tehdyksi.";
-    #endregion
+    private const string CHANGING_ROOM_MESSAGE = "Tässä vaiheessa valmisteltaisiin työvälineet.";
+    private const string WASHING_HANDS_MESSAGE = "Käsiä kuuluisi pestä vähintään 30 sekuntia. VR-pelissä riittää alle 10 sekuntia.";
+    private const string CLEANING_LAMINAR_CABINET_MESSAGE = "Ruiskutuksen jälkeen seinät kuivattaisiin paperilla. Tätä vaihetta pelissä ei ole.";
+    private const string PIPETTE_CLEAN_TRASH_MESSAGE = "Pipetin pää kuuluisi irroittaa ja laittaa roskakoriin. VR-pelissä tätä vaihetta ei tarvitse tehdä.";
 
-    #region Fields
     [Header("Children")]
-    [SerializeField]
-    private GameObject text;
-    [SerializeField]
-    private RectTransform planeContainer;
+    public GameObject text;
+    public RectTransform planeContainer;
 
     [Header("Configuration")]
-    [SerializeField]
-    private Transform cam;
-    [SerializeField]
-    private Vector3 offset;
-    [SerializeField]
-    private float centerOffset = 0.06f;
-    [SerializeField]
-    private float defaultLerpAmount;
-    [SerializeField]
-    private float padding;
+    public Transform cam;
+    public Vector3 offset = new Vector3(0.0f, 0.2f, 0.5f);
+    public float centerOffset = 0.06f;
+    public float defaultLerpAmount = 0.3f;
+    public float padding = 0.1f;
 
-    private float activeLerpAmount;
     private TextMeshPro textField;
-    // CameraCenter is where the center of your head is, not the headset (eyes) is.
+    // CameraCenter is where the center of your head is, not the headset (eyes) is
     private Vector3 CameraCenter { get => cam.position - cam.forward * centerOffset; }
-
-    #endregion
+    private float activeLerpAmount;
 
     private void Start() {
         Subscribe();
@@ -43,38 +33,60 @@ public class InfoBox : MonoBehaviour {
     }
 
     private void Update() {
-        if (textField.enabled) {
+        if (textField.enabled && activeLerpAmount > 0.01f) {
             textField.transform.position = Vector3.Lerp(textField.transform.position, GetTargetPosition(), Time.deltaTime / activeLerpAmount);
             textField.transform.LookAt(CameraCenter);
         }
     }
 
-    #region Event Subscriptions
     public void Subscribe() {
-        Events.SubscribeToEvent(ObjectPickedUp, EventType.PickupObject);
-        Events.SubscribeToEvent(GrabbedRoomDoor, EventType.RoomDoor);
+        Events.SubscribeToEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
+        Events.SubscribeToEvent(HandsTouched, EventType.WashingHands);
+        Events.SubscribeToEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
+        Events.SubscribeToEvent(PickupObject, EventType.PickupObject);
     }
-    #endregion
 
-    private void ObjectPickedUp(CallbackData data) {
+    private async void TrackProgress(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+        Debug.Log(G.Instance.Progress.CurrentPackage.doneTypes);
+        if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WearHeadCoverAndFaceMask)) {
+            ShowInfoBox(Translator.Translate("InfoBox", "PreparingTools"));
+            Events.UnsubscribeFromEvent(TrackProgress, EventType.ProtectiveClothingEquipped);
+        }
+    }
+
+    private async void HandsTouched(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
+        var liquidUsed = (data.DataObject as HandWashingLiquid);
+        if (liquidUsed.type == "Water" && G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.WashGlasses)) {
+            ShowInfoBox(Translator.Translate("InfoBox", "HandwashTime"));
+            Events.UnsubscribeFromEvent(HandsTouched, EventType.WashingHands);
+        }
+    }
+
+    private async void TrackWallsCleaned(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
+        if (G.Instance.Progress.CurrentPackage.name == PackageName.CleanUp) {
+            ShowInfoBox(Translator.Translate("InfoBox", "CleaningTheWallsWithPaper"));
+            Events.UnsubscribeFromEvent(TrackWallsCleaned, EventType.CleaningBottleSprayed);
+        }
+    }
+
+    private async void PickupObject(CallbackData data) {
+        await System.Threading.Tasks.Task.Delay(10);
+
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
         if (item == null) {
             return;
         }
-        
-        if (G.Instance.Progress.CurrentPackage.name == PackageName.EquipmentSelection) {
-            ShowInfoBox(PREPARATION_ROOM_MESSAGE);
-            Events.UnsubscribeFromEvent(ObjectPickedUp, EventType.PickupObject);
-        }
-    }
-
-    private async void GrabbedRoomDoor(CallbackData data) {
-        await Task.Delay(10);
-
-        if (G.Instance.Progress.CurrentPackage.name == PackageName.Workspace) {
-            ShowInfoBox(WORKSPACE_ROOM_MESSAGE);
-            Events.UnsubscribeFromEvent(GrabbedRoomDoor, EventType.RoomDoor);
+        if (item.ObjectType == ObjectType.Pipette) {
+            if (G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMedicine) || G.Instance.Progress.CurrentPackage.doneTypes.Contains(TaskType.CleanTrashMembrane)) {
+                ShowInfoBox(Translator.Translate("InfoBox", "RemovingPipetteTip"));
+                Events.UnsubscribeFromEvent(PickupObject, EventType.PickupObject);
+            }
         }
     }
 
@@ -98,7 +110,6 @@ public class InfoBox : MonoBehaviour {
     private Vector3 GetTargetPosition() {
         Vector3 forward = new Vector3(cam.forward.x, 0, cam.forward.z).normalized;
         Vector3 right = new Vector3(cam.right.x, 0, cam.right.z).normalized;
-
         Vector3 targetPosition = CameraCenter + forward * offset.z + right * offset.x;
         targetPosition = new Vector3(targetPosition.x, CameraCenter.y + offset.y, targetPosition.z);
         return targetPosition;

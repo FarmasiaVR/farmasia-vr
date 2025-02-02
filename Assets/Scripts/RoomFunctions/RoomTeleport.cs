@@ -1,60 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomTeleport : MonoBehaviour {
 
-    #region Fields
-    [Tooltip("VRPlayer instance")]
-    [SerializeField]
-    private Transform player;
-    [Tooltip("Player teleportation destination")]
-    [SerializeField]
-    public Transform playerDst;
+    public Transform player;
+    public Transform playerDestination;
+    public Animator doorHandleAnimation;
 
-    [Tooltip("Passthrough teleportation source")]
-    [SerializeField]
-    public Transform passthroughSrc;
-    [Tooltip("Passthrough teleportation destination")]
-    [SerializeField]
-    public Transform passthroughDst;
-    #endregion
+
+    private CameraFadeController fadeController;
 
     /// <summary>
-    /// Teleports player and Contents of Pass-Through cabinet to the next room.
+    /// Teleports player to the next room
     /// </summary>
-    public void TeleportPlayerAndPassthroughCabinet() {
-        if (playerDst == null || passthroughDst == null) {
-            Logger.Print("Cannot teleport without references to teleportation spots!");
+    public void TeleportPlayer() {
+        Debug.Log("player is being teleported!");
+        if (playerDestination == null) {
+            Logger.Error("Player teleportation spot missing");
             return;
         }
 
-        CabinetBase cabinet = passthroughSrc.GetComponent<CabinetBase>();
-        List<Transform> items = cabinet.GetContainedItems().ConvertAll(obj => obj.transform);
-        foreach (Transform item in items) {
-            float rotDelta = Quaternion.Angle(passthroughSrc.rotation, passthroughDst.rotation);
-            item.position = passthroughDst.position + (item.position - passthroughSrc.position);
-            item.RotateAround(passthroughDst.position, passthroughDst.up, rotDelta);
-            CreateSpawner(item);
+        fadeController = GameObject.FindGameObjectWithTag("LevelChanger").GetComponent<CameraFadeController>();
+        if (fadeController != null)
+        {
+            //Play the fade in animation
+            fadeController.onFadeOutComplete.AddListener(TeleportPlayerAfterFadeOut);
+            fadeController.BeginFadeOut();
+            //Play the door handle animation
+            doorHandleAnimation.SetBool("isUp", false);
+        }
+        //If the animator for the level changer and the fade animations isn't found, then that probably means we are
+        //using legacy code and we can just teleport the player
+        else
+        {
+            player.position = playerDestination.position;
         }
 
-        foreach (VRActionsMapper h in VRInput.Hands) {
-            h.Hand.GrabUninteract();
-            h.Hand.Uninteract();
+        // Making sure we don't bring any grabbed items with us when teleporting
+        //this code is depricated
+        /*foreach (VRActionsMapper hand in VRInput.Hands) {
+            hand.Hand.GrabUninteract();
+            hand.Hand.Uninteract();
         }
+        */
 
-        player.position = playerDst.position;
-
-        MedicinePreparationScene m = G.Instance.Scene as MedicinePreparationScene;
-
+        /*MedicinePreparationScene m = G.Instance.Scene as MedicinePreparationScene;
         if (!m.Restarted || MedicinePreparationScene.SavedScoreState == null) {
             m.SaveProgress();
-        }
+        }*/
     }
 
-    private void CreateSpawner(Transform item) {
-        GameObject obj = new GameObject();
-        obj.transform.SetPositionAndRotation(item.position, item.rotation);
-        obj.AddComponent<ItemSpawner>();
-        obj.GetComponent<ItemSpawner>().SetCopyObject(item.gameObject);
+    public void TeleportPlayerAfterFadeOut()
+    {
+        player.position = playerDestination.position;
+        //Update the position of the hint so that it is in the right place.
+        G.Instance.Progress.UpdateHint();
+        fadeController.BeginFadeIn();
     }
 }

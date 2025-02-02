@@ -28,10 +28,26 @@ public class LiquidDisplay : Display {
         Pipette pipette = follow.GetComponent<Pipette>();
         if (pipette != null) {
             container = pipette.Container;
+            if (container == null) Logger.Warning(pipette);
             liquidPresent = true;
             return;
         }
 
+        PipetteContainer pipetteContainer = follow.GetComponent<PipetteContainer>();
+        if (pipetteContainer != null) {
+            container = pipetteContainer.Container;
+            liquidPresent = true;
+            return;
+        }
+
+        SyringeNew syringeNew = follow.GetComponent<SyringeNew>();
+        if (syringeNew != null) {
+            container = syringeNew.Container;
+            liquidPresent = true;
+            return;
+        }
+
+        Logger.Warning(gameObject + " did not have a container");
     }
 
     new void Start() {

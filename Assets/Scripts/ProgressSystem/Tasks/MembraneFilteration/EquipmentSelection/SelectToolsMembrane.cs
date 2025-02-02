@@ -1,15 +1,12 @@
 using UnityEngine;
 using System;
-public class SelectToolsMembrane : TaskBase
-{
-
-    #region Constants
-    private const string DESCRIPTION = "Valitse sopivat työvälineet.";
-    private const string HINT = "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.";
-    #endregion
+using FarmasiaVR.Legacy;
+public class SelectToolsMembrane : Task {
 
     #region Fields
-    public enum Conditions { SmallBottlePickedUp, PeptoniWaterPickedUp, SoycaseineBottlePickedUp, TioglycolateBottlePickedUp, TweezersPickedUp, ScalpelPickedUp, PipettePickedUp }
+    public enum Conditions {
+        SmallBottlePickedUp, PeptoniWaterPickedUp, SoycaseineBottlePickedUp, TioglycolateBottlePickedUp, TweezersPickedUp, ScalpelPickedUp, PipettePickedUp
+    }
     #endregion
 
     #region Constructor
@@ -17,17 +14,15 @@ public class SelectToolsMembrane : TaskBase
     /// Constructor for SelectTools task. 
     /// Is removed when finished and doesn't require previous task completion.
     /// </summary>
-    public SelectToolsMembrane() : base(TaskType.SelectToolsMembrane, true, false)
-    {
+    public SelectToolsMembrane() : base(TaskType.SelectToolsMembrane, false) {
         SetCheckAll(false);
-        Subscribe();
+        
         AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
     #region Event Subscriptions
-    public override void Subscribe()
-    {
+    public override void Subscribe() {
         base.SubscribeEvent(PickupObject, EventType.PickupObject);
     }
 
@@ -35,12 +30,10 @@ public class SelectToolsMembrane : TaskBase
     /// Once fired by an event, checks if the item is correct and sets corresponding condition to be true.
     /// </summary>
     /// <param name="data">Refers to the GameObject that was picked up.</param>
-    private void PickupObject(CallbackData data)
-    {
+    private void PickupObject(CallbackData data) {
         GameObject g = data.DataObject as GameObject;
         GeneralItem item = g.GetComponent<GeneralItem>();
-        if (item == null)
-        {
+        if (item == null) {
             return;
         }
         ObjectType type = item.ObjectType;
@@ -62,31 +55,8 @@ public class SelectToolsMembrane : TaskBase
                 EnableCondition(Conditions.Pen);
                 break;
         }*/
+       
         CompleteTask();
-    }
-    #endregion
-
-    protected override void OnTaskComplete()
-    {
-        Popup("Työväline valittu.", MsgType.Done);
-    }
-
-    #region Public Methods
-
-    public override void FinishTask()
-    {
-        base.FinishTask();
-
-    }
-
-    public override string GetDescription()
-    {
-        return DESCRIPTION;
-    }
-
-    public override string GetHint()
-    {
-        return HINT;
     }
     #endregion
 }

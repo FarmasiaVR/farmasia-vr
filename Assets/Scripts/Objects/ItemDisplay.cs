@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 /// <summary>
 /// Controls the Display for this gameObject.

@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
+using System.Linq;
 
 public class HandCollider : MonoBehaviour {
-
-    public ObjectHighlight PreviousHighlight { get; private set; }
+    [SerializeField]
+    private bool IsHandCollider;
+    
+    private ObjectHighlight PreviousHighlight;
 
     private TriggerInteractableContainer container;
     private Collider handColl;
 
+    private Vector3 closestPoint;
 
     private void Start() {
-        container = gameObject.AddComponent<TriggerInteractableContainer>();
+        closestPoint = Vector3.zero;
+        container = IsHandCollider ? gameObject.AddComponent<HandTriggerInteractableContainer>() : gameObject.AddComponent<TriggerInteractableContainer>();
+
         container.OnExit = OnInteractableExit;
 
         handColl = GetComponent<Collider>();
@@ -57,7 +67,7 @@ public class HandCollider : MonoBehaviour {
         container.EnteredObjects.Remove(interactable);
     }
 
-    #region Highlight
+#region Highlight
     public void HighlightClosestObject() {
         HighlightObject(GetClosestObject());
     }
@@ -75,12 +85,12 @@ public class HandCollider : MonoBehaviour {
     private void HighlightObject(Interactable obj) {
         UnhighlightPrevious();
 
-        if (container.Contains(obj)) {
+        if (container.Contains(obj) && !obj.DisableHighlighting) {
             PreviousHighlight = obj.Highlight;
             PreviousHighlight?.Highlight();
         }
     }
-    #endregion
+#endregion
 
     public void UnhighlightPrevious() {
         PreviousHighlight?.Unhighlight();
@@ -95,15 +105,22 @@ public class HandCollider : MonoBehaviour {
         float closestDistance = float.MaxValue;
         Interactable closest = null;
 
-        foreach (Interactable rb in container.Objects) {
-            float distance = Vector3.Distance(transform.position, rb.transform.position);
+        Interactable[] keys = IsHandCollider ? (container as HandTriggerInteractableContainer).EnteredObjectPoints.Keys.ToArray() : container.Objects.ToArray();
+        foreach (Interactable i in keys) {
+            float distance = IsHandCollider ? (container as HandTriggerInteractableContainer).EnteredObjectPoints[i].Item2 : Vector3.Distance(transform.position, i.transform.position);
             if (distance < closestDistance) {
                 closestDistance = distance;
-                closest = rb;
+                closest = i;
+                if (IsHandCollider) closestPoint = (container as HandTriggerInteractableContainer).EnteredObjectPoints[i].Item1;
             }
         }
-
+        
         return closest;
+    }
+
+    public void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(closestPoint, 0.01f);
     }
 
     public Interactable GetPointedObject(float maxAngle) {

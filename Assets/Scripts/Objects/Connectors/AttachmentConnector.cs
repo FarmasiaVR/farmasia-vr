@@ -31,11 +31,14 @@ public abstract class AttachmentConnector : ItemConnector {
     public Rigidbody AttachedRigidbody { get => attached.Rigidbody; }
     public Interactable AttachedInteractable { get => attached.Interactable; }
 
-    protected AttachedObject attached;
+    public AttachedObject attached;
 
-    protected abstract InteractState AttachState { get; }
+    
 
-    public void Subscribe() {
+
+    protected virtual InteractState AttachState { get => InteractState.ConnectableAttached; }
+
+    protected void Subscribe() {
         CollisionSubscription.SubscribeToTrigger(Collider, new TriggerListener().OnEnter(ObjectEnter));
     }
 
@@ -105,8 +108,6 @@ public abstract class AttachmentConnector : ItemConnector {
         }
 
         if (attached.GameObject == null && ConnectingIsAllowed(Collider, collider)) {
-            // Position Offset here
-
             ConnectItem(interactable.GetComponent<Interactable>());
             AttachEvents(interactable.gameObject);
         }

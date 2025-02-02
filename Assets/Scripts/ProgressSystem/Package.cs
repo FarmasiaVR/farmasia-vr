@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FarmasiaVR.Legacy;
 
 public class Package {
 
     private ProgressManager manager;
+
     public PackageName name { get; private set; }
     public bool packageCompleted { get; private set; }
-    public List<ITask> activeTasks { get; private set; }
+    public List<Task> activeTasks { get; private set; }
     public List<TaskType> doneTypes { get; private set; }
 
-    public ITask CurrentTask {
+    public Task CurrentTask {
         get {
             if (activeTasks.Count == 0) {
                 return null;
@@ -28,7 +30,7 @@ public class Package {
         this.name = name;
         this.manager = manager;
         packageCompleted = false;
-        activeTasks = new List<ITask>();
+        activeTasks = new List<Task>();
         doneTypes = new List<TaskType>();
     }
 
@@ -36,7 +38,7 @@ public class Package {
     /// Adds a task and updates description.
     /// </summary>
     /// <param name="task">Given task to add.</param>
-    public void AddTask(ITask task) {
+    public void AddTask(Task task) {
         task.SetPackage(this);
         activeTasks.Add(task);
         manager.UpdateDescription();
@@ -47,9 +49,9 @@ public class Package {
     /// Removes given task, when empty changes package in manager.
     /// </summary>
     /// <param name="task">Reference to given task.</param>
-    public void RemoveTask(ITask task) {
+    public void RemoveTask(Task task) {
         if (activeTasks.Contains(task)) {
-            doneTypes.Add(task.GetTaskType());
+            doneTypes.Add(task.TaskType);
             activeTasks.Remove(task);
             G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             CheckChangePackage();
@@ -65,30 +67,6 @@ public class Package {
             manager.ChangePackage();
         } else {
             Debug.Log(string.Format("Still {0} left in package: {1}", activeTasks.Count.ToString(), name.ToString()));
-        }
-    }
-
-    /// <summary>
-    /// Moves task back to ProgressManager
-    /// </summary>
-    /// <param name="task">Reference to the task that will be moved</param>
-    public void MoveTaskToManager(ITask task) {
-        if (activeTasks.Contains(task)) {
-            Logger.Print("Moving task back to manager.");
-            manager.AddTask(task);
-            activeTasks.Remove(task);
-            CheckChangePackage();
-            manager.UpdateDescription();
-            StartTask();
-        }
-    }
-
-
-    public void PrintAllTasks() {
-
-        Logger.Print(string.Format("Package name: {0}\nThese tasks are inside currently\n", name.ToString()));
-        foreach (ITask task in activeTasks) {
-            Logger.Print(task.GetType());
         }
     }
 

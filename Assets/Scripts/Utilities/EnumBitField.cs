@@ -85,10 +85,18 @@ public class EnumBitField<T> where T : Enum {
         }
     }
 
+    public void On(T bitEnum) {
+        Value |= ToInt(bitEnum);
+    }
+
     public void Off(params T[] bitEnums) {
         foreach (T t in bitEnums) {
             Value &= ~ToInt(t);
         }
+    }
+
+    public void Off(T bitEnum) {
+        Value &= ~ToInt(bitEnum);
     }
 
     public bool IsOn(T bitEnum) {

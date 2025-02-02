@@ -1,16 +1,12 @@
-using System;
+
 using UnityEngine;
 
 public class RoomDoorHandle : AnimatedDoorHandle {
 
-    #region Fields
-    [SerializeField]
-    private DoorGoTo destination;
-    #endregion
+    public DoorGoTo destination;
 
     protected override void Start() {
         base.Start();
-
         Type.Set(InteractableType.Interactable);
     }
 
@@ -21,4 +17,20 @@ public class RoomDoorHandle : AnimatedDoorHandle {
         }
         Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
     }
+
+    public void Interact() {
+        Debug.Log("trying to enter room");
+        if (destination == DoorGoTo.None) {
+            return;
+        }
+        Debug.Log("trying to enter room after check of destination");
+        Events.FireEvent(EventType.RoomDoor, CallbackData.Object(destination));
+    }
+
+    public void resetCounterForPlates()
+    {
+        Events.FireEvent(EventType.ResetCounter);
+    }
+
+
 }

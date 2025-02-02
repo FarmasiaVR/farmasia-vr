@@ -11,10 +11,9 @@ public abstract class ItemConnection : MonoBehaviour {
 
     public void Remove() {
         if (removed) {
-        //Logger.Print("Re-Removing item conn");
+            Logger.Print("Re-Removing item conn");
             return;
         }
-        //Logger.PrintVariables("Removing item conn", name);
         removed = true;
         OnRemoveConnection();
         Destroy(this);

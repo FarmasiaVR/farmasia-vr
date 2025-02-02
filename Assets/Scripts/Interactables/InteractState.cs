@@ -1,9 +1,7 @@
 ﻿public enum InteractState {
     Grabbed,
     LuerlockAttached,
-    NeedleAttached,
-    LidAttached,
+    ConnectableAttached,
     InBottle,
     OnFloor,
-    PumpFilterAttached
 }

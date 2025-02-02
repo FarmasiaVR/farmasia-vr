@@ -1,317 +1,180 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System;
+using FarmasiaVR.Legacy;
 
 public class ProgressManager {
 
-    #region Fields
-    private bool testMode;
+    private List<Package> scenarioPackages;
+    private List<Task> scenarioTasks;
 
-    // Actual list of every task. No task is ever removed from this list
-    private List<TaskBase> trueAllTasksThatAreNeverRemoved;
-    private Dictionary<TaskType, int> taskMaxPoints;
-
-    // Oot actually all tasks
-    private HashSet<ITask> allTasks;
-    public List<Package> packages;
-    public Package CurrentPackage { get; private set; }
     public ScoreCalculator Calculator { get; private set; }
+    public Package CurrentPackage { get; private set; }
 
-
-   // public byte[] SavedScoreState { get; private set; }
-    #endregion
-
-    #region Constructor
-    /// <summary>
-    /// Initiates ProgressManager fields.
-    /// </summary>
-    public ProgressManager(bool testMode) {
-        this.testMode = testMode;
-        allTasks = new HashSet<ITask>();
-        packages = new List<Package>();
-    }
-
-    public void ForceCloseTasks(ITask calledTask) {
-
-        Logger.Print("Total task count " + trueAllTasksThatAreNeverRemoved.Count.ToString());
-
-        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
-            if (calledTask.GetTaskType() == task.GetTaskType()) {
-                continue;
-            }
-            if (task.GetTaskType() == TaskType.Finish || task.GetTaskType() == TaskType.ScenarioOneCleanUp) {
-                continue;
-            }
-            Logger.Print(string.Format(
-                "max points: {0}, points: {1}",
-                task.GetTaskType().ToString(),
-                taskMaxPoints[task.GetTaskType()].ToString()
-            ));
-            task.ForceClose(taskMaxPoints[task.GetTaskType()] > 0);
-        }
-    }
-    public void ForceCloseTask(TaskType type, bool killPoints = true) {
-        foreach (TaskBase task in trueAllTasksThatAreNeverRemoved) {
-            if (task.GetTaskType() == type && !task.IsCompleted()) {
-                if (killPoints) {
-                    task.ForceClose(taskMaxPoints[type] > 0);
-                } else {
-                    task.ForceClose(false);
-                }
-                
-                return;
-            }
-        }
+    public ProgressManager() {
+        scenarioPackages = new List<Package>();
+        scenarioTasks = new List<Task>();
     }
 
     public void SetSceneType(SceneTypes scene) {
-
-
-        switch (scene) {
-            case SceneTypes.MainMenu:
-                return;
-            case SceneTypes.MedicinePreparation:
-                /*Need Support for multiple Scenarios.*/
-                AddTasks(scene);
-                Calculator = new ScoreCalculator(allTasks);
-                GenerateScenarioOne();
-                break;
-            case SceneTypes.MembraneFilteration:
-                AddTasks(scene);
-                Calculator = new ScoreCalculator(allTasks);
-                GenerateScenarioTwo();
-                break;
-            case SceneTypes.Tutorial:
-                return;
+        if (scene == SceneTypes.MedicinePreparation) {
+            GenerateScenarioOne();
+        } else if (scene == SceneTypes.MembraneFilteration) {
+            GenerateScenarioTwo();
+        } else if (scene == SceneTypes.ChangingRoom) {
+            GenerateScenarioThree();
+        } else {
+            return;
         }
-        if (scene != SceneTypes.MainMenu) {
+        Calculator = new ScoreCalculator(scenarioTasks);
+        CurrentPackage = scenarioPackages.First();
+        CurrentPackage.StartTask();
+        UpdateDescription();
+        UpdateHint();
+    }
 
-            CurrentPackage = packages.First();
+    private void GenerateScenarioOne() {
+        TaskType[] selectTasks = {
+            TaskType.CorrectItemsInThroughputMedicine
+        };
+        TaskType[] workSpaceTasks = {
+            TaskType.CorrectItemsInLaminarCabinetMedicine,
+            TaskType.DisinfectBottleCap,
+            TaskType.MedicineToSyringe,
+            TaskType.LuerlockAttach,
+            TaskType.SyringeAttach,
+            TaskType.CorrectAmountOfMedicineTransferred,
+            TaskType.AllSyringesDone,
+            TaskType.ItemsToSterileBag
+        };
+        TaskType[] cleanUpTasks = {
+            TaskType.CleanTrashMedicine,
+            TaskType.CorrectItemsInBasketMedicine,
+            TaskType.CleanLaminarCabinetMedicine,
+            TaskType.FinishMedicine
+        };
+        if (MainMenuFunctions.startFromBeginning) {
+            scenarioPackages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        }
+        scenarioPackages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+    }
+
+    private void GenerateScenarioTwo() {
+        TaskType[] selectTasks = {
+            TaskType.CorrectItemsInThroughputMembrane
+        };
+        TaskType[] workSpaceTasks = {
+            TaskType.CorrectItemsInLaminarCabinetMembrane,
+            TaskType.WriteTextsToItems,
+            TaskType.OpenAgarplates,
+            TaskType.FillBottles,
+            TaskType.AssemblePump,
+            TaskType.WetFilter,
+            TaskType.StartPump,
+            TaskType.MedicineToFilter,
+            TaskType.StartPumpAgain,
+            TaskType.CutFilter,
+            TaskType.FilterHalvesToBottles,
+            TaskType.CloseSettlePlates,
+            TaskType.WriteSecondTime,
+            TaskType.Fingerprints,
+            TaskType.CloseFingertipPlates
+        };
+        TaskType[] cleanUpTasks = {
+            TaskType.CloseBottles,
+            TaskType.CleanTrashMembrane,
+            TaskType.CorrectItemsInBasketMembrane,
+            TaskType.CleanLaminarCabinetMembrane,
+            TaskType.FinishMembrane
+        };
+        if (MainMenuFunctions.startFromBeginning) {
+            scenarioPackages.Add(CreatePackage(PackageName.EquipmentSelection, new List<TaskType>(selectTasks)));
+        }
+        scenarioPackages.Add(CreatePackage(PackageName.Workspace, new List<TaskType>(workSpaceTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.CleanUp, new List<TaskType>(cleanUpTasks)));
+    }
+
+    private void GenerateScenarioThree() {
+        TaskType[] changingRoomTasks = {
+            TaskType.WearShoeCoversAndLabCoat,
+            TaskType.WashGlasses,
+            TaskType.WashHandsInChangingRoom,
+            TaskType.GoToPreperationRoom
+        };
+        TaskType[] preperationRoomTasks = {
+            TaskType.WearHeadCoverAndFaceMask,
+            TaskType.WashHandsInPreperationRoom,
+            TaskType.WearSleeveCoversAndProtectiveGloves
+        };
+        TaskType[] finishUpTasks = {
+            TaskType.FinishChangingRoom
+        };
+        scenarioPackages.Add(CreatePackage(PackageName.ChangingRoom, new List<TaskType>(changingRoomTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.PreperationRoom, new List<TaskType>(preperationRoomTasks)));
+        scenarioPackages.Add(CreatePackage(PackageName.FinishUp, new List<TaskType>(finishUpTasks)));
+    }
+
+    private Package CreatePackage(PackageName name, List<TaskType> tasks) {
+        Package package = new Package(name, this);
+        foreach (TaskType type in tasks) {
+            Task task = TaskFactory.GetTask(type);
+            package.AddTask(task);
+            scenarioTasks.Add(task);
+        }
+        return package;
+    }
+
+    public void UpdateDescription() {
+        if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
+            UISystem.Instance.Descript = CurrentPackage.CurrentTask.Description;
+            VRVibrationManager.Vibrate();
+        }
+    }
+
+    public async void UpdateHint() {
+        // Temporary solution
+        await System.Threading.Tasks.Task.Delay(10);
+        if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
+            HintBox.CreateHint(CurrentPackage.activeTasks[0].Hint);
+        }
+    }
+
+    public void ChangePackage() {
+        int currentPackageIndex = scenarioPackages.IndexOf(CurrentPackage);
+        int nextPackageIndex = currentPackageIndex + 1;
+        if (nextPackageIndex >= scenarioPackages.Count) {
+            FinishScenario();
+        } else {
+            CurrentPackage = scenarioPackages[nextPackageIndex];
+            CurrentPackage.StartTask();
             UpdateDescription();
             UpdateHint();
         }
     }
 
+    public void FinishScenario() {
+        (int score, string scoreString) = Calculator.GetScoreString();
+        EndSummary.EnableEndSummary(scoreString);
+        Player.SavePlayerData(score, scoreString);
+    }
+
+    public void ForceCloseActiveTasksInPackage(Task calledFrom, Package package) {
+        int activeTasks = package.activeTasks.Count;
+        for (int i = 0; i < activeTasks; i++) {
+            Task task = package.activeTasks[0];
+            if (task.TaskType == calledFrom.TaskType) {
+                continue;
+            }
+            bool removePoints = task.Points > 0;
+            task.ForceClose(removePoints);
+        }
+    }
+
     public void SetProgress(byte[] state) {
-        ScoreCalculator c = DataSerializer.Deserializer<ScoreCalculator>(state);
-        if (c != null) {
-            Calculator = c;
+        ScoreCalculator calculator = DataSerializer.Deserializer<ScoreCalculator>(state);
+        if (calculator != null) {
+            Calculator = calculator;
         }
-    }
-    #endregion
-
-    #region Initialization
-    /// <summary>
-    /// Used to generate every package. Package is defined with a list of tasks.
-    /// </summary>
-    private void GenerateScenarioOne() {
-        TaskType[] selectTasks = {
-            TaskType.SelectTools,
-            TaskType.SelectMedicine,
-            TaskType.CorrectItemsInThroughput
-        };
-        TaskType[] workSpaceTasks = {
-            TaskType.CorrectItemsInLaminarCabinet,
-            TaskType.MedicineToSyringe,
-            TaskType.LuerlockAttach,
-            TaskType.SyringeAttach,
-            TaskType.CorrectAmountOfMedicineSelected,
-            TaskType.ItemsToSterileBag
-        };
-        TaskType[] cleanUpTasks = {
-            TaskType.ScenarioOneCleanUp,
-            TaskType.Finish
-        };
-        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
-        Package cleanUp = CreatePackageWithList(PackageName.CleanUp, new List<TaskType>(cleanUpTasks));
-        packages.Add(equipmentSelection);
-        packages.Add(workSpace);
-        packages.Add(cleanUp);
-    }
-
-    private void GenerateScenarioTwo()
-    {
-        TaskType[] selectTasks = {
-            TaskType.CorrectItemsInThroughputMembrane
-        };
-        TaskType[] workSpaceTasks = {
-            TaskType.WriteTextsToItems
-        };
-        Package equipmentSelection = CreatePackageWithList(PackageName.EquipmentSelection, new List<TaskType>(selectTasks));
-        Package workSpace = CreatePackageWithList(PackageName.Workspace, new List<TaskType>(workSpaceTasks));
-        packages.Add(equipmentSelection);
-        packages.Add(workSpace);
-    }
-
-    #region Package Init Functions
-    /// <summary>
-    /// Creates a new package.
-    /// </summary>
-    /// <param name="name">Name of the new package.</param>
-    /// <param name="tasks">List of predefined tasks.</param>
-    /// <returns></returns>
-    private Package CreatePackageWithList(PackageName name, List<TaskType> tasks) {
-        Package package = new Package(name, this);
-        TakeTasksToPackage(package, tasks);
-        return package;
-    }
-
-    /// <summary>
-    /// Takes tasks from ProgressManager to designated package.
-    /// </summary>
-    /// <param name="package">Package to move tasks to.</param>
-    /// <param name="types">List of types to move.</param>
-    private void TakeTasksToPackage(Package package, List<TaskType> types) {
-        foreach (TaskType type in types) {
-            MoveToPackage(package, type);
-        }
-    }
-    #endregion
-    #endregion
-
-    #region Task Addition
-    /// <summary>
-    /// Creates a single task from every enum TaskType object.
-    /// Adds tasks into currently activeTasks.
-    /// </summary>
-    public void AddTasks(SceneTypes scene) {
-        allTasks = new HashSet<ITask>(Enum.GetValues(typeof(TaskType))
-            .Cast<TaskType>()
-            .Select(v => TaskFactory.GetTask(v, scene))
-            .Where(v => v != null)
-            .ToList());
-
-        trueAllTasksThatAreNeverRemoved = new List<TaskBase>();
-        taskMaxPoints = new Dictionary<TaskType, int>();
-        foreach (ITask task in allTasks) {
-            trueAllTasksThatAreNeverRemoved.Add(task as TaskBase);
-            taskMaxPoints.Add(task.GetTaskType(), task.GetPoints());
-        }
-    }
-
-    public void AddTask(ITask task) {
-        if (!allTasks.Contains(task)) {
-            allTasks.Add(task);
-        }
-    }
-    #endregion
-
-    #region Task Movement
-    /// <summary>
-    /// Moves task to package with given TaskType.
-    /// </summary>
-    /// <param name="package">Package to move task to.</param>
-    /// <param name="taskType">Type of task to move.</param>
-    public void MoveToPackage(Package package, TaskType taskType) {
-        ITask foundTask = FindTaskWithType(taskType);
-        if (foundTask != null) {
-            package.AddTask(foundTask);
-            allTasks.Remove(foundTask);
-        }
-    }
-
-    /// <summary>
-    /// Finds task with given type.
-    /// </summary>
-    /// <param name="taskType">Type of task to find.</param>
-    /// <returns></returns>
-    public ITask FindTaskWithType(TaskType taskType) {
-        ITask foundTask = null;
-        foreach (ITask task in allTasks) {
-            if (task.GetTaskType() == taskType) {
-                foundTask = task;
-                break;
-            }
-        }
-        return foundTask;
-    }
-    #endregion
-
-    #region Task Methods
-
-    public HashSet<ITask> GetAllTasks() {
-        return allTasks;
-    }
-    public void ListAllTasksInManager() {
-        foreach (ITask task in allTasks) {
-            Logger.Print(task.GetType());
-        }
-    }
-
-    
-    #endregion
-
-    #region Finishing Packages and Manager
-
-    public void ChangePackage() {
-        int index = packages.IndexOf(CurrentPackage);
-        if ((index + 1) >= packages.Count) {
-            FinishProgress();
-        } else {
-            CurrentPackage = packages[index + 1];
-            CurrentPackage.StartTask();
-            UpdateHint();
-        }
-    }
-
-    /// <summary>
-    /// Calls every task inside allTasks Set and finishes them.
-    /// </summary>
-    public void FinishProgress() {
-        foreach (ITask task in allTasks) {
-            if (task.GetTaskType() == TaskType.Finish) {
-                RemoveTask(task);
-                string scoreString;
-                int score;
-                MedicinePreparationScene.SavedScoreState = null;
-                Calculator.GetScoreString(out score, out scoreString, this);
-                EndSummary.EnableEndSummary(scoreString);
-                Player.SavePlayerData(score, scoreString);
-                break;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Called when task is finished and set to remove itself.
-    /// </summary>
-    /// <param name="task">Reference to the task that will be removed.</param>
-    public void RemoveTask(ITask task) {
-        if (allTasks.Contains(task)) {
-            allTasks.Remove(task);
-        }
-    }
-    #endregion
-
-    #region Description Methods
-    public void UpdateDescription() {
-        if (!testMode) {
-            if (CurrentPackage != null && CurrentPackage.CurrentTask != null) {
-                UISystem.Instance.Descript = CurrentPackage.CurrentTask.GetDescription();
-#if UNITY_NONVRCOMPUTER
-#else
-
-                VRVibrationManager.Vibrate();
-#endif
-            } else {
-                UISystem.Instance.Descript = "";
-            }
-        }
-    }
-    #endregion
-
-    #region Hint Methods
-    public void UpdateHint() {
-        if (!testMode && CurrentPackage != null && CurrentPackage.CurrentTask != null) {
-            HintBox.CreateHint(CurrentPackage.activeTasks[0].GetHint());
-        }
-    }
-    #endregion
-
-    
-
-    public bool IsCurrentPackage(PackageName name) {
-        return CurrentPackage.name == name;
     }
 }

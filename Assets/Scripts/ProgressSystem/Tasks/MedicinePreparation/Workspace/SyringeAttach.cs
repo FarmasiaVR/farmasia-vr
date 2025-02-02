@@ -1,97 +1,28 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-public class SyringeAttach : TaskBase {
+using FarmasiaVR.Legacy;
 
-    #region Constants
-    private const int RIGHT_SMALL_SYRINGE_CAPACITY = 1000;
+public class SyringeAttach : Task {
 
-    private const string DESCRIPTION = "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.";
-    private const string HINT = "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.";
-    #endregion
+    public enum Conditions { SmallSyringeAttachedToLuerlock }
+    private const int CORRECT_SYRINGE_CAPACITY = 1000;
 
-    #region Fields
-    private List<TaskType> requiredTasks = new List<TaskType> { TaskType.MedicineToSyringe, TaskType.LuerlockAttach };
-    private HashSet<Syringe> usedSyringes;
-    private Dictionary<int, int> attachedSyringes = new Dictionary<int, int>();
-    private CabinetBase laminarCabinet;
-    #endregion
-
-    #region Constructor
-    ///  <summary>
-    ///  Constructor for SyringeAttach task.
-    ///  Is removed when finished and requires previous task completion.
-    ///  </summary>
-    public SyringeAttach() : base(TaskType.SyringeAttach, true, true) {
-        Subscribe();
-        usedSyringes = new HashSet<Syringe>();
-        points = 3;
+    public SyringeAttach() : base(TaskType.SyringeAttach, true) {
+        SetCheckAll(true);
+        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
     }
-    #endregion
 
-    #region Event Subscriptions
     public override void Subscribe() {
-        SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
-        SubscribeEvent(AddSyringe, EventType.SyringeToLuerlock);
+        base.SubscribeEvent(SyringeToLuerlock, EventType.SyringeToLuerlock);
     }
 
-    private void SetCabinetReference(CallbackData data) {
-        CabinetBase cabinet = (CabinetBase)data.DataObject;
-        if (cabinet.type == CabinetBase.CabinetType.Laminar) {
-            laminarCabinet = cabinet;
-            base.UnsubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
+    private void SyringeToLuerlock(CallbackData data) {
+        GameObject obj = data.DataObject as GameObject;
+        GeneralItem item = obj.GetComponent<GeneralItem>();
+        SmallSyringe smallSyringe = item.GetComponent<SmallSyringe>();
+        if (smallSyringe.Container.Capacity == CORRECT_SYRINGE_CAPACITY) {
+            EnableCondition(Conditions.SmallSyringeAttachedToLuerlock);
+            CompleteTask();
         }
     }
-
-    private void AddSyringe(CallbackData data) {
-        //virhetilanteet: pieni ruisku yhdistetty ennen lääkkeellisen ruiskun laittamista
-        GameObject g = data.DataObject as GameObject;
-        GeneralItem item = g.GetComponent<GeneralItem>();
-        Syringe s = item.GetComponent<Syringe>();
-
-        if (s.Container.Capacity == RIGHT_SMALL_SYRINGE_CAPACITY) {
-            usedSyringes.Add(s);
-            Logger.Print("Added new syringe to used: " + usedSyringes.Count.ToString());
-        }
-
-        if (!attachedSyringes.ContainsKey(s.GetInstanceID()) && !s.hasBeenInBottle) {
-            attachedSyringes.Add(s.GetInstanceID(), s.Container.Amount);
-        }
-        if (!IsPreviousTasksCompleted(requiredTasks)) {
-            return;
-        } else if (!laminarCabinet.GetContainedItems().Contains(s)) {
-            CreateTaskMistake("Ruisku kiinnitettiin laminaarikaapin ulkopuolella", 1);
-            attachedSyringes.Remove(s.GetInstanceID());
-        } else {
-            base.package.MoveTaskToManager(this);
-        }
-    }
-    #endregion
-
-    #region Public Methods
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-    }
-
-    public override void FinishTask() {
-        base.FinishTask();
-        if (usedSyringes.Count < 6) {
-            int minus = (int)Mathf.Round(Math.Abs(usedSyringes.Count - 6));
-            CreateTaskMistake("Yksi tai useampi ruiskuista ei ollut oikean kokoinen", minus);
-        }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
-
-    public override string GetHint() {
-        return HINT;
-    }
-
-    protected override void OnTaskComplete() {
-
-    }
-    #endregion
 }

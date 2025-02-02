@@ -1,35 +1,33 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using FarmasiaVR.Legacy;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-public class CorrectItemsInThroughputMembrane : TaskBase {
-    #region Constants
-    private const string DESCRIPTION = "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.";
-    private const string HINT = "Huoneessa on tarvittavat työvälineet pullot ja pipetti.";
-    #endregion
+
+public class CorrectItemsInThroughputMembrane: Task {
 
     #region Fields
-    public enum Conditions { Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter, SterileBag }
-    private int bottles100ml = 0;
-    private int soycaseinePlate = 0;
-    private int objectCount;
-    private int correctItemCount = 17;
+    public enum Conditions {
+        Bottles100ml, PeptoniWaterBottle, SoycaseineBottle, TioglycolateBottle, Tweezers, Scalpel, Pipette, SoycaseinePlate, SabouradDextrosiPlate, Pump, PumpFilter,
+        SterileBag, PipetteHeads, BigPipette
+    }
     private bool firstCheckDone = false;
     private CabinetBase cabinet;
     private OpenableDoor door;
     #endregion
 
     #region Constructor
-    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughputMembrane, true, false) {
+    public CorrectItemsInThroughputMembrane() : base(TaskType.CorrectItemsInThroughputMembrane, false) {
         SetCheckAll(true);
-        Subscribe();
-        AddConditions((int[])Enum.GetValues(typeof(Conditions)));
-        points = 2;
+        
+        AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
     }
     #endregion
 
     #region Event Subscriptions
     public override void Subscribe() {
+        Debug.Log("subcribed to events ");
         base.SubscribeEvent(SetCabinetReference, EventType.ItemPlacedForReference);
         base.SubscribeEvent(CorrectItems, EventType.RoomDoor);
     }
@@ -44,126 +42,177 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     }
 
     private void CorrectItems(CallbackData data) {
-        if ((DoorGoTo)data.DataObject != DoorGoTo.EnterWorkspace) {
+        Debug.Log("Checking items");
+        if ((DoorGoTo) data.DataObject != DoorGoTo.EnterWorkspace) {
             return;
         }
 
         if (cabinet == null) {
-            Logger.Error("cabinet was null in CorrectItemsThroughputMembrane! That is weird.");
+            Logger.Error("cabinet was null in CorrectItemsThroughputMembrane. Items not placed for reference");
+            return;
         }
 
         List<Interactable> containedObjects = cabinet.GetContainedItems();
         if (containedObjects.Count == 0) {
-            Popup("Kerää tarvittavat työvälineet läpiantokaappiin.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "GetCorrectItemsThroughput"), MsgType.Notify);
             return;
         }
 
-        int gCount = 0;
+        if (containedObjects.Count > 44) {
+            Logger.Print("ESINEIDEN MÄÄRÄ LÄPIANTOKAAPISSA: " + containedObjects.Count);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "TooManyItemsThroughput"), 1);
+        }
 
         foreach (Interactable obj in containedObjects) {
-            
-            gCount++;
+
             GeneralItem g = obj as GeneralItem;
-            if ( g == null) {
+            if (g == null) {
                 continue;
             }
 
             if (!g.IsClean) {
-                if ((g.ObjectType == ObjectType.Bottle || g.ObjectType == ObjectType.Medicine) && g.Contamination == GeneralItem.ContaminateState.Contaminated) {
+                if (g is Bottle) {
                     continue;
+                } else {
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemThroughput"), 1);
                 }
-                CreateTaskMistake("Läpiantokaapissa oli likainen esine", 1);
             }
         }
 
-        if (gCount - correctItemCount > 0) { 
-            int minus = gCount - correctItemCount;
-            CreateTaskMistake("Läpiantokaapissa oli liikaa esineitä", minus);
-        }
-
-        objectCount = containedObjects.Count;
         CheckConditions(containedObjects);
+
         if (door.IsClosed) {
 
             CompleteTask();
-            if (!IsCompleted()) {
+            if (!Completed) {
                 MissingItems();
             }
         } else {
-            Popup("Sulje läpi-antokaapin ovi.", MsgType.Notify);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "CloseThroughput"), MsgType.Notify);
         }
     }
     #endregion
 
     private void MissingItems() {
         if (!firstCheckDone) {
-            CreateTaskMistake("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", 2);
+            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MissingItemsThroughput"), 2);
             firstCheckDone = true;
         } else {
-            Popup("Työvälineitä puuttuu tai sinulla ei ole oikeita työvälineitä.", MsgType.Mistake);
+            Popup(Translator.Translate("XR MembraneFilteration 2.0", "MissingItemsThroughput"), MsgType.Mistake);
+            
         }
-        //Logger.Print(cabinet.GetMissingItems());
+        List<string> itemsNotInCabinet = new List<string>();
+        base.GetNonClearedConditions().ForEach(c => {
+            Logger.Print((Conditions) c);
+            itemsNotInCabinet.Add(((Conditions)c).ToString());
+        });
+        cabinet.updateItemsNotInCabinet(itemsNotInCabinet);
         DisableConditions();
     }
 
     #region Private Methods
     private void CheckConditions(List<Interactable> containedObjects) {
-        foreach (Interactable value in containedObjects) {
-            GeneralItem item = value as GeneralItem;
-            ObjectType type = item.ObjectType;
-            //Logger.Print("Condition: " + type);
-            switch (type) {
-                case ObjectType.Bottle:
-                case ObjectType.Medicine:
-                    bottles100ml++;
-                    if (bottles100ml == 4) {
-                        EnableCondition(Conditions.Bottles100ml);
+        int bottles100ml = 0;
+        int peptonWaterBottle = 0;
+        int soycaseineBottle = 0;
+        int tioglycolateBottle = 0;
+        int soycaseinePlate = 0;
+        int sabouradDextrosiPlate = 0;
+        int tweezers = 0;
+        int scalpel = 0;
+        int pipette = 0;
+        int sterileBag = 0;
+        int pump = 0;
+        int filter = 0;
+        int pipetteHeads = 0;
+        int bigPipette = 0;
+        Debug.Log("Checking conditions of the passthrough cabinet in events:");
+        foreach (var item in containedObjects) {
+            if (Interactable.GetInteractable(item.transform) is var g && g != null) {
+                if (g is Bottle bottle) {
+                    int capacity = bottle.Container.Capacity;
+                    LiquidType type = bottle.Container.LiquidType;
+                    if (capacity == 100000) {
+                        // Debug.Log("detected bottle 100ml entering cabinet");
+                        bottles100ml++;
+                        if (bottles100ml == 4) {
+                            EnableCondition(Conditions.Bottles100ml);
+                        }
+
+                    } else if (type == LiquidType.Peptonwater) {
+                        // Debug.Log("detected peptone water entering cabinet");
+                        peptonWaterBottle++;
+                        EnableCondition(Conditions.PeptoniWaterBottle);
+                    } else if (type == LiquidType.Soycaseine) {
+                        // Debug.Log("detected soycaseine bottle entering cabinet");
+                        soycaseineBottle++;
+                        EnableCondition(Conditions.SoycaseineBottle);
+                    } else if (type == LiquidType.Tioglygolate) {
+                        // Debug.Log("detected Tioglygolate entering cabinet");
+                        tioglycolateBottle++;
+                        EnableCondition(Conditions.TioglycolateBottle);
+                    } else {
+                        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongBottleThroughput"), 5);
                     }
-                    break;
-                case ObjectType.SoycaseinePlate:
-                    soycaseinePlate++;
-                    if (soycaseinePlate == 3)
-                    {
-                        EnableCondition(Conditions.SoycaseinePlate);
+                } else if (g is AgarPlateLid lid) {
+                    string variant = lid.Variant;
+                    if (variant == "Soija-kaseiini") {
+                        // Debug.Log("detected soija kaseiini entering cabinet");
+                        soycaseinePlate++;
+                        if (soycaseinePlate == 3) {
+                            EnableCondition(Conditions.SoycaseinePlate);
+                        }
+                    } else if (variant == "Sabourad-dekstrosi") {
+                        // Debug.Log("detected Sabourad-dekstrosi plate entering cabinet");
+                        sabouradDextrosiPlate++;
+                        EnableCondition(Conditions.SabouradDextrosiPlate);
+                    } else {
+                        CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAgarPlateThroughput"), 5);
                     }
-                    break;
-                case ObjectType.SabouradDextrosiPlate:
-                    EnableCondition(Conditions.SabouradDextrosiPlate);
-                    break;
-                case ObjectType.PeptoniWaterBottle:
-                    EnableCondition(Conditions.PeptoniWaterBottle);
-                    break;
-                case ObjectType.SoycaseineBottle:
-                    EnableCondition(Conditions.SoycaseineBottle);
-                    break;
-                case ObjectType.TioglycolateBottle:
-                    EnableCondition(Conditions.TioglycolateBottle);
-                    break;
-                case ObjectType.Tweezers:
+
+                } else if (g is Tweezers) {
+                    // Debug.Log("detected tweezers entering cabinet");
                     EnableCondition(Conditions.Tweezers);
-                    break;
-                case ObjectType.Scalpel:
+                    tweezers++;
+                } else if (g is Scalpel) {
+                    // Debug.Log("detected scalpel entering cabinet");
                     EnableCondition(Conditions.Scalpel);
-                    break;
-                case ObjectType.Pipette:
-                    EnableCondition(Conditions.Pipette);
-                    break;
-                case ObjectType.Pump:
+                    scalpel++;
+                } else if (g is Pipette) {
+                    // Debug.Log("detected pipette entering cabinet");
+                    pipette++;
+                    if (pipette == 1) {
+                        EnableCondition(Conditions.Pipette);
+                    }
+                } else if (g is Pump) {
+                    // Debug.Log("detected pump entering cabinet");
                     EnableCondition(Conditions.Pump);
-                    break;
-                case ObjectType.PumpFilter:
+                    pump++;
+                } else if (g is FilterInCover) {
+                    // Debug.Log("detected filter in cover entering cabinet");
                     EnableCondition(Conditions.PumpFilter);
-                    break;
-                case ObjectType.SterileBag:
+                    filter++;
+                
+                } else if ((g is SterileBag2) || (g is SterileBag)) {
+                    // Debug.Log("detected SterileBag2 entering cabinet");
                     EnableCondition(Conditions.SterileBag);
-                    break;
+                    sterileBag++;
+                } else if (g is PipetteHeadCover) {
+                    // Debug.Log("detected pipetteheadincover entering cabinet");
+                    pipetteHeads++;
+                    if (pipetteHeads == 2) {
+                        EnableCondition(Conditions.PipetteHeads);
+                    }
+                } else if (g is BigPipette) {
+                    // Debug.Log("detected bigpipette entering cabinet");
+                    EnableCondition(Conditions.BigPipette);
+                    bigPipette++;
+                }
             }
         }
-    }
-
-    
-
-    protected override void OnTaskComplete() {
+        if (!(bottles100ml == 4 && peptonWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && soycaseinePlate == 3 && sabouradDextrosiPlate == 1 && tweezers == 1 && scalpel == 1 && pipette == 3 && pump == 1 && filter == 1 && sterileBag == 1)) {
+            // CreateTaskMistake("Väärä määrä työvälineitä läpiantokaapissa.", 2);
+        }
     }
 
 
@@ -173,21 +222,10 @@ public class CorrectItemsInThroughputMembrane : TaskBase {
     public override void CompleteTask() {
         base.CompleteTask();
 
-        if (IsCompleted()) {
-            if (objectCount == correctItemCount) {
-                Popup("Oikea määrä työvälineitä läpiantokaapissa.", MsgType.Done);
-            }
-            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayerAndPassthroughCabinet();
-            ((MedicinePreparationScene)G.Instance.Scene).InSecondRoom = true;
+        if (Completed) {
+            
+            GameObject.Find("GObject").GetComponent<RoomTeleport>().TeleportPlayer();
         }
-    }
-
-    public override string GetDescription() {
-        return DESCRIPTION;
-    }
-
-    public override string GetHint() {
-        return HINT;
     }
     #endregion
 }

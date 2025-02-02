@@ -5,10 +5,10 @@ public class JointConnection : ItemConnection {
 
     #region Fields
     protected override ItemConnector Connector { get; set; }
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Rigidbody target;
     private Transform transformTarget;
-    private Interactable interactable;
+    public Interactable interactable;
     private Joint joint;
 
     #endregion
@@ -21,9 +21,9 @@ public class JointConnection : ItemConnection {
     private void SetJoint() {
         // debug this shit
         try {
-            Logger.Print("SetJoint: rb = " + rb.mass);
+            var s = "SetJoint: rb = " + rb.mass;
 
-        } catch (NullReferenceException e) {
+        } catch (NullReferenceException) {
             Logger.Warning("------ EPIC DEBUG STARTING --------");
             Logger.Print("The rb.mass call caused NRE. Interactable was " + interactable);
             Logger.Print("The Target RigidBody was " + target);

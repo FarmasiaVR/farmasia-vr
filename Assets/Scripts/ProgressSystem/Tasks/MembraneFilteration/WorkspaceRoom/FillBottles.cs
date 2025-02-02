@@ -1,40 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using FarmasiaVR.Legacy;
+using Unity;
+using UnityEngine;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
-class FillBottles: TaskBase {
-
+class FillBottles : Task {
     public enum Conditions { BottlesFilled }
 
     private int soycaseineBottlesDone = 0;
     private int tioglygolateBottlesDone = 0;
 
-    private readonly int REQUIRED_AMOUNT = 100;
+    private readonly int REQUIRED_AMOUNT = 80000;
 
-    private HashSet<MedicineBottle> bottles = new HashSet<MedicineBottle>();
+    private HashSet<Bottle> bottles = new HashSet<Bottle>();
 
-    public FillBottles() : base(TaskType.FillBottles, true, false) {
+    public FillBottles() : base(TaskType.FillBottles, false) {
         SetCheckAll(true);
         AddConditions((int[]) Enum.GetValues(typeof(Conditions)));
+    }
+
+    public override void Subscribe() {
         SubscribeEvent(OnBottleFill, EventType.TransferLiquidToBottle);
     }
 
     private void OnBottleFill(CallbackData data) {
         LiquidContainer container = data.DataObject as LiquidContainer;
-        if (container.GeneralItem is MedicineBottle bottle && bottle.ObjectType == ObjectType.Bottle) {
+        soycaseineBottlesDone = 0;
+        tioglygolateBottlesDone = 0;
+        if (container.GeneralItem is Bottle bottle && bottle.ObjectType == ObjectType.Bottle) {
             if (bottle.Container.Amount >= REQUIRED_AMOUNT) {
-                if (bottles.Contains(bottle)) return;
-                bottles.Add(bottle);
-                if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
-
-                    soycaseineBottlesDone++;
-                } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
-                    tioglygolateBottlesDone++;
+                //if (bottles.Contains(bottle)) return;
+                if (!bottles.Contains(bottle))
+                {
+                    bottles.Add(bottle);
                 }
+                UnityEngine.Debug.Log("current tio amount in bottle: " + bottle.Container.Amount);
+                    
+                foreach (Bottle b in bottles)
+                {
+                    if (b.Container.LiquidType == LiquidType.Soycaseine && b.Container.Amount >= REQUIRED_AMOUNT)
+                    {
+                        soycaseineBottlesDone++;
+                    }
+                    if (b.Container.LiquidType == LiquidType.Tioglygolate && b.Container.Amount >= REQUIRED_AMOUNT)
+                    {
+                        tioglygolateBottlesDone++;
+                    }
+                }
+                //if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
+                  //  soycaseineBottlesDone++;
+                //} else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
+                  //  tioglygolateBottlesDone++;
+                //}
             }
         }
+        UnityEngine.Debug.Log("tio and soy amount after monster: tio:" + tioglygolateBottlesDone + "    soy:" + soycaseineBottlesDone);
         if (soycaseineBottlesDone >= 2 && tioglygolateBottlesDone >= 2) {
             EnableCondition(Conditions.BottlesFilled);
             CheckMistakes();
@@ -49,48 +71,29 @@ class FillBottles: TaskBase {
             if (bottle.Container.LiquidType == LiquidType.Soycaseine) {
 
                 if (!writable.WrittenLines.ContainsKey(WritingType.SoyCaseine)) {
-                    CreateTaskMistake("Pulloon johon laitettiin soijakaseiinia, ei ole kirjoitettu 'Soijakaseiini'", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongWritingSoyCaseineBottle"), 1);
                 }
                 if (bottle.Container.Amount > REQUIRED_AMOUNT) {
-                    CreateTaskMistake("Soijakaseiinipullossa oli liikaa nestettä", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAmountSoyCaseineBottle"), 1);
                 }
                 if (bottle.Container.Impure) {
-                    CreateTaskMistake("Soijakaseiinipullon neste oli sekoittunut", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MixedLiquidSoyCaseineBottle"), 1);
                 }
 
             } else if (bottle.Container.LiquidType == LiquidType.Tioglygolate) {
 
                 if (!writable.WrittenLines.ContainsKey(WritingType.Tioglygolate)) {
-                    CreateTaskMistake("Pulloon johon laitettiin tioglykolaattia, ei ole kirjoitettu 'Tioglykolaatti'", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongWritingTioglygolateBottle"), 1);
                 }
                 if (bottle.Container.Amount > REQUIRED_AMOUNT) {
-                    CreateTaskMistake("Tioglykolaattipullossa oli liikaa nestettä", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "WrongAmountTioglygolateBottle"), 1);
                 }
                 if (bottle.Container.Impure) {
-                    CreateTaskMistake("Tioglykolaattipullon neste oli sekoittunut", 1);
+                    CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "MixedLiquidTioglygolateBottle"), 1);
                 }
             }
 
             
         }
-    }
-
-    protected override void OnTaskComplete() {
-        // juu
-    }
-
-    public override void CompleteTask() {
-        base.CompleteTask();
-        if (IsCompleted()) {
-            Popup("Hienoa, pullot täytetty", MsgType.Done);
-        }
-    }
-
-    public override string GetDescription() {
-        return "Täytä pullot xd";
-    }
-
-    public override string GetHint() {
-        return "Just do it";
     }
 }

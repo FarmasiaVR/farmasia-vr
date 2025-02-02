@@ -14,7 +14,7 @@ public class Clock : MonoBehaviour
 
     private void FixedUpdate() {
 
-        System.DateTime currentTime = System.DateTime.UtcNow;
+        System.DateTime currentTime = System.DateTime.UtcNow.ToLocalTime();
 
         float minuteAngle = currentTime.Minute * 1 / 60f * 360f;
         float hourAngle = currentTime.Hour * 1 / 12f * 360f;

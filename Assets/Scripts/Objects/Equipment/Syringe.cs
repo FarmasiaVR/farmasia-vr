@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Syringe : GeneralItem {
 
@@ -19,7 +20,7 @@ public class Syringe : GeneralItem {
 
     private GameObject syringeCap;
     public bool capVisible;
-    public bool HasSyringeCap { get { return syringeCap.activeInHierarchy; } }
+    public bool HasSyringeCap;
 
     public LiquidContainer BottleContainer { get; set; }
 
@@ -37,17 +38,21 @@ public class Syringe : GeneralItem {
         Assert.IsNotNull(Container);
         ObjectType = ObjectType.Syringe;
 
-        Type.On(InteractableType.Attachable, InteractableType.HasLiquid, InteractableType.Interactable, InteractableType.SmallObject);
+        Type.On(InteractableType.Attachable, InteractableType.Interactable);
 
         Container.OnAmountChange += SetSyringeHandlePosition;
         SetSyringeHandlePosition();
 
         hasBeenInBottle = false;
 
-        syringeCap = transform.Find("syringe_cap").gameObject;
-        NullCheck.Check(syringeCap);
+        // Only check for the cap if using the legacy system.
+        if (!GetComponent<XRBaseInteractable>())
+        {
+            syringeCap = transform.Find("syringe_cap").gameObject;
+            NullCheck.Check(syringeCap);
 
-        syringeCap.SetActive(capVisible);
+            syringeCap.SetActive(capVisible);
+        }
 
         liquidDisplay = Resources.Load<GameObject>("Prefabs/LiquidDisplay");
         displayState = false;
@@ -121,7 +126,6 @@ public class Syringe : GeneralItem {
             TransferToLuerlock(liquidAmount);
         } else if (State == InteractState.InBottle) {
             TransferToBottle(liquidAmount);
-            Events.FireEvent(EventType.TakingMedicineFromBottle, CallbackData.Object(this));
         } else {
             Eject(liquidAmount);
         }
@@ -129,6 +133,20 @@ public class Syringe : GeneralItem {
 
     private void Eject(int amount) {
         if (amount > 0) Container.SetAmount(Container.Amount - amount);
+    }
+
+    public void SendMedicineToLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe sending medicine");
+        checkIfPushingMistake(LiquidTransferStep, other);
+        Container.TransferTo(other, LiquidTransferStep);
+    }
+
+    public void TakeMedicineFromLuerlockXR(LiquidContainer other)
+    {
+        Debug.Log("syringe taking medicine");
+        checkIfPushingMistake(-LiquidTransferStep, other);
+        Container.TransferTo(other, -LiquidTransferStep);
     }
 
     private void TransferToLuerlock(int amount) {
@@ -144,21 +162,41 @@ public class Syringe : GeneralItem {
             (Syringe)pair.Value.LeftConnector.AttachedInteractable :
             (Syringe)pair.Value.RightConnector.AttachedInteractable;
 
-        if (pushing) {
-            if (other.Container.Capacity < Container.Capacity) {
+        checkIfPushingMistake(amount, other.Container);
+        Container.TransferTo(other.Container, amount);
+    }
+
+    void checkIfPushingMistake(int amount, LiquidContainer other)
+    {
+        bool pushing = amount > 0;
+        if (pushing)
+        {
+            if (other.Capacity < Container.Capacity)
+            {
                 Events.FireEvent(EventType.PushingToSmallerSyringe);
             }
         }
-
-        Container.TransferTo(other.Container, amount);
     }
 
     private void TransferToBottle(int amount) {
         if (BottleContainer == null) return;
+        Debug.Log("survived bottle container null check");
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
-
+        Debug.Log("survived angle check");
         Container.TransferTo(BottleContainer, amount);
     }
+
+    public void takeMedicineFromBottleXR()
+    {
+        Debug.Log("taking medicine!");
+        TransferToBottle(-LiquidTransferStep);
+    }
+
+    public void sendMedicineToBottleXR()
+    {
+        TransferToBottle(LiquidTransferStep);
+    }
+
 
     public void SetSyringeHandlePosition() {
         Vector3 pos = handle.localPosition;
@@ -178,5 +216,10 @@ public class Syringe : GeneralItem {
         get {
             return 1.0f * Container.Amount / Container.Capacity;
         }
+    }
+
+    public void setLiqidContainerReference()
+    {
+
     }
 }

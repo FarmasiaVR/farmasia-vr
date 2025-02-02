@@ -1,15 +1,17 @@
 ﻿using System;
 using UnityEngine;
+#if UNITY_ANDROID
+using SteamVRMock;
+#else
 using Valve.VR;
+#endif
 
 public class TestHandMover : MonoBehaviour {
 
-    #region Constants
     private const KeyCode ACTIVATE = KeyCode.Space;
     private const KeyCode USE_CAMERA = KeyCode.K;
     private const KeyCode USE_RIGHT = KeyCode.L;
     private const KeyCode USE_LEFT = KeyCode.J;
-    private const KeyCode HAND_GRAB = KeyCode.Mouse0;
     private const KeyCode HAND_INTERACT = KeyCode.Mouse1;
     private const KeyCode MOVE_FORWARD = KeyCode.W;
     private const KeyCode MOVE_LEFT = KeyCode.A;
@@ -19,9 +21,7 @@ public class TestHandMover : MonoBehaviour {
     private const KeyCode MOVE_DOWN = KeyCode.Q;
     private const KeyCode FILL_PASSTHROUGH_CABINET = KeyCode.F;
     private const KeyCode ENABLE_MOUSECONTROL = KeyCode.Minus;
-    #endregion
 
-    #region Fields
     private enum ControlState {
         HAND_LEFT, HAND_RIGHT, CAMERA
     }
@@ -44,15 +44,12 @@ public class TestHandMover : MonoBehaviour {
     [SerializeField]
     private GameObject correctPassthroughCabinetItems;
     private bool mouseControl = false;
-    #endregion
 
     private void Start() {
-
 #if UNITY_EDITOR
 #else
         Destroy(this);
 #endif
-
         right = transform.GetChild(1);
         left = transform.GetChild(0);
         cam = transform.GetChild(2);
@@ -63,6 +60,9 @@ public class TestHandMover : MonoBehaviour {
             CheckStateChange();
             UpdateState();
             UpdateMovement();
+            if (Input.GetKeyDown(KeyCode.Alpha0)) {
+                G.Instance.Progress.CurrentPackage.CurrentTask.ForceClose(false);
+            }
         } else if (Input.GetKeyDown(ACTIVATE)) {
             Logger.Print("Activating test hand mover");
             active = true;
@@ -81,7 +81,6 @@ public class TestHandMover : MonoBehaviour {
         } else if (JustPressed(USE_CAMERA)) {
             SetState(ControlState.CAMERA);
         }
-
         if (JustPressed(FILL_PASSTHROUGH_CABINET)) {
             correctPassthroughCabinetItems.SetActive(true);
         }
@@ -106,7 +105,6 @@ public class TestHandMover : MonoBehaviour {
                 PassGrabInput();
             }
         }
-
         if (JustPressed(HAND_INTERACT)) {
             PassInteractInput();
         }
@@ -115,14 +113,11 @@ public class TestHandMover : MonoBehaviour {
     private void UpdateCamera() {
         yaw += speedHorizontal * Input.GetAxis("Mouse X");
         pitch -= speedVertical * Input.GetAxis("Mouse Y");
-
         GetCurrentTransform().eulerAngles = new Vector3(pitch, yaw, 0);
     }
 
     private void UpdateMovement() {
         Vector3 movement = Vector3.zero;
-
-
         if (JustPressed(ENABLE_MOUSECONTROL)) {
             mouseControl = !mouseControl;
             if (mouseControl) {
@@ -130,9 +125,7 @@ public class TestHandMover : MonoBehaviour {
             } else {
                 Cursor.lockState = CursorLockMode.None;
             }
-
         }
-
         if (mouseControl) {
             movement.x += Input.GetAxis("Mouse X");
             movement.z += Input.GetAxis("Mouse Y");
@@ -150,8 +143,6 @@ public class TestHandMover : MonoBehaviour {
             if (IsPressed(MOVE_LEFT)) {
                 movement.x--;
             }
-
-
         }
         if (IsPressed(MOVE_UP)) {
             movement.y++;
@@ -159,8 +150,6 @@ public class TestHandMover : MonoBehaviour {
         if (IsPressed(MOVE_DOWN)) {
             movement.y--;
         }
-
-
         GetCurrentTransform().Translate(movement * speedMovement * Time.deltaTime);
     }
 

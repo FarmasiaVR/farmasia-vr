@@ -4,17 +4,20 @@ public class UISystem : MonoBehaviour {
     #region Fields
     public static UISystem Instance { get; private set; }
 
-    private GameObject handuiInScene;
+    //private GameObject handuiInScene;
     [SerializeField]
     [Tooltip("Drag Popup prefab here!")]
     private GameObject popupPrefab;
 
     public GameObject player { get; private set; }
     private Hand hand;
-    private GameObject currentPopup;
 
     private string descript = "";
-    public string Descript { get => descript; set => descript = value; }
+
+
+
+    public string Descript { get => TaskConfig.For(G.Instance.Progress.CurrentPackage.CurrentTask.TaskType).Description; set => descript = value; }
+
     #endregion
 
 
@@ -30,8 +33,10 @@ public class UISystem : MonoBehaviour {
             Instance = this;
         }
         player = GameObject.FindGameObjectWithTag("MainCamera");
-        handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
+        //handuiInScene = GameObject.FindGameObjectWithTag("HandUI");
         hand = GameObject.FindGameObjectWithTag("Controller (Left)").GetComponent<Hand>();
+        Popups.Prefab = popupPrefab;
+        Popups.Player = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     /// <summary>
@@ -45,21 +50,6 @@ public class UISystem : MonoBehaviour {
     }
     #endregion
 
-    #region Popup Methods
-    private void SetCurrentPopup(GameObject newPopup) {
-        if (currentPopup != null) {
-            Destroy(currentPopup);
-        }
-        currentPopup = newPopup;
-    }
-
-    /// <summary>
-    /// Sets current Popup as null.
-    /// </summary>
-    public void DeleteCurrent() {
-        currentPopup = null;
-    }
-
     /// <summary>
     /// Used for creating a popup.
     /// </summary>
@@ -67,29 +57,10 @@ public class UISystem : MonoBehaviour {
     /// <param name="message">Message to be displayed for the player.</param>
     /// <param name="type">Type of message. Different types have different colours.</param>
     public void CreatePopup(string message, MsgType type) {
-        CreatePopup(int.MinValue, message, type);
+        Popups.CreatePopup(this, int.MinValue, message, type);
     }
 
     public void CreatePopup(int point, string message, MsgType type) {
-        switch (type) {
-            case MsgType.Mistake:
-                G.Instance.Audio.Play(AudioClipType.MistakeMessage);
-                break;
-        }
-
-        Logger.Print(string.Format("{0} {1} {2}", point.ToString(), type.ToString(), message));
-
-        GameObject popupMessage = InitUIComponent(popupPrefab);
-        PointPopup popup = popupMessage.GetComponent<PointPopup>();
-        popup.SetObjectPath(player, player);
-        popup.SetCamera(player);
-
-        if (point == int.MinValue || point == 0) {
-           popup.SetPopup(message, type);
-        } else {
-            popup.SetPopup(point, message, type);
-        }
-        SetCurrentPopup(popupMessage);
+        Popups.CreatePopup(this, point, message, type);
     }
-    #endregion
 }

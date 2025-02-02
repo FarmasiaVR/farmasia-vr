@@ -1,42 +1,56 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
-public class Description : MonoBehaviour {
-    #region Fields
+public class Description : MonoBehaviour
+{
     private TextMeshPro currentTextField;
-    #endregion
-
-    void Start() {
+    void Start()
+    {
         currentTextField = gameObject.GetComponent<TextMeshPro>();
+       
     }
 
-    void Update() {
+    void Update()
+    {
         SetText();
     }
 
-    private void SetText() {
-        string packageName = "";
-        if (G.Instance.Progress.CurrentPackage.activeTasks.Count <= 0) {
-            currentTextField.text = "<color=#0be325> Pisteet oikealla \n-----></color>";
+    private void SetText()
+    {
+        if (G.Instance.Progress.CurrentPackage.activeTasks.Count <= 0)
+        {
+            currentTextField.text = $"<color=#0be325> {Translator.Translate("DressingRoom", "PointsRight")} \n-----></color>";
             return;
         }
 
-
-        switch (G.Instance.Progress.CurrentPackage.name) {
+        switch (G.Instance.Progress.CurrentPackage.name)
+        {
             case PackageName.EquipmentSelection:
-                packageName = "Työvälineiden valinta";
-                break;
+                UpdateText(Translator.Translate("DressingRoom", "SelectionOfTools"));
+                return;
             case PackageName.Workspace:
-                packageName = "Työskentely Tila";
-                break;
+                UpdateText(Translator.Translate("DressingRoom", "Workspace"));
+                return;
             case PackageName.CleanUp:
-                packageName = "Tilan Siivoaminen";
-                break;
+                UpdateText(Translator.Translate("DressingRoom", "CleaningTheSpace"));
+                return;
+            case PackageName.ChangingRoom:
+                UpdateText(Translator.Translate("DressingRoom", "DressingRoom"));
+                return;
+            case PackageName.PreperationRoom:
+                UpdateText(Translator.Translate("DressingRoom", "PreparationArea"));
+                return;
+            case PackageName.FinishUp:
+                UpdateText(Translator.Translate("DressingRoom", "Finishing"));
+                return;
         }
-        
+    }
 
-
-        string text = string.Format("<color=#000000> {0} </color> \n{1}", packageName, UISystem.Instance.Descript);
+    private void UpdateText(string translatedText)
+    {
+        string text = string.Format("<color=#3f546f> {0} </color> \n{1}", translatedText, UISystem.Instance.Descript);
         currentTextField.text = text;
     }
 }

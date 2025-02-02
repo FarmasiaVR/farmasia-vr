@@ -1,5 +1,8 @@
 ﻿public enum PackageName {
     EquipmentSelection,
     Workspace,
-    CleanUp
+    CleanUp,
+    ChangingRoom,
+    PreperationRoom,
+    FinishUp
 }

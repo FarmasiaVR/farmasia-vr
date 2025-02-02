@@ -1,0 +1,292 @@
+Osa 1: lääkkeen valmistelu
+
+
+TaskType.SelectTools,
+- nimi: "Työvälineiden valinta",
+- kuvaus: "Valitse sopivat työvälineet.",
+- vihje: "Huoneessa on lääkkeen valmistukseen tarvittavia työvälineitä. Valitse oikea määrä ruiskuja, neuloja ja luerlockeja.",
+- onnistuminen: "Työväline valittu.",
+- pisteet: 0
+- virheet:
+
+
+TaskType.SelectMedicine,
+- nimi: "Lääkepullon valinta",
+- kuvaus: "Valitse sopiva lääkepullo.",
+- vihje: "Jääkaapissa on erikokoisia lääkepulloja. Valitse näistä oikeankokoinen.",
+- onnistuminen: "Lääkepullo valittu.",
+- pisteet: 0
+- virheet:
+
+
+TaskType.CorrectItemsInThroughput,
+- nimi: "Oikeat välineet läpiantokaapissa",
+- kuvaus: "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
+- vihje: "Tarkista välineitä läpiantokaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Huoneesta siirrytään pois tarttumalla oveen. Puuttuvat välineet: ",
+- onnistuminen: "Oikea määrä työvälineitä läpiantokaapissa.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.CorrectLayoutInThroughput,
+- nimi: "Esineiden asettelu läpiantokaapissa",
+- kuvaus: "",
+- vihje: "",
+- onnistuminen: "",
+- pisteet: 0
+- virheet:
+
+
+TaskType.CorrectItemsInLaminarCabinet,
+- nimi: "Oikeat välineet laminaarikaapissa",
+- kuvaus: "Siirrä valitsemasi työvälineet laminaarikaappiin ja paina kaapin tarkistusnappia.",
+- vihje: "Tarkista välineitä kaappiin viedessäsi, että olet valinnut oikean määrän välineitä ensimmäisellä hakukerralla. Tarkista valintasi painamalla laminaarikaapin tarkistusnappia. ",
+- onnistuminen: "Oikea määrä työvälineitä laminaarikaapissa.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.CorrectLayoutInLaminarCabinet,
+- nimi: "Esineiden asettelu laminaarikaapissa",
+- kuvaus: "",
+- vihje: "",
+- onnistuminen: "",
+- pisteet: 0
+- virheet:
+
+
+TaskType.DisinfectBottles,
+- nimi: "Pullon desinfiointi",
+- kuvaus: "",
+- vihje: "",
+- onnistuminen: "",
+- pisteet: 1
+- virheet:
+
+
+TaskType.SyringeAttach,
+- nimi: "Ruiskun kiinnittäminen",
+- kuvaus: "Yhdistä Luerlock-to-luerlock-välikappaleeseen tyhjä ruisku.",
+- vihje: "Kiinnitä Luerlock-to-luerlock-välikappaleeseen 1ml ruisku.",
+- onnistuminen: "",
+- pisteet: 3
+- virheet:
+
+
+TaskType.LuerlockAttach,
+- nimi: "Luerlockin kiinnittäminen",
+- kuvaus: "Kiinnitä lääkkeellinen ruisku luerlock-to-luerlock-välikappaleeseen.",
+- vihje: "Kiinnitä luerlock-to-luerlock-välikappale oikein 20ml ruiskuun.",
+- onnistuminen: "Luerlockin kiinnittäminen onnistui.",
+- pisteet: 1
+- virheet:
+
+
+TaskType.CorrectAmountOfMedicineSelected,
+- nimi: "Lääkkeen mittaaminen",
+- kuvaus: "Vedä ruiskuun lääkettä.",
+- vihje: "Vedä ruiskuun oikea määrä (0,15ml) lääkettä.",
+- onnistuminen: "Ruiskuun otettiin oikea määrä lääkettä.",
+- pisteet: 6
+- virheet:
+
+
+TaskType.MedicineToSyringe,
+- nimi: "Lääkkeen otto pullosta",
+- kuvaus: "Valmistele välineet ja ota ruiskulla ja neulalla lääkettä lääkeainepullosta.",
+- vihje: "Valitse oikeankokoinen ruisku (20ml jolla otat lääkettä lääkeainepullosta. Varmista, että ruiskuun on kiinnitetty neula.",
+- onnistuminen: "Lääkkeen ottaminen onnistui.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.ItemsToSterileBag,
+- nimi: "Ruiskujen siirto steriilipussiin",
+- kuvaus: "Viimeistele ruiskujen kanssa työskentely.",
+- vihje: "Laita täyttämäsi ruiskut steriiliin pussiin.",
+- onnistuminen: "Ruiskut laitettiin steriiliin pussiin.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.ScenarioOneCleanUp,
+- nimi: "Siivoaminen",
+- kuvaus: "Siivoa lopuksi työtila.",
+- vihje: "Vie pelin aikana lattialle pudonneet esineet roskakoriin.",
+- onnistuminen: "",
+- pisteet: 1
+- virheet:
+
+
+TaskType.Finish,
+- nimi: "Lopetus",
+- kuvaus: "",
+- vihje: "",
+- onnistuminen: "",
+- pisteet: 0
+- virheet:
+
+
+
+Osa 2: kalvosuodatus
+
+
+TaskType.SelectToolsMembrane,
+- nimi: "Työvälineiden valinta",
+- kuvaus: "Valitse pöydän välinelistassa olevat työvälineet.",
+- vihje: "Huoneessa on tarvittavat työvälineet pullot ja pipetti.
+    Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. 
+    Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja. 
+    Toinen laskeumamalja on sabourad-dekstroosimalja.",
+- onnistuminen: "Työväline valittu.",
+- pisteet: 0
+- virheet:
+
+
+TaskType.CorrectItemsInThroughputMembrane,
+- nimi: "Oikeat välineet läpiantokaapissa",
+- kuvaus: "Laita tarvittavat työvälineet läpiantokaappiin ja siirry työhuoneeseen.",
+- vihje: "Huoneessa on tarvittavat työvälineet pullot ja pipetti. 
+    Ravintoalustat = Soijakaseiini-pullo ja Tioglygolaattipullo. 
+    Sormenpäämaljat ja toinen laskeumamalja ovat soijakaseiinimaljoja.
+    Toinen laskeumamalja on sabourad-dekstroosimalja.",
+- onnistuminen: "Oikeat työvälineet läpiantokaapissa.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.CorrectItemsInLaminarCabinetMembrane,
+- nimi: "Oikeat välineet laminaarikaapissa",
+- kuvaus: "Siirrä valitsemasi työvälineet laminaarikaappiin",
+- vihje: "Varmista välineitä kaappiin viedessäsi, että välineet ovat puhtaita ja että kaapissa on kaikki oikeat välineet.",
+- onnistuminen: "Oikea määrä työvälineitä laminaarikaapissa.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.WriteTextsToItems,
+- nimi: "Tietojen kirjoitus esineisiin",
+- kuvaus: "Kirjoita tarvittavat tiedot pulloihin ja maljoihin",
+- vihje: "Kosketa kynällä esinettä, johon haluat kirjoittaa, valitse kirjoitettavat tekstit (max 4) klikkaamalla niitä. Voit perua kirjoituksen painamalla tekstiä uudestaan ennen kuin painat vihreää nappia. Muista katsoa oikea kellonaika kellosta.",
+- onnistuminen: "Hyvin kirjoitettu.",
+- pisteet: 2
+- virheet:
+
+
+TaskType.OpenAgarplates,
+- nimi: "Laskeumamaljojen avaus",
+- kuvaus: "Avaa laskeumamaljat",
+- vihje: "Avaa yksi soijakaseiinimalja sek yksi sabouradekstrosimalja",
+- onnistuminen: "Hienoa, agarmaljat avattu!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.FillBottles,
+- nimi: "100ml pullojen täyttö",
+- kuvaus: "Täytä pullot elatusaineilla",
+- vihje: "Lisää pieniin pulloihin 80 ml elatusaineita, 2 pulloa kutakin",
+- onnistuminen: "Hienoa, pullot täytetty",
+- pisteet: 4
+- virheet:
+
+
+TaskType.AssemblePump,
+- nimi: "Pumpun kokoaminen",
+- kuvaus: "Kokoa pumppu ja kiinnitä jäteletku",
+- vihje: "Kiinnitä suodatin ja jäteletku pumppuun.",
+- onnistuminen: "Hienoa, pumppu on koossa",
+- pisteet: 3
+- virheet:
+
+
+TaskType.WetFilter,
+- nimi: "Suodattimen kostutus",
+- kuvaus: "Kostuta kalvosuodatin",
+- vihje: "Kostuta suodatin lisäämällä 1ml peptonivettä Finnpipettilla",
+- onnistuminen: "Hienosti kostutettu!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.StartPump,
+- nimi: "Kostutusliuoksen suodatus",
+- kuvaus: "Käynnistä pumppu",
+- vihje: "Käynnistä pumppu painamalla käynnistysnappulaa",
+- onnistuminen: "Kostutettu!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.MedicineToFilter,
+- nimi: "Lääkkeen lisääminen",
+- kuvaus: "Lisää lääke suodattimeen",
+- vihje: "Irrota ruiskun korkki ja lisää ruiskun neste suodattimeen",
+- onnistuminen: "Lääke lisätty",
+- pisteet: 2
+- virheet:
+
+
+TaskType.StartPumpAgain,
+- nimi: "Lääkevalmisteen suodatus",
+- kuvaus: "Käynnistä pumppu",
+- vihje: "Käynnistä pumppu painamalla käynnistysnappulaa",
+- onnistuminen: "Suodatettu!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.CutFilter,
+- nimi: "Kalvosuodattimen leikkaus",
+- kuvaus: "Pura pumppu ja leikkaa suodatin",
+- vihje: "Irrota filtteri pumpusta ja leikkaa kalvosuodatin varovasti skalpellilla. Muista avata pakkaus oikeasta päästä!",
+- onnistuminen: "Hienoa, suodatin leikattu",
+- pisteet: 2
+- virheet:
+
+
+TaskType.FilterHalvesToBottles,
+- nimi: "Suodattimen puolikkaiden siirtäminen pulloihin",
+- kuvaus: "Siirrä puolikkaat pulloihin pinseteillä",
+- vihje: "Siirrä puolikkaat eri liuoksiin. Siirrä yksi puolikas soija-kaseiiniliuokseen ja toinen tioglykolaattiin.",
+- onnistuminen: "Puolikkaat pulloissa!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.CloseAgarplates,
+- nimi: "Laskeumamaljojen sulkeminen",
+- kuvaus: "Sulje laskeumamaljat",
+- vihje: "Sulje laskeumamaljat",
+- onnistuminen: "Maljat suljettu!",
+- pisteet: 2
+- virheet:
+
+
+TaskType.WriteSecondTime,
+- nimi: "Lopetusaikojen kirjoitus",
+- kuvaus: "Ota ajat ylös",
+- vihje: "Kirjoita lopetusaika laskeumamaljoihin. Katso oikea aika kellosta.",
+- onnistuminen: "Hyvin kirjoitettu",
+- pisteet: 2
+- virheet:
+
+
+TaskType.Fingerprints,
+- nimi: "Sormenpäämaljat",
+- kuvaus: "Valmistele sormenpäämaljat",
+- vihje: "Avaa sormenpäämaljat ja koske agaria kaksi kertaa (kerran peukalolla ja kerran muilla sormilla). Toista toisella kädellä.",
+- onnistuminen: "Sormenpäämaljat valmistettu!",
+- pisteet: 2
+- virheet:
+
+//TODO: Siivousinfo
+
+
+TaskType.FinishMembrane,
+- nimi: "Lopetus",
+- kuvaus: "",
+- vihje: "",
+- onnistuminen: "",
+- pisteet: 0
+- virheet:
