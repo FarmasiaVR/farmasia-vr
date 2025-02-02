@@ -2,116 +2,94 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using FarmasiaVR.Legacy;
+using FarmasiaVR;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 
 public class CabinetBasePCM : MonoBehaviour {
 
-    private TriggerInteractableContainer itemContainer;
-    private bool itemPlaced;
+    public PlateCountMethodSceneManager sceneManager;
     private bool sterileDrapefolded;
-    private bool syringeCapBagEntered;
-    public List<string> itemsNotInCabinet = new List<string>();
+    private bool questCompleted = false;
 
-    public enum CabinetType { PassThrough, Laminar }
-    public CabinetType type;
     public Animator sterileDrape;
-    public GameObject childCollider;
-    public GameObject syringeCapFactory;
-    public GameObject syringeCapFactoryPos;
-
-    public bool ignoreContamination;
-
+    public List<GameObject> requiredItems;  
+    private List<bool> itemsFound;
+ 
     private void Start() {
-        itemContainer = childCollider.AddComponent<TriggerInteractableContainer>();
-        itemContainer.OnEnter = OnCabinetEnter;
-        itemContainer.OnExit = OnCabinetExit;
-        if (syringeCapFactory != null) {
-            syringeCapFactory.SetActive(false);
+
+        itemsFound = new List<bool>();
+        for (int i = 0; i < requiredItems.Count; i++)
+        {
+            itemsFound.Add(false);  // Initially, no items are found
         }
+
     }
 
-    private void OnCabinetEnter(Interactable other) {
-        if (!ignoreContamination) { 
-            GeneralItem item = other as GeneralItem;
-       
-            if (item == null) {
-                return;
-            }
-     
-            if (type == CabinetType.Laminar) {
-                Events.FireEvent(EventType.CheckLaminarCabinetItems);
-
-                if (item is SyringeCapBag) {
-                    SyringeCapBagEnteredLaminarCabinet(item);
-                }
-
-                if (Time.timeSinceLevelLoad > 1.0f) {
-                    UnfoldSterileDrape();
-                }
-            }
-
-            if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
-            {
-                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
-            }
-
-            if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
-                Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
-            }
-      
-            if (!itemPlaced) {
-                Events.FireEvent(EventType.ItemPlacedForReference, CallbackData.Object(this));
-                itemPlaced = true;
-           
-            }
-        }
-    }
-
-    // Currently unused
-    private void OnCabinetExit(Interactable other) {
-        GeneralItem item = other as GeneralItem;
-
+    private void OnTriggerEnter(Collider other)
+    {        
+        GeneralItem item = other.GetComponent<GeneralItem>();
+        
         if (item == null) {
             return;
         }
-    }
 
-    private void SyringeCapBagEnteredLaminarCabinet(GeneralItem syringeCapBag) {
-        if (syringeCapBagEntered == true) {
+        
+        if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
+            sceneManager.GeneralMistake("Dirty!",1);            
+            Debug.Log("Dirty: " + other.gameObject.name);
             return;
         }
-        syringeCapBagEntered = true;
-    }
 
-    public void updateItemsNotInCabinet(List<string> list)
-    {
-        itemsNotInCabinet = list;
-    }
-
-    private IEnumerator MoveSyringeCapBagAndEnableFactory(GeneralItem syringeCapBag) {
-        yield return new WaitForSeconds(2.0f);
-
-        syringeCapBag.GetComponent<SyringeCapBag>().DisableSyringeCapBag();
-
-        Vector3 startPos = syringeCapBag.transform.position;
-        Vector3 targetPos = syringeCapFactoryPos.transform.position;
-        Quaternion startRot = syringeCapBag.transform.rotation;
-        Quaternion targetRot = syringeCapFactoryPos.transform.rotation;
-
-        float time = 1.0f;
-        float currentTime = 0.0f;
-
-        while (currentTime < time) {
-            currentTime += Time.deltaTime;
-            float progress = currentTime / time;
-            syringeCapBag.transform.SetPositionAndRotation(Vector3.Slerp(startPos, targetPos, progress), Quaternion.Slerp(startRot, targetRot, progress));
-            yield return null;
+        if (questCompleted) {
+            return;
         }
 
-        syringeCapBag.transform.SetPositionAndRotation(targetPos, targetRot);
-        syringeCapFactory.SetActive(true);
+        if (requiredItems.Contains(other.gameObject)){            
+            int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
+            itemsFound[index] = true;  // Mark the item as found
+            Debug.Log($"{index} found index.");
+        }
+        /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
+        else{
+             sceneManager.GeneralMistake("Do you realy need it ?",1);
+             Debug.Log($"{other.gameObject.name} is not in the required list.");
+        }*/
+
+        bool allReady = true;
+
+        foreach(bool i in itemsFound){
+            if(!i) allReady = false;
+        }
+
+        if (allReady){
+            Debug.Log($"Complete");
+            sceneManager.CompleteTask("toolsToCabinet");
+            questCompleted = true;
+        }        
+        
+        UnfoldSterileDrape();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {   
+        if (questCompleted) {
+            return;
+        }     
+        GeneralItem item = other.GetComponent<GeneralItem>();
+        
+        if (item == null) {
+            return;
+        }
+
+        if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){            
+            return;
+        }
+
+        if (requiredItems.Contains(other.gameObject)){            
+            int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
+            itemsFound[index] = false; 
+        }
     }
 
     private void UnfoldSterileDrape() {
@@ -122,10 +100,5 @@ public class CabinetBasePCM : MonoBehaviour {
         sterileDrape.SetBool("ItemPlaced", true);
     }
 
-    /// <summary>
-    /// Returns list of all items inside the cabinet.
-    /// </summary>
-    public List<Interactable> GetContainedItems() {
-        return itemContainer.Objects.ToList();
-    }
+
 }

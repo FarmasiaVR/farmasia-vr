@@ -12,6 +12,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     }
     public void CompleteTask(string taskName)
     {
+        Debug.Log($"Trying to complete task");
         taskManager.CompleteTask(taskName);
     }
     public void CleanHands()

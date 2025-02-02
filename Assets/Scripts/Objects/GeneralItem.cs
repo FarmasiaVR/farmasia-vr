@@ -14,7 +14,7 @@ public class GeneralItem : Grabbable {
     }
 
     [SerializeField]
-    private bool isClean = true;
+    public bool isClean = true;
     private ContaminateState contamination;
     public ContaminateState Contamination {
         get => contamination; 
