@@ -68,4 +68,8 @@ public class PipetteContainer : AttachmentItem
         // Debug.Log(LiquidTransferStep);
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
     }
+
+    public int GetPipetteCapacity() {
+        return Container.GetReceiveCapacity();
+    }
 }
