@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
+    private int dilutionTubesAmount = 4500;
 
     private void Awake()
     {
@@ -20,6 +21,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CleanHands()
     {
         CompleteTask("WashHands");
+    }
+
+    public void CheckTubesFill(LiquidContainer container)
+    {
+        if (container.Amount == dilutionTubesAmount)
+        {
+            CompleteTask("FillTubes");
+        }
     }
 
     public void GeneralMistake(string message, int penalty)
