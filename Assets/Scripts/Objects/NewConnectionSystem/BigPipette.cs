@@ -43,20 +43,25 @@ public class BigPipette : ReceiverItem
    
     public void TakeMedicine() {
         // Debug.Log("Big pipette starts taking medicine");
-        if (ConnectedItem)
-        {
-            (ConnectedItem as PipetteContainer).TakeMedicine();
+        if (ConnectedItem) {
+            // Checks if the connected pipette is full
+            if ((ConnectedItem as PipetteContainer).GetPipetteCapacity() == 0) {
+                PipetteCapacityExceeded();
+            } else {
+                (ConnectedItem as PipetteContainer).TakeMedicine();
+            }
         }
-        
     }
 
-      public void SendMedicine() {
+    public void SendMedicine() {
         if (ConnectedItem) (ConnectedItem as PipetteContainer).SendMedicine();
     }
 
-    public void setConnectedItem(PipetteContainer NewConnectedItem)
-    {
+    public void setConnectedItem(PipetteContainer NewConnectedItem) {
         ConnectedItem = NewConnectedItem;
     }
 
+    public void PipetteCapacityExceeded() { 
+        Debug.Log("Can't take more medicine");
+    }
 }

@@ -14,7 +14,12 @@ public class BigPipetteXR : MonoBehaviour
         // Debug.Log("Big pipette starts taking medicine");
         if (pipetteContainerXR)
         {
-            pipetteContainerXR.TakeMedicine();
+            // Checks if the connected pipette is full
+            if (pipetteContainerXR.GetPipetteCapacity() == 0) {
+                PipetteCapacityExceeded();
+            } else {
+                pipetteContainerXR.TakeMedicine();
+            }
         }
 
     }
@@ -29,4 +34,8 @@ public class BigPipetteXR : MonoBehaviour
         pipetteContainerXR = NewConnectedItem;
     }
 
+    public void PipetteCapacityExceeded()
+    {
+        Debug.Log("Can't take more medicine");
+    }
 }
