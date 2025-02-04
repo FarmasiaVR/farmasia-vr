@@ -10,15 +10,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         taskManager = GetComponent<TaskManager>();
     }
+    
     public void CompleteTask(string taskName)
     {
         Debug.Log($"Trying to complete task");
         taskManager.CompleteTask(taskName);
     }
+
     public void CleanHands()
     {
         CompleteTask("WashHands");
     }
+
     public void GeneralMistake(string message, int penalty)
     {
         taskManager.GenerateGeneralMistake(message, penalty);
