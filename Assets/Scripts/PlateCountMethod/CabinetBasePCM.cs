@@ -15,6 +15,7 @@ public class CabinetBasePCM : MonoBehaviour {
     public Animator sterileDrape;
     public List<GameObject> requiredItems;  
     private List<bool> itemsFound;
+    private bool allReady = false;
  
     private void Start() {
 
@@ -45,18 +46,19 @@ public class CabinetBasePCM : MonoBehaviour {
             return;
         }
 
+        Debug.Log("Collide: " + other.gameObject.name);
+
         if (requiredItems.Contains(other.gameObject)){            
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = true;  // Mark the item as found
-            Debug.Log($"{index} found index.");
+            Debug.Log($"{other.gameObject.name}, index {index} found in index.");
+            allReady = true;
         }
         /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
         else{
              sceneManager.GeneralMistake("Do you realy need it ?",1);
              Debug.Log($"{other.gameObject.name} is not in the required list.");
         }*/
-
-        bool allReady = true;
 
         foreach(bool i in itemsFound){
             if(!i) allReady = false;
