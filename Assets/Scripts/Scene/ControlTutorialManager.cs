@@ -28,4 +28,9 @@ public class ControlTutorialManager : MonoBehaviour
             taskManager.CompleteTask("fingerprint");
         }
     }
+
+    public void GeneralMistake(string message, int penalty)
+    {
+        taskManager.GenerateGeneralMistake(message, penalty);
+    }
 }
