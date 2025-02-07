@@ -51,8 +51,11 @@ public class MakeKinematicOnceIdle : MonoBehaviour
 
     public void disableKinematic()
     {
-        timeSinceLastDisable = 0.0f;
-        targetRigidBody.isKinematic = false;
+        if (targetRigidBody)
+        {
+            timeSinceLastDisable = 0.0f;
+            targetRigidBody.isKinematic = false;
+        }
     }
 
 }
