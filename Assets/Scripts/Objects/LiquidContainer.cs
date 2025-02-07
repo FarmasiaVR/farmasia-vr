@@ -139,6 +139,7 @@ public class LiquidContainer : MonoBehaviour {
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);
 
+        onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
     }
 
