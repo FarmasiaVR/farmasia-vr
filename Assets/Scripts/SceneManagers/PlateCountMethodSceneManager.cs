@@ -7,11 +7,9 @@ using UnityEngine;
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
-
     private const int sennaTubeAmount = 5000;
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
-
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
 
@@ -49,7 +47,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (testTubes["dilution"].Count < 3)
                 {
                     testTubes["dilution"].Add(container);
-                    Debug.Log("Container added to DILTUINO");
+                    Debug.Log("Container added to DILTUION");
                     break;
                 }
                 break;
@@ -74,6 +72,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             CompleteTask("FillTubes");
             Debug.Log("All the tubes are filled");
+        }
+    }
+
+    public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
+    {
+        if (testTubes["control"].Contains(target) && source.LiquidType == LiquidType.SennaPowder)
+        {
+            Debug.Log($"target: {target.LiquidType}, source:{source.LiquidType}");
+            GeneralMistake("DON'T PUT SENNA IN THE CONTROL TUBE", 1);
         }
     }
 
