@@ -179,6 +179,20 @@ public class LiquidObject : MonoBehaviour {
                 }
                 break;
 
+            case LiquidType.SennaPowder:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.679778f, 0.9849057f, 0, 0.7764706f));
+                    mesh.material.SetColor("_TopColor", new Color(0.679778f, 0.9849057f, 0, 0.7764706f));
+                }
+                // This part makes the mesh load incorrectly, and material is set as "Lit".
+                // Senna pwder has been selected as material inside the editor.
+                // else {
+                //     mesh.material = Resources.Load<Material>("Liquids/SennaPowder");
+                //     Debug.Log("Loaded Senna");
+                // }
+                break;
+                
+
             case LiquidType.None:
                 if (HasRealLiquidMaterial) {
                     mesh.material.SetColor("_SideColor", new Color(0.6818f, 0.8617f, 0.8867f, 0.3882f));
