@@ -179,6 +179,42 @@ public class LiquidObject : MonoBehaviour {
                 }
                 break;
 
+            case LiquidType.Senna01: // Dark Green
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.0f, 0.4f, 0.0f, 1)); // Dark Green
+                    mesh.material.SetColor("_TopColor", new Color(0.0f, 0.5f, 0.0f, 1)); // Slightly brighter top
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna01");
+                }
+            break;
+
+            case LiquidType.Senna01m: // Dark Green
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.0f, 0.4f, 0.0f, 1)); // Dark Green
+                    mesh.material.SetColor("_TopColor", new Color(0.0f, 0.5f, 0.0f, 1)); // Slightly brighter top
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna01m");
+                }
+            break;
+
+            case LiquidType.Senna001: // Bright Red
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.0f, 0.0f, 1)); // Bright Red
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.2f, 0.2f, 1)); // Slightly lighter red
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001");
+                }
+                break;
+            
+            case LiquidType.Senna001m: // Bright Red
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.0f, 0.0f, 1)); // Bright Red
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.2f, 0.2f, 1)); // Slightly lighter red
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001m");
+                }
+                break;
+
             case LiquidType.SennaPowder:
                 if (HasRealLiquidMaterial) {
                     mesh.material.SetColor("_SideColor", new Color(0.679778f, 0.9849057f, 0, 0.7764706f));

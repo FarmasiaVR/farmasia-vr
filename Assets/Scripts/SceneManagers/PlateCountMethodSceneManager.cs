@@ -12,6 +12,34 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
+    public static Dictionary<Tuple<LiquidType, LiquidType>, LiquidType> recipes = new()
+    {
+        { Tuple.Create(LiquidType.Senna1,LiquidType.PhosphateBuffer), LiquidType.Senna01m },
+        { Tuple.Create(LiquidType.Senna01m,LiquidType.PhosphateBuffer), LiquidType.Senna01m },                
+        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna01), LiquidType.Senna001m },
+        { Tuple.Create(LiquidType.Senna001m, LiquidType.Senna01), LiquidType.Senna001m },
+        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna001), LiquidType.Senna0001m },
+        { Tuple.Create(LiquidType.Senna0001m, LiquidType.Senna001), LiquidType.Senna0001m }        
+    };
+
+
+    public static Dictionary<LiquidType, Tuple<int, int>> minMaxMixingValue = new()
+    {
+        { LiquidType.Senna1, Tuple.Create(500, 5000) },
+        { LiquidType.PhosphateBuffer, Tuple.Create(4500, 5000) },
+        { LiquidType.Senna01m, Tuple.Create(500, 5000) },
+        { LiquidType.Senna001m, Tuple.Create(4500, 5000) },
+        { LiquidType.Senna0001m, Tuple.Create(4500, 5000) }
+    };
+
+    public static Dictionary<LiquidType, LiquidType> mixingTable = new()
+    {
+        { LiquidType.Senna01m, LiquidType.Senna01 },
+        { LiquidType.Senna001m, LiquidType.Senna001 },
+        { LiquidType.Senna0001m, LiquidType.Senna0001 },
+     
+    };
+
 
     private void Awake()
     {
@@ -84,6 +112,46 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    public bool Dilution(LiquidContainer container1, LiquidContainer container2){        
+        Debug.Log("Trying to mix: " + container1.LiquidType + " with " + container2.LiquidType);
+
+        var key = Tuple.Create(container2.LiquidType,container1.LiquidType);
+
+        if (recipes.TryGetValue(key, out LiquidType newResult))
+        {   
+            
+            if (minMaxMixingValue.TryGetValue(container2.LiquidType, out var tupleValue)){
+                var (min, max) = tupleValue;
+                if (min <= container2.amount && container2.amount <= max){
+                    if(container2.LiquidType!=newResult) container2.mixingValue = 0;
+                    container2.LiquidType = newResult; // Apply the new result
+                    
+                    Debug.Log("New LiquidType: " + newResult);
+                    return true;
+                }
+                else{
+                    Debug.Log("Mixing failed: No matching recipe found.");
+                    return false;
+                }
+            }
+            else{
+                Debug.Log("Mixing failed: Ammounts faile.");
+                return false;
+            }
+
+        }
+        else
+        {          
+            Debug.Log("Mixing failed: No matching recipe found.");
+            return false;
+        }
+    }
+
+    public void MixingComplete(LiquidContainer container){
+        
+        if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 5000) container.LiquidType = newResult;
+    }
+    
     public void GeneralMistake(string message, int penalty)
     {
         taskManager.GenerateGeneralMistake(message, penalty);

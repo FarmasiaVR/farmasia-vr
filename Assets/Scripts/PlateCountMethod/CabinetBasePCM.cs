@@ -38,7 +38,7 @@ public class CabinetBasePCM : MonoBehaviour {
         
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
             sceneManager.GeneralMistake("Dirty!",1);            
-            Debug.Log("Dirty: " + other.gameObject.name);
+            //Debug.Log("Dirty: " + other.gameObject.name);
             return;
         }
 
@@ -46,12 +46,12 @@ public class CabinetBasePCM : MonoBehaviour {
             return;
         }
 
-        Debug.Log("Collide: " + other.gameObject.name);
+        
 
         if (requiredItems.Contains(other.gameObject)){            
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = true;  // Mark the item as found
-            Debug.Log($"{other.gameObject.name}, index {index} found in index.");
+            //Debug.Log($"{other.gameObject.name}, index {index} found in index.");
             allReady = true;
         }
         /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
