@@ -26,7 +26,7 @@ public class WritingPen : GeneralItem {
         if (writable == null) {
             return;
         }
-        Debug.Log("Detected writable!");
+
         if (ignoreGrabCheck != true) {
             if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
                 return;
@@ -36,8 +36,6 @@ public class WritingPen : GeneralItem {
         if (isWriting) { // must submit or cancel before selecting another item
             return;
         }
-        
-        Debug.Log("called pen Write function");
         
         if (writeOnTouch)
         {
