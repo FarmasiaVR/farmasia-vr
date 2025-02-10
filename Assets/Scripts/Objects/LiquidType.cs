@@ -12,5 +12,6 @@ public enum LiquidType {
     Medicine,
     MeatSoup,
     Virkon,
-    PhosphateBuffer
+    PhosphateBuffer,
+    SennaPowder
 }
