@@ -12,7 +12,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
-    private Dictionary<string, LiquidContainer> dilutionTypes = new Dictionary<string, LiquidContainer>();
+    private Dictionary<WritingType, LiquidContainer> dilutionTypesTubes = new Dictionary<WritingType, LiquidContainer>();
+    private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
+        {
+            WritingType.OneToTen,
+            WritingType.OneToHundred,
+            WritingType.OneToThousand,
+            WritingType.Control
+        };
 
     private void Awake()
     {
@@ -21,10 +28,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         testTubes.Add("dilution", new List<LiquidContainer>());
         testTubes.Add("control", new List<LiquidContainer>());
 
-        dilutionTypes.Add("one-tenth", null);
-        dilutionTypes.Add("one-hundredth", null);
-        dilutionTypes.Add("one-thousandth", null);
-        dilutionTypes.Add("control", null);
+        foreach (WritingType type in dilutionTypes)
+        {
+            dilutionTypesTubes[type] = null;
+        }
     }
 
     public void CompleteTask(string taskName)
@@ -79,6 +86,48 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             CompleteTask("FillTubes");
             Debug.Log("All the tubes are filled");
         }
+    }
+
+    public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
+    {
+        WritingType? dilutionType = SelectDilutionTypeFromWritings(selectedOptions);
+        Debug.Log("Dilution Type: " + dilutionType);
+        if (dilutionType == null) return;
+        Debug.Log(foundItem.GetType().Name);
+        switch(foundItem.GetType().Name)
+        {
+            case "Bottle":
+            {
+                LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
+                Debug.Log("Writing to a tube: " + dilutionType.Value + " value: " + container);
+                dilutionTypesTubes[dilutionType.Value] = container;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+
+        CheckWritingsIntegrity();
+    }
+
+    // We need to update dictionary only if player wrote dilution types
+    private WritingType? SelectDilutionTypeFromWritings(Dictionary<WritingType, string> dictionary)
+    {
+        return dictionary.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
+    }
+
+    private void CheckWritingsIntegrity()
+    {
+        foreach (KeyValuePair<WritingType, LiquidContainer> entry in dilutionTypesTubes)
+        {
+            Debug.Log(entry.Key + ": " + entry.Value);
+            if (entry.Value == null)
+                return;
+        }
+        Debug.Log("Yay, you wrote on all tubes");
+        CompleteTask("WriteOnTubes");
     }
 
     public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
