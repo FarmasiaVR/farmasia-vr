@@ -10,13 +10,11 @@ public class CabinetBase : MonoBehaviour {
 
     private TriggerInteractableContainer itemContainer;
     private bool itemPlaced;
-    private bool sterileDrapefolded;
     private bool syringeCapBagEntered;
     public List<string> itemsNotInCabinet = new List<string>();
 
     public enum CabinetType { PassThrough, Laminar }
     public CabinetType type;
-    public Animator sterileDrape;
     public GameObject childCollider;
     public GameObject syringeCapFactory;
     public GameObject syringeCapFactoryPos;
@@ -47,9 +45,6 @@ public class CabinetBase : MonoBehaviour {
                     SyringeCapBagEnteredLaminarCabinet(item);
                 }
 
-                if (Time.timeSinceLevelLoad > 1.0f) {
-                    UnfoldSterileDrape();
-                }
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
@@ -112,14 +107,6 @@ public class CabinetBase : MonoBehaviour {
 
         syringeCapBag.transform.SetPositionAndRotation(targetPos, targetRot);
         syringeCapFactory.SetActive(true);
-    }
-
-    private void UnfoldSterileDrape() {
-        if (sterileDrapefolded) {
-            return;
-        }
-        sterileDrapefolded = true;
-        sterileDrape.SetBool("ItemPlaced", true);
     }
 
     /// <summary>
