@@ -325,6 +325,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -362,6 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
 --- !u!1 &1239380872078573119
 GameObject:
@@ -373,7 +379,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6384302018293936828}
   - component: {fileID: 7233756709620096455}
-  - component: {fileID: 8644823873292864967}
   - component: {fileID: 1253474836851297699}
   m_Layer: 10
   m_Name: Writing
@@ -443,14 +448,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &8644823873292864967
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239380872078573119}
-  m_CullTransparentMesh: 0
 --- !u!114 &1253474836851297699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +645,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1995438582964224437}
   - component: {fileID: 8170275814553797679}
-  - component: {fileID: 2057120916075203860}
   - component: {fileID: 2817683018591995069}
   m_Layer: 10
   m_Name: Writing
@@ -718,14 +714,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &2057120916075203860
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3344442041281398992}
-  m_CullTransparentMesh: 0
 --- !u!114 &2817683018591995069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,8 +947,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3479349331998017155}
   - component: {fileID: 8023947431826631741}
-  - component: {fileID: 6259730703012161790}
   - component: {fileID: 7864394256500200384}
+  - component: {fileID: 3158645352764642423}
   m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1029,14 +1017,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &6259730703012161790
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4329372102281642988}
-  m_CullTransparentMesh: 0
 --- !u!114 &7864394256500200384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1057,7 +1037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sabourad-dekstrosi
+  m_text: Sabouraud-dekstroosi
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
   m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
@@ -1130,6 +1110,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8023947431826631741}
   m_maskType: 0
+--- !u!114 &3158645352764642423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4329372102281642988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:8d37576064a99b049951f94cf398cc38
+    m_TableEntryReference:
+      m_KeyId: 90111529996259328
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7864394256500200384}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5461164375519998374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,8 +1376,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5851707637469969965}
   - component: {fileID: 1019671084603364499}
-  - component: {fileID: 4009143988858589264}
   - component: {fileID: 891607411267955566}
+  - component: {fileID: 1868499211475190162}
   m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1426,14 +1446,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &4009143988858589264
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6731003627165563714}
-  m_CullTransparentMesh: 0
 --- !u!114 &891607411267955566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,7 +1466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sabourad-dekstrosi
+  m_text: Sabouraud-dekstroosi
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
   m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
@@ -1527,6 +1539,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1019671084603364499}
   m_maskType: 0
+--- !u!114 &1868499211475190162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731003627165563714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:8d37576064a99b049951f94cf398cc38
+    m_TableEntryReference:
+      m_KeyId: 90111529996259328
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 891607411267955566}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7084963485454157970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,6 +1971,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -1956,6 +2012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
 --- !u!1 &8045493072724254319
 GameObject:
@@ -2339,6 +2397,10 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -2527,6 +2589,11 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
+  m_HoverSocketSnapping: 0
+  m_SocketSnappingRadius: 0.1
+  m_SocketScaleMode: 0
+  m_FixedScale: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!114 &8868315929300870174
 MonoBehaviour:
   m_ObjectHideFlags: 0
