@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class WritingPen : GeneralItem {
 
@@ -16,6 +17,8 @@ public class WritingPen : GeneralItem {
         objectType = ObjectType.Pen;
         Type.On(InteractableType.Interactable);
     }
+
+    public UnityEvent<GeneralItem, Dictionary<WritingType, string>> onSubmitWriting;
 
     protected override void OnCollisionEnter(Collision other) {
         base.OnCollisionEnter(other);
@@ -140,6 +143,8 @@ public class WritingPen : GeneralItem {
         if (foundObject.gameObject.GetComponent<Writable>().writingsInOrder.Count > 0)
         {
             Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+            Dictionary<WritingType, string> writtenLines = writable.WrittenLines;
+            onSubmitWriting?.Invoke(foundObject.GetComponent<GeneralItem>(), writtenLines);
         }   
     }
 }
