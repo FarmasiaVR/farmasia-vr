@@ -12,13 +12,19 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
+    private Dictionary<string, LiquidContainer> dilutionTypes = new Dictionary<string, LiquidContainer>();
 
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
-        // Prepare dictionary
+        // Prepare dictionaries
         testTubes.Add("dilution", new List<LiquidContainer>());
         testTubes.Add("control", new List<LiquidContainer>());
+
+        dilutionTypes.Add("one-tenth", null);
+        dilutionTypes.Add("one-hundredth", null);
+        dilutionTypes.Add("one-thousandth", null);
+        dilutionTypes.Add("control", null);
     }
 
     public void CompleteTask(string taskName)
