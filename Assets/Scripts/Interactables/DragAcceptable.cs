@@ -85,7 +85,7 @@ public class DragAcceptable : Interactable {
             CheckActivate();
         } else {
             UpdatePosition();
-            Brake();
+            if (!Rigidbody.isKinematic) Brake();
         }
 
         if (lookAtPlayer) {
