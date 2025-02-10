@@ -111,9 +111,12 @@ public class DragAcceptable : Interactable {
 
         Rigidbody.AddForce(direction * defaultForce * mass * Time.deltaTime);
     }
+
     private void Brake() {
-        Rigidbody.velocity = Rigidbody.velocity - Rigidbody.velocity * Time.deltaTime * brakeAmount;
+        Vector3 direction = Rigidbody.velocity - Rigidbody.velocity * Time.deltaTime * brakeAmount;
+        Rigidbody.Move(direction, Quaternion.identity);
     }
+
     private void CheckActivate() {
         if (Distance > activateDistance) {
             Activate();
