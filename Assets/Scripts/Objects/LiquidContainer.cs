@@ -39,6 +39,9 @@ public class LiquidContainer : MonoBehaviour {
     [Tooltip("Called when the container is filled. Passes the amount of liquid and the type of liquid in the container as the parameter.")]
     public UnityEvent<LiquidContainer> onLiquidAmountChanged;
 
+    [Tooltip("Called when container transfers liquid to another container. Returns <target liquid container, source liquid container>")]
+    public UnityEvent<LiquidContainer, LiquidContainer> onLiquidExchange;
+
     [Tooltip("Called when a filter half is dropped into the liquid container. Passes the filter half GeneralItem as a parameter")]
     public UnityEvent<GeneralItem> onFilterHalfEnter;
 
@@ -108,6 +111,7 @@ public class LiquidContainer : MonoBehaviour {
         if (!allowLiquidTransfer) return;
         //Debug.Log("Liguid container starts taking medicine");
         target.onLiquidTransfer.Invoke(target);
+        target.onLiquidExchange.Invoke(target, this);
         //This is to check whether a mix would happen with the transfer
         if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
         {
