@@ -143,6 +143,7 @@ public class WritingPen : GeneralItem {
         if (foundObject.gameObject.GetComponent<Writable>().writingsInOrder.Count > 0)
         {
             Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+            // Code below is needed for PCM scene
             Dictionary<WritingType, string> writtenLines = writable.WrittenLines;
             onSubmitWriting?.Invoke(foundObject.GetComponent<GeneralItem>(), writtenLines);
         }   
