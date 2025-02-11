@@ -1,6 +1,8 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Text;
+using System.Collections;
 
 public class LiquidDisplay : Display {
 
@@ -11,6 +13,10 @@ public class LiquidDisplay : Display {
     private StringBuilder stringBuilder = new StringBuilder();
 
     private const string VOLUME = "ml";
+
+    private Color originalColor;
+
+    public float resetDelay = 1.5f;
 
     public override void SetFollowedObject(GameObject follow) {
         base.SetFollowedObject(follow);
@@ -54,6 +60,7 @@ public class LiquidDisplay : Display {
         base.Start();
         stringBuilder.EnsureCapacity(16);
         textField = base.textObject.GetComponent<TextMeshPro>();
+        originalColor = textField.color;
     }
 
     new void Update() {
@@ -75,5 +82,17 @@ public class LiquidDisplay : Display {
         stringBuilder.Append(VOLUME);
 
         textField.SetText(stringBuilder.ToString());
+    }
+
+    // Change the color of the text if pipette container is full (Used as a warning to not break automatic pipette/pipettor)
+    public void ExceededCapacity() {
+        Debug.Log("\nEXCEEDED CAPACITY DISPLAY\n");
+        textField.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        StartCoroutine(ResetColorAfterDelay());
+    }
+
+    private IEnumerator ResetColorAfterDelay() { 
+        yield return new WaitForSeconds(resetDelay);
+        textField.color = originalColor;
     }
 }
