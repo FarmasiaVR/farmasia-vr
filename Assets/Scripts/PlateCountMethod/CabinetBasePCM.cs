@@ -9,10 +9,8 @@ using UnityEngine.Localization.SmartFormat.PersistentVariables;
 public class CabinetBasePCM : MonoBehaviour {
 
     public PlateCountMethodSceneManager sceneManager;
-    private bool sterileDrapefolded;
     private bool questCompleted = false;
 
-    public Animator sterileDrape;
     public List<GameObject> requiredItems;  
     private List<bool> itemsFound;
     private bool allReady = false;
@@ -69,8 +67,6 @@ public class CabinetBasePCM : MonoBehaviour {
             sceneManager.CompleteTask("toolsToCabinet");
             questCompleted = true;
         }        
-        
-        UnfoldSterileDrape();
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,14 +89,4 @@ public class CabinetBasePCM : MonoBehaviour {
             itemsFound[index] = false; 
         }
     }
-
-    private void UnfoldSterileDrape() {
-        if (sterileDrapefolded) {
-            return;
-        }
-        sterileDrapefolded = true;
-        sterileDrape.SetBool("ItemPlaced", true);
-    }
-
-
 }
