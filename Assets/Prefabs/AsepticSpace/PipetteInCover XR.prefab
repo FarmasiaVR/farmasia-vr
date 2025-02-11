@@ -2028,6 +2028,21 @@ MonoBehaviour:
   handle: {fileID: 0}
   hasBeenInBottle: 0
   display: {fileID: 4034994589066640267}
+  onCapacityExceeded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8148163837382129376}
+        m_TargetAssemblyTypeName: LiquidDisplay, GameAssembly
+        m_MethodName: ExceededCapacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4034994589066640267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2362,6 +2377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textObject: {fileID: 2624843344945479512}
+  resetDelay: 1.5
 --- !u!1 &6701901896549362909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,6 +3031,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onLiquidAmountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onLiquidExchange:
     m_PersistentCalls:
       m_Calls: []
   onFilterHalfEnter:

@@ -9,7 +9,7 @@ public class BigPipetteXR : MonoBehaviour
     public PipetteContainer pipetteContainerXR;
 
     [Tooltip("This is called when pipette capacity is exceeded")]
-    public UnityEvent<string message, int pointsDeducted> onCapacityExceeded;
+    public UnityEvent<string, int> onCapacityExceeded;
 
     public void TakeMedicine()
     {
@@ -37,7 +37,8 @@ public class BigPipetteXR : MonoBehaviour
 
     public void PipetteCapacityExceeded()
     {
-        Debug.Log("Can't take more medicine");
+        // Debug.Log("Can't take more medicine");
         onCapacityExceeded?.Invoke("Rikoit pipettorin", 1);
+        pipetteContainerXR.ExceededCapacity();
     }
 }

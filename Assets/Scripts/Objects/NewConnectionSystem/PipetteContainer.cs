@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PipetteContainer : AttachmentItem
 {
@@ -24,6 +25,9 @@ public class PipetteContainer : AttachmentItem
     [SerializeField]
     private ItemDisplay display;
     public ItemDisplay Display { get { return display; } set { display = value; } }
+
+    [Tooltip("This is called when pipette capacity is exceeded")]
+    public UnityEvent onCapacityExceeded;
 
     protected override void Start() {
         base.Start();
@@ -71,5 +75,9 @@ public class PipetteContainer : AttachmentItem
 
     public int GetPipetteCapacity() {
         return Container.GetReceiveCapacity();
+    }
+
+    public void ExceededCapacity() { 
+        onCapacityExceeded?.Invoke();
     }
 }
