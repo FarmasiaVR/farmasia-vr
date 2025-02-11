@@ -27,7 +27,7 @@ public class HintManager : MonoBehaviour
         foreach (HintBoxNew taskHint in hintDescriptions)
         {
             taskHint.HideText();
-            taskHint.UpdateText(task.hint);
+            taskHint.UpdateText(task);
         }
     }
 

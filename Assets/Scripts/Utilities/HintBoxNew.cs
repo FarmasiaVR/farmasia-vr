@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using FarmasiaVR.New;
-
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class HintBoxNew : MonoBehaviour
 {
@@ -96,9 +97,12 @@ public class HintBoxNew : MonoBehaviour
     public void UpdateText(Task task)
     {
         // Hintbox with translations (does not update perfectly yet):
-        string hintTextLocal = task.key + "Hint";
-        string translatedText = Translator.Translate("ControlsTutorial", hintTextLocal);
-        hintDesc.text = translatedText;
+        string hintKey = task.key + "Hint";
+        var localizedString = new LocalizedString("PlateCountMethod", hintKey);
+    
+        localizedString.StringChanged += (localizedText) => {
+            hintDesc.text = localizedText;
+        };
     }
 
     /// <summary>
