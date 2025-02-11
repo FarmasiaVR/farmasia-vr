@@ -160,6 +160,11 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
+  m_HoverSocketSnapping: 0
+  m_SocketSnappingRadius: 0.1
+  m_SocketScaleMode: 0
+  m_FixedScale: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!114 &3773675749538000310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5182adbbc5b45284f9981fa2876b0af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  socketsOwnerInteractable: {fileID: 1262115876945489284}
+  socketsOwnerInteractable: {fileID: 7602346454763027133}
 --- !u!114 &6320588803118101517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +203,7 @@ GameObject:
   - component: {fileID: 108185424503917176}
   - component: {fileID: 996911824603334648}
   - component: {fileID: 3384521783417432734}
-  - component: {fileID: 1262115876945489284}
+  - component: {fileID: 7602346454763027133}
   - component: {fileID: 4411855520590670133}
   - component: {fileID: 8174408594003345258}
   - component: {fileID: 1966259929}
@@ -227,6 +232,7 @@ Transform:
   - {fileID: 5864352759677931897}
   - {fileID: 6430713745223951737}
   - {fileID: 2697327059528827905}
+  - {fileID: 2076369456514642544}
   - {fileID: 7958970554663948995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -237,7 +243,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2663083187711066165}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5842e1f46187abd4389e2dc723eddd8c, type: 3}
   m_Name: 
@@ -304,7 +310,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1262115876945489284
+--- !u!114 &7602346454763027133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -313,7 +319,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2663083187711066165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 58a0983651be8604b91693792d7778df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -322,7 +328,7 @@ MonoBehaviour:
   - {fileID: 996911824603334648}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -456,7 +462,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 7958970554663948995}
+  m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -471,12 +477,16 @@ MonoBehaviour:
   m_AngularVelocityScale: 1
   m_TrackPosition: 1
   m_SmoothPosition: 0
-  m_SmoothPositionAmount: 5
-  m_TightenPosition: 0.5
+  m_SmoothPositionAmount: 8
+  m_TightenPosition: 0.1
   m_TrackRotation: 1
   m_SmoothRotation: 0
-  m_SmoothRotationAmount: 5
-  m_TightenRotation: 0.5
+  m_SmoothRotationAmount: 8
+  m_TightenRotation: 0.1
+  m_TrackScale: 1
+  m_SmoothScale: 0
+  m_SmoothScaleAmount: 8
+  m_TightenScale: 0.1
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
@@ -502,6 +512,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  leftAttach: {fileID: 2076369456514642544}
+  rightAttach: {fileID: 7958970554663948995}
 --- !u!65 &4411855520590670133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -615,7 +627,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da465fd16eb37a47a354d80ef2e469c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
+--- !u!1 &3562260705599089376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076369456514642544}
+  m_Layer: 10
+  m_Name: attachLeftHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2076369456514642544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562260705599089376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.094, y: -0.0484, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3440464930160319119}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &5206687702962591479
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7958970554663948995}
   m_Layer: 10
-  m_Name: attachPoint
+  m_Name: attachRightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
