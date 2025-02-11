@@ -90,6 +90,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask("WashHands");
     }
 
+    public void GeneralMistake(string message, int penalty)
+    {
+        taskManager.GenerateGeneralMistake(message, penalty);
+    }
+
     public void CheckTubesFill(LiquidContainer container)
     {
         switch(container.Amount)
@@ -126,7 +131,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 break;
         }
 
-        if (TubesAreFilled())
+        // Check if tubes are filled
+        if (testTubes["dilution"].Count == 3 && testTubes["control"].Count == 1)
         {
             CompleteTask("FillTubes");
             Debug.Log("All the tubes are filled");
@@ -135,7 +141,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
-        WritingType? dilutionType = SelectDilutionTypeFromWritings(selectedOptions);
+        WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
         Debug.Log("Dilution Type: " + dilutionType);
         if (dilutionType == null) return;
         Debug.Log(foundItem.GetType().Name);
@@ -155,12 +161,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
 
         CheckWritingsIntegrity();
-    }
-
-    // We need to update dictionary only if player wrote dilution types
-    private WritingType? SelectDilutionTypeFromWritings(Dictionary<WritingType, string> dictionary)
-    {
-        return dictionary.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
     }
 
     private void CheckWritingsIntegrity()
