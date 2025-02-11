@@ -86,7 +86,7 @@ public class LiquidDisplay : Display {
 
     // Change the color of the text if pipette container is full (Used as a warning to not break automatic pipette/pipettor)
     public void ExceededCapacity() {
-        Debug.Log("\nEXCEEDED CAPACITY DISPLAY\n");
+        // Debug.Log("\nEXCEEDED CAPACITY DISPLAY\n");
         textField.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         StartCoroutine(ResetColorAfterDelay());
     }
