@@ -3989,7 +3989,19 @@ MonoBehaviour:
       m_Calls: []
   onMistake:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 593771282}
+        m_TargetAssemblyTypeName: PopupManager, GameAssembly
+        m_MethodName: TaskErrorPopup
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &593771284
 Transform:
   m_ObjectHideFlags: 0
@@ -8811,6 +8823,81 @@ PrefabInstance:
       propertyPath: m_Name
       value: attachRight
       objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 593771285}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1837448808}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GeneralMistake
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ExceededCapacity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlTutorialManager, GameAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: LiquidDisplay, GameAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: "(-390\u20AC)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: "(-390\u20AC)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235524203867040853, guid: 28572a47bbc91a14aa464a4ca507b8f3,
+        type: 3}
+      propertyPath: onCapacityExceeded.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1262115876945489284, guid: 28572a47bbc91a14aa464a4ca507b8f3, type: 3}
     m_RemovedGameObjects: []
@@ -12259,6 +12346,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1837448808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8148163837382129376, guid: d22622a8d6b188a4b92893a4e05d6e01,
+    type: 3}
+  m_PrefabInstance: {fileID: 1986624870}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41da4bc81a5cbf46952aeb697c2d223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1848538318
 PrefabInstance:
   m_ObjectHideFlags: 0
