@@ -12,6 +12,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
+
     public static Dictionary<Tuple<LiquidType, LiquidType>, LiquidType> recipes = new()
     {
         { Tuple.Create(LiquidType.SennaPowder,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
@@ -27,7 +28,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public static Dictionary<LiquidType, Tuple<int, int>> minMaxMixingValue = new()
     {
-        { LiquidType.Senna1, Tuple.Create(500, 5000) },
+        { LiquidType.SennaPowder, Tuple.Create(1000, 1000) },
+        { LiquidType.Senna1m, Tuple.Create(500, 6000) },
+        { LiquidType.Senna1, Tuple.Create(500, 6000) },
         { LiquidType.PhosphateBuffer, Tuple.Create(4500, 5000) },
         { LiquidType.Senna01m, Tuple.Create(500, 5000) },
         { LiquidType.Senna001m, Tuple.Create(4500, 5000) },
