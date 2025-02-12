@@ -129,19 +129,20 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
-    public bool Dilution(LiquidContainer container1, LiquidContainer container2){        
-        Debug.Log("Trying to mix: " + container1.LiquidType + " with " + container2.LiquidType);
+    public bool Dilution(LiquidContainer source, LiquidContainer target){        
+        Debug.Log("Trying to mix: " + source.LiquidType + " with " + target.LiquidType);
 
-        var key = Tuple.Create(container2.LiquidType,container1.LiquidType);
+        var key = Tuple.Create(target.LiquidType, source.LiquidType);
 
         if (recipes.TryGetValue(key, out LiquidType newResult))
         {   
             
-            if (minMaxMixingValue.TryGetValue(container2.LiquidType, out var tupleValue)){
+            if (minMaxMixingValue.TryGetValue(target.LiquidType, out var tupleValue)){
                 var (min, max) = tupleValue;
-                if (min <= container2.amount && container2.amount <= max){
-                    if(container2.LiquidType!=newResult) container2.mixingValue = 0;
-                    container2.LiquidType = newResult; // Apply the new result
+                if (min <= target.amount && target.amount <= max){
+                    if(target.LiquidType!= newResult) target.mixingValue = 0;
+                    target.LiquidType = newResult;
+                     // Apply the new result
                     
                     Debug.Log("New LiquidType: " + newResult);
                     return true;
