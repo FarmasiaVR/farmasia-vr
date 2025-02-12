@@ -153,13 +153,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 }
             }
             else{
-                Debug.Log("Mixing failed: Ammounts faile.");
+                Debug.Log("Mixing failed: Amounts are incorrect.");
                 return false;
             }
 
-        }
-        else
-        {          
+        } else {          
             Debug.Log("Mixing failed: No matching recipe found.");
             return false;
         }
