@@ -17,6 +17,7 @@ public class LiquidDisplay : Display {
     private Color originalColor;
 
     public float resetDelay = 1.5f;
+    public float shakeIntensity = 0.005f;
 
     public override void SetFollowedObject(GameObject follow) {
         base.SetFollowedObject(follow);
@@ -84,15 +85,33 @@ public class LiquidDisplay : Display {
         textField.SetText(stringBuilder.ToString());
     }
 
-    // Change the color of the text if pipette container is full (Used as a warning to not break automatic pipette/pipettor)
+    // Change the color of the text and shake if pipette container is full (Used as a warning to not break automatic pipette/pipettor)
     public void ExceededCapacity() {
         // Debug.Log("\nEXCEEDED CAPACITY DISPLAY\n");
         textField.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         StartCoroutine(ResetColorAfterDelay());
+        StartCoroutine(TextJitter());
     }
 
     private IEnumerator ResetColorAfterDelay() { 
         yield return new WaitForSeconds(resetDelay);
         textField.color = originalColor;
+    }
+
+    private IEnumerator TextJitter() {
+        Vector3 originalPosition = textField.transform.localPosition;
+        float duration = 0.5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration) {
+            // Apply a small offset to the text position
+            textField.transform.localPosition = originalPosition + (Vector3)(Random.insideUnitCircle * shakeIntensity);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Reset position
+        textField.transform.localPosition = originalPosition;
     }
 }
