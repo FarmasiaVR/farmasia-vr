@@ -164,8 +164,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     }
 
     public void MixingComplete(LiquidContainer container){
+        if (container.LiquidType == LiquidType.Senna1m)
+        {
+            if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 6000)
+            container.LiquidType = newResult;
+        } else {
+            if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 5000)
+            container.LiquidType = newResult;
+        }
         
-        if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 5000) container.LiquidType = newResult;
     }
     
     public void GeneralMistake(string message, int penalty)
