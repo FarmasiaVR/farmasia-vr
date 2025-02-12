@@ -12,13 +12,26 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
+    private Dictionary<WritingType, LiquidContainer> dilutionTypesTubes = new Dictionary<WritingType, LiquidContainer>();
+    private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
+        {
+            WritingType.OneToTen,
+            WritingType.OneToHundred,
+            WritingType.OneToThousand,
+            WritingType.Control
+        };
 
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
-        // Prepare dictionary
+        // Prepare dictionaries
         testTubes.Add("dilution", new List<LiquidContainer>());
         testTubes.Add("control", new List<LiquidContainer>());
+
+        foreach (WritingType type in dilutionTypes)
+        {
+            dilutionTypesTubes[type] = null;
+        }
     }
 
     public void CompleteTask(string taskName)
@@ -30,6 +43,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CleanHands()
     {
         CompleteTask("WashHands");
+    }
+
+    public void GeneralMistake(string message, int penalty)
+    {
+        taskManager.GenerateGeneralMistake(message, penalty);
     }
 
     public void CheckTubesFill(LiquidContainer container)
@@ -68,11 +86,48 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 break;
         }
 
-        if (TubesAreFilled())
+        // Check if tubes are filled
+        if (testTubes["dilution"].Count == 3 && testTubes["control"].Count == 1)
         {
             CompleteTask("FillTubes");
             Debug.Log("All the tubes are filled");
         }
+    }
+
+    public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
+    {
+        WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
+        Debug.Log("Dilution Type: " + dilutionType);
+        if (dilutionType == null) return;
+        Debug.Log(foundItem.GetType().Name);
+        switch(foundItem.GetType().Name)
+        {
+            case "Bottle":
+            {
+                LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
+                Debug.Log("Writing to a tube: " + dilutionType.Value + " value: " + container);
+                dilutionTypesTubes[dilutionType.Value] = container;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+
+        CheckWritingsIntegrity();
+    }
+
+    private void CheckWritingsIntegrity()
+    {
+        foreach (KeyValuePair<WritingType, LiquidContainer> entry in dilutionTypesTubes)
+        {
+            Debug.Log(entry.Key + ": " + entry.Value);
+            if (entry.Value == null)
+                return;
+        }
+        Debug.Log("Yay, you wrote on all tubes");
+        CompleteTask("WriteOnTubes");
     }
 
     public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
@@ -82,16 +137,5 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             Debug.Log($"target: {target.LiquidType}, source:{source.LiquidType}");
             GeneralMistake("DON'T PUT SENNA IN THE CONTROL TUBE", 1);
         }
-    }
-
-    public void GeneralMistake(string message, int penalty)
-    {
-        taskManager.GenerateGeneralMistake(message, penalty);
-    }
-
-    private bool TubesAreFilled()
-    {
-        bool filled = testTubes["dilution"].Count == 3 && testTubes["control"].Count == 1;
-        return filled;
     }
 }
