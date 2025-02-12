@@ -120,9 +120,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
-    public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
+    public void CheckIfSennaInControlBottle(LiquidContainer source, LiquidContainer target)
     {
-        if (testTubes["control"].Contains(target) && source.LiquidType == LiquidType.SennaPowder && target.LiquidType==LiquidType.PhosphateBuffer)
+        if (testTubes["control"].Contains(target) && SennaTypes.Contains(source.LiquidType) && target.LiquidType==LiquidType.PhosphateBuffer)
         {
             Debug.Log($"target: {target.LiquidType}, source:{source.LiquidType}");
             GeneralMistake("DON'T PUT SENNA IN THE CONTROL TUBE", 1);
