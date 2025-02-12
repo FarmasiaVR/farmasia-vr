@@ -168,7 +168,7 @@ public class LiquidContainer : MonoBehaviour {
             {
                 Debug.LogError("sceneManager is null! Please assign it.");
             }            
-            //onLiquidMixAttempt?.Invoke(this, target);
+            target.onLiquidMixAttempt?.Invoke(this, target);
             //toTransfer = 0;
             if (toTransfer == 0) return;
         }
