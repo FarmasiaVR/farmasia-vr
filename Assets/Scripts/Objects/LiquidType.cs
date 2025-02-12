@@ -14,6 +14,7 @@ public enum LiquidType {
     Virkon,
     PhosphateBuffer,
     SennaPowder,
+    Senna1m,
     Senna1,
     Senna01m,
     Senna01,
