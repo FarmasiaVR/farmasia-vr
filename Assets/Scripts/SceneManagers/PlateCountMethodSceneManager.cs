@@ -229,15 +229,4 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
         
     }
-    
-    public void GeneralMistake(string message, int penalty)
-    {
-        taskManager.GenerateGeneralMistake(message, penalty);
-    }
-
-    private bool TubesAreFilled()
-    {
-        bool filled = testTubes["dilution"].Count == 3 && testTubes["control"].Count == 1;
-        return filled;
-    }
 }
