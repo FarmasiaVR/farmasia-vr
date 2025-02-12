@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
-    private const int sennaTubeAmount = 5000;
+
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
@@ -218,12 +218,16 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
-    public void MixingComplete(LiquidContainer container){
+    // Todo: since container.amount was meant to be private, maybe make a setter to change the amount indirectly
+    public void MixingComplete(LiquidContainer container)
+    {
         if (container.LiquidType == LiquidType.Senna1m)
         {
             if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 6000)
             container.LiquidType = newResult;
-        } else {
+            CompleteTask("MixPhosphateToSenna");
+        }
+        else {
             if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 5000)
             container.LiquidType = newResult;
         }
