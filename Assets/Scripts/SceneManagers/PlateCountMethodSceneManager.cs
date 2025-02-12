@@ -14,8 +14,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
     public static Dictionary<Tuple<LiquidType, LiquidType>, LiquidType> recipes = new()
     {
-        { Tuple.Create(LiquidType.Senna1,LiquidType.PhosphateBuffer), LiquidType.Senna01m },
-        { Tuple.Create(LiquidType.Senna01m,LiquidType.PhosphateBuffer), LiquidType.Senna01m },                
+        { Tuple.Create(LiquidType.SennaPowder,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
+        { Tuple.Create(LiquidType.Senna1m,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
+        { Tuple.Create(LiquidType.PhosphateBuffer,LiquidType.Senna1), LiquidType.Senna01m },
+        { Tuple.Create(LiquidType.Senna01m,LiquidType.Senna1), LiquidType.Senna01m },                
         { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna01), LiquidType.Senna001m },
         { Tuple.Create(LiquidType.Senna001m, LiquidType.Senna01), LiquidType.Senna001m },
         { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna001), LiquidType.Senna0001m },
