@@ -45,6 +45,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         { LiquidType.Senna0001m, LiquidType.Senna0001 }
     };
 
+    public static List<LiquidType> SennaTypes = new()
+    {
+        LiquidType.SennaPowder,
+        LiquidType.Senna1m,
+        LiquidType.Senna1,
+        LiquidType.Senna01m,
+        LiquidType.Senna01,
+        LiquidType.Senna001m,
+        LiquidType.Senna001,
+        LiquidType.Senna0001m,
+        LiquidType.Senna0001
+    };
 
     private void Awake()
     {
