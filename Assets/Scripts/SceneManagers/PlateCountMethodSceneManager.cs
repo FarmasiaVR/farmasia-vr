@@ -39,10 +39,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public static Dictionary<LiquidType, LiquidType> mixingTable = new()
     {
+        { LiquidType.Senna1m, LiquidType.Senna1 },
         { LiquidType.Senna01m, LiquidType.Senna01 },
         { LiquidType.Senna001m, LiquidType.Senna001 },
-        { LiquidType.Senna0001m, LiquidType.Senna0001 },
-     
+        { LiquidType.Senna0001m, LiquidType.Senna0001 }
     };
 
 
