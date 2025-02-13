@@ -51,20 +51,20 @@ public class LiquidContainer : MonoBehaviour {
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
-    //private void Update() {
-        //float deltaY = transform.position.y - lastYPosition;
+    private void Update() {
+        float deltaY = transform.position.y - lastYPosition;
 
-        //if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
-            //int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
-            //mixingValue+=Mathf.Abs(changeAmount)*300;
-        //}
-        //if (mixingValue > 10000 && sceneManager != null)
-        //{
-            //sceneManager.MixingComplete(this);
-            //mixingValue = 0;
-        //}
-        //lastYPosition = transform.position.y;
-    //}
+        if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
+            int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
+            mixingValue+=Mathf.Abs(changeAmount)*500;
+        }
+        if (mixingValue > 10000 && sceneManager != null)
+        {
+            sceneManager.MixingComplete(this);
+            mixingValue = 0;
+        }
+        lastYPosition = transform.position.y;
+    }
 
     public int Amount {
         get { return amount; }
