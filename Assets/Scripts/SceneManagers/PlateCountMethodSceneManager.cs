@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
+
+    public UnityEvent onMixingComplete;
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
@@ -232,6 +235,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    // Todo: since container.amount was meant to be private, maybe make a setter to change the amount indirectly
     public void MixingComplete(LiquidContainer container)
     {
         switch(container.LiquidType)
