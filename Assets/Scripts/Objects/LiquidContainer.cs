@@ -51,16 +51,20 @@ public class LiquidContainer : MonoBehaviour {
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
-    private void Update() {
-        float deltaY = transform.position.y - lastYPosition;
+    //private void Update() {
+        //float deltaY = transform.position.y - lastYPosition;
 
-        if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
-            int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
-            mixingValue+=Mathf.Abs(changeAmount)*300;
-        }
-        if (mixingValue > 10000 && sceneManager != null) sceneManager.MixingComplete(this);
-        lastYPosition = transform.position.y;
-        }
+        //if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
+            //int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
+            //mixingValue+=Mathf.Abs(changeAmount)*300;
+        //}
+        //if (mixingValue > 10000 && sceneManager != null)
+        //{
+            //sceneManager.MixingComplete(this);
+            //mixingValue = 0;
+        //}
+        //lastYPosition = transform.position.y;
+    //}
 
     public int Amount {
         get { return amount; }
@@ -180,6 +184,10 @@ public class LiquidContainer : MonoBehaviour {
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
         target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
+        if (target.mixingValue >= 10000 && sceneManager != null)
+        {
+            sceneManager.MixingComplete(target);
+        }
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
     }
