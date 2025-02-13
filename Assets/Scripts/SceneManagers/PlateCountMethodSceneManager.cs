@@ -95,6 +95,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         taskManager.GenerateGeneralMistake(message, penalty);
     }
 
+    public void TaskMistake(string message, int penalty)
+    {
+        taskManager.GenerateTaskMistake(message, penalty);
+    }
+
     public void SkipCurrentTask()
     {
         string currentTask = taskManager.GetCurrentTask().name;
@@ -103,6 +108,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CheckTubesFill(LiquidContainer container)
     {
+        if (taskManager.IsTaskCompleted("FillTubes")) { return; }
+
         switch(container.Amount)
         {
             case controlTubeAmount:
@@ -200,7 +207,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             
             if (minMaxMixingValue.TryGetValue(target.LiquidType, out var tupleValue)){
                 var (min, max) = tupleValue;
-                if (min <= target.amount && target.amount <= max){
+                if (min <= target.Amount && target.Amount <= max){
                     if(target.LiquidType!= newResult) target.mixingValue = 0;
                     target.LiquidType = newResult;
                      // Apply the new result
@@ -224,19 +231,57 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
-    // Todo: since container.amount was meant to be private, maybe make a setter to change the amount indirectly
     public void MixingComplete(LiquidContainer container)
     {
-        if (container.LiquidType == LiquidType.Senna1m)
+        switch(container.LiquidType)
         {
-            if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 6000)
-            container.LiquidType = newResult;
-            CompleteTask("MixPhosphateToSenna");
+            case LiquidType.Senna1m:
+            {
+                MixIfValid(container, 6000);
+                CompleteTask("MixPhosphateToSenna");
+                return;
+            }
+            case LiquidType.Senna01m:
+            {
+                if (MixIfValid(container, 5000) && dilutionTypesTubes[WritingType.OneToTen] != container)
+                {
+                    TaskMistake("Senna suspension must go into 1:10 tube!", 1);
+                }
+                break;
+            }
+            case LiquidType.Senna001m:
+            {
+                if (MixIfValid(container, 5000) && dilutionTypesTubes[WritingType.OneToHundred] != container)
+                {
+                    TaskMistake("1:10 suspension must go into 1:100 tube!", 1);
+                }
+                break;
+            }
+            case LiquidType.Senna0001m:
+            {
+                if (MixIfValid(container, 5000))
+                {
+                    if (dilutionTypesTubes[WritingType.OneToThousand] != container)
+                    {
+                        TaskMistake("1:100 suspension must go into 1:1000 tube!", 1);
+                    }
+                    else
+                    {
+                        CompleteTask("PerformSerialDilution");
+                    }
+                }
+                break;
+            }
         }
-        else {
-            if (mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.amount == 5000)
+    }
+
+    private bool MixIfValid(LiquidContainer container, int amount)
+    {
+        bool valid = mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.Amount == amount;
+        if (valid)
+        {
             container.LiquidType = newResult;
         }
-        
+        return valid;
     }
 }
