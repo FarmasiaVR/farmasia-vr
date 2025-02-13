@@ -251,6 +251,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (MixIfValid(container, 5000))
                 {
                     Debug.Log("Mixing complete in " + container.LiquidType);
+                    onMixingComplete.Invoke();
                 }
                 break;
             }
@@ -259,6 +260,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (MixIfValid(container, 5000))
                 {
                     Debug.Log("Mixing complete in " + container.LiquidType);
+                    onMixingComplete.Invoke();
                 }
                 break;
             }
