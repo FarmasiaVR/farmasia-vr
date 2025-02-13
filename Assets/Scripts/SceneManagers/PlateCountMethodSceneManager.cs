@@ -81,7 +81,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteTask(string taskName)
     {
-        Debug.Log($"Trying to complete task");
+        // Debug.Log($"Trying to complete task"); // Please god no this spams so much
         taskManager.CompleteTask(taskName);
     }
 
