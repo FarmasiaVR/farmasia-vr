@@ -188,17 +188,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask("WriteOnTubes");
     }
 
-    public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
+    private bool IsControlTube(LiquidContainer container)
     {
-        if (testTubes["control"].Contains(target) && SennaTypes.Contains(source.LiquidType) && target.LiquidType==LiquidType.PhosphateBuffer)
-        {
-            Debug.Log($"target: {target.LiquidType}, source:{source.LiquidType}");
-            GeneralMistake("DON'T PUT SENNA IN THE CONTROL TUBE", 1);
-        }
+        return testTubes["control"].Contains(container) || dilutionTypesTubes[WritingType.Control] == container;
     }
 
     public bool Dilution(LiquidContainer source, LiquidContainer target){        
         Debug.Log("Trying to mix: " + source.LiquidType + " with " + target.LiquidType);
+
+        if (IsControlTube(target))
+        {
+            GeneralMistake("Don't mix liquids in the control tube!", 1);
+        }
 
         var key = Tuple.Create(target.LiquidType, source.LiquidType);
 
