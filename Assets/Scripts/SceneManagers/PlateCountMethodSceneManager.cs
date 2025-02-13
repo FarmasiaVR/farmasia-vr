@@ -95,6 +95,12 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         taskManager.GenerateGeneralMistake(message, penalty);
     }
 
+    public void SkipCurrentTask()
+    {
+        string currentTask = taskManager.GetCurrentTask().name;
+        CompleteTask(currentTask);
+    }
+
     public void CheckTubesFill(LiquidContainer container)
     {
         switch(container.Amount)
