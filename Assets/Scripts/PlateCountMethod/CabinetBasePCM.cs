@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using FarmasiaVR;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 
 public class CabinetBasePCM : MonoBehaviour {
@@ -35,7 +37,10 @@ public class CabinetBasePCM : MonoBehaviour {
 
         
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
-            sceneManager.GeneralMistake("Dirty!",1);            
+            var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
+            localizedString.StringChanged += (localizedText) => {
+            sceneManager.GeneralMistake(localizedText, 1);
+            };                        
             Debug.Log("Dirty: " + other.gameObject.name);
             return;
         }
