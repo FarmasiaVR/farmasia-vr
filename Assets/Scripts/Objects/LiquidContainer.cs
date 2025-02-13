@@ -165,6 +165,7 @@ public class LiquidContainer : MonoBehaviour {
             {
                 Debug.Log("sceneManager is assigned. Calling Dilution and Test methods.");
                 // Call Dilution and Test methods
+                // Denies transfering liquid if mixing the wrong recipe
                 if(!sceneManager.Dilution(this, target)) toTransfer = 0;
                 
             }

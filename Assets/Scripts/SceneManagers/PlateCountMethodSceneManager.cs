@@ -244,17 +244,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             }
             case LiquidType.Senna01m:
             {
-                if (MixIfValid(container, 5000) && dilutionTypesTubes[WritingType.OneToTen] != container)
+                if (MixIfValid(container, 5000))
                 {
-                    TaskMistake("Senna suspension must go into 1:10 tube!", 1);
+                    Debug.Log("Mixing complete in " + container.LiquidType);
                 }
                 break;
             }
             case LiquidType.Senna001m:
             {
-                if (MixIfValid(container, 5000) && dilutionTypesTubes[WritingType.OneToHundred] != container)
+                if (MixIfValid(container, 5000))
                 {
-                    TaskMistake("1:10 suspension must go into 1:100 tube!", 1);
+                    Debug.Log("Mixing complete in " + container.LiquidType);
                 }
                 break;
             }
@@ -262,14 +262,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 if (MixIfValid(container, 5000))
                 {
-                    if (dilutionTypesTubes[WritingType.OneToThousand] != container)
-                    {
-                        TaskMistake("1:100 suspension must go into 1:1000 tube!", 1);
-                    }
-                    else
-                    {
-                        CompleteTask("PerformSerialDilution");
-                    }
+                    CompleteTask("PerformSerialDilution");
                 }
                 break;
             }
