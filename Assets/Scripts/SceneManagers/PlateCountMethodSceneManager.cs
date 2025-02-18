@@ -281,6 +281,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (valid)
         {
             container.LiquidType = newResult;
+            container.SetLiquidMaterial();
         }
         return valid;
     }
