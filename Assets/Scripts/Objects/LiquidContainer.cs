@@ -212,7 +212,7 @@ public class LiquidContainer : MonoBehaviour {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "MedicinesWereMixed"));
             }
         }
-        target.liquid.SetMaterialFromType(target.LiquidType);
+        target.SetLiquidMaterial();
     }
 
     void switchLiquidTypesAndMakeImpure(LiquidContainer target)
