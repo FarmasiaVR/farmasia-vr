@@ -242,8 +242,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             case LiquidType.Senna1m:
             {
-                MixIfValid(container, 6000);
+                if (MixIfValid(container, 6000)){
                 CompleteTask("MixPhosphateToSenna");
+                }    
                 return;
             }
             case LiquidType.Senna01m:
