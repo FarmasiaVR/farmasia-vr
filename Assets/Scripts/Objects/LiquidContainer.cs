@@ -58,11 +58,7 @@ public class LiquidContainer : MonoBehaviour {
             int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
             mixingValue+=Mathf.Abs(changeAmount)*500;
         }
-        if (mixingValue > 10000 && sceneManager != null)
-        {
-            sceneManager.MixingComplete(this);
-            mixingValue = 0;
-        }
+
         lastYPosition = transform.position.y;
     }
 
