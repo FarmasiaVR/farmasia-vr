@@ -12,21 +12,16 @@ public class LiquidContainer : MonoBehaviour {
 
     [SerializeField]
     private LiquidObject liquid;
-
     public delegate void AmountChange();
     public AmountChange OnAmountChange { get; set; }
     
     [SerializeField]
     public int amount;
-    
     public LiquidType LiquidType;
-
     public bool pcm;
     public PlateCountMethodSceneManager sceneManager;    
     public GeneralItem GeneralItem;
-
     private TriggerInteractableContainer itemContainer;
-
     public bool Impure;
 
     [Tooltip("Should the liquid container be allowed to transfer liquids to other containers")]
