@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 /// <summary>
 /// Is <c>ReceiverItem</c> for PipetteContainer and transfers controller press events to it.
@@ -38,7 +40,10 @@ public class BigPipetteXR : MonoBehaviour
     public void PipetteCapacityExceeded()
     {
         // Debug.Log("Can't take more medicine");
-        onCapacityExceeded?.Invoke("Rikoit pipettorin", 1);
+        var localizedString = new LocalizedString("PlateCountMethod", "BreakingPipette");
+        localizedString.StringChanged += (localizedText) => {
+            onCapacityExceeded?.Invoke(localizedText, 1);
+        };
         pipetteContainerXR.ExceededCapacity();
     }
 }
