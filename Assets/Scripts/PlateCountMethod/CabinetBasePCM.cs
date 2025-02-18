@@ -42,7 +42,10 @@ public class CabinetBasePCM : MonoBehaviour {
             sceneManager.GeneralMistake(localizedText, 1);
             };                        
             Debug.Log("Dirty: " + other.gameObject.name);
+            int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
+            itemsFound[index] = true;  // Mark the item as found
             return;
+            allReady = true;
         }
 
         if (questCompleted) {
