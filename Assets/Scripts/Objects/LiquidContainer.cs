@@ -51,6 +51,30 @@ public class LiquidContainer : MonoBehaviour {
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
+
+    private void Awake() {
+        Assert.IsNotNull(liquid);
+        Capacity = capacity;
+        SetAmount(amount);
+}
+
+    private void Start() {
+        itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
+        itemContainer.OnEnter = OnTrueEnter;
+        itemContainer.OnExit = OnTrueExit;
+
+        StartCoroutine(SearchInteractable());
+
+        IEnumerator SearchInteractable() {
+
+            yield return null;
+
+            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
+        }
+
+        SetLiquidMaterial();
+    }
+
     private void Update() {
         float deltaY = transform.position.y - lastYPosition;
 
@@ -89,6 +113,9 @@ public class LiquidContainer : MonoBehaviour {
     public void SetLiquidTypeNone() {
         LiquidType = LiquidType.None;
     }
+    public void SetLiquidMaterial() {
+        liquid.SetMaterialFromType(LiquidType);
+    }
 
     [SerializeField]
     private int capacity;
@@ -97,29 +124,7 @@ public class LiquidContainer : MonoBehaviour {
         private set { capacity = Math.Max(value, 0); }
     }
 
-    private void Awake() {
-        Assert.IsNotNull(liquid);
-        Capacity = capacity;
-        SetAmount(amount);
-}
 
-
-    private void Start() {
-        itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
-        itemContainer.OnEnter = OnTrueEnter;
-        itemContainer.OnExit = OnTrueExit;
-
-        StartCoroutine(SearchInteractable());
-
-        IEnumerator SearchInteractable() {
-
-            yield return null;
-
-            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
-        }
-
-        liquid.SetMaterialFromType(LiquidType);
-    }
 
     public int GetReceiveCapacity() {
         return Capacity - Amount;
