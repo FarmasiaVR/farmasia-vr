@@ -20,7 +20,7 @@ public class LiquidContainer : MonoBehaviour {
     private int amount;
 
     public LiquidType LiquidType;
-
+    public LiquidType contaminationLiquidType; //This is used in PCM for "Actually Working Pipette XR" to keep track of what it is contaminated with.
     public GeneralItem GeneralItem;
 
     private TriggerInteractableContainer itemContainer;
@@ -148,7 +148,12 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void TransferLiquidType(LiquidContainer target) {
-        
+        Debug.Log("Hep Hep Hep!!");
+        //This is used in PCM in phase after dilution
+        target.contaminationLiquidType = target.LiquidType;
+        // if (target.contaminationLiquidType == LiquidType.None){
+        //     target.contaminationLiquidType = target.LiquidType;
+        // }
         if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
