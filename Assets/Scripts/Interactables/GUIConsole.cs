@@ -37,6 +37,7 @@ public class GUIConsole : Movable {
 
         text = transform.Find("Text").GetComponent<TextMeshPro>();
 
+        GUIConsole.Log("Test Log 1");
         recent = true;
     }
 

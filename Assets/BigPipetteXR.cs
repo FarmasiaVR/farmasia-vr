@@ -8,6 +8,7 @@ using UnityEngine.Localization.Settings;
 /// </summary>
 public class BigPipetteXR : MonoBehaviour 
 {
+    public PlateCountMethodSceneManager sceneManager;
     public PipetteContainer pipetteContainerXR;
 
     [Tooltip("This is called when pipette capacity is exceeded")]
@@ -39,10 +40,10 @@ public class BigPipetteXR : MonoBehaviour
 
     public void PipetteCapacityExceeded()
     {
-        // Debug.Log("Can't take more medicine");
+        Debug.Log("Can't take more medicine");
         var localizedString = new LocalizedString("PlateCountMethod", "BreakingPipette");
         localizedString.StringChanged += (localizedText) => {
-            onCapacityExceeded?.Invoke(localizedText, 1);
+            sceneManager.GeneralMistake(localizedText, 1);
         };
         pipetteContainerXR.ExceededCapacity();
     }
