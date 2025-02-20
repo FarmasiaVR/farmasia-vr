@@ -109,7 +109,8 @@ public class LiquidContainer : MonoBehaviour {
         LiquidType = LiquidType.None;
     }
     public void SetLiquidMaterial() {
-        liquid.SetMaterialFromType(LiquidType);
+        if (pcm) onLiquidTypeChange?.Invoke(LiquidType);
+        else liquid.SetMaterialFromType(LiquidType);
     }
 
     [SerializeField]
