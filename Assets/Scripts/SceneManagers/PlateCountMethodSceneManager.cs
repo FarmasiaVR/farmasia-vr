@@ -11,6 +11,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public UnityEvent onMixingComplete;
 
+    private HashSet<int> usedPipetteHeads = new HashSet<int>();
+
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
@@ -317,5 +319,25 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             container.SetLiquidMaterial();
         }
         return valid;
+    }
+
+    // Invoked when pipettor pipette head enters a liquid container
+    public void PipetteContaminated(PipetteContainer pipette)
+    {
+        string task = taskManager.GetCurrentTask().key;
+        int pipetteID = pipette.transform.GetInstanceID();
+        Debug.Log("Pipette contaminated in task " + task);
+        if (task != "MixPhosphateToSenna" && task != "PerformSerialDilution")
+        {
+            Debug.Log("Pipette ID: " + pipette);
+            usedPipetteHeads.Add(pipetteID);
+        }
+        else
+        {
+            if (usedPipetteHeads.Contains(pipetteID))
+            {
+                TaskMistake("Used a contaminated pipette", 1);
+            }
+        }
     }
 }
