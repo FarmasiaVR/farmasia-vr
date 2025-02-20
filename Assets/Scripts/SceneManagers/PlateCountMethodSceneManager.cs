@@ -214,6 +214,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (min <= target.Amount && target.Amount <= max){
                     if(target.LiquidType!= newResult) target.mixingValue = 0;
                     target.LiquidType = newResult;
+                    target.SetLiquidMaterial();
                      // Apply the new result
                     
                     Debug.Log("New LiquidType: " + newResult);
