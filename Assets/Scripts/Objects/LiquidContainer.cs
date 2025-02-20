@@ -71,14 +71,20 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void Update() {
+        if (GeneralItem){
+            if (GeneralItem.ObjectType == ObjectType.Bottle && sceneManager != null) {
         float deltaY = transform.position.y - lastYPosition;
-
         if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
             int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
             mixingValue+=Mathf.Abs(changeAmount)*500;
         }
-
+                if (mixingValue >= 10000) {
+                    sceneManager.MixingComplete(this);
+                }
         lastYPosition = transform.position.y;
+            }
+        }
+
     }
 
     public int Amount {
@@ -214,8 +220,6 @@ public class LiquidContainer : MonoBehaviour {
         target.LiquidType = LiquidType;
         target.Impure = true;
     }
-
-
 
     private void FireBottleFillingEvent(LiquidContainer target) {
         // Debug.Log("FINALLY SENDING EVENT?");
