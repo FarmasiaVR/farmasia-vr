@@ -119,8 +119,6 @@ public class LiquidContainer : MonoBehaviour {
         private set { capacity = Math.Max(value, 0); }
     }
 
-
-
     public int GetReceiveCapacity() {
         return Capacity - Amount;
     }
@@ -321,7 +319,6 @@ public class LiquidContainer : MonoBehaviour {
                 pipette.Contamination = GeneralItem.ContaminateState.Contaminated;
             }
         }
-
         pipette.BottleContainer = this;
     }
 
