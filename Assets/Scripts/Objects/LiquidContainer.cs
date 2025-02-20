@@ -73,15 +73,15 @@ public class LiquidContainer : MonoBehaviour {
     private void Update() {
         if (GeneralItem){
             if (GeneralItem.ObjectType == ObjectType.Bottle && sceneManager != null) {
-        float deltaY = transform.position.y - lastYPosition;
-        if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
-            int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
-            mixingValue+=Mathf.Abs(changeAmount)*500;
-        }
+                float deltaY = transform.position.y - lastYPosition;
+                if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
+                    int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
+                    mixingValue+=Mathf.Abs(changeAmount)*500;
+                }
                 if (mixingValue >= 10000) {
                     sceneManager.MixingComplete(this);
                 }
-        lastYPosition = transform.position.y;
+                lastYPosition = transform.position.y;
             }
         }
 
@@ -174,19 +174,17 @@ public class LiquidContainer : MonoBehaviour {
             {
                 Debug.LogError("sceneManager is null! Please assign it.");
             }            
-            target.onLiquidMixAttempt?.Invoke(this, target);
             //toTransfer = 0;
             if (toTransfer == 0) return;
         }
         else{
             TransferLiquidType(target);
         }
-        
-      
+
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
         target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
-        if (target.mixingValue >= 10000 && sceneManager != null)
+        if (target.mixingValue >= 10000 && sceneManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
         {
             sceneManager.MixingComplete(target);
         }
