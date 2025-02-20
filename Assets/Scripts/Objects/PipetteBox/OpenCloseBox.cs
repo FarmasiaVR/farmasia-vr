@@ -6,6 +6,7 @@ public class OpenCloseBox : MonoBehaviour
 {
 
     private Animator animator;
+    private bool isOpen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -13,7 +14,7 @@ public class OpenCloseBox : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void OpenBox()
+    private void OpenBox()
     {
         if (animator == null) 
         {
@@ -21,11 +22,22 @@ public class OpenCloseBox : MonoBehaviour
             return;
         }
         animator.SetTrigger("TriggerOpen");
+        isOpen = true;
     }
 
-    public void CloseBox()
+    private void CloseBox()
     {
         if (animator == null) return;
         animator.SetTrigger("TriggerClose");
+        isOpen = false;
+    }
+
+    public void OpenOrClose()
+    {
+        if (!isOpen)
+        {
+            OpenBox();
+        }
+        else CloseBox();
     }
 }
