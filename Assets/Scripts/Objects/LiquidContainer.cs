@@ -39,8 +39,8 @@ public class LiquidContainer : MonoBehaviour {
     [Tooltip("Called when a filter half is dropped into the liquid container. Passes the filter half GeneralItem as a parameter")]
     public UnityEvent<GeneralItem> onFilterHalfEnter;
 
-    [Tooltip("Called when an attempt to mix two liquids occurs. Passes both source and target containers as parameters.")]
-    public UnityEvent<LiquidContainer, LiquidContainer> onLiquidMixAttempt;
+    [Tooltip("Called when liquid changes. Passes both source and target containers as parameters.")]
+    public UnityEvent<LiquidType> onLiquidTypeChange;
     
     //This block is here for the PCM mixing functionality
     public int mixingValue = 0;
