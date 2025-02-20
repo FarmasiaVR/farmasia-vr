@@ -44,8 +44,6 @@ public class CabinetBasePCM : MonoBehaviour {
             GUIConsole.Log("Dirty: " + other.gameObject.name);                       
             Debug.Log("Dirty: " + other.gameObject.name);
             CleanItem(item);
-            CheckCompletion();
-            return; 
         }
 
         Debug.Log("Collide: " + other.gameObject.name);
