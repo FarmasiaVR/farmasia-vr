@@ -29,6 +29,9 @@ public class PipetteContainer : AttachmentItem
     [Tooltip("This is called when pipette capacity is exceeded")]
     public UnityEvent onCapacityExceeded;
 
+    [Tooltip("This is called when pipette enters another container")]
+    public UnityEvent<PipetteContainer> onEnteredContainer;
+
     protected override void Start() {
         base.Start();
 
@@ -80,5 +83,9 @@ public class PipetteContainer : AttachmentItem
 
     public void ExceededCapacity() { 
         onCapacityExceeded?.Invoke();
+    }
+
+    public void EnteredContainer() {
+        onEnteredContainer?.Invoke(this);
     }
 }
