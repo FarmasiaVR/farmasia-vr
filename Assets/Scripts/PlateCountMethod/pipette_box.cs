@@ -12,6 +12,7 @@ using UnityEngine;
 public class pipette_box : MonoBehaviour
 {
     public AudioSource audioSource;
+    public OpenCloseBox box;
     [SerializeField] private GameObject pipette;
     private Collider triggerCollider;
 
@@ -19,12 +20,14 @@ public class pipette_box : MonoBehaviour
     {        
         audioSource = GetComponent<AudioSource>();        
         triggerCollider = GetComponentInChildren<Collider>();
+        box = GetComponent<OpenCloseBox>();
+
     }
 
     private void OnTriggerEnter(Collider other)
     {      
         
-        if (other.gameObject == pipette)
+        if (other.gameObject == pipette && box.isOpen)
         {
             audioSource.Play();
             Pipette pippetescript = other.GetComponent<Pipette>();
