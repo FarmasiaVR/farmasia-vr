@@ -40,13 +40,10 @@ public class CabinetBasePCM : MonoBehaviour {
             var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
             localizedString.StringChanged += (localizedText) => {
             sceneManager.GeneralMistake(localizedText, 1);
-            };                        
+            };
+            GUIConsole.Log("Dirty: " + other.gameObject.name);                       
             Debug.Log("Dirty: " + other.gameObject.name);
-            return;
-        }
-
-        if (questCompleted) {
-            return;
+            CleanItem(item);
         }
 
         Debug.Log("Collide: " + other.gameObject.name);
@@ -55,25 +52,41 @@ public class CabinetBasePCM : MonoBehaviour {
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = true;  // Mark the item as found
             Debug.Log($"{other.gameObject.name}, index {index} found in index.");
-            allReady = true;
         }
         /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
         else{
              sceneManager.GeneralMistake("Do you realy need it ?",1);
              Debug.Log($"{other.gameObject.name} is not in the required list.");
         }*/
+        CheckCompletion();
 
-        foreach(bool i in itemsFound){
-            if(!i) allReady = false;
+        if (questCompleted) {
+            return;
         }
+    }
+    private void CleanItem(GeneralItem item)
+    {
+        CleaningBottlePCM cleaningBottle = FindObjectOfType<CleaningBottlePCM>();
+        if (cleaningBottle != null) {
+            cleaningBottle.Clean();
+            item.Contamination = GeneralItem.ContaminateState.Clean;
+            Debug.Log($"{item.gameObject.name} has been cleaned.");
 
-        if (allReady){
-            Debug.Log($"Complete");
-            sceneManager.CompleteTask("toolsToCabinet");
-            questCompleted = true;
-        }        
+        } else {
+            Debug.LogWarning("No Cleaning Bottle found in the scene!");
+        }
     }
 
+    private void CheckCompletion()
+    {
+        allReady = itemsFound.All(found => found);
+        
+        if (allReady) {
+            Debug.Log("Complete");
+            sceneManager.CompleteTask("toolsToCabinet");
+            questCompleted = true;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {   
         if (questCompleted) {
