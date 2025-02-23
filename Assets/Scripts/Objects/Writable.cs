@@ -77,9 +77,6 @@ public class Writable : WritingTarget {
             {
                 resultText += '\n';
                 resultText += '\n';
-                resultText += '\n';
-                resultText += '\n';
-                resultText += '\n';
             }
         }
         textField.SetText(resultText);
