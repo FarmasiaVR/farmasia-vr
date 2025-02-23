@@ -9,6 +9,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
 
+    public GameObject skips; // Assigned in the inspector
+
     public UnityEvent onMixingComplete;
 
     private const int dilutionTubesAmount = 4500;
@@ -106,6 +108,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void SkipCurrentTask()
     {
         string currentTask = taskManager.GetCurrentTask().name;
+
+        switch(currentTask)
+        {   
+            case "toolsToCabinet":
+                Transform toolsToCabinetGO = skips.transform.Find("ToolsToCabinet");
+                toolsToCabinetGO.gameObject.SetActive(true);
+                break;
+        }
         CompleteTask(currentTask);
     }
 
