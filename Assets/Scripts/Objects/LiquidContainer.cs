@@ -17,10 +17,10 @@ public class LiquidContainer : MonoBehaviour {
     public AmountChange OnAmountChange { get; set; }
 
     [SerializeField]
-    private int amount;
+    public int amount;
 
     public LiquidType LiquidType;
-
+    public LiquidType contaminationLiquidType = LiquidType.None; //This is used in PCM for "Actually Working Pipette XR" to keep track of what it is contaminated with.
     public GeneralItem GeneralItem;
 
     private TriggerInteractableContainer itemContainer;
@@ -48,7 +48,9 @@ public class LiquidContainer : MonoBehaviour {
     public int Amount {
         get { return amount; }
     }
-   
+    public void test(){
+        Debug.Log("LiquidContainer liquidType: ");
+    }
     public void SetAmountPercentage(float percentage) {
         int amount = (int)(percentage * Capacity);
         SetAmount(amount);
@@ -71,7 +73,7 @@ public class LiquidContainer : MonoBehaviour {
     public void SetLiquidTypeNone() {
         LiquidType = LiquidType.None;
     }
-
+    
     [SerializeField]
     private int capacity;
     public int Capacity {
@@ -148,7 +150,12 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void TransferLiquidType(LiquidContainer target) {
-        
+       
+        //This is used in PCM in phase after dilution
+        target.contaminationLiquidType = target.LiquidType;
+        // if (target.contaminationLiquidType == LiquidType.None){
+        //     target.contaminationLiquidType = target.LiquidType;
+        // }
         if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
