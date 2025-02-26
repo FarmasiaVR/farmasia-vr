@@ -23,7 +23,7 @@ public class CleaningBottlePCM : GeneralItem
     }
 
     public void Clean() {
-        Debug.Log("trying to clean!");
+        // Debug.Log("trying to clean!"); // this line annoyed me by its spam and thus it is removed
         cleaningCollider.Clean();
     }
 }

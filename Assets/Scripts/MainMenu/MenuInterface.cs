@@ -11,7 +11,7 @@ public class MenuInterface : MonoBehaviour {
     public bool isGameOverMenu = false;
     public Behaviour[] gameOverDisablesComponents;
     public GameObject[] gameOverDisablesObjects;
-    private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu");
+    // private SteamVR_Action_Boolean menuActionLegacy = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Menu"); // let's see if this breaks anything
     private GameObject menuContainer;
     private Hand leftHand;
     private Transform cam;
@@ -44,7 +44,7 @@ public class MenuInterface : MonoBehaviour {
             transform.LookAt(cameraPosition, Vector3.up);
             transform.position = Vector3.Lerp(transform.position, GetTransformPosition() + localPosOffset, Time.deltaTime / lerpAmount);
         }
-        if (pauseMenuButton == null && menuActionLegacy != null && leftHand != null && menuActionLegacy.GetStateDown(leftHand.HandType)) {
+        if (pauseMenuButton == null && leftHand != null) {
             Close();
         }
     }

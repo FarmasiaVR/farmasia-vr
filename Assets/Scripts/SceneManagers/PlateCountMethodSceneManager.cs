@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
-    private const int sennaTubeAmount = 5000;
+
+    public UnityEvent onMixingComplete;
+
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
@@ -20,6 +23,51 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             WritingType.OneToThousand,
             WritingType.Control
         };
+
+    public static Dictionary<Tuple<LiquidType, LiquidType>, LiquidType> recipes = new()
+    {
+        { Tuple.Create(LiquidType.SennaPowder,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
+        { Tuple.Create(LiquidType.Senna1m,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
+        { Tuple.Create(LiquidType.PhosphateBuffer,LiquidType.Senna1), LiquidType.Senna01m },
+        { Tuple.Create(LiquidType.Senna01m,LiquidType.Senna1), LiquidType.Senna01m },                
+        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna01), LiquidType.Senna001m },
+        { Tuple.Create(LiquidType.Senna001m, LiquidType.Senna01), LiquidType.Senna001m },
+        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna001), LiquidType.Senna0001m },
+        { Tuple.Create(LiquidType.Senna0001m, LiquidType.Senna001), LiquidType.Senna0001m }        
+    };
+
+
+    public static Dictionary<LiquidType, Tuple<int, int>> minMaxMixingValue = new()
+    {
+        { LiquidType.SennaPowder, Tuple.Create(1000, 1000) },
+        { LiquidType.Senna1m, Tuple.Create(500, 6000) },
+        { LiquidType.Senna1, Tuple.Create(500, 6000) },
+        { LiquidType.PhosphateBuffer, Tuple.Create(4500, 5000) },
+        { LiquidType.Senna01m, Tuple.Create(500, 5000) },
+        { LiquidType.Senna001m, Tuple.Create(4500, 5000) },
+        { LiquidType.Senna0001m, Tuple.Create(4500, 5000) }
+    };
+
+    public static Dictionary<LiquidType, LiquidType> mixingTable = new()
+    {
+        { LiquidType.Senna1m, LiquidType.Senna1 },
+        { LiquidType.Senna01m, LiquidType.Senna01 },
+        { LiquidType.Senna001m, LiquidType.Senna001 },
+        { LiquidType.Senna0001m, LiquidType.Senna0001 }
+    };
+
+    public static List<LiquidType> SennaTypes = new()
+    {
+        LiquidType.SennaPowder,
+        LiquidType.Senna1m,
+        LiquidType.Senna1,
+        LiquidType.Senna01m,
+        LiquidType.Senna01,
+        LiquidType.Senna001m,
+        LiquidType.Senna001,
+        LiquidType.Senna0001m,
+        LiquidType.Senna0001
+    };
 
     private void Awake()
     {
@@ -36,7 +84,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteTask(string taskName)
     {
-        Debug.Log($"Trying to complete task");
+        // Debug.Log($"Trying to complete task"); // Please god no this spams so much
         taskManager.CompleteTask(taskName);
     }
 
@@ -50,8 +98,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         taskManager.GenerateGeneralMistake(message, penalty);
     }
 
+    public void TaskMistake(string message, int penalty)
+    {
+        taskManager.GenerateTaskMistake(message, penalty);
+    }
+
+    public void SkipCurrentTask()
+    {
+        string currentTask = taskManager.GetCurrentTask().name;
+        CompleteTask(currentTask);
+    }
+
     public void CheckTubesFill(LiquidContainer container)
     {
+        if (taskManager.IsTaskCompleted("FillTubes")) { return; }
+
         switch(container.Amount)
         {
             case controlTubeAmount:
@@ -130,12 +191,100 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask("WriteOnTubes");
     }
 
-    public void CheckIfSennaInControlBottle(LiquidContainer target, LiquidContainer source)
+    private bool IsControlTube(LiquidContainer container)
     {
-        if (testTubes["control"].Contains(target) && source.LiquidType == LiquidType.SennaPowder && target.LiquidType==LiquidType.PhosphateBuffer)
+        return testTubes["control"].Contains(container) || dilutionTypesTubes[WritingType.Control] == container;
+    }
+
+    public bool Dilution(LiquidContainer source, LiquidContainer target){        
+        Debug.Log("Trying to mix: " + source.LiquidType + " with " + target.LiquidType);
+
+        if (IsControlTube(target))
         {
-            Debug.Log($"target: {target.LiquidType}, source:{source.LiquidType}");
-            GeneralMistake("DON'T PUT SENNA IN THE CONTROL TUBE", 1);
+            GeneralMistake("Don't mix liquids in the control tube!", 1);
         }
+
+        var key = Tuple.Create(target.LiquidType, source.LiquidType);
+
+        if (recipes.TryGetValue(key, out LiquidType newResult))
+        {   
+            
+            if (minMaxMixingValue.TryGetValue(target.LiquidType, out var tupleValue)){
+                var (min, max) = tupleValue;
+                if (min <= target.Amount && target.Amount <= max){
+                    if(target.LiquidType!= newResult) target.mixingValue = 0;
+                    target.LiquidType = newResult;
+                    target.SetLiquidMaterial();
+                     // Apply the new result
+                    
+                    Debug.Log("New LiquidType: " + newResult);
+                    return true;
+                }
+                else{
+                    Debug.Log("Mixing failed: No matching recipe found.");
+                    return false;
+                }
+            }
+            else{
+                Debug.Log("Mixing failed: Amounts are incorrect.");
+                return false;
+            }
+
+        } else {          
+            Debug.Log("Mixing failed: No matching recipe found.");
+            return false;
+        }
+    }
+
+    // Todo: since container.amount was meant to be private, maybe make a setter to change the amount indirectly
+    public void MixingComplete(LiquidContainer container)
+    {
+        switch(container.LiquidType)
+        {
+            case LiquidType.Senna1m:
+            {
+                if (MixIfValid(container, 6000)){
+                CompleteTask("MixPhosphateToSenna");
+                }    
+                return;
+            }
+            case LiquidType.Senna01m:
+            {
+                if (MixIfValid(container, 5000))
+                {
+                    Debug.Log("Mixing complete in " + container.LiquidType);
+                    onMixingComplete.Invoke();
+                }
+                break;
+            }
+            case LiquidType.Senna001m:
+            {
+                if (MixIfValid(container, 5000))
+                {
+                    Debug.Log("Mixing complete in " + container.LiquidType);
+                    onMixingComplete.Invoke();
+                }
+                break;
+            }
+            case LiquidType.Senna0001m:
+            {
+                if (MixIfValid(container, 5000))
+                {
+                    CompleteTask("PerformSerialDilution");
+                }
+                break;
+            }
+        }
+    }
+
+    private bool MixIfValid(LiquidContainer container, int amount)
+    {
+        bool valid = mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.Amount == amount;
+        if (valid)
+        {
+            container.LiquidType = newResult;
+            container.SetLiquidMaterial();
+        }
+        return valid;
     }
 }
