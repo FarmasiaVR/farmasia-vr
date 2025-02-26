@@ -39,7 +39,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public static Dictionary<LiquidType, Tuple<int, int>> minMaxMixingValue = new()
     {
-        { LiquidType.SennaPowder, Tuple.Create(1000, 1000) },
+        { LiquidType.SennaPowder, Tuple.Create(1000, 1500) },
         { LiquidType.Senna1m, Tuple.Create(500, 6000) },
         { LiquidType.Senna1, Tuple.Create(500, 6000) },
         { LiquidType.PhosphateBuffer, Tuple.Create(4500, 5000) },
@@ -196,7 +196,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         return testTubes["control"].Contains(container) || dilutionTypesTubes[WritingType.Control] == container;
     }
 
-    public bool Dilution(LiquidContainer source, LiquidContainer target){        
+    public bool Dilution(LiquidContainer source, LiquidContainer target, int transferAmount){        
         Debug.Log("Trying to mix: " + source.LiquidType + " with " + target.LiquidType);
 
         if (IsControlTube(target))
@@ -208,10 +208,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         if (recipes.TryGetValue(key, out LiquidType newResult))
         {   
-            
             if (minMaxMixingValue.TryGetValue(target.LiquidType, out var tupleValue)){
                 var (min, max) = tupleValue;
-                if (min <= target.Amount && target.Amount <= max){
+                if (min <= target.Amount+transferAmount && target.Amount+transferAmount <= max){
                     if(target.LiquidType!= newResult) target.mixingValue = 0;
                     target.LiquidType = newResult;
                     target.SetLiquidMaterial();
