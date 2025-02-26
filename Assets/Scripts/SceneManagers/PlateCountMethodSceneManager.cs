@@ -221,17 +221,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     return true;
                 }
                 else{
-                    Debug.Log("Mixing failed: No matching recipe found.");
+                    GeneralMistake("The amounts of the liquids are incorrect.",1);
                     return false;
                 }
             }
             else{
-                Debug.Log("Mixing failed: Amounts are incorrect.");
+                GeneralMistake("The amounts of the liquids are incorrect.",1);
                 return false;
             }
 
         } else {          
-            Debug.Log("Mixing failed: No matching recipe found.");
+            GeneralMistake($"Mixing failed: Are you shure these are the correct liquids?",1);
             return false;
         }
     }
@@ -271,6 +271,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (MixIfValid(container, 5000))
                 {
                     CompleteTask("PerformSerialDilution");
+                    onMixingComplete.Invoke();
                 }
                 break;
             }
