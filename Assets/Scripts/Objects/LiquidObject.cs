@@ -179,17 +179,88 @@ public class LiquidObject : MonoBehaviour {
                 }
                 break;
 
+            case LiquidType.Senna01:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.7254902f));
+                    mesh.material.SetColor("_TopColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.7254902f));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna01");
+                }
+            break;
+
+            case LiquidType.Senna01m:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.04f, 0.0f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.04f, 0.0f, 1));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna01m");
+                }
+            break;
+
+            case LiquidType.Senna001:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.4901961f));
+                    mesh.material.SetColor("_TopColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.4901961f));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001");
+                }
+                break;
+            
+            case LiquidType.Senna001m:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.04f, 0.0f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.04f, 0.0f, 1));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001m");
+                }
+                break;
+
+            case LiquidType.Senna0001:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.254902f));
+                    mesh.material.SetColor("_TopColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.254902f));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001");
+                }
+                break;
+            
+            case LiquidType.Senna0001m:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.04f, 0.0f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.04f, 0.0f, 1));
+                } else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna001m");
+                }
+                break;
+            
+                case LiquidType.Senna1:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.8407843f));
+                    mesh.material.SetColor("_TopColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.8407843f));
+                }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna1");
+                }
+                break;
+
+                case LiquidType.Senna1m:
+                if (HasRealLiquidMaterial) {
+                    mesh.material.SetColor("_SideColor", new Color(1f, 0.04f, 0.0f, 1));
+                    mesh.material.SetColor("_TopColor", new Color(1f, 0.04f, 0.0f, 1));
+                }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/Senna1m");
+                }
+                break;
+
             case LiquidType.SennaPowder:
                 if (HasRealLiquidMaterial) {
-                    mesh.material.SetColor("_SideColor", new Color(0.679778f, 0.9849057f, 0, 0.7764706f));
-                    mesh.material.SetColor("_TopColor", new Color(0.679778f, 0.9849057f, 0, 0.7764706f));
+                    mesh.material.SetColor("_SideColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.9607843f));
+                    mesh.material.SetColor("_TopColor", new Color(0.8509804f, 0.9849057f, 0.0f, 0.9607843f));
                 }
-                // This part makes the mesh load incorrectly, and material is set as "Lit".
-                // Senna pwder has been selected as material inside the editor.
-                // else {
-                //     mesh.material = Resources.Load<Material>("Liquids/SennaPowder");
-                //     Debug.Log("Loaded Senna");
-                // }
+                else {
+                    mesh.material = Resources.Load<Material>("Liquids/SennaPowder");
+                }
                 break;
                 
 

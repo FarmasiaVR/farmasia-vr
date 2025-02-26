@@ -51,7 +51,7 @@ public readonly struct GameScenes {
         try {
             result = sceneTypeToName.ToDictionary(pair => pair.Value, pair => pair.Key);
         } catch (ArgumentException ex) {
-            Debug.LogWarning("There was a duplicate mapping for scene. Please remove any repeated scene names.");
+            Debug.LogWarning("There was a duplicate mapping for scene. Please remove any repeated scene names." + ex.ToString());
         }
         return result;
     }

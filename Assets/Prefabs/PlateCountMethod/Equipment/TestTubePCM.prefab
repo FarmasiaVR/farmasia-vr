@@ -5132,7 +5132,7 @@ MonoBehaviour:
   _SortingLayerID: 0
   _SortingOrder: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 0}
+  m_renderer: {fileID: 8274799007498854817}
   m_maskType: 0
 --- !u!1 &5732004039695007053
 GameObject:
@@ -5857,6 +5857,8 @@ MonoBehaviour:
   liquid: {fileID: 6807180196201019812}
   amount: 0
   LiquidType: 0
+  pcm: 0
+  sceneManager: {fileID: 0}
   GeneralItem: {fileID: 2847206496039059926}
   Impure: 0
   allowLiquidTransfer: 1
@@ -5894,6 +5896,35 @@ MonoBehaviour:
   onFilterHalfEnter:
     m_PersistentCalls:
       m_Calls: []
+  onLiquidTypeChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6807180196201019812}
+        m_TargetAssemblyTypeName: LiquidObject, GameAssembly
+        m_MethodName: SetMaterialFromType
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6121485721439594058}
+        m_TargetAssemblyTypeName: TubeBottom, Assembly-CSharp
+        m_MethodName: CopyMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  mixingValue: 0
+  movementSensitivity: 10
   capacity: 15000
 --- !u!136 &4441657955742932128
 CapsuleCollider:
@@ -5914,7 +5945,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 0.64
   m_Height: 2.183289
   m_Direction: 1
-  m_Center: {x: 2.2635697e-14, y: 1.3136361, z: -0.00000012417632}
+  m_Center: {x: 2.2635697e-14, y: 0.84, z: -0.00000012417632}
