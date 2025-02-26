@@ -202,6 +202,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (IsControlTube(target))
         {
             GeneralMistake("Don't mix liquids in the control tube!", 1);
+            return false;
         }
 
         var key = Tuple.Create(target.LiquidType, source.LiquidType);
