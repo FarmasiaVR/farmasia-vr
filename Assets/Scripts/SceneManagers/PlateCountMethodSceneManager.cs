@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
 
     public UnityEvent onMixingComplete;
+
+    private bool taskOrderViolated = false;
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
@@ -90,11 +93,30 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         // Debug.Log($"Trying to complete task"); // Please god no this spams so much
         taskManager.CompleteTask(taskName);
+        taskOrderViolated = false;
     }
 
     public void CleanHands()
     {
         CompleteTask("WashHands");
+    }
+
+    public void ViolateTaskOrder()
+    {
+        if (!taskOrderViolated)
+        {
+            var localizedString = new LocalizedString("PlateCountMethod", "OrderViolated");
+            localizedString.StringChanged += (localizedText) => {
+                GeneralMistake(localizedText, 1);
+            };
+            taskOrderViolated = true;
+        }
+    }
+
+    public void CheckTaskOrderViolation(string taskName)
+    {
+        string currentTask = taskManager.GetCurrentTask().name;
+        if (currentTask != taskName) ViolateTaskOrder();
     }
 
     public void GeneralMistake(string message, int penalty)
@@ -116,6 +138,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CheckTubesFill(LiquidContainer container)
     {
         if (taskManager.IsTaskCompleted("FillTubes")) { return; }
+
+        CheckTaskOrderViolation("FillTubes");
 
         switch(container.Amount)
         {
@@ -162,6 +186,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     // Checks if the dilution type was written onto the object and updates the according dictionaries
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
+        if (taskManager.IsTaskCompleted("WriteOnTubes")) { return; }
+
+        CheckTaskOrderViolation("WriteOnTubes");
+
         WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
         Debug.Log("Dilution Type: " + dilutionType);
         if (dilutionType == null) return;
@@ -269,12 +297,22 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void MixingComplete(LiquidContainer container)
     {
+        if (taskManager.IsTaskCompleted("MixPhosphateToSenna"))
+        {
+            CheckTaskOrderViolation("PerformSerialDilution");
+        }
+        else
+        {
+            CheckTaskOrderViolation("MixPhosphateToSenna");
+        }
+
         switch(container.LiquidType)
         {
             case LiquidType.Senna1m:
             {
-                if (MixIfValid(container, 6000)){
-                CompleteTask("MixPhosphateToSenna");
+                if (MixIfValid(container, 6000))
+                {
+                    CompleteTask("MixPhosphateToSenna");
                 }    
                 return;
             }
