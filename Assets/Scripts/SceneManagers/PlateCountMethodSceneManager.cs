@@ -16,6 +16,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
     private Dictionary<WritingType, LiquidContainer> dilutionTypesTubes = new Dictionary<WritingType, LiquidContainer>();
+    private Dictionary<WritingType, AgarPlateLid> dilutionTypesCaseine = new Dictionary<WritingType, AgarPlateLid>();
+    private Dictionary<WritingType, AgarPlateLid> dilutionTypesSabouraud = new Dictionary<WritingType, AgarPlateLid>();
     private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
         {
             WritingType.OneToTen,
@@ -79,6 +81,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         foreach (WritingType type in dilutionTypes)
         {
             dilutionTypesTubes[type] = null;
+            dilutionTypesCaseine[type] = null;
+            dilutionTypesSabouraud[type] = null;
         }
     }
 
@@ -155,6 +159,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    // Checks if the dilution type was written onto the object and updates the according dictionaries
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
         WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
@@ -170,9 +175,22 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 dilutionTypesTubes[dilutionType.Value] = container;
                 break;
             }
+            case "AgarPlateLid":
+            {
+                AgarPlateLid lid = foundItem.GetComponent<AgarPlateLid>();
+                if (lid.Variant == "Sabourad-dekstrosi")
+                {
+                    dilutionTypesSabouraud[dilutionType.Value] = lid;
+                }
+                else if (lid.Variant == "Soija-kaseiini")
+                {
+                    dilutionTypesCaseine[dilutionType.Value] = lid;
+                }
+                break;
+            }
             default:
             {
-                break;
+                return;
             }
         }
 
@@ -181,14 +199,27 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private void CheckWritingsIntegrity()
     {
-        foreach (KeyValuePair<WritingType, LiquidContainer> entry in dilutionTypesTubes)
+        if (IsAnySlotEmpty(dilutionTypesTubes)
+        || IsAnySlotEmpty(dilutionTypesCaseine)
+        || IsAnySlotEmpty(dilutionTypesSabouraud))
         {
-            Debug.Log(entry.Key + ": " + entry.Value);
-            if (entry.Value == null)
-                return;
+            return;
         }
         Debug.Log("Yay, you wrote on all tubes");
         CompleteTask("WriteOnTubes");
+    }
+
+    private bool IsAnySlotEmpty<T>(Dictionary<WritingType, T> dict) where T : class
+    {
+        foreach (var entry in dict)
+        {
+            // Debug.Log(entry.Key + ": " + entry.Value);
+            if (entry.Value == null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool IsControlTube(LiquidContainer container)
@@ -231,12 +262,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             }
 
         } else {          
-            GeneralMistake($"Mixing failed: Are you shure these are the correct liquids?",1);
+            GeneralMistake($"Mixing failed: Are you sure these are the correct liquids?",1);
             return false;
         }
     }
 
-    // Todo: since container.amount was meant to be private, maybe make a setter to change the amount indirectly
     public void MixingComplete(LiquidContainer container)
     {
         switch(container.LiquidType)
