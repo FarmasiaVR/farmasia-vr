@@ -76,7 +76,6 @@ public class Writable : WritingTarget {
             if (n == 2 && isAgar)
             {
                 resultText += '\n';
-                resultText += '\n';
             }
         }
         textField.SetText(resultText);
