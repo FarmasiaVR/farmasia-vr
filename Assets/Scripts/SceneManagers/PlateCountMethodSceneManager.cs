@@ -362,10 +362,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         string task = taskManager.GetCurrentTask().key;
         int pipetteID = pipette.transform.GetInstanceID();
-        // Debug.Log("Pipette contaminated in task " + task);
+        Debug.Log("Pipette contaminated in task " + task);
         if (task != "MixPhosphateToSenna" && task != "PerformSerialDilution")
         {
-            // Debug.Log("Pipette ID: " + pipette);
+            Debug.Log("Pipette ID: " + pipette);
             usedPipetteHeads.Add(pipetteID);
         }
         else
