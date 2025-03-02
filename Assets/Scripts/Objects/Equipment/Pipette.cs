@@ -52,6 +52,7 @@ public class Pipette : GeneralItem {
         if (takeMedicine) {
             TakeMedicine();
         } else if (sendMedicine) {
+            Logger.Print("Hep Hep Hep");
             SendMedicine();
         }
 
@@ -59,6 +60,7 @@ public class Pipette : GeneralItem {
 
     public void TakeMedicine() {
         if (State == InteractState.InBottle) {
+            
             TransferToBottle(false);
         } else {
             Logger.Print("Pipette not in bottle");
@@ -67,12 +69,21 @@ public class Pipette : GeneralItem {
 
     public void SendMedicine() {
         if (State == InteractState.InBottle) {
+            Logger.Print("Some other probelem");
             TransferToBottle(true);
+        } else {
+            Logger.Print("Bottle not found");
         }
+
     }
 
     private void TransferToBottle(bool into) {
-        if (BottleContainer == null) return;
+        Logger.Print("This code is runing Doro");
+        Logger.Print(into);
+        
+        if (BottleContainer == null) {
+            Logger.Print("Didnt find bottle");    
+            return;}
         if (Vector3.Angle(-BottleContainer.transform.up, transform.up) > 25) return;
 
         Container.TransferTo(BottleContainer, into ? Container.Capacity : -Container.Capacity);
