@@ -136,6 +136,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         if (taskManager.IsTaskCompleted("FillTubes")) { return; }
 
+        //Debug.Log("Checking order violation for FillTubes");
         CheckTaskOrderViolation("FillTubes");
 
         switch(container.Amount)
@@ -186,6 +187,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (taskManager.IsTaskCompleted("WriteOnTubes")) { return; }
 
         CheckTaskOrderViolation("WriteOnTubes");
+        //Debug.Log("Checking order violation for WriteOnTubes");
 
         WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
         Debug.Log("Dilution Type: " + dilutionType);
@@ -296,17 +298,16 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         if (taskManager.IsTaskCompleted("MixPhosphateToSenna"))
         {
+            //Debug.Log("Checking order violation for PerformSerialDilution");
             CheckTaskOrderViolation("PerformSerialDilution");
-        }
-        else
-        {
-            CheckTaskOrderViolation("MixPhosphateToSenna");
         }
 
         switch(container.LiquidType)
         {
             case LiquidType.Senna1m:
             {
+                //Debug.Log("Checking order violation for MixPhosphateToSenna");
+                CheckTaskOrderViolation("MixPhosphateToSenna");
                 if (MixIfValid(container, 6000))
                 {
                     CompleteTask("MixPhosphateToSenna");
