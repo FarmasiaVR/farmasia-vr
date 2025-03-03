@@ -358,11 +358,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     }
 
     // Invoked when pipettor pipette head enters a liquid container
-    public void PipetteContaminated(PipetteContainer pipette)
+    public void PipetteUsed(PipetteContainer pipette, LiquidContainer container)
     {
         string task = taskManager.GetCurrentTask().key;
         int pipetteID = pipette.transform.GetInstanceID();
-        // Debug.Log("Pipette contaminated in task " + task);
+        // Debug.Log("Pipette used in task " + task);
         if (task != "MixPhosphateToSenna" && task != "PerformSerialDilution")
         {
             // Debug.Log("Pipette ID: " + pipette);
