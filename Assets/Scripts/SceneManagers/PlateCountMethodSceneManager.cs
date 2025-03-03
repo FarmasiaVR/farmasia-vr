@@ -113,7 +113,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CheckTaskOrderViolation(string taskName)
     {
         string currentTask = taskManager.GetCurrentTask().name;
-        Debug.Log(taskOrderViolated + currentTask);
         if (currentTask != taskName && !taskOrderViolated) ViolateTaskOrder();
     }
 
