@@ -1958,7 +1958,6 @@ GameObject:
   - component: {fileID: 1095598854489533304}
   - component: {fileID: 5226310662992343877}
   - component: {fileID: 3795927253427363327}
-  - component: {fileID: 6457718563637954620}
   - component: {fileID: 8060336368964195801}
   - component: {fileID: 8113184859671065442}
   - component: {fileID: 8800008604540211380}
@@ -2012,7 +2011,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967294
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dda715c4719ab7263a3ceecdd7a54633, type: 2}
+  - {fileID: 2100000, guid: 58eb1ab69284990429cc6f5866165706, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2034,21 +2033,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6457718563637954620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6511387636346933129}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57109fb1acf67cb28a67eb9eac7c5719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInteracting: 0
-  DisableHighlighting: 0
-  agarPlateLid: {fileID: 0}
 --- !u!65 &8060336368964195801
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2149,7 +2133,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6457718563637954620}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Agar, GameAssembly
         m_MethodName: startTakingFingerPrints
         m_Mode: 1
@@ -2164,7 +2148,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6457718563637954620}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Agar, GameAssembly
         m_MethodName: stopTakingFingerPrints
         m_Mode: 0
