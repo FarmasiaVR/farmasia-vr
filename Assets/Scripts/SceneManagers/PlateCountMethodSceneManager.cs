@@ -103,20 +103,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void ViolateTaskOrder()
     {
-        if (!taskOrderViolated)
-        {
-            var localizedString = new LocalizedString("PlateCountMethod", "OrderViolated");
-            localizedString.StringChanged += (localizedText) => {
-                GeneralMistake(localizedText, 1);
-            };
-            taskOrderViolated = true;
-        }
+        var localizedString = new LocalizedString("PlateCountMethod", "OrderViolated");
+        localizedString.StringChanged += (localizedText) => {
+            GeneralMistake(localizedText, 1);
+        };
+        taskOrderViolated = true;
     }
 
     public void CheckTaskOrderViolation(string taskName)
     {
         string currentTask = taskManager.GetCurrentTask().name;
-        if (currentTask != taskName) ViolateTaskOrder();
+        Debug.Log(taskOrderViolated + currentTask);
+        if (currentTask != taskName && !taskOrderViolated) ViolateTaskOrder();
     }
 
     public void GeneralMistake(string message, int penalty)
