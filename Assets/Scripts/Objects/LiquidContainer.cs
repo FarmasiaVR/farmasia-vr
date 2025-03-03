@@ -17,10 +17,12 @@ public class LiquidContainer : MonoBehaviour {
     public AmountChange OnAmountChange { get; set; }
 
     [SerializeField]
-    private int amount;
+    public int amount;
 
     public LiquidType LiquidType;
-
+    public bool pcm;
+    public PlateCountMethodSceneManager sceneManager;    
+    public LiquidType contaminationLiquidType = LiquidType.None; //This is used in PCM for "Actually Working Pipette XR" to keep track of what it is contaminated with.
     public GeneralItem GeneralItem;
 
     private TriggerInteractableContainer itemContainer;
@@ -39,18 +41,72 @@ public class LiquidContainer : MonoBehaviour {
     [Tooltip("Called when the container is filled. Passes the amount of liquid and the type of liquid in the container as the parameter.")]
     public UnityEvent<LiquidContainer> onLiquidAmountChanged;
 
+    [Tooltip("Called when container transfers liquid to another container. Returns <target liquid container, source liquid container>")]
+    public UnityEvent<LiquidContainer, LiquidContainer> onLiquidExchange;
+
     [Tooltip("Called when a filter half is dropped into the liquid container. Passes the filter half GeneralItem as a parameter")]
     public UnityEvent<GeneralItem> onFilterHalfEnter;
+
+    [Tooltip("Called when liquid changes. Passes both source and target containers as parameters.")]
+    public UnityEvent<LiquidType> onLiquidTypeChange;
+    
+    //This block is here for the PCM mixing functionality
+    public int mixingValue = 0;
+    [SerializeField] private float movementSensitivity = 10f;
+    private float lastYPosition;
+
+    private void Awake() {
+        Assert.IsNotNull(liquid);
+        Capacity = capacity;
+        SetAmount(amount);
+}
+
+    private void Start() {
+        itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
+        itemContainer.OnEnter = OnTrueEnter;
+        itemContainer.OnExit = OnTrueExit;
+
+        StartCoroutine(SearchInteractable());
+
+        IEnumerator SearchInteractable() {
+
+            yield return null;
+
+            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
+        }
+
+        SetLiquidMaterial();
+    }
+
+    private void Update() {
+        if (GeneralItem){
+            if (GeneralItem.ObjectType == ObjectType.Bottle && sceneManager != null) {
+                float deltaY = transform.position.y - lastYPosition;
+                if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
+                    int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
+                    mixingValue+=Mathf.Abs(changeAmount)*500;
+                }
+                if (mixingValue >= 10000) {
+                    sceneManager.MixingComplete(this);
+                }
+                lastYPosition = transform.position.y;
+            }
+        }
+
+    }
 
     public int Amount {
         get { return amount; }
     }
-   
+    public void test(){
+        Debug.Log("LiquidContainer liquidType: ");
+    }
     public void SetAmountPercentage(float percentage) {
         int amount = (int)(percentage * Capacity);
         SetAmount(amount);
     }
     public void SetAmount(int value) {
+
         if (Capacity == 0) {
             amount = 0;
             liquid?.SetFillPercentage(0, this);
@@ -68,36 +124,16 @@ public class LiquidContainer : MonoBehaviour {
     public void SetLiquidTypeNone() {
         LiquidType = LiquidType.None;
     }
-
+    public void SetLiquidMaterial() {
+        if (pcm) onLiquidTypeChange?.Invoke(LiquidType);
+        else liquid.SetMaterialFromType(LiquidType);
+    }
+    
     [SerializeField]
     private int capacity;
     public int Capacity {
         get { return capacity; }
         private set { capacity = Math.Max(value, 0); }
-    }
-
-    private void Awake() {
-        Assert.IsNotNull(liquid);
-        Capacity = capacity;
-        SetAmount(amount);
-}
-
-
-    private void Start() {
-        itemContainer = gameObject.AddComponent<TriggerInteractableContainer>();
-        itemContainer.OnEnter = OnTrueEnter;
-        itemContainer.OnExit = OnTrueExit;
-
-        StartCoroutine(SearchInteractable());
-
-        IEnumerator SearchInteractable() {
-
-            yield return null;
-
-            GeneralItem = (GeneralItem)Interactable.GetInteractable(transform);
-        }
-
-        liquid.SetMaterialFromType(LiquidType);
     }
 
     public int GetReceiveCapacity() {
@@ -134,16 +170,45 @@ public class LiquidContainer : MonoBehaviour {
 
         if (toTransfer == 0) return;
          // Debug.Log("survived toTransfer == 0 check");
-        TransferLiquidType(target);
-      
-        SetAmount(Amount - toTransfer);
-        target.SetAmount(target.Amount + toTransfer);
+        
+        if(this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && pcm){
+            if (sceneManager != null)
+            {
+                Debug.Log("sceneManager is assigned. Calling Dilution and Test methods.");
+                // Call Dilution and Test methods
+                // Denies transfering liquid if mixing the wrong recipe
+                if(!sceneManager.Dilution(this, target, toTransfer)) toTransfer = 0;
+                
+            }
+            else
+            {
+                Debug.LogError("sceneManager is null! Please assign it.");
+            }            
+            //toTransfer = 0;
+            if (toTransfer == 0) return;
+        }
+        else{
+            TransferLiquidType(target);
+        }
 
+        SetAmount(Amount - toTransfer);
+        target.SetAmount(target.Amount + toTransfer);        
+        target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
+        if (target.mixingValue >= 10000 && sceneManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
+        {
+            sceneManager.MixingComplete(target);
+        }
+        onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
     }
 
     private void TransferLiquidType(LiquidContainer target) {
-        
+       
+        //This is used in PCM in phase after dilution
+        target.contaminationLiquidType = target.LiquidType;
+        // if (target.contaminationLiquidType == LiquidType.None){
+        //     target.contaminationLiquidType = target.LiquidType;
+        // }
         if (target.LiquidType == LiquidType || target.LiquidType == LiquidType.None) {
             target.LiquidType = LiquidType;
         } else { // Case: the target has held or holds different liquid
@@ -160,7 +225,7 @@ public class LiquidContainer : MonoBehaviour {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "MedicinesWereMixed"));
             }
         }
-        target.liquid.SetMaterialFromType(target.LiquidType);
+        target.SetLiquidMaterial();
     }
 
     void switchLiquidTypesAndMakeImpure(LiquidContainer target)

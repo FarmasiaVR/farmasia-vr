@@ -27,6 +27,7 @@ public class Cover : MonoBehaviour
     protected void Start() {
         coverOn = true;
         OpenCoverWithHand = OpenCoverWithButtonPress;
+        DisableOpeningSpots();
     }
 
     private void OpenCoverWithButtonPress(Hand hand) {

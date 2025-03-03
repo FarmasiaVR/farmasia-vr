@@ -4,17 +4,18 @@ using System.Linq;
 using UnityEngine;
 using FarmasiaVR;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 
 public class CabinetBasePCM : MonoBehaviour {
 
     public PlateCountMethodSceneManager sceneManager;
-    private bool sterileDrapefolded;
     private bool questCompleted = false;
 
-    public Animator sterileDrape;
     public List<GameObject> requiredItems;  
     private List<bool> itemsFound;
+    private bool allReady = false;
  
     private void Start() {
 
@@ -36,39 +37,55 @@ public class CabinetBasePCM : MonoBehaviour {
 
         
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
-            sceneManager.GeneralMistake("Dirty!",1);            
-            Debug.Log("Dirty: " + other.gameObject.name);
-            return;
+            var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
+            localizedString.StringChanged += (localizedText) => {
+            sceneManager.GeneralMistake(localizedText, 1);
+            };
+            GUIConsole.Log("Dirty: " + other.gameObject.name);                       
+            //Debug.Log("Dirty: " + other.gameObject.name);
+            CleanItem(item);
         }
 
-        if (questCompleted) {
-            return;
-        }
+        
 
         if (requiredItems.Contains(other.gameObject)){            
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = true;  // Mark the item as found
-            Debug.Log($"{index} found index.");
+            //Debug.Log($"{other.gameObject.name}, index {index} found in index.");
         }
         /* This can be used if we want to add penalty for bringing unnecessary items to the workstation
         else{
              sceneManager.GeneralMistake("Do you realy need it ?",1);
              Debug.Log($"{other.gameObject.name} is not in the required list.");
         }*/
+        CheckCompletion();
 
-        bool allReady = true;
-
-        foreach(bool i in itemsFound){
-            if(!i) allReady = false;
+        if (questCompleted) {
+            return;
         }
+    }
+    private void CleanItem(GeneralItem item)
+    {
+        CleaningBottlePCM cleaningBottle = FindObjectOfType<CleaningBottlePCM>();
+        if (cleaningBottle != null) {
+            cleaningBottle.Clean();
+            item.Contamination = GeneralItem.ContaminateState.Clean;
+            Debug.Log($"{item.gameObject.name} has been cleaned.");
 
-        if (allReady){
-            Debug.Log($"Complete");
+        } else {
+            Debug.LogWarning("No Cleaning Bottle found in the scene!");
+        }
+    }
+
+    private void CheckCompletion()
+    {
+        allReady = itemsFound.All(found => found);
+        
+        if (allReady) {
+            Debug.Log("Complete");
             sceneManager.CompleteTask("toolsToCabinet");
             questCompleted = true;
-        }        
-        
-        UnfoldSterileDrape();
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -91,14 +108,4 @@ public class CabinetBasePCM : MonoBehaviour {
             itemsFound[index] = false; 
         }
     }
-
-    private void UnfoldSterileDrape() {
-        if (sterileDrapefolded) {
-            return;
-        }
-        sterileDrapefolded = true;
-        sterileDrape.SetBool("ItemPlaced", true);
-    }
-
-
 }

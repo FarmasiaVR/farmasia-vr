@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class WritingPen : GeneralItem {
 
@@ -17,6 +18,8 @@ public class WritingPen : GeneralItem {
         Type.On(InteractableType.Interactable);
     }
 
+    public UnityEvent<GeneralItem, Dictionary<WritingType, string>> onSubmitWriting;
+
     protected override void OnCollisionEnter(Collision other) {
         base.OnCollisionEnter(other);
 
@@ -26,7 +29,7 @@ public class WritingPen : GeneralItem {
         if (writable == null) {
             return;
         }
-        Debug.Log("Detected writable!");
+
         if (ignoreGrabCheck != true) {
             if (!base.IsGrabbed) { // prevent accidental writing when pen not grabbed
                 return;
@@ -36,8 +39,6 @@ public class WritingPen : GeneralItem {
         if (isWriting) { // must submit or cancel before selecting another item
             return;
         }
-        
-        Debug.Log("called pen Write function");
         
         if (writeOnTouch)
         {
@@ -142,6 +143,9 @@ public class WritingPen : GeneralItem {
         if (foundObject.gameObject.GetComponent<Writable>().writingsInOrder.Count > 0)
         {
             Events.FireEvent(EventType.WriteToObject, CallbackData.Object(foundObject));
+            // Code below is needed for PCM scene
+            Dictionary<WritingType, string> writtenLines = writable.WrittenLines;
+            onSubmitWriting?.Invoke(foundObject.GetComponent<GeneralItem>(), writtenLines);
         }   
     }
 }
