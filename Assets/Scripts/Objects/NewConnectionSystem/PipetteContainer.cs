@@ -29,8 +29,8 @@ public class PipetteContainer : AttachmentItem
     [Tooltip("This is called when pipette capacity is exceeded")]
     public UnityEvent onCapacityExceeded;
 
-    [Tooltip("This is called when pipette enters another container")]
-    public UnityEvent<PipetteContainer> onEnteredContainer;
+    [Tooltip("This is called when liquid is transferred")]
+    public UnityEvent<PipetteContainer, LiquidContainer> onTransferLiquid;
 
     protected override void Start() {
         base.Start();
@@ -74,6 +74,9 @@ public class PipetteContainer : AttachmentItem
         if (!into && Vector3.Distance(BottleContainer.transform.position, transform.position) > 0.3f) return;
         // Debug.Log(LiquidTransferStep);
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);
+
+        // Send info of liquid transfer to scene manager through an event
+        onTransferLiquid?.Invoke(this, BottleContainer);
     }
 
     public int GetPipetteCapacity() {
@@ -82,9 +85,5 @@ public class PipetteContainer : AttachmentItem
 
     public void ExceededCapacity() { 
         onCapacityExceeded?.Invoke();
-    }
-
-    public void EnteredContainer() {
-        onEnteredContainer?.Invoke(this);
     }
 }
