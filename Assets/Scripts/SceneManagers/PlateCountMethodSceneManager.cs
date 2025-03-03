@@ -370,7 +370,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
         else
         {
-            if (usedPipetteHeads.Contains(pipetteID))
+            if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType)
             {
                 TaskMistake("Used a contaminated pipette", 1);
             }
