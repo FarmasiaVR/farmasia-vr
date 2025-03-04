@@ -9,6 +9,11 @@ public struct LiquidScale {
 }
 
 public class LiquidObject : MonoBehaviour {
+
+    // For dynamic testing
+    public int minAmount = 100;
+    public float fValue = 0.145f;
+
     private enum Capacity {
         None,
         _50ml,
@@ -56,9 +61,9 @@ public class LiquidObject : MonoBehaviour {
         }
         else if (capacity == Capacity._1ml) {
             liquidScale = new LiquidScale {
-                minLinearAmount = 200,
+                minLinearAmount = 100,
                 maxLinearAmount = 1000,
-                minLinearFloatValue = 0.25f
+                minLinearFloatValue = 0.145f
             };
         }
     }
