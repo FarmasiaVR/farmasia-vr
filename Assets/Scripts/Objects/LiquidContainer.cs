@@ -88,6 +88,7 @@ public class LiquidContainer : MonoBehaviour {
                 }
                 if (mixingValue >= 10000) {
                     sceneManager.MixingComplete(this);
+                    mixingValue = 0;
                 }
                 lastYPosition = transform.position.y;
             }
