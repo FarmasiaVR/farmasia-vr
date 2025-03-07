@@ -199,7 +199,7 @@ public class LiquidContainer : MonoBehaviour {
         target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
         if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
         {
-            onMixingComplete!.Invoke(target);
+            onMixingComplete?.Invoke(target);
         }
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);

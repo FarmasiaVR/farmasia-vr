@@ -5755,6 +5755,7 @@ MonoBehaviour:
   text: {fileID: 5493531204046372797}
   displayText: 0
   decimalAccuracy: 0.000
+  changeDisplayByValue: 0
 --- !u!1 &8808558207640025404
 GameObject:
   m_ObjectHideFlags: 0
@@ -5858,7 +5859,8 @@ MonoBehaviour:
   amount: 0
   LiquidType: 0
   pcm: 0
-  sceneManager: {fileID: 0}
+  mixingManager: {fileID: 0}
+  contaminationLiquidType: 0
   GeneralItem: {fileID: 2847206496039059926}
   Impure: 0
   allowLiquidTransfer: 1
@@ -5893,6 +5895,9 @@ MonoBehaviour:
   onLiquidAmountChanged:
     m_PersistentCalls:
       m_Calls: []
+  onLiquidExchange:
+    m_PersistentCalls:
+      m_Calls: []
   onFilterHalfEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -5918,6 +5923,21 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onMixingComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 2abcca6f9e32d4e4eb8404c624a7744c, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
