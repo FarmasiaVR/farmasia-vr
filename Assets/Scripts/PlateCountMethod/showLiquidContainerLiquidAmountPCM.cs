@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
 //This code is a copy of showLiguidContainerLiguidAmount
 public class showLiquidContainerLiquidAmountPCM : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class showLiquidContainerLiquidAmountPCM : MonoBehaviour
     public TextMeshPro text;
     public bool displayText;
     public string decimalAccuracy = "0.000";
-
+    public int changeDisplayByValue;
     //bool indicating if IEnumerator toggleDisplayFor has been invoked already
     bool toggledDisplay;
 
@@ -23,7 +25,7 @@ public class showLiquidContainerLiquidAmountPCM : MonoBehaviour
     {
         if (displayText)
         {
-            text.text = (containerToShow.Amount / 1000.0f).ToString(decimalAccuracy) + "ml" + " / " + (containerToShow.Capacity / 1000.0f).ToString(decimalAccuracy) + "ml";
+            text.text = (Math.Max(containerToShow.Amount / 1000.0f + changeDisplayByValue,0)).ToString(decimalAccuracy) + "ml" + " / " + (containerToShow.Capacity / 1000.0f).ToString(decimalAccuracy) + "ml";
         }
         else
         {

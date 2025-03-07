@@ -29,49 +29,12 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             WritingType.Control
         };
 
-    public static Dictionary<Tuple<LiquidType, LiquidType>, LiquidType> recipes = new()
-    {
-        { Tuple.Create(LiquidType.SennaPowder,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
-        { Tuple.Create(LiquidType.Senna1m,LiquidType.PhosphateBuffer), LiquidType.Senna1m },
-        { Tuple.Create(LiquidType.PhosphateBuffer,LiquidType.Senna1), LiquidType.Senna01m },
-        { Tuple.Create(LiquidType.Senna01m,LiquidType.Senna1), LiquidType.Senna01m },                
-        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna01), LiquidType.Senna001m },
-        { Tuple.Create(LiquidType.Senna001m, LiquidType.Senna01), LiquidType.Senna001m },
-        { Tuple.Create(LiquidType.PhosphateBuffer, LiquidType.Senna001), LiquidType.Senna0001m },
-        { Tuple.Create(LiquidType.Senna0001m, LiquidType.Senna001), LiquidType.Senna0001m }        
-    };
-
-
-    public static Dictionary<LiquidType, Tuple<int, int>> minMaxMixingValue = new()
-    {
-        { LiquidType.SennaPowder, Tuple.Create(1000, 1500) },
-        { LiquidType.Senna1m, Tuple.Create(500, 6000) },
-        { LiquidType.Senna1, Tuple.Create(500, 6000) },
-        { LiquidType.PhosphateBuffer, Tuple.Create(4500, 5000) },
-        { LiquidType.Senna01m, Tuple.Create(500, 5000) },
-        { LiquidType.Senna001m, Tuple.Create(4500, 5000) },
-        { LiquidType.Senna0001m, Tuple.Create(4500, 5000) }
-    };
-
     public static Dictionary<LiquidType, LiquidType> mixingTable = new()
     {
         { LiquidType.Senna1m, LiquidType.Senna1 },
         { LiquidType.Senna01m, LiquidType.Senna01 },
         { LiquidType.Senna001m, LiquidType.Senna001 },
         { LiquidType.Senna0001m, LiquidType.Senna0001 }
-    };
-
-    public static List<LiquidType> SennaTypes = new()
-    {
-        LiquidType.SennaPowder,
-        LiquidType.Senna1m,
-        LiquidType.Senna1,
-        LiquidType.Senna01m,
-        LiquidType.Senna01,
-        LiquidType.Senna001m,
-        LiquidType.Senna001,
-        LiquidType.Senna0001m,
-        LiquidType.Senna0001
     };
 
     private void Awake()
@@ -91,7 +54,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteTask(string taskName)
     {
-        // Debug.Log($"Trying to complete task"); // Please god no this spams so much
         taskManager.CompleteTask(taskName);
         taskOrderViolated = false;
     }
@@ -252,46 +214,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private bool IsControlTube(LiquidContainer container)
     {
         return testTubes["control"].Contains(container) || dilutionTypesTubes[WritingType.Control] == container;
-    }
-
-    public bool Dilution(LiquidContainer source, LiquidContainer target, int transferAmount){        
-        Debug.Log("Trying to mix: " + source.LiquidType + " with " + target.LiquidType);
-
-        if (IsControlTube(target))
-        {
-            GeneralMistake("Don't mix liquids in the control tube!", 1);
-            return false;
-        }
-
-        var key = Tuple.Create(target.LiquidType, source.LiquidType);
-
-        if (recipes.TryGetValue(key, out LiquidType newResult))
-        {   
-            if (minMaxMixingValue.TryGetValue(target.LiquidType, out var tupleValue)){
-                var (min, max) = tupleValue;
-                if (min <= target.Amount+transferAmount && target.Amount+transferAmount <= max){
-                    if(target.LiquidType!= newResult) target.mixingValue = 0;
-                    target.LiquidType = newResult;
-                    target.SetLiquidMaterial();
-                     // Apply the new result
-                    
-                    Debug.Log("New LiquidType: " + newResult);
-                    return true;
-                }
-                else{
-                    GeneralMistake("The amounts of the liquids are incorrect.",1);
-                    return false;
-                }
-            }
-            else{
-                GeneralMistake("The amounts of the liquids are incorrect.",1);
-                return false;
-            }
-
-        } else {          
-            GeneralMistake($"Mixing failed: Are you sure these are the correct liquids?",1);
-            return false;
-        }
     }
 
     public void MixingComplete(LiquidContainer container)

@@ -15,7 +15,7 @@ There are a **lot** of options in the project settings that affect the quality o
 In `Player Settings` Set the Version of your build.\
 We decided to use a version naming convention where the first number is the Group (of cs students assigned to the project), second number is the Sprint and the third number is just a counter for that sprint's builds.
 
-The lightmap encoding option sets all baked lightmaps to a quality level. The quality is set to low because **there is a 1.1GB file size limitation** when uploading an .apk to the Meta Store. There is a way to bundle the upload to multiple files but we have not tried that.
+The lightmap encoding option sets all baked lightmaps to a quality level. The quality is set to high, but this needs option `Split Application Binaries` checked because **there is a 1.1GB file size limitation** when uploading an .apk to the Meta Store. This option generates an .obb file alongside the .apk which will be uploaded together with the .apk.
 
 Further down on the `Player Settings -> Other Settings` submenu there is a Version number field and below that is the `Bundle Version Code`. This bundle version code **needs to be incremented** every time you publish a build or the Meta Quest Developer Hub won't accept the build.
 
@@ -30,6 +30,8 @@ In `Player Settings -> Publishing Settings` you need to fill in the keystore pas
 After all the settings are set. `Build Settings -> Build` the first build you make on a computer might take a *while*.
 
 ![img5](img/build-guide/build5.png)
+
+After building you have two options for uploading the build to the Meta Store, either the Meta Quest Developer Hub, or the [`ovr-platform-util` command-line tool](https://developers.meta.com/horizon/resources/publish-reference-platform-command-line-utility/).
 
 ## Meta Quest Developer Hub
 
@@ -50,3 +52,10 @@ Now the APK is being uploaded and tested. After the tests have passed, the updat
 
 After the tests are completed you can download/update the new build to the Quest 2 headset from the store/app library.\
 Depending on the channel you chose to publish on you might have to change the channel in the headset's library where the app is located.
+
+## `ovr-platform-util`
+
+1. Install the tool from [here](https://developers.meta.com/horizon/resources/publish-reference-platform-command-line-utility/)
+2. Get the App ID and App Secret from the [Meta Quest Developer Dashboard](https://developers.meta.com/horizon/manage/), under Development -> API
+3. Rename the OBB file to follow the format `main.[build number].com.FacultyofPharmacyUniversityofHelsinki.AsepticWorkVR.obb`
+4. In the directory containing the build .apk and .obb files, execute the command `ovr-platform-util upload-quest-build -a [APP ID] -s [APP SECRET] --apk AsepticWorkVR.[VERSION].apk --obb main.[BUILD NUMBER].com.FacultyofPharmacyUniversityofHelsinki.AsepticWorkVR.obb -c [RELEASE CHANNEL] --age-group TEENS_AND_ADULTS`
