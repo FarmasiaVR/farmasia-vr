@@ -293,7 +293,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
         else
         {
-            if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType)
+            // Check if just mixed senna, so that a mistake isn't given right after completing MixPhosphateToSenna
+            bool finishedMixingSenna = pipette.Container.LiquidType == LiquidType.Senna1m && container.LiquidType == LiquidType.Senna1;
+            if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType && !finishedMixingSenna)
             {
                 TaskMistake("Used a contaminated pipette", 1);
             }
