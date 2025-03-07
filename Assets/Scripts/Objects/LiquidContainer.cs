@@ -21,7 +21,7 @@ public class LiquidContainer : MonoBehaviour {
 
     public LiquidType LiquidType;
     public bool pcm;
-    public PlateCountMethodSceneManager sceneManager;    
+    public MixingManager mixingManager;    
     public LiquidType contaminationLiquidType = LiquidType.None; //This is used in PCM for "Actually Working Pipette XR" to keep track of what it is contaminated with.
     public GeneralItem GeneralItem;
 
@@ -49,6 +49,8 @@ public class LiquidContainer : MonoBehaviour {
 
     [Tooltip("Called when liquid changes. Passes both source and target containers as parameters.")]
     public UnityEvent<LiquidType> onLiquidTypeChange;
+
+    public UnityEvent<LiquidContainer> onMixingComplete;
     
     //This block is here for the PCM mixing functionality
     public int mixingValue = 0;
@@ -80,14 +82,14 @@ public class LiquidContainer : MonoBehaviour {
 
     private void Update() {
         if (GeneralItem){
-            if (GeneralItem.ObjectType == ObjectType.Bottle && sceneManager != null) {
+            if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
                 if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
                     int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
                 }
                 if (mixingValue >= 10000) {
-                    sceneManager.MixingComplete(this);
+                    onMixingComplete!.Invoke(this);
                     mixingValue = 0;
                 }
                 lastYPosition = transform.position.y;
@@ -173,17 +175,17 @@ public class LiquidContainer : MonoBehaviour {
          // Debug.Log("survived toTransfer == 0 check");
         
         if(this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && pcm){
-            if (sceneManager != null)
+            if (mixingManager != null)
             {
-                Debug.Log("sceneManager is assigned. Calling Dilution and Test methods.");
+                Debug.Log("mixingManager is assigned. Calling Dilution and Test methods.");
                 // Call Dilution and Test methods
                 // Denies transfering liquid if mixing the wrong recipe
-                if(!sceneManager.Dilution(this, target, toTransfer)) toTransfer = 0;
-                
+                if(!mixingManager.Dilution(this, target, toTransfer)) toTransfer = 0;
+
             }
             else
             {
-                Debug.LogError("sceneManager is null! Please assign it.");
+                Debug.LogError("mixingManager is null! Please assign it.");
             }            
             //toTransfer = 0;
             if (toTransfer == 0) return;
@@ -195,9 +197,9 @@ public class LiquidContainer : MonoBehaviour {
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
         target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
-        if (target.mixingValue >= 10000 && sceneManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
+        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
         {
-            sceneManager.MixingComplete(target);
+            onMixingComplete!.Invoke(target);
         }
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
