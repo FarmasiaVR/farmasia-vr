@@ -5,9 +5,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MoveItemsToTablePCM : MonoBehaviour
 {
-    public GameObject[] closetItems;
-    public GameObject closetParent;// Parent holding items in the closet
-    public GameObject tableParent;// Parent holding items on the table
+    [System.Serializable]
+    public struct ItemPair
+    {
+        public GameObject item;        // The item to move
+        public Transform targetLocation; // Target position for the item
+    }
+    public ItemPair[] itemsToMove; // Array of items and their target locations
+    public GameObject DisableAfterPress; // To disable the button after it is pressed
 
     private void Start()
     {
@@ -18,12 +23,22 @@ public class MoveItemsToTablePCM : MonoBehaviour
 
     private void OnButtonPressed(SelectEnterEventArgs args)
     {
-        if (closetParent != null) closetParent.SetActive(false);// Disable closet items
-        // Disable all closet items manually
-        foreach (GameObject item in closetItems)
+        DisableButton();
+        foreach (var itemPair in itemsToMove)
         {
-            if (item != null) item.SetActive(false);
+            // Move the actual object
+            if (itemPair.item != null && itemPair.targetLocation != null)
+            {
+                itemPair.item.transform.position = itemPair.targetLocation.position;
+            }
         }
-        if (tableParent != null) tableParent.SetActive(true);// Enable table items
+    }
+
+    public void DisableButton()
+    {
+        if (DisableAfterPress != null)
+        {
+            DisableAfterPress.SetActive(false);
+        }
     }
 }
