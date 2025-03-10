@@ -196,9 +196,10 @@ public class LiquidContainer : MonoBehaviour {
 
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
-        target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
+        target.mixingValue += 700; //PCM mixing functionality
         if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
         {
+            //Debug.Log("mixing with pipettor");
             onMixingComplete!.Invoke(target);
         }
         onLiquidAmountChanged.Invoke(this);
