@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MoveItemsToTablePCM : MonoBehaviour
 {
+    public TaskManager taskManager;
+
     [System.Serializable]
     public struct ItemPair
     {
@@ -23,14 +25,23 @@ public class MoveItemsToTablePCM : MonoBehaviour
 
     private void OnButtonPressed(SelectEnterEventArgs args)
     {
-        DisableButton();
         foreach (var itemPair in itemsToMove)
         {
             // Move the actual object
             if (itemPair.item != null && itemPair.targetLocation != null)
             {
                 itemPair.item.transform.position = itemPair.targetLocation.position;
+                itemPair.item.transform.rotation = itemPair.targetLocation.rotation;
             }
+        }
+        DisableButton();
+    }
+
+    void Update()
+    {
+        if (taskManager.IsTaskCompleted("toolsToCabinet"))
+        {
+            DisableButton();
         }
     }
 
