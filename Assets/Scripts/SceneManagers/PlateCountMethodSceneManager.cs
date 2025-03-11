@@ -23,8 +23,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
     private Dictionary<WritingType, LiquidContainer> dilutionTypesTubes = new Dictionary<WritingType, LiquidContainer>();
-    private Dictionary<WritingType, AgarPlateLid> dilutionTypesCaseine = new Dictionary<WritingType, AgarPlateLid>();
-    private Dictionary<WritingType, AgarPlateLid> dilutionTypesSabouraud = new Dictionary<WritingType, AgarPlateLid>();
+    private Dictionary<WritingType, LiquidContainer> dilutionTypesCaseine = new Dictionary<WritingType, LiquidContainer>();
+    private Dictionary<WritingType, LiquidContainer> dilutionTypesSabouraud = new Dictionary<WritingType, LiquidContainer>();
     private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
         {
             WritingType.OneToTen,
@@ -184,6 +184,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         Debug.Log("Dilution Type: " + dilutionType);
         if (dilutionType == null) return;
         Debug.Log(foundItem.GetType().Name);
+        
         switch(foundItem.GetType().Name)
         {
             case "Bottle":
@@ -196,13 +197,16 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             case "AgarPlateLid":
             {
                 AgarPlateLid lid = foundItem.GetComponent<AgarPlateLid>();
+                LiquidContainer container = lid.PlateBottom.GetComponentInChildren<LiquidContainer>();
+                Debug.Log("Writing to a plate: " + dilutionType.Value + " value: " + container);
+
                 if (lid.Variant == "Sabourad-dekstrosi")
                 {
-                    dilutionTypesSabouraud[dilutionType.Value] = lid;
+                    dilutionTypesSabouraud[dilutionType.Value] = container;
                 }
                 else if (lid.Variant == "Soija-kaseiini")
                 {
-                    dilutionTypesCaseine[dilutionType.Value] = lid;
+                    dilutionTypesCaseine[dilutionType.Value] = container;
                 }
                 break;
             }
