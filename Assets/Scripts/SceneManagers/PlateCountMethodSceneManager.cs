@@ -31,6 +31,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             WritingType.Control
         };
 
+    // If player starts filling tubes before writing on them, they are added to this list instead of dilutionDict
+    private List<LiquidContainer> containerBuffer = new List<LiquidContainer>();
+
     public static Dictionary<LiquidType, LiquidType> mixingTable = new()
     {
         { LiquidType.Senna1m, LiquidType.Senna1 },
@@ -152,6 +155,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (writingType is null)
                 {
                     TaskMistake("Please write dilution types first", 1);
+                    containerBuffer.Add(container);
                     break;
                 }
                 dilutionDict[writingType.Value][1] = container;
@@ -160,6 +164,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
             // If amount is changed, container needs to be removed from arrays
             default:
+                if (containerBuffer.Contains(container))
+                {
+                    containerBuffer.Remove(container);
+                    break;
+                }
                 foreach (var entry in dilutionDict)
                 {
                     if (entry.Value[1] == container)
@@ -171,7 +180,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 }
                 break;
         }
+        CheckIfTubesAreFilled();
+    }
 
+    private void CheckIfTubesAreFilled()
+    {
         foreach (var entry in dilutionDict)
         {
             if (entry.Value[1] == null) { return; }
@@ -200,7 +213,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
                 Debug.Log("Writing to a tube: " + dilutionType.Value + " value: " + container);
+
                 dilutionDict[dilutionType.Value][0] = container;
+                if (containerBuffer.Contains(container))
+                {
+                    containerBuffer.Remove(container);
+                    dilutionDict[dilutionType.Value][1] = container;
+                    CheckIfTubesAreFilled();
+                }
                 break;
             }
             case "AgarPlateLid":
