@@ -286,7 +286,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         int pipetteID = pipette.transform.GetInstanceID();
 
         // Debug.Log("Pipette used in task " + task);
-        if (task != "PerformSerialDilution")
+        if (!taskManager.IsTaskCompleted("MixPhosphateToSenna"))
         {
             // Debug.Log("Pipette ID: " + pipette);
             usedPipetteHeads.Add(pipetteID);
