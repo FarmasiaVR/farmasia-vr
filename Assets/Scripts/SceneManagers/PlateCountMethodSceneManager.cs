@@ -22,9 +22,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
     private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
-    private Dictionary<WritingType, LiquidContainer> dilutionTypesTubes = new Dictionary<WritingType, LiquidContainer>();
-    private Dictionary<WritingType, LiquidContainer> dilutionTypesCaseine = new Dictionary<WritingType, LiquidContainer>();
-    private Dictionary<WritingType, LiquidContainer> dilutionTypesSabouraud = new Dictionary<WritingType, LiquidContainer>();
+    private Dictionary<WritingType, LiquidContainer[]> dilutionDict;
     private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
         {
             WritingType.OneToTen,
@@ -44,16 +42,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
+
         // Prepare dictionaries
+        dilutionDict = new Dictionary<WritingType, LiquidContainer[]>();
         testTubes.Add("dilution", new List<LiquidContainer>());
         testTubes.Add("control", new List<LiquidContainer>());
 
         foreach (WritingType type in dilutionTypes)
         {
-            dilutionTypesTubes[type] = null;
-            dilutionTypesCaseine[type] = null;
-            dilutionTypesSabouraud[type] = null;
+            dilutionDict[type] = new LiquidContainer[4];
         }
+        Debug.Log(dilutionDict);
     }
 
     public void CompleteTask(string taskName)
@@ -191,7 +190,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
                 Debug.Log("Writing to a tube: " + dilutionType.Value + " value: " + container);
-                dilutionTypesTubes[dilutionType.Value] = container;
+                dilutionDict[dilutionType.Value][0] = container;
                 break;
             }
             case "AgarPlateLid":
@@ -202,11 +201,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
                 if (lid.Variant == "Sabourad-dekstrosi")
                 {
-                    dilutionTypesSabouraud[dilutionType.Value] = container;
+                    dilutionDict[dilutionType.Value][3] = container;
                 }
                 else if (lid.Variant == "Soija-kaseiini")
                 {
-                    dilutionTypesCaseine[dilutionType.Value] = container;
+                    dilutionDict[dilutionType.Value][2] = container;
                 }
                 break;
             }
@@ -221,9 +220,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private void CheckWritingsIntegrity()
     {
-        if (IsAnySlotEmpty(dilutionTypesTubes)
-        || IsAnySlotEmpty(dilutionTypesCaseine)
-        || IsAnySlotEmpty(dilutionTypesSabouraud))
+        if (IsAnySlotEmpty(dilutionDict))
         {
             return;
         }
@@ -231,14 +228,19 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask("WriteOnTubes");
     }
 
-    private bool IsAnySlotEmpty<T>(Dictionary<WritingType, T> dict) where T : class
+    private bool IsAnySlotEmpty(Dictionary<WritingType, LiquidContainer[]> dict)
     {
         foreach (var entry in dict)
         {
-            // Debug.Log(entry.Key + ": " + entry.Value);
-            if (entry.Value == null)
+            for (int i = 0; i<4; i++)
             {
-                return true;
+                // Index 1 is reserved for phosphate buffer fill
+                if (i == 1) continue;
+
+                if (entry.Value[i] == null)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -246,7 +248,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private bool IsControlTube(LiquidContainer container)
     {
-        return testTubes["control"].Contains(container) || dilutionTypesTubes[WritingType.Control] == container;
+        return testTubes["control"].Contains(container) || dilutionDict[WritingType.Control][0] == container;
     }
 
     public void MixingComplete(LiquidContainer container)
