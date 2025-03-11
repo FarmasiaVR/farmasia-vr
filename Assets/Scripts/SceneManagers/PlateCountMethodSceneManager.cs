@@ -20,8 +20,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
-    // Dict that stores information about dilution and control tubes
-    private Dictionary<string, List<LiquidContainer>> testTubes = new Dictionary<string, List<LiquidContainer>>();
+
+    // Dict that stores information about dilution, tubes and plates
     private Dictionary<WritingType, LiquidContainer[]> dilutionDict;
     private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
         {
@@ -43,16 +43,13 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         taskManager = GetComponent<TaskManager>();
 
-        // Prepare dictionaries
+        // Prepare dictionary
         dilutionDict = new Dictionary<WritingType, LiquidContainer[]>();
-        testTubes.Add("dilution", new List<LiquidContainer>());
-        testTubes.Add("control", new List<LiquidContainer>());
 
         foreach (WritingType type in dilutionTypes)
         {
             dilutionDict[type] = new LiquidContainer[4];
         }
-        Debug.Log(dilutionDict);
     }
 
     public void CompleteTask(string taskName)
@@ -122,6 +119,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask(currentTask);
     }
 
+    // If container is not found, it means the player messed writing and they are added to naughty list >:)
+    private WritingType? FindContainer(LiquidContainer container)
+    {
+        foreach (var entry in dilutionDict)
+        {
+            if (entry.Value[0] == container) {
+                return entry.Key;
+            }
+        }
+        return null;
+    }
+
     public void CheckTubesFill(LiquidContainer container)
     {
         if (taskManager.IsTaskCompleted("FillTubes")) { return; }
@@ -132,46 +141,46 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         switch(container.Amount)
         {
             case controlTubeAmount:
-                if (!testTubes["control"].Any())
+                if (dilutionDict[WritingType.Control][1] is null)
                 {
                     Debug.Log("Container added to CONTROL");
-                    testTubes["control"].Add(container);
+                    dilutionDict[WritingType.Control][1] = container;
                 }
                 break;
             case dilutionTubesAmount:
-                if (testTubes["dilution"].Count < 3)
+                WritingType? writingType = FindContainer(container);
+                if (writingType is null)
                 {
-                    testTubes["dilution"].Add(container);
-                    Debug.Log("Container added to DILTUION");
+                    TaskMistake("Please write dilution types first", 1);
                     break;
                 }
+                dilutionDict[writingType.Value][1] = container;
+                Debug.Log("Container added to DILTUION");
                 break;
-            // If amount is changed, container needs to be removed from lists
+
+            // If amount is changed, container needs to be removed from arrays
             default:
-                if (testTubes["control"].Contains(container))
+                foreach (var entry in dilutionDict)
                 {
-                    testTubes["control"].Remove(container);
-                    Debug.Log("Container removed from CONTROL");
-                    break;
-                }
-                else if (testTubes["dilution"].Contains(container))
-                {
-                    testTubes["dilution"].Remove(container);
-                    Debug.Log("Container removed from DILUTION");
-                    break;
+                    if (entry.Value[1] == container)
+                    {
+                        entry.Value[1] = null;
+                        Debug.Log("Container removed from " + entry.Key);
+                        break;
+                    }
                 }
                 break;
         }
 
-        // Check if tubes are filled
-        if (testTubes["dilution"].Count == 3 && testTubes["control"].Count == 1)
+        foreach (var entry in dilutionDict)
         {
-            CompleteTask("FillTubes");
-            Debug.Log("All the tubes are filled");
+            if (entry.Value[1] == null) { return; }
         }
+        CompleteTask("FillTubes");
+        Debug.Log("All the tubes are filled");
     }
 
-    // Checks if the dilution type was written onto the object and updates the according dictionaries
+    // Checks if the dilution type was written onto the object and updates the dictionary
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
         if (taskManager.IsTaskCompleted("WriteOnTubes")) { return; }
@@ -181,9 +190,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
         Debug.Log("Dilution Type: " + dilutionType);
+
         if (dilutionType == null) return;
+
         Debug.Log(foundItem.GetType().Name);
-        
         switch(foundItem.GetType().Name)
         {
             case "Bottle":
@@ -248,7 +258,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private bool IsControlTube(LiquidContainer container)
     {
-        return testTubes["control"].Contains(container) || dilutionDict[WritingType.Control][0] == container;
+        return dilutionDict[WritingType.Control][1] == container || dilutionDict[WritingType.Control][0] == container;
     }
 
     public void MixingComplete(LiquidContainer container)
