@@ -154,7 +154,12 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 WritingType? writingType = FindContainer(container);
                 if (writingType is null)
                 {
-                    TaskMistake("Please write dilution types first", 1);
+                    // Will not complain if write on tubes has been skipped manually
+                    if (!taskManager.IsTaskCompleted("WriteOnTubes"))
+                    {
+                        TaskMistake("Please write dilution types first", 1);
+                    }
+                    
                     containerBuffer.Add(container);
                     break;
                 }
