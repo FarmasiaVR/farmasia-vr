@@ -290,6 +290,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             // Debug.Log("Pipette ID: " + pipette);
             usedPipetteHeads.Add(pipetteID);
+
+            // Check if a contaminated pipette is used in the wrong container (e.g. trying to take phosphate with a pipette contaminated with senna)
+            if (pipette.Container.contaminationLiquidType != LiquidType.None)
+            {
+                if (pipette.Container.contaminationLiquidType != container.LiquidType && pipette.Container.contaminationLiquidType != LiquidType.PhosphateBuffer)
+                {
+                    GeneralMistake("Used a contaminated pipette", 1);
+                }
+            }
         }
         else
         {
