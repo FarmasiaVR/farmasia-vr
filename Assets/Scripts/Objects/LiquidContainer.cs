@@ -146,7 +146,7 @@ public class LiquidContainer : MonoBehaviour {
     public void TransferTo(LiquidContainer target, int amount) {
         if (!allowLiquidTransfer) return;
         //Debug.Log("Liguid container starts taking medicine");
-        target.onLiquidTransfer.Invoke(target);
+        
         //This is to check whether a mix would happen with the transfer
         if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
         {
@@ -202,6 +202,7 @@ public class LiquidContainer : MonoBehaviour {
             //Debug.Log("mixing with pipettor");
             onMixingComplete!.Invoke(target);
         }
+        target.onLiquidTransfer.Invoke(target);
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
     }
