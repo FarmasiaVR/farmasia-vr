@@ -170,6 +170,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void PourDilutionOnPlate(LiquidContainer container)
     {
+        CheckTaskOrderViolation("SpeadDilution");
+
         LiquidType liquid = container.LiquidType;
         WritingType desiredMarking = correctLiquids[liquid];
 
