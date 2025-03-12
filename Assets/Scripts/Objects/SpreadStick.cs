@@ -7,21 +7,19 @@ using UnityEngine.Localization.Settings;
 public class SpreadStick : MonoBehaviour {
     public LiquidType liquidType;
     public bool colliding = false;
-    public int spreadingValue;
     public float movementSensitivity = 10f;
     private float lastXPosition;
     private float lastZPosition;
-    
+    private AgarPlateBottom plateBottom;
 
     void Update() {
         whileColliding(colliding);
     }
     public void OnTriggerEnter(Collider collision){
-        GameObject orig = collision.gameObject;
-        Bottle item = orig.GetComponent<Bottle>();
-        if (item != null && item.ObjectType == ObjectType.AgarPlate){
-            LiquidType collidedLiquid = item.Container.LiquidType;
-            Debug.Log($"{item}, {collidedLiquid}");
+        GameObject collidingObject = collision.gameObject;
+        plateBottom = collidingObject.GetComponent<AgarPlateBottom>();
+        if (plateBottom != null){
+            LiquidType collidedLiquid = plateBottom.Container.LiquidType;
             changeLiquidType(collidedLiquid);
             colliding = true;
         }
