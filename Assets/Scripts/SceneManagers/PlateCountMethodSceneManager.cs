@@ -42,6 +42,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         { LiquidType.Senna0001m, LiquidType.Senna0001 }
     };
 
+    private Dictionary<LiquidType, WritingType> correctLiquids = new()
+    {
+        { LiquidType.Senna01, WritingType.OneToTen},
+        { LiquidType.Senna001, WritingType.OneToHundred },
+        { LiquidType.Senna0001, WritingType.OneToThousand },
+        { LiquidType.PhosphateBuffer, WritingType.Control }
+    };
+
     private void Awake()
     {
         taskManager = GetComponent<TaskManager>();
@@ -134,6 +142,23 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         return null;
     }
 
+    public void PourDilutionOnPlate(LiquidContainer container)
+    {
+        LiquidType liquid = container.LiquidType;
+        WritingType desiredMarking = correctLiquids[liquid];
+
+        if (dilutionDict[desiredMarking][2] == container
+        || dilutionDict[desiredMarking][3] == container)
+        {
+            // if this check passes, player put liquid in a correct plate
+            Debug.Log(liquid + " put into " + desiredMarking + " successfully");
+        }
+        else
+        {
+            TaskMistake("Dilution type does not match the plate", 1);
+        }
+    }
+
     public void CheckTubesFill(LiquidContainer container)
     {
         if (taskManager.IsTaskCompleted("FillTubes")) { return; }
@@ -164,7 +189,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     break;
                 }
                 dilutionDict[writingType.Value][1] = container;
-                Debug.Log("Container added to DILTUION");
+                Debug.Log("Container added to " + writingType.Value);
                 break;
 
             // If amount is changed, container needs to be removed from arrays
