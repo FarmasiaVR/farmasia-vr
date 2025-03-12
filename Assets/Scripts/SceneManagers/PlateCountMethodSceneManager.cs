@@ -156,6 +156,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         else
         {
             TaskMistake("Dilution type does not match the plate", 1);
+            // Allows to refill if liquid was incorrect
+            container.SetAmount(0);
         }
     }
 
