@@ -24,7 +24,13 @@ public class SpreadStick : MonoBehaviour {
             colliding = true;
         }
     }
+    private void OnTriggerExit(Collider collision) {
+        if (colliding == true) {
+            colliding = false;
+            plateBottom = null;
+    }
 
+    }
     private void changeLiquidType(LiquidType incoming) {
         if ( liquidType != LiquidType.None ) {
             liquidType = incoming;
