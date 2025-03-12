@@ -59,7 +59,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         foreach (WritingType type in dilutionTypes)
         {
-            dilutionDict[type] = new LiquidContainer[4];
+            dilutionDict[type] = new LiquidContainer[6];
         }
     }
 
@@ -142,6 +142,32 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         return null;
     }
 
+    // This can be called by another object to mark a plate ready
+    public void PlateReadyInSpreadTask(LiquidContainer container)
+    {
+        foreach (var entry in dilutionDict)
+        {
+            if (entry.Value[2] == container)
+            {
+                // Container found in soy caseins
+                dilutionDict[entry.Key][4] = container;
+                break;
+            }
+            else if (entry.Value[3] == container)
+            {
+                // Container found in sabourauds
+                dilutionDict[entry.Key][5] = container;
+                break;
+            }
+        }
+        // Check if slots are filled after adding
+        foreach (var entry in dilutionDict)
+        {
+            if (entry.Value[4] == null || entry.Value[5] == null) return;
+        }
+        CompleteTask("SpreadDilution");
+    }
+
     public void PourDilutionOnPlate(LiquidContainer container)
     {
         LiquidType liquid = container.LiquidType;
@@ -152,6 +178,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             // if this check passes, player put liquid in a correct plate
             Debug.Log(liquid + " put into " + desiredMarking + " successfully");
+            // For now, adds to success list only after adding liquid. To be removed later when you can spread with blue stick
+            PlateReadyInSpreadTask(container);
         }
         else
         {
