@@ -13,7 +13,7 @@ public class SpreadStick : MonoBehaviour {
     private AgarPlateBottom plateBottom;
 
     void Update() {
-        whileColliding(colliding);
+        if (plateBottom != null) whileColliding(colliding);
     }
     public void OnTriggerEnter(Collider collision){
         GameObject collidingObject = collision.gameObject;
@@ -28,8 +28,8 @@ public class SpreadStick : MonoBehaviour {
         if (colliding == true) {
             colliding = false;
             plateBottom = null;
-    }
-
+        }
+        
     }
     private void changeLiquidType(LiquidType incoming) {
         if ( liquidType != LiquidType.None ) {
@@ -39,8 +39,8 @@ public class SpreadStick : MonoBehaviour {
 
     private void whileColliding(bool collision) {
         if (collision == true){
-        float deltaX = transform.position.x - lastXPosition;
-        float deltaZ = transform.position.z - lastZPosition;
+            float deltaX = transform.position.x - lastXPosition;
+            float deltaZ = transform.position.z - lastZPosition;
 
             int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
             int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
@@ -48,9 +48,9 @@ public class SpreadStick : MonoBehaviour {
 
             plateBottomInteraction(changeAmountsSum);
 
-        lastXPosition = transform.position.x;
-        lastZPosition = transform.position.z;
-    }
+            lastXPosition = transform.position.x;
+            lastZPosition = transform.position.z;
+        }
     }
 
     private void plateBottomInteraction(int changeValue) {
