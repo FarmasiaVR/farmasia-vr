@@ -38,25 +38,25 @@ public class SpreadStick : MonoBehaviour {
     }
 
     private void whileColliding(bool collision) {
+        if (collision == true){
         float deltaX = transform.position.x - lastXPosition;
         float deltaZ = transform.position.z - lastZPosition;
-        if (Mathf.Abs(deltaX) > 0.0001f) {
-            int changeAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
-            spreadingValue+=Mathf.Abs(changeAmount)*200;
-        }
-        if (Mathf.Abs(deltaZ) > 0.0001f) {
-            int changeAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
-            spreadingValue+=Mathf.Abs(changeAmount)*200;
-        }
+
+            int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
+            int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
+            int changeAmountsSum = Mathf.Min(100,Mathf.Abs(changeXAmount)*100) + Mathf.Min(100,Mathf.Abs(changeZAmount)*100);
+
+            plateBottomInteraction(changeAmountsSum);
+
         lastXPosition = transform.position.x;
         lastZPosition = transform.position.z;
     }
+    }
 
-    private void OnTriggerExit(Collider collision) {
-        GameObject orig = collision.gameObject;
-        Bottle item = orig.GetComponent<Bottle>();
-        if (item != null && item.ObjectType == ObjectType.AgarPlate){
-            colliding = false;
+    private void plateBottomInteraction(int changeValue) {
+        if (plateBottom.spreadingStatus == false && plateBottom.isOpen == true) {
+            plateBottom.spreadValue+=changeValue;
+            plateBottom.spreadValue+=changeValue;
         }
     }
 
