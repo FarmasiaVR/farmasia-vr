@@ -343,6 +343,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void MixingComplete(LiquidContainer container)
     {
+        // Stop doing it if serial dilution is completed
+        if (taskManager.IsTaskCompleted("PerformSerialDilution")) return;
+
         if (taskManager.IsTaskCompleted("MixPhosphateToSenna"))
         {
             //Debug.Log("Checking order violation for PerformSerialDilution");
