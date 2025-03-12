@@ -123,7 +123,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     }
 
     // If container is not found, it means the player messed writing and they are added to naughty list >:)
-    private WritingType? FindContainer(LiquidContainer container)
+    private WritingType? FindSlotForContainer(LiquidContainer container)
     {
         foreach (var entry in dilutionDict)
         {
@@ -151,13 +151,13 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 }
                 break;
             case dilutionTubesAmount:
-                WritingType? writingType = FindContainer(container);
+                WritingType? writingType = FindSlotForContainer(container);
                 if (writingType is null)
                 {
                     // Will not complain if write on tubes has been skipped manually
                     if (!taskManager.IsTaskCompleted("WriteOnTubes"))
                     {
-                        TaskMistake("Please write dilution types first", 1);
+                        GeneralMistake("Please write dilution types before filling the tubes", 1);
                     }
                     
                     containerBuffer.Add(container);
