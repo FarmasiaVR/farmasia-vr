@@ -1693,6 +1693,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3652333458008033575}
     m_Modifications:
+    - target: {fileID: 1404093756389019932, guid: a775338447a97281d9410b542db71425,
+        type: 3}
+      propertyPath: m_MovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404093756389019932, guid: a775338447a97281d9410b542db71425,
+        type: 3}
+      propertyPath: m_Colliders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404093756389019932, guid: a775338447a97281d9410b542db71425,
+        type: 3}
+      propertyPath: m_Colliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 3819326237246470608}
     - target: {fileID: 2758889624739113615, guid: a775338447a97281d9410b542db71425,
         type: 3}
       propertyPath: m_Name
@@ -1768,11 +1783,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8575823123183434272, guid: a775338447a97281d9410b542db71425,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a775338447a97281d9410b542db71425, type: 3}
+--- !u!136 &3819326237246470608 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 8575823123183434272, guid: a775338447a97281d9410b542db71425,
+    type: 3}
+  m_PrefabInstance: {fileID: 4756796588889359344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5872657211605586668 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1404093756389019932, guid: a775338447a97281d9410b542db71425,
