@@ -13,51 +13,43 @@ public class SpreadStick : MonoBehaviour {
     private AgarPlateBottom plateBottom;
 
     void Update() {
-        if (plateBottom != null) whileColliding(colliding);
+        if (plateBottom != null && colliding == true) whileColliding(colliding);
     }
+
     public void OnTriggerEnter(Collider collision){
         GameObject collidingObject = collision.gameObject;
         plateBottom = collidingObject.GetComponent<AgarPlateBottom>();
-        if (plateBottom != null){
+        if (plateBottom != null && plateBottom?.isOpen == true){
             LiquidType collidedLiquid = plateBottom.Container.LiquidType;
             changeLiquidType(collidedLiquid);
             colliding = true;
         }
     }
+
     private void OnTriggerExit(Collider collision) {
         if (colliding == true) {
             colliding = false;
             plateBottom = null;
         }
-        
     }
     private void changeLiquidType(LiquidType incoming) {
-        if ( liquidType != LiquidType.None ) {
+        if ( liquidType == LiquidType.None ) {
             liquidType = incoming;
         }
     }
 
     private void whileColliding(bool collision) {
-        if (collision == true){
-            float deltaX = transform.position.x - lastXPosition;
-            float deltaZ = transform.position.z - lastZPosition;
 
-            int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
-            int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
-            int changeAmountsSum = Mathf.Min(100,Mathf.Abs(changeXAmount)*100) + Mathf.Min(100,Mathf.Abs(changeZAmount)*100);
-
-            plateBottomInteraction(changeAmountsSum);
-
-            lastXPosition = transform.position.x;
-            lastZPosition = transform.position.z;
+        float deltaX = transform.position.x - lastXPosition;
+        float deltaZ = transform.position.z - lastZPosition;
+        int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
+        int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
+        int changeAmountsSum = Mathf.Min(100,Mathf.Abs(changeXAmount)*100) + Mathf.Min(100,Mathf.Abs(changeZAmount)*100);
+        if (plateBottom.spreadingStatus == false) {
+            plateBottom.spreadValue+=changeAmountsSum;
         }
-    }
-
-    private void plateBottomInteraction(int changeValue) {
-        if (plateBottom.spreadingStatus == false && plateBottom.isOpen == true) {
-            plateBottom.spreadValue+=changeValue;
-            plateBottom.spreadValue+=changeValue;
-        }
+        lastXPosition = transform.position.x;
+        lastZPosition = transform.position.z;
     }
 
 }
