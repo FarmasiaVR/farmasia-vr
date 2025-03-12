@@ -14,6 +14,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private bool taskOrderViolated = false;
 
+    private HashSet<int> usedPipetteHeads = new HashSet<int>();
+
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
     // Dict that stores information about dilution and control tubes
@@ -275,5 +277,37 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             container.SetLiquidMaterial();
         }
         return valid;
+    }
+
+    // Invoked when pipettor pipette head enters a liquid container
+    public void PipetteUsed(PipetteContainer pipette, LiquidContainer container)
+    {
+        string task = taskManager.GetCurrentTask().key;
+        int pipetteID = pipette.transform.GetInstanceID();
+
+        // Debug.Log("Pipette used in task " + task);
+        if (!taskManager.IsTaskCompleted("MixPhosphateToSenna"))
+        {
+            // Debug.Log("Pipette ID: " + pipette);
+            usedPipetteHeads.Add(pipetteID);
+
+            // Check if a contaminated pipette is used in the wrong container (e.g. trying to take phosphate with a pipette contaminated with senna)
+            if (pipette.Container.contaminationLiquidType != LiquidType.None)
+            {
+                if (pipette.Container.contaminationLiquidType != container.LiquidType && pipette.Container.contaminationLiquidType != LiquidType.PhosphateBuffer)
+                {
+                    GeneralMistake("Used a contaminated pipette", 1);
+                }
+            }
+        }
+        else
+        {
+            // Check if just mixed senna, so that a mistake isn't given right after completing MixPhosphateToSenna
+            bool finishedMixingSenna = pipette.Container.LiquidType == LiquidType.Senna1m && container.LiquidType == LiquidType.Senna1;
+            if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType && !finishedMixingSenna)
+            {
+                TaskMistake("Used a contaminated pipette", 1);
+            }
+        }
     }
 }
