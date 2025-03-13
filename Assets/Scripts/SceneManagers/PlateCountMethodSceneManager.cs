@@ -86,7 +86,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CheckTaskOrderViolation(string taskName)
     {
         string currentTask = taskManager.GetCurrentTask().name;
-        if (currentTask != taskName && !taskOrderViolated) ViolateTaskOrder();
+        if (currentTask != taskName && !taskOrderViolated)
+        {
+            Debug.Log(taskName + " != " + currentTask);
+            ViolateTaskOrder();
+        }
     }
 
     public void GeneralMistake(string message, int penalty)
@@ -170,7 +174,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void PourDilutionOnPlate(LiquidContainer container)
     {
-        CheckTaskOrderViolation("SpeadDilution");
+        CheckTaskOrderViolation("SpreadDilution");
 
         LiquidType liquid = container.LiquidType;
         WritingType desiredMarking = correctLiquids[liquid];
@@ -261,7 +265,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (taskManager.IsTaskCompleted("WriteOnTubes")) { return; }
 
         CheckTaskOrderViolation("WriteOnTubes");
-        //Debug.Log("Checking order violation for WriteOnTubes");
 
         WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
         Debug.Log("Dilution Type: " + dilutionType);
@@ -350,7 +353,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         if (taskManager.IsTaskCompleted("MixPhosphateToSenna"))
         {
-            //Debug.Log("Checking order violation for PerformSerialDilution");
             CheckTaskOrderViolation("PerformSerialDilution");
         }
 
@@ -358,7 +360,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             case LiquidType.Senna1m:
             {
-                //Debug.Log("Checking order violation for MixPhosphateToSenna");
                 CheckTaskOrderViolation("MixPhosphateToSenna");
                 if (MixIfValid(container, 6000))
                 {
