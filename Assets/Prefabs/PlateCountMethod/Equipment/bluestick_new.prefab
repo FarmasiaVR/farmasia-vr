@@ -142,6 +142,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8575823123183434272}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a113035842619515bb7bb8312650222e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6035545995960550388}
   m_SourcePrefab: {fileID: 100100000, guid: a113035842619515bb7bb8312650222e, type: 3}
 --- !u!1 &2758889624739113615 stripped
 GameObject:
@@ -363,6 +367,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liquidType: 0
+  colliding: 0
+  movementSensitivity: 10
 --- !u!136 &8575823123183434272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -386,6 +392,21 @@ CapsuleCollider:
   m_Height: 0.015
   m_Direction: 1
   m_Center: {x: -0, y: 0.006659273, z: 0.0203}
+--- !u!114 &6035545995960550388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2758889624739113615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fd6af0855a6d444beb10f1c25ab67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetInteractable: {fileID: 0}
+  targetRigidBody: {fileID: 0}
+  kinematicDisableDelay: 0
 --- !u!4 &3243255645665079349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a113035842619515bb7bb8312650222e,
