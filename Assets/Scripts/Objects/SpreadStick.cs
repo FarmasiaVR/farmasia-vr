@@ -39,6 +39,7 @@ public class SpreadStick : MonoBehaviour {
     }
 
     private void whileColliding(bool collision) {
+        if (plateBottom.Container.Amount == 0) { return; }
         if (plateBottom.spreadingStatus == false) {
             float deltaX = transform.position.x - lastXPosition;
             float deltaZ = transform.position.z - lastZPosition;
