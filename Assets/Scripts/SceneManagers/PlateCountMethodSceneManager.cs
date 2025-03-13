@@ -102,6 +102,23 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 Transform toolsToCabinetGO = skips.transform.Find("ToolsToCabinet");
                 toolsToCabinetGO.gameObject.SetActive(true);
                 break;
+            case "FillTubes":
+                Transform emptyTubesStand = skips.transform.Find("ToolsToCabinet/BigTestTubeStandPCM (1)");
+                emptyTubesStand.gameObject.SetActive(false);
+
+                GameObject[] allObjects = FindObjectsOfType<GameObject>();
+                int tubeLayer = LayerMask.NameToLayer("TestTube");
+                foreach (GameObject obj in allObjects)
+                {
+                    if (obj.layer == tubeLayer)
+                    {
+                        Destroy(obj);
+                    }
+                }
+
+                Transform fullTubes = skips.transform.Find("FillTubes");
+                fullTubes.gameObject.SetActive(true);
+                break;
         }
         CompleteTask(currentTask);
     }
