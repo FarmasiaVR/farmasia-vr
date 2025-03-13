@@ -35,21 +35,20 @@ public class SpreadStick : MonoBehaviour {
     private void changeLiquidType(LiquidType incoming) {
         if ( liquidType == LiquidType.None ) {
             liquidType = incoming;
-        }
+        } //this would be a good place to add an event to see if spreadstick has been in another agar plate
     }
 
     private void whileColliding(bool collision) {
-
-        float deltaX = transform.position.x - lastXPosition;
-        float deltaZ = transform.position.z - lastZPosition;
-        int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
-        int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
-        int changeAmountsSum = Mathf.Min(100,Mathf.Abs(changeXAmount)*100) + Mathf.Min(100,Mathf.Abs(changeZAmount)*100);
         if (plateBottom.spreadingStatus == false) {
+            float deltaX = transform.position.x - lastXPosition;
+            float deltaZ = transform.position.z - lastZPosition;
+            int changeXAmount = Mathf.RoundToInt(deltaX * movementSensitivity);
+            int changeZAmount = Mathf.RoundToInt(deltaZ * movementSensitivity);
+            int changeAmountsSum = Mathf.Min(100,Mathf.Abs(changeXAmount)*100) + Mathf.Min(100,Mathf.Abs(changeZAmount)*100);
             plateBottom.spreadValue+=changeAmountsSum;
+            lastXPosition = transform.position.x;
+            lastZPosition = transform.position.z;
         }
-        lastXPosition = transform.position.x;
-        lastZPosition = transform.position.z;
     }
 
 }
