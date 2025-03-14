@@ -259,6 +259,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         Debug.Log("All the tubes are filled");
     }
 
+    private WritingType? DilutionTypeFromWriting(Dictionary<WritingType, string> selectedOptions)
+    {
+        foreach (var entry in selectedOptions)
+        {
+            if (dilutionTypes.Contains(entry.Key)) return entry.Key;
+        }
+        return null;
+    }
+
     // Checks if the dilution type was written onto the object and updates the dictionary
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
@@ -266,7 +275,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         CheckTaskOrderViolation("WriteOnTubes");
 
-        WritingType? dilutionType = selectedOptions.Keys.FirstOrDefault(key => dilutionTypes.Contains(key));
+        WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
         Debug.Log("Dilution Type: " + dilutionType);
 
         if (dilutionType == null) return;
