@@ -134,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 868407753492937782}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: closeAgarPlate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -165,6 +177,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
         m_MethodName: restoreState
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 868407753492937782}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: openAgarPlate
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1152,6 +1176,12 @@ MonoBehaviour:
   DisableHighlighting: 0
   objectType: 0
   isClean: 1
+  isOpen: 0
+  spreadValue: 0
+  spreadingStatus: 0
+  onSpreadingComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1806739084868298440
 GameObject:
   m_ObjectHideFlags: 0
