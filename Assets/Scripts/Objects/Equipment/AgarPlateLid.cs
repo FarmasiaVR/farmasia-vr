@@ -43,13 +43,13 @@ public class AgarPlateLid : ConnectableItem {
     public void sendPlateClosedEvent()
     {
         Events.FireEvent(EventType.AgarPlateClosed, CallbackData.Object(this));
-        thisPlateBottom.closeAgarPlate();
+        thisPlateBottom?.closeAgarPlate();
     }
 
     public void sendPlateOpenedEvent()
     {
         Events.FireEvent(EventType.PlateOpened, CallbackData.Object(this));
-        thisPlateBottom.openAgarPlate();
+        thisPlateBottom?.openAgarPlate();
     }
 
 
