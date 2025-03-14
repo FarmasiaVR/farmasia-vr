@@ -861,7 +861,7 @@ MonoBehaviour:
       - m_Target: {fileID: 269494849640167877}
         m_TargetAssemblyTypeName: ChangeFromMockToRealObj, Assembly-CSharp
         m_MethodName: changeToRealObj
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1032,7 +1032,8 @@ MonoBehaviour:
   m_text: 20/20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
-  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
+  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1897,7 +1898,7 @@ MonoBehaviour:
       - m_Target: {fileID: 269494849640167877}
         m_TargetAssemblyTypeName: ChangeFromMockToRealObj, Assembly-CSharp
         m_MethodName: changeToRealObj
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2042,6 +2043,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onTransferLiquid:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4034994589066640267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2547,7 +2551,8 @@ MonoBehaviour:
   m_text: Avaa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
-  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
+  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2811,7 +2816,8 @@ MonoBehaviour:
   m_text: Avaa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
-  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2, type: 2}
+  m_sharedMaterial: {fileID: 1142789488501979346, guid: 32ab7dd1e8ab5a34dbe0077903b162d2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3021,6 +3027,9 @@ MonoBehaviour:
   liquid: {fileID: 8265641172238179603}
   amount: 0
   LiquidType: 0
+  pcm: 0
+  mixingManager: {fileID: 0}
+  contaminationLiquidType: 0
   GeneralItem: {fileID: 0}
   Impure: 0
   allowLiquidTransfer: 1
@@ -3037,6 +3046,14 @@ MonoBehaviour:
   onFilterHalfEnter:
     m_PersistentCalls:
       m_Calls: []
+  onLiquidTypeChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onMixingComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  mixingValue: 0
+  movementSensitivity: 10
   capacity: 50000
 --- !u!136 &4967034391207880517
 CapsuleCollider:
