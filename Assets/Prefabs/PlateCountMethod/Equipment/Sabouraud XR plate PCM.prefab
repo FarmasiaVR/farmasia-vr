@@ -134,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 868407753492937782}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: closeAgarPlate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -165,6 +177,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
         m_MethodName: restoreState
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 868407753492937782}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: openAgarPlate
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -322,9 +346,9 @@ MonoBehaviour:
   amount: 0
   LiquidType: 0
   pcm: 0
-  sceneManager: {fileID: 0}
+  mixingManager: {fileID: 0}
   contaminationLiquidType: 0
-  GeneralItem: {fileID: 3924132892345277493}
+  GeneralItem: {fileID: 0}
   Impure: 0
   allowLiquidTransfer: 0
   allowMixingLiquids: 1
@@ -341,6 +365,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onLiquidTypeChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onMixingComplete:
     m_PersistentCalls:
       m_Calls: []
   mixingValue: 0
@@ -825,7 +852,7 @@ GameObject:
   - component: {fileID: 5320346935243158349}
   - component: {fileID: 2226330468786416338}
   - component: {fileID: 7840564626151185139}
-  - component: {fileID: 3924132892345277493}
+  - component: {fileID: 868407753492937782}
   m_Layer: 10
   m_Name: agarplatebottom
   m_TagString: Untagged
@@ -1133,7 +1160,7 @@ MonoBehaviour:
   targetInteractable: {fileID: 0}
   targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
---- !u!114 &3924132892345277493
+--- !u!114 &868407753492937782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1142,13 +1169,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1707447677001932304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 80156ecd0cacd07cf82b7d838aea5478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsInteracting: 0
   DisableHighlighting: 0
-  objectType: 8
+  objectType: 0
   isClean: 1
+  isOpen: 0
+  spreadValue: 0
+  spreadingStatus: 0
+  onSpreadingComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1806739084868298440
 GameObject:
   m_ObjectHideFlags: 0

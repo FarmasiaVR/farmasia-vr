@@ -373,12 +373,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 532226835998093014}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 532226835998093014}
+  m_maskType: 0
 --- !u!114 &1728656841650314762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,9 +711,9 @@ MonoBehaviour:
   amount: 0
   LiquidType: 0
   pcm: 0
-  sceneManager: {fileID: 0}
+  mixingManager: {fileID: 0}
   contaminationLiquidType: 0
-  GeneralItem: {fileID: 262078306913334184}
+  GeneralItem: {fileID: 0}
   Impure: 0
   allowLiquidTransfer: 0
   allowMixingLiquids: 1
@@ -730,6 +730,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onLiquidTypeChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onMixingComplete:
     m_PersistentCalls:
       m_Calls: []
   mixingValue: 0
@@ -838,6 +841,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 582806483691659513}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: closeAgarPlate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -869,6 +884,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: disableInteractionUntilParentSelected, Assembly-CSharp
         m_MethodName: restoreState
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 582806483691659513}
+        m_TargetAssemblyTypeName: AgarPlateBottom, GameAssembly
+        m_MethodName: openAgarPlate
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1015,7 +1042,7 @@ GameObject:
   - component: {fileID: 951094519425485943}
   - component: {fileID: 1986143763288113160}
   - component: {fileID: 5851952239688609579}
-  - component: {fileID: 262078306913334184}
+  - component: {fileID: 582806483691659513}
   m_Layer: 10
   m_Name: agarplatebottom
   m_TagString: Untagged
@@ -1323,7 +1350,7 @@ MonoBehaviour:
   targetInteractable: {fileID: 0}
   targetRigidBody: {fileID: 0}
   kinematicDisableDelay: 0.01
---- !u!114 &262078306913334184
+--- !u!114 &582806483691659513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1332,13 +1359,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4955842511638952867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81c00ec35bc47f43bfd8a1f3ee606c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 80156ecd0cacd07cf82b7d838aea5478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsInteracting: 0
   DisableHighlighting: 0
-  objectType: 8
+  objectType: 0
   isClean: 1
+  isOpen: 0
+  spreadValue: 0
+  spreadingStatus: 0
+  onSpreadingComplete:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5733883325926052703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,12 +1934,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 7469018805620405988}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 7469018805620405988}
+  m_maskType: 0
 --- !u!114 &6836708491766436680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2698,12 +2731,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1815179867603637973}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1815179867603637973}
+  m_maskType: 0
 --- !u!1 &7821048299448153361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,9 +2967,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 7630662245978226065}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 7630662245978226065}
+  m_maskType: 0

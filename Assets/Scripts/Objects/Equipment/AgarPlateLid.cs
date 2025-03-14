@@ -34,7 +34,6 @@ public class AgarPlateLid : ConnectableItem {
         if (!GetComponent<XRBaseInteractable>())
         {
             var Bottom = BottomObject.GetComponent<Interactable>();
-
             Connector.ConnectItem(Bottom);
         }
     }

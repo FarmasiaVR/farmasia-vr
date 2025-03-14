@@ -84,7 +84,7 @@ public class LiquidContainer : MonoBehaviour {
         if (GeneralItem){
             if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
-                if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
+                if (Mathf.Abs(deltaY) > 0.001f) {
                     int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
                 }
@@ -320,7 +320,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (GeneralItem is Bottle || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem is Bottle || GeneralItem.ObjectType == ObjectType.PumpFilterTank || GeneralItem is AgarPlateBottom) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
@@ -333,7 +333,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteContainerEnter(PipetteContainer pipette) {
-        if (GeneralItem is Bottle) {
+        if (GeneralItem is Bottle || GeneralItem is AgarPlateBottom) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
@@ -408,13 +408,13 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteExit(Pipette pipette) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem is AgarPlateBottom || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipette.State.Off(InteractState.InBottle);
             pipette.BottleContainer = null;
         }
     }
     private void OnPipetteContainerExit(PipetteContainer pipetteContainer) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem is AgarPlateBottom || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipetteContainer.State.Off(InteractState.InBottle);
             pipetteContainer.BottleContainer = null;
         }
