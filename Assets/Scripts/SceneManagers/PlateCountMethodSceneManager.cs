@@ -184,8 +184,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         {
             // if this check passes, player put liquid in a correct plate
             Debug.Log(liquid + " put into " + desiredMarking + " successfully");
-            // For now, adds to success list only after adding liquid. To be removed later when you can spread with blue stick
-            PlateReadyInSpreadTask(container);
         }
         else
         {
