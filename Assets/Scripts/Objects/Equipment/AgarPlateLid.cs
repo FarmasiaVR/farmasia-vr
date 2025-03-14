@@ -8,7 +8,6 @@ public class AgarPlateLid : ConnectableItem {
 
     [SerializeField]
     private GameObject BottomObject;
-    private AgarPlateBottom thisPlateBottom;
 
     [SerializeField]
     private string variant;
@@ -37,19 +36,16 @@ public class AgarPlateLid : ConnectableItem {
             var Bottom = BottomObject.GetComponent<Interactable>();
             Connector.ConnectItem(Bottom);
         }
-        thisPlateBottom = BottomObject.GetComponent<AgarPlateBottom>();
     }
 
     public void sendPlateClosedEvent()
     {
         Events.FireEvent(EventType.AgarPlateClosed, CallbackData.Object(this));
-        thisPlateBottom?.closeAgarPlate();
     }
 
     public void sendPlateOpenedEvent()
     {
         Events.FireEvent(EventType.PlateOpened, CallbackData.Object(this));
-        thisPlateBottom?.openAgarPlate();
     }
 
 
