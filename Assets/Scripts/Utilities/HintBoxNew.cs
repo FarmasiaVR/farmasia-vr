@@ -117,18 +117,6 @@ public class HintBoxNew : MonoBehaviour
     }
 
     /// <summary>
-    /// Generates a Mistake into the TaskList as well as a Popup with the
-    /// error message through TaskManager. Recommended to be used with an XR Interactable.
-    /// </summary>
-    public void TextShownMistake()
-    {
-        var localizedString = new LocalizedString("PlateCountMethod", "OpenHintBox");
-        localizedString.StringChanged += (localizedText) => {
-        taskManager.GenerateGeneralMistake(localizedText, 2);
-        };
-    }
-
-    /// <summary>
     /// Boolean value that tells if the text is showing or not.
     /// </summary>
     /// <returns></returns>
