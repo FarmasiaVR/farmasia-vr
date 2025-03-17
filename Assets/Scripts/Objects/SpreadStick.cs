@@ -11,6 +11,10 @@ public class SpreadStick : MonoBehaviour {
     private float lastXPosition;
     private float lastZPosition;
     private AgarPlateBottom plateBottom;
+    
+
+    [Tooltip("This is called when Stick is contaminated")]
+    public UnityEvent<string, int> contaminatedStickUsed;
 
     void Update() {
         if (plateBottom != null && colliding == true) whileColliding(colliding);
@@ -35,6 +39,9 @@ public class SpreadStick : MonoBehaviour {
     private void changeLiquidType(LiquidType incoming) {
         if ( liquidType == LiquidType.None ) {
             liquidType = incoming;
+        }
+        if ( liquidType != incoming ) {
+            contaminatedStickUsed.Invoke("Please don't use this Stick, it is already contaminated",10);
         } //this would be a good place to add an event to see if spreadstick has been in another agar plate
     }
 

@@ -217,7 +217,7 @@ public class LiquidContainer : MonoBehaviour {
     private void TransferLiquidType(LiquidContainer target) {
        
         //This is used in PCM in phase after dilution
-        target.contaminationLiquidType = target.LiquidType;
+        target.contaminationLiquidType = LiquidType;
         // if (target.contaminationLiquidType == LiquidType.None){
         //     target.contaminationLiquidType = target.LiquidType;
         // }

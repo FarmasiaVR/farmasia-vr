@@ -13,6 +13,7 @@ public class AgarPlateBottom : GeneralItem {
     public bool isOpen;
     public int spreadValue;
     public bool spreadingStatus;
+    public AudioSource successAudio;
     public UnityEvent<LiquidContainer> onSpreadingComplete;
     protected override void Start() {
         base.Start();
@@ -25,6 +26,7 @@ public class AgarPlateBottom : GeneralItem {
         if (spreadValue >= 1000 && spreadingStatus == false) {
             Debug.Log("Spreading complete");
             spreadingStatus = true;
+            successAudio.Play();
             onSpreadingComplete?.Invoke(Container);
         }
     }
