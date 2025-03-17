@@ -21,8 +21,8 @@ public class Cover : MonoBehaviour
 
     public Action<Hand> OpenCoverWithHand;
 
-    public Action<Hand> OnCoverOpen = (hand) => { };
-
+    public Action<Hand> OnCoverOpen = (hand) => { };    
+    public GameObject itemInside;
     // Start is called before the first frame update
     protected void Start() {
         coverOn = true;
@@ -51,6 +51,7 @@ public class Cover : MonoBehaviour
     {
         if (!coverOn) return;
         coverOn = false;
+        ActivatingItemInside();
         coverGameObject.SetActive(false);
         Events.FireEvent(EventType.WrongSpotOpened, CallbackData.Object(this));
         DisableOpeningSpots();
@@ -62,6 +63,7 @@ public class Cover : MonoBehaviour
     {
         if (!coverOn) return;
         coverOn = false;
+        ActivatingItemInside();
         coverGameObject.SetActive(false);
         DisableOpeningSpots();
     }
@@ -81,8 +83,9 @@ public class Cover : MonoBehaviour
         }
     }
 
-    public void OpenCover(Hand hand) {
-        coverOn = false;
+    public void OpenCover(Hand hand) {        
+        coverOn = false;        
+        ActivatingItemInside();
         coverGameObject.SetActive(false);
         OnCoverOpen(hand);
     }
@@ -108,5 +111,14 @@ public class Cover : MonoBehaviour
         if (!coverOn) return;
         rightOpeningSpot?.transform.gameObject.SetActive(true);
         wrongOpeningSpot?.transform.gameObject.SetActive(true);
+    }
+
+    public void ActivatingItemInside(){
+        Debug.Log("Doro this code is runing");
+        if (itemInside == null) return;
+        
+        itemInside.SetActive(true);
+        itemInside.transform.SetParent(null);
+        
     }
 }
