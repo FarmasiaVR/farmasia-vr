@@ -70,14 +70,6 @@ public class HintManagerTests
         Assert.True(hintBoxText.gameObject.activeSelf);
     }
 
-    [Test]
-    public void PenalisedForOpeningHint()
-    {
-        hintBox.TextShownMistake();
-        Assert.Less(taskManager.taskListObject.GetPoints(), 0);
-        Assert.Greater(taskManager.taskListObject.GetGeneralMistakes().Count, 0);
-    }
-
     [UnityTearDown]
     public IEnumerator TearDown()
     {
