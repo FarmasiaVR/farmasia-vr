@@ -17,6 +17,10 @@ public class AgarPlateLid : ConnectableItem {
         get { return variant; }
     }
 
+    public GameObject PlateBottom {
+        get { return BottomObject; }
+    }
+
     protected override void Start() {
         base.Start();
         Type.On(InteractableType.Interactable);
@@ -34,7 +38,6 @@ public class AgarPlateLid : ConnectableItem {
         if (!GetComponent<XRBaseInteractable>())
         {
             var Bottom = BottomObject.GetComponent<Interactable>();
-
             Connector.ConnectItem(Bottom);
         }
     }

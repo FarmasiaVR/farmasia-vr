@@ -21,7 +21,7 @@ public class LiquidContainer : MonoBehaviour {
 
     public LiquidType LiquidType;
     public bool pcm;
-    public PlateCountMethodSceneManager sceneManager;    
+    public MixingManager mixingManager;    
     public LiquidType contaminationLiquidType = LiquidType.None; //This is used in PCM for "Actually Working Pipette XR" to keep track of what it is contaminated with.
     public GeneralItem GeneralItem;
 
@@ -49,11 +49,15 @@ public class LiquidContainer : MonoBehaviour {
 
     [Tooltip("Called when liquid changes. Passes both source and target containers as parameters.")]
     public UnityEvent<LiquidType> onLiquidTypeChange;
+
+    public UnityEvent<LiquidContainer> onMixingComplete;
     
     //This block is here for the PCM mixing functionality
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
+    private float lastXPosition;
+    private float lastZPosition;
 
     private void Awake() {
         Assert.IsNotNull(liquid);
@@ -80,16 +84,22 @@ public class LiquidContainer : MonoBehaviour {
 
     private void Update() {
         if (GeneralItem){
-            if (GeneralItem.ObjectType == ObjectType.Bottle && sceneManager != null) {
+            if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
-                if (Mathf.Abs(deltaY) > 0.001f) { // Ignore tiny movements
-                    int changeAmount = Mathf.RoundToInt(deltaY * movementSensitivity);
+                float deltaX = transform.position.x - lastXPosition;
+                float deltaZ = transform.position.z - lastZPosition;
+                float totalMovement = Mathf.Sqrt(deltaY * deltaY + deltaX * deltaX + deltaZ * deltaZ);
+                if (totalMovement > 0.001f) {
+                    int changeAmount = Mathf.RoundToInt(totalMovement * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
                 }
                 if (mixingValue >= 10000) {
-                    sceneManager.MixingComplete(this);
+                    onMixingComplete!.Invoke(this);
+                    mixingValue = 0;
                 }
                 lastYPosition = transform.position.y;
+                lastXPosition = transform.position.x;
+                lastZPosition = transform.position.z;
             }
         }
 
@@ -143,7 +153,7 @@ public class LiquidContainer : MonoBehaviour {
     public void TransferTo(LiquidContainer target, int amount) {
         if (!allowLiquidTransfer) return;
         //Debug.Log("Liguid container starts taking medicine");
-        target.onLiquidTransfer.Invoke(target);
+        
         //This is to check whether a mix would happen with the transfer
         if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
         {
@@ -172,17 +182,17 @@ public class LiquidContainer : MonoBehaviour {
          // Debug.Log("survived toTransfer == 0 check");
         
         if(this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && pcm){
-            if (sceneManager != null)
+            if (mixingManager != null)
             {
-                Debug.Log("sceneManager is assigned. Calling Dilution and Test methods.");
+                Debug.Log("mixingManager is assigned. Calling Dilution and Test methods.");
                 // Call Dilution and Test methods
                 // Denies transfering liquid if mixing the wrong recipe
-                if(!sceneManager.Dilution(this, target, toTransfer)) toTransfer = 0;
-                
+                if(!mixingManager.Dilution(this, target, toTransfer)) toTransfer = 0;
+
             }
             else
             {
-                Debug.LogError("sceneManager is null! Please assign it.");
+                Debug.LogError("mixingManager is null! Please assign it.");
             }            
             //toTransfer = 0;
             if (toTransfer == 0) return;
@@ -193,11 +203,13 @@ public class LiquidContainer : MonoBehaviour {
 
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
-        target.mixingValue += Math.Abs(toTransfer); //PCM mixing functionality
-        if (target.mixingValue >= 10000 && sceneManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
+        target.mixingValue += 700; //PCM mixing functionality
+        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
         {
-            sceneManager.MixingComplete(target);
+            //Debug.Log("mixing with pipettor");
+            onMixingComplete!.Invoke(target);
         }
+        target.onLiquidTransfer.Invoke(target);
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
     }
@@ -205,7 +217,7 @@ public class LiquidContainer : MonoBehaviour {
     private void TransferLiquidType(LiquidContainer target) {
        
         //This is used in PCM in phase after dilution
-        target.contaminationLiquidType = target.LiquidType;
+        target.contaminationLiquidType = LiquidType;
         // if (target.contaminationLiquidType == LiquidType.None){
         //     target.contaminationLiquidType = target.LiquidType;
         // }
@@ -316,7 +328,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteEnter(Pipette pipette) {
-        if (GeneralItem is Bottle || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem is Bottle || GeneralItem.ObjectType == ObjectType.PumpFilterTank || GeneralItem is AgarPlateBottom) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
@@ -329,7 +341,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteContainerEnter(PipetteContainer pipette) {
-        if (GeneralItem is Bottle) {
+        if (GeneralItem is Bottle || GeneralItem is AgarPlateBottom) {
             pipette.State.On(InteractState.InBottle);
             pipette.hasBeenInBottle = true;
 
@@ -404,13 +416,13 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void OnPipetteExit(Pipette pipette) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem is AgarPlateBottom || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipette.State.Off(InteractState.InBottle);
             pipette.BottleContainer = null;
         }
     }
     private void OnPipetteContainerExit(PipetteContainer pipetteContainer) {
-        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
+        if (GeneralItem.ObjectType == ObjectType.Bottle || GeneralItem is AgarPlateBottom || GeneralItem.ObjectType == ObjectType.Medicine || GeneralItem.ObjectType == ObjectType.PumpFilterTank) {
             pipetteContainer.State.Off(InteractState.InBottle);
             pipetteContainer.BottleContainer = null;
         }

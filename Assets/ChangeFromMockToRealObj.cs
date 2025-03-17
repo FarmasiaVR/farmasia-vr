@@ -19,7 +19,7 @@ public class ChangeFromMockToRealObj : MonoBehaviour
     }
 
    
-    public void changeToRealObj(SelectEnterEventArgs args)
+    public void changeToRealObj()
     {
         IXRSelectInteractable interactable = GetComponent<IXRSelectInteractable>();
         IXRSelectInteractor interactorSelecting = null;

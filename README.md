@@ -2,7 +2,7 @@
 
 Software engineering project, University of Helsinki 2019-2025
 
-[Youtube playlist of Demo videos](https://youtube.com/playlist?list=PLcInC9BHVUWDKuVEtxtwqEL6yLZVHpJZ2&si=w6DBedLs3Dh199UK)
+[Youtube playlist of Demo videos](https://www.youtube.com/playlist?list=PL_YKqaBch35I016hDedNtHaKyVa_G7NhX)
 
 Group 1 [Mid Demo fall 2019](https://youtu.be/pIKCZFZo2UA)\
 Group 1 [End Demo fall 2019](https://youtu.be/3NkUEzHm15Q?si=QZiTjBtOvQ7L5s3M)\
@@ -13,7 +13,8 @@ Group 4 [End Demo spring 2023](https://drive.google.com/file/d/1CMKsz_xbZPIIZJpU
 Group 5 [Mid Demo fall 2023](https://youtu.be/ASA7PMW_mGI?si=EdcNciua4nFXLOs2)\
 Group 5 [End Demo fall 2023](https://youtu.be/uL822Pbvwr0?si=HbdrWTF9DVj5KPED)\
 Group 6 [Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)\
-Group 6 [End Demo fall 2024](https://www.youtube.com/watch?v=lc7FpVJEIuk)
+Group 6 [End Demo fall 2024](https://www.youtube.com/watch?v=lc7FpVJEIuk)\
+Group 7 [Mid Demo spring 2025](https://www.youtube.com/watch?v=zKT39n3busw)
 
 ## Description
 

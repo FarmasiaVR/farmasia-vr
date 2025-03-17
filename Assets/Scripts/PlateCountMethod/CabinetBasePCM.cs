@@ -30,12 +30,13 @@ public class CabinetBasePCM : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {        
         GeneralItem item = other.GetComponent<GeneralItem>();
-        
+        CoverOpeningHandler coverItem = item.GetComponent<CoverOpeningHandler>(); 
+        coverItem?.completeAction();
         if (item == null) {
             return;
         }
 
-        
+
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
             var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
             localizedString.StringChanged += (localizedText) => {
@@ -46,7 +47,7 @@ public class CabinetBasePCM : MonoBehaviour {
             CleanItem(item);
         }
 
-        
+
 
         if (requiredItems.Contains(other.gameObject)){            
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
