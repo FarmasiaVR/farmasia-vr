@@ -57,6 +57,7 @@ public class LiquidContainer : MonoBehaviour {
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
     private float lastXPosition;
+    private float lastZPosition;
 
     private void Awake() {
         Assert.IsNotNull(liquid);
@@ -86,7 +87,8 @@ public class LiquidContainer : MonoBehaviour {
             if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
                 float deltaX = transform.position.x - lastXPosition;
-                float totalMovement = Mathf.Sqrt(deltaY * deltaY + deltaX * deltaX);
+                float deltaZ = transform.position.z - lastZPosition;
+                float totalMovement = Mathf.Sqrt(deltaY * deltaY + deltaX * deltaX + deltaZ * deltaZ);
                 if (totalMovement > 0.001f) {
                     int changeAmount = Mathf.RoundToInt(totalMovement * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
@@ -97,6 +99,7 @@ public class LiquidContainer : MonoBehaviour {
                 }
                 lastYPosition = transform.position.y;
                 lastXPosition = transform.position.x;
+                lastZPosition = transform.position.z;
             }
         }
 
