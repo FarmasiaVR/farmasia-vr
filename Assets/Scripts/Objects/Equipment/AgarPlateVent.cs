@@ -6,8 +6,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class AgarPlateVent : MonoBehaviour
 {
     public bool isVenting {get; private set; } = false;
-    // Change later when rebased on top of changes where bottom can be accessed from lid
-    public GameObject bottom;
+    private AgarPlateLid lid;
+    private GameObject bottomObject;
+    private AgarPlateBottom bottom;
     private int angleUp = 20;
     private XRSocketInteractor socket;
     private Transform rotationPoint;
@@ -15,11 +16,16 @@ public class AgarPlateVent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (bottom == null)
+        lid = GetComponent<AgarPlateLid>();
+        bottomObject = lid.PlateBottom;
+        if (bottomObject == null)
         {
             Debug.LogWarning("Agar plate bottom unassigned!");
         }
-        else { socket = bottom.GetComponentInChildren<XRSocketInteractor>(); }
+        else {
+            socket = bottomObject.GetComponentInChildren<XRSocketInteractor>();
+            bottom = bottomObject.GetComponent<AgarPlateBottom>();
+        }
 
         rotationPoint = transform.Find("LidRotate");
         if (rotationPoint == null)
@@ -42,7 +48,7 @@ public class AgarPlateVent : MonoBehaviour
 
     public void Vent()
     {
-        if (rotationPoint == null || socket == null) { return; }
+        if (rotationPoint == null || bottomObject == null || bottom.isOpen) { return; }
         if (isVenting) { StopVenting(); }
         else { StartVenting(); }
     }
