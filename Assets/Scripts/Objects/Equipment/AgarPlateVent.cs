@@ -22,7 +22,8 @@ public class AgarPlateVent : MonoBehaviour
         {
             Debug.LogWarning("Agar plate bottom unassigned!");
         }
-        else {
+        else
+        {
             socket = bottomObject.GetComponentInChildren<XRSocketInteractor>();
             bottom = bottomObject.GetComponent<AgarPlateBottom>();
         }
