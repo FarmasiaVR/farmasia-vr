@@ -30,10 +30,15 @@ public class CabinetBasePCM : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {        
         GeneralItem item = other.GetComponent<GeneralItem>();
-        CoverOpeningHandler coverItem = item.GetComponent<CoverOpeningHandler>(); 
-        coverItem?.completeAction();
+
         if (item == null) {
             return;
+        }
+
+        if (item.GetComponent<CoverOpeningHandler>() != null)
+        {
+            CoverOpeningHandler coverItem = item.GetComponent<CoverOpeningHandler>(); 
+            coverItem?.completeAction();
         }
 
 
