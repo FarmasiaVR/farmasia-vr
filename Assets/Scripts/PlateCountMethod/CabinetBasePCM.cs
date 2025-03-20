@@ -38,10 +38,7 @@ public class CabinetBasePCM : MonoBehaviour {
 
 
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
-            var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
-            localizedString.StringChanged += (localizedText) => {
-            sceneManager.GeneralMistake(localizedText, 1);
-            };
+            sceneManager.GeneralMistake("DirtyItemInCabinet", 1);
             GUIConsole.Log("Dirty: " + other.gameObject.name);                       
             //Debug.Log("Dirty: " + other.gameObject.name);
             CleanItem(item);

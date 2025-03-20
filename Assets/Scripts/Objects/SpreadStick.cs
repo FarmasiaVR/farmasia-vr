@@ -41,7 +41,7 @@ public class SpreadStick : MonoBehaviour {
             liquidType = incoming;
         }
         if ( liquidType != incoming ) {
-            contaminatedStickUsed.Invoke("Please don't use this Stick, it is already contaminated",10);
+            contaminatedStickUsed.Invoke("ContaminatedStick", 1);
         } //this would be a good place to add an event to see if spreadstick has been in another agar plate
     }
 
