@@ -54,4 +54,10 @@ public class AgarPlateVent : MonoBehaviour
         else { StartVenting(); }
     }
 
+    public void StopVentingAfterOpening()
+    {
+        if (!isVenting) { return; }
+        StopVenting();
+    }
+
 }
