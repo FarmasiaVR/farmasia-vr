@@ -15,6 +15,8 @@ public class AgarPlateBottom : GeneralItem {
     public bool spreadingStatus;
     public AudioSource successAudio;
     public UnityEvent<LiquidContainer> onSpreadingComplete;
+    public UnityEvent onOpen;
+
     protected override void Start() {
         base.Start();
         Type.On(InteractableType.Attachable, InteractableType.Interactable);
@@ -32,6 +34,7 @@ public class AgarPlateBottom : GeneralItem {
     }
 
     public void openAgarPlate() {
+        onOpen.Invoke();
         isOpen = true;
     }
 
