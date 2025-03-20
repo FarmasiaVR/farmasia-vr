@@ -34,6 +34,7 @@ public class CabinetBasePCM : MonoBehaviour {
         if (item == null) {
             return;
         }
+	sceneManager.objectsInLaminarCabinet.Add(other.gameObject);
 
         if (item.GetComponent<CoverOpeningHandler>() != null)
         {
@@ -110,5 +111,7 @@ public class CabinetBasePCM : MonoBehaviour {
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = false; 
         }
+
+        sceneManager.objectsInLaminarCabinet.Add(other.gameObject);
     }
 }
