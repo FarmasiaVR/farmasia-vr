@@ -76,10 +76,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void ViolateTaskOrder()
     {
-        var localizedString = new LocalizedString("PlateCountMethod", "OrderViolated");
-        localizedString.StringChanged += (localizedText) => {
-            GeneralMistake(localizedText, 1);
-        };
+        GeneralMistake("OrderViolated", 1);
         taskOrderViolated = true;
     }
 
@@ -93,14 +90,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
-    public void GeneralMistake(string message, int penalty)
+    public void GeneralMistake(string key, int penalty)
     {
-        taskManager.GenerateGeneralMistake(message, penalty);
+        var localizedString = new LocalizedString("PlateCountMethod", key);
+        localizedString.StringChanged += (localizedText) => {
+            taskManager.GenerateGeneralMistake(localizedText, penalty);
+        };
+        
     }
 
-    public void TaskMistake(string message, int penalty)
+    public void TaskMistake(string key, int penalty)
     {
-        taskManager.GenerateTaskMistake(message, penalty);
+        var localizedString = new LocalizedString("PlateCountMethod", key);
+        localizedString.StringChanged += (localizedText) => {
+            taskManager.GenerateTaskMistake(localizedText, penalty);
+        };
     }
 
     public void SkipCurrentTask()
@@ -187,7 +191,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
         else
         {
-            TaskMistake("Dilution type does not match the plate", 1);
+            TaskMistake("WrongDilutionType", 1);
             // Allows to refill if liquid was incorrect
             container.SetAmount(0);
         }
@@ -216,7 +220,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     // Will not complain if write on tubes has been skipped manually
                     if (!taskManager.IsTaskCompleted("WriteOnTubes"))
                     {
-                        GeneralMistake("Please write dilution types before filling the tubes", 1);
+                        GeneralMistake("WriteBeforeFill", 1);
                     }
                     
                     containerBuffer.Add(container);
@@ -432,7 +436,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 if (pipette.Container.contaminationLiquidType != container.LiquidType && pipette.Container.contaminationLiquidType != LiquidType.PhosphateBuffer)
                 {
-                    GeneralMistake("Used a contaminated pipette", 1);
+                    GeneralMistake("ContaminatedPipette", 1);
                 }
             }
         }
@@ -442,7 +446,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             bool finishedMixingSenna = pipette.Container.LiquidType == LiquidType.Senna1m && container.LiquidType == LiquidType.Senna1;
             if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType && !finishedMixingSenna)
             {
-                TaskMistake("Used a contaminated pipette", 1);
+                TaskMistake("ContaminatedPipette", 1);
             }
         }
     }
