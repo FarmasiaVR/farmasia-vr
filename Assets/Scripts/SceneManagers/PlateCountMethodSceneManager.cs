@@ -17,6 +17,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private bool taskOrderViolated = false;
 
     private HashSet<int> usedPipetteHeads = new HashSet<int>();
+    public HashSet<GameObject> objectsInLaminarCabinet = new HashSet<GameObject>(); // Items are added to this set in CabinetBasePCM.cs
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
@@ -118,21 +119,35 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 toolsToCabinetGO.gameObject.SetActive(true);
                 break;
             case "FillTubes":
-                Transform emptyTubesStand = skips.transform.Find("ToolsToCabinet/BigTestTubeStandPCM (1)");
+                /*Transform emptyTubesStand = skips.transform.Find("ToolsToCabinet/BigTestTubeStandPCM (1)");
                 emptyTubesStand.gameObject.SetActive(false);
 
-                GameObject[] allObjects = FindObjectsOfType<GameObject>();
+                GameObject[] allObjects = FindObjectsOfType<GameObject>();*/
                 int tubeLayer = LayerMask.NameToLayer("TestTube");
-                foreach (GameObject obj in allObjects)
+                int dilutionTubes = 0;
+                int controlTubes = 0;
+                foreach (GameObject obj in objectsInLaminarCabinet)
                 {
-                    if (obj.layer == tubeLayer)
+                    if (obj.layer == tubeLayer && obj.name.Contains("TestTubePCM"))
                     {
-                        Destroy(obj);
+                        LiquidContainer liquid = obj.transform.GetComponentInChildren<LiquidContainer>();
+                        if (dilutionTubes < 3)
+                        {
+                            liquid.SetAmount(4500);
+                            liquid.LiquidType = LiquidType.PhosphateBuffer;
+                            dilutionTubes++;
+                        }
+                        else if (controlTubes < 1)
+                        {
+                            liquid.SetAmount(1000);
+                            liquid.LiquidType = LiquidType.PhosphateBuffer;
+                            controlTubes++;
+                        }
                     }
                 }
 
-                Transform fullTubes = skips.transform.Find("FillTubes");
-                fullTubes.gameObject.SetActive(true);
+                //Transform fullTubes = skips.transform.Find("FillTubes");
+                //fullTubes.gameObject.SetActive(true);
                 break;
         }
         CompleteTask(currentTask);
