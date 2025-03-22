@@ -288,7 +288,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             case "Bottle":
             {
                 LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
-
+                DeleteObjectFromDictIfPresent(container, writeTube);
                 dilutionDict[dilutionType.Value][writeTube] = container;
                 if (containerBuffer.Contains(container))
                 {
