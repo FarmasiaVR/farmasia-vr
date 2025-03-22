@@ -264,13 +264,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
 
-        if (dilutionType == null) 
-        {
-            // todo Player can remove object from dictionary
-            return;
-        }
-
-        WritingType dilution = dilutionType.Value;
         string itemName = foundItem.GetType().Name;
         int index = 0;
         LiquidContainer container;
@@ -281,12 +274,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
                 index = writeTube;
-                if (containerBuffer.Contains(container))
-                {
-                    containerBuffer.Remove(container);
-                    dilutionDict[dilution][fillTube] = container;
-                    CheckIfTubesAreFilled();
-                }
                 break;
             }
             case "AgarPlateLid":
@@ -302,6 +289,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 return;
             }
         }
+
+        // If player deletes the line, also deletes object from the dictionary
+        if (dilutionType == null) 
+        {
+            WritingType? oldDilution = FindSlotForContainer(container, index);
+            if (oldDilution != null)
+            {
+                dilutionDict[oldDilution.Value][index] = null;
+                Debug.Log("After erasing " + oldDilution.Value + ", deleted from index " + index);
+            }
+            return;
+        }
+
+        WritingType dilution = dilutionType.Value;
+
         // If another object already has this writing, notify the player and return, also be evil and delete written line
         if (WritingTypeAlreadyInUse(dilution, index))
         {
@@ -313,6 +315,12 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         DeleteObjectFromDictIfPresent(container, index);
         dilutionDict[dilution][index] = container;
+        if (itemName == "Bottle" && containerBuffer.Contains(container))
+        {
+            containerBuffer.Remove(container);
+            dilutionDict[dilution][fillTube] = container;
+            CheckIfTubesAreFilled();
+        }
         Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
 
         CheckWritingsIntegrity();
