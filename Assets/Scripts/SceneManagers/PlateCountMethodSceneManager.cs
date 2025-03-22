@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.CM.WorkspaceServer.DataStore;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
@@ -13,6 +14,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public GameObject skips; // Assigned in the inspector
 
     public UnityEvent onMixingComplete;
+    public UnityEvent<string> notification;
 
     private bool taskOrderViolated = false;
 
@@ -49,6 +51,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         { LiquidType.Senna0001, WritingType.OneToThousand },
         { LiquidType.PhosphateBuffer, WritingType.Control }
     };
+
+    // Index consts for better readability in anything regarding dilutionDict
+    private const int writeTube = 0;
+    private const int fillTube = 1;
+    private const int writeSoy = 2;
+    private const int writeSab = 3;
+    private const int spreadSoy = 4;
+    private const int spreadSab = 5;
 
     private void Awake()
     {
@@ -138,16 +148,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask(currentTask);
     }
 
-    // If container is not found, it means the player messed writing and they are added to naughty list >:)
-    private WritingType? FindSlotForContainer(LiquidContainer container)
+    // Checks if any index in dilutionDict already has this container
+    private WritingType? FindSlotForContainer(LiquidContainer container, int index)
     {
         foreach (var entry in dilutionDict)
         {
-            if (entry.Value[0] == container) {
+            if (entry.Value[index] == container) {
                 return entry.Key;
             }
         }
         return null;
+    }
+
+    private bool WritingTypeAlreadyInUse(WritingType writingType, int index)
+    {
+        return dilutionDict[writingType][index] != null;
     }
 
     // This can be called by another object to mark a plate ready
@@ -155,23 +170,23 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         foreach (var entry in dilutionDict)
         {
-            if (entry.Value[2] == container)
+            if (entry.Value[writeSoy] == container)
             {
                 // Container found in soy caseins
-                dilutionDict[entry.Key][4] = container;
+                dilutionDict[entry.Key][spreadSoy] = container;
                 break;
             }
-            else if (entry.Value[3] == container)
+            else if (entry.Value[writeSab] == container)
             {
                 // Container found in sabourauds
-                dilutionDict[entry.Key][5] = container;
+                dilutionDict[entry.Key][spreadSab] = container;
                 break;
             }
         }
         // Check if slots are filled after adding
         foreach (var entry in dilutionDict)
         {
-            if (entry.Value[4] == null || entry.Value[5] == null) return;
+            if (entry.Value[spreadSoy] == null || entry.Value[spreadSab] == null) return;
         }
         CompleteTask("SpreadDilution");
     }
@@ -183,8 +198,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         LiquidType liquid = container.LiquidType;
         WritingType desiredMarking = correctLiquids[liquid];
 
-        if (dilutionDict[desiredMarking][2] == container
-        || dilutionDict[desiredMarking][3] == container)
+        if (dilutionDict[desiredMarking][writeSoy] == container
+        || dilutionDict[desiredMarking][writeSab] == container)
         {
             // if this check passes, player put liquid in a correct plate
             Debug.Log(liquid + " put into " + desiredMarking + " successfully");
@@ -207,14 +222,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         switch(container.Amount)
         {
             case controlTubeAmount:
-                if (dilutionDict[WritingType.Control][1] is null)
+                if (dilutionDict[WritingType.Control][fillTube] is null)
                 {
                     Debug.Log("Container added to CONTROL");
-                    dilutionDict[WritingType.Control][1] = container;
+                    dilutionDict[WritingType.Control][fillTube] = container;
                 }
                 break;
             case dilutionTubesAmount:
-                WritingType? writingType = FindSlotForContainer(container);
+                WritingType? writingType = FindSlotForContainer(container, writeTube);
                 if (writingType is null)
                 {
                     // Will not complain if write on tubes has been skipped manually
@@ -226,7 +241,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     containerBuffer.Add(container);
                     break;
                 }
-                dilutionDict[writingType.Value][1] = container;
+                dilutionDict[writingType.Value][fillTube] = container;
                 Debug.Log("Container added to " + writingType.Value);
                 break;
 
@@ -237,15 +252,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     containerBuffer.Remove(container);
                     break;
                 }
-                foreach (var entry in dilutionDict)
-                {
-                    if (entry.Value[1] == container)
-                    {
-                        entry.Value[1] = null;
-                        Debug.Log("Container removed from " + entry.Key);
-                        break;
-                    }
-                }
+                DeleteObjectFromDictIfPresent(container, fillTube);
                 break;
         }
         CheckIfTubesAreFilled();
@@ -255,7 +262,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         foreach (var entry in dilutionDict)
         {
-            if (entry.Value[1] == null) { return; }
+            if (entry.Value[fillTube] == null) { return; }
         }
         CompleteTask("FillTubes");
         Debug.Log("All the tubes are filled");
@@ -278,41 +285,25 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("WriteOnTubes");
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
-        Debug.Log("Dilution Type: " + dilutionType);
 
-        if (dilutionType == null) return;
+        string itemName = foundItem.GetType().Name;
+        int index = 0;
+        LiquidContainer container;
 
-        Debug.Log(foundItem.GetType().Name);
-        switch(foundItem.GetType().Name)
+        switch(itemName)
         {
             case "Bottle":
             {
-                LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
-                Debug.Log("Writing to a tube: " + dilutionType.Value + " value: " + container);
-
-                dilutionDict[dilutionType.Value][0] = container;
-                if (containerBuffer.Contains(container))
-                {
-                    containerBuffer.Remove(container);
-                    dilutionDict[dilutionType.Value][1] = container;
-                    CheckIfTubesAreFilled();
-                }
+                container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
+                index = writeTube;
                 break;
             }
             case "AgarPlateLid":
             {
                 AgarPlateLid lid = foundItem.GetComponent<AgarPlateLid>();
-                LiquidContainer container = lid.PlateBottom.GetComponentInChildren<LiquidContainer>();
-                Debug.Log("Writing to a plate: " + dilutionType.Value + " value: " + container);
-
-                if (lid.Variant == "Sabourad-dekstrosi")
-                {
-                    dilutionDict[dilutionType.Value][3] = container;
-                }
-                else if (lid.Variant == "Soija-kaseiini")
-                {
-                    dilutionDict[dilutionType.Value][2] = container;
-                }
+                container = lid.PlateBottom.GetComponentInChildren<LiquidContainer>();
+                if (lid.Variant == "Sabourad-dekstrosi") index = writeSab;
+                else if (lid.Variant == "Soija-kaseiini") index = writeSoy;
                 break;
             }
             default:
@@ -321,7 +312,51 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             }
         }
 
+        // If player deletes the line, also deletes object from the dictionary
+        if (dilutionType == null) 
+        {
+            WritingType? oldDilution = FindSlotForContainer(container, index);
+            if (oldDilution != null)
+            {
+                dilutionDict[oldDilution.Value][index] = null;
+                Debug.Log("After erasing " + oldDilution.Value + ", deleted from index " + index);
+            }
+            return;
+        }
+
+        WritingType dilution = dilutionType.Value;
+
+        // If another object already has this writing, notify the player and return, also be evil and delete written line
+        if (WritingTypeAlreadyInUse(dilution, index))
+        {
+            notification.Invoke("You already assigned this dilution type!");
+            Writable writable = foundItem.GetComponent<Writable>();
+            writable.removeLine(dilution);
+            return;
+        }
+
+        DeleteObjectFromDictIfPresent(container, index);
+        dilutionDict[dilution][index] = container;
+        if (itemName == "Bottle" && containerBuffer.Contains(container))
+        {
+            containerBuffer.Remove(container);
+            dilutionDict[dilution][fillTube] = container;
+            CheckIfTubesAreFilled();
+        }
+        Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
+
         CheckWritingsIntegrity();
+    }
+
+    // If object is changed, deletes it from the old index. Used in writing and filling
+    private void DeleteObjectFromDictIfPresent(LiquidContainer container, int index)
+    {
+        WritingType? writingType = FindSlotForContainer(container, index);
+        if (writingType == null) { return; } // Object not found
+
+        // Object is found
+        dilutionDict[writingType.Value][index] = null;
+        Debug.Log("Deleted container from " + writingType.Value + " at index " + index);
     }
 
     private void CheckWritingsIntegrity()
@@ -338,10 +373,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         foreach (var entry in dict)
         {
-            for (int i = 0; i<4; i++)
+            for (int i = 0; i<spreadSoy; i++)
             {
                 // Index 1 is reserved for phosphate buffer fill
-                if (i == 1) continue;
+                if (i == fillTube) continue;
 
                 if (entry.Value[i] == null)
                 {
@@ -354,7 +389,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private bool IsControlTube(LiquidContainer container)
     {
-        return dilutionDict[WritingType.Control][1] == container || dilutionDict[WritingType.Control][0] == container;
+        return dilutionDict[WritingType.Control][fillTube] == container || dilutionDict[WritingType.Control][writeTube] == container;
     }
 
     public void MixingComplete(LiquidContainer container)

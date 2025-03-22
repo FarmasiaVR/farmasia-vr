@@ -42,7 +42,7 @@ public class WritingOption : DragAcceptable {
     }
 
     public void Interact() {
-        Debug.Log("Interacting with XR hand!");
+        //Debug.Log("Interacting with XR hand!");
         selected = !selected;
         if (selected)
             onSelect(this);
