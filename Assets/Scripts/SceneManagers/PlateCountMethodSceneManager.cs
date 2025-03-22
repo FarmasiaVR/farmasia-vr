@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.CM.WorkspaceServer.DataStore;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
@@ -13,6 +14,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
+    public UnityEvent<string> notification;
 
     private bool taskOrderViolated = false;
 
@@ -123,7 +125,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CompleteTask(currentTask);
     }
 
-    // Checks if index in dilutionDict already has a container
+    // Checks if any index in dilutionDict already has this container
     private WritingType? FindSlotForContainer(LiquidContainer container, int index)
     {
         foreach (var entry in dilutionDict)
@@ -133,6 +135,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private bool WritingTypeAlreadyInUse(WritingType writingType, int index)
+    {
+        return dilutionDict[writingType][index] != null;
     }
 
     // This can be called by another object to mark a plate ready
@@ -256,42 +263,38 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("WriteOnTubes");
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
-        Debug.Log("Dilution Type: " + dilutionType);
 
-        if (dilutionType == null) return;
+        if (dilutionType == null) 
+        {
+            // todo Player can remove object from dictionary
+            return;
+        }
 
-        switch(foundItem.GetType().Name)
+        WritingType dilution = dilutionType.Value;
+        string itemName = foundItem.GetType().Name;
+        int index = 0;
+        LiquidContainer container;
+
+        switch(itemName)
         {
             case "Bottle":
             {
-                LiquidContainer container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
-                DeleteObjectFromDictIfPresent(container, writeTube);
-                dilutionDict[dilutionType.Value][writeTube] = container;
+                container = foundItem.gameObject.GetComponentInChildren<LiquidContainer>();
+                index = writeTube;
                 if (containerBuffer.Contains(container))
                 {
                     containerBuffer.Remove(container);
-                    dilutionDict[dilutionType.Value][fillTube] = container;
+                    dilutionDict[dilution][fillTube] = container;
                     CheckIfTubesAreFilled();
                 }
-                Debug.Log("Added dilution: " + dilutionType.Value + " to a bottle: " + container);
                 break;
             }
             case "AgarPlateLid":
             {
                 AgarPlateLid lid = foundItem.GetComponent<AgarPlateLid>();
-                LiquidContainer container = lid.PlateBottom.GetComponentInChildren<LiquidContainer>();
-
-                if (lid.Variant == "Sabourad-dekstrosi")
-                {
-                    DeleteObjectFromDictIfPresent(container, writeSab);
-                    dilutionDict[dilutionType.Value][writeSab] = container;
-                }
-                else if (lid.Variant == "Soija-kaseiini")
-                {
-                    DeleteObjectFromDictIfPresent(container, writeSab);
-                    dilutionDict[dilutionType.Value][writeSoy] = container;
-                }
-                Debug.Log("Added dilution: " + dilutionType.Value + " to a plate: " + lid.Variant);
+                container = lid.PlateBottom.GetComponentInChildren<LiquidContainer>();
+                if (lid.Variant == "Sabourad-dekstrosi") index = writeSab;
+                else if (lid.Variant == "Soija-kaseiini") index = writeSoy;
                 break;
             }
             default:
@@ -299,6 +302,18 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 return;
             }
         }
+        // If another object already has this writing, notify the player and return, also be evil and delete written line
+        if (WritingTypeAlreadyInUse(dilution, index))
+        {
+            notification.Invoke("You already assigned this dilution type!");
+            Writable writable = foundItem.GetComponent<Writable>();
+            writable.removeLine(dilution);
+            return;
+        }
+
+        DeleteObjectFromDictIfPresent(container, index);
+        dilutionDict[dilution][index] = container;
+        Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
 
         CheckWritingsIntegrity();
     }
