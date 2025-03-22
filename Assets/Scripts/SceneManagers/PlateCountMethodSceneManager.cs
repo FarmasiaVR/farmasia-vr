@@ -260,7 +260,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
         if (dilutionType == null) return;
 
-        Debug.Log(foundItem.GetType().Name);
         switch(foundItem.GetType().Name)
         {
             case "Bottle":
