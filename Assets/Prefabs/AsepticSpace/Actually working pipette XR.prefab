@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textObject: {fileID: 7759040098954084803}
+  resetDelay: 1.5
+  shakeIntensity: 0.005
 --- !u!1 &2049512978502611849
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +361,7 @@ GameObject:
   - component: {fileID: 8910216377067032174}
   - component: {fileID: 3242325704835274617}
   - component: {fileID: 7492905843444838001}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: Actually working pipette XR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,6 +460,9 @@ MonoBehaviour:
   defaultPosition: 0
   maxPosition: 0
   handle: {fileID: 8673567987445605885}
+  contaminatedPipeteUsed:
+    m_PersistentCalls:
+      m_Calls: []
   hasBeenInBottle: 0
   display: {fileID: 3815356544536697300}
 --- !u!114 &3815356544536697300
@@ -907,6 +912,9 @@ MonoBehaviour:
   liquid: {fileID: 5580978897662215730}
   amount: 0
   LiquidType: 0
+  pcm: 0
+  mixingManager: {fileID: 0}
+  contaminationLiquidType: 0
   GeneralItem: {fileID: 0}
   Impure: 0
   allowLiquidTransfer: 1
@@ -917,9 +925,20 @@ MonoBehaviour:
   onLiquidAmountChanged:
     m_PersistentCalls:
       m_Calls: []
+  onLiquidExchange:
+    m_PersistentCalls:
+      m_Calls: []
   onFilterHalfEnter:
     m_PersistentCalls:
       m_Calls: []
+  onLiquidTypeChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onMixingComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  mixingValue: 0
+  movementSensitivity: 10
   capacity: 30000
 --- !u!136 &8874511363844226148
 CapsuleCollider:
