@@ -171,10 +171,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 }
                 break;
             case "FillTubes":
-                /*Transform emptyTubesStand = skips.transform.Find("ToolsToCabinet/BigTestTubeStandPCM (1)");
-                emptyTubesStand.gameObject.SetActive(false);
-
-                GameObject[] allObjects = FindObjectsOfType<GameObject>();*/
                 int dilutionTubes = 0;
                 int controlTubes = 0;
                 foreach (GameObject obj in objectsInLaminarCabinet)
@@ -196,9 +192,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                         }
                     }
                 }
-
-                //Transform fullTubes = skips.transform.Find("FillTubes");
-                //fullTubes.gameObject.SetActive(true);
                 break;
         }
         CompleteTask(currentTask);
