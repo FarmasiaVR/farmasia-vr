@@ -155,6 +155,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                             writtenLines[writingTypes[soyCaseineIdx]] = tmpDilutionText;
                             soyCaseineIdx++;
                         }
+
                         tmp.text = $"{tmpDilutionText}\n" +
                             $"{date}\n\n" +
                             $"{player}";
@@ -178,7 +179,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     if (obj.layer == tubeLayer && obj.name.Contains("TestTubePCM"))
                     {
                         LiquidContainer liquid = obj.transform.GetComponentInChildren<LiquidContainer>();
-                        if (dilutionTubes < 3)
+                        TextMeshPro tmpText = obj.GetComponentInChildren<TextMeshPro>();
+                        if (!tmpText.text.Contains("Control") && dilutionTubes < 3)
                         {
                             liquid.SetAmount(4500);
                             liquid.LiquidType = LiquidType.PhosphateBuffer;
