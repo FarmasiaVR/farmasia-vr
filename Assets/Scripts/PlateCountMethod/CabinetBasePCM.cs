@@ -112,6 +112,6 @@ public class CabinetBasePCM : MonoBehaviour {
             itemsFound[index] = false; 
         }
 
-        sceneManager.objectsInLaminarCabinet.Add(other.gameObject);
+        sceneManager.objectsInLaminarCabinet.Remove(other.gameObject);
     }
 }
