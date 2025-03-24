@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class SkipCurrentTaskPCM : MonoBehavior
+public class SkipCurrentTaskPCM : MonoBehaviour
 {
     public GameObject skips; // Assigned in the inspector
     private int smallObjectLayer = LayerMask.NameToLayer("SmallObject");
