@@ -195,6 +195,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     }
                 }
                 break;
+            case "MixPhosphateToSenna":
+                foreach (GameObject obj in objectsInLaminarCabinet)
+                {
+                    if (obj.layer == tubeLayer && obj.name.Contains("SennaTube"))
+                    {
+                        LiquidContainer liquid = obj.transform.GetComponentInChildren<LiquidContainer>();
+                        liquid.SetAmount(6000);
+                        liquid.LiquidType = LiquidType.Senna1;
+                    }
+                }
+                break;
         }
         CompleteTask(currentTask);
     }
