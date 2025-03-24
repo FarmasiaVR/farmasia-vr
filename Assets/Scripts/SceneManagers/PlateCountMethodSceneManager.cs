@@ -194,6 +194,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             TaskMistake("WrongDilutionType", 1);
             // Allows to refill if liquid was incorrect
             container.SetAmount(0);
+            container.LiquidType = LiquidType.None;
+            container.contaminationLiquidType = LiquidType.None;
         }
     }
 
