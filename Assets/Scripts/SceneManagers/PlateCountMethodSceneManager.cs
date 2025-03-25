@@ -14,7 +14,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
-    public UnityEvent<string> notification;
+    public UnityEvent<string> onWritingTypeInUse;
 
     private bool taskOrderViolated = false;
 
@@ -307,8 +307,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         // If another object already has this writing, notify the player and return, also be evil and delete written line
         if (WritingTypeAlreadyInUse(dilution, index))
         {
-            notification.Invoke("You already assigned this dilution type!");
             if (dilutionDict[dilution][index] == container) return; // Player wrote the same dilution type on the same bottle
+            onWritingTypeInUse.Invoke("You already assigned this dilution type!");
             Writable writable = foundItem.GetComponent<Writable>();
             writable.removeLine(dilution);
             return;
