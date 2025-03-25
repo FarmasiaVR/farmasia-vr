@@ -16,22 +16,25 @@ public class TimerButtonPCM : MonoBehaviour
         interactable.selectEntered.AddListener(OnButtonPressed);
     }
 
-    private void OnButtonPressed(SelectEnterEventArgs args)
+    public void OnButtonPressed(SelectEnterEventArgs args)
     {        
-        if (timerManager.plate == 8)
-        {
-            if (isStartButton){
-                timerManager.StartTimer();
-                buttonText.text = "Stop Waiting";
-                isStartButton = false;
-            }
+        toggleButton();
+    }
 
-            else{
-                timerManager.StopTimer();
-                buttonText.text = "Start Waiting";
-                isStartButton = true;
-            }
+    public void toggleButton(){
+
+        if (isStartButton && timerManager.plate == 8){
+            timerManager.StartTimer();
+            buttonText.text = "Stop Waiting";
+            isStartButton = false;
         }
+
+        else{
+            timerManager.StopTimer();
+            buttonText.text = "Start Waiting";
+            isStartButton = true;
+        }
+
     }
 
 }

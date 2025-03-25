@@ -8,6 +8,8 @@ public class ClockController : MonoBehaviour
 {
     [SerializeField]
     public TMP_Text timerText;
+
+    public TimerButtonPCM button;
     private float elapsedTime;
     private bool start;
     public int plate = 0;
@@ -25,20 +27,23 @@ public class ClockController : MonoBehaviour
     void Update()
     {   
         if (start){
+            if (plate < 8){
+                //start = false;
+                button.toggleButton();
+                Logger.Print("button Pressed");
+            } 
             elapsedTime += Time.deltaTime * timeMultiplier;
             UpdateTimerText();
         }
 
     }
 
+    private int minutes;
     void UpdateTimerText()
     {
-        int minutes = Mathf.FloorToInt(elapsedTime / 60);
+        minutes = Mathf.FloorToInt(elapsedTime / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
         timerText.text = $"{minutes:D2} min";
-        if (minutes > 14 && !ventingComplete){
-            completeVenting();
-        }
     }
 
     public void ventingEvent(bool isVenting){
@@ -59,6 +64,10 @@ public class ClockController : MonoBehaviour
 
     public void StopTimer(){
         start = false;
+        if (minutes > 14 && !ventingComplete){
+            completeVenting();
+            transform.parent.gameObject.SetActive(false);
+        }
     }
 
     private void completeVenting(){
