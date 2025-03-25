@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Codice.CM.WorkspaceServer.DataStore;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
-using TMPro;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
