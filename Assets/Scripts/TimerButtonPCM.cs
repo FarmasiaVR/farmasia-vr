@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class TimerButtonPCM : MonoBehaviour
 {
 
     public ClockController timerManager; 
+    public TMP_Text buttonText;
     public bool isStartButton = true; 
     private void Start()
     {
@@ -18,10 +20,17 @@ public class TimerButtonPCM : MonoBehaviour
     {
         if (timerManager != null)
         {
-            if (isStartButton)
+            if (isStartButton){
                 timerManager.StartTimer();
-            else
+                buttonText.text = "Stop Waiting";
+                isStartButton = false;
+            }
+
+            else{
                 timerManager.StopTimer();
+                buttonText.text = "Start Waiting";
+                isStartButton = true;
+            }
         }
     }
 
