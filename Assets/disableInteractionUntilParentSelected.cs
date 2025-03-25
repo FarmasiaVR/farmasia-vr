@@ -22,7 +22,7 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
 
         if (attachedInteractable)
         {
-            Debug.Log("enabled grab!");
+            //Debug.Log("enabled grab!");
             attachedInteractable.interactionLayers = maskBefore;
         }
         objectGrabbed = true;
@@ -33,7 +33,7 @@ public class disableInteractionUntilParentSelected : MonoBehaviour
     {
         if (attachedInteractable)
         {
-            Debug.Log("disabled interaction!");
+            //Debug.Log("disabled interaction!");
             attachedInteractable.interactionLayers = maskAfterDisabling;
         }
         objectGrabbed = false;
