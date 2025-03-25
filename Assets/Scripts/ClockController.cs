@@ -10,7 +10,7 @@ public class ClockController : MonoBehaviour
     public TMP_Text timerText;
     private float elapsedTime;
     private bool start;
-    public int plate = 8;
+    public int plate = 0;
     public const float timeMultiplier = 60f;
 
     private bool ventingComplete = false;
@@ -48,6 +48,7 @@ public class ClockController : MonoBehaviour
         else{
             plate--;
         }
+        Logger.Print("Ventilating plates: " + plate);
     }
 
     public void StartTimer(){
