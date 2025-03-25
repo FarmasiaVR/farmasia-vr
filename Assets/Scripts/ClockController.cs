@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class ClockController : MonoBehaviour
@@ -13,6 +14,8 @@ public class ClockController : MonoBehaviour
     public const float timeMultiplier = 60f;
 
     private bool ventingComplete = false;
+
+    public UnityEvent onVentingComplete;
   
     void Start()
     {
@@ -60,6 +63,7 @@ public class ClockController : MonoBehaviour
     private void completeVenting(){
         ventingComplete = true;
         //fire event for PCM to complete the task
+        onVentingComplete?.Invoke();
         Logger.Print("Hep Hep Hep");
     }
 }
