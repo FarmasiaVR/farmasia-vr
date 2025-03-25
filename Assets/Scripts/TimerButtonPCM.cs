@@ -17,8 +17,8 @@ public class TimerButtonPCM : MonoBehaviour
     }
 
     private void OnButtonPressed(SelectEnterEventArgs args)
-    {
-        if (timerManager != null)
+    {        
+        if (timerManager.plate == 8)
         {
             if (isStartButton){
                 timerManager.StartTimer();

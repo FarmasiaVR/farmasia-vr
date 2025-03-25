@@ -32,7 +32,7 @@ public class ClockController : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(elapsedTime / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
-        timerText.text = $"{minutes:D2}min";
+        timerText.text = $"{minutes:D2} min";
         if (minutes > 14 && !ventingComplete){
             completeVenting();
         }
