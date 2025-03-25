@@ -41,14 +41,12 @@ public class AgarPlateVent : MonoBehaviour
     private void StartVenting()
     {
         isVenting = true;
-        VentingChanged();
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, angleUp);
     }
 
     private void StopVenting()
     {
         isVenting = false;
-        VentingChanged();
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, -angleUp);
     }
 
@@ -62,6 +60,7 @@ public class AgarPlateVent : MonoBehaviour
         if (rotationPoint == null || bottomObject == null || bottom.isOpen) { return; }
         if (isVenting) { StopVenting(); }
         else { StartVenting(); }
+        VentingChanged();
     }
 
     public void StopVentingAfterOpening()
