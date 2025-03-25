@@ -5,18 +5,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
+using TMPro;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
 
-    public GameObject skips; // Assigned in the inspector
-
     public UnityEvent onMixingComplete;
+    public UnityEvent<string> onSkipTask;
 
     private bool taskOrderViolated = false;
 
     private HashSet<int> usedPipetteHeads = new HashSet<int>();
+    public HashSet<GameObject> objectsInLaminarCabinet = new HashSet<GameObject>(); // Items are added to this set in CabinetBasePCM.cs
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
@@ -110,31 +111,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void SkipCurrentTask()
     {
         string currentTask = taskManager.GetCurrentTask().key;
-
-        switch (currentTask)
-        {
-            case "toolsToCabinet":
-                Transform toolsToCabinetGO = skips.transform.Find("ToolsToCabinet");
-                toolsToCabinetGO.gameObject.SetActive(true);
-                break;
-            case "FillTubes":
-                Transform emptyTubesStand = skips.transform.Find("ToolsToCabinet/BigTestTubeStandPCM (1)");
-                emptyTubesStand.gameObject.SetActive(false);
-
-                GameObject[] allObjects = FindObjectsOfType<GameObject>();
-                int tubeLayer = LayerMask.NameToLayer("TestTube");
-                foreach (GameObject obj in allObjects)
-                {
-                    if (obj.layer == tubeLayer)
-                    {
-                        Destroy(obj);
-                    }
-                }
-
-                Transform fullTubes = skips.transform.Find("FillTubes");
-                fullTubes.gameObject.SetActive(true);
-                break;
-        }
+        onSkipTask.Invoke(currentTask);
         CompleteTask(currentTask);
     }
 
@@ -276,7 +253,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void SubmitWriting(GeneralItem foundItem, Dictionary<WritingType, string> selectedOptions)
     {
         if (taskManager.IsTaskCompleted("WriteOnTubes")) { return; }
-
         CheckTaskOrderViolation("WriteOnTubes");
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);

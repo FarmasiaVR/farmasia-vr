@@ -16,6 +16,8 @@ public class CabinetBasePCM : MonoBehaviour {
     public List<GameObject> requiredItems;  
     private List<bool> itemsFound;
     private bool allReady = false;
+
+    public List<GameObject> objectsInCabinet; // Keeps track of items currently in the laminar cabinet (used for skipping)
  
     private void Start() {
 
@@ -34,6 +36,7 @@ public class CabinetBasePCM : MonoBehaviour {
         if (item == null) {
             return;
         }
+	    objectsInCabinet.Add(other.gameObject);
 
         if (item.GetComponent<CoverOpeningHandler>() != null)
         {
@@ -110,5 +113,7 @@ public class CabinetBasePCM : MonoBehaviour {
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = false; 
         }
+
+        objectsInCabinet.Remove(other.gameObject);
     }
 }
