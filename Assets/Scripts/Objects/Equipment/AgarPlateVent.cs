@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class AgarPlateVent : MonoBehaviour
@@ -12,6 +13,8 @@ public class AgarPlateVent : MonoBehaviour
     private int angleUp = 20;
     private XRSocketInteractor socket;
     private Transform rotationPoint;
+
+    public UnityEvent<bool> onVentingChanged;
 
     // Start is called before the first frame update
     void Start()
@@ -38,13 +41,20 @@ public class AgarPlateVent : MonoBehaviour
     private void StartVenting()
     {
         isVenting = true;
+        VentingChanged();
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, angleUp);
     }
 
     private void StopVenting()
     {
         isVenting = false;
+        VentingChanged();
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, -angleUp);
+    }
+
+    private void VentingChanged()
+    {
+        onVentingChanged.Invoke(isVenting);
     }
 
     public void Vent()
