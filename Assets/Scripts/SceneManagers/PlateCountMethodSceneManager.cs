@@ -308,6 +308,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (WritingTypeAlreadyInUse(dilution, index))
         {
             notification.Invoke("You already assigned this dilution type!");
+            if (dilutionDict[dilution][index] == container) return; // Player wrote the same dilution type on the same bottle
             Writable writable = foundItem.GetComponent<Writable>();
             writable.removeLine(dilution);
             return;
