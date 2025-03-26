@@ -141,7 +141,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         return dilutionDict[writingType][index] != null;
     }
 
-    public void PrepareForVenilationTask(){
+    public void PrepareForVentilationTask(){
         GameObject targetObject = GameObject.Find("TimerClock");
         
         if (targetObject != null)
@@ -180,6 +180,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             if (entry.Value[spreadSoy] == null || entry.Value[spreadSab] == null) return;
         }
         CompleteTask("SpreadDilution");
+        PrepareForVenilationTask();
     }
 
     public void PourDilutionOnPlate(LiquidContainer container)
