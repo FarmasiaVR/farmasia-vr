@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
+using TMPro;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
@@ -139,6 +141,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         return dilutionDict[writingType][index] != null;
     }
 
+    public void PrepareForVentilationTask(){
+        GameObject targetObject = GameObject.Find("TimerClock");
+        
+        if (targetObject != null)
+        {            
+            Logger.Print("Found object");
+            Transform display = targetObject.transform.Find("Display");
+            display.gameObject.SetActive(true);
+        }
+    }
+
+    public void CompleteVentilationTask(){
+        CompleteTask("VentilatingAgarPlates");
+    }
+
     // This can be called by another object to mark a plate ready
     public void PlateReadyInSpreadTask(LiquidContainer container)
     {
@@ -163,6 +180,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             if (entry.Value[spreadSoy] == null || entry.Value[spreadSab] == null) return;
         }
         CompleteTask("SpreadDilution");
+        PrepareForVentilationTask();
     }
 
     public void PourDilutionOnPlate(LiquidContainer container)
@@ -260,6 +278,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("WriteOnTubes");
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
+        Debug.Log("Dilution Type: " + dilutionType);
 
         string itemName = foundItem.GetType().Name;
         int index = 0;

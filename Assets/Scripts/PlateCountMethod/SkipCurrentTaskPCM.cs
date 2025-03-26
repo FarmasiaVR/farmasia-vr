@@ -56,6 +56,9 @@ public class SkipCurrentTaskPCM : MonoBehaviour
             case "PerformSerialDilution":
                 ChangeLiquidInDilutionTubes(currentTask);
                 break;
+            case "SpreadDilution":
+                sceneManager.PrepareForVentilationTask();
+                break;
         }
     }
 
