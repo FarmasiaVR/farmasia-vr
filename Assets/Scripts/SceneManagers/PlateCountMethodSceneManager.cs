@@ -180,7 +180,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             if (entry.Value[spreadSoy] == null || entry.Value[spreadSab] == null) return;
         }
         CompleteTask("SpreadDilution");
-        PrepareForVenilationTask();
+        PrepareForVentilationTask();
     }
 
     public void PourDilutionOnPlate(LiquidContainer container)
