@@ -43,7 +43,7 @@ public class MixingManager : MonoBehaviour {
         var key = Tuple.Create(target.LiquidType, source.LiquidType);
 
         if (checkControlAmount(source, target)==false) {
-            onMistake.Invoke("Dont'mix liquids in the control tube.",1);
+            onMistake.Invoke("MixingInControl",1);
             return false;
         }
 
@@ -61,17 +61,17 @@ public class MixingManager : MonoBehaviour {
                     return true;
                 }
                 else{
-                    onMistake.Invoke("The amounts of the liquids are incorrect.",1);
+                    onMistake.Invoke("WrongAmount",1);
                     return false;
                 }
             }
             else{
-                onMistake.Invoke("The amounts of the liquids are incorrect.",1);
+                onMistake.Invoke("WrongAmount",1);
                 return false;
             }
 
         } else {          
-            onMistake.Invoke($"Mixing failed: Are you sure these are the correct liquids?",1);
+            onMistake.Invoke($"WrongLiquid",1);
             return false;
         }
     }
