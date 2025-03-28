@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoxController : MonoBehaviour
+{
+    public int Temp;
+    private List<AgarPlateBottom> sabouraudPlates = new List<AgarPlateBottom>();
+    private List<AgarPlateBottom> soyCaseinPlates = new List<AgarPlateBottom>();
+    private void OnTriggerEnter(Collider other)
+    {        
+        AgarPlateBottom plate = other.GetComponent<AgarPlateBottom>();
+        if (plate == null) return;
+
+        if (plate.name == "SabouraudPlateBottom" && Temp==37 )
+        {
+            if (!sabouraudPlates.Contains(plate)){
+                sabouraudPlates.Add(plate);
+                Logger.Print($"Item {plate.name} detected!");
+                Logger.Print($"SabouraudPlates count: {sabouraudPlates.Count}");
+            }
+
+        }
+
+        if (plate.name == "SoyCaseinPlateBottom" && Temp==25 )
+        {
+            if (!soyCaseinPlates.Contains(plate)) 
+            {
+                soyCaseinPlates.Add(plate);
+                Logger.Print($"Item {plate.name} detected!");
+                Logger.Print($"SoyCaseinPlates count: {soyCaseinPlates.Count}");
+            }
+
+        }  
+
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        AgarPlateBottom plate = other.GetComponent<AgarPlateBottom>();
+        if (plate == null) return;
+
+        if (plate.name == "SabouraudPlateBottom")
+            {
+            sabouraudPlates.Remove(plate);
+            Logger.Print("Item left the trigger zone.");
+            Logger.Print($"SabouraudPlates count: {sabouraudPlates.Count}");
+            }
+        
+        if (plate.name == "SoyCaseinPlateBottom")
+            {
+            soyCaseinPlates.Remove(plate);
+            Logger.Print("Item left the trigger zone.");
+            
+            Logger.Print($"SoyCaseinPlates count: {soyCaseinPlates.Count}");
+            }
+                
+    }    
+    public bool AreAllPlatesReady()
+    {
+        foreach (var plate in sabouraudPlates)
+        {
+            if (plate.isOpen || plate.isVenting) return false;
+        }
+        foreach (var plate in soyCaseinPlates)
+        {
+            if (plate.isOpen || plate.isVenting) return false;
+        }
+        return true;
+    }
+}
