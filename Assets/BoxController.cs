@@ -20,36 +20,36 @@ public class BoxController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {        
-        GeneralItem item = other.GetComponent<GeneralItem>();
-        if (item == null) return;
-        if (item.isTriggered == null) Logger.Print(item.name + "Dont have a trigger bool!");
-	    item.isTriggered = true;
+        AgarPlateBottom plate = other.GetComponent<AgarPlateBottom>();
+        if (plate == null) return;
+        if (plate.isTriggered == null) Logger.Print(plate.name + "Dont have a trigger bool!");
+	    plate.isTriggered = true;
 
-        if (item.name == "SabouraudPlateBottom")
+        if (plate.name == "SabouraudPlateBottom" && Temp==37 && !plate.isVenting && !plate.isOpen)
         {
             rightItems++;
-            Logger.Print($"Item {item.name} detected!");
+            Logger.Print($"Item {plate.name} detected!");
             return;
         }
 
-        if (item.name == "SabouraudPlateLid")
-        {
-            rightItems++;
-            Logger.Print($"Item {item.name} detected!");
-            return;
-        }
+        // if (plate.name == "SabouraudPlateLid")
+        // {
+        //     rightItems++;
+        //     Logger.Print($"Item {plate.name} detected!");
+        //     return;
+        // }
         
-        if (item.name == "SoyCaseinPlateLid")
-        {
-            rightItems++;
-            Logger.Print($"Item {item.name} detected!");
-            return;
-        }
+        // if (plate.name == "SoyCaseinPlateLid")
+        // {
+        //     rightItems++;
+        //     Logger.Print($"Item {plate.name} detected!");
+        //     return;
+        // }
 
-        if (item.name == "SoyCaseinPlateBottom")
+        if (plate.name == "SoyCaseinPlateBottom" && Temp==25 && !plate.isVenting && !plate.isOpen)
         {
             rightItems++;
-            Logger.Print($"Item {item.name} detected!");
+            Logger.Print($"Item {plate.name} detected!");
             return;
         }  
 
@@ -57,31 +57,33 @@ public class BoxController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        GeneralItem item = other.GetComponent<GeneralItem>();
-        item.isTriggered = false;
-        if (item.name == "SabouraudPlateBottom")
+        AgarPlateBottom plate = other.GetComponent<AgarPlateBottom>();
+        if (plate == null) return;
+        if (plate.isTriggered == null) Logger.Print(plate.name + "Dont have a trigger bool!");
+        plate.isTriggered = false;
+        if (plate.name == "SabouraudPlateBottom")
             {
             rightItems--;
             Logger.Print("Item left the trigger zone.");
             }
 
-        if (item.name == "SabouraudPlateLid")
+        // if (item.name == "SabouraudPlateLid")
+        //     {
+        //     rightItems--;
+        //     Logger.Print("Item left the trigger zone.");
+        //     }
+        
+        if (plate.name == "SoyCaseinPlateBottom")
             {
             rightItems--;
             Logger.Print("Item left the trigger zone.");
             }
         
-        if (item.name == "SoyCaseinPlateBottom")
-            {
-            rightItems--;
-            Logger.Print("Item left the trigger zone.");
-            }
-        
-        if (item.name == "SoyCaseinPlateLid")
-            {
-            rightItems--;
-            Logger.Print("Item left the trigger zone.");
-            } 
+        // if (item.name == "SoyCaseinPlateLid")
+        //     {
+        //     rightItems--;
+        //     Logger.Print("Item left the trigger zone.");
+        //     } 
         
     }
 }

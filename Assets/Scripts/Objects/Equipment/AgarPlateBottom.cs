@@ -11,6 +11,7 @@ public class AgarPlateBottom : GeneralItem {
     public LiquidContainer Container { get; private set; }
     #endregion
     public bool isOpen;
+    public bool isVenting;
     public int spreadValue;
     public bool spreadingStatus;
     public UnityEvent<LiquidContainer> onSpreadingComplete;

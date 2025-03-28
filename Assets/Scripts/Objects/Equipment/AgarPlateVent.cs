@@ -41,12 +41,14 @@ public class AgarPlateVent : MonoBehaviour
     private void StartVenting()
     {
         isVenting = true;
+        bottom.isVenting = true;
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, angleUp);
     }
 
     private void StopVenting()
     {
         isVenting = false;
+        bottom.isVenting = false;
         socket.transform.RotateAround(rotationPoint.position, Vector3.up, -angleUp);
     }
 
