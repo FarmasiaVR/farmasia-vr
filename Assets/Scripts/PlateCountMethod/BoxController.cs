@@ -39,16 +39,11 @@ public class BoxController : MonoBehaviour
         if (plate.name == "SabouraudPlateBottom")
             {
             sabouraudPlates.Remove(plate);
-            Logger.Print("Item left the trigger zone.");
-            Logger.Print($"SabouraudPlates count: {sabouraudPlates.Count}");
             }
         
         if (plate.name == "SoyCaseinPlateBottom")
             {
             soyCaseinPlates.Remove(plate);
-            Logger.Print("Item left the trigger zone.");
-            
-            Logger.Print($"SoyCaseinPlates count: {soyCaseinPlates.Count}");
             }
                 
     }    
