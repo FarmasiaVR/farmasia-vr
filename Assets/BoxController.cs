@@ -21,26 +21,67 @@ public class BoxController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {        
         GeneralItem item = other.GetComponent<GeneralItem>();
+        if (item == null) return;
+        if (item.isTriggered == null) Logger.Print(item.name + "Dont have a trigger bool!");
+	    item.isTriggered = true;
 
-        if (item == null) {
+        if (item.name == "SabouraudPlateBottom")
+        {
+            rightItems++;
+            Logger.Print($"Item {item.name} detected!");
             return;
         }
-	    
-        if (item.name == "Sabouraudplatebottom")
+
+        if (item.name == "SabouraudPlateLid")
         {
+            rightItems++;
             Logger.Print($"Item {item.name} detected!");
             return;
         }
         
-        if (item.CompareTag("SoyCaseinPlate"))
+        if (item.name == "SoyCaseinPlateLid")
         {
+            rightItems++;
             Logger.Print($"Item {item.name} detected!");
             return;
         }
+
+        if (item.name == "SoyCaseinPlateBottom")
+        {
+            rightItems++;
+            Logger.Print($"Item {item.name} detected!");
+            return;
+        }  
+
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        GeneralItem item = other.GetComponent<GeneralItem>();
+        item.isTriggered = false;
+        if (item.name == "SabouraudPlateBottom")
+            {
+            rightItems--;
+            Logger.Print("Item left the trigger zone.");
+            }
+
+        if (item.name == "SabouraudPlateLid")
+            {
+            rightItems--;
+            Logger.Print("Item left the trigger zone.");
+            }
         
-        wrongItems++;
-
-        Logger.Print("item : " + item);
-
+        if (item.name == "SoyCaseinPlateBottom")
+            {
+            rightItems--;
+            Logger.Print("Item left the trigger zone.");
+            }
+        
+        if (item.name == "SoyCaseinPlateLid")
+            {
+            rightItems--;
+            Logger.Print("Item left the trigger zone.");
+            } 
+        
     }
 }
