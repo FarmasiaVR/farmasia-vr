@@ -16,8 +16,6 @@ public class BoxController : MonoBehaviour
         {
             if (!sabouraudPlates.Contains(plate)){
                 sabouraudPlates.Add(plate);
-                Logger.Print($"Item {plate.name} detected!");
-                Logger.Print($"SabouraudPlates count: {sabouraudPlates.Count}");
             }
 
         }
@@ -27,8 +25,6 @@ public class BoxController : MonoBehaviour
             if (!soyCaseinPlates.Contains(plate)) 
             {
                 soyCaseinPlates.Add(plate);
-                Logger.Print($"Item {plate.name} detected!");
-                Logger.Print($"SoyCaseinPlates count: {soyCaseinPlates.Count}");
             }
 
         }  
@@ -66,6 +62,8 @@ public class BoxController : MonoBehaviour
         {
             if (plate.isOpen || plate.isVenting) return false;
         }
+
+        if (sabouraudPlates.Count + soyCaseinPlates.Count < 4) return false;
         return true;
     }
 }
