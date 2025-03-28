@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlateBoxesManager : MonoBehaviour
 {
     public BoxController box1;
-    public BoxController box2; 
+    public BoxController box2;
+    public UnityEvent<bool> onBoxesReady;
 
     public void AreAllBoxesReady()
     {
@@ -18,10 +20,8 @@ public class PlateBoxesManager : MonoBehaviour
         bool box1Ready = box1.AreAllPlatesReady();
         bool box2Ready = box2.AreAllPlatesReady();
 
-        Logger.Print($"Box1 Ready: {box1Ready}, Box2 Ready: {box2Ready}");
+        // Logger.Print($"Box1 Ready: {box1Ready}, Box2 Ready: {box2Ready}");
 
-        if(box1Ready && box2Ready){
-            Logger.Print($"Task Complete ! Notify SceneManager");
-        }
+        onBoxesReady?.Invoke(box1Ready && box2Ready);
     }
 }
