@@ -50,6 +50,9 @@ public class LiquidContainer : MonoBehaviour {
     [Tooltip("Called when liquid changes. Passes both source and target containers as parameters.")]
     public UnityEvent<LiquidType> onLiquidTypeChange;
 
+    [Tooltip("Called when player attempts to mix liquids when it is now allowed, i.e. allowMixingLiquids is false.")]
+    public UnityEvent onMixingAttemptWhenProhibited;
+
     public UnityEvent<LiquidContainer> onMixingComplete;
     
     //This block is here for the PCM mixing functionality
@@ -108,13 +111,16 @@ public class LiquidContainer : MonoBehaviour {
     public int Amount {
         get { return amount; }
     }
+
     public void test(){
         Debug.Log("LiquidContainer liquidType: ");
     }
+
     public void SetAmountPercentage(float percentage) {
         int amount = (int)(percentage * Capacity);
         SetAmount(amount);
     }
+
     public void SetAmount(int value) {
 
         if (Capacity == 0) {
@@ -134,6 +140,7 @@ public class LiquidContainer : MonoBehaviour {
     public void SetLiquidTypeNone() {
         LiquidType = LiquidType.None;
     }
+
     public void SetLiquidMaterial() {
         if (pcm) onLiquidTypeChange?.Invoke(LiquidType);
         else liquid.SetMaterialFromType(LiquidType);
@@ -158,6 +165,7 @@ public class LiquidContainer : MonoBehaviour {
         if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
         {
             FindObjectOfType<PopupManager>()?.NotifyPopup("Ole hyvä ja älä sekoita nesteitä");
+            onMixingAttemptWhenProhibited.Invoke();
             return;
         }
 
