@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 7840564626151185139}
   - component: {fileID: 868407753492937782}
   m_Layer: 10
-  m_Name: agarplatebottom
+  m_Name: SabouraudPlateBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1199,6 +1199,7 @@ MonoBehaviour:
   IsInteracting: 0
   DisableHighlighting: 0
   objectType: 0
+  isTriggered: 0
   isClean: 1
   isOpen: 0
   spreadValue: 0
@@ -2555,7 +2556,7 @@ GameObject:
   - component: {fileID: 6095412624619608695}
   - component: {fileID: 9065203225637721554}
   m_Layer: 10
-  m_Name: agarplatelid
+  m_Name: SabouraudPlateLid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2624,6 +2625,7 @@ MonoBehaviour:
   IsInteracting: 0
   DisableHighlighting: 0
   objectType: 20
+  isTriggered: 0
   isClean: 0
   BottomObject: {fileID: 1707447677001932304}
   variant: Sabourad-dekstrosi
@@ -2884,6 +2886,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129268a31ea341b249685f5c5169f667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onVentingChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8360591314152033731
 GameObject:
   m_ObjectHideFlags: 0

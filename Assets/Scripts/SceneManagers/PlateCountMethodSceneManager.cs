@@ -14,6 +14,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
     public UnityEvent<string> onWritingTypeInUse;
+    public UnityEvent<string> onBoxesNotReady;
 
     private bool taskOrderViolated = false;
 
@@ -154,6 +155,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteVentilationTask(){
         CompleteTask("VentilatingAgarPlates");
+    }
+
+    public void CompleteIncubationTask(bool boxesReady)
+    {
+        string task = taskManager.GetCurrentTask().key;
+        if (task != "IncubatePlates") return;
+
+        if (boxesReady)
+        {
+            CompleteTask("IncubatePlates");
+        }
+        else
+        {
+            onBoxesNotReady?.Invoke("Check the items in incubation boxes!");
+        }
     }
 
     // This can be called by another object to mark a plate ready
