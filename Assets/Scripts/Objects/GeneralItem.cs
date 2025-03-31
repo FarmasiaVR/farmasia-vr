@@ -6,7 +6,6 @@ public class GeneralItem : Grabbable {
     [SerializeField]
     protected ObjectType objectType = ObjectType.None;
     public ObjectType ObjectType { get => objectType; set { objectType = value; } }
-
     public enum ContaminateState {
         Clean,
         Contaminated,

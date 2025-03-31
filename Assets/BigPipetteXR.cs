@@ -41,10 +41,7 @@ public class BigPipetteXR : MonoBehaviour
     public void PipetteCapacityExceeded()
     {
         Debug.Log("Can't take more medicine");
-        var localizedString = new LocalizedString("PlateCountMethod", "BreakingPipette");
-        localizedString.StringChanged += (localizedText) => {
-            sceneManager.GeneralMistake(localizedText, 1);
-        };
+        sceneManager.GeneralMistake("BreakingPipette", 1);
         pipetteContainerXR.ExceededCapacity();
     }
 }

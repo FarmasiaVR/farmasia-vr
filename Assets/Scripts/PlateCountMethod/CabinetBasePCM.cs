@@ -16,6 +16,8 @@ public class CabinetBasePCM : MonoBehaviour {
     public List<GameObject> requiredItems;  
     private List<bool> itemsFound;
     private bool allReady = false;
+
+    public List<GameObject> objectsInCabinet; // Keeps track of items currently in the laminar cabinet (used for skipping)
  
     private void Start() {
 
@@ -30,18 +32,21 @@ public class CabinetBasePCM : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {        
         GeneralItem item = other.GetComponent<GeneralItem>();
-        CoverOpeningHandler coverItem = item.GetComponent<CoverOpeningHandler>(); 
-        coverItem?.completeAction();
+
         if (item == null) {
             return;
+        }
+	    objectsInCabinet.Add(other.gameObject);
+
+        if (item.GetComponent<CoverOpeningHandler>() != null)
+        {
+            CoverOpeningHandler coverItem = item.GetComponent<CoverOpeningHandler>(); 
+            coverItem?.completeAction();
         }
 
 
         if(!(item.Contamination == GeneralItem.ContaminateState.Clean)){
-            var localizedString = new LocalizedString("PlateCountMethod", "DirtyItemInCabinet");
-            localizedString.StringChanged += (localizedText) => {
-            sceneManager.GeneralMistake(localizedText, 1);
-            };
+            sceneManager.GeneralMistake("DirtyItemInCabinet", 1);
             GUIConsole.Log("Dirty: " + other.gameObject.name);                       
             //Debug.Log("Dirty: " + other.gameObject.name);
             CleanItem(item);
@@ -108,5 +113,7 @@ public class CabinetBasePCM : MonoBehaviour {
             int index = requiredItems.IndexOf(other.gameObject);  // Get the index of the item in the list
             itemsFound[index] = false; 
         }
+
+        objectsInCabinet.Remove(other.gameObject);
     }
 }

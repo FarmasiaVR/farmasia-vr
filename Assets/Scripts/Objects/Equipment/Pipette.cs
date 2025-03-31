@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 
 public class Pipette : GeneralItem {
@@ -125,7 +127,7 @@ public class Pipette : GeneralItem {
         
         if(Container.contaminationLiquidType != BottleContainer.LiquidType && Container.contaminationLiquidType != LiquidType.None && BottleContainer.LiquidType != LiquidType.None){
             Logger.Print("Pippete is contaminated with different liquid type");
-            contaminatedPipeteUsed.Invoke("Please don't use this pipette; it is already contaminated",10);
+            contaminatedPipeteUsed.Invoke("ContaminatedPipette", 1);
             return;
         }
         Container.TransferTo(BottleContainer, into ? LiquidTransferStep : -LiquidTransferStep);

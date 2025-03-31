@@ -235,7 +235,7 @@ public class HandStateManagerPCM : MonoBehaviour {
     {
         if (handState == HandState.Dirty)
         {
-            sceneManager.GeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyHandsInLaminarCabinet"), 1);
+            sceneManager.GeneralMistake("DirtyHandsInLaminarCabinet", 1);
         }
         handsOutsideCabinet = false;
 

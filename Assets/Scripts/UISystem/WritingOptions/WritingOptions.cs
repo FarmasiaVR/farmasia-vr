@@ -12,10 +12,7 @@ public class WritingOptions : MonoBehaviour {
     private static System.Random rand = new System.Random();
 
     public GameObject resultTextObject;
-    public GameObject errorTextObject;
     private TextMeshPro resultTextField;
-    private TextMeshPro errorTextField;
-
 
     public Writable objectToTypeTo;
     private Dictionary<WritingType, string> selectedOptions = new Dictionary<WritingType, string>();
@@ -43,9 +40,6 @@ public class WritingOptions : MonoBehaviour {
     void Start() {
         resultTextField = resultTextObject.GetComponent<TextMeshPro>();
         resultTextField.SetText("");
-
-        errorTextField = errorTextObject.GetComponent<TextMeshPro>();
-        errorTextField.SetText("");
 
         toggle = transform.GetChild(0).gameObject;
         toggle.SetActive(visible);
@@ -89,8 +83,6 @@ public class WritingOptions : MonoBehaviour {
             UpdateResultingText(objectToTypeTo.WrittenLines);
         }
         
-       
-        UpdateErrorMessage();
     }
 
     private void RemoveOption(WritingType type) {
@@ -100,8 +92,6 @@ public class WritingOptions : MonoBehaviour {
             objectToTypeTo.removeLine(type);
             UpdateResultingText(objectToTypeTo.WrittenLines);
         }
-      
-        UpdateErrorMessage();
     }
 
     public void UpdateResultingText(Dictionary<WritingType, string> writings) {
@@ -110,24 +100,8 @@ public class WritingOptions : MonoBehaviour {
             resultText += line + "\n";
         }
         resultTextField.SetText(resultText);
-
-        UpdateErrorMessage();
     }
-
-    private void UpdateErrorMessage() {
-        if (objectToTypeTo)
-        {
-            if(objectToTypeTo.writingsInOrder.Count >= objectToTypeTo.MaxLines) 
-            {
-                errorTextField.SetText(Translator.Translate("XR MembraneFilteration 2.0", "MaxAmountOfRows"));
-            }
-            else
-            {
-                errorTextField.SetText("");
-            }
-        }
-    }
-
+    
     private void Cancel() {
         onCancel();
         ResetOptions();
@@ -155,7 +129,6 @@ public class WritingOptions : MonoBehaviour {
         resultText = "";
         selectedOptions.Clear();
         resultTextField.SetText("");
-        errorTextField.SetText("");
 
         // Toggle all options off
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
@@ -191,7 +164,6 @@ public class WritingOptions : MonoBehaviour {
             UpdateResultingText(objectToTypeTo.WrittenLines);
         }
 
-        UpdateErrorMessage();
         UpdatePosition(writable.transform);
         WritingOption[] options = toggle.transform.GetComponentsInChildren<WritingOption>(true);
         foreach (WritingOption option in options) {

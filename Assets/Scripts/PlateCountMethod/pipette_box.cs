@@ -13,7 +13,7 @@ public class pipette_box : MonoBehaviour
 {
     public AudioSource audioSource;
     public OpenCloseBox box;
-    [SerializeField] private GameObject pipette;
+    private int pipetteLayer;
     private Collider triggerCollider;
 
     void Awake()
@@ -21,13 +21,13 @@ public class pipette_box : MonoBehaviour
         audioSource = GetComponent<AudioSource>();        
         triggerCollider = GetComponentInChildren<Collider>();
         box = GetComponent<OpenCloseBox>();
-
+        pipetteLayer = LayerMask.NameToLayer("Pipette");
     }
 
     private void OnTriggerEnter(Collider other)
     {      
         
-        if (other.gameObject == pipette && box.isOpen)
+        if (other.gameObject.layer == pipetteLayer && box.isOpen)
         {
             audioSource.Play();
             Pipette pippetescript = other.GetComponent<Pipette>();
