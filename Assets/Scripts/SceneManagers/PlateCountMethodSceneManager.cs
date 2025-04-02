@@ -91,6 +91,12 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         taskOrderViolated = true;
     }
 
+    public void SennaToPhosphateBufferMistake()
+    {
+        GeneralMistake("MixingProhibitedPhosphateBuffer", 1);
+        Debug.Log("Called mixing mistake");
+    }
+
     public void CheckTaskOrderViolation(string taskName)
     {
         string currentTask = taskManager.GetCurrentTask().key;
