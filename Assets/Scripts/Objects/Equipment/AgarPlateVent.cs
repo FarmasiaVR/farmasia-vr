@@ -29,12 +29,11 @@ public class AgarPlateVent : MonoBehaviour
         {
             socket = bottomObject.GetComponentInChildren<XRSocketInteractor>();
             bottom = bottomObject.GetComponent<AgarPlateBottom>();
-        }
-
-        rotationPoint = transform.Find("LidRotate");
-        if (rotationPoint == null)
-        {
-            Debug.LogWarning("Couldn't find LidRotate object in children");
+            rotationPoint = bottomObject.transform.Find("LidRotate");
+            if (rotationPoint == null)
+            {
+                Debug.LogWarning("Couldn't find LidRotate object in children");
+            }
         }
     }
 
@@ -69,6 +68,7 @@ public class AgarPlateVent : MonoBehaviour
     {
         if (!isVenting) { return; }
         StopVenting();
+        VentingChanged();
     }
 
 }
