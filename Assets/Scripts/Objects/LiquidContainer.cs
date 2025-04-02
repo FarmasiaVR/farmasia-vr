@@ -167,7 +167,7 @@ public class LiquidContainer : MonoBehaviour {
             Debug.Log("Tried to mix liquids, but it is now allowed");
             if (pcm)
             {
-                onMixingAttemptWhenProhibited!.Invoke();
+                onMixingAttemptWhenProhibited.Invoke();
                 Debug.Log("Tried to mix liquids in PCM, but it is now allowed");
             } // The latter is probably used in Membrane filtration, it can be fixed to use the same event later also in there
             else { FindObjectOfType<PopupManager>()?.NotifyPopup("Ole hyvä ja älä sekoita nesteitä"); }
