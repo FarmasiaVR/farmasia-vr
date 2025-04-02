@@ -105,7 +105,6 @@ public class LiquidContainer : MonoBehaviour {
                 lastZPosition = transform.position.z;
             }
         }
-
     }
 
     public int Amount {
@@ -164,9 +163,9 @@ public class LiquidContainer : MonoBehaviour {
         //This is to check whether a mix would happen with the transfer
         if (this.LiquidType != target.LiquidType && this.amount > 0 && target.amount > 0 && !target.allowMixingLiquids) 
         {
-            Debug.Log("Tried to mix liquids, but it is now allowed");
             if (pcm)
             {
+                Debug.Log("Listeners count in OMAWP: " + onMixingAttemptWhenProhibited.GetPersistentEventCount());
                 onMixingAttemptWhenProhibited.Invoke();
                 Debug.Log("Tried to mix liquids in PCM, but it is now allowed");
             } // The latter is probably used in Membrane filtration, it can be fixed to use the same event later also in there
