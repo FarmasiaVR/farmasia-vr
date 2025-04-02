@@ -204,22 +204,23 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("SpreadDilution");
 
         LiquidType liquid = container.LiquidType;
-        WritingType desiredMarking = correctLiquids[liquid];
+        if (correctLiquids.ContainsKey(liquid))
+        {
+            WritingType desiredMarking = correctLiquids[liquid];
+            if (dilutionDict[desiredMarking][writeSoy] == container
+            || dilutionDict[desiredMarking][writeSab] == container)
+            {
+                // if this check passes, player put liquid in a correct plate
+                Debug.Log(liquid + " put into " + desiredMarking + " successfully");
+                return;
+            }
+        }
 
-        if (dilutionDict[desiredMarking][writeSoy] == container
-        || dilutionDict[desiredMarking][writeSab] == container)
-        {
-            // if this check passes, player put liquid in a correct plate
-            Debug.Log(liquid + " put into " + desiredMarking + " successfully");
-        }
-        else
-        {
-            TaskMistake("WrongDilutionType", 1);
-            // Allows to refill if liquid was incorrect
-            container.SetAmount(0);
-            container.LiquidType = LiquidType.None;
-            container.contaminationLiquidType = LiquidType.None;
-        }
+        TaskMistake("WrongDilutionType", 1);
+        // Allows to refill if liquid was incorrect
+        container.SetAmount(0);
+        container.LiquidType = LiquidType.None;
+        container.contaminationLiquidType = LiquidType.None;
     }
 
     public void CheckTubesFill(LiquidContainer container)
