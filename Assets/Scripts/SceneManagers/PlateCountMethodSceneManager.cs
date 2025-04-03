@@ -103,6 +103,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    // To use next three functions: 
+    // 1. Add item with key to localization table 
+    // 2. Call function using key and desired penalty 
+    // ex. GeneralMistake("KeyForTesting", 2)
     public void GeneralMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
@@ -120,6 +124,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         };
     }
 
+    public void NotifyPlayer(string key)
+    {
+        var localizedString = new LocalizedString("PlateCountMethod", key);
+        localizedString.StringChanged += (localizedText) => {
+            MessageToPlayer.Invoke(localizedText);
+        };
+    }
+    
     public void SkipCurrentTask()
     {
         string currentTask = taskManager.GetCurrentTask().key;
@@ -170,13 +182,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
         else
         {
-            onBoxesNotReady?.Invoke("Check the items in incubation boxes!");
+            NotifyPlayer("IncubateBoxesNotReady");
+        }
         }
     }
 
     // This can be called by another object to mark a plate ready
     public void PlateReadyInSpreadTask(LiquidContainer container)
     {
+        NotifyPlayer("SpreadDone");
         foreach (var entry in dilutionDict)
         {
             if (entry.Value[writeSoy] == container)
