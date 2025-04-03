@@ -9,14 +9,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pipette_box : MonoBehaviour
+public class pipette_box : GeneralItem
 {
     public AudioSource audioSource;
     public OpenCloseBox box;
     private int pipetteLayer;
     private Collider triggerCollider;
 
-    void Awake()
+    protected override void Awake()
     {        
         audioSource = GetComponent<AudioSource>();        
         triggerCollider = GetComponentInChildren<Collider>();
