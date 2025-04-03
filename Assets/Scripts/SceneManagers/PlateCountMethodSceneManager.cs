@@ -16,7 +16,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
     public UnityEvent<string> notifyPlayer;
-
+    public CameraFadeController fadeController;
+    public Transform teleportDestination;// for teleporting to lab
+    public GameObject player;
+    
     private bool taskOrderViolated = false;
 
     private HashSet<int> usedPipetteHeads = new HashSet<int>();
@@ -178,11 +181,21 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (boxesReady)
         {
             CompleteTask("IncubatePlates");
+            StartCoroutine(MoveToLab());
         }
         else
         {
             NotifyPlayer("IncubateBoxesNotReady");
         }
+    }
+
+    private IEnumerator MoveToLab()
+    {
+        fadeController.BeginFadeOut();
+        NotifyPlayer("AFewMomentsLater");
+        yield return new WaitForSeconds(3f);
+        player.transform.position = teleportDestination.position;
+        fadeController.BeginFadeIn();
     }
 
     // This can be called by another object to mark a plate ready
