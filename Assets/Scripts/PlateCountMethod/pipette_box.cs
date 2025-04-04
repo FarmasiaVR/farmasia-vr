@@ -15,6 +15,7 @@ public class pipette_box : MonoBehaviour
     public OpenCloseBox box;
     private int pipetteLayer;
     private Collider triggerCollider;
+    public UnityEvent onPipetteCollided;
 
     void Awake()
     {        
@@ -33,7 +34,8 @@ public class pipette_box : MonoBehaviour
             Pipette pippetescript = other.GetComponent<Pipette>();
             pippetescript.Container.contaminationLiquidType = LiquidType.None;
             pippetescript.Container.LiquidType = LiquidType.None;
-            pippetescript.Container.amount = 0;             
+            pippetescript.Container.amount = 0;       
+            onPipetteCollided?.Invoke();      
             
         }
     }
