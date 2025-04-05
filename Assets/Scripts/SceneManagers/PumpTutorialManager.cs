@@ -73,6 +73,11 @@ public class PumpTutorialManager : MonoBehaviour
         }
     }
 
+    public void CheckPipetteHeadChanged()
+    {   
+        if (taskManager.GetCurrentTask().key == "cleanPipette")
+            taskManager.CompleteTask("cleanPipette");
+    }
     /// <summary>
     /// Call this when the filtermiddle part is removed from its socket. Makes sure that the task can only be completed when it's the active task
     /// </summary>
@@ -92,7 +97,7 @@ public class PumpTutorialManager : MonoBehaviour
 
     public void NotifyFilterHalfInWrongBottle(GeneralItem genItem)
     {
-        taskManager.GenerateTaskMistake("Laitoit suodattimen puolikkaan väärään pulloon", 1);
+        taskManager.GenerateTaskMistake("Laitoit suodattimen puolikkaan vï¿½ï¿½rï¿½ï¿½n pulloon", 1);
         genItem.transform.Translate(new Vector3(0.05f, 0, 0));
     }
 
