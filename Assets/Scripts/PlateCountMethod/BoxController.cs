@@ -12,7 +12,7 @@ public class BoxController : MonoBehaviour
         AgarPlateBottom plate = other.GetComponent<AgarPlateBottom>();
         if (plate == null) return;
 
-        if (plate.name == "SabouraudPlateBottom" && Temp==37 )
+        if (plate.name == "SabouraudPlateBottom" && Temp==25 )
         {
             if (!sabouraudPlates.Contains(plate)){
                 sabouraudPlates.Add(plate);
@@ -20,7 +20,7 @@ public class BoxController : MonoBehaviour
 
         }
 
-        if (plate.name == "SoyCaseinPlateBottom" && Temp==25 )
+        if (plate.name == "SoyCaseinPlateBottom" && Temp==37 )
         {
             if (!soyCaseinPlates.Contains(plate)) 
             {
