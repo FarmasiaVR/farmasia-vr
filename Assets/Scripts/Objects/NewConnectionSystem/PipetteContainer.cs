@@ -56,10 +56,9 @@ public class PipetteContainer : AttachmentItem
     }
 
     public void SendMedicine() {
-        if (State == InteractState.InBottle) {
+        if (State == InteractState.InBottle)
+        {
             TransferToBottle(true);
-        } else {
-            Eject();
         }
     }
 
