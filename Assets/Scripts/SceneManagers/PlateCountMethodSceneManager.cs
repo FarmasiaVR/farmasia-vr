@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
 using TMPro;
+using UnityEngine.Localization.Settings;
+using Codice.CM.WorkspaceServer.DataStore;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
-    public UnityEvent<string> onWritingTypeInUse;
+    public UnityEvent<string> notifyPlayer;
     public UnityEvent<string> onBoxesNotReady;
 
     private bool taskOrderViolated = false;
@@ -341,10 +343,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (WritingTypeAlreadyInUse(dilution, index))
         {
             if (dilutionDict[dilution][index] == container) return; // Player wrote the same dilution type on the same bottle
-            var localizedString = new LocalizedString("PlateCountMethod", "ExistingDilution");
-            localizedString.StringChanged += (localizedText) => {
-                onWritingTypeInUse.Invoke(localizedText);
-            };
+
+            NotifyPlayer("ExistingDilution");
+
             Writable writable = foundItem.GetComponent<Writable>();
             writable.removeLine(dilution);
             return;
@@ -361,6 +362,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
 
         CheckWritingsIntegrity();
+    }
+
+    private void NotifyPlayer(string key)
+    {
+        var localizedString = new LocalizedString("PlateCountMethod", key);
+        localizedString.StringChanged += (localizedText) => {
+            notifyPlayer.Invoke(localizedText);
+        };
     }
 
     // If object is changed, deletes it from the old index. Used in writing and filling
@@ -425,24 +434,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (MixIfValid(container, 6000))
                 {
                     CompleteTask("MixPhosphateToSenna");
+                    return;
                 }    
-                return;
-            }
-            case LiquidType.Senna01m:
-            {
-                if (MixIfValid(container, 5000))
-                {
-                    Debug.Log("Mixing complete in " + container.LiquidType);
-                    onMixingComplete.Invoke();
-                }
                 break;
             }
-            case LiquidType.Senna001m:
+            case LiquidType.Senna01m or LiquidType.Senna001m:
             {
                 if (MixIfValid(container, 5000))
                 {
                     Debug.Log("Mixing complete in " + container.LiquidType);
                     onMixingComplete.Invoke();
+                    return;
                 }
                 break;
             }
@@ -452,9 +454,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 {
                     CompleteTask("PerformSerialDilution");
                     onMixingComplete.Invoke();
+                    return;
                 }
                 break;
             }
+        }
+
+        if (taskManager.GetCurrentTask().key == "PerformSerialDilution" || taskManager.GetCurrentTask().key == "MixPhosphateToSenna")
+        {
+            NotifyPlayer("FailedMixing");
         }
     }
 
