@@ -22,6 +22,10 @@ public class HintBoxNew : MonoBehaviour
     [SerializeField]
     private float textShownTime;
 
+    // HintBox will search for translation from this table
+    [SerializeField]
+    private string currentLocalizationTable;
+
     // Value used to reset the textShownTime timer value
     private float textResetValue;
     
@@ -98,7 +102,7 @@ public class HintBoxNew : MonoBehaviour
     {
         // Hintbox with translations
         string hintKey = task.key + "Hint";
-        var localizedString = new LocalizedString("PlateCountMethod", hintKey);
+        var localizedString = new LocalizedString(currentLocalizationTable, hintKey);
     
         localizedString.StringChanged += (localizedText) => {
             hintDesc.text = localizedText;
