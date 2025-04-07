@@ -16,7 +16,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
     public UnityEvent<string> notifyPlayer;
-    public UnityEvent<string> onBoxesNotReady;
 
     private bool taskOrderViolated = false;
 
@@ -128,7 +127,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
         localizedString.StringChanged += (localizedText) => {
-            MessageToPlayer.Invoke(localizedText);
+            notifyPlayer.Invoke(localizedText);
         };
     }
     
@@ -183,7 +182,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         else
         {
             NotifyPlayer("IncubateBoxesNotReady");
-        }
         }
     }
 
@@ -376,14 +374,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
 
         CheckWritingsIntegrity();
-    }
-
-    private void NotifyPlayer(string key)
-    {
-        var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
-            notifyPlayer.Invoke(localizedText);
-        };
     }
 
     // If object is changed, deletes it from the old index. Used in writing and filling
