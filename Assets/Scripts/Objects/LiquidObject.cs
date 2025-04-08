@@ -14,7 +14,9 @@ public class LiquidObject : MonoBehaviour {
         _50ml,
         _25ml,
         _5ml,
-        _1ml
+        _1ml,
+        _2ml,
+        _03ml,
     }
 
     #region fields
@@ -67,6 +69,20 @@ public class LiquidObject : MonoBehaviour {
                 minLinearAmount = 500,
                 maxLinearAmount = 5000,
                 minLinearFloatValue = 0.145f
+            };
+        }
+        else if (capacity == Capacity._2ml) {
+            liquidScale = new LiquidScale {
+                minLinearAmount = 100,
+                maxLinearAmount = 2000,
+                minLinearFloatValue = 0.145f
+            };
+        }
+        else if (capacity == Capacity._03ml) {
+            liquidScale = new LiquidScale {
+                minLinearAmount = 100,
+                maxLinearAmount = 300,
+                minLinearFloatValue = 0.4f
             };
         }
     }
