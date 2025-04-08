@@ -33,8 +33,8 @@ public class pipette_box : GeneralItem
             audioSource.Play();
             Pipette pippetescript = other.GetComponent<Pipette>();
             pippetescript.Container.contaminationLiquidType = LiquidType.None;
-            pippetescript.Container.LiquidType = LiquidType.None;
-            pippetescript.Container.amount = 0;       
+            pippetescript.Container.LiquidType = LiquidType.None;            
+            pippetescript.Container.SetAmount(0);       
             onPipetteCollided?.Invoke();      
             
         }
