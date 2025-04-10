@@ -17,7 +17,7 @@ public class PopupManagerPCM : MonoBehaviour
     {
         GameObject popupObject = Instantiate(popupPrefab);
         PointPopup pointPopup = popupObject.GetComponent<PointPopup>();
-        pointPopup.popupHeightOffset = 0.1f * activePopupCount;
+        pointPopup.popupStackingOffset = 0.1f * activePopupCount;
 
         activePopupCount++;
 
