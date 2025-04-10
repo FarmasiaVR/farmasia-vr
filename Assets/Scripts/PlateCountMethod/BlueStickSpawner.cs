@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlueStickSpawner : MonoBehaviour
 {
     public string itemTag = "Bluestick";
-    public GameObject BlueStickPrefab;
+    public GameObject Bluestick;
     public float checkInterval = 2f;
     public Transform ItemSpawnPoint;
     
@@ -36,7 +36,8 @@ public class BlueStickSpawner : MonoBehaviour
 
         if (!itemFound)
         {
-            Instantiate(BlueStickPrefab, ItemSpawnPoint.position, ItemSpawnPoint.rotation);
+            GameObject clone = Instantiate(Bluestick, ItemSpawnPoint.position, ItemSpawnPoint.rotation);
+            clone.SetActive(true);
         }
     }
 
