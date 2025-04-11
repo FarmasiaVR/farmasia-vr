@@ -53,6 +53,7 @@ public class LiquidContainer : MonoBehaviour {
     public UnityEvent<LiquidContainer> onMixingComplete;
     
     //This block is here for the PCM mixing functionality
+    public bool mixingComplete = false;
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
@@ -93,7 +94,7 @@ public class LiquidContainer : MonoBehaviour {
                     int changeAmount = Mathf.RoundToInt(totalMovement * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
                 }
-                if (mixingValue >= 10000) {
+                if (mixingValue >= 10000 && !mixingComplete) {
                     onMixingComplete!.Invoke(this);
                     mixingValue = 0;
                 }

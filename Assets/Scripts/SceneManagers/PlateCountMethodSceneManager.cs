@@ -488,6 +488,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         bool valid = mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.Amount == amount;
         if (valid)
         {
+            container.mixingComplete = true;
             container.LiquidType = newResult;
             container.SetLiquidMaterial();
         }
