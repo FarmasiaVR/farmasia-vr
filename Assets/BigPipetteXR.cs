@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using FarmasiaVR.Legacy;
 
 /// <summary>
 /// Is <c>ReceiverItem</c> for PipetteContainer and transfers controller press events to it.
@@ -39,9 +40,15 @@ public class BigPipetteXR : MonoBehaviour
     }
 
     public void PipetteCapacityExceeded()
-    {
-        Debug.Log("Can't take more medicine");
-        sceneManager.GeneralMistake("BreakingPipette", 1);
-        pipetteContainerXR.ExceededCapacity();
+    {   
+        if (sceneManager != null)
+        {   
+            Debug.Log("Can't take more medicine");
+            sceneManager.GeneralMistake("BreakingPipette", 1);
+            pipetteContainerXR.ExceededCapacity();
+        } else {
+            Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "Overdrawn pipettor"), 1);
+        }
+
     }
 }
