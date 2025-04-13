@@ -40,14 +40,15 @@ public class BigPipetteXR : MonoBehaviour
     }
 
     public void PipetteCapacityExceeded()
-    {   
+    {   Debug.Log("Can't take more medicine");
         if (sceneManager != null)
-        {   
-            Debug.Log("Can't take more medicine");
+        { 
             sceneManager.GeneralMistake("BreakingPipette", 1);
             pipetteContainerXR.ExceededCapacity();
         } else {
+            onCapacityExceeded?.Invoke("Overdrawn pipettor", 1);
             Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "Overdrawn pipettor"), 1);
+            
         }
 
     }
