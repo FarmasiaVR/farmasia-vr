@@ -53,7 +53,7 @@ public class CabinetBase : MonoBehaviour {
                 item.Contamination = GeneralItem.ContaminateState.Clean;
             }
 
-            if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
+            else if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
                 item.Contamination = GeneralItem.ContaminateState.Clean;
             }
