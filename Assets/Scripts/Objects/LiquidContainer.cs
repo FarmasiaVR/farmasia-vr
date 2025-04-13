@@ -84,6 +84,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void Update() {
+        if (mixingComplete) return;
         if (GeneralItem){
             if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
@@ -94,7 +95,7 @@ public class LiquidContainer : MonoBehaviour {
                     int changeAmount = Mathf.RoundToInt(totalMovement * movementSensitivity);
                     mixingValue+=Mathf.Abs(changeAmount)*500;
                 }
-                if (mixingValue >= 10000 && !mixingComplete) {
+                if (mixingValue >= 10000) {
                     onMixingComplete!.Invoke(this);
                     mixingValue = 0;
                 }
@@ -205,7 +206,7 @@ public class LiquidContainer : MonoBehaviour {
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
         target.mixingValue += 700; //PCM mixing functionality
-        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
+        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle && !mixingComplete)
         {
             //Debug.Log("mixing with pipettor");
             onMixingComplete!.Invoke(target);
