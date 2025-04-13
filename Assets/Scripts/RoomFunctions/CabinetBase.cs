@@ -50,10 +50,12 @@ public class CabinetBase : MonoBehaviour {
             if (item.Contamination == GeneralItem.ContaminateState.FloorContaminated)
             {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "FloorContaminedInCabinet"), 1);
+                item.Contamination = GeneralItem.ContaminateState.Clean;
             }
 
             if (item.Contamination == GeneralItem.ContaminateState.Contaminated) {
                 Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "UncleanItemInCabinet"), 1);
+                item.Contamination = GeneralItem.ContaminateState.Clean;
             }
       
             if (!itemPlaced) {
