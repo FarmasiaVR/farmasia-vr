@@ -297,7 +297,6 @@ namespace FarmasiaVR.Legacy {
 
         public static void CreateGeneralMistake(string mistake, int minus = 1, bool showMessage = true)
         {
-            Debug.Log("virhe: esine oli likainen");
 
             if (showMessage)
             {
