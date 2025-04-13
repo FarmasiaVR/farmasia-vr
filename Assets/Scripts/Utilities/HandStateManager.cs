@@ -232,12 +232,11 @@ public class HandStateManager : MonoBehaviour {
 
     public void handsEnteredCabinet()
     {
-        if (handState == HandState.Dirty)
+        if (handState == HandState.Dirty && timeOutsideCabinet > 1.0f)
         {
             Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyHandsInLaminarCabinet"), 1);
         }
         handsOutsideCabinet = false;
-
         timeOutsideCabinet = 0.0f;
     }
 
@@ -258,7 +257,6 @@ public class HandStateManager : MonoBehaviour {
         if (canAirContaminate)
         {
             timeSinceCleaning += Time.deltaTime;
-
             //once there is no alcohol on the hands remove the cleanest state of the hands
             if (timeSinceCleaning > handWashContaminationDelay && timeOutsideCabinet < handAirContaminationDelay && handState != HandState.Dirty)
             {
