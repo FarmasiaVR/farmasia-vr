@@ -153,9 +153,6 @@ public class CorrectItemsInLaminarCabinetMembrane: Task {
             
         }
 
-        if (uncleanCount > 0) {
-            CreateTaskMistake(Translator.Translate("XR MembraneFilteration 2.0", "DirtyItemInLaminarCabinet"), uncleanCount);
-        }
     }
     #endregion
 }
