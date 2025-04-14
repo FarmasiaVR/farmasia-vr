@@ -46,6 +46,7 @@ public class BigPipetteXR : MonoBehaviour
             sceneManager.GeneralMistake("BreakingPipette", 10);
             pipetteContainerXR.ExceededCapacity();
         } else {
+            pipetteContainerXR.ExceededCapacity();
             onCapacityExceeded?.Invoke("Overdrawn pipettor", 1);
             Task.CreateGeneralMistake(Translator.Translate("XR MembraneFilteration 2.0", "Overdrawn pipettor"), 1);
             
