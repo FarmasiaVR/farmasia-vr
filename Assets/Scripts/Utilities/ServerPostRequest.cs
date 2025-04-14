@@ -18,13 +18,13 @@ public class ServerPostRequest : MonoBehaviour
     private bool isEmailValid = false;
     private bool isTokenValid = false;
 
-    public void SendPostRequest()
+    public void SendPostRequest(string jsonData)
     {
         if (!isEmailValid || !isTokenValid) {
             Debug.Log("Invalid");
             return;
         }
-        string jsonData = @"
+        string jsonTestData = @"
         {
             ""email"": ""test@email.com"",
             ""tasks"": [
