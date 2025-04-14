@@ -44,7 +44,7 @@ public class FilterHalvesToBottles : Task {
 
             filterHalvesInTioglycolate++;
             // UnityEngine.Debug.Log("Tioglygolate halves after: " + filterHalvesInTioglycolate);
-            if (filterHalvesInSoycaseine == 1)
+            if (filterHalvesInTioglycolate == 1)
             {
                 G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
             }

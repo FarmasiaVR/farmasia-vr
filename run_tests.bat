@@ -1,1 +1,0 @@
-"C:\Program Files\Unity\Editor\2019.4.34f1\Editor\Unity.exe" -runTests -batchmode -projectPath . -testResults .\test_results.xml

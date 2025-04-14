@@ -9,14 +9,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pipette_box : MonoBehaviour
+public class pipette_box : GeneralItem
 {
     public AudioSource audioSource;
     public OpenCloseBox box;
     private int pipetteLayer;
     private Collider triggerCollider;
+    public UnityEvent onPipetteCollided;
 
-    void Awake()
+    protected override void Awake()
     {        
         audioSource = GetComponent<AudioSource>();        
         triggerCollider = GetComponentInChildren<Collider>();
@@ -32,8 +33,9 @@ public class pipette_box : MonoBehaviour
             audioSource.Play();
             Pipette pippetescript = other.GetComponent<Pipette>();
             pippetescript.Container.contaminationLiquidType = LiquidType.None;
-            pippetescript.Container.LiquidType = LiquidType.None;
-            pippetescript.Container.amount = 0;             
+            pippetescript.Container.LiquidType = LiquidType.None;            
+            pippetescript.Container.SetAmount(0);       
+            onPipetteCollided?.Invoke();      
             
         }
     }

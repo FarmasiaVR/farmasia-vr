@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
@@ -13,9 +14,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
-    public UnityEvent<string> onWritingTypeInUse;
-    public UnityEvent<string> onBoxesNotReady;
-
+    public UnityEvent<string> notifyPlayer;
+    public CameraFadeController fadeController;
+    public Transform teleportDestination;// for teleporting to lab
+    public GameObject player;
+    
     private bool taskOrderViolated = false;
 
     private HashSet<int> usedPipetteHeads = new HashSet<int>();
@@ -101,6 +104,10 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    // To use next three functions: 
+    // 1. Add item with key to localization table 
+    // 2. Call function using key and desired penalty 
+    // ex. GeneralMistake("KeyForTesting", 2)
     public void GeneralMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
@@ -118,6 +125,14 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         };
     }
 
+    public void NotifyPlayer(string key)
+    {
+        var localizedString = new LocalizedString("PlateCountMethod", key);
+        localizedString.StringChanged += (localizedText) => {
+            notifyPlayer.Invoke(localizedText);
+        };
+    }
+    
     public void SkipCurrentTask()
     {
         string currentTask = taskManager.GetCurrentTask().key;
@@ -165,16 +180,27 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (boxesReady)
         {
             CompleteTask("IncubatePlates");
+            StartCoroutine(MoveToLab());
         }
         else
         {
-            onBoxesNotReady?.Invoke("Check the items in incubation boxes!");
+            NotifyPlayer("IncubateBoxesNotReady");
         }
+    }
+
+    private IEnumerator MoveToLab()
+    {
+        fadeController.BeginFadeOut();
+        NotifyPlayer("AFewMomentsLater");
+        yield return new WaitForSeconds(3f);
+        player.transform.position = teleportDestination.position;
+        fadeController.BeginFadeIn();
     }
 
     // This can be called by another object to mark a plate ready
     public void PlateReadyInSpreadTask(LiquidContainer container)
     {
+        NotifyPlayer("SpreadDone");
         foreach (var entry in dilutionDict)
         {
             if (entry.Value[writeSoy] == container)
@@ -204,22 +230,23 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("SpreadDilution");
 
         LiquidType liquid = container.LiquidType;
-        WritingType desiredMarking = correctLiquids[liquid];
+        if (correctLiquids.ContainsKey(liquid))
+        {
+            WritingType desiredMarking = correctLiquids[liquid];
+            if (dilutionDict[desiredMarking][writeSoy] == container
+            || dilutionDict[desiredMarking][writeSab] == container)
+            {
+                // if this check passes, player put liquid in a correct plate
+                Debug.Log(liquid + " put into " + desiredMarking + " successfully");
+                return;
+            }
+        }
 
-        if (dilutionDict[desiredMarking][writeSoy] == container
-        || dilutionDict[desiredMarking][writeSab] == container)
-        {
-            // if this check passes, player put liquid in a correct plate
-            Debug.Log(liquid + " put into " + desiredMarking + " successfully");
-        }
-        else
-        {
-            TaskMistake("WrongDilutionType", 1);
-            // Allows to refill if liquid was incorrect
-            container.SetAmount(0);
-            container.LiquidType = LiquidType.None;
-            container.contaminationLiquidType = LiquidType.None;
-        }
+        TaskMistake("WrongDilutionType", 1);
+        // Allows to refill if liquid was incorrect
+        container.SetAmount(0);
+        container.LiquidType = LiquidType.None;
+        container.contaminationLiquidType = LiquidType.None;
     }
 
     public void CheckTubesFill(LiquidContainer container)
@@ -340,10 +367,9 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (WritingTypeAlreadyInUse(dilution, index))
         {
             if (dilutionDict[dilution][index] == container) return; // Player wrote the same dilution type on the same bottle
-            var localizedString = new LocalizedString("PlateCountMethod", "ExistingDilution");
-            localizedString.StringChanged += (localizedText) => {
-                onWritingTypeInUse.Invoke(localizedText);
-            };
+
+            NotifyPlayer("ExistingDilution");
+
             Writable writable = foundItem.GetComponent<Writable>();
             writable.removeLine(dilution);
             return;
@@ -424,24 +450,17 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 if (MixIfValid(container, 6000))
                 {
                     CompleteTask("MixPhosphateToSenna");
+                    return;
                 }    
-                return;
-            }
-            case LiquidType.Senna01m:
-            {
-                if (MixIfValid(container, 5000))
-                {
-                    Debug.Log("Mixing complete in " + container.LiquidType);
-                    onMixingComplete.Invoke();
-                }
                 break;
             }
-            case LiquidType.Senna001m:
+            case LiquidType.Senna01m or LiquidType.Senna001m:
             {
                 if (MixIfValid(container, 5000))
                 {
                     Debug.Log("Mixing complete in " + container.LiquidType);
                     onMixingComplete.Invoke();
+                    return;
                 }
                 break;
             }
@@ -451,9 +470,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                 {
                     CompleteTask("PerformSerialDilution");
                     onMixingComplete.Invoke();
+                    return;
                 }
                 break;
             }
+        }
+
+        if (taskManager.GetCurrentTask().key == "PerformSerialDilution" || taskManager.GetCurrentTask().key == "MixPhosphateToSenna")
+        {
+            NotifyPlayer("FailedMixing");
         }
     }
 
@@ -462,6 +487,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         bool valid = mixingTable.TryGetValue(container.LiquidType, out LiquidType newResult) && container.Amount == amount;
         if (valid)
         {
+            container.mixingComplete = true;
             container.LiquidType = newResult;
             container.SetLiquidMaterial();
         }
