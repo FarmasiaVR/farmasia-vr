@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class ControlTutorialManager : MonoBehaviour
 {
@@ -29,8 +31,9 @@ public class ControlTutorialManager : MonoBehaviour
         }
     }
 
-    public void GeneralMistake(string message, int penalty)
-    {
-        taskManager.GenerateGeneralMistake(message, penalty);
-    }
+    public void GeneralMistake(string key, int penalty){
+        var localizedString = new LocalizedString("ControlsTutorial", key);
+        localizedString.StringChanged += (localizedText) => {
+            taskManager.GenerateGeneralMistake(localizedText, penalty);
+        };}
 }
