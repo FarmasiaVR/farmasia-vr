@@ -17,6 +17,7 @@ public class ServerPostRequest : MonoBehaviour
 
     public void SendPostRequest()
     {
+        Debug.Log("We got here");
         string jsonData = @"
         {
             ""email"": ""test@email.com"",
