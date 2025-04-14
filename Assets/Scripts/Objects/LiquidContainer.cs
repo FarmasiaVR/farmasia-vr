@@ -53,6 +53,7 @@ public class LiquidContainer : MonoBehaviour {
     public UnityEvent<LiquidContainer> onMixingComplete;
     
     //This block is here for the PCM mixing functionality
+    public bool mixingComplete = false;
     public int mixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
@@ -83,6 +84,7 @@ public class LiquidContainer : MonoBehaviour {
     }
 
     private void Update() {
+        if (mixingComplete) return;
         if (GeneralItem){
             if (GeneralItem.ObjectType == ObjectType.Bottle && mixingManager != null) {
                 float deltaY = transform.position.y - lastYPosition;
@@ -204,7 +206,7 @@ public class LiquidContainer : MonoBehaviour {
         SetAmount(Amount - toTransfer);
         target.SetAmount(target.Amount + toTransfer);        
         target.mixingValue += 700; //PCM mixing functionality
-        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle)
+        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle && !mixingComplete)
         {
             //Debug.Log("mixing with pipettor");
             onMixingComplete!.Invoke(target);
