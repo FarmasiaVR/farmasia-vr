@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ColonyCanvasPCM : MonoBehaviour
 {
-    private int matrixSize = 5;
+    public int matrixSize = 5;
     private int[,] matrix;
     private int numColonies;
     private int flipped = 0;
@@ -26,6 +27,9 @@ public class ColonyCanvasPCM : MonoBehaviour
                 break;
             }
         }
+
+        // Debug
+        //numColonies = 88;
         
         Debug.Log("Colonies " + numColonies);
         SetColonyPositions();
@@ -33,12 +37,28 @@ public class ColonyCanvasPCM : MonoBehaviour
 
     private void SetColonyPositions()
     {
+        var corners = new HashSet<(int, int)>
+        {
+            (0, 0),
+            (0, 1),
+            (1, 0),
+            (0, matrixSize-1),
+            (1, matrixSize-1),
+            (0, matrixSize-2),
+            (matrixSize-1, 0),
+            (matrixSize-2, 0),
+            (matrixSize-1, 1),
+            (matrixSize-1, matrixSize-1),
+            (matrixSize-2, matrixSize-1),
+            (matrixSize-1, matrixSize-2)
+        };
+
         while (flipped < numColonies)
         {
             int i = Random.Range(0, matrixSize);
             int j = Random.Range(0, matrixSize);
 
-            if (matrix[i, j] == 0 )
+            if (matrix[i, j] == 0 && !corners.Contains((i, j)))
             {
                 matrix[i, j] = 1;
                 flipped++;
@@ -59,7 +79,13 @@ public class ColonyCanvasPCM : MonoBehaviour
         }
     }
 
-    public void SpawnImages()
+    public void ShowCanvas()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+        SpawnImages();
+    }
+
+    private void SpawnImages()
     {
         float canvasWidth = canvasRectTransform.rect.width;
         float canvasHeight = canvasRectTransform.rect.height;
