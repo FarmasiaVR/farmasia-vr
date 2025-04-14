@@ -77,10 +77,16 @@ public class CorrectItemsInBasketMembrane : Task {
                         tioglycolateBottle++;
                         EnableCondition(Conditions.TioglycolateBottle);
                     }
-                } else if (g is AgarPlateLid agar) {
+                }
+                else if (g is AgarPlateLid agar) {
                     if (!agar.PlateBottom.GetComponent<AgarPlateBottom>().isOpen){
                         agarPlate++;
                     } else {
+                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Warning);
+                    }
+                }
+                else if (g is AgarPlateBottom agarB) {
+                    if (agarB.GetComponent<AgarPlateBottom>().isOpen){
                         Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Warning);
                     }
                 }
