@@ -7,7 +7,6 @@ using UnityEngine.Events;
 using UnityEngine.Localization;
 using TMPro;
 using UnityEngine.Localization.Settings;
-using Codice.CM.WorkspaceServer.DataStore;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
