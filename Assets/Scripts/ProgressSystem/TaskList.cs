@@ -136,4 +136,12 @@ public class TaskList : ScriptableObject
         return generalMistakes;
     }
 
+    /// <summary>
+    /// </summary>
+    /// <returns>Data about the current state of the TaskList</returns>
+    public Dictionary<string, Task> GetScenarioData()
+    {
+        return taskDict;
+    }
+
 }

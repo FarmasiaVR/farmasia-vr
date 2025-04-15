@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FarmasiaVR.New;
 using UnityEngine.Events;
+using Newtonsoft.Json;
 
 public class TaskManager : MonoBehaviour
 {
@@ -162,5 +163,12 @@ public class TaskManager : MonoBehaviour
     public Task GetTask(string taskKey)
     {
         return taskListObject.GetTask(taskKey);
+    }
+
+    public string GetJSONData()
+    {
+        Dictionary<string, Task> scenarioData = taskListObject.GetScenarioData();
+        List<Mistake> generalMistakes = taskListObject.GetGeneralMistakes();
+        return JsonConvert.SerializeObject(scenarioData);
     }
 }
