@@ -10,6 +10,7 @@ public class CorrectItemsInBasketMembrane : Task {
     public enum Conditions { Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, AgarPlate, Tweezers }
     private Basket basket;
     private bool cartMoved;
+    private List<Interactable> alreadyChecked = new List<Interactable>();
 
     public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, false) {
         SetCheckAll(true);
@@ -50,6 +51,15 @@ public class CorrectItemsInBasketMembrane : Task {
         CompleteTask();
     }
 
+    private void UpdateCheckedItems(List<Interactable> currentlyContained) {
+        List<Interactable> newAlreadyChecked = new List<Interactable>();
+        foreach (Interactable item in alreadyChecked) {
+            if (currentlyContained.Contains(item)){
+                newAlreadyChecked.Add(item);
+            }
+        }
+        alreadyChecked = newAlreadyChecked;
+    }
     private void CheckConditions(List<Interactable> containedObjects) {
         int bottles100ml = 0;
         int tioglycolateBottle = 0;
