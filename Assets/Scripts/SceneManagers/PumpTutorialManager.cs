@@ -103,29 +103,19 @@ public class PumpTutorialManager : MonoBehaviour
 
     public void FilterHalfInSoycaseine(GeneralItem genItem)
     {
-        if (filterHalfInSoycaseine) {NotifyFilterHalfInWrongBottle(genItem);}
-
-        else
+        filterHalfInSoycaseine = true;
+        if (filterHalfInTioglycolate)
         {
-            filterHalfInSoycaseine = true;
-            if (filterHalfInTioglycolate)
-            {
-                CompleteFilterHalfTask();
-            }
+            CompleteFilterHalfTask();
         }
     }
 
     public void FilterHalfInTioglycolate(GeneralItem genItem)
     {
-        if (filterHalfInTioglycolate) { NotifyFilterHalfInWrongBottle(genItem); }
-
-        else
+        filterHalfInTioglycolate = true;
+        if (filterHalfInSoycaseine)
         {
-            filterHalfInTioglycolate = true;
-            if (filterHalfInSoycaseine)
-            {
-                CompleteFilterHalfTask();
-            }
+            CompleteFilterHalfTask();
         }
     }
 
