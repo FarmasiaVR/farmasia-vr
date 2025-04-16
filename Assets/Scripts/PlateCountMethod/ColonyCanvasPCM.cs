@@ -98,15 +98,21 @@ public class ColonyCanvasPCM : MonoBehaviour
                 if (matrix[i, j] == 1)
                 {
                     GameObject colony = Instantiate(colonyImg, canvasRectTransform);
-                    RectTransform Rt = colony.GetComponent<RectTransform>();
+                    BoxCollider collider = colony.GetComponentInChildren<BoxCollider>();
+                    collider.size = new Vector3(0.1f, squareSize, squareSize);
+                    
+                    foreach (Transform child in colony.transform)
+                    {
+                        RectTransform Rt = child.GetComponent<RectTransform>();
 
-                    // Resizing the colony image to fit the canvas
-                    Rt.sizeDelta = new Vector2(squareSize, squareSize);
+                        // Resizing the colony image to fit the canvas
+                        Rt.sizeDelta = new Vector2(squareSize, squareSize);
 
-                    Vector2 anchoredPosition = new Vector2(
+                        Vector2 anchoredPosition = new Vector2(
                         (-canvasWidth / 2) + (j + 0.5f) * squareSize,
                         (canvasHeight / 2 ) - (i + 0.5f) * squareSize);
-                    Rt.anchoredPosition = anchoredPosition;
+                        Rt.anchoredPosition = anchoredPosition;
+                    }
                 }
             }
         }
