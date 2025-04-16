@@ -7,6 +7,8 @@ public class PopupManagerPCM : MonoBehaviour
 {
     public GameObject popupPrefab;
 
+    private int activePopupCount = 0;
+
     /// <summary>
     /// Used to create the popup object in the scene
     /// </summary>
@@ -15,10 +17,25 @@ public class PopupManagerPCM : MonoBehaviour
     {
         GameObject popupObject = Instantiate(popupPrefab);
         PointPopup pointPopup = popupObject.GetComponent<PointPopup>();
+        pointPopup.popupStackingOffset = 0.1f * activePopupCount;
+
+        activePopupCount++;
 
         pointPopup.SetCamera(GameObject.FindGameObjectWithTag("MainCamera"));
 
+        StartCoroutine(ReduceCount(pointPopup.visualTime));
+
         return pointPopup;
+    }
+
+    /// <summary>
+    /// Used to reduce the active popup count in the scene
+    /// </summary>
+    /// <returns>The popup object</returns>
+    private IEnumerator ReduceCount(float visualTime)
+    {   
+        yield return new WaitForSeconds(visualTime);
+        activePopupCount--;
     }
 
     /// <summary>
