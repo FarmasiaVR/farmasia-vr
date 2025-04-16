@@ -61,4 +61,13 @@ public class ServerPostRequest : MonoBehaviour
         public int Task1;
         public int Task2;
     }
+    public void GetEmail(string email) {
+        emailAccount = email;
+        Debug.Log(emailAccount);
+    }
+
+    public void GetAuthorisationToken(string token) {
+        authToken = token;
+        Debug.Log(authToken);
+    }
 }
