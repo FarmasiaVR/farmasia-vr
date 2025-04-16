@@ -73,31 +73,50 @@ public class CorrectItemsInBasketMembrane : Task {
                     int capacity = bottle.Container.Capacity;
                     LiquidType type = bottle.Container.LiquidType;
                     if (capacity == 100000) {
-                        bottles100ml++;
+                        bottles100ml++;            
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         if (bottles100ml == 4) {
                             EnableCondition(Conditions.Bottles100ml);
                         }
                     } else if (type == LiquidType.Peptonwater) {
                         peptoneWaterBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.PeptoneWaterBottle);
                     } else if (type == LiquidType.Soycaseine) {
                         soycaseineBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.SoycaseineBottle);
                     } else if (type == LiquidType.Tioglygolate) {
                         tioglycolateBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.TioglycolateBottle);
                     }
                 }
                 else if (g is AgarPlateLid agar) {
                     if (!agar.PlateBottom.GetComponent<AgarPlateBottom>().isOpen){
                         agarPlate++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                     } else {
-                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Warning);
+                        if (!alreadyChecked.Contains(item)) {
+                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Notify);
+                        }
                     }
                 }
                 else if (g is AgarPlateBottom agarB) {
                     if (agarB.GetComponent<AgarPlateBottom>().isOpen){
-                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Warning);
+                        if (!alreadyChecked.Contains(item)) {
+                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Notify);
+                        }
                     }
                 }
                 else if(g is Tweezers){
@@ -111,8 +130,9 @@ public class CorrectItemsInBasketMembrane : Task {
                     EnableCondition(Conditions.AgarPlate);
                 }
             }
+            alreadyChecked.Add(item);
         }
-
+        UpdateCheckedItems(containedObjects);
         if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && agarPlate >= 4) {
             Logger.Print("All done");
         }
