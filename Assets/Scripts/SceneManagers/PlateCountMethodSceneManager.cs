@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using TMPro;
 using UnityEngine.Localization.Settings;
 
@@ -111,26 +112,36 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void GeneralMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+        localizedCallback += (localizedText) => {
             taskManager.GenerateGeneralMistake(localizedText, penalty);
+            localizedString.StringChanged -= localizedCallback;
         };
-        
+        localizedString.StringChanged += localizedCallback;
     }
 
     public void TaskMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+
+        localizedCallback = (localizedText) => {
             taskManager.GenerateTaskMistake(localizedText, penalty);
+            localizedString.StringChanged -= localizedCallback;
         };
+        localizedString.StringChanged += localizedCallback;
     }
 
     public void NotifyPlayer(string key)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+
+        localizedCallback = (localizedText) => {
             notifyPlayer.Invoke(localizedText);
+            localizedString.StringChanged -= localizedCallback;
         };
+        localizedString.StringChanged += localizedCallback;
     }
     
     public void SkipCurrentTask()
