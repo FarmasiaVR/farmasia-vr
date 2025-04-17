@@ -23,7 +23,7 @@ public class Colony : MonoBehaviour
     void Start()
     {
         image = GetComponent<Image>();
-        circle = transform.parent.GetChild(0).gameObject;
+        circle = transform.parent.GetChild(1).gameObject;
         if (sprites.Count != threshold.Count)
         {
             Debug.LogWarning("Number of sprites and threshold values do not match! Could not initialize the image.");
