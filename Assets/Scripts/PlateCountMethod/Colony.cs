@@ -17,13 +17,14 @@ public class Colony : MonoBehaviour
     private System.Random random = new System.Random();
     private Image image;
     private GameObject circle;
+    private ColonyCanvasPCM canvas;
     private bool found = false;
-    public UnityEvent onColonyFound;
 
     void Start()
     {
         image = GetComponent<Image>();
         circle = transform.parent.GetChild(1).gameObject;
+        
         if (sprites.Count != threshold.Count)
         {
             Debug.LogWarning("Number of sprites and threshold values do not match! Could not initialize the image.");
@@ -44,15 +45,29 @@ public class Colony : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        canvas = transform.parent.parent.parent.GetComponent<ColonyCanvasPCM>();
+        if (!canvas)
+        {
+            Debug.LogWarning("Could not fetch ColonyCanvasPCM");
+        }
+    }
+
     public void MarkWithPen()
     {
         if (!found)
         {
-            Debug.Log("Found a colony");
             found = true;
             circle.SetActive(true);
-            onColonyFound.Invoke();
+            MarkDoneInCanvas();
         }
+    }
+
+    private void MarkDoneInCanvas()
+    {
+        if (!canvas) return;
+        canvas.ColonyFound();
     }
 
 }

@@ -8,6 +8,8 @@ public class ColonyCanvasPCM : MonoBehaviour
     private int[,] matrix;
     private int numColonies;
     private int flipped = 0;
+    // Number of found colonies
+    private int found = 0;
     public string dilutionType = "1:100";
 
     [SerializeField] private GameObject colonyImg;
@@ -83,6 +85,12 @@ public class ColonyCanvasPCM : MonoBehaviour
     {
         gameObject.SetActive(!gameObject.activeSelf);
         SpawnImages();
+    }
+
+    public void ColonyFound()
+    {
+        found += 1;
+        Debug.Log("Found colonies: " + found);
     }
 
     private void SpawnImages()
