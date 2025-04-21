@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
+using System.Text.RegularExpressions; 
 
 public class ServerPostRequest : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class ServerPostRequest : MonoBehaviour
     // by the player so the backend approves the POST request, the password can be changed in the backend UI if needed.
 
     public string serverUrl = "https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi/farmasiavr-backend/api/certificates/create";
-    public string authToken = "12345";
-    public string emailAccount = "";
+    public string authToken ;
+    public string emailAccount ;
 
     public void SendPostRequest()
     {
@@ -62,8 +63,15 @@ public class ServerPostRequest : MonoBehaviour
         public int Task2;
     }
     public void GetEmail(string email) {
+        Regex validator = new Regex(@"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b");
+        Debug.Log(email);
+        string result = validator.Match(email).Value;
+        if (email!=result) {
+            Debug.Log("Invalid email");
+            return;
+        }
         emailAccount = email;
-        Debug.Log(emailAccount);
+        Debug.Log($"Valid: {emailAccount}");
     }
 
     public void GetAuthorisationToken(string token) {
