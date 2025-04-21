@@ -75,7 +75,17 @@ public class ServerPostRequest : MonoBehaviour
     }
 
     public void GetAuthorisationToken(string token) {
+        Regex anyCharacter = new Regex(@"\S");
+        Regex whitespace = new Regex(@"\s");
+        if (anyCharacter.Match(token).Length < 1) {
+            Debug.Log("Invalid auth token");
+            return;
+        }
+        if (whitespace.Match(token).Length > 0) {
+            Debug.Log("Auth token can't contain whitespace");
+            return;
+        }
         authToken = token;
-        Debug.Log(authToken);
+        Debug.Log($"valid: {authToken}");
     }
 }
