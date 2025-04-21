@@ -19,6 +19,10 @@ public class ServerPostRequest : MonoBehaviour
     public void SendPostRequest()
     {
         Debug.Log("We got here");
+        if (authToken == "" || emailAccount == "") {
+            Debug.Log("Invalid");
+            return;
+        }
         string jsonData = @"
         {
             ""email"": ""test@email.com"",
@@ -61,7 +65,7 @@ public class ServerPostRequest : MonoBehaviour
         public string EmailAccount;
         public int Task1;
         public int Task2;
-    }
+    } 
     public void GetEmail(string email) {
         Regex validator = new Regex(@"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b");
         Debug.Log(email);
