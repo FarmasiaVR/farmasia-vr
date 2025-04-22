@@ -12,6 +12,7 @@ public class ColonyCanvasPCM : MonoBehaviour
     // Number of found colonies
     private int found = 0;
     public string dilutionType = "1:100";
+    private bool activatedCanvas = false;
 
     [SerializeField] private GameObject colonyImg;
     private RectTransform canvasRectTransform;
@@ -87,7 +88,11 @@ public class ColonyCanvasPCM : MonoBehaviour
     public void ShowCanvas()
     {
         gameObject.SetActive(!gameObject.activeSelf);
-        SpawnImages();
+        if (activatedCanvas == false)
+        {
+            SpawnImages();
+            activatedCanvas = true;
+        }
     }
 
     public void ColonyFound()
