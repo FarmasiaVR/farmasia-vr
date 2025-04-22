@@ -30,6 +30,7 @@ public class ServerPostRequest : MonoBehaviour
         Dictionary<string, dynamic> jsonDict = taskManager.GetJSONData();
         jsonDict.Add("email", emailAccount);
         string json = JsonConvert.SerializeObject(jsonDict);
+        Debug.Log(json);
 
         StartCoroutine(PostRequest(serverUrl, json));
     }
