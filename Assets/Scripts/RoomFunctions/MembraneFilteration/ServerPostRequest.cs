@@ -12,7 +12,7 @@ public class ServerPostRequest : MonoBehaviour
     // The jsonData should be the players email address, and the scene summary. Also an authToken password is to be inserted
     // by the player so the backend approves the POST request, the password can be changed in the backend UI if needed.
 
-    public string serverUrl = "https://shibboleth.ext.ocp-test-0.k8s.it.helsinki.fi/farmasiavr-backend/api/certificates/create";
+    public string serverUrl = "https://opetushallinto.cs.helsinki.fi/farmasiavr-backend/api/certificates/create";
     public string authToken ;
     public string emailAccount ;
 
