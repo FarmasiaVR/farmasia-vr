@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class ColonyCanvasPCM : MonoBehaviour
@@ -14,6 +15,8 @@ public class ColonyCanvasPCM : MonoBehaviour
 
     [SerializeField] private GameObject colonyImg;
     private RectTransform canvasRectTransform;
+
+    public UnityEvent onAllColoniesFound;
 
     private void Awake()
     {
@@ -91,6 +94,11 @@ public class ColonyCanvasPCM : MonoBehaviour
     {
         found += 1;
         Debug.Log("Found colonies: " + found);
+
+        if (found == numColonies)
+        {
+            onAllColoniesFound?.Invoke();
+        }
     }
 
     private void SpawnImages()
