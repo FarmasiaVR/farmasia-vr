@@ -192,7 +192,7 @@ public class TaskManager : MonoBehaviour
                 taskMistakesList.Add(mistakeDict);
             }
             decoupledData["mistakes"] = taskMistakesList;
-            progressList[index] = decoupledData;
+            progressList.Add(decoupledData);
             index++;
         }
 
