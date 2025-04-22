@@ -206,6 +206,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         }
     }
 
+    public void CompleteColonyCountTask()
+    {
+        CompleteTask("ColonyCount");
+    }
+
     private IEnumerator MoveToLab()
     {
         fadeController.BeginFadeOut();
