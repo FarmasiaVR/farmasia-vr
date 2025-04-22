@@ -15,11 +15,13 @@ public class ServerPostRequest : MonoBehaviour
     public string serverUrl = "https://opetushallinto.cs.helsinki.fi/farmasiavr-backend/api/certificates/create";
     public string authToken ;
     public string emailAccount ;
+    private bool isEmailValid = false;
+    private bool isTokenValid = false;
 
     public void SendPostRequest()
     {
         Debug.Log("We got here");
-        if (authToken == "" || emailAccount == "") {
+        if (!isEmailValid || !isTokenValid) {
             Debug.Log("Invalid");
             return;
         }
@@ -72,8 +74,10 @@ public class ServerPostRequest : MonoBehaviour
         string result = validator.Match(email).Value;
         if (email!=result) {
             Debug.Log("Invalid email");
+            isEmailValid = false;
             return;
         }
+        isEmailValid = true;
         emailAccount = email;
         Debug.Log($"Valid: {emailAccount}");
     }
@@ -83,13 +87,16 @@ public class ServerPostRequest : MonoBehaviour
         Regex whitespace = new Regex(@"\s");
         if (anyCharacter.Match(token).Length < 1) {
             Debug.Log("Invalid auth token");
+            isTokenValid = false;
             return;
         }
         if (whitespace.Match(token).Length > 0) {
             Debug.Log("Auth token can't contain whitespace");
+            isTokenValid = false;
             return;
         }
         authToken = token;
+        isTokenValid = true;
         Debug.Log($"valid: {authToken}");
     }
 }
