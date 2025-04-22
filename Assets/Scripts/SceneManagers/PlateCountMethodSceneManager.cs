@@ -16,6 +16,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
     public UnityEvent<string> notifyPlayer;
+    public UnityEvent onLastTaskActive;
     public CameraFadeController fadeController;
     public Transform teleportDestination;// for teleporting to lab
     public GameObject player;
@@ -191,6 +192,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (boxesReady)
         {
             CompleteTask("IncubatePlates");
+            onLastTaskActive.Invoke();
             StartCoroutine(MoveToLab());
         }
         else
