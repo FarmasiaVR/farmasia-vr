@@ -71,7 +71,8 @@ public class ServerPostRequest : MonoBehaviour
         Regex validator = new Regex(@"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b");
         Debug.Log(email);
         string result = validator.Match(email).Value;
-        if (email!=result) {
+        if (email != result)
+        {
             Debug.Log("Invalid email");
             isEmailValid = false;
             return;
@@ -81,15 +82,18 @@ public class ServerPostRequest : MonoBehaviour
         Debug.Log($"Valid: {emailAccount}");
     }
 
-    public void GetAuthorisationToken(string token) {
+    public void GetAuthorisationToken(string token)
+    {
         Regex anyCharacter = new Regex(@"\S");
         Regex whitespace = new Regex(@"\s");
-        if (anyCharacter.Match(token).Length < 1) {
+        if (anyCharacter.Match(token).Length < 1)
+        {
             Debug.Log("Invalid auth token");
             isTokenValid = false;
             return;
         }
-        if (whitespace.Match(token).Length > 0) {
+        if (whitespace.Match(token).Length > 0)
+        {
             Debug.Log("Auth token can't contain whitespace");
             isTokenValid = false;
             return;
