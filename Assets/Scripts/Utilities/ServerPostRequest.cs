@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 using System.Text.RegularExpressions; 
+using Newtonsoft.Json;
 
 public class ServerPostRequest : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class ServerPostRequest : MonoBehaviour
     public string serverUrl = "https://opetushallinto.cs.helsinki.fi/farmasiavr-backend/api/certificates/create";
     public string authToken ;
     public string emailAccount ;
+
+    public TaskManager taskManager;
     private bool isEmailValid = false;
     private bool isTokenValid = false;
 
@@ -24,16 +27,11 @@ public class ServerPostRequest : MonoBehaviour
             Debug.Log("Invalid");
             return;
         }
-        string jsonTestData = @"
-        {
-            ""email"": ""test@email.com"",
-            ""tasks"": [
-                { ""taskName"": ""task1"", ""points"": 10 },
-                { ""taskName"": ""task2"", ""points"": 5 }
-            ]
-        }";
+        Dictionary<string, dynamic> jsonDict = taskManager.GetJSONData();
+        jsonDict.Add("email", emailAccount);
+        string json = JsonConvert.SerializeObject(jsonDict);
 
-        StartCoroutine(PostRequest(serverUrl, jsonData));
+        StartCoroutine(PostRequest(serverUrl, json));
     }
 
     private IEnumerator PostRequest(string url, string jsonData)
@@ -66,8 +64,9 @@ public class ServerPostRequest : MonoBehaviour
         public string EmailAccount;
         public int Task1;
         public int Task2;
-    } 
-    public void GetEmail(string email) {
+    }
+    public void GetEmail(string email)
+    {
         Regex validator = new Regex(@"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b");
         Debug.Log(email);
         string result = validator.Match(email).Value;

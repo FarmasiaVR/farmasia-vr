@@ -144,4 +144,9 @@ public class TaskList : ScriptableObject
         return taskDict;
     }
 
+    public string GetTaskListName()
+    {
+        return this.name;
+    }
+
 }
