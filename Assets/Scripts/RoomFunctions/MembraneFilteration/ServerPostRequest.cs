@@ -20,7 +20,6 @@ public class ServerPostRequest : MonoBehaviour
 
     public void SendPostRequest()
     {
-        Debug.Log("We got here");
         if (!isEmailValid || !isTokenValid) {
             Debug.Log("Invalid");
             return;
