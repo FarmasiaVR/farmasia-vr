@@ -84,6 +84,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         taskManager.CompleteTask(taskName);
         taskOrderViolated = false;
+        UpdateCanvas();
     }
 
     public void CleanHands()
@@ -119,8 +120,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             taskManager.GenerateGeneralMistake(localizedText, penalty);
             localizedString.StringChanged -= localizedCallback;
         };
-        //this is only for testing. Final version should update only at the end.
-        UpdateCanvas();        
+     
 
         localizedString.StringChanged += localizedCallback;
     }
@@ -565,13 +565,13 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                         tmp.text = $"{taskManager.taskListObject.GetPoints()}/100 points ";
                         break;
 
-                    case "MainMessageText":
-                        tmp.text = "congratulation!";
-                        break;
+                    // case "MainMessageText":
+                    //     tmp.text = "congratulation!";
+                    //     break;
 
-                    case "SubMessageText":
-                        tmp.text = "You successfully completed the Plate Count Method simulation.";
-                        break;
+                    // case "SubMessageText":
+                    //     tmp.text = "You successfully completed the Plate Count Method simulation.";
+                    //     break;
 
                     case "MistakesText":
                         StringBuilder sb = new StringBuilder();                        
@@ -582,7 +582,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                         }
 
                         
-                        tmp.text = sb.ToString();;
+                        tmp.text = sb.ToString();
                         break;                    
                 }
         }
