@@ -211,6 +211,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void CompleteColonyCountTask()
     {
         coloniesCounted++;
+        NotifyPlayer("AllColoniesFound");
         if (coloniesCounted == 2)
         {
             CompleteTask("ColonyCount");
