@@ -31,6 +31,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
 
+    private int coloniesCounted = 0; // For completing colony count
+
     // Dict that stores information about dilution, tubes and plates
     private Dictionary<WritingType, LiquidContainer[]> dilutionDict;
     private HashSet<WritingType> dilutionTypes = new HashSet<WritingType>
@@ -208,7 +210,11 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteColonyCountTask()
     {
-        CompleteTask("ColonyCount");
+        coloniesCounted++;
+        if (coloniesCounted == 2)
+        {
+            CompleteTask("ColonyCount");
+        }
     }
 
     private IEnumerator MoveToLab()
