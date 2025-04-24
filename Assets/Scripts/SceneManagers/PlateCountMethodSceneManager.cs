@@ -7,11 +7,13 @@ using UnityEngine.Events;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using TMPro;
+using System.Text;
 using UnityEngine.Localization.Settings;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
+    public GameObject scoreboardPanel;
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
@@ -83,6 +85,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         taskManager.CompleteTask(taskName);
         taskOrderViolated = false;
+        UpdateCanvas();
     }
 
     public void CleanHands()
@@ -118,6 +121,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             taskManager.GenerateGeneralMistake(localizedText, penalty);
             localizedString.StringChanged -= localizedCallback;
         };
+     
+
         localizedString.StringChanged += localizedCallback;
     }
 
@@ -536,6 +541,52 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 TaskMistake("ContaminatedPipette", 1);
             }
+        }
+    }
+    public void UpdateCanvas()
+    {
+        // Find all TextMeshProUGUI elements under the scoreboard panel
+        var texts = scoreboardPanel.GetComponentsInChildren<TextMeshProUGUI>(true);
+        List<Mistake> generalMistakes = taskManager.taskListObject.GetGeneralMistakes();
+        Dictionary<string, int> mistakeCounts = new Dictionary<string, int>();
+
+        foreach (Mistake mistake in generalMistakes)
+            {
+                if (mistakeCounts.ContainsKey(mistake.mistakeText))
+                    mistakeCounts[mistake.mistakeText]++;
+                else
+                    mistakeCounts[mistake.mistakeText] = 1;
+            }
+
+
+        foreach (var tmp in texts)
+            {
+            switch (tmp.name)
+                {
+                    case "ScoreText":
+                        tmp.text = $"{taskManager.taskListObject.GetPoints()}/100 points ";
+                        break;
+
+                    // case "MainMessageText":
+                    //     tmp.text = "congratulation!";
+                    //     break;
+
+                    // case "SubMessageText":
+                    //     tmp.text = "You successfully completed the Plate Count Method simulation.";
+                    //     break;
+
+                    case "MistakesText":
+                        StringBuilder sb = new StringBuilder();                        
+
+                        foreach (var entry in mistakeCounts)
+                        {
+                            sb.AppendLine($"- {entry.Key}(x{entry.Value})");
+                        }
+
+                        
+                        tmp.text = sb.ToString();
+                        break;                    
+                }
         }
     }
 }
