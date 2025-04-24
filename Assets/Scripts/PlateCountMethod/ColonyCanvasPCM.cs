@@ -103,6 +103,7 @@ public class ColonyCanvasPCM : MonoBehaviour
         if (found == numColonies)
         {
             onAllColoniesFound?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 
