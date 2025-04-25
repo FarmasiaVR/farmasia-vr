@@ -43,7 +43,7 @@ public class BigPipetteXR : MonoBehaviour
     {   Debug.Log("Can't take more medicine");
         if (sceneManager != null)
         { 
-            sceneManager.GeneralMistake("BreakingPipette", 1);
+            sceneManager.GeneralMistake("BreakingPipette", 10);
             pipetteContainerXR.ExceededCapacity();
         } else {
             onCapacityExceeded?.Invoke("Overdrawn pipettor", 1);

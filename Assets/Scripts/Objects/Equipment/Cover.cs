@@ -114,7 +114,6 @@ public class Cover : MonoBehaviour
     }
 
     public void ActivatingItemInside(){
-        Debug.Log("Doro this code is runing");
         if (itemInside == null) return;
         
         itemInside.SetActive(true);
