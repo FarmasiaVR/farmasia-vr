@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using System.Text;
 using System.Text.RegularExpressions; 
 using Newtonsoft.Json;
+using UnityEngine.Localization;
+using UnityEngine.Events;
 
 public class ServerPostRequest : MonoBehaviour
 {
@@ -14,17 +16,19 @@ public class ServerPostRequest : MonoBehaviour
     // by the player so the backend approves the POST request, the password can be changed in the backend UI if needed.
 
     public string serverUrl = "https://opetushallinto.cs.helsinki.fi/farmasiavr-backend/api/certificates/create";
-    public string authToken ;
-    public string emailAccount ;
+    public string authToken;
+    public string emailAccount;
 
     public TaskManager taskManager;
     private bool isEmailValid = false;
     private bool isTokenValid = false;
 
+    public UnityEvent<string> notifyPlayer;
     public void SendPostRequest(string jsonData)
     {
         if (!isEmailValid || !isTokenValid) {
             Debug.Log("Invalid");
+            NotifyPlayer("SubmissionFailed");
             return;
         }
         Dictionary<string, dynamic> jsonDict = taskManager.GetJSONData();
@@ -59,6 +63,7 @@ public class ServerPostRequest : MonoBehaviour
         }
     }
 
+
     [System.Serializable]
     public class UserTaskData
     {
@@ -74,6 +79,7 @@ public class ServerPostRequest : MonoBehaviour
         if (email != result)
         {
             Debug.Log("Invalid email");
+            NotifyPlayer("InvalidEmail");
             isEmailValid = false;
             return;
         }
@@ -89,17 +95,26 @@ public class ServerPostRequest : MonoBehaviour
         if (anyCharacter.Match(token).Length < 1)
         {
             Debug.Log("Invalid auth token");
+            NotifyPlayer("InvalidToken");
             isTokenValid = false;
             return;
         }
         if (whitespace.Match(token).Length > 0)
         {
             Debug.Log("Auth token can't contain whitespace");
+            NotifyPlayer("TokenWhitespace");
             isTokenValid = false;
             return;
         }
         authToken = token;
         isTokenValid = true;
         Debug.Log($"valid: {authToken}");
+    }
+    public void NotifyPlayer(string key)
+    {
+        var localizedString = new LocalizedString("CertificateSystem", key);
+        localizedString.StringChanged += (localizedText) => {
+            notifyPlayer.Invoke(localizedText);
+        };
     }
 }
