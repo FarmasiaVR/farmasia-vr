@@ -22,6 +22,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public CameraFadeController fadeController;
     public Transform teleportDestination;// for teleporting to lab
     public GameObject player;
+    public GameObject scoreScreen;
     
     private bool taskOrderViolated = false;
 
@@ -97,7 +98,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void ViolateTaskOrder()
     {
-        GeneralMistake("OrderViolated", 1);
+        GeneralMistake("OrderViolated", 5);
         taskOrderViolated = true;
     }
 
@@ -215,6 +216,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (coloniesCounted == 2)
         {
             CompleteTask("ColonyCount");
+            scoreScreen.SetActive(true);
+            UpdateCanvas();
         }
     }
 
@@ -272,7 +275,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             }
         }
 
-        TaskMistake("WrongDilutionType", 1);
+        GeneralMistake("WrongDilutionType", 5);
         // Allows to refill if liquid was incorrect
         container.SetAmount(0);
         container.LiquidType = LiquidType.None;
@@ -541,7 +544,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 if (pipette.Container.contaminationLiquidType != container.LiquidType && pipette.Container.contaminationLiquidType != LiquidType.PhosphateBuffer)
                 {
-                    GeneralMistake("ContaminatedPipette", 1);
+                    GeneralMistake("ContaminatedPipette", 5);
                 }
             }
         }
@@ -551,7 +554,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             bool finishedMixingSenna = pipette.Container.LiquidType == LiquidType.Senna1m && container.LiquidType == LiquidType.Senna1;
             if (usedPipetteHeads.Contains(pipetteID) && pipette.Container.LiquidType != container.LiquidType && !finishedMixingSenna)
             {
-                TaskMistake("ContaminatedPipette", 1);
+                GeneralMistake("ContaminatedPipette", 5);
             }
         }
     }
