@@ -15,7 +15,6 @@ public class PointPopup : MonoBehaviour {
 
     private float popupSpawnDistance = 0.7f;
     private float popupDistance = 0.7f;
-    private float popupHeightOffset = -0.2f;
     private float centerOffset = 0.06f;
     // CameraCenter is where the center of your head is, not the headset (eyes) is.
     private Vector3 CameraCenter { get => cam.position - cam.forward * centerOffset; }
@@ -31,6 +30,8 @@ public class PointPopup : MonoBehaviour {
     private float distanceTravelled = 0.0f;
     private float distanceToTravel = 0.2f;
     private float startingPoint;
+    private float popupHeightOffset = -0.2f;
+    public float popupStackingOffset = 0.0f;
     private float red = 0.0f;
     private float green = 0.0f;
     private float blue = 0.0f;
@@ -92,7 +93,7 @@ public class PointPopup : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Vector3 dir = new Vector3(cam.forward.x, popupHeightOffset, cam.forward.z).normalized;
+        Vector3 dir = new Vector3(cam.forward.x, popupHeightOffset + popupStackingOffset, cam.forward.z).normalized;
         Vector3 pos = CameraCenter + dir * popupDistance;
 
         if (!fadeInCompleted) {

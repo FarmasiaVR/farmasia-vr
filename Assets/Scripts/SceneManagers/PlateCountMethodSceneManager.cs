@@ -5,16 +5,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using TMPro;
+using System.Text;
 using UnityEngine.Localization.Settings;
 
 public class PlateCountMethodSceneManager : MonoBehaviour
 {
     private TaskManager taskManager;
+    public GameObject scoreboardPanel;
 
     public UnityEvent onMixingComplete;
     public UnityEvent<string> onSkipTask;
     public UnityEvent<string> notifyPlayer;
+    public UnityEvent onLastTaskActive;
     public CameraFadeController fadeController;
     public Transform teleportDestination;// for teleporting to lab
     public GameObject player;
@@ -26,6 +30,8 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     private const int dilutionTubesAmount = 4500;
     private const int controlTubeAmount = 1000;
+
+    private int coloniesCounted = 0; // For completing colony count
 
     // Dict that stores information about dilution, tubes and plates
     private Dictionary<WritingType, LiquidContainer[]> dilutionDict;
@@ -81,6 +87,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     {
         taskManager.CompleteTask(taskName);
         taskOrderViolated = false;
+        UpdateCanvas();
     }
 
     public void CleanHands()
@@ -111,26 +118,38 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public void GeneralMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+        localizedCallback += (localizedText) => {
             taskManager.GenerateGeneralMistake(localizedText, penalty);
+            localizedString.StringChanged -= localizedCallback;
         };
-        
+     
+
+        localizedString.StringChanged += localizedCallback;
     }
 
     public void TaskMistake(string key, int penalty)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+
+        localizedCallback = (localizedText) => {
             taskManager.GenerateTaskMistake(localizedText, penalty);
+            localizedString.StringChanged -= localizedCallback;
         };
+        localizedString.StringChanged += localizedCallback;
     }
 
     public void NotifyPlayer(string key)
     {
         var localizedString = new LocalizedString("PlateCountMethod", key);
-        localizedString.StringChanged += (localizedText) => {
+        LocalizedString.ChangeHandler localizedCallback = null;
+
+        localizedCallback = (localizedText) => {
             notifyPlayer.Invoke(localizedText);
+            localizedString.StringChanged -= localizedCallback;
         };
+        localizedString.StringChanged += localizedCallback;
     }
     
     public void SkipCurrentTask()
@@ -180,11 +199,22 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (boxesReady)
         {
             CompleteTask("IncubatePlates");
+            onLastTaskActive.Invoke();
             StartCoroutine(MoveToLab());
         }
         else
         {
             NotifyPlayer("IncubateBoxesNotReady");
+        }
+    }
+
+    public void CompleteColonyCountTask()
+    {
+        coloniesCounted++;
+        NotifyPlayer("AllColoniesFound");
+        if (coloniesCounted == 2)
+        {
+            CompleteTask("ColonyCount");
         }
     }
 
@@ -523,6 +553,52 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 TaskMistake("ContaminatedPipette", 1);
             }
+        }
+    }
+    public void UpdateCanvas()
+    {
+        // Find all TextMeshProUGUI elements under the scoreboard panel
+        var texts = scoreboardPanel.GetComponentsInChildren<TextMeshProUGUI>(true);
+        List<Mistake> generalMistakes = taskManager.taskListObject.GetGeneralMistakes();
+        Dictionary<string, int> mistakeCounts = new Dictionary<string, int>();
+
+        foreach (Mistake mistake in generalMistakes)
+            {
+                if (mistakeCounts.ContainsKey(mistake.mistakeText))
+                    mistakeCounts[mistake.mistakeText]++;
+                else
+                    mistakeCounts[mistake.mistakeText] = 1;
+            }
+
+
+        foreach (var tmp in texts)
+            {
+            switch (tmp.name)
+                {
+                    case "ScoreText":
+                        tmp.text = $"{taskManager.taskListObject.GetPoints()}/100 points ";
+                        break;
+
+                    // case "MainMessageText":
+                    //     tmp.text = "congratulation!";
+                    //     break;
+
+                    // case "SubMessageText":
+                    //     tmp.text = "You successfully completed the Plate Count Method simulation.";
+                    //     break;
+
+                    case "MistakesText":
+                        StringBuilder sb = new StringBuilder();                        
+
+                        foreach (var entry in mistakeCounts)
+                        {
+                            sb.AppendLine($"- {entry.Key}(x{entry.Value})");
+                        }
+
+                        
+                        tmp.text = sb.ToString();
+                        break;                    
+                }
         }
     }
 }

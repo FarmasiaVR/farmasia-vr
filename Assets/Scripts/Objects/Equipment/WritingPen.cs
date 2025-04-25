@@ -9,6 +9,7 @@ public class WritingPen : GeneralItem {
     public bool ignoreGrabCheck;
     
     public GameObject collidedObject;
+    private GameObject collidedColony;
     Collider collidedCollider;
 
     public bool writeOnTouch;
@@ -49,7 +50,18 @@ public class WritingPen : GeneralItem {
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Colony")
+        {
+            if (collidedColony == null)
+            {
+                collidedColony = other.gameObject;
+                collidedCollider = other;
+                return;
+            }
+        }
+
         GameObject foundObject = GetInteractableObject(other.transform);
+
         Writable writable = foundObject?.GetComponent<WritingTarget>()?.GetWritable();
         if (writable == null)
         {
@@ -76,6 +88,7 @@ public class WritingPen : GeneralItem {
             if (other == collidedCollider)
             {
                 collidedObject = null;
+                collidedColony = null;
                 collidedCollider = null;
             }
         }
@@ -84,6 +97,7 @@ public class WritingPen : GeneralItem {
     public void resetCollidedObject()
     {
         collidedObject = null;
+        collidedColony = null;
     }
 
     public void WriteXR()
@@ -95,6 +109,15 @@ public class WritingPen : GeneralItem {
             {
                 Write(write, collidedObject);
             }
+        }
+    }
+
+    public void MarkColony()
+    {
+        if (collidedColony != null)
+        {
+            Colony colony = collidedColony.GetComponent<Colony>();
+            colony.MarkWithPen();
         }
     }
 
