@@ -137,4 +137,54 @@ public class ScoreCalculator {
 
         return new Tuple<int, string>(score, scoreString);
     }
+
+
+    public Dictionary<string, dynamic> GetScoreJSON() {
+        string totalPoints = Translator.Translate("DressingRoom", "TotalPoints");
+        string summary = Translator.Translate("DressingRoom", "Congrats") + " " + Text(Player.Info.Name, Colour.Blue)  + ", " + Translator.Translate("DressingRoom", "GameOver") + "!\n\n";
+        string scoreCountPerTask = "";
+        string generalMistakes = "\n\n" + Translator.Translate("DressingRoom", "CommonMistakes") + ":\n";
+        int index = 0;
+
+        Dictionary<string, dynamic> jsonDict = new Dictionary<string, dynamic>();
+
+        jsonDict["scenario"] = GameScenes.GetName(G.Instance.CurrentSceneType);
+
+        List<Dictionary<string, dynamic>> progressList = new List<Dictionary<string, dynamic>>();
+
+        foreach (TaskType type in points.Keys) {
+            if (maxPoints[type] == 0) continue;
+            Dictionary<string, dynamic> decoupledData = new Dictionary<string, dynamic>();
+            decoupledData["name"] = TaskConfig.For(type).Name;
+            decoupledData["completed"] = true;
+            decoupledData["timeTaken"] = null;
+            decoupledData["awardedPoints"] = points[type];
+            List<Dictionary<string, dynamic>> taskMistakesList = new List<Dictionary<string, dynamic>>();
+            if (TaskMistakes.ContainsKey(type)) {
+                foreach (string mistake in TaskMistakes[type]) {
+                    Dictionary<string, dynamic> mistakeDict = new Dictionary<string, dynamic>();
+                    mistakeDict["mistake"] = mistake;
+                    mistakeDict["pointsDeducted"] = maxPoints[type] - points[type];
+                    taskMistakesList.Add(mistakeDict);
+                }
+            }
+            decoupledData["mistakes"] = taskMistakesList;
+            progressList.Add(decoupledData);
+            index++;
+        }
+
+        jsonDict["progress"] = progressList;
+
+        List<Dictionary<string, dynamic>> generalMistakesList = new List<Dictionary<string, dynamic>>();
+
+        foreach (var pair in Mistakes) {
+            Dictionary<string, dynamic> mistakeDict = new Dictionary<string, dynamic>();
+            mistakeDict["name"] = pair.Key;
+            mistakeDict["pointsDeducted"] = pair.Value.ToString();
+            generalMistakesList.Add(mistakeDict);
+        }
+        jsonDict["mistakes"] = generalMistakesList;
+
+        return jsonDict;
+    }
 }
