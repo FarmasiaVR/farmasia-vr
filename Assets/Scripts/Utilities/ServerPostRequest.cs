@@ -24,7 +24,7 @@ public class ServerPostRequest : MonoBehaviour
     private bool isTokenValid = false;
 
     public UnityEvent<string> notifyPlayer;
-    public void SendPostRequest(string jsonData)
+    public void SendPostRequest()
     {
         if (!isEmailValid || !isTokenValid) {
             Debug.Log("Invalid");
