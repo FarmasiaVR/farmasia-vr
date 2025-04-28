@@ -56,10 +56,18 @@ public class ServerPostRequestForLegacy : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Post request succeeded. Response: " + request.downloadHandler.text);
+                UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "SendingSuccess"), MsgType.Notify);
             }
             else
             {
                 Debug.LogError("Post request failed: " + request.error);
+                if (request.responseCode == 403)
+                {
+                    UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "Unauthorized"), MsgType.Notify);
+                }
+                if (request.error == "Cannot resolve destination host") {
+                    UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "NetworkError"), MsgType.Notify);
+                }
             }
         }
     }
