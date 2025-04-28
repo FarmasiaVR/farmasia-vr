@@ -66,6 +66,10 @@ public class ServerPostRequest : MonoBehaviour
                 {
                     NotifyPlayer("Unauthorized");
                 }
+                if (request.responseCode == 500)
+                {
+                    NotifyPlayer("InternalError");
+                }
                 if (request.error == "Cannot resolve destination host") {
                     NotifyPlayer("NetworkError");
                 }

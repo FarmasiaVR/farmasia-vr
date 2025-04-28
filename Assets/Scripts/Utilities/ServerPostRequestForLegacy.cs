@@ -65,6 +65,10 @@ public class ServerPostRequestForLegacy : MonoBehaviour
                 {
                     UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "Unauthorized"), MsgType.Notify);
                 }
+                if (request.responseCode == 500)
+                {
+                    UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "InternalError"), MsgType.Notify);
+                }
                 if (request.error == "Cannot resolve destination host") {
                     UISystem.Instance.CreatePopup(Translator.Translate("CertificateSystem", "NetworkError"), MsgType.Notify);
                 }
