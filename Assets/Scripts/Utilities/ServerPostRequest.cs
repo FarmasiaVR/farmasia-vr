@@ -60,6 +60,10 @@ public class ServerPostRequest : MonoBehaviour
             else
             {
                 Debug.LogError("Post request failed: " + request.error);
+                if (request.responseCode == 403)
+                {
+                    NotifyPlayer("Unauthorized");
+                }
                 if (request.error == "Cannot resolve destination host") {
                     NotifyPlayer("NetworkError");
                 }
