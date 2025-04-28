@@ -163,7 +163,7 @@ public class ScoreCalculator {
             if (TaskMistakes.ContainsKey(type)) {
                 foreach (string mistake in TaskMistakes[type]) {
                     Dictionary<string, dynamic> mistakeDict = new Dictionary<string, dynamic>();
-                    mistakeDict["mistake"] = mistake;
+                    mistakeDict["name"] = mistake;
                     mistakeDict["pointsDeducted"] = maxPoints[type] - points[type];
                     taskMistakesList.Add(mistakeDict);
                 }
