@@ -55,10 +55,14 @@ public class ServerPostRequest : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Post request succeeded. Response: " + request.downloadHandler.text);
+                NotifyPlayer("SendingSuccess");
             }
             else
             {
                 Debug.LogError("Post request failed: " + request.error);
+                if (request.error == "Cannot resolve destination host") {
+                    NotifyPlayer("NetworkError");
+                }
             }
         }
     }
