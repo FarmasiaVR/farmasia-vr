@@ -24,6 +24,7 @@ public class ServerPostRequest : MonoBehaviour
     private bool isTokenValid = false;
 
     public UnityEvent<string> notifyPlayer;
+    public UnityEvent returnToScore;
     public void SendPostRequest()
     {
         if (!isEmailValid || !isTokenValid) {
@@ -55,6 +56,7 @@ public class ServerPostRequest : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Post request succeeded. Response: " + request.downloadHandler.text);
+                returnToScore?.Invoke();
                 NotifyPlayer("SendingSuccess");
             }
             else
