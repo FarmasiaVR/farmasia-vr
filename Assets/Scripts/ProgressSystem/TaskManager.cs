@@ -163,4 +163,53 @@ public class TaskManager : MonoBehaviour
     {
         return taskListObject.GetTask(taskKey);
     }
+
+    public Dictionary<string, dynamic> GetJSONData()
+    {
+        Dictionary<string, Task> scenarioData = taskListObject.GetScenarioData();
+        List<Mistake> generalMistakes = taskListObject.GetGeneralMistakes();
+        string name = taskListObject.GetTaskListName();
+
+        Dictionary<string, dynamic> jsonDict = new Dictionary<string, dynamic>();
+
+        jsonDict["scenario"] = name;
+
+        List<Dictionary<string, dynamic>> progressList = new List<Dictionary<string, dynamic>>();
+        int index = 0;
+        foreach ((string key, Task value) in scenarioData)
+        {
+            Dictionary<string, dynamic> decoupledData = new Dictionary<string, dynamic>();
+            decoupledData["name"] = value.name;
+            decoupledData["completed"] = value.completed ? true : false;
+            decoupledData["awardedPoints"] = value.awardedPoints;
+            decoupledData["timeTaken"] = value.timed ? value.timeTakenToCompleteTask : null;
+            List<Dictionary<string, dynamic>> taskMistakesList = new List<Dictionary<string, dynamic>>();
+            foreach (Mistake m in value.ReturnMistakes())
+            {
+                Dictionary<string, dynamic> mistakeDict = new Dictionary<string, dynamic>();
+                mistakeDict["name"] = m.mistakeText;
+                mistakeDict["pointsDeducted"] = m.pointsDeducted;
+                taskMistakesList.Add(mistakeDict);
+            }
+            decoupledData["mistakes"] = taskMistakesList;
+            progressList.Add(decoupledData);
+            index++;
+        }
+
+        jsonDict["progress"] = progressList;
+
+        List<Dictionary<string, dynamic>> generalMistakesList = new List<Dictionary<string, dynamic>>();
+
+        foreach (Mistake m in generalMistakes)
+        {
+            Dictionary<string, dynamic> mistakeDict = new Dictionary<string, dynamic>();
+            mistakeDict["name"] = m.mistakeText;
+            mistakeDict["pointsDeducted"] = m.pointsDeducted;
+            generalMistakesList.Add(mistakeDict);
+        }
+
+        jsonDict["mistakes"] = generalMistakesList;
+
+        return jsonDict;
+    }
 }
