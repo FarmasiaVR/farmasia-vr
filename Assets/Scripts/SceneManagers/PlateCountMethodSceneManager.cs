@@ -22,7 +22,6 @@ public class PlateCountMethodSceneManager : MonoBehaviour
     public CameraFadeController fadeController;
     public Transform teleportDestination;// for teleporting to lab
     public GameObject player;
-    public GameObject scoreScreen;
     
     private bool taskOrderViolated = false;
 
@@ -211,20 +210,13 @@ public class PlateCountMethodSceneManager : MonoBehaviour
 
     public void CompleteColonyCountTask()
     {
+        CheckTaskOrderViolation("ColonyCount");
         coloniesCounted++;
         NotifyPlayer("AllColoniesFound");
         if (coloniesCounted == 2)
         {
             CompleteTask("ColonyCount");
-            if (taskManager.IsTaskCompleted("IncubatePlates"))
-            {
-                scoreScreen.SetActive(true);
-                UpdateCanvas();
-            }
-            else
-            {
-                ViolateTaskOrder();
-            }
+            UpdateCanvas();
         }
     }
 
