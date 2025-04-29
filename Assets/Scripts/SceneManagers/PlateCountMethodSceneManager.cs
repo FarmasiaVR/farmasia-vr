@@ -216,8 +216,15 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         if (coloniesCounted == 2)
         {
             CompleteTask("ColonyCount");
-            scoreScreen.SetActive(true);
-            UpdateCanvas();
+            if (taskManager.IsTaskCompleted("IncubatePlates"))
+            {
+                scoreScreen.SetActive(true);
+                UpdateCanvas();
+            }
+            else
+            {
+                ViolateTaskOrder();
+            }
         }
     }
 
