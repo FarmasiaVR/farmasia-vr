@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,11 +6,14 @@ public class YesNoController : MonoBehaviour
 {
     public GameObject userInput;
     private GameObject parent;
-
+    private GameObject confirmation;
+    private GameObject returnToMenu;
     private bool isActive = true;
     void Start()
     {
         parent = gameObject.transform.parent.gameObject;
+        confirmation = GameObject.Find("/System/Scorescreen/Confirmation");
+        returnToMenu = GameObject.Find("/System/Scorescreen/ReturnToMenu");
     }
     public void HandleYesPressed()
     {
@@ -29,7 +33,9 @@ public class YesNoController : MonoBehaviour
             userInput.SetActive(true);
             isActive = false;
         } else {
+            confirmation.SetActive(false);
             parent.SetActive(true);
+            returnToMenu.SetActive(true);
             userInput.SetActive(false);
             isActive = true;
         }
