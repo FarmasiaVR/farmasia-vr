@@ -55,6 +55,7 @@ public class LiquidContainer : MonoBehaviour {
     //This block is here for the PCM mixing functionality
     public bool mixingComplete = false;
     public int mixingValue = 0;
+    private int pipettorMixingValue = 0;
     [SerializeField] private float movementSensitivity = 10f;
     private float lastYPosition;
     private float lastXPosition;
@@ -204,13 +205,17 @@ public class LiquidContainer : MonoBehaviour {
         }
 
         SetAmount(Amount - toTransfer);
-        target.SetAmount(target.Amount + toTransfer);        
-        target.mixingValue += 700; //PCM mixing functionality
-        if (target.mixingValue >= 10000 && mixingManager != null && target.GeneralItem.ObjectType == ObjectType.Bottle && !mixingComplete)
+        target.SetAmount(target.Amount + toTransfer);
+
+        if (target.GeneralItem.ObjectType == ObjectType.Bottle && !mixingComplete)
         {
-            //Debug.Log("mixing with pipettor");
-            onMixingComplete!.Invoke(target);
-        }
+            target.pipettorMixingValue += 400; //PCM mixing functionality
+            if (target.pipettorMixingValue >= 10000 && mixingManager != null && this.amount == 0)
+            {
+                onMixingComplete!.Invoke(target);
+            }
+        }      
+        
         target.onLiquidTransfer.Invoke(target);
         onLiquidAmountChanged.Invoke(this);
         FireBottleFillingEvent(target);
