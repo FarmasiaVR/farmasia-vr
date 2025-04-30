@@ -16,7 +16,7 @@ public class AssignRandomMaterial : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         Material newMat = randomMaterial();
-        Debug.Log("Adding " + newMat);
+        // Debug.Log("Adding " + newMat);
         meshRenderer.AddMaterial(newMat);
     }
 

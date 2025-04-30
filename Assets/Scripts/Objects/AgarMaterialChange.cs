@@ -10,11 +10,11 @@ class AgarMaterialChange : MonoBehaviour {
 
     void Start() {
         agar = gameObject;
-        Debug.Log(agar);
+        // Debug.Log(agar);
         parent = agar.transform.parent.gameObject;
-        Debug.Log(parent);
+        // Debug.Log(parent);
         material = agar.GetComponent<MeshRenderer>().material;
-        Debug.Log(material);
+        // Debug.Log(material);
     }
 
     public void LiquidAdded() {
@@ -34,11 +34,11 @@ class AgarMaterialChange : MonoBehaviour {
         }
 
         material.SetFloat("_Smoothness", .95f);
-        Debug.Log("Set Wet");
+        // Debug.Log("Set Wet");
     }
 
     public void LiquidSpread() {
         material.SetFloat("_Smoothness", .5f);
-        Debug.Log("Set Spread");
+        // Debug.Log("Set Spread");
     }
 }
