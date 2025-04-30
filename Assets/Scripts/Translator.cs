@@ -8,7 +8,7 @@ public static class Translator
     static Translator()
     {
         GameObject localizationManagerObject = GameObject.Find("LocalizationManager");
-        Debug.Log("This code is driven");
+        // Debug.Log("This code is driven");
 
         if (localizationManagerObject != null)
         {

@@ -32,13 +32,13 @@ public class Colony : MonoBehaviour
         else
         {
             int randomValue = random.Next(1, threshold.Last()+1);
-            Debug.Log("Got random value: " + randomValue);
+            // Debug.Log("Got random value: " + randomValue);
             for (int i = 0; i < threshold.Count; i++)
             {
                 if (randomValue <= threshold[i])
                 {
                     image.sprite = sprites[i];
-                    Debug.Log("Assigning " + sprites[i]);
+                    // Debug.Log("Assigning " + sprites[i]);
                     return;
                 }
             }

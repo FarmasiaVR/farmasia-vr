@@ -37,7 +37,7 @@ public class ColonyCanvasPCM : MonoBehaviour
         // Debug
         //numColonies = 88;
         
-        Debug.Log("Colonies " + numColonies);
+        // Debug.Log("Colonies " + numColonies);
         SetColonyPositions();
     }
 
@@ -98,7 +98,7 @@ public class ColonyCanvasPCM : MonoBehaviour
     public void ColonyFound()
     {
         found += 1;
-        Debug.Log("Found colonies: " + found);
+        // Debug.Log("Found colonies: " + found);
 
         if (found == numColonies)
         {

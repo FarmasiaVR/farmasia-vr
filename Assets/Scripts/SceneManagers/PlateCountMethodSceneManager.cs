@@ -293,7 +293,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             case controlTubeAmount:
                 if (dilutionDict[WritingType.Control][fillTube] is null)
                 {
-                    Debug.Log("Container added to CONTROL");
+                    // Debug.Log("Container added to CONTROL");
                     dilutionDict[WritingType.Control][fillTube] = container;
                 }
                 break;
@@ -311,7 +311,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
                     break;
                 }
                 dilutionDict[writingType.Value][fillTube] = container;
-                Debug.Log("Container added to " + writingType.Value);
+                // Debug.Log("Container added to " + writingType.Value);
                 break;
 
             // If amount is changed, container needs to be removed from arrays
@@ -353,7 +353,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
         CheckTaskOrderViolation("WriteOnTubes");
 
         WritingType? dilutionType = DilutionTypeFromWriting(selectedOptions);
-        Debug.Log("Dilution Type: " + dilutionType);
+        // Debug.Log("Dilution Type: " + dilutionType);
 
         string itemName = foundItem.GetType().Name;
         int index = 0;
@@ -415,7 +415,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             dilutionDict[dilution][fillTube] = container;
             CheckIfTubesAreFilled();
         }
-        Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
+        // Debug.Log("Added dilution: " + dilutionType.Value + " to: " + container);
 
         CheckWritingsIntegrity();
     }
@@ -490,7 +490,7 @@ public class PlateCountMethodSceneManager : MonoBehaviour
             {
                 if (MixIfValid(container, 5000))
                 {
-                    Debug.Log("Mixing complete in " + container.LiquidType);
+                    // Debug.Log("Mixing complete in " + container.LiquidType);
                     onMixingComplete.Invoke();
                     return;
                 }
