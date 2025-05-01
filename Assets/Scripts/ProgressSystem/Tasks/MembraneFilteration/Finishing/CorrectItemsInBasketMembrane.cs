@@ -10,6 +10,7 @@ public class CorrectItemsInBasketMembrane : Task {
     public enum Conditions { Bottles100ml, TioglycolateBottle, PeptoneWaterBottle, SoycaseineBottle, AgarPlate, Tweezers }
     private Basket basket;
     private bool cartMoved;
+    private List<Interactable> alreadyChecked = new List<Interactable>();
 
     public CorrectItemsInBasketMembrane() : base(TaskType.CorrectItemsInBasketMembrane, false) {
         SetCheckAll(true);
@@ -50,6 +51,15 @@ public class CorrectItemsInBasketMembrane : Task {
         CompleteTask();
     }
 
+    private void UpdateCheckedItems(List<Interactable> currentlyContained) {
+        List<Interactable> newAlreadyChecked = new List<Interactable>();
+        foreach (Interactable item in alreadyChecked) {
+            if (currentlyContained.Contains(item)){
+                newAlreadyChecked.Add(item);
+            }
+        }
+        alreadyChecked = newAlreadyChecked;
+    }
     private void CheckConditions(List<Interactable> containedObjects) {
         int bottles100ml = 0;
         int tioglycolateBottle = 0;
@@ -63,24 +73,51 @@ public class CorrectItemsInBasketMembrane : Task {
                     int capacity = bottle.Container.Capacity;
                     LiquidType type = bottle.Container.LiquidType;
                     if (capacity == 100000) {
-                        bottles100ml++;
+                        bottles100ml++;            
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         if (bottles100ml == 4) {
                             EnableCondition(Conditions.Bottles100ml);
                         }
                     } else if (type == LiquidType.Peptonwater) {
                         peptoneWaterBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.PeptoneWaterBottle);
                     } else if (type == LiquidType.Soycaseine) {
                         soycaseineBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.SoycaseineBottle);
                     } else if (type == LiquidType.Tioglygolate) {
                         tioglycolateBottle++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
                         EnableCondition(Conditions.TioglycolateBottle);
                     }
-                } else if (g is AgarPlateLid) {
-                    agarPlate++;
-                } else if (g is AgarPlateBottom) {
-                    agarPlate++;
+                }
+                else if (g is AgarPlateLid agar) {
+                    if (!agar.PlateBottom.GetComponent<AgarPlateBottom>().isOpen){
+                        agarPlate++;
+                        if (!alreadyChecked.Contains(item)) {
+                            G.Instance.Audio.Play(AudioClipType.TaskCompletedBeep);
+                        }
+                    } else {
+                        if (!alreadyChecked.Contains(item)) {
+                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Notify);
+                        }
+                    }
+                }
+                else if (g is AgarPlateBottom agarB) {
+                    if (agarB.GetComponent<AgarPlateBottom>().isOpen){
+                        if (!alreadyChecked.Contains(item)) {
+                        Popup(Translator.Translate("XR MembraneFilteration 2.0", "Close the plate"), MsgType.Notify);
+                        }
+                    }
                 }
                 else if(g is Tweezers){
                     EnableCondition(Conditions.Tweezers);
@@ -93,8 +130,9 @@ public class CorrectItemsInBasketMembrane : Task {
                     EnableCondition(Conditions.AgarPlate);
                 }
             }
+            alreadyChecked.Add(item);
         }
-
+        UpdateCheckedItems(containedObjects);
         if (bottles100ml == 4 && peptoneWaterBottle == 1 && soycaseineBottle == 1 && tioglycolateBottle == 1 && agarPlate >= 4) {
             Logger.Print("All done");
         }
