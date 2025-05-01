@@ -14,7 +14,8 @@ Group 5 [Mid Demo fall 2023](https://youtu.be/ASA7PMW_mGI?si=EdcNciua4nFXLOs2)\
 Group 5 [End Demo fall 2023](https://youtu.be/uL822Pbvwr0?si=HbdrWTF9DVj5KPED)\
 Group 6 [Mid Demo fall 2024](https://youtu.be/iXBMdBXMA6c?si=W2hqBsOusFJbewu)\
 Group 6 [End Demo fall 2024](https://www.youtube.com/watch?v=lc7FpVJEIuk)\
-Group 7 [Mid Demo spring 2025](https://www.youtube.com/watch?v=zKT39n3busw)
+Group 7 [Mid Demo spring 2025](https://www.youtube.com/watch?v=zKT39n3busw)\
+Group 7 [End Demo spring 2025](https://youtu.be/fC8Luha38eU)
 
 ## Description
 
