@@ -186,6 +186,13 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Uxusino">
+                    <img src="https://avatars.githubusercontent.com/u/89293277?v=4" width="100;" alt="Uxusino"/>
+                    <br />
+                    <sub><b>Uxusino Uxusone</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Cloudperry">
                     <img src="https://avatars.githubusercontent.com/u/25011618?v=4" width="100;" alt="Cloudperry"/>
                     <br />
@@ -206,6 +213,8 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>Kukkis</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Veikkosuhonen">
                     <img src="https://avatars.githubusercontent.com/u/54055199?v=4" width="100;" alt="Veikkosuhonen"/>
@@ -213,8 +222,6 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>Veikmaster</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/NuiS4ncE">
                     <img src="https://avatars.githubusercontent.com/u/55931311?v=4" width="100;" alt="NuiS4ncE"/>
@@ -244,10 +251,26 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/jobatabs">
+                    <img src="https://avatars.githubusercontent.com/u/2370315?v=4" width="100;" alt="jobatabs"/>
+                    <br />
+                    <sub><b>Jonatan Noponen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/sashausoskin">
                     <img src="https://avatars.githubusercontent.com/u/9552313?v=4" width="100;" alt="sashausoskin"/>
                     <br />
                     <sub><b>Sasha Usoskin</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/UncSald">
+                    <img src="https://avatars.githubusercontent.com/u/133899575?v=4" width="100;" alt="UncSald"/>
+                    <br />
+                    <sub><b>Alingué Marc</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -257,8 +280,6 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>Antti Hyytiäinen</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/opturtio">
                     <img src="https://avatars.githubusercontent.com/u/86497253?v=4" width="100;" alt="opturtio"/>
@@ -267,10 +288,10 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/heidihas">
-                    <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+                <a href="https://github.com/VilhoHeikkinen">
+                    <img src="https://avatars.githubusercontent.com/u/91131515?v=4" width="100;" alt="VilhoHeikkinen"/>
                     <br />
-                    <sub><b>Heidi Hassinen</b></sub>
+                    <sub><b>VilhoHeikkinen</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -278,6 +299,15 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <img src="https://avatars.githubusercontent.com/u/73038801?v=4" width="100;" alt="jarkmaen"/>
                     <br />
                     <sub><b>jarkmaen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/heidihas">
+                    <img src="https://avatars.githubusercontent.com/u/32390965?v=4" width="100;" alt="heidihas"/>
+                    <br />
+                    <sub><b>Heidi Hassinen</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -288,21 +318,19 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/JuhoSiitonen">
-                    <img src="https://avatars.githubusercontent.com/u/104775829?v=4" width="100;" alt="JuhoSiitonen"/>
-                    <br />
-                    <sub><b>Juho Siitonen</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/juhkure">
                     <img src="https://avatars.githubusercontent.com/u/16820390?v=4" width="100;" alt="juhkure"/>
                     <br />
                     <sub><b>juhkure</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
+            <td align="center">
+                <a href="https://github.com/JuhoSiitonen">
+                    <img src="https://avatars.githubusercontent.com/u/104775829?v=4" width="100;" alt="JuhoSiitonen"/>
+                    <br />
+                    <sub><b>Juho Siitonen</b></sub>
+                </a>
+            </td>
             <td align="center">
                 <a href="https://github.com/MikkoHimanka">
                     <img src="https://avatars.githubusercontent.com/u/28507056?v=4" width="100;" alt="MikkoHimanka"/>
@@ -317,6 +345,8 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>Saukka</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Stenbras">
                     <img src="https://avatars.githubusercontent.com/u/117363774?v=4" width="100;" alt="Stenbras"/>
@@ -345,15 +375,22 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>SamiP7</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
-                <a href="https://github.com/Uxusino">
-                    <img src="https://avatars.githubusercontent.com/u/89293277?v=4" width="100;" alt="Uxusino"/>
+                <a href="https://github.com/Colabres">
+                    <img src="https://avatars.githubusercontent.com/u/146994007?v=4" width="100;" alt="Colabres"/>
                     <br />
-                    <sub><b>Uxusino Uxusone</b></sub>
+                    <sub><b>Colabres</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/McIlola">
+                    <img src="https://avatars.githubusercontent.com/u/128368080?v=4" width="100;" alt="McIlola"/>
+                    <br />
+                    <sub><b>McIlola</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/kivik-beep">
                     <img src="https://avatars.githubusercontent.com/u/72075784?v=4" width="100;" alt="kivik-beep"/>
@@ -389,20 +426,20 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <sub><b>Susanna Mahlamäki</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/jobatabs">
-                    <img src="https://avatars.githubusercontent.com/u/2370315?v=4" width="100;" alt="jobatabs"/>
-                    <br />
-                    <sub><b>Jonatan Noponen</b></sub>
-                </a>
-            </td>
             <td align="center">
                 <a href="https://github.com/tjvalkonen">
                     <img src="https://avatars.githubusercontent.com/u/33684997?v=4" width="100;" alt="tjvalkonen"/>
                     <br />
                     <sub><b>tjvalkonen</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/TrollRoll2">
+                    <img src="https://avatars.githubusercontent.com/u/101802614?v=4" width="100;" alt="TrollRoll2"/>
+                    <br />
+                    <sub><b>TrollRoll2</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -431,15 +468,6 @@ To play the game without a VR headset, select the XR player in the Unity scene h
                     <img src="https://avatars.githubusercontent.com/u/77848087?v=4" width="100;" alt="SPitkanen"/>
                     <br />
                     <sub><b>SPitkanen</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/Colabres">
-                    <img src="https://avatars.githubusercontent.com/u/146994007?v=4" width="100;" alt="Colabres"/>
-                    <br />
-                    <sub><b>Colabres</b></sub>
                 </a>
             </td>
 		</tr>
