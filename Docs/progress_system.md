@@ -1,12 +1,12 @@
 # Working with the progress system
 
+## This guide is for the old architecture only. A recommended way to build a new task is with the [New Architecture](/dev/Docs/Architecture/architecture.md)
+
 All progress system code is in the [ProgressSystem](/tree/dev/Assets/Scripts/ProgressSystem) directory
-
-
 
 ## Adding a new Task
 
-It is a good idea to read the current task scripts. The clearest examples are probably some of the MembraneFiltration tasks. 
+It is a good idea to read the current task scripts. The clearest examples of the old architechture are probably some of the MembraneFiltration tasks. 
 
 Remember, you dont have to copy this workflow precisely, and if you feel like it, you can make changes to the whole system to make it less stupid. 
 We did that multiple times, but its still somewhat stupid in places.
