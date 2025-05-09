@@ -133,3 +133,22 @@ This solution was selected as this provides the most flexibility with modifying 
 Now the pump tutorial section sends a message to the master task list when all of the pump tutorial's tasks are completed and the tutorial section transition is invoked. Additionally, now it is possible for the pump tutorial section to not feature popups when completing a pump tutorial task. If steps need to be added to the pump tutorial, then you only need to add steps to the pump tutorial's task list and make sure that they are set as completed, the transitions should still work smoothly.
 
 If you want to see how multiple task managers were used in the tutorial, open the [ControlsTutorial scene](/Assets/_Scenes/ControlsTutorial.unity) in Unity. The master task list is attached to the `GameManager` object and the pump tutorial's task manager is attached to the `TutorialScenes/PumpTutorial/PumpTutorialManager` object.
+
+### Using the new architecture may not be intuitive so we have prepared a checklist for creating a new task
+
+The new architecture requires your scene to hold a game object containing a sceneManager, and a taskManager. A task list object should be created, and attached to the taskManager's taskList variable.
+
+Link your taskManager to your sceneManager in the inspector.
+
+Adding tasks is easy; simply press the plus(+) button on the taskList object you have chosen, and enter the task's information.
+
+After this you should add the the functionality of the task into the sceneManager.
+
+Completing the task happens throug the taskManager, so creating a specific function in the sceneManager to do this is recommended for cleaner code.
+
+The task completion is called with the name defined for the function in the taskList, so check that the names match.
+
+### What team 7 learned about the new architecture:
+
+It is not a good plan to place all task handling into the scene managers. The scene manager can easily stretch out to be very long, and difficult to read.  
+Writing a dedicated script for handling task functionality would be useful in the new architecture as well.
