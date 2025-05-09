@@ -1,8 +1,8 @@
 # Working with the progress system
 
-## This guide is for the old architecture only. A recommended way to build a new task is with the [New Architecture](/dev/Docs/Architecture/architecture.md)
+## This guide is for the old architecture only. A recommended way to build a new task is with the [New Architecture](/Docs/Architecture/architecture.md)
 
-All progress system code is in the [ProgressSystem](/tree/dev/Assets/Scripts/ProgressSystem) directory
+All progress system code is in the [ProgressSystem](/Assets/Scripts/ProgressSystem) directory
 
 ## Adding a new Task
 
@@ -38,7 +38,7 @@ Order matters!
 7. Add a new task config for it in `TaskConfig.cs`. Just copy and modify one of the existing ones.
 
 8. Next, you want the task to be able to listen to game events in order to check whether the correct stuff happens!
-You do this by subscribing a method to an event type. See [Creating and listening to events](/tree/Docs/events.md) for details.
+You do this by subscribing a method to an event type. See [Creating and listening to events](/Docs/events.md) for details.
 ```csharp
 // example of subscribing a method to an event type
 
