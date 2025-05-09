@@ -1,6 +1,6 @@
 # Working with the progress system
 
-## This guide is for the old architecture only. A recommended way to build a new task is with the [New Architecture](/tree/dev/Docs/Architecture/architecture.md)
+## This guide is for the old architecture only. A recommended way to build a new task is with the [New Architecture](/dev/Docs/Architecture/architecture.md)
 
 All progress system code is in the [ProgressSystem](/tree/dev/Assets/Scripts/ProgressSystem) directory
 
